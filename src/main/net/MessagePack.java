@@ -3,7 +3,6 @@ package main.net;
 import java.util.ArrayList;
 
 public class MessagePack {
-	int maxSize = 0;
 	
 	public ArrayList<String> message;//Список сообщений
 	
@@ -13,13 +12,10 @@ public class MessagePack {
 	
 	public void add(String str){
 		message.add(str);
-		if (size() > maxSize) {
-			maxSize = size();
-			System.out.println(maxSize);
-		}
 	}
 	
 	public String get(){
+		if (size()%100 == 0) System.out.println("Messages detained: " + size());
 		return message.remove(0);
 	}
 	
@@ -29,10 +25,13 @@ public class MessagePack {
 	
 	public boolean haveMessage(){
 		//message.trimToSize();
-		if (message.size() == 0){
-			return false;
-		} else {
-			return true;
+		if (message.size() > 0){
+			if(message.get(0) != null){
+				return true;
+			} else {
+				message.remove(0);
+			}
 		}
-	}
+		return false;
+	}	
 }

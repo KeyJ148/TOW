@@ -180,7 +180,6 @@ public class Game extends Canvas implements Runnable{
 	}
     
     //Обновление объектов (TPS)
-	
 	public void update(){
 		for (int i=0; i<Global.obj.size(); i++){
 			if (Global.obj.get(i) != null){

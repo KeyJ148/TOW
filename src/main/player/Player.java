@@ -1,6 +1,7 @@
 package main.player;
 
 import java.awt.event.*;
+
 import main.*;
 import main.player.gun.*;
 import main.player.armor.*;
@@ -14,6 +15,8 @@ public class Player extends Obj{
 	public int nameY;
 	
 	private boolean controlAtack = true;//можно ли стрелять из танка
+	private int sendStepMax = 3;//Отправлять данные каждые n updat'ов
+	private int sendStep = 0;
 	
 	private Game game;
 	
@@ -151,5 +154,12 @@ public class Player extends Obj{
 	public void updateChildFinal(){
 		nameX = (int) Math.round(getXViewCenter()-game.name.length()*3.25); // lengthChar/2
 		nameY = (int) getYViewCenter()-50;
+		
+		//Отправка данных о игроке
+		sendStep++;
+		if (sendStep == sendStepMax){
+			sendStep = 0;
+			Global.clientSend.sendData(getData());
+		}
 	}
 }

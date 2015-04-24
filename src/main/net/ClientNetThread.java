@@ -91,7 +91,7 @@ public class ClientNetThread extends Thread{
 			System.out.println("Send internet message error!");
 			System.exit(0);
 		}
-		new ClientNetSend(this.game, this.out);
+		new ClientNetSend(this.out);
 		start();
 	}
 	
