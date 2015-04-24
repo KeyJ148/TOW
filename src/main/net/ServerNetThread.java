@@ -39,9 +39,11 @@ public class ServerNetThread extends Thread{
 				this.gameServer.out[id].writeUTF(s);
 			}
 			this.gameServer.out[id].writeUTF("-1 ");
+			fileReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 				
 		//—читывание имени игрока и отправка данных
 		try{
@@ -67,9 +69,7 @@ public class ServerNetThread extends Thread{
 		try{
 			while (true){
 				str = this.gameServer.in[id].readUTF();
-				synchronized (gameServer){
-					this.gameServer.giveMess(str,this.id);
-				}
+				this.gameServer.messagePack[id].add(str);
 			}
 		} catch (IOException e){
 			System.out.println("Error take message!");

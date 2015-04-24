@@ -13,6 +13,7 @@ import java.net.Socket;
 import java.util.Vector;
 
 import main.net.LinkCS;
+import main.net.MessagePack;
 import main.net.ServerNetThread;
 
 public class GameServer {
@@ -24,8 +25,7 @@ public class GameServer {
 	public DataInputStream[] in;
 	public ServerNetThread[] serverThread;
 	public InetAddress[] inetAdr;
-	public Vector mess;
-	public Vector idExc;
+	public MessagePack[] messagePack;
 	public int peopleMax;
 	public int peopleNow;
 	public int port;
@@ -69,12 +69,11 @@ public class GameServer {
 		this.in = new DataInputStream[peopleMax];
 		this.serverThread = new ServerNetThread[peopleMax];
 		this.inetAdr = new InetAddress[peopleMax];
+		this.messagePack = new MessagePack[peopleMax];
 		this.tankX = new int[peopleMax];
 		this.tankY = new int[peopleMax];
 		this.connect = new boolean[peopleMax];
 		this.disconnect = 0;
-		this.mess = new Vector();
-		this.idExc = new Vector();
 		for(int i=0;i<peopleMax;i++){
 			connect[i] = false;
 		}
@@ -89,10 +88,12 @@ public class GameServer {
 			inetAdr[peopleNow] = sock.getInetAddress();
 			out[peopleNow] = new DataOutputStream(sock.getOutputStream());
 			in[peopleNow] = new DataInputStream(sock.getInputStream());
+			messagePack[peopleNow] = new MessagePack();
 			System.out.println("New client.");
 			serverThread[peopleNow] = new ServerNetThread(this, peopleNow, peopleMax);
 			this.peopleNow++;	
 		}
+		ServerSocket.close();
 		
 		System.out.println("All users connected.");
 		
@@ -148,6 +149,8 @@ public class GameServer {
 						vecSprite.add(Global.linkCS.parsString(s,4));
 						
 					}
+					
+					fileReader.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -157,14 +160,12 @@ public class GameServer {
 		this.pathFull = pathFull;
 		
 		//генерация танков
-		BufferedReader bReader = new BufferedReader (new InputStreamReader(System.in));//
 		int wTank = Global.c_default.getWidth(0);
 		int hTank = Global.c_default.getHeight(0);
 		double disTank = Math.sqrt(wTank*wTank + hTank*hTank)/2;
 		boolean gen;
 		int xRand,yRand,x,y,w,h;
 		double disHome,disPointToHome,dxRand,dyRand;
-		String sprite;
 		for(int j=0;j<this.peopleMax;j++){
 			do{
 				gen = false;
@@ -194,15 +195,15 @@ public class GameServer {
 	
 	public void conMessSend(){
 		String str;
-		int id;
 		try{
 			while (true){
-				if ((this.mess.size() != 0) && (this.idExc.size() != 0)){
-					str = (String) this.mess.remove(0);
-					id = (int) this.idExc.remove(0);
-					for(int i=0;i<peopleMax;i++){
-						if (i != id){
-							out[i].writeUTF(str);
+				for (int i=0; i<peopleMax;i++){
+					if (messagePack[i].haveMessage()){
+						str = (String) messagePack[i].get();
+						for(int j=0;j<peopleMax;j++){
+							if (j != i){
+								out[j].writeUTF(str);
+							}
 						}
 					}
 				}
@@ -210,11 +211,6 @@ public class GameServer {
 		} catch (IOException e){
 			System.out.println("Error send message!");
 		}
-	}
-	
-	public void giveMess(String s, int id){
-		this.mess.add(s);
-		this.idExc.add(id);
 	}
 	
 	public static void main (String args[]) throws IOException{
