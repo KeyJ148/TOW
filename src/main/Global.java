@@ -1,24 +1,27 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
-import main.net.*;
-import main.player.*;
-import main.player.enemy.*;
+import main.net.ClientNetSend;
+import main.net.ClientNetThread;
+import main.net.LinkCS;
+import main.player.Player;
+import main.player.enemy.Enemy;
+import main.player.enemy.EnemyBullet;
 
 public class Global {
 	
-	public static Vector<Obj> obj; //Массив со всеми объектами
-	public static Vector<DepthVector> depth; //Массив с DepthVector
+	public static ArrayList<Obj> obj; //Массив со всеми объектами
+	public static ArrayList<DepthVector> depth; //Массив с DepthVector
 	
 	public static Player player; //главный игрок
 	public static ClientNetSend clientSend; //цикл отправки данных на сервер
 	public static ClientNetThread clientThread; //цикл считывания данных с сервера
-	public static int idNet = 1; //id объекта создаваемого у противника из-за действий игрока  
+	public static long id = 1;//Уник. номер следующего объекта
+	public static long idNet = 1; //id объекта создаваемого у противника из-за действий игрока  
 	public static LinkCS linkCS; //общее звено клиента и сервера
 	public static Enemy[] enemy; //список всех противников
-	public static Vector<EnemyBullet> enemyBullet; //список всех патронов противников (EnemyBullet)
+	public static ArrayList<EnemyBullet> enemyBullet; //список всех патронов противников (EnemyBullet)
 	
 	public static double cameraX;
 	public static double cameraY;
@@ -71,5 +74,24 @@ public class Global {
 	public static Sprite player_sys;
 	
 	public static Animation c_default;
+	
+	//Удаление объекта из массива по id
+	public static void delObj(long id){
+		for (int i = 0; i<obj.size(); i++){
+			if (obj.get(i).getId() == id){
+				obj.remove(i);
+			}
+		}
+	}
+	
+	//Возвращение объекта из массива по id
+	public static Obj getObj(long id){
+		for (int i = 0; i<obj.size(); i++){
+			if (obj.get(i).getId() == id){
+				return obj.get(i);
+			}
+		}
+		return null;
+	}
 }
 

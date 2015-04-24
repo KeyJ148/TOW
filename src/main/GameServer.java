@@ -1,12 +1,19 @@
 package main;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Vector;
 
-import main.net.ServerNetThread;
 import main.net.LinkCS;
-import main.Global;
+import main.net.ServerNetThread;
 
 public class GameServer {
 	
@@ -73,16 +80,17 @@ public class GameServer {
 		}
 		ServerSocket ServerSocket = new ServerSocket(port);
 		this.peopleNow = 0;
-		System.out.println("Server started.");
+		
 		genTank();
+		System.out.println("Server started.");
 		
 		while(peopleNow != peopleMax){
 			Socket sock = ServerSocket.accept();
-			inetAdr[this.peopleNow] = sock.getInetAddress();
-			out[this.peopleNow] = new DataOutputStream(sock.getOutputStream());
-			in[this.peopleNow] = new DataInputStream(sock.getInputStream());
+			inetAdr[peopleNow] = sock.getInetAddress();
+			out[peopleNow] = new DataOutputStream(sock.getOutputStream());
+			in[peopleNow] = new DataInputStream(sock.getInputStream());
 			System.out.println("New client.");
-			serverThread[this.peopleNow] = new ServerNetThread(this, peopleNow, peopleMax);
+			serverThread[peopleNow] = new ServerNetThread(this, peopleNow, peopleMax);
 			this.peopleNow++;	
 		}
 		
@@ -114,9 +122,9 @@ public class GameServer {
 		String pathFull;
 		File[] fList = new File(PATH_MAP).listFiles();
 		int fListNum;
-		Vector vecX = new Vector();
-		Vector vecY = new Vector();
-		Vector vecSprite = new Vector();
+		Vector<Integer> vecX = new Vector<Integer>();
+		Vector<Integer> vecY = new Vector<Integer>();
+		Vector<String> vecSprite = new Vector<String>();
 		while (true) {
 			fListNum = (int) Math.round(Math.random()*(fList.length-1));
 			pathFull = PATH_MAP + "/" + fList[fListNum].getName().substring(0,fList[fListNum].getName().lastIndexOf('.')) + ".map";

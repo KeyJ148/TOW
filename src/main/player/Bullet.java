@@ -9,7 +9,7 @@ public class Bullet extends Obj{
 	private Player player;
 	private Game game;
 	private double damage;//дамаг пушки+патрона
-	private int idNet;
+	private long idNet;
 	
 	public Bullet(Player player, double x, double y, double speed, double dir,double damage, Sprite sprite, Game game){
 		super(x,y,speed,dir,0,true,sprite,game);

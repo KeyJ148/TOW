@@ -30,7 +30,7 @@ public class Obj {
 								//нужен для движущихся или поворачивающихся объектов
 	private final boolean MASK_DRAW = false;//отрисовка маски
 	
-	private int id; //id в векторе Global.obj
+	private long id; //уникальный номер
 	private boolean anim; //Объекту присвоен спрайт или анимация?(true = анимация)
 	private boolean destroy = false;
 	
@@ -75,22 +75,13 @@ public class Obj {
 		this.direction = direction;
 		this.directionDraw = direction;
 		this.depth = depth;
+		this.id = Global.id;
+		Global.id++;
 		this.game = game;
 		this.maskDynamic = maskDynamic;
 		
-		boolean vecFull = true;
-		for (int i=0;i<Global.obj.size();i++){
-			if (Global.obj.get(i) == null){
-				this.id = i;
-				Global.obj.set(i,this);
-				vecFull = false;
-				break;
-			}
-		}
-		if (vecFull){
-			this.id = Global.obj.size();
-			Global.obj.add(this);
-		}
+		Global.obj.add(this);
+		
 		depthAddVector(depth, this.id); //Добавляем объект в массив в зависимости от его глубины
 		mask.calc(this.x,this.y,this.directionDraw);//расчёт маски
 		
@@ -219,7 +210,7 @@ public class Obj {
 		return depth;
 	}
 	
-	public int getId(){
+	public long getId(){
 		return id;
 	}
 	
@@ -231,7 +222,7 @@ public class Obj {
 		return animation;
 	}
 	
-	private void depthAddVector(int depth, int id){
+	private void depthAddVector(int depth, long id){
 		boolean flag = false;
 		DepthVector dv;
 		for (int i=0; i<Global.depth.size(); i++){
@@ -319,7 +310,7 @@ public class Obj {
 		updateChildFinal();//step у дочерних объектов
 		
 		if (destroy){
-			Global.obj.set(id,null);
+			Global.delObj(id);
 		}
 	}
 	

@@ -12,7 +12,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -91,9 +91,9 @@ public class Game extends Canvas implements Runnable{
 	//инициализация перед запуском
 	public void init() {
 		if (Game.console) System.out.println("Inicialization start.");
-		Global.obj = new Vector<Obj>();
-		Global.depth = new Vector<DepthVector>();
-		Global.enemyBullet = new Vector<EnemyBullet>();
+		Global.obj = new ArrayList<Obj>();
+		Global.depth = new ArrayList<DepthVector>();
+		Global.enemyBullet = new ArrayList<EnemyBullet>();
 		Global.linkCS = new LinkCS();
 		
 		Global.linkCS.initSprite();
@@ -147,7 +147,7 @@ public class Game extends Canvas implements Runnable{
 			DepthVector dv = (DepthVector) Global.depth.get(i);
 			for (int j=0; j<dv.number.size(); j++){
 				if (Global.obj.get(i) != null){
-					Obj obj = (Obj) Global.obj.get((int) dv.number.get(j));
+					Obj obj = (Obj) Global.getObj((long) dv.number.get(j));
 					obj.draw(g);
 				}
 			}

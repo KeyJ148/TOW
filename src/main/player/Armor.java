@@ -26,7 +26,7 @@ public class Armor extends Obj {
 	private boolean animOn = false;
 	
 	private int timer = 0; //таймер для отсёчта пройденных TPS
-	private int coll_id = -1; //id объекта с которым происходит столкновение
+	private long coll_id = -1; //id объекта с которым происходит столкновение
 	
 	public Armor(Player player, Game game, Animation animation){
 		super(player.getX(),player.getY(),0.0,player.getDirection(),0,true,animation,game);
