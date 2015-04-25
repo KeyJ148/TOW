@@ -79,8 +79,17 @@ public class Game extends Canvas implements Runnable{
 							objSize++;
 						}
 					}
-					if (Game.consoleFPS) System.out.println("FPS: " + loopsRender + "          MidFPS: " + loopsRenderMid/second + "          Object: " + objSize);
-					if (Game.monitorFPS) this.monitorStrFPS = "FPS: " + loopsRender + "          MidFPS: " + loopsRenderMid/second + "          Object: " + objSize;
+					
+					int enemySize = 0;
+					for (int i=0;i<Global.enemy.length;i++){
+						if (Global.enemy[i] != null){
+							enemySize++;
+						}
+					}
+					
+					String strFPS = "FPS: " + loopsRender + "          MidFPS: " + loopsRenderMid/second + "          Object: " + objSize + "          Player: " + (enemySize+1) + "/" + peopleMax;
+					if (Game.consoleFPS) System.out.println(strFPS);
+					if (Game.monitorFPS) this.monitorStrFPS = strFPS;
 				}
 				fps_t = System.currentTimeMillis();
 				loopsRender = 0;
@@ -147,8 +156,12 @@ public class Game extends Canvas implements Runnable{
 			DepthVector dv = (DepthVector) Global.depth.get(i);
 			for (int j=0; j<dv.number.size(); j++){
 				if (Global.obj.get(i) != null){
-					Obj obj = (Obj) Global.getObj((long) dv.number.get(j));
-					obj.draw(g);
+					try{
+						Obj obj = (Obj) Global.getObj((long) dv.number.get(j));
+						obj.draw(g);
+					}catch (NullPointerException e){
+						System.out.println("[ERROR] Draw object null");
+					}
 				}
 			}
 		}

@@ -8,5 +8,10 @@ public class DefaultBullet extends Bullet{
 		super(player,x, y, 1.5, dir,2.0+damage, Global.b_default, game);
 		//super(player,x, y, SPEED, dir,DAMAGE_BULLET+damage, SPRITE, game);
 	}
+	
+	@Override
+	public void directionDrawEqulas(){
+		setDirectionDraw(0);
+	}
 }
 
