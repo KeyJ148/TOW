@@ -18,7 +18,7 @@ public class Bullet extends Obj{
 		this.damage = damage;
 		
 		this.idNet = Global.idNet;
-		Global.clientSend.sendData("1 " + getX() + " " + getY() + " " + getDirection() + " " + getSpeed() + " " + getClass().getName() + " " + game.name + " " + Global.idNet + " ");
+		Global.clientSend.send1(this);
 		Global.idNet++;
 		
 		setCollObj(new String[] {"main.home.Home", "main.player.enemy.EnemyArmor"});
@@ -30,18 +30,22 @@ public class Bullet extends Obj{
 		}
 		if (obj.getClass().getName().equals("main.player.enemy.EnemyArmor")){
 			EnemyArmor ea = (EnemyArmor) obj;
-			Global.clientSend.sendData("3 " + ea.enemy.name + " " + damage + " ");
+			Global.clientSend.send3(this,ea.enemy.name);
 			destroyBullet();
 		}
 	}
 	
 	public void destroyBullet(){
-		Global.clientSend.sendData("2 " + this.idNet + " " + this.game.name + " ");
+		Global.clientSend.send2(this);
 		destroy();
 	}
 	
-	public double getDamage(){//на будущие
+	public double getDamage(){
 		return damage;
+	}
+	
+	public long getIdNet(){
+		return idNet;
 	}
 	
 	public void updateChildStart(){

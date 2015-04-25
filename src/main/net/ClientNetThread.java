@@ -141,21 +141,21 @@ public class ClientNetThread extends Thread{
 		}
 	}
 	
-	public void take1(String str){
+	public void take1(String str){//Противник выстрелил
 		double x = Double.parseDouble(Global.linkCS.parsString(str,2));
 		double y = Double.parseDouble(Global.linkCS.parsString(str,3));
 		double direction = Double.parseDouble(Global.linkCS.parsString(str,4));
 		double speed = Double.parseDouble(Global.linkCS.parsString(str,5));
 		String bullName = Global.linkCS.parsString(str,6);
 		String name = Global.linkCS.parsString(str,7);
-		int idNet = Integer.parseInt(Global.linkCS.parsString(str,8));
+		long idNet = Integer.parseInt(Global.linkCS.parsString(str,8));
 		switch (bullName){
 			case "main.player.bullet.DefaultBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_default,name,idNet,this.game));
 		}
 	}
 	
 	public void take2(String str){
-		int idNet = Integer.parseInt(Global.linkCS.parsString(str,2));
+		long idNet = Integer.parseInt(Global.linkCS.parsString(str,2));
 		String name = Global.linkCS.parsString(str,3);
 		EnemyBullet eb;
 		for (int i=0; i<Global.enemyBullet.size();i++){
@@ -174,7 +174,6 @@ public class ClientNetThread extends Thread{
 	}
 	
 	public void take4(String str){//Танк противника уничтожен
-		System.out.println("take4");
 		String name = Global.linkCS.parsString(str,2);
 		for (int i = 0;i<Global.enemy.length;i++){
 			if (name.equals(Global.enemy[i].name)){

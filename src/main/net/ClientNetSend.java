@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import main.Game;
 import main.Global;
+import main.player.Bullet;
 
 public class ClientNetSend extends Thread{
 	
@@ -25,8 +26,19 @@ public class ClientNetSend extends Thread{
 		}
 	}
 	
+	public void send1(Bullet bull){//Сдлеан выстрел
+		sendData("1 " + bull.getX() + " " + bull.getY() + " " + bull.getDirection() + " " + bull.getSpeed() + " " + bull.getClass().getName() + " " + game.name + " " + Global.idNet);
+	}
+	
+	public void send2(Bullet bull){//Уничтожение пули
+		sendData("2 " + bull.getIdNet() + " " + game.name);
+	}
+	
+	public void send3(Bullet bull, String enemyName){//Нанесение дамага
+		sendData("3 " + enemyName + " " + bull.getDamage());
+	}
+	
 	public void send4(){//Танк игрока уничтожен
 		sendData("4 " + game.name);
-		System.out.println("send4");
 	}
 }
