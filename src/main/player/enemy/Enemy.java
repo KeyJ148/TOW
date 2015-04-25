@@ -52,7 +52,7 @@ public class Enemy extends Obj{
 			nameX = (int) Math.round(getXViewCenter()-name.length()*3.25); // lengthChar/2
 			nameY = (int) getYViewCenter()-50;
 		} catch(NullPointerException e){
-			p("Enemy exception!");
+			p("[ERROR] Draw enemy name");
 		}
 	}
 }

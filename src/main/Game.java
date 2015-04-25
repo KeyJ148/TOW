@@ -158,16 +158,22 @@ public class Game extends Canvas implements Runnable{
 		g.setTransform(at);
 		g.setColor(new Color(0,0,0));
 		g.setFont(new Font(null,Font.PLAIN,12));
-		g.drawString(name,Global.player.nameX,Global.player.nameY);
+		if (!Global.player.getDestroy()){
+			g.drawString(name,Global.player.nameX,Global.player.nameY);
+		}
 		for(int i = 0;i<Global.enemy.length;i++){
 			try{
-				g.drawString(Global.enemy[i].name,Global.enemy[i].nameX,Global.enemy[i].nameY);
+				if (!Global.enemy[i].getDestroy()){
+					g.drawString(Global.enemy[i].name,Global.enemy[i].nameX,Global.enemy[i].nameY);
+				}
 			}catch(NullPointerException e){}
 		}
 		g.setFont(new Font(null,Font.BOLD,20));
-		long hp = Math.round(Global.player.getArmor().getHp());
-		long hpMax = Math.round(Global.player.getArmor().getHpMax());
-		g.drawString("HP: " + hp + "/" + hpMax,1,16);
+		if (!Global.player.getDestroy()){
+			long hp = Math.round(Global.player.getArmor().getHp());
+			long hpMax = Math.round(Global.player.getArmor().getHpMax());
+			g.drawString("HP: " + hp + "/" + hpMax,1,16);
+		}
 		if (monitorFPS){
 			g.setFont(new Font(null,Font.PLAIN,12));
 			g.drawString(monitorStrFPS,1,HEIGHT+9);
@@ -186,6 +192,35 @@ public class Game extends Canvas implements Runnable{
 				Obj obj = (Obj) Global.obj.get(i);
 				obj.update();
 			}
+		}
+		
+		Obj cameraShould = (Obj) Global.player;//Объект, за которым следует камера
+		if (Global.player.getDestroy()){
+			for(int i = 0;i<Global.enemy.length;i++){
+				if (!Global.enemy[i].getDestroy()){
+					cameraShould = (Obj) Global.enemy[i];
+					break;
+				}
+			}
+		}
+		
+		Global.cameraXView = WIDTH/2;
+		Global.cameraYView = HEIGHT/2;
+				
+		Global.cameraX = cameraShould.getX();
+		Global.cameraY = cameraShould.getY();
+				
+		if (cameraShould.getX() < WIDTH/2){
+			Global.cameraX = WIDTH/2;
+		}
+		if (cameraShould.getY() < HEIGHT/2){
+			Global.cameraY = HEIGHT/2;
+		}
+		if (cameraShould.getX() > widthMap-WIDTH/2){
+			Global.cameraX = widthMap-WIDTH/2;
+		}
+		if (cameraShould.getY() >heightMap-HEIGHT/2){
+			Global.cameraY = heightMap-HEIGHT/2;
 		}
 	}
 	

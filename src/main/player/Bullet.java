@@ -55,7 +55,7 @@ public class Bullet extends Obj{
 					destroyBullet();
 				}
 			}catch(NullPointerException e){
-				p("Bullet exception!");
+				p("[ERROR] Bullet null");
 			}
 		}
 	}

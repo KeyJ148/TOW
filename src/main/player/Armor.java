@@ -115,6 +115,7 @@ public class Armor extends Obj {
 			setAnimOn(false);
 		}
 		
+		/*
 		//для следования камеры
 		Global.cameraXView = Game.WIDTH/2;
 		Global.cameraYView = Game.HEIGHT/2;
@@ -133,7 +134,7 @@ public class Armor extends Obj {
 		}
 		if (getY() > this.game.heightMap-Game.HEIGHT/2){
 			Global.cameraY = this.game.heightMap-Game.HEIGHT/2;
-		}
+		}*/
 		
 		//следование player и пушки за броней
 		player.setXcenter(getXcenter());
