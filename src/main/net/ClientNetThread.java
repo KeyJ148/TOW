@@ -88,10 +88,10 @@ public class ClientNetThread extends Thread{
 			
 			if (Game.console) System.out.println("Generation tank complite.");
 		} catch(IOException e){
-			System.out.println("Send internet message error!");
+			System.out.println("[ERROR] Message about generation tank");
 			System.exit(0);
 		}
-		new ClientNetSend(this.out);
+		new ClientNetSend(this.out, this.game);
 		start();
 	}
 	
@@ -110,7 +110,7 @@ public class ClientNetThread extends Thread{
 					case 4: take4(str); break;
 				}
 			} catch(IOException e){
-				System.out.println("Take internet message error!");
+				System.out.println("[ERROR] Take internet message");
 			}
 		}
 	}
@@ -173,7 +173,8 @@ public class ClientNetThread extends Thread{
 		}
 	}
 	
-	public void take4(String str){
+	public void take4(String str){//Танк противника уничтожен
+		System.out.println("take4");
 		String name = Global.linkCS.parsString(str,2);
 		for (int i = 0;i<Global.enemy.length;i++){
 			if (name.equals(Global.enemy[i].name)){

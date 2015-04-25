@@ -76,7 +76,7 @@ public class Armor extends Obj {
 		//для столкновений
 		if (recoil){
 			timer++;
-			if (timer >= 100){//TODO Раньше было Game.TPS
+			if (timer >= Game.TPS){
 				recoil = false;
 				turnRight = false;
 				turnLeft = false;
@@ -143,7 +143,7 @@ public class Armor extends Obj {
 		
 		//hp
 		if(hp <= 0){
-			Global.clientSend.sendData("4 " + game.name + " ");
+			Global.clientSend.send4();
 			destroy();
 			player.destroy();
 			player.getGun().destroy();

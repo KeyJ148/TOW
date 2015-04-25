@@ -69,10 +69,12 @@ public class ServerNetThread extends Thread{
 		try{
 			while (true){
 				str = this.gameServer.in[id].readUTF();
-				this.gameServer.messagePack[id].add(str);
+				synchronized(this.gameServer.messagePack[id]) {//«ащита от одновременной работы с массивом
+					this.gameServer.messagePack[id].add(str);
+				}
 			}
 		} catch (IOException e){
-			System.out.println("Error take message!");
+			System.out.println("[ERROR] Take message!");
 			if ((gameServer.disconnect+1) == peopleMax){
 				System.out.println("All user disconnect!");
 				System.exit(0);

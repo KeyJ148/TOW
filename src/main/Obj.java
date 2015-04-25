@@ -39,10 +39,11 @@ public class Obj {
 	public double directionPrevious;//директион объекта в предыдущем шаге (для столкновения)
 	
 	public Mask mask;
-	@SuppressWarnings("unused")
-	private Game game;
 	private Sprite sprite;
 	private Animation animation;
+
+	@SuppressWarnings("unused")
+	private Game game;
 	
 	
 	public Obj(double x, double y, double speed, double direction, int depth, boolean maskDynamic, Sprite sprite,Game game){
@@ -51,7 +52,7 @@ public class Obj {
 			this.anim = false;
 			this.mask = sprite.getMask().clone();
 		} catch (CloneNotSupportedException e) {
-			System.out.println("Failed with clone object. Id = " + id);
+			System.out.println("[ERROR] Failed with clone object. Id = " + id);
 		}
 		
 		init(x,y,speed,direction,depth,maskDynamic,game);
@@ -63,7 +64,7 @@ public class Obj {
 			this.anim = true;
 			this.mask = animation.getMask().clone();
 		} catch (CloneNotSupportedException e) {
-			System.out.println("Failed with clone object. Id = " + id);
+			System.out.println("[ERROR] Failed with clone object. Id = " + id);
 		}
 		init(x,y,speed,direction,depth,maskDynamic,game);
 	}
@@ -252,6 +253,10 @@ public class Obj {
 	
 	public void p(String s){
 		System.out.println(s);
+	}
+	
+	public void p(int x){
+		System.out.println(x);
 	}
 	
 	public void p(){

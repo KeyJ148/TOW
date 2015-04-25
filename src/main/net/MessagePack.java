@@ -26,11 +26,7 @@ public class MessagePack {
 	public boolean haveMessage(){
 		//message.trimToSize();
 		if (message.size() > 0){
-			if(message.get(0) != null){
 				return true;
-			} else {
-				message.remove(0);
-			}
 		}
 		return false;
 	}	

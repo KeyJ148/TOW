@@ -15,7 +15,8 @@ public class Player extends Obj{
 	public int nameY;
 	
 	private boolean controlAtack = true;//можно ли стрелять из танка
-	private int sendStepMax = 3;//Отправлять данные каждые n updat'ов
+	
+	private final int SEND_STEP_MAX = 2;//Отправлять данные каждые n updat'ов
 	private int sendStep = 0;
 	
 	private Game game;
@@ -152,12 +153,13 @@ public class Player extends Obj{
 	}
 	
 	public void updateChildFinal(){
+		//Отрисовка ника
 		nameX = (int) Math.round(getXViewCenter()-game.name.length()*3.25); // lengthChar/2
 		nameY = (int) getYViewCenter()-50;
 		
 		//Отправка данных о игроке
 		sendStep++;
-		if (sendStep == sendStepMax){
+		if (sendStep == SEND_STEP_MAX){
 			sendStep = 0;
 			Global.clientSend.sendData(getData());
 		}

@@ -197,19 +197,21 @@ public class GameServer {
 		String str;
 		try{
 			while (true){
-				for (int i=0; i<peopleMax;i++){
-					if (messagePack[i].haveMessage()){
-						str = (String) messagePack[i].get();
-						for(int j=0;j<peopleMax;j++){
-							if (j != i){
-								out[j].writeUTF(str);
+				for (int i=0; i<peopleMax;i++){//Перебор всех игроков
+					synchronized(messagePack[i]) {//Защита от одновременной работы с массивом
+						if (messagePack[i].haveMessage()){//Если у игрока имеются сообщения
+							str = (String) messagePack[i].get();//Читаем сообщение
+							for(int j=0;j<peopleMax;j++){//Отправляем сообщение всем
+								if (j != i){//Кроме игрока, приславшего сообщение
+									out[j].writeUTF(str);
+								}
 							}
 						}
 					}
 				}
 			}
 		} catch (IOException e){
-			System.out.println("Error send message!");
+			System.out.println("[ERROR] Send message!");
 		}
 	}
 	
