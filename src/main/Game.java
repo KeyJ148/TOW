@@ -33,6 +33,8 @@ public class Game extends Canvas implements Runnable{
 	public static String WINDOW_NAME = "Game";
 
 	public boolean running = false; //Выполнение главного игрового цикла
+	public boolean restart = false; //Перезагрузка карты
+	
 	public String monitorStrFPS = "";
 	
 	public String name;//имя персонажа
@@ -112,6 +114,32 @@ public class Game extends Canvas implements Runnable{
 		setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 		
 		if (Game.console) System.out.println("Inicialization end.");
+	}
+	
+	public void restart(){
+		if (Game.console) System.out.println("Restart map start.");
+		this.running = false;
+		this.restart = true;
+		
+		Global.obj.clear();
+		Global.depth.clear();
+		Global.enemyBullet.clear();
+		Global.obj.trimToSize();
+		Global.depth.trimToSize();
+		Global.enemyBullet.trimToSize();
+		Global.player = null;
+		Global.clientSend = null;
+		Global.id = 1;
+		Global.idNet = 1; 
+		for (int i =0; i<Global.enemy.length; i++){
+			Global.enemy[i] = null;
+		}
+		
+		Global.clientThread.initMap(this);
+		
+		this.restart = false;
+		this.running = true;
+		if (Game.console) System.out.println("Restart map end.");
 	}
     
     //Отрисовка экрана (с частотой fps)

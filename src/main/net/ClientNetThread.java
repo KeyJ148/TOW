@@ -33,7 +33,7 @@ public class ClientNetThread extends Thread{
 			s = this.in.readUTF();
 			if (Game.console) System.out.println("Download map size complite.");
 		} catch(IOException e){
-			System.out.println("Take internet message error!");
+			System.out.println("[ERROR] Download map size");
 			System.exit(0);
 		}
 		game.widthMap = Integer.parseInt(Global.linkCS.parsString(s,1));
@@ -67,7 +67,7 @@ public class ClientNetThread extends Thread{
 				}
 				
 			} catch(IOException e){
-				System.out.println("Take internet message error!");
+				System.out.println("[ERROR] Download map");
 				System.exit(0);
 			}
 		}
