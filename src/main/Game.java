@@ -82,7 +82,7 @@ public class Game extends Canvas implements Runnable{
 					
 					int enemySize = 0;
 					for (int i=0;i<Global.enemy.length;i++){
-						if (Global.enemy[i] != null){
+						if ((Global.enemy[i] != null) && (!Global.enemy[i].getDestroy())){
 							enemySize++;
 						}
 					}

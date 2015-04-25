@@ -68,15 +68,23 @@ public class LinkCS {
 			case "home11": return Global.home11;
 			case "home12": return Global.home12;
 			case "home13": return Global.home13;
+			
 			case "road_g": return Global.road_g;
 			case "road_g_fork": return Global.road_g_fork;
 			case "road_g_turn": return Global.road_g_turn;
 			case "road_g_inter": return Global.road_g_inter;
-			case "player_color": return Global.player_color;
 			case "road_a": return Global.road_a;
 			case "road_a_g": return Global.road_a_g;
 			case "road_a_fork": return Global.road_a_fork;
 			case "road_a_inter_big": return Global.road_a_inter_big;
+			
+			case "player_color": return Global.player_color;
+			
+			case "b_default": return Global.b_default;
+			case "b_mortar": return Global.b_mortar;
+			case "b_gunfury": return Global.b_gunfury;
+			case "b_massgun": return Global.b_massgun;
+			case "b_massgun_small": return Global.b_massgun_small;
 		}
 		return Global.error;
 	}
