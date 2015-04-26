@@ -27,6 +27,7 @@ public class Game extends Canvas implements Runnable{
 	public static final boolean console = true;//выводить в консоль сообщения отладки?
 	public static final boolean consoleFPS = false;//выводить в консоль фпс?
 	public static final boolean monitorFPS = true;//выводить в окно фпс?
+	public static final boolean ENEMY_PREDICTION = true;//Передавать скорость врага по сети?
 	
 	public static int WIDTH = 800;
 	public static int HEIGHT = 600;//размер окна

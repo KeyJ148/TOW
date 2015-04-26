@@ -124,7 +124,7 @@ public class Player extends Obj{
 		} else {
 			anim = -1;
 		}
-		s = "0 " + getX() + " " + getY() + " " + armor.getDirection() + " " + anim + " " + game.name + " " + gun.getDirection() + " ";
+		s = "0 " + getX() + " " + getY() + " " + armor.getDirection() + " " + anim + " " + game.name + " " + gun.getDirection() + " " + armor.getSpeed();
 		return s;
 	}
 	

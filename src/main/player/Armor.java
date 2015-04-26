@@ -115,27 +115,6 @@ public class Armor extends Obj {
 			setAnimOn(false);
 		}
 		
-		/*
-		//для следования камеры
-		Global.cameraXView = Game.WIDTH/2;
-		Global.cameraYView = Game.HEIGHT/2;
-		
-		Global.cameraX = getX();
-		Global.cameraY = getY();
-		
-		if (getX() < Game.WIDTH/2){
-			Global.cameraX = Game.WIDTH/2;
-		}
-		if (getY() < Game.HEIGHT/2){
-			Global.cameraY = Game.HEIGHT/2;
-		}
-		if (getX() > this.game.widthMap-Game.WIDTH/2){
-			Global.cameraX = this.game.widthMap-Game.WIDTH/2;
-		}
-		if (getY() > this.game.heightMap-Game.HEIGHT/2){
-			Global.cameraY = this.game.heightMap-Game.HEIGHT/2;
-		}*/
-		
 		//следование player и пушки за броней
 		player.setXcenter(getXcenter());
 		player.setYcenter(getYcenter());
