@@ -96,6 +96,7 @@ public class Game extends Canvas implements Runnable{
 				fps_t = System.currentTimeMillis();
 				loopsRender = 0;
 			}
+			if (restart) restart();
 		}
 	}
 	
@@ -116,10 +117,12 @@ public class Game extends Canvas implements Runnable{
 		if (Game.console) System.out.println("Inicialization end.");
 	}
 	
+	public void startRestart(){
+		this.restart = true;
+	}
+	
 	public void restart(){
 		if (Game.console) System.out.println("Restart map start.");
-		this.running = false;
-		this.restart = true;
 		
 		Global.obj.clear();
 		Global.depth.clear();
@@ -138,7 +141,6 @@ public class Game extends Canvas implements Runnable{
 		Global.clientThread.initMap(this);
 		
 		this.restart = false;
-		this.running = true;
 		if (Game.console) System.out.println("Restart map end.");
 	}
     

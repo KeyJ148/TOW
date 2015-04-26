@@ -108,6 +108,7 @@ public class ClientNetThread extends Thread{
 					case 2: take2(str); break;
 					case 3: take3(str); break;
 					case 4: take4(str); break;
+					case 5: take5(str); break;
 				}
 			} catch(IOException e){
 				System.out.println("[ERROR] Take internet message");
@@ -115,7 +116,7 @@ public class ClientNetThread extends Thread{
 		}
 	}
 	
-	public void take0(String str){
+	public void take0(String str){//Данные танка врага
 		boolean enemyExist;
 		int i, emptySlot = -1;
 		String name;
@@ -154,7 +155,7 @@ public class ClientNetThread extends Thread{
 		}
 	}
 	
-	public void take2(String str){
+	public void take2(String str){//Пуля противника уничтожена
 		long idNet = Integer.parseInt(Global.linkCS.parsString(str,2));
 		String name = Global.linkCS.parsString(str,3);
 		EnemyBullet eb;
@@ -166,7 +167,7 @@ public class ClientNetThread extends Thread{
 		}
 	}
 	
-	public void take3(String str){
+	public void take3(String str){//Кому-то нанесен урон
 		String name = Global.linkCS.parsString(str,2);
 		if (name.equals(game.name)){
 			Global.player.getArmor().setHp(Global.player.getArmor().getHp()-Double.parseDouble(Global.linkCS.parsString(str,3)));
@@ -180,5 +181,22 @@ public class ClientNetThread extends Thread{
 				Global.enemy[i].destroyExtended();
 			}
 		}
+		
+		boolean allDestroy = true;
+		for (int i = 0;i<Global.enemy.length;i++){
+			if (!Global.enemy[i].getDestroy()){
+				allDestroy = false;
+			}
+		}
+		
+		if (allDestroy){
+			Global.clientSend.send5();
+			game.startRestart();
+		}
+		
+	}
+	
+	public void take5(String str){//Перезагрузка карты
+		game.startRestart();
 	}
 }

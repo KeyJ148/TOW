@@ -23,6 +23,11 @@ public class MessagePack {
 		return message.size();
 	}
 	
+	public void clear(){
+		message.clear();
+		message.trimToSize();
+	}
+	
 	public boolean haveMessage(){
 		//message.trimToSize();
 		if (message.size() > 0){

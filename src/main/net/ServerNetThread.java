@@ -10,6 +10,7 @@ public class ServerNetThread extends Thread{
 	
 	public String name;
 	public boolean mapDownAll = false;//все ли скачали карту?
+	public boolean takeMessage = true;// Принимать сообщения?
 	
 	private GameServer gameServer;
 	
@@ -27,6 +28,13 @@ public class ServerNetThread extends Thread{
 	
 	public void run(){
 		//Парсинг файла с картой
+		mapSend();
+		
+		conMessTake();
+	}
+	
+	public void mapSend(){
+		//Парсинг файла с картой
 		String pathFull = this.gameServer.pathFull;
 		try {
 			BufferedReader fileReader = new BufferedReader(new FileReader(pathFull));
@@ -43,7 +51,7 @@ public class ServerNetThread extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+				
 				
 		//Считывание имени игрока и отправка данных
 		try{
@@ -58,8 +66,6 @@ public class ServerNetThread extends Thread{
 		this.gameServer.connect[id] = true;
 		do{
 		}while(!mapDownAll);
-		
-		conMessTake();
 	}
 
 	public void conMessTake(){
@@ -67,7 +73,7 @@ public class ServerNetThread extends Thread{
 		//Только после подключения всех игроков
 		String str;
 		try{
-			while (true){
+			while (takeMessage){
 				str = this.gameServer.in[id].readUTF();
 				synchronized(this.gameServer.messagePack[id]) {//Защита от одновременной работы с массивом
 					this.gameServer.messagePack[id].add(str);
@@ -82,5 +88,9 @@ public class ServerNetThread extends Thread{
 				gameServer.disconnect++;
 			}
 		}
+	}
+	
+	public void stopThread(){
+		takeMessage = false;
 	}
 }

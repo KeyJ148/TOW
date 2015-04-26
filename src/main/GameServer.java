@@ -97,6 +97,14 @@ public class GameServer {
 		
 		System.out.println("All users connected.");
 		
+		mapDownload();
+		
+		System.out.println("All users game start.");
+		
+		conMessSend();	
+	}
+	
+	public void mapDownload(){
 		boolean mapDownAll;//все ли скачали карту
 		do{
 			mapDownAll = true;
@@ -112,10 +120,6 @@ public class GameServer {
 		for(int i=0;i<peopleMax;i++){
 			serverThread[i].mapDownAll = true;
 		}
-		
-		System.out.println("All users game start.");
-		
-		conMessSend();	
 	}
 	
 	public void genTank(){
@@ -195,24 +199,50 @@ public class GameServer {
 	
 	public void conMessSend(){
 		String str;
+		boolean sendMessage = true;
 		try{
-			while (true){
+			while (sendMessage){
 				for (int i=0; i<peopleMax;i++){//Перебор всех игроков
 					synchronized(messagePack[i]) {//Защита от одновременной работы с массивом
 						if (messagePack[i].haveMessage()){//Если у игрока имеются сообщения
+							
 							str = (String) messagePack[i].get();//Читаем сообщение
 							for(int j=0;j<peopleMax;j++){//Отправляем сообщение всем
 								if (j != i){//Кроме игрока, приславшего сообщение
 									out[j].writeUTF(str);
 								}
 							}
+							
+							if (Integer.parseInt(Global.linkCS.parsString(str, 1)) == 5){//Если сообщение о перезапуске карты
+								sendMessage = false;
+								break;
+							}
+							
 						}
 					}
 				}
 			}
+			restart();
 		} catch (IOException e){
 			System.out.println("[ERROR] Send message!");
 		}
+	}
+	
+	public void restart() {
+		 System.out.println("Restart start.");
+		 
+		 for (int i=0; i<peopleMax;i++){
+			 serverThread[i].stopThread();
+			 messagePack[i].clear();
+			 connect[i] = false;
+			 tankX[i] = 0;
+			 tankY[i] = 0;
+			 try{
+				 serverThread[i] = new ServerNetThread(this, i, peopleMax);
+			 }catch (IOException e){
+				 System.out.println("[ERROR] Create ServerThread in restart");
+			 }
+		 }
 	}
 	
 	public static void main (String args[]) throws IOException{

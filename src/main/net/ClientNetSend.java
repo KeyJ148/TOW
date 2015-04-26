@@ -41,4 +41,8 @@ public class ClientNetSend extends Thread{
 	public void send4(){//Танк игрока уничтожен
 		sendData("4 " + game.name);
 	}
+	
+	public void send5(){//Перезагрузка карты (Имя победителя)
+		sendData("5 " + game.name);
+	}
 }
