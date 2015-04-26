@@ -16,6 +16,8 @@ public class ClientNetThread extends Thread{
 	public Socket sock;
 	public Game game;
 	
+	public boolean takeMessage = true;
+	
 	public ClientNetThread(DataInputStream in, DataOutputStream out, Socket sock){
 		this.in = in;
 		this.out = out;
@@ -28,8 +30,7 @@ public class ClientNetThread extends Thread{
 		
 		//Скачивание карты
 		String s = "";
-		//Разрешение карты(для камеры)
-		try{
+		try{//Разрешение карты(для камеры)
 			s = this.in.readUTF();
 			if (Game.console) System.out.println("Download map size complite.");
 		} catch(IOException e){
@@ -51,7 +52,7 @@ public class ClientNetThread extends Thread{
 			try{
 				s = this.in.readUTF();
 				
-				if (s.equals("-1 ")){
+				if (s.equals("6 ")){
 					if (Game.console) System.out.println("Download map object complite.");
 					break;
 				}
@@ -91,6 +92,7 @@ public class ClientNetThread extends Thread{
 			System.out.println("[ERROR] Message about generation tank");
 			System.exit(0);
 		}
+		
 		new ClientNetSend(this.out, this.game);
 		start();
 	}
@@ -98,10 +100,12 @@ public class ClientNetThread extends Thread{
 	public void run(){
 		//постоянный обмен данными
 		//на TCP
+		takeMessage = true;
 		String str;
-		while(true){
+		while(takeMessage){
 			try{
 				str = this.in.readUTF();
+				if (!takeMessage) break;
 				switch (Integer.parseInt(Global.linkCS.parsString(str,1))){
 					case 0: take0(str); break;
 					case 1: take1(str); break;
@@ -114,6 +118,10 @@ public class ClientNetThread extends Thread{
 				System.out.println("[ERROR] Take internet message");
 			}
 		}
+	}
+	
+	public void stopThread(){
+		takeMessage = false;
 	}
 	
 	public void take0(String str){//Данные танка врага

@@ -31,7 +31,7 @@ public class Enemy extends Obj{
 		gun.setYcenter(getYcenter());
 		gun.setDirection(Double.parseDouble(Global.linkCS.parsString(s,7)));
 		if (Game.ENEMY_PREDICTION){
-			armor.setSpeed(Double.parseDouble(Global.linkCS.parsString(s,8)));
+			setSpeed(Double.parseDouble(Global.linkCS.parsString(s,8)));
 		}
 		int anim = Integer.parseInt(Global.linkCS.parsString(s,5)); 
 		if ((anim != -1) && (!animOn)){

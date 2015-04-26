@@ -230,9 +230,7 @@ public class GameServer {
 	
 	public void restart() {
 		 System.out.println("Restart start.");
-		 
 		 for (int i=0; i<peopleMax;i++){
-			 serverThread[i].stopThread();
 			 messagePack[i].clear();
 			 connect[i] = false;
 			 tankX[i] = 0;

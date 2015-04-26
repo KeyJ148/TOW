@@ -26,6 +26,10 @@ public class ClientNetSend extends Thread{
 		}
 	}
 	
+	public void sendM3(){//Готовность скачивать карту
+		sendData("-3 ");
+	}
+	
 	public void send1(Bullet bull){//Сдлеан выстрел
 		sendData("1 " + bull.getX() + " " + bull.getY() + " " + bull.getDirection() + " " + bull.getSpeed() + " " + bull.getClass().getName() + " " + game.name + " " + Global.idNet);
 	}

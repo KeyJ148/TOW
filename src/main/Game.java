@@ -124,6 +124,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public void restart(){
 		if (Game.console) System.out.println("Restart map start.");
+		Global.clientThread.stopThread();
 		
 		Global.obj.clear();
 		Global.depth.clear();
@@ -132,7 +133,6 @@ public class Game extends Canvas implements Runnable{
 		Global.depth.trimToSize();
 		Global.enemyBullet.trimToSize();
 		Global.player = null;
-		Global.clientSend = null;
 		Global.id = 1;
 		Global.idNet = 1; 
 		for (int i =0; i<Global.enemy.length; i++){
