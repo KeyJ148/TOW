@@ -30,8 +30,20 @@ public class ClientNetThread extends Thread{
 		
 		//—качивание карты
 		String s = "";
-		try{//–азрешение карты(дл€ камеры)
-			s = this.in.readUTF();
+		try{
+			
+			if (game.restart){
+				this.out.writeUTF("-1 ");
+			}
+			
+			System.out.println("Wait loading map.");
+			while(true){
+				s = this.in.readUTF();
+				if (s.equals("6 ")) break;
+			}
+			
+			//–азрешение карты(дл€ камеры)
+			s = downloadMap();
 			if (Game.console) System.out.println("Download map size complite.");
 		} catch(IOException e){
 			System.out.println("[ERROR] Download map size");
@@ -49,27 +61,20 @@ public class ClientNetThread extends Thread{
 		String sprite,name;
 		if (Game.console) System.out.println("Download map object start.");
 		while(true){
-			try{
-				s = this.in.readUTF();
-				
-				if (s.equals("6 ")){
-					if (Game.console) System.out.println("Download map object complite.");
-					break;
-				}
-
-				x = Integer.parseInt(Global.linkCS.parsString(s,1));
-				y = Integer.parseInt(Global.linkCS.parsString(s,2));
-				direction = Integer.parseInt(Global.linkCS.parsString(s,3));
-				sprite = Global.linkCS.parsString(s,4);
-				name = Global.linkCS.parsString(s,5);
-				switch(name){
-					case "Home": new Home(x,y,direction,Global.linkCS.getSprite(sprite),game); break;
-					case "Road": new Road(x,y,direction,Global.linkCS.getSprite(sprite),game); break;
-				}
-				
-			} catch(IOException e){
-				System.out.println("[ERROR] Download map");
-				System.exit(0);
+			s = downloadMap();
+			
+			if (s.equals("8 ")){
+				if (Game.console) System.out.println("Download map object complite.");
+				break;
+			}
+			x = Integer.parseInt(Global.linkCS.parsString(s,1));
+			y = Integer.parseInt(Global.linkCS.parsString(s,2));
+			direction = Integer.parseInt(Global.linkCS.parsString(s,3));
+			sprite = Global.linkCS.parsString(s,4);
+			name = Global.linkCS.parsString(s,5);
+			switch(name){
+				case "Home": new Home(x,y,direction,Global.linkCS.getSprite(sprite),game); break;
+				case "Road": new Road(x,y,direction,Global.linkCS.getSprite(sprite),game); break;
 			}
 		}
 		genTank();
@@ -78,11 +83,12 @@ public class ClientNetThread extends Thread{
 	//получение данных
 	public void genTank(){
 		try{
-			this.out.writeUTF(game.name);//отправка имени
-			String s = this.in.readUTF();//получение кор танка
+			//this.out.writeUTF("-2 " + game.name);//отправка имени
+			this.out.writeUTF(game.name);
+			String s = downloadMap();//получение кор танка
 			double x = (double) Integer.parseInt(s.substring(0,s.indexOf(' ')));
 			double y = (double) Integer.parseInt(s.substring(s.indexOf(' ')+1));
-			s = this.in.readUTF();//получение кол-во игрков
+			s = downloadMap();//получение кол-во игрков
 			this.game.peopleMax = Integer.parseInt(s.substring(0,s.indexOf(' ')));
 			Global.enemy = new Enemy[this.game.peopleMax-1];
 			Global.player = new Player(x,y,Math.random()*360,game);
@@ -94,7 +100,27 @@ public class ClientNetThread extends Thread{
 		}
 		
 		new ClientNetSend(this.out, this.game);
-		start();
+		if (game.restart){
+			startThread();
+		} else {
+			start();
+		}
+	}
+	
+	public String downloadMap(){
+		try {
+			String s;
+			do {
+				s = this.in.readUTF();
+				if (Integer.parseInt(Global.linkCS.parsString(s,1)) == 8){
+					return s;
+				}
+			}while(Integer.parseInt(Global.linkCS.parsString(s,1)) != 7);
+			return s.substring(2);
+		} catch (IOException e) {
+			System.out.println("[ERROR] Method for download map");
+			return "";
+		}
 	}
 	
 	public void run(){
@@ -102,17 +128,19 @@ public class ClientNetThread extends Thread{
 		//на TCP
 		takeMessage = true;
 		String str;
-		while(takeMessage){
+		while(true){
 			try{
-				str = this.in.readUTF();
-				if (!takeMessage) break;
-				switch (Integer.parseInt(Global.linkCS.parsString(str,1))){
-					case 0: take0(str); break;
-					case 1: take1(str); break;
-					case 2: take2(str); break;
-					case 3: take3(str); break;
-					case 4: take4(str); break;
-					case 5: take5(str); break;
+				if (takeMessage){
+					str = this.in.readUTF();
+					if (!takeMessage) break;
+					switch (Integer.parseInt(Global.linkCS.parsString(str,1))){
+						case 0: take0(str); break;
+						case 1: take1(str); break;
+						case 2: take2(str); break;
+						case 3: take3(str); break;
+						case 4: take4(str); break;
+						case 5: take5(str); break;
+					}
 				}
 			} catch(IOException e){
 				System.out.println("[ERROR] Take internet message");
@@ -122,6 +150,10 @@ public class ClientNetThread extends Thread{
 	
 	public void stopThread(){
 		takeMessage = false;
+	}
+	
+	public void startThread(){
+		takeMessage = true;
 	}
 	
 	public void take0(String str){//ƒанные танка врага
@@ -199,12 +231,14 @@ public class ClientNetThread extends Thread{
 		
 		if (allDestroy){
 			Global.clientSend.send5();
+			stopThread();
 			game.startRestart();
 		}
 		
 	}
 	
 	public void take5(String str){//ѕерезагрузка карты
+		stopThread();
 		game.startRestart();
 	}
 }

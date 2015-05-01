@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import main.GameServer;
+import main.Global;
 
 public class ServerNetThread extends Thread{
 	
@@ -26,45 +27,72 @@ public class ServerNetThread extends Thread{
 	}
 	
 	public void run(){
-		mapSend();
+		
+		mapLoading();
 		
 		conMessTake();
 	}
 	
-	public void mapSend(){
+	public void mapLoading(){
+		//если это первый загрузившийся поток -- создать проверщик скаваний
+		gameServer.checkMapDownload();
+		
 		//отправка карты
+		System.out.println("Loading map start.");
 		String pathFull = this.gameServer.pathFull;
 		try {
 			BufferedReader fileReader = new BufferedReader(new FileReader(pathFull));
 			String s;
 			
+			this.gameServer.out[id].writeUTF("6 ");//Начата отправка карты
 			while (true){ 
 				s = fileReader.readLine();
 				if (s == null){
 					break;
 				}
-				this.gameServer.out[id].writeUTF(s);
+				writeMap(s);
 			}
-			this.gameServer.out[id].writeUTF("6 ");//Закончена отправка карты
+			this.gameServer.out[id].writeUTF("8 ");//Закончена отправка карты
 			fileReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-				
+		System.out.println("Loading map end.");		
 				
 		//Считывание имени игрока и отправка данных
-		try{
-			this.name = this.gameServer.in[id].readUTF();
-			System.out.println("Nickname: " + name + ".");
-			this.gameServer.out[id].writeUTF(this.gameServer.tankX[id] + " " + this.gameServer.tankY[id]);
-			this.gameServer.out[id].writeUTF(this.peopleMax + " ");
+		//this.name = downloadNick();
+		try {
+			this.name = gameServer.in[id].readUTF();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
+		System.out.println("Nickname: " + name);
+		writeMap(this.gameServer.tankX[id] + " " + this.gameServer.tankY[id]);
+		writeMap(this.peopleMax + " ");
 		
 		this.gameServer.connect[id] = true;
 		do{
 		}while(!mapDownAll);
+	}
+	
+	public String downloadNick(){
+		try {
+			String s;
+			do {
+				s = this.gameServer.in[id].readUTF();
+			}while(Integer.parseInt(Global.linkCS.parsString(s,1)) != -2);
+			return s.substring(2);
+		} catch (IOException e) {
+			System.out.println("[ERROR] Method for download nickname");
+			return "";
+		}
+	}
+
+	private void writeMap(String s) {
+		try {
+			this.gameServer.out[id].writeUTF("7 " + s);
+		} catch (IOException e) {
+			System.out.println("[ERROR] Method for writeMap");
+		}
 	}
 
 	public void conMessTake(){
@@ -74,8 +102,14 @@ public class ServerNetThread extends Thread{
 		try{
 			while (true){
 				str = this.gameServer.in[id].readUTF();
-				synchronized(this.gameServer.messagePack[id]) {//Защита от одновременной работы с массивом
-					this.gameServer.messagePack[id].add(str);
+				if (Integer.parseInt(Global.linkCS.parsString(str, 1)) >= 0){//Если сообщение для клиента
+					synchronized(this.gameServer.messagePack[id]) {//Защита от одновременной работы с массивом
+						this.gameServer.messagePack[id].add(str);
+					}
+				} else {//Если сообщение для сервера
+					switch (Integer.parseInt(Global.linkCS.parsString(str, 1))){
+						case -1: take1(); break;
+					}
 				}
 			}
 		} catch (IOException e){
@@ -88,4 +122,10 @@ public class ServerNetThread extends Thread{
 			}
 		}
 	}
+	
+	public void take1(){//Клиент готов к приёму карты
+		gameServer.messagePack[id].clear();
+		mapLoading();
+	}
+	
 }

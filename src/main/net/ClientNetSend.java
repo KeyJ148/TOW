@@ -26,8 +26,8 @@ public class ClientNetSend extends Thread{
 		}
 	}
 	
-	public void sendM3(){//Готовность скачивать карту
-		sendData("-3 ");
+	public void sendM1(){//Готовность скачивать карту
+		sendData("-1 ");
 	}
 	
 	public void send1(Bullet bull){//Сдлеан выстрел

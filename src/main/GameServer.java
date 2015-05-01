@@ -12,6 +12,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
 
+import main.net.CheckMapLoad;
 import main.net.LinkCS;
 import main.net.MessagePack;
 import main.net.ServerNetThread;
@@ -26,12 +27,14 @@ public class GameServer {
 	public ServerNetThread[] serverThread;
 	public InetAddress[] inetAdr;
 	public MessagePack[] messagePack;
+	public CheckMapLoad cml;//для метода mapDownload
 	public int peopleMax;
 	public int peopleNow;
 	public int port;
 	public int[] tankX;
 	public int[] tankY;
 	public boolean genTank = false;//закончена ли генерация танков?
+	public boolean genTankInRestart = false;//Была ли сделана генерация танка при рестарте?
 	public String pathFull; //путь к карте
 	public int widthMap;//размеры карты
 	public int heightMap;
@@ -74,9 +77,7 @@ public class GameServer {
 		this.tankY = new int[peopleMax];
 		this.connect = new boolean[peopleMax];
 		this.disconnect = 0;
-		for(int i=0;i<peopleMax;i++){
-			connect[i] = false;
-		}
+		
 		ServerSocket ServerSocket = new ServerSocket(port);
 		this.peopleNow = 0;
 		
@@ -97,28 +98,12 @@ public class GameServer {
 		
 		System.out.println("All users connected.");
 		
-		mapDownload();
-		
-		System.out.println("All users game start.");
-		
 		conMessSend();	
 	}
 	
-	public void mapDownload(){
-		boolean mapDownAll;//все ли скачали карту
-		do{
-			mapDownAll = true;
-			for(int i=0;i<peopleMax;i++){
-				if (connect[i] == false){
-					mapDownAll = false;
-				}
-			}
-		}while(!mapDownAll);
-		
-		System.out.println("All users map download.");
-		
-		for(int i=0;i<peopleMax;i++){
-			serverThread[i].mapDownAll = true;
+	public synchronized void checkMapDownload(){
+		if (cml == null){
+			cml = new CheckMapLoad(this);
 		}
 	}
 	
@@ -213,34 +198,13 @@ public class GameServer {
 								}
 							}
 							
-							if (Integer.parseInt(Global.linkCS.parsString(str, 1)) == 5){//Если сообщение о перезапуске карты
-								sendMessage = false;
-								break;
-							}
-							
 						}
 					}
 				}
 			}
-			restart();
 		} catch (IOException e){
 			System.out.println("[ERROR] Send message!");
 		}
-	}
-	
-	public void restart() {
-		 System.out.println("Restart start.");
-		 for (int i=0; i<peopleMax;i++){
-			 messagePack[i].clear();
-			 connect[i] = false;
-			 tankX[i] = 0;
-			 tankY[i] = 0;
-			 try{
-				 serverThread[i] = new ServerNetThread(this, i, peopleMax);
-			 }catch (IOException e){
-				 System.out.println("[ERROR] Create ServerThread in restart");
-			 }
-		 }
 	}
 	
 	public static void main (String args[]) throws IOException{

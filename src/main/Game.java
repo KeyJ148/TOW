@@ -124,7 +124,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public void restart(){
 		if (Game.console) System.out.println("Restart map start.");
-		Global.clientThread.stopThread();
+		//Global.clientThread.stopThread();
 		
 		Global.obj.clear();
 		Global.depth.clear();
