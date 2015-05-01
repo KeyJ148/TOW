@@ -12,10 +12,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
 
-import main.net.CheckMapLoad;
 import main.net.LinkCS;
 import main.net.MessagePack;
 import main.net.ServerNetThread;
+import main.net.CheckMapLoad;
 
 public class GameServer {
 	

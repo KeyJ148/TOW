@@ -39,10 +39,10 @@ public class WindowMain extends JFrame {
 		if (name.equals("")){
 			this.game.name = Double.toString(Math.random()); 
 		} else {
-			if (name.indexOf(" ") == -1){
+			if (name.indexOf(' ') == -1){
 				this.game.name = name;
 			} else {
-				System.out.println("Invalid name!");
+				System.out.println("[ERROR] Invalid name!");
 				System.exit(0);
 			}
 		}
