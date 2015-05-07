@@ -4,11 +4,8 @@ import java.awt.Button;
 import java.awt.Dialog;
 import java.awt.Label;
 import java.awt.TextField;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
+import main.ConfigReader;
 import main.WindowMain;
 
 
@@ -27,29 +24,12 @@ public class LoginWindow extends Dialog{
 		super(frame,s);
 		setLayout(null);
 		
-		try {
-			BufferedReader fileReader = new BufferedReader(new FileReader(pathSetting));
-			
-			while (true){ 
-				s = fileReader.readLine();
-				
-				if (s == null){
-					break;
-				}
-				
-				switch (s.substring(0, s.indexOf(' '))){
-					case "ip": tf1Default = parseSetting(s); break; 
-					case "port": tf2Default = parseSetting(s); break;
-					case "nickname": tf3Default = parseSetting(s); break;
-				}
-				
-			}
-			fileReader.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("[ERROR] File setting not found");
-		} catch (IOException e){
-			System.out.println("[ERROR] Exception in read setting");
-		}
+		ConfigReader cr = new ConfigReader(pathSetting);
+		tf1Default = cr.find("ip");
+		tf2Default = cr.find("port");
+		tf3Default = cr.find("nickname");
+		cr.close();
+		
 		Label L1 = new Label("Host ip:", Label.RIGHT);
 		L1.setBounds(20, 30, 70, 25); 
 		add(L1);
@@ -88,7 +68,4 @@ public class LoginWindow extends Dialog{
 		setVisible(true);
 	}
 	
-	public String parseSetting(String s){
-		return s.substring(s.indexOf('"')+1, s.lastIndexOf('"'));
-	}
 }
