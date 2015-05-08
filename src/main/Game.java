@@ -23,7 +23,8 @@ public class Game extends Canvas implements Runnable{
 	
 	public static final int TPS = 100; //Кол-во повторений update в секунду
 	public static final int SKIP_TICKS = 1000/TPS;
-	public static final int MAX_FRAME_SKIP = 10;
+	public static final int MAX_FRAME_SKIP = TPS/10;
+	public static final int MAX_RENDER = (int) Math.round(TPS*2);//Кол-во повторений render в секунду максимум
 	public static final boolean console = true;//выводить в консоль сообщения отладки?
 	public static final boolean consoleFPS = false;//выводить в консоль фпс?
 	public static final boolean monitorFPS = true;//выводить в окно фпс?
@@ -55,6 +56,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public void run(){
 		long nextLoops = System.currentTimeMillis();
+		long nextRender = System.currentTimeMillis();
 		int loopsUpdate;
 		int loopsRender = 0; //Для подсчёта fps
 		int loopsRenderMid = 0;
@@ -70,8 +72,12 @@ public class Game extends Canvas implements Runnable{
 				nextLoops += SKIP_TICKS;
 				loopsUpdate++;
 			}
-			render();
-			loopsRender++;
+			if (System.currentTimeMillis() > nextRender){
+				render();
+				
+				nextRender = System.currentTimeMillis() + 1000/MAX_RENDER;
+				loopsRender++;
+			}
 			if (System.currentTimeMillis() >= fps_t + 1000){
 				second++;
 				loopsRenderMid += loopsRender;

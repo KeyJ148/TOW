@@ -11,7 +11,7 @@ public class Armor extends Obj {
 	private double hpRegen;
 	private double speedTankUp;
 	private double speedTankDown;
-	private double directionTrunkUp;
+	private double directionGunUp;
 	private double directionTankUp;
 	
 	private int animSpeed;
@@ -156,8 +156,8 @@ public class Armor extends Obj {
 		this.speedTankDown = speedTankDown;
 	}
 	
-	public void setDirectionTrunkUp(double directionTrunkUp){
-		this.directionTrunkUp = directionTrunkUp;
+	public void setDirectionGunUp(double directionGunUp){
+		this.directionGunUp = directionGunUp;
 	}
 	
 	public void setDirectionTankUp(double directionTankUp){
@@ -208,8 +208,8 @@ public class Armor extends Obj {
 		return speedTankDown;
 	}
 	
-	public double getDirectionTrunkUp(){
-		return directionTrunkUp;
+	public double getDirectionGunUp(){
+		return directionGunUp;
 	}
 	
 	public double getDirectionTankUp(){

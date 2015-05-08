@@ -24,12 +24,8 @@ public class Enemy extends Obj{
 		setX(Double.parseDouble(Global.linkCS.parsString(s,2)));
 		setY(Double.parseDouble(Global.linkCS.parsString(s,3)));
 		setDirection(Double.parseDouble(Global.linkCS.parsString(s,4)));
-		armor.setXcenter(getXcenter());
-		armor.setYcenter(getYcenter());
-		armor.setDirection(getDirection());
-		gun.setXcenter(getXcenter());
-		gun.setYcenter(getYcenter());
 		gun.setDirection(Double.parseDouble(Global.linkCS.parsString(s,7)));
+		dragIn();
 		if (Game.ENEMY_PREDICTION){
 			setSpeed(Double.parseDouble(Global.linkCS.parsString(s,8)));
 		}
@@ -51,11 +47,24 @@ public class Enemy extends Obj{
 	}
 	
 	public void updateChildFinal(){
+		dragIn();
 		try{
 			nameX = (int) Math.round(getXViewCenter()-name.length()*3.25); // lengthChar/2
 			nameY = (int) getYViewCenter()-50;
 		} catch(NullPointerException e){
 			p("[ERROR] Draw enemy name");
+		}
+	}
+	
+	public void dragIn(){
+		try{
+			armor.setXcenter(getXcenter());
+			armor.setYcenter(getYcenter());
+			armor.setDirection(getDirection());
+			gun.setXcenter(getXcenter());
+			gun.setYcenter(getYcenter());
+		} catch(NullPointerException e){
+			p("[ERROR] DragIn to enemy");
 		}
 	}
 }

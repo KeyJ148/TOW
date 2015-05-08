@@ -14,7 +14,7 @@ public class DefaultGun extends Gun {
 	private final int TRUNK_2Y = 0;
 	private final double DAMAGE_1 = 3.0;
 	private final double DAMAGE_2 = 0;
-	private final double DIRECTION_TRUNK_UP = 1.2;
+	private final double DIRECTION_GUN_UP = 1.2;
 	
 	public DefaultGun(Player player, Game game){
 		super(player, game, Global.defaultgun);
@@ -27,6 +27,6 @@ public class DefaultGun extends Gun {
 		setTrunk2Y(TRUNK_2Y);
 		setDamage1(DAMAGE_1);
 		setDamage2(DAMAGE_2);
-		setDirectionTrunkUp(DIRECTION_TRUNK_UP);
+		setDirectionGunUp(DIRECTION_GUN_UP);
 	}
 }

@@ -9,7 +9,7 @@ public class Gun extends Obj{
 	private Game game;
 	private int attackSpeed1;//скорость атаки
 	private int attackSpeed2;
-	private double directionTrunkUp;//скорость поворота дула
+	private double directionGunUp;//скорость поворота дула
 	
 	private String bullet1;//тип патрона
 	private String bullet2;
@@ -72,7 +72,7 @@ public class Gun extends Obj{
 	public void updateChildMid(){
 		//поворот дула
 		double pointDir = -Math.toDegrees(Math.atan((getYViewCenter()-player.getMouseY())/(getXViewCenter()-player.getMouseX())));
-		double trunkUp = getDirectionTrunkUp()+player.getArmor().getDirectionTrunkUp();
+		double trunkUp = getDirectionGunUp()+player.getArmor().getDirectionGunUp();
 		if ((getXViewCenter()-player.getMouseX())>0){
 			pointDir+=180;
 		} else if ((getYViewCenter()-player.getMouseY())<0){
@@ -126,8 +126,8 @@ public class Gun extends Obj{
 		return attackSpeed2;
 	}
 	
-	public double getDirectionTrunkUp(){
-		return directionTrunkUp;
+	public double getDirectionGunUp(){
+		return directionGunUp;
 	}
 
 	public void setAttackSpeed1(int attackSpeed){
@@ -169,7 +169,7 @@ public class Gun extends Obj{
 		this.damage2 = dmg;
 	}
 	
-	public void setDirectionTrunkUp(double dir){
-		directionTrunkUp = dir;
+	public void setDirectionGunUp(double dir){
+		directionGunUp = dir;
 	}
 }
