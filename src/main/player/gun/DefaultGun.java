@@ -5,7 +5,7 @@ import main.*;
 
 public class DefaultGun extends Gun {
 	
-	private final int ATTACK_SPEED_1 = 100;//TODO Раньше было Game.TPS
+	private final int ATTACK_SPEED_1 = Game.TPS;
 	private final int ATTACK_SPEED_2 = -1;
 
 	private final int TRUNK_1X = -2;

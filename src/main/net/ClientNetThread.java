@@ -1,13 +1,18 @@
 package main.net;
 
-import java.io.*;
-import java.net.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 
-import main.*;
-import main.home.*;
-import main.player.*;
-import main.player.enemy.*;
-import main.net.ClientNetSend;
+import main.Game;
+import main.Global;
+import main.Sprite;
+import main.home.Home;
+import main.home.Road;
+import main.player.Player;
+import main.player.enemy.Enemy;
+import main.player.enemy.EnemyBullet;
 
 public class ClientNetThread extends Thread{
 	
@@ -140,6 +145,7 @@ public class ClientNetThread extends Thread{
 						case 3: take3(str); break;
 						case 4: take4(str); break;
 						case 5: take5(str); break;
+						case 9: take9(str); break;
 					}
 				}
 			} catch(IOException e){
@@ -240,5 +246,10 @@ public class ClientNetThread extends Thread{
 	public void take5(String str){//Перезагрузка карты
 		stopThread();
 		game.startRestart();
+	}
+	
+	public void take9(String str){
+		int idPing = Integer.parseInt(Global.linkCS.parsString(str, 2));
+		Global.pingCheck.takePing(idPing);
 	}
 }

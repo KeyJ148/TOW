@@ -20,10 +20,14 @@ public class ClientNetSend extends Thread{
 	
 	public void sendData(String str){
 		try{
-			this.out.writeUTF(str);
+			out.writeUTF(str);
 		} catch (IOException e){
 			System.out.println("[ERROR] Send internet message");
 		}
+	}
+	
+	public void sendM2(int idPing){//Пинг до сервера и обратно
+		sendData("-2 " + idPing);
 	}
 	
 	public void sendM1(){//Готовность скачивать карту

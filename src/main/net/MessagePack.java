@@ -16,8 +16,8 @@ public class MessagePack {
 	
 	public String get(){
 		//if (size()%100 == 0) 
-		if (size() > 1)
-			System.out.println("Messages detained: " + size());
+		if (size() > 1) //ÎÒËÀÄÊÀ ÑÅĞÂÅĞÀ
+			System.out.println("Messages detained: " + size()); //ÎÒËÀÄÊÀ ÑÅĞÂÅĞÀ
 		return message.remove(0);
 	}
 	
@@ -36,5 +36,6 @@ public class MessagePack {
 				return true;
 		}
 		return false;
-	}	
+	}
+	
 }

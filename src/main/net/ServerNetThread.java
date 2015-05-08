@@ -109,6 +109,7 @@ public class ServerNetThread extends Thread{
 				} else {//Если сообщение для сервера
 					switch (Integer.parseInt(Global.linkCS.parsString(str, 1))){
 						case -1: take1(); break;
+						case -2: take2(str); break;
 					}
 				}
 			}
@@ -126,6 +127,14 @@ public class ServerNetThread extends Thread{
 	public void take1(){//Клиент готов к приёму карты
 		gameServer.messagePack[id].clear();
 		mapLoading();
+	}
+	
+	public void take2(String str){//Клиент пингует сервер
+		try {
+			gameServer.out[id].writeUTF("9 " + Global.linkCS.parsString(str, 2));
+		} catch (IOException e) {
+			System.out.println("[ERROR] Check ping");
+		}
 	}
 	
 }

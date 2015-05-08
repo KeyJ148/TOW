@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import main.net.LinkCS;
+import main.net.Ping;
 import main.player.enemy.EnemyBullet;
 
 public class Game extends Canvas implements Runnable{
@@ -61,6 +62,7 @@ public class Game extends Canvas implements Runnable{
 		int loopsRender = 0; //Для подсчёта fps
 		int loopsRenderMid = 0;
 		int second = 0;
+		int ping;
 		long fps_t = System.currentTimeMillis(); //Для подсчёта fps
 		init();
         
@@ -96,7 +98,9 @@ public class Game extends Canvas implements Runnable{
 						}
 					}
 					
-					String strFPS = "FPS: " + loopsRender + "          MidFPS: " + loopsRenderMid/second + "          Object: " + objSize + "          Player: " + (enemySize+1) + "/" + peopleMax;
+					ping = Global.pingCheck.ping();
+					
+					String strFPS = "FPS: " + loopsRender + "          MidFPS: " + loopsRenderMid/second + "          Object: " + objSize + "          Player: " + (enemySize+1) + "/" + peopleMax + "          Ping: " + ping;
 					if (Game.consoleFPS) System.out.println(strFPS);
 					if (Game.monitorFPS) this.monitorStrFPS = strFPS;
 				}
@@ -114,6 +118,7 @@ public class Game extends Canvas implements Runnable{
 		Global.depth = new ArrayList<DepthVector>();
 		Global.enemyBullet = new ArrayList<EnemyBullet>();
 		Global.linkCS = new LinkCS();
+		Global.pingCheck = new Ping();
 		
 		Global.linkCS.initSprite();
 		

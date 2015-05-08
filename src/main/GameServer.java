@@ -187,15 +187,16 @@ public class GameServer {
 		boolean sendMessage = true;
 		try{
 			long t,numberSend;
-			t = System.currentTimeMillis();
-			numberSend = 0;
+			t = System.currentTimeMillis(); //ОТЛАДКА СЕРВЕРА
+			numberSend = 0; //ОТЛАДКА СЕРВЕРА
 			while (sendMessage){
 				
-				if (System.currentTimeMillis() > t+1000){
-					t = System.currentTimeMillis();
-					System.out.println("MPS: " + numberSend);
-					numberSend = 0;
-				}
+				if (System.currentTimeMillis() > t+1000){ //ОТЛАДКА СЕРВЕРА
+					t = System.currentTimeMillis(); //ОТЛАДКА СЕРВЕРА
+					System.out.println("MPS: " + numberSend); //ОТЛАДКА СЕРВЕРА
+					numberSend = 0; //ОТЛАДКА СЕРВЕРА
+				} //ОТЛАДКА СЕРВЕРА
+				
 				for (int i=0; i<peopleMax;i++){//Перебор всех игроков
 					synchronized(messagePack[i]) {//Защита от одновременной работы с массивом
 						if (messagePack[i].haveMessage()){//Если у игрока имеются сообщения
@@ -204,7 +205,7 @@ public class GameServer {
 							for(int j=0;j<peopleMax;j++){//Отправляем сообщение всем
 								if (j != i){//Кроме игрока, приславшего сообщение
 									out[j].writeUTF(str);
-									numberSend++;
+									numberSend++; //ОТЛАДКА СЕРВЕРА
 								}
 							}
 							

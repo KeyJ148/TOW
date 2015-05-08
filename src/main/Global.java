@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import main.net.ClientNetSend;
 import main.net.ClientNetThread;
 import main.net.LinkCS;
+import main.net.Ping;
 import main.player.Player;
 import main.player.enemy.Enemy;
 import main.player.enemy.EnemyBullet;
@@ -17,6 +18,7 @@ public class Global {
 	public static Player player; //главный игрок
 	public static ClientNetSend clientSend; //цикл отправки данных на сервер
 	public static ClientNetThread clientThread; //цикл считывани€ данных с сервера
+	public static Ping pingCheck;//ќбъект дл€ проверки пинга
 	public static long id = 1;//”ник. номер следующего объекта
 	public static long idNet = 1; //id объекта создаваемого у противника из-за действий игрока  
 	public static LinkCS linkCS; //общее звено клиента и сервера
