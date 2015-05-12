@@ -12,6 +12,8 @@ public class ClientNetSend extends Thread{
 	public DataOutputStream out;
 	public Game game;
 	
+	public int sizeData = 0; //bytes 
+	
 	public ClientNetSend(DataOutputStream out, Game game){
 		this.out = out;
 		this.game = game;
@@ -20,14 +22,15 @@ public class ClientNetSend extends Thread{
 	
 	public void sendData(String str){
 		try{
+			sizeData += str.length()*2;
 			out.writeUTF(str);
 		} catch (IOException e){
 			System.out.println("[ERROR] Send internet message");
 		}
 	}
 	
-	public void sendM2(int idPing){//Пинг до сервера и обратно
-		sendData("-2 " + idPing);
+	public void sendM2(){//Пинг до сервера и обратно
+		sendData("-2 ");
 	}
 	
 	public void sendM1(){//Готовность скачивать карту

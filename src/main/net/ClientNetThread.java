@@ -23,6 +23,8 @@ public class ClientNetThread extends Thread{
 	
 	public boolean takeMessage = true;
 	
+	public int sizeData = 0; //bytes
+	
 	public ClientNetThread(DataInputStream in, DataOutputStream out, Socket sock){
 		this.in = in;
 		this.out = out;
@@ -137,6 +139,7 @@ public class ClientNetThread extends Thread{
 			try{
 				if (takeMessage){
 					str = this.in.readUTF();
+					sizeData += str.length()*2;
 					if (!takeMessage) break;
 					switch (Integer.parseInt(Global.linkCS.parsString(str,1))){
 						case 0: take0(str); break;
@@ -249,7 +252,6 @@ public class ClientNetThread extends Thread{
 	}
 	
 	public void take9(String str){
-		int idPing = Integer.parseInt(Global.linkCS.parsString(str, 2));
-		Global.pingCheck.takePing(idPing);
+		Global.pingCheck.takePing();
 	}
 }

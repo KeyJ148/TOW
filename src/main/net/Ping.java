@@ -4,49 +4,44 @@ import main.Global;
 
 public class Ping {
 	
-	private final int size = 10;
+	private long pingTime;
+	private int pingSum;
+	private int pingNumber;
 	
-	private int idPing = 0;
-	private long[] pingTime;
-	private int pingTimeFirstIndex = 0;//idPing первый в массиве
-	private int ping = 999; //текущий
-	
-	public Ping(){
-		pingTime = new long[size];
-	}
+	private int ping = 9999; //текущий
+	private int pingMin = 9999;
+	private int pingMid = 0;
+	private int pingMax = 0;
 	
 	public int ping(){
-		
-		boolean arrayFull = true;
-		
-		for (int i=0; i< pingTime.length; i++){
-			if (pingTime[i] == 0){
-				pingTime[i] = System.currentTimeMillis();
-				arrayFull = false;
-				break;
-			}
-		}
-		
-		if (arrayFull){
-			clearArray();
-			pingTime[0] = System.currentTimeMillis();
-		}
-		
-		Global.clientSend.sendM2(idPing);
-		idPing++;
+		pingTime = System.currentTimeMillis();
+		Global.clientSend.sendM2();
 		
 		return ping;
 	}
 	
-	public void takePing(int idPing){
-		long ping = System.currentTimeMillis() - pingTime[idPing-pingTimeFirstIndex];
-		this.ping = (int) ping;
+	public void takePing(){
+		long pingL = System.currentTimeMillis() - pingTime;
+		int ping = (int) pingL;
+		
+		this.ping = ping;
+		if (ping < pingMin) pingMin = ping;
+		if (ping > pingMax) pingMax = ping;
+		
+		pingSum += ping;
+		pingNumber++;
+		pingMid = pingSum/pingNumber;
 	}
 	
-	private void clearArray(){
-		pingTimeFirstIndex += size; 
-		for (int i=0; i< pingTime.length; i++){
-			pingTime[i] = 0;
-		}
+	public int pingMax(){
+		return pingMax;
+	}
+	
+	public int pingMid(){
+		return pingMid;
+	}
+	
+	public int pingMin(){
+		return pingMin;
 	}
 }

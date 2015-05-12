@@ -62,7 +62,8 @@ public class Game extends Canvas implements Runnable{
 		int loopsRender = 0; //Для подсчёта fps
 		int loopsRenderMid = 0;
 		int second = 0;
-		int ping;
+		int ping, pingMin, pingMax, pingMid;
+		int sizeSend, sizeLoad;
 		long fps_t = System.currentTimeMillis(); //Для подсчёта fps
 		init();
         
@@ -99,8 +100,19 @@ public class Game extends Canvas implements Runnable{
 					}
 					
 					ping = Global.pingCheck.ping();
+					pingMin = Global.pingCheck.pingMin();
+					pingMid = Global.pingCheck.pingMid();
+					pingMax = Global.pingCheck.pingMax();
 					
-					String strFPS = "FPS: " + loopsRender + "          MidFPS: " + loopsRenderMid/second + "          Object: " + objSize + "          Player: " + (enemySize+1) + "/" + peopleMax + "          Ping: " + ping;
+					sizeSend = Math.round(Global.clientSend.sizeData/1024);
+					sizeLoad = Math.round(Global.clientThread.sizeData/1024);
+					
+					String strFPS = "FPS: " + loopsRender
+									+ "          MidFPS: " + loopsRenderMid/second
+									+ "          Object: " + objSize
+									+ "          Player: " + (enemySize+1) + "/" + peopleMax
+									+ "          Ping: " + ping + " (" + pingMin + "-" + pingMid + "-" + pingMax + ")"
+									+ "          Send/Load: " + sizeSend + "/" + sizeLoad + " kb";
 					if (Game.consoleFPS) System.out.println(strFPS);
 					if (Game.monitorFPS) this.monitorStrFPS = strFPS;
 				}
