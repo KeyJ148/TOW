@@ -23,6 +23,7 @@ public class ClientNetSend extends Thread{
 	public void sendData(String str){
 		try{
 			sizeData += str.length()*2;
+			out.flush();
 			out.writeUTF(str);
 		} catch (IOException e){
 			System.out.println("[ERROR] Send internet message");
@@ -38,7 +39,9 @@ public class ClientNetSend extends Thread{
 	}
 	
 	public void send1(Bullet bull){//—длеан выстрел
-		sendData("1 " + bull.getX() + " " + bull.getY() + " " + bull.getDirection() + " " + bull.getSpeed() + " " + bull.getClass().getName() + " " + game.name + " " + Global.idNet);
+		sendData("1 " + Math.round(bull.getX()) + " " + Math.round(bull.getY()) + " " 
+				+ Math.round(bull.getDirection()) + " " + Math.round(bull.getSpeed()) + " "
+				+ bull.getClass().getName() + " " + game.name + " " + Global.idNet);
 	}
 	
 	public void send2(Bullet bull){//”ничтожение пули

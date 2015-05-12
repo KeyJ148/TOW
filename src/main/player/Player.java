@@ -124,7 +124,13 @@ public class Player extends Obj{
 		} else {
 			anim = -1;
 		}
-		s = "0 " + getX() + " " + getY() + " " + armor.getDirection() + " " + anim + " " + game.name + " " + gun.getDirection() + " " + armor.getSpeed();
+		s =  "0 " + Math.round(getX())
+			+ " " + Math.round(getY())
+			+ " " + Math.round(armor.getDirection())
+			+ " " + anim
+			+ " " + game.name
+			+ " " + Math.round(gun.getDirection())
+			+ " " + Math.round(armor.getSpeed());
 		return s;
 	}
 	

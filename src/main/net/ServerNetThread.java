@@ -101,16 +101,20 @@ public class ServerNetThread extends Thread{
 		String str;
 		try{
 			while (true){
-				str = this.gameServer.in[id].readUTF();
-				if (Integer.parseInt(Global.linkCS.parsString(str, 1)) >= 0){//Если сообщение для клиента
-					synchronized(this.gameServer.messagePack[id]) {//Защита от одновременной работы с массивом
-						this.gameServer.messagePack[id].add(str);
+				try{
+					str = this.gameServer.in[id].readUTF();
+					if (Integer.parseInt(Global.linkCS.parsString(str, 1)) >= 0){//Если сообщение для клиента
+						synchronized(this.gameServer.messagePack[id]) {//Защита от одновременной работы с массивом
+							this.gameServer.messagePack[id].add(str);
+						}
+					} else {//Если сообщение для сервера
+						switch (Integer.parseInt(Global.linkCS.parsString(str, 1))){
+							case -1: take1(); break;
+							case -2: take2(); break;
+						}
 					}
-				} else {//Если сообщение для сервера
-					switch (Integer.parseInt(Global.linkCS.parsString(str, 1))){
-						case -1: take1(); break;
-						case -2: take2(); break;
-					}
+				} catch(NumberFormatException e){
+					System.out.println("[ERROR] Take message not found type!");
 				}
 			}
 		} catch (IOException e){
@@ -131,7 +135,10 @@ public class ServerNetThread extends Thread{
 	
 	public void take2(){//Клиент пингует сервер
 		try {
-			gameServer.out[id].writeUTF("9 ");
+			synchronized(gameServer.out[id]){
+				gameServer.out[id].flush();
+				gameServer.out[id].writeUTF("9 ");
+			}
 		} catch (IOException e) {
 			System.out.println("[ERROR] Check ping");
 		}

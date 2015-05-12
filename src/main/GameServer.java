@@ -204,7 +204,10 @@ public class GameServer {
 							str = (String) messagePack[i].get();//Читаем сообщение
 							for(int j=0;j<peopleMax;j++){//Отправляем сообщение всем
 								if (j != i){//Кроме игрока, приславшего сообщение
-									out[j].writeUTF(str);
+									synchronized(out[j]){
+										out[j].flush();
+										out[j].writeUTF(str);
+									}
 									numberSend++; //ОТЛАДКА СЕРВЕРА
 								}
 							}

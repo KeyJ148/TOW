@@ -56,15 +56,24 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void run(){
-		long nextLoops = System.currentTimeMillis();
-		long nextRender = System.currentTimeMillis();
+		long timeStart = System.currentTimeMillis();
+		
+		//Для подсчёта fps
+		long nextLoops = timeStart;
+		long nextRender = timeStart;
 		int loopsUpdate;
-		int loopsRender = 0; //Для подсчёта fps
+		int loopsRender = 0; 
 		int loopsRenderMid = 0;
 		int second = 0;
-		int ping, pingMin, pingMax, pingMid;
-		int sizeSend, sizeLoad;
-		long fps_t = System.currentTimeMillis(); //Для подсчёта fps
+		long fps_t = timeStart;
+		
+		//Пинг
+		int ping=0, pingMin=0, pingMax=0, pingMid=0;
+		
+		//Скорость сети
+		int timeSend=0, timeLoad=0;
+		long startToNowSecond;
+		
 		init();
         
 		while(running) { //Главный игровой цикл
@@ -98,21 +107,23 @@ public class Game extends Canvas implements Runnable{
 							enemySize++;
 						}
 					}
-					
-					ping = Global.pingCheck.ping();
-					pingMin = Global.pingCheck.pingMin();
-					pingMid = Global.pingCheck.pingMid();
-					pingMax = Global.pingCheck.pingMax();
-					
-					sizeSend = Math.round(Global.clientSend.sizeData/1024);
-					sizeLoad = Math.round(Global.clientThread.sizeData/1024);
+					if ((enemySize+1) == peopleMax){
+						ping = Global.pingCheck.ping();
+						pingMin = Global.pingCheck.pingMin();
+						pingMid = Global.pingCheck.pingMid();
+						pingMax = Global.pingCheck.pingMax();
+						
+						startToNowSecond = Math.round((System.currentTimeMillis()-timeStart)/1000);
+						timeSend = Math.round(Global.clientSend.sizeData/1024/startToNowSecond);
+						timeLoad = Math.round(Global.clientThread.sizeData/1024/startToNowSecond);
+					}
 					
 					String strFPS = "FPS: " + loopsRender
 									+ "          MidFPS: " + loopsRenderMid/second
 									+ "          Object: " + objSize
 									+ "          Player: " + (enemySize+1) + "/" + peopleMax
 									+ "          Ping: " + ping + " (" + pingMin + "-" + pingMid + "-" + pingMax + ")"
-									+ "          Send/Load: " + sizeSend + "/" + sizeLoad + " kb";
+									+ "          Speed S/L: " + timeSend + "/" + timeLoad + " kb/s";
 					if (Game.consoleFPS) System.out.println(strFPS);
 					if (Game.monitorFPS) this.monitorStrFPS = strFPS;
 				}
@@ -152,6 +163,7 @@ public class Game extends Canvas implements Runnable{
 		Global.obj.clear();
 		Global.depth.clear();
 		Global.enemyBullet.clear();
+		Global.pingCheck.clear();
 		Global.obj.trimToSize();
 		Global.depth.trimToSize();
 		Global.enemyBullet.trimToSize();
