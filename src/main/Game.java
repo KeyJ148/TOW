@@ -24,12 +24,9 @@ public class Game extends Canvas implements Runnable{
 	
 	public static final int TPS = 100; //Кол-во повторений update в секунду
 	public static final int SKIP_TICKS = 1000/TPS;
-	public static final int MAX_FRAME_SKIP = TPS/10;
-	public static final int MAX_RENDER = (int) Math.round(TPS*2);//Кол-во повторений render в секунду максимум
 	public static final boolean console = true;//выводить в консоль сообщения отладки?
 	public static final boolean consoleFPS = false;//выводить в консоль фпс?
 	public static final boolean monitorFPS = true;//выводить в окно фпс?
-	public static final boolean ENEMY_PREDICTION = true;//Передавать скорость врага по сети?
 	
 	public static int WIDTH = 800;
 	public static int HEIGHT = 600;//размер окна
@@ -56,12 +53,11 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void run(){
+		//Для цикла
 		long timeStart = System.currentTimeMillis();
+		long nextLoops = timeStart;
 		
 		//Для подсчёта fps
-		long nextLoops = timeStart;
-		long nextRender = timeStart;
-		int loopsUpdate;
 		int loopsRender = 0; 
 		int loopsRenderMid = 0;
 		int second = 0;
@@ -77,19 +73,13 @@ public class Game extends Canvas implements Runnable{
 		init();
         
 		while(running) { //Главный игровой цикл
-			loopsUpdate = 0;
-			while ((System.currentTimeMillis() > nextLoops) && (loopsUpdate < MAX_FRAME_SKIP)) {
+			if (System.currentTimeMillis() >= nextLoops){
+				nextLoops += SKIP_TICKS; 
 				update();
-				
-				nextLoops += SKIP_TICKS;
-				loopsUpdate++;
-			}
-			if (System.currentTimeMillis() > nextRender){
 				render();
-				
-				nextRender = System.currentTimeMillis() + 1000/MAX_RENDER;
 				loopsRender++;
 			}
+			
 			if (System.currentTimeMillis() >= fps_t + 1000){
 				second++;
 				loopsRenderMid += loopsRender;
@@ -130,6 +120,7 @@ public class Game extends Canvas implements Runnable{
 				fps_t = System.currentTimeMillis();
 				loopsRender = 0;
 			}
+			
 			if (restart) restart();
 		}
 	}

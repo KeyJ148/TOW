@@ -16,7 +16,7 @@ public class Player extends Obj{
 	
 	private boolean controlAtack = true;//можно ли стрелять из танка
 	
-	private final int SEND_STEP_MAX = 1;//Отправлять данные каждые n updat'ов
+	private final int SEND_STEP_MAX = 2;//Отправлять данные каждые n updat'ов
 	private int sendStep = 0;
 	
 	private Game game;

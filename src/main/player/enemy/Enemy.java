@@ -26,9 +26,7 @@ public class Enemy extends Obj{
 		setDirection(Double.parseDouble(Global.linkCS.parsString(s,4)));
 		gun.setDirection(Double.parseDouble(Global.linkCS.parsString(s,7)));
 		dragIn();
-		if (Game.ENEMY_PREDICTION){
-			setSpeed(Double.parseDouble(Global.linkCS.parsString(s,8)));
-		}
+		setSpeed(Double.parseDouble(Global.linkCS.parsString(s,8)));
 		int anim = Integer.parseInt(Global.linkCS.parsString(s,5)); 
 		if ((anim != -1) && (!animOn)){
 			armor.getAnimation().setFrameSpeed(anim);
