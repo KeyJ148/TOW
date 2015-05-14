@@ -9,33 +9,35 @@ import main.Global;
 
 public class ServerNetThread extends Thread{
 	
-	public String name;
-	public boolean mapDownAll = false;//все ли скачали карту?
+	public String name;//Ник клиента
+	public boolean mapDownAll = false;//Метка. Все ли загрузили карту?
+	
 	
 	private GameServer gameServer;
-	
 	private int id; //номер соединения в массиве в gameServer
-	private int peopleMax;
 	
-	public ServerNetThread(GameServer gameServer, int id, int peopleMax) throws IOException{
+	public ServerNetThread(GameServer gameServer, int id) throws IOException{
 
 		this.gameServer = gameServer;
 		this.id = id;
-		this.peopleMax = peopleMax;
 		
 		start();
 	}
 	
 	public void run(){
-		
 		mapLoading();
-		
-		conMessTake();
+		receivingData();
 	}
 	
 	public void mapLoading(){
 		//если это первый загрузившийся поток -- создать проверщик скаваний
 		gameServer.checkMapDownload();
+		
+		do{
+			try {
+				Thread.sleep(2);
+			} catch (InterruptedException e) {}
+		}while(!gameServer.tankGenComplite); //Ждём пока загрузится карта и сгенирируются позиции танков
 		
 		//отправка карты
 		System.out.println("Loading map start.");
@@ -55,23 +57,24 @@ public class ServerNetThread extends Thread{
 			this.gameServer.out[id].writeUTF("8 ");//Закончена отправка карты
 			fileReader.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("[ERROR] Load map");
 		}
 		System.out.println("Loading map end.");		
 				
-		//Считывание имени игрока и отправка данных
-		//this.name = downloadNick();
-		try {
-			this.name = gameServer.in[id].readUTF();
-		} catch (IOException e) {
-		}
+		//Считывание имени игрока
+		this.name = downloadNick();
 		System.out.println("Nickname: " + name);
+		
+		//Отправка позиций танков
 		writeMap(this.gameServer.tankX[id] + " " + this.gameServer.tankY[id]);
-		writeMap(this.peopleMax + " ");
+		writeMap(gameServer.peopleMax + " ");
 		
 		this.gameServer.connect[id] = true;
 		do{
-		}while(!mapDownAll);
+			try {
+				Thread.sleep(2);
+			} catch (InterruptedException e) {}
+		}while(!mapDownAll);//Ждём пока все будут готовы к бою
 	}
 	
 	public String downloadNick(){
@@ -79,11 +82,11 @@ public class ServerNetThread extends Thread{
 			String s;
 			do {
 				s = this.gameServer.in[id].readUTF();
-			}while(Integer.parseInt(Global.linkCS.parsString(s,1)) != -2);
-			return s.substring(2);
+			}while(Integer.parseInt(Global.linkCS.parsString(s,1)) != -3);
+			return s.substring(3);
 		} catch (IOException e) {
 			System.out.println("[ERROR] Method for download nickname");
-			return "";
+			return "ERROR LOAD NAME";
 		}
 	}
 
@@ -95,7 +98,7 @@ public class ServerNetThread extends Thread{
 		}
 	}
 
-	public void conMessTake(){
+	public void receivingData(){
 		//Постоянный обмен данными (на TCP)
 		//Только после подключения всех игроков
 		String str;
@@ -119,7 +122,7 @@ public class ServerNetThread extends Thread{
 			}
 		} catch (IOException e){
 			System.out.println("[ERROR] Take message!");
-			if ((gameServer.disconnect+1) == peopleMax){
+			if ((gameServer.disconnect+1) == gameServer.peopleMax){
 				System.out.println("All user disconnect!");
 				System.exit(0);
 			} else {

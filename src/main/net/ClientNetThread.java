@@ -90,8 +90,7 @@ public class ClientNetThread extends Thread{
 	//получение данных
 	public void genTank(){
 		try{
-			//this.out.writeUTF("-2 " + game.name);//отправка имени
-			this.out.writeUTF(game.name);
+			this.out.writeUTF("-3 " + game.name);//отправка имени
 			String s = downloadMap();//получение кор танка
 			double x = (double) Integer.parseInt(s.substring(0,s.indexOf(' ')));
 			double y = (double) Integer.parseInt(s.substring(s.indexOf(' ')+1));

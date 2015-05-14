@@ -8,9 +8,11 @@ public class CheckMapLoad extends Thread{
 	
 	public CheckMapLoad(GameServer gameServer){
 		this.gS = gameServer;
+		gS.tankGenComplite = false;
 		for(int i=0;i<gS.peopleMax;i++){
 			gS.connect[i] = false;
 		}
+		gS.genTank();
 		System.out.println("Check map loading = false.");
 		start();
 	}

@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
@@ -22,25 +21,33 @@ public class GameServer {
 	
 	public final String PATH_MAP = "map";
 	public final String PATH_IMAGE = "image";  
-	
-	public DataOutputStream[] out;
-	public DataInputStream[] in;
-	public ServerNetThread[] serverThread;
-	public InetAddress[] inetAdr;
-	public MessagePack[] messagePack;
-	public CheckMapLoad cml;//для метода mapDownload
+
+	//Присоединение клиентов
+	public int port;
 	public int peopleMax;
 	public int peopleNow;
-	public int port;
-	public int[] tankX;
-	public int[] tankY;
-	public boolean genTank = false;//закончена ли генерация танков?
-	public boolean genTankInRestart = false;//Была ли сделана генерация танка при рестарте?
-	public String pathFull; //путь к карте
-	public int widthMap;//размеры карты
+	public int disconnect;//Кол-во отключённых игроков, не совмещать с peopleNow
+	//Отправка данных
+	public ServerNetThread[] serverThread;
+	public DataInputStream[] in;
+	//Приём данных
+	public ServerSend[] serverSend;
+	public DataOutputStream[] out;
+	//Хранение данных
+	public MessagePack[] messagePack;
+	//Инициализация карты
+	public String pathFull; //Путь к карте
+	public int widthMap;//Размеры карты
 	public int heightMap;
-	public boolean[] connect;//подключение игроков
-	public int disconnect;
+	//Генерация танков
+	public boolean tankGenComplite = false;
+	public int[] tankX;//Координаты танков игроков
+	public int[] tankY;
+	//Проверка загрузки карты
+	public boolean[] connect;//Метка, устанавливаемая клиентским потоком, о том что игрок скачал карту
+	public CheckMapLoad cml;//Объект-поток для проверки загрузки карты всеми игроками (Проверка меток)
+	
+	
 	
 	public GameServer() throws IOException{
 		BufferedReader bReader = new BufferedReader (new InputStreamReader(System.in));
@@ -69,10 +76,11 @@ public class GameServer {
 		}
 		this.peopleMax = peopleMax;
 		
-		this.out = new DataOutputStream[peopleMax];
-		this.in = new DataInputStream[peopleMax];
+		
 		this.serverThread = new ServerNetThread[peopleMax];
-		this.inetAdr = new InetAddress[peopleMax];
+		this.in = new DataInputStream[peopleMax];
+		this.serverSend = new ServerSend[peopleMax];
+		this.out = new DataOutputStream[peopleMax];
 		this.messagePack = new MessagePack[peopleMax];
 		this.tankX = new int[peopleMax];
 		this.tankY = new int[peopleMax];
@@ -87,25 +95,19 @@ public class GameServer {
 		
 		while(peopleNow != peopleMax){
 			Socket sock = ServerSocket.accept();
-			inetAdr[peopleNow] = sock.getInetAddress();
-			out[peopleNow] = new DataOutputStream(sock.getOutputStream());
 			in[peopleNow] = new DataInputStream(sock.getInputStream());
+			out[peopleNow] = new DataOutputStream(sock.getOutputStream());
 			messagePack[peopleNow] = new MessagePack();
 			System.out.println("New client.");
-			serverThread[peopleNow] = new ServerNetThread(this, peopleNow, peopleMax);
+			serverThread[peopleNow] = new ServerNetThread(this, peopleNow);
+			serverSend[peopleNow] = new ServerSend(this, peopleNow);
 			this.peopleNow++;	
 		}
 		ServerSocket.close();
 		
 		System.out.println("All users connected.");
 		
-		conMessSend();
-	}
-	
-	public synchronized void checkMapDownload(){
-		if (cml == null){
-			cml = new CheckMapLoad(this);
-		}
+		analysisTraffic();
 	}
 	
 	public void genTank(){
@@ -181,11 +183,31 @@ public class GameServer {
 			vecY.add(yRand);
 			vecSprite.add("player_color");
 		}
+		tankGenComplite = true;
 	}
 	
-	public void conMessSend(){
-		for (int i = 0; i < peopleMax; i++){
-			new ServerSend(this, i);
+	public void analysisTraffic(){
+		long t = System.currentTimeMillis();
+		
+		while (true){
+			if (System.currentTimeMillis() > t+1000){
+				t = System.currentTimeMillis();
+				for (int i = 0; i < peopleMax; i++){
+					System.out.print("ID:" + serverSend[i].id + " MPS:" + serverSend[i].numberSend + "  ***  ");
+					serverSend[i].numberSend = 0;
+				}
+				System.out.println();
+			}
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {}
+		}
+		
+	}
+	
+	public synchronized void checkMapDownload(){
+		if (cml == null){
+			cml = new CheckMapLoad(this);
 		}
 	}
 	

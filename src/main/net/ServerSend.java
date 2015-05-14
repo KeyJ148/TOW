@@ -8,6 +8,8 @@ public class ServerSend extends Thread {
 	
 	public GameServer gameServer;
 	public int id;
+	
+	public int numberSend = 0; //Ñòàòà ñåğâåğà
 
 	public ServerSend(GameServer gameServer,int id){
 		this.gameServer = gameServer;
@@ -18,18 +20,9 @@ public class ServerSend extends Thread {
 	public void run(){
 		try{
 			String str;
-			boolean haveMessage = false;
-			long t,numberSend;
-			t = System.currentTimeMillis(); //ÎÒËÀÄÊÀ ÑÅĞÂÅĞÀ
-			numberSend = 0; //ÎÒËÀÄÊÀ ÑÅĞÂÅĞÀ
+			boolean haveMessage;
+			
 			while (true){
-				
-				if (System.currentTimeMillis() > t+1000){ //ÎÒËÀÄÊÀ ÑÅĞÂÅĞÀ
-					t = System.currentTimeMillis(); //ÎÒËÀÄÊÀ ÑÅĞÂÅĞÀ
-					System.out.println("ID: " + id + "    MPS:" + numberSend); //ÎÒËÀÄÊÀ ÑÅĞÂÅĞÀ
-					numberSend = 0; //ÎÒËÀÄÊÀ ÑÅĞÂÅĞÀ
-				} //ÎÒËÀÄÊÀ ÑÅĞÂÅĞÀ
-				
 				haveMessage = false;
 				str = "synchronized ServerSend";
 				
@@ -47,7 +40,7 @@ public class ServerSend extends Thread {
 								gameServer.out[j].flush();
 								gameServer.out[j].writeUTF(str);
 							}
-							numberSend++; //ÎÒËÀÄÊÀ ÑÅĞÂÅĞÀ
+							numberSend++; //Êîë-âî îòïğàâëåííûõ ïàêåòîâ
 						}
 					}							
 				}
