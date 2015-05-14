@@ -12,10 +12,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
 
+import main.net.CheckMapLoad;
 import main.net.LinkCS;
 import main.net.MessagePack;
 import main.net.ServerNetThread;
-import main.net.CheckMapLoad;
+import main.net.ServerSend;
 
 public class GameServer {
 	
@@ -98,7 +99,7 @@ public class GameServer {
 		
 		System.out.println("All users connected.");
 		
-		conMessSend();	
+		conMessSend();
 	}
 	
 	public synchronized void checkMapDownload(){
@@ -183,41 +184,8 @@ public class GameServer {
 	}
 	
 	public void conMessSend(){
-		String str;
-		boolean sendMessage = true;
-		try{
-			long t,numberSend;
-			t = System.currentTimeMillis(); //ОТЛАДКА СЕРВЕРА
-			numberSend = 0; //ОТЛАДКА СЕРВЕРА
-			while (sendMessage){
-				
-				if (System.currentTimeMillis() > t+1000){ //ОТЛАДКА СЕРВЕРА
-					t = System.currentTimeMillis(); //ОТЛАДКА СЕРВЕРА
-					System.out.println("MPS: " + numberSend); //ОТЛАДКА СЕРВЕРА
-					numberSend = 0; //ОТЛАДКА СЕРВЕРА
-				} //ОТЛАДКА СЕРВЕРА
-				
-				for (int i=0; i<peopleMax;i++){//Перебор всех игроков
-					synchronized(messagePack[i]) {//Защита от одновременной работы с массивом
-						if (messagePack[i].haveMessage()){//Если у игрока имеются сообщения
-							
-							str = (String) messagePack[i].get();//Читаем сообщение
-							for(int j=0;j<peopleMax;j++){//Отправляем сообщение всем
-								if (j != i){//Кроме игрока, приславшего сообщение
-									synchronized(out[j]){
-										out[j].flush();
-										out[j].writeUTF(str);
-									}
-									numberSend++; //ОТЛАДКА СЕРВЕРА
-								}
-							}
-							
-						}
-					}
-				}
-			}
-		} catch (IOException e){
-			System.out.println("[ERROR] Send message!");
+		for (int i = 0; i < peopleMax; i++){
+			new ServerSend(this, i);
 		}
 	}
 	
