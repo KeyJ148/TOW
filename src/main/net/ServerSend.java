@@ -18,6 +18,7 @@ public class ServerSend extends Thread {
 	public void run(){
 		try{
 			String str;
+			boolean haveMessage = false;
 			long t,numberSend;
 			t = System.currentTimeMillis(); //ОТЛАДКА СЕРВЕРА
 			numberSend = 0; //ОТЛАДКА СЕРВЕРА
@@ -29,20 +30,28 @@ public class ServerSend extends Thread {
 					numberSend = 0; //ОТЛАДКА СЕРВЕРА
 				} //ОТЛАДКА СЕРВЕРА
 				
+				haveMessage = false;
+				str = "synchronized ServerSend";
+				
 				synchronized(gameServer.messagePack[id]) {//Защита от одновременной работы с массивом
 					if (gameServer.messagePack[id].haveMessage()){//Если у игрока имеются сообщения				
 						str = (String) gameServer.messagePack[id].get();//Читаем сообщение
-						for(int j=0;j<gameServer.peopleMax;j++){//Отправляем сообщение всем
-							if (j != id){//Кроме игрока, приславшего сообщение
-								synchronized(gameServer.out[j]){
-									gameServer.out[j].flush();
-									gameServer.out[j].writeUTF(str);
-								}
-								numberSend++; //ОТЛАДКА СЕРВЕРА
-							}
-						}							
+						haveMessage = true;
 					}
 				}
+				
+				if (haveMessage){
+					for(int j=0;j<gameServer.peopleMax;j++){//Отправляем сообщение всем
+						if (j != id){//Кроме игрока, приславшего сообщение
+							synchronized(gameServer.out[j]){
+								gameServer.out[j].flush();
+								gameServer.out[j].writeUTF(str);
+							}
+							numberSend++; //ОТЛАДКА СЕРВЕРА
+						}
+					}							
+				}
+					
 			}
 		} catch (IOException e){
 			System.out.println("[ERROR] Send message!");
