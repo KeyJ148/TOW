@@ -22,6 +22,7 @@ public class ServerSend extends Thread {
 			String str;
 			boolean haveMessage;
 			while (true){
+				
 				haveMessage = false;
 				str = "synchronized ServerSend";
 				

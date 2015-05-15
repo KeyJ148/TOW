@@ -5,9 +5,11 @@ import java.util.ArrayList;
 public class MessagePack {
 	
 	public ArrayList<String> message;//Список сообщений
+	public long lastTrim;
 	
 	public MessagePack(){
 		this.message = new ArrayList<String>();
+		this.lastTrim = System.currentTimeMillis();//Каждые пять секунд
 	}
 	
 	public void add(String str){
@@ -15,9 +17,10 @@ public class MessagePack {
 	}
 	
 	public String get(){
-		if (size()%50 == 0) 
+		if (size()%25 == 0) 
 			System.out.println("Messages detained: " + size());
-			
+		if (System.currentTimeMillis() > lastTrim + 5000)
+			message.trimToSize();
 		return message.remove(0);
 	}
 	
@@ -31,11 +34,8 @@ public class MessagePack {
 	}
 	
 	public boolean haveMessage(){
-		//message.trimToSize();
-		if (message.size() > 0){
-				return true;
-		}
-		return false;
+		if (message.isEmpty()) return false;
+		return true;
 	}
 	
 }
