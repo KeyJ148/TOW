@@ -15,8 +15,9 @@ public class MessagePack {
 	}
 	
 	public String get(){
-		if (size()%20 == 0) 
+		if (size()%50 == 0) 
 			System.out.println("Messages detained: " + size());
+			
 		return message.remove(0);
 	}
 	

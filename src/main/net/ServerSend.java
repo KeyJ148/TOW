@@ -21,7 +21,6 @@ public class ServerSend extends Thread {
 		try{
 			String str;
 			boolean haveMessage;
-			
 			while (true){
 				haveMessage = false;
 				str = "synchronized ServerSend";
@@ -47,7 +46,7 @@ public class ServerSend extends Thread {
 					
 			}
 		} catch (IOException e){
-			System.out.println("[ERROR] Send message!");
+			gameServer.error("Send message");
 		}
 	}
 }

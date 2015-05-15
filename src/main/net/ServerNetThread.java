@@ -57,7 +57,7 @@ public class ServerNetThread extends Thread{
 			this.gameServer.out[id].writeUTF("8 ");//Закончена отправка карты
 			fileReader.close();
 		} catch (IOException e) {
-			System.out.println("[ERROR] Load map");
+			gameServer.error("Load map");
 		}
 		System.out.println("Loading map end.");		
 				
@@ -85,7 +85,7 @@ public class ServerNetThread extends Thread{
 			}while(Integer.parseInt(Global.linkCS.parsString(s,1)) != -3);
 			return s.substring(3);
 		} catch (IOException e) {
-			System.out.println("[ERROR] Method for download nickname");
+			gameServer.error("Method for download nickname");
 			return "ERROR LOAD NAME";
 		}
 	}
@@ -94,7 +94,7 @@ public class ServerNetThread extends Thread{
 		try {
 			this.gameServer.out[id].writeUTF("7 " + s);
 		} catch (IOException e) {
-			System.out.println("[ERROR] Method for writeMap");
+			gameServer.error("Method for writeMap");
 		}
 	}
 
@@ -117,11 +117,11 @@ public class ServerNetThread extends Thread{
 						}
 					}
 				} catch(NumberFormatException e){
-					System.out.println("[ERROR] Take message not found type!");
+					gameServer.error("Take message not found type");
 				}
 			}
 		} catch (IOException e){
-			System.out.println("[ERROR] Take message!");
+			gameServer.error("Take message");
 			if ((gameServer.disconnect+1) == gameServer.peopleMax){
 				System.out.println("All user disconnect!");
 				System.exit(0);
@@ -143,7 +143,7 @@ public class ServerNetThread extends Thread{
 				gameServer.out[id].writeUTF("9 ");
 			}
 		} catch (IOException e) {
-			System.out.println("[ERROR] Check ping");
+			gameServer.error("Check ping");
 		}
 	}
 	

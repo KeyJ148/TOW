@@ -27,6 +27,7 @@ public class ClientNetSend extends Thread{
 			out.writeUTF(str);
 		} catch (IOException e){
 			System.out.println("[ERROR] Send internet message");
+			System.exit(0);
 		}
 	}
 	

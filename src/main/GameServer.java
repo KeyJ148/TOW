@@ -34,17 +34,17 @@ public class GameServer {
 	public ServerSend[] serverSend;
 	public DataOutputStream[] out;
 	//Хранение данных
-	public MessagePack[] messagePack;
+	public volatile MessagePack[] messagePack;
 	//Инициализация карты
 	public String pathFull; //Путь к карте
 	public int widthMap;//Размеры карты
 	public int heightMap;
 	//Генерация танков
-	public boolean tankGenComplite = false;
+	public volatile boolean tankGenComplite = false;
 	public int[] tankX;//Координаты танков игроков
 	public int[] tankY;
 	//Проверка загрузки карты
-	public boolean[] connect;//Метка, устанавливаемая клиентским потоком, о том что игрок скачал карту
+	public volatile boolean[] connect;//Метка, устанавливаемая клиентским потоком, о том что игрок скачал карту
 	public CheckMapLoad cml;//Объект-поток для проверки загрузки карты всеми игроками (Проверка меток)
 	
 	
@@ -209,6 +209,10 @@ public class GameServer {
 		if (cml == null){
 			cml = new CheckMapLoad(this);
 		}
+	}
+	
+	public void error(String s){
+		System.out.println("[ERROR] " + s);
 	}
 	
 	public static void main (String args[]) throws IOException{

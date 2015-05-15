@@ -134,8 +134,9 @@ public class ClientNetThread extends Thread{
 		//на TCP
 		takeMessage = true;
 		String str;
-		while(true){
-			try{
+		try{
+			
+			while(true){
 				if (takeMessage){
 					str = this.in.readUTF();
 					sizeData += str.length()*2;
@@ -150,9 +151,10 @@ public class ClientNetThread extends Thread{
 						case 9: take9(str); break;
 					}
 				}
-			} catch(IOException e){
-				System.out.println("[ERROR] Take internet message");
 			}
+			
+		} catch(IOException e){
+			System.out.println("[ERROR] Take internet message");
 		}
 	}
 	
