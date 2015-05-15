@@ -43,6 +43,10 @@ public class ServerSend extends Thread {
 							numberSend++; //Кол-во отправленных пакетов
 						}
 					}							
+				} else {
+					try {
+						Thread.sleep(0,1);
+					} catch (InterruptedException e) {}
 				}
 					
 			}
