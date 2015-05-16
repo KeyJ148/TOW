@@ -4,6 +4,7 @@ public class SettingStorage {
 
 	public int TPS; //Кол-во повторений update в секунду
 	public int SKIP_TICKS;//Перерыв в милисекундах между повторениями
+	
 	public boolean DEBUG_CONSOLE;//выводить в консоль сообщения отладки?
 	public boolean DEBUG_CONSOLE_IMAGE;//выводить в консоль сообщения спрайтов и анимации?
 	public boolean DEBUG_CONSOLE_MASK;//выводить в консоль сообщения загрузки маски?
@@ -14,6 +15,8 @@ public class SettingStorage {
 	public int HEIGHT;//размер окна
 	public String WINDOW_NAME;
 	
+	public int SEND_STEP_MAX;//Отправлять данные о игроке каждые n updat'ов
+	
 	public String fileName = "main.properties";
 	
 	public void initFromFile(){
@@ -22,6 +25,7 @@ public class SettingStorage {
 		TPS = cr.findInteger("TPS");
 		WIDTH = cr.findInteger("WIDTH");
 		HEIGHT = cr.findInteger("HEIGHT");
+		SEND_STEP_MAX = cr.findInteger("SEND_STEP_MAX");
 		
 		WINDOW_NAME = cr.findString("WINDOW_NAME");
 		

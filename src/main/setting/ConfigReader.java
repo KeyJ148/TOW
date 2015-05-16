@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import main.Global;
+
 public class ConfigReader {
 	
 	private String path;
@@ -16,7 +18,7 @@ public class ConfigReader {
 		try {
 			this.fileReader = new BufferedReader(new FileReader(path));
 		} catch (FileNotFoundException e) {
-			System.out.println("[ERROR] File not found " + path);
+			Global.error("File not found " + path);
 		}
 	}
 	
@@ -38,7 +40,7 @@ public class ConfigReader {
 			}
 			
 		} catch (IOException e){
-			System.out.println("[ERROR] Exception in read " + path);
+			Global.error("Exception in read " + path);
 		}
 		return "";
 	}
@@ -58,7 +60,7 @@ public class ConfigReader {
 		try {
 			fileReader.close();
 		} catch (IOException e) {
-			System.out.println("[ERROR] Exception in close reader " + path);
+			Global.error("Exception in close reader " + path);
 		}
 	}
 	

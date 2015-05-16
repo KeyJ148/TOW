@@ -131,7 +131,7 @@ public class ServerNetThread extends Thread{
 		}
 	}
 	
-	public void take1(){// лиент готов к приЄму карты
+	public void take1(){// лиент готов к приЄму карты (–естарт)
 		gameServer.messagePack[id].clear();
 		mapLoading();
 	}

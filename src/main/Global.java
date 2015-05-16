@@ -100,5 +100,10 @@ public class Global {
 		}
 		return null;
 	}
+	
+	//Вывод сообщения о ошибке
+	public static void error(String s){
+		System.out.println("[ERROR] " + s);
+	}
 }
 

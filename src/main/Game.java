@@ -54,8 +54,9 @@ public class Game extends Canvas implements Runnable{
 				nextLoops += Global.setting.SKIP_TICKS; 
 				update();
 				render();
-				if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) 
+				if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)){
 					analyzer.loops();
+				}
 			} else {
 				try {
 					Thread.sleep(0,1);
@@ -92,7 +93,6 @@ public class Game extends Canvas implements Runnable{
 	
 	public void restart(){
 		if (Global.setting.DEBUG_CONSOLE) System.out.println("Restart map start.");
-		//Global.clientThread.stopThread();
 		
 		Global.obj.clear();
 		Global.depth.clear();
@@ -160,7 +160,7 @@ public class Game extends Canvas implements Runnable{
 						Obj obj = (Obj) Global.getObj((long) dv.number.get(j));
 						obj.draw(g);
 					}catch (NullPointerException e){
-						System.out.println("[ERROR] Draw object null");
+						Global.error("Draw object null");
 					}
 				}
 			}

@@ -52,7 +52,7 @@ public class Obj {
 			this.anim = false;
 			this.mask = sprite.getMask().clone();
 		} catch (CloneNotSupportedException e) {
-			System.out.println("[ERROR] Failed with clone object. Id = " + id);
+			Global.error("Failed with clone object. Id = " + id);
 		}
 		
 		init(x,y,speed,direction,depth,maskDynamic,game);
@@ -64,7 +64,7 @@ public class Obj {
 			this.anim = true;
 			this.mask = animation.getMask().clone();
 		} catch (CloneNotSupportedException e) {
-			System.out.println("[ERROR] Failed with clone object. Id = " + id);
+			Global.error("Failed with clone object. Id = " + id);
 		}
 		init(x,y,speed,direction,depth,maskDynamic,game);
 	}

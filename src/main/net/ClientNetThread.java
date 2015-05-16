@@ -45,7 +45,7 @@ public class ClientNetThread extends Thread{
 				this.out.writeUTF("-1 ");
 			}
 			
-			System.out.println("Wait loading map.");
+			if (Global.setting.DEBUG_CONSOLE) System.out.println("Wait loading map.");
 			while(true){
 				s = this.in.readUTF();
 				if (s.equals("6 ")) break;
@@ -55,7 +55,7 @@ public class ClientNetThread extends Thread{
 			s = downloadMap();
 			if (Global.setting.DEBUG_CONSOLE) System.out.println("Download map size complite.");
 		} catch(IOException e){
-			System.out.println("[ERROR] Download map size");
+			Global.error("Download map size");
 			System.exit(0);
 		}
 		game.widthMap = Integer.parseInt(Global.linkCS.parsString(s,1));
@@ -103,7 +103,7 @@ public class ClientNetThread extends Thread{
 			
 			if (Global.setting.DEBUG_CONSOLE) System.out.println("Generation tank complite.");
 		} catch(IOException e){
-			System.out.println("[ERROR] Message about generation tank");
+			Global.error("Message about generation tank");
 			System.exit(0);
 		}
 		
@@ -126,7 +126,7 @@ public class ClientNetThread extends Thread{
 			}while(Integer.parseInt(Global.linkCS.parsString(s,1)) != 7);
 			return s.substring(2);
 		} catch (IOException e) {
-			System.out.println("[ERROR] Method for download map");
+			Global.error("Method for download map");
 			return "";
 		}
 	}
@@ -158,7 +158,7 @@ public class ClientNetThread extends Thread{
 			}
 			
 		} catch(IOException e){
-			System.out.println("[ERROR] Take internet message");
+			Global.error("Take internet message");
 		}
 	}
 	

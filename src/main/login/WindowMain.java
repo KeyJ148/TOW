@@ -44,7 +44,7 @@ public class WindowMain extends JFrame {
 			if (name.indexOf(' ') == -1){
 				this.game.name = name;
 			} else {
-				System.out.println("[ERROR] Invalid name!");
+				Global.error("Invalid name!");
 				System.exit(0);
 			}
 		}

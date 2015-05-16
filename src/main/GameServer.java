@@ -48,8 +48,6 @@ public class GameServer {
 	public volatile boolean[] connect;//Метка, устанавливаемая клиентским потоком, о том что игрок скачал карту
 	public CheckMapLoad cml;//Объект-поток для проверки загрузки карты всеми игроками (Проверка меток)
 	
-	
-	
 	public GameServer() throws IOException{
 		BufferedReader bReader = new BufferedReader (new InputStreamReader(System.in));
 		int port;
@@ -101,7 +99,7 @@ public class GameServer {
 			in[peopleNow] = new DataInputStream(sock.getInputStream());
 			out[peopleNow] = new DataOutputStream(sock.getOutputStream());
 			messagePack[peopleNow] = new MessagePack();
-			System.out.println("New client.");
+			System.out.println("New client (" + (peopleNow+1) + "/" + peopleMax + ")");
 			serverThread[peopleNow] = new ServerNetThread(this, peopleNow);
 			serverSend[peopleNow] = new ServerSend(this, peopleNow);
 			this.peopleNow++;	
