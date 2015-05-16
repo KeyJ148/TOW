@@ -23,12 +23,14 @@ public class ClientNetThread extends Thread{
 	
 	public boolean takeMessage = true;
 	
-	public int sizeData = 0; //bytes
+	public volatile int sizeData = 0; //bytes
+	public Object sizeDataMonitor;
 	
 	public ClientNetThread(DataInputStream in, DataOutputStream out, Socket sock){
 		this.in = in;
 		this.out = out;
 		this.sock = sock;
+		this.sizeDataMonitor = new Object();
 	}
 	
 	public void initMap(Game game){
@@ -139,7 +141,9 @@ public class ClientNetThread extends Thread{
 			while(true){
 				if (takeMessage){
 					str = this.in.readUTF();
-					sizeData += str.length()*2;
+					synchronized (sizeDataMonitor){
+						sizeData += str.length()*2;
+					}
 					if (!takeMessage) break;
 					switch (Integer.parseInt(Global.linkCS.parsString(str,1))){
 						case 0: take0(str); break;

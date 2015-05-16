@@ -18,12 +18,13 @@ import javax.swing.JFrame;
 
 import main.login.WindowMain;
 import main.net.LinkCS;
-import main.net.Ping;
 import main.player.enemy.EnemyBullet;
 import main.setting.SettingStorage;
 
 public class Game extends Canvas implements Runnable{
 
+	public Analyzer analyzer;//Вывод отладочных данных
+	
 	public boolean running = false; //Выполнение главного игрового цикла
 	public boolean restart = false; //Перезагрузка карты
 	
@@ -45,76 +46,20 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void run(){
-		//Для цикла
-		long timeStart = System.currentTimeMillis();
-		long nextLoops = timeStart;
-		
-		//Для подсчёта fps
-		int loopsRender = 0; 
-		int loopsRenderMid = 0;
-		int second = 0;
-		long fps_t = timeStart;
-		
-		//Пинг
-		int ping=0, pingMin=0, pingMax=0, pingMid=0;
-		
-		//Скорость сети
-		int timeSend=0, timeLoad=0;
-		long startToNowSecond;
-		
 		init();
-        
+		
+		long nextLoops = System.currentTimeMillis();//Для цикла
 		while(running) { //Главный игровой цикл
 			if (System.currentTimeMillis() >= nextLoops){
 				nextLoops += Global.setting.SKIP_TICKS; 
 				update();
 				render();
-				loopsRender++;
+				if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) 
+					analyzer.loops();
 			} else {
 				try {
 					Thread.sleep(0,1);
 				} catch (InterruptedException e) {}
-			}
-			
-			if (System.currentTimeMillis() >= fps_t + 1000){
-				second++;
-				loopsRenderMid += loopsRender;
-				if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) {
-					int objSize = 0;
-					for (int i=0;i<Global.obj.size();i++){
-						if (Global.obj.get(i) != null){
-							objSize++;
-						}
-					}
-					
-					int enemySize = 0;
-					for (int i=0;i<Global.enemy.length;i++){
-						if ((Global.enemy[i] != null) && (!Global.enemy[i].getDestroy())){
-							enemySize++;
-						}
-					}
-					if ((enemySize+1) == peopleMax){
-						ping = Global.pingCheck.ping();
-						pingMin = Global.pingCheck.pingMin();
-						pingMid = Global.pingCheck.pingMid();
-						pingMax = Global.pingCheck.pingMax();
-						
-						startToNowSecond = Math.round((System.currentTimeMillis()-timeStart)/1000);
-						timeSend = Math.round(Global.clientSend.sizeData/1024/startToNowSecond);
-						timeLoad = Math.round(Global.clientThread.sizeData/1024/startToNowSecond);
-					}
-					
-					String strFPS = "FPS: " + loopsRender
-									+ "          MidFPS: " + loopsRenderMid/second
-									+ "          Object: " + objSize
-									+ "          Player: " + (enemySize+1) + "/" + peopleMax
-									+ "          Ping: " + ping + " (" + pingMin + "-" + pingMid + "-" + pingMax + ")"
-									+ "          Speed S/L: " + timeSend + "/" + timeLoad + " kb/s";
-					if (Global.setting.DEBUG_CONSOLE_FPS) System.out.println(strFPS);
-					if (Global.setting.DEBUG_MONITOR_FPS) this.monitorStrFPS = strFPS;
-				}
-				fps_t = System.currentTimeMillis();
-				loopsRender = 0;
 			}
 			
 			if (restart) restart();
@@ -124,15 +69,17 @@ public class Game extends Canvas implements Runnable{
 	//инициализация перед запуском
 	public void init() {
 		if (Global.setting.DEBUG_CONSOLE) System.out.println("Inicialization start.");
+		
 		Global.obj = new ArrayList<Obj>();
 		Global.depth = new ArrayList<DepthVector>();
 		Global.enemyBullet = new ArrayList<EnemyBullet>();
 		Global.linkCS = new LinkCS();
-		Global.pingCheck = new Ping();
 		
 		Global.linkCS.initSprite();
-		
 		Global.clientThread.initMap(this);
+		
+		if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) 
+			analyzer = new Analyzer(this);
 		
 		setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 		

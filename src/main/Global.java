@@ -20,6 +20,7 @@ public class Global {
 	public static ClientNetSend clientSend; //цикл отправки данных на сервер
 	public static ClientNetThread clientThread; //цикл считывания данных с сервера
 	public static LinkCS linkCS; //общее звено клиента и сервера
+	
 	public static Ping pingCheck;//Объект для проверки пинга
 	public static SettingStorage setting;//Объект хранящий основный настройки
 	
