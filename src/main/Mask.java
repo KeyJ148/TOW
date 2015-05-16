@@ -33,7 +33,7 @@ public class Mask implements Cloneable{
 				BufferedReader fileReader = new BufferedReader(new FileReader(path));
 				parser(fileReader);
 				center();
-				if (Game.console) System.out.println("Load mask \"" + path + "\" complited.");
+				if (Global.setting.DEBUG_CONSOLE_MASK) System.out.println("Load mask \"" + path + "\" complited.");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

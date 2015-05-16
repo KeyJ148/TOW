@@ -76,7 +76,7 @@ public class Armor extends Obj {
 		//для столкновений
 		if (recoil){
 			timer++;
-			if (timer >= Game.TPS){
+			if (timer >= Global.setting.TPS){
 				recoil = false;
 				turnRight = false;
 				turnLeft = false;

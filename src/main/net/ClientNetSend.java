@@ -41,7 +41,7 @@ public class ClientNetSend extends Thread{
 	
 	public void send1(Bullet bull){//ׁהכואם גûסענוכ
 		sendData("1 " + Math.round(bull.getX()) + " " + Math.round(bull.getY()) + " " 
-				+ Math.round(bull.getDirection()) + " " + Math.round(bull.getSpeed()) + " "
+				+ bull.getDirection() + " " + bull.getSpeed() + " "
 				+ bull.getClass().getName() + " " + game.name + " " + Global.idNet);
 	}
 	

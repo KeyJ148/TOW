@@ -16,21 +16,13 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import main.login.WindowMain;
 import main.net.LinkCS;
 import main.net.Ping;
 import main.player.enemy.EnemyBullet;
+import main.setting.SettingStorage;
 
 public class Game extends Canvas implements Runnable{
-	
-	public static final int TPS = 100; //Кол-во повторений update в секунду
-	public static final int SKIP_TICKS = 1000/TPS;
-	public static final boolean console = true;//выводить в консоль сообщения отладки?
-	public static final boolean consoleFPS = false;//выводить в консоль фпс?
-	public static final boolean monitorFPS = true;//выводить в окно фпс?
-	
-	public static int WIDTH = 800;
-	public static int HEIGHT = 600;//размер окна
-	public static String WINDOW_NAME = "Game";
 
 	public boolean running = false; //Выполнение главного игрового цикла
 	public boolean restart = false; //Перезагрузка карты
@@ -74,16 +66,20 @@ public class Game extends Canvas implements Runnable{
         
 		while(running) { //Главный игровой цикл
 			if (System.currentTimeMillis() >= nextLoops){
-				nextLoops += SKIP_TICKS; 
+				nextLoops += Global.setting.SKIP_TICKS; 
 				update();
 				render();
 				loopsRender++;
+			} else {
+				try {
+					Thread.sleep(0,1);
+				} catch (InterruptedException e) {}
 			}
 			
 			if (System.currentTimeMillis() >= fps_t + 1000){
 				second++;
 				loopsRenderMid += loopsRender;
-				if ((Game.consoleFPS) || (Game.monitorFPS)) {
+				if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) {
 					int objSize = 0;
 					for (int i=0;i<Global.obj.size();i++){
 						if (Global.obj.get(i) != null){
@@ -114,8 +110,8 @@ public class Game extends Canvas implements Runnable{
 									+ "          Player: " + (enemySize+1) + "/" + peopleMax
 									+ "          Ping: " + ping + " (" + pingMin + "-" + pingMid + "-" + pingMax + ")"
 									+ "          Speed S/L: " + timeSend + "/" + timeLoad + " kb/s";
-					if (Game.consoleFPS) System.out.println(strFPS);
-					if (Game.monitorFPS) this.monitorStrFPS = strFPS;
+					if (Global.setting.DEBUG_CONSOLE_FPS) System.out.println(strFPS);
+					if (Global.setting.DEBUG_MONITOR_FPS) this.monitorStrFPS = strFPS;
 				}
 				fps_t = System.currentTimeMillis();
 				loopsRender = 0;
@@ -127,7 +123,7 @@ public class Game extends Canvas implements Runnable{
 	
 	//инициализация перед запуском
 	public void init() {
-		if (Game.console) System.out.println("Inicialization start.");
+		if (Global.setting.DEBUG_CONSOLE) System.out.println("Inicialization start.");
 		Global.obj = new ArrayList<Obj>();
 		Global.depth = new ArrayList<DepthVector>();
 		Global.enemyBullet = new ArrayList<EnemyBullet>();
@@ -140,7 +136,7 @@ public class Game extends Canvas implements Runnable{
 		
 		setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 		
-		if (Game.console) System.out.println("Inicialization end.");
+		if (Global.setting.DEBUG_CONSOLE) System.out.println("Inicialization end.");
 	}
 	
 	public void startRestart(){
@@ -148,7 +144,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void restart(){
-		if (Game.console) System.out.println("Restart map start.");
+		if (Global.setting.DEBUG_CONSOLE) System.out.println("Restart map start.");
 		//Global.clientThread.stopThread();
 		
 		Global.obj.clear();
@@ -168,7 +164,7 @@ public class Game extends Canvas implements Runnable{
 		Global.clientThread.initMap(this);
 		
 		this.restart = false;
-		if (Game.console) System.out.println("Restart map end.");
+		if (Global.setting.DEBUG_CONSOLE) System.out.println("Restart map end.");
 	}
     
     //Отрисовка экрана (с частотой fps)
@@ -244,9 +240,9 @@ public class Game extends Canvas implements Runnable{
 			long hpMax = Math.round(Global.player.getArmor().getHpMax());
 			g.drawString("HP: " + hp + "/" + hpMax,1,16);
 		}
-		if (monitorFPS){
+		if (Global.setting.DEBUG_MONITOR_FPS){
 			g.setFont(new Font(null,Font.PLAIN,12));
-			g.drawString(monitorStrFPS,1,HEIGHT+9);
+			g.drawString(monitorStrFPS,1,Global.setting.HEIGHT+9);
 		}
 		
 		//Магия [ON]
@@ -274,38 +270,43 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 		
-		Global.cameraXView = WIDTH/2;
-		Global.cameraYView = HEIGHT/2;
+		int width = Global.setting.WIDTH;
+		int height = Global.setting.HEIGHT;
+		
+		Global.cameraXView = width/2;
+		Global.cameraYView = height/2;
 				
 		Global.cameraX = cameraShould.getX();
 		Global.cameraY = cameraShould.getY();
 				
-		if (cameraShould.getX() < WIDTH/2){
-			Global.cameraX = WIDTH/2;
+		if (cameraShould.getX() < width/2){
+			Global.cameraX = width/2;
 		}
-		if (cameraShould.getY() < HEIGHT/2){
-			Global.cameraY = HEIGHT/2;
+		if (cameraShould.getY() < height/2){
+			Global.cameraY = height/2;
 		}
-		if (cameraShould.getX() > widthMap-WIDTH/2){
-			Global.cameraX = widthMap-WIDTH/2;
+		if (cameraShould.getX() > widthMap-width/2){
+			Global.cameraX = widthMap-width/2;
 		}
-		if (cameraShould.getY() >heightMap-HEIGHT/2){
-			Global.cameraY = heightMap-HEIGHT/2;
+		if (cameraShould.getY() >heightMap-height/2){
+			Global.cameraY = heightMap-height/2;
 		}
 	}
 	
 	//Создание окна и запуск игры
 	public static void main (String args[]) {
 		Game game = new Game();
-		game.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		Global.setting = new SettingStorage();
+		Global.setting.initFromFile();
+		game.setPreferredSize(new Dimension(Global.setting.WIDTH, Global.setting.HEIGHT));
 
-		JFrame frame = new WindowMain(WINDOW_NAME, game);
+		JFrame frame = new WindowMain(Global.setting.WINDOW_NAME, game);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		frame.add(game, BorderLayout.CENTER);
 		frame.pack();
 		frame.setResizable(false);
 		
-		if (Game.console) System.out.println("Window create.");
+		if (Global.setting.DEBUG_CONSOLE) System.out.println("Window create.");
 	}
 }

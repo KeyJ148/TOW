@@ -3,7 +3,9 @@ package main;
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.image.*;
+
 import javax.imageio.*;
+
 import java.io.*;
 import java.net.*;
 
@@ -19,7 +21,7 @@ public class Sprite implements Cloneable {
         try {
 			URL url = this.getClass().getClassLoader().getResource(path);
 			sourceImage = ImageIO.read(url);
-			if (Game.console) System.out.println("Load image \"" + path + "\" complited.");
+			if (Global.setting.DEBUG_CONSOLE_IMAGE) System.out.println("Load image \"" + path + "\" complited.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

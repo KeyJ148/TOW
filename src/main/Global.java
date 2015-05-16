@@ -9,6 +9,7 @@ import main.net.Ping;
 import main.player.Player;
 import main.player.enemy.Enemy;
 import main.player.enemy.EnemyBullet;
+import main.setting.SettingStorage;
 
 public class Global {
 	
@@ -18,10 +19,13 @@ public class Global {
 	public static Player player; //главный игрок
 	public static ClientNetSend clientSend; //цикл отправки данных на сервер
 	public static ClientNetThread clientThread; //цикл считывания данных с сервера
+	public static LinkCS linkCS; //общее звено клиента и сервера
 	public static Ping pingCheck;//Объект для проверки пинга
+	public static SettingStorage setting;//Объект хранящий основный настройки
+	
 	public static long id = 1;//Уник. номер следующего объекта
 	public static long idNet = 1; //id объекта создаваемого у противника из-за действий игрока  
-	public static LinkCS linkCS; //общее звено клиента и сервера
+	
 	public static Enemy[] enemy; //список всех противников
 	public static ArrayList<EnemyBullet> enemyBullet; //список всех патронов противников (EnemyBullet)
 	

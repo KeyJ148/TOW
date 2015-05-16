@@ -1,0 +1,38 @@
+package main.setting;
+
+public class SettingStorage {
+
+	public int TPS; //Кол-во повторений update в секунду
+	public int SKIP_TICKS;//Перерыв в милисекундах между повторениями
+	public boolean DEBUG_CONSOLE;//выводить в консоль сообщения отладки?
+	public boolean DEBUG_CONSOLE_IMAGE;//выводить в консоль сообщения спрайтов и анимации?
+	public boolean DEBUG_CONSOLE_MASK;//выводить в консоль сообщения загрузки маски?
+	public boolean DEBUG_CONSOLE_FPS;//выводить в консоль фпс?
+	public boolean DEBUG_MONITOR_FPS;//выводить в окно фпс?
+	
+	public int WIDTH;
+	public int HEIGHT;//размер окна
+	public String WINDOW_NAME;
+	
+	public String fileName = "main.properties";
+	
+	public void initFromFile(){
+		ConfigReader cr = new ConfigReader(fileName);
+		
+		TPS = cr.findInteger("TPS");
+		WIDTH = cr.findInteger("WIDTH");
+		HEIGHT = cr.findInteger("HEIGHT");
+		
+		WINDOW_NAME = cr.findString("WINDOW_NAME");
+		
+		DEBUG_CONSOLE = cr.findBoolean("DEBUG_CONSOLE");
+		DEBUG_CONSOLE_IMAGE = cr.findBoolean("DEBUG_CONSOLE_IMAGE");
+		DEBUG_CONSOLE_MASK = cr.findBoolean("DEBUG_CONSOLE_MASK");
+		DEBUG_CONSOLE_FPS = cr.findBoolean("DEBUG_CONSOLE_FPS");
+		DEBUG_MONITOR_FPS = cr.findBoolean("DEBUG_MONITOR_FPS");
+		
+		cr.close();
+		
+		SKIP_TICKS = 1000/TPS;
+	}
+}

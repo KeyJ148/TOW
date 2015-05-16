@@ -87,9 +87,9 @@ public class Obj {
 		mask.calc(this.x,this.y,this.directionDraw);//расчёт маски
 		
 		if (this.anim){
-			if (Game.console) System.out.println("Object \"" + animation.path + "\" create. Id = " + id);
+			if (Global.setting.DEBUG_CONSOLE) System.out.println("Object \"" + animation.path + "\" create. Id = " + id);
 		} else {
-			if (Game.console) System.out.println("Object \"" + sprite.path + "\" create. Id = " + id);
+			if (Global.setting.DEBUG_CONSOLE) System.out.println("Object \"" + sprite.path + "\" create. Id = " + id);
 		}
 		
 	}

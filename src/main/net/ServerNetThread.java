@@ -35,7 +35,7 @@ public class ServerNetThread extends Thread{
 		
 		do{
 			try {
-				Thread.sleep(2);
+				Thread.sleep(0,100);
 			} catch (InterruptedException e) {}
 		}while(!gameServer.tankGenComplite); //∆дЄм пока загрузитс€ карта и сгенирируютс€ позиции танков
 		
@@ -72,7 +72,7 @@ public class ServerNetThread extends Thread{
 		this.gameServer.connect[id] = true;
 		do{
 			try {
-				Thread.sleep(2);
+				Thread.sleep(0,100);
 			} catch (InterruptedException e) {}
 		}while(!mapDownAll);//∆дЄм пока все будут готовы к бою
 	}

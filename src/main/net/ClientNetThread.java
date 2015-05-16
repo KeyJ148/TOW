@@ -32,7 +32,7 @@ public class ClientNetThread extends Thread{
 	}
 	
 	public void initMap(Game game){
-		if (Game.console) System.out.println("Download map start.");
+		if (Global.setting.DEBUG_CONSOLE) System.out.println("Download map start.");
 		this.game = game;
 		
 		//Скачивание карты
@@ -51,7 +51,7 @@ public class ClientNetThread extends Thread{
 			
 			//Разрешение карты(для камеры)
 			s = downloadMap();
-			if (Game.console) System.out.println("Download map size complite.");
+			if (Global.setting.DEBUG_CONSOLE) System.out.println("Download map size complite.");
 		} catch(IOException e){
 			System.out.println("[ERROR] Download map size");
 			System.exit(0);
@@ -66,12 +66,12 @@ public class ClientNetThread extends Thread{
 		//Загрузка объектов
 		int x,y,direction;
 		String sprite,name;
-		if (Game.console) System.out.println("Download map object start.");
+		if (Global.setting.DEBUG_CONSOLE) System.out.println("Download map object start.");
 		while(true){
 			s = downloadMap();
 			
 			if (s.equals("8 ")){
-				if (Game.console) System.out.println("Download map object complite.");
+				if (Global.setting.DEBUG_CONSOLE) System.out.println("Download map object complite.");
 				break;
 			}
 			x = Integer.parseInt(Global.linkCS.parsString(s,1));
@@ -99,7 +99,7 @@ public class ClientNetThread extends Thread{
 			Global.enemy = new Enemy[this.game.peopleMax-1];
 			Global.player = new Player(x,y,Math.random()*360,game);
 			
-			if (Game.console) System.out.println("Generation tank complite.");
+			if (Global.setting.DEBUG_CONSOLE) System.out.println("Generation tank complite.");
 		} catch(IOException e){
 			System.out.println("[ERROR] Message about generation tank");
 			System.exit(0);
@@ -132,7 +132,7 @@ public class ClientNetThread extends Thread{
 	public void run(){
 		//постоянный обмен данными
 		//на TCP
-		takeMessage = true;
+		takeMessage = true;//Принимать сообщения?
 		String str;
 		try{
 			

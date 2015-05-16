@@ -28,6 +28,11 @@ public class CheckMapLoad extends Thread{
 					mapDownAll = false;
 				}
 			}
+			
+			try {
+				Thread.sleep(0,100);
+			} catch (InterruptedException e) {
+			}
 		}while(!mapDownAll);
 		
 		for(int i=0;i<gS.peopleMax;i++){

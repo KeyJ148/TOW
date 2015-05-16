@@ -1,11 +1,13 @@
-package main;
+package main.login;
 
 import java.io.*;
 import java.net.*;
 import java.awt.*;
+
 import javax.swing.*;
 
-import main.login.LoginWindow;
+import main.Game;
+import main.Global;
 import main.net.ClientNetThread;
 
 @SuppressWarnings("serial")

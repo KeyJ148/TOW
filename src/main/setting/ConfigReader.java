@@ -1,4 +1,4 @@
-package main;
+package main.setting;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -10,8 +10,8 @@ public class ConfigReader {
 	private String path;
 	private BufferedReader fileReader;
 
-	public ConfigReader(String path){
-		this.path = path;
+	public ConfigReader(String fileName){
+		this.path = "setting/" + fileName;
 		
 		try {
 			this.fileReader = new BufferedReader(new FileReader(path));
@@ -20,7 +20,7 @@ public class ConfigReader {
 		}
 	}
 	
-	public String find(String findName){
+	public String findString(String findName){
 		try {
 			String s, varName;
 			while (true){ 
@@ -41,6 +41,17 @@ public class ConfigReader {
 			System.out.println("[ERROR] Exception in read " + path);
 		}
 		return "";
+	}
+	
+	public int findInteger(String findName){
+		return Integer.parseInt(findString(findName));
+	}
+	
+	public boolean findBoolean(String findName){
+		String result = findString(findName);
+		if (result.equals("True") || result.equals("true") || result.equals("T")) 
+			return true;
+		return false;
 	}
 	
 	public void close(){

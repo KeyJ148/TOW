@@ -16,6 +16,7 @@ import main.net.LinkCS;
 import main.net.MessagePack;
 import main.net.ServerNetThread;
 import main.net.ServerSend;
+import main.setting.SettingStorage;
 
 public class GameServer {
 	
@@ -55,10 +56,12 @@ public class GameServer {
 		int peopleMax;
 		String str;
 		
+		Global.setting = new SettingStorage();
+		Global.setting.initFromFile();
 		Global.linkCS = new LinkCS();
 		Global.linkCS.initSprite();
 		
-		System.out.println("Port (Default 25566): ");
+		System.out.print("Port (Default 25566): ");
 		str = bReader.readLine();
 		if (str.equals("")){
 			port = 25566;
@@ -67,7 +70,7 @@ public class GameServer {
 		}
 		this.port = port;
 		
-		System.out.println("Max people (Default 1): ");
+		System.out.print("Max people (Default 1): ");
 		str = bReader.readLine();
 		if (str.equals("")){
 			peopleMax = 1;
@@ -139,7 +142,6 @@ public class GameServer {
 						vecX.add(Integer.parseInt(Global.linkCS.parsString(s,1)));
 						vecY.add(Integer.parseInt(Global.linkCS.parsString(s,2)));
 						vecSprite.add(Global.linkCS.parsString(s,4));
-						
 					}
 					
 					fileReader.close();
@@ -193,7 +195,7 @@ public class GameServer {
 			if (System.currentTimeMillis() > t+1000){
 				t = System.currentTimeMillis();
 				for (int i = 0; i < peopleMax; i++){
-					System.out.print("ID:" + serverSend[i].id + " MPS:" + serverSend[i].numberSend + "  ***  ");
+					System.out.print("ID:" + serverSend[i].id + " MPS:" + serverSend[i].numberSend + "     ");
 					serverSend[i].numberSend = 0;
 				}
 				System.out.println();

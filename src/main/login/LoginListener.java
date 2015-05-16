@@ -1,11 +1,11 @@
 package main.login;
 
-import java.io.*;
-import java.net.*;
-import java.awt.*;
-import java.awt.event.*;
-
-import main.WindowMain;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 
 public class LoginListener implements ActionListener {
 	

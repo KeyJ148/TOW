@@ -40,7 +40,7 @@ public class Animation implements Cloneable{
         
         this.update = 0;
         
-        if (Game.console) System.out.println("Load animation \"" + path + "\" complited.");
+        if (Global.setting.DEBUG_CONSOLE_IMAGE) System.out.println("Load animation \"" + path + "\" complited.");
         this.mask = new Mask(path + "/1.", getWidth(0), getHeight(0));
     }
     

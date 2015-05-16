@@ -6,7 +6,7 @@ import main.*;
 public class DefaultArmor extends Armor {
 	
 	private final double HP_MAX = 20.0;
-	private final double HP_REGEN = 0.5/Game.TPS;
+	private final double HP_REGEN = 0.5/Global.setting.TPS;
 	private final double SPEED_TANK_UP = 0.8;
 	private final double SPEED_TANK_DOWN = -0.4;
 	private final double DIRECTION_GUN_UP = 0.7;

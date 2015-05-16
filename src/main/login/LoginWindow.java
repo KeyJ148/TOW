@@ -5,8 +5,7 @@ import java.awt.Dialog;
 import java.awt.Label;
 import java.awt.TextField;
 
-import main.ConfigReader;
-import main.WindowMain;
+import main.setting.ConfigReader;
 
 
 @SuppressWarnings("serial")
@@ -14,7 +13,7 @@ public class LoginWindow extends Dialog{
 	
 	public final int horFrame = 300;
 	public final int vertFrame = 150;
-	public final String pathSetting = "setting.properties";
+	public final String fileName = "login.properties";
 	
 	public String tf1Default = "";//ip
 	public String tf2Default = "";//порт
@@ -24,10 +23,10 @@ public class LoginWindow extends Dialog{
 		super(frame,s);
 		setLayout(null);
 		
-		ConfigReader cr = new ConfigReader(pathSetting);
-		tf1Default = cr.find("ip");
-		tf2Default = cr.find("port");
-		tf3Default = cr.find("nickname");
+		ConfigReader cr = new ConfigReader(fileName);
+		tf1Default = cr.findString("ip");
+		tf2Default = cr.findString("port");
+		tf3Default = cr.findString("nickname");
 		cr.close();
 		
 		Label L1 = new Label("Host ip:", Label.RIGHT);
