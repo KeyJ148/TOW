@@ -16,7 +16,8 @@ public class Analyzer {
 	//Скорость сети
 	public int send=0, load=0;
 	
-	public int draw = 0;//Количество объектов в поле зрения камеры
+	public int draw = 0, drawBack = 0;//Количество объектов в поле зрения камеры
+	public int background = 0;
 	
 	public Analyzer(){
 		lastAnalysis = System.currentTimeMillis();
@@ -65,11 +66,11 @@ public class Analyzer {
 				
 		String strFPS = "FPS: " + loopsRender
 						+ "          MidFPS: " + loopsRenderMid/loopsAnalysis
-						+ "          Object: " + objSize
+						+ "          Object: " + objSize + " (D " + draw + ")"
 						+ "          Player: " + (enemySize+1) + "/" + Global.peopleMax
 						+ "          Ping: " + ping + " (" + pingMin + "-" + pingMid + "-" + pingMax + ")"
 						+ "          Speed S/L: " + send + "/" + load + " kb/s"
-						+ "          Draw objects: " + draw;
+						+ "          Background: " + background + " (D " + drawBack + ")";
 		if (Global.setting.DEBUG_CONSOLE_FPS) System.out.println(strFPS);
 		if (Global.setting.DEBUG_MONITOR_FPS) Global.game.monitorStrFPS = strFPS;
 		

@@ -124,27 +124,10 @@ public class Obj {
 		xView = Global.cameraXView - (Global.cameraX - x);
 		yView = Global.cameraYView - (Global.cameraY - y);
 	
-		if (needDraw((int) xView, (int) yView, image.getWidth(), image.getHeight())){
+		if (Global.game.render.needDraw((int) xView, (int) yView, image.getWidth(), image.getHeight())){
 			image.draw(g,(int) Math.round(xView),(int) Math.round(yView), Math.toRadians(directionDraw));
 			if (Global.setting.MASK_DRAW) mask.draw(g);
 		}
-	}
-	
-	public boolean needDraw(int xView, int yView, int width, int height){
-		int error = 10;//Погрешность в пикселях
-		
-		int size;
-		if (width > height){
-			size = width;
-		} else{
-			size = height;
-		}
-		
-		if ((xView + size*2 + error > 0) && (xView - size*2 - error < Global.setting.WIDTH_SCREEN) && (yView - size*2 - error < Global.setting.HEIGHT_SCREEN) && (yView + size*2 + error > 0)){
-			Global.game.analyzer.draw++;
-			return true;
-		}
-		return false;
 	}
 	
 	public void update() {
