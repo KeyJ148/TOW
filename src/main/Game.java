@@ -69,7 +69,7 @@ public class Game implements Runnable{
 		Global.clientThread.initMap(this);
 		
 		if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) 
-			analyzer = new Analyzer(this);
+			analyzer = new Analyzer();
 		
 		render.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 		
@@ -109,7 +109,7 @@ public class Game implements Runnable{
 		Global.setting = new SettingStorage();
 		Global.setting.initFromFile();
 		Render redner = Global.game.render;
-		redner.setPreferredSize(new Dimension(Global.setting.WIDTH, Global.setting.HEIGHT));
+		redner.setPreferredSize(new Dimension(Global.setting.WIDTH_SCREEN, Global.setting.HEIGHT_SCREEN));
 
 		JFrame frame = new WindowMain(Global.setting.WINDOW_NAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

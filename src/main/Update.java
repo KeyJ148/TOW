@@ -20,8 +20,8 @@ public class Update {
 			}
 		}
 		
-		int width = Global.setting.WIDTH;
-		int height = Global.setting.HEIGHT;
+		int width = Global.setting.WIDTH_SCREEN;
+		int height = Global.setting.HEIGHT_SCREEN;
 		
 		Global.cameraXView = width/2;
 		Global.cameraYView = height/2;

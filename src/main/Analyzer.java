@@ -4,22 +4,21 @@ import main.net.Ping;
 
 public class Analyzer {
 	
-	Game game;
-	
 	//Для подсчёта fps
-	int loopsRender = 0; 
-	int loopsRenderMid = 0;
-	int loopsAnalysis = 0;
-	long lastAnalysis;
+	public int loopsRender = 0; 
+	public int loopsRenderMid = 0;
+	public int loopsAnalysis = 0;
+	public long lastAnalysis;
 	
 	//Пинг
-	int ping=0, pingMin=0, pingMax=0, pingMid=0;
+	public int ping=0, pingMin=0, pingMax=0, pingMid=0;
 			
 	//Скорость сети
-	int send=0, load=0;
+	public int send=0, load=0;
 	
-	public Analyzer(Game game){
-		this.game = game;
+	public int draw = 0;//Количество объектов в поле зрения камеры
+	
+	public Analyzer(){
 		lastAnalysis = System.currentTimeMillis();
 		Global.pingCheck = new Ping();
 	}
@@ -69,9 +68,10 @@ public class Analyzer {
 						+ "          Object: " + objSize
 						+ "          Player: " + (enemySize+1) + "/" + Global.peopleMax
 						+ "          Ping: " + ping + " (" + pingMin + "-" + pingMid + "-" + pingMax + ")"
-						+ "          Speed S/L: " + send + "/" + load + " kb/s";
+						+ "          Speed S/L: " + send + "/" + load + " kb/s"
+						+ "          Draw objects: " + draw;
 		if (Global.setting.DEBUG_CONSOLE_FPS) System.out.println(strFPS);
-		if (Global.setting.DEBUG_MONITOR_FPS) game.monitorStrFPS = strFPS;
+		if (Global.setting.DEBUG_MONITOR_FPS) Global.game.monitorStrFPS = strFPS;
 		
 		
 		lastAnalysis = System.currentTimeMillis();

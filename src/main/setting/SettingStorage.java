@@ -12,8 +12,8 @@ public class SettingStorage {
 	public boolean DEBUG_MONITOR_FPS;//выводить в окно фпс?
 	public boolean MASK_DRAW;//отрисовка маски
 	
-	public int WIDTH;
-	public int HEIGHT;//размер окна
+	public int WIDTH_SCREEN;
+	public int HEIGHT_SCREEN;//размер окна
 	public String WINDOW_NAME;
 	
 	public int SEND_STEP_MAX;//Отправлять данные о игроке каждые n updat'ов
@@ -24,8 +24,8 @@ public class SettingStorage {
 		ConfigReader cr = new ConfigReader(fileName);
 		
 		TPS = cr.findInteger("TPS");
-		WIDTH = cr.findInteger("WIDTH");
-		HEIGHT = cr.findInteger("HEIGHT");
+		WIDTH_SCREEN = cr.findInteger("WIDTH_SCREEN");
+		HEIGHT_SCREEN = cr.findInteger("HEIGHT_SCREEN");
 		SEND_STEP_MAX = cr.findInteger("SEND_STEP_MAX");
 		
 		WINDOW_NAME = cr.findString("WINDOW_NAME");

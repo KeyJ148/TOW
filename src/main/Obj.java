@@ -1,10 +1,11 @@
 package main;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 
 import main.image.Animation;
 import main.image.DepthVector;
 import main.image.Mask;
+import main.image.Rendering;
 import main.image.Sprite;
 
 public class Obj {
@@ -36,10 +37,12 @@ public class Obj {
 	public Mask mask;
 	private Sprite sprite;
 	private Animation animation;
+	private Rendering image;
 	
 	public Obj(double x, double y, double speed, double direction, int depth, boolean maskDynamic, Sprite sprite){
 		try{	
 			this.sprite = sprite;
+			this.image = this.sprite;
 			this.anim = false;
 			this.mask = sprite.getMask().clone();
 		} catch (CloneNotSupportedException e) {
@@ -52,6 +55,7 @@ public class Obj {
 	public Obj(double x, double y, double speed, double direction, int depth, boolean maskDynamic, Animation animation){
 		try{	
 			this.animation = animation.clone();
+			this.image = this.animation;
 			this.anim = true;
 			this.mask = animation.getMask().clone();
 		} catch (CloneNotSupportedException e) {
@@ -117,18 +121,30 @@ public class Obj {
 		directionDrawEqulas();
 		
 		//дл€ движени€ камеры
-		this.xView = Global.cameraXView - (Global.cameraX - this.x);
-		this.yView = Global.cameraYView - (Global.cameraY - this.y);
-
-		if (anim) {
-			animation.draw(g,(int) Math.round(this.xView),(int) Math.round(this.yView), Math.toRadians(directionDraw));
-		} else {
-			sprite.draw(g,(int) Math.round(this.xView),(int) Math.round(this.yView), Math.toRadians(directionDraw));
+		xView = Global.cameraXView - (Global.cameraX - x);
+		yView = Global.cameraYView - (Global.cameraY - y);
+	
+		if (needDraw((int) xView, (int) yView, image.getWidth(), image.getHeight())){
+			image.draw(g,(int) Math.round(xView),(int) Math.round(yView), Math.toRadians(directionDraw));
+			if (Global.setting.MASK_DRAW) mask.draw(g);
+		}
+	}
+	
+	public boolean needDraw(int xView, int yView, int width, int height){
+		int error = 10;//ѕогрешность в пиксел€х
+		
+		int size;
+		if (width > height){
+			size = width;
+		} else{
+			size = height;
 		}
 		
-		if (Global.setting.MASK_DRAW){
-			mask.draw(g);
+		if ((xView + size*2 + error > 0) && (xView - size*2 - error < Global.setting.WIDTH_SCREEN) && (yView - size*2 - error < Global.setting.HEIGHT_SCREEN) && (yView + size*2 + error > 0)){
+			Global.game.analyzer.draw++;
+			return true;
 		}
+		return false;
 	}
 	
 	public void update() {
@@ -307,6 +323,10 @@ public class Obj {
 	
 	public Animation getAnimation(){
 		return animation;
+	}
+	
+	public Rendering getImage(){
+		return image;
 	}
 	
 	public void p(String s){

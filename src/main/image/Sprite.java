@@ -11,7 +11,7 @@ import main.Global;
 import java.io.*;
 import java.net.*;
 
-public class Sprite implements Cloneable {
+public class Sprite implements Cloneable, Rendering {
     private Image image;
     public String path;//путь к файлу, нужен для создания маски и консоли
     public Mask mask;

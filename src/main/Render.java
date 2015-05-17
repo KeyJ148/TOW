@@ -7,10 +7,13 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 
 import main.image.DepthVector;
 
 public class Render extends Canvas{
+	
+	//public ArrayList<Title> titleArray;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -50,7 +53,8 @@ public class Render extends Canvas{
 			}
 		}
 		
-		//Отрисовка объектов		
+		//Отрисовка объектов	
+		Global.game.analyzer.draw = 0;
 		for (int i=0; i<Global.depth.size(); i++){
 			DepthVector dv = (DepthVector) Global.depth.get(i);
 			for (int j=0; j<dv.number.size(); j++){
@@ -88,7 +92,7 @@ public class Render extends Canvas{
 		}
 		if (Global.setting.DEBUG_MONITOR_FPS){
 			g.setFont(new Font(null,Font.PLAIN,12));
-			g.drawString(Global.game.monitorStrFPS,1,Global.setting.HEIGHT+9);
+			g.drawString(Global.game.monitorStrFPS,1,Global.setting.HEIGHT_SCREEN+9);
 		}
 		
 		//Магия [ON]
@@ -96,5 +100,8 @@ public class Render extends Canvas{
 		bs.show();
 		//Магия [OFF]
 	}
-	
+
+	private void drawTitle() {
+		
+	}
 }

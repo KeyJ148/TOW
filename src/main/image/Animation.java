@@ -11,7 +11,7 @@ import main.Global;
 import java.io.*;
 import java.net.URL;
 
-public class Animation implements Cloneable{
+public class Animation implements Cloneable, Rendering{
     private Image[] image;
     private int frameNumber=0; //Кол-во кадров [1;inf)
     private int frameSpeed; //Через сколько интераций update менять кадр
@@ -102,4 +102,16 @@ public class Animation implements Cloneable{
         g.setTransform(at); //для поворота спрайта на direction
         g.drawImage(image[frameNow], x, y, null);//для отрисовки спрайта нужен верхний левый угол
     }
+
+	public int getWidth() {
+		return getWidth(getFrameNow());
+	}
+
+	public int getHeight() {
+		return getHeight(getFrameNow());
+	}
+
+	public Image getImage() {
+		return image[frameNow];
+	}
 }
