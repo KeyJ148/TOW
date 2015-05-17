@@ -14,12 +14,10 @@ public class DefaultArmor extends Armor {
 	private final int ANIM_SPEED = 10;
 	
 	public Player player;
-	public Game game;
 	
-	public DefaultArmor(Player player, Game game){
-		super(player,game,Global.c_default);
+	public DefaultArmor(Player player){
+		super(player,Global.c_default);
 		this.player = player;
-		this.game = game;
 		
 		setHpMax(HP_MAX);
 		setHp(HP_MAX);

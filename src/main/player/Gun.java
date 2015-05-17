@@ -7,7 +7,6 @@ import main.*;
 public class Gun extends Obj{
 	
 	private Player player;
-	private Game game;
 	private int attackSpeed1;//скорость атаки
 	private int attackSpeed2;
 	private double directionGunUp;//скорость поворота дула
@@ -29,10 +28,9 @@ public class Gun extends Obj{
 	private boolean mousePress1 = false; //технические(зажатие мыши)
 	private boolean mousePress2 = false;
 	
-	public Gun(Player player, Game game, Sprite sprite){
-		super(player.getX(),player.getY(),0.0,player.getDirection(),-1,false,sprite,game);
+	public Gun(Player player, Sprite sprite){
+		super(player.getX(),player.getY(),0.0,player.getDirection(),-1,false,sprite);
 		this.player = player;
-		this.game = game;
 	}
 	
 	public void attack1(){
@@ -55,7 +53,7 @@ public class Gun extends Obj{
 		double trunkYdx = trunkY*Math.cos(Math.toRadians(player.getGun().getDirection())-Math.PI);//потому что изначально и теустуры измененное направление
 		double trunkYdy = trunkY*Math.sin(Math.toRadians(player.getGun().getDirection())-Math.PI);//второй отступ "вбок"
 		switch(bullet){
-			case "DefaultBullet": new DefaultBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,player.getGun().getDirection(),damage,this.game); break;
+			case "DefaultBullet": new DefaultBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,player.getGun().getDirection(),damage); break;
 		}
 	}
 	
@@ -112,9 +110,6 @@ public class Gun extends Obj{
 		}
 	}
 	
-	public Game getGame(){
-		return game;
-	}
 	public Player getPlayer(){
 		return player;
 	}

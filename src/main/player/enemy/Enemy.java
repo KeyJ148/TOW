@@ -13,11 +13,11 @@ public class Enemy extends Obj{
 	public Obj gun;
 	public EnemyArmor armor;
 	
-	public Enemy(double x, double y, double direction, Game game, String name){
-		super(x,y,0.0,direction,1,false,Global.player_sys,game);
+	public Enemy(double x, double y, double direction, String name){
+		super(x,y,0.0,direction,1,false,Global.player_sys);
 		this.name = name;
-		this.armor = new EnemyArmor(Global.c_default,this,game);
-		this.gun = new Obj(x,y,0.0,direction,-1,false,Global.defaultgun,game);
+		this.armor = new EnemyArmor(Global.c_default,this);
+		this.gun = new Obj(x,y,0.0,direction,-1,false,Global.defaultgun);
 	}
 	
 	public void setData(String s){

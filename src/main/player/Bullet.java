@@ -11,8 +11,8 @@ public class Bullet extends Obj{
 	private double damage;//дамаг пушки+патрона
 	private long idNet;
 	
-	public Bullet(Player player, double x, double y, double speed, double dir,double damage, Sprite sprite, Game game){
-		super(x,y,speed,dir,0,true,sprite,game);
+	public Bullet(Player player, double x, double y, double speed, double dir,double damage, Sprite sprite){
+		super(x,y,speed,dir,0,true,sprite);
 		this.player = player;
 		this.damage = damage;
 		

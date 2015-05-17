@@ -8,14 +8,6 @@ import main.image.Mask;
 import main.image.Sprite;
 
 public class Obj {
-	/*
-	Доп объекты!
-	Перемещение:
-	direction, speed
-	Столкновения:
-	collObj, collHave, maskDynamic, MASK_DRAW, xPre, yPre, dirPre
-	
-	*/
 	
 	public double x;
 	public double y;
@@ -33,8 +25,6 @@ public class Obj {
 	
 	private boolean maskDynamic;//обновление маски каждый тик (true = динамичный)
 								//нужен для движущихся или поворачивающихся объектов
-	private final boolean MASK_DRAW = false;//отрисовка маски
-	
 	private long id; //уникальный номер
 	private boolean anim; //Объекту присвоен спрайт или анимация?(true = анимация)
 	private boolean destroy = false;
@@ -46,12 +36,8 @@ public class Obj {
 	public Mask mask;
 	private Sprite sprite;
 	private Animation animation;
-
-	@SuppressWarnings("unused")
-	private Game game;
 	
-	
-	public Obj(double x, double y, double speed, double direction, int depth, boolean maskDynamic, Sprite sprite,Game game){
+	public Obj(double x, double y, double speed, double direction, int depth, boolean maskDynamic, Sprite sprite){
 		try{	
 			this.sprite = sprite;
 			this.anim = false;
@@ -60,10 +46,10 @@ public class Obj {
 			Global.error("Failed with clone object. Id = " + id);
 		}
 		
-		init(x,y,speed,direction,depth,maskDynamic,game);
+		init(x,y,speed,direction,depth,maskDynamic);
 	}
 	
-	public Obj(double x, double y, double speed, double direction, int depth, boolean maskDynamic, Animation animation,Game game){
+	public Obj(double x, double y, double speed, double direction, int depth, boolean maskDynamic, Animation animation){
 		try{	
 			this.animation = animation.clone();
 			this.anim = true;
@@ -71,10 +57,10 @@ public class Obj {
 		} catch (CloneNotSupportedException e) {
 			Global.error("Failed with clone object. Id = " + id);
 		}
-		init(x,y,speed,direction,depth,maskDynamic,game);
+		init(x,y,speed,direction,depth,maskDynamic);
 	}
 	
-	private void init(double x, double y, double speed, double direction, int depth, boolean maskDynamic, Game game){
+	private void init(double x, double y, double speed, double direction, int depth, boolean maskDynamic){
 		this.x = x;
 		this.y = y;
 		this.speed = speed;
@@ -83,7 +69,6 @@ public class Obj {
 		this.depth = depth;
 		this.id = Global.id;
 		Global.id++;
-		this.game = game;
 		this.maskDynamic = maskDynamic;
 		
 		Global.obj.add(this);
@@ -98,6 +83,102 @@ public class Obj {
 		}
 		
 	}
+	
+	private void depthAddVector(int depth, long id){
+		boolean flag = false;
+		DepthVector dv;
+		for (int i=0; i<Global.depth.size(); i++){
+			dv = (DepthVector) Global.depth.get(i);
+			if (dv.depth == depth){
+				dv.add(id);
+				flag = true;
+				break;
+			}
+		}
+	
+		if (!flag){
+			Global.depth.add(new DepthVector(depth, id));
+		}
+	}
+	
+	public void destroy(){
+		DepthVector dv;
+		for (int i=0; i<Global.depth.size(); i++){
+			dv = (DepthVector) Global.depth.get(i);
+			if (dv.depth == depth){
+				dv.delete(id);
+			}
+		}
+		this.destroy = true;
+	}
+
+	public void draw(Graphics2D g){
+		//для отрисовки объекта с поворотом на direction
+		directionDrawEqulas();
+		
+		//для движения камеры
+		this.xView = Global.cameraXView - (Global.cameraX - this.x);
+		this.yView = Global.cameraYView - (Global.cameraY - this.y);
+
+		if (anim) {
+			animation.draw(g,(int) Math.round(this.xView),(int) Math.round(this.yView), Math.toRadians(directionDraw));
+		} else {
+			sprite.draw(g,(int) Math.round(this.xView),(int) Math.round(this.yView), Math.toRadians(directionDraw));
+		}
+		
+		if (Global.setting.MASK_DRAW){
+			mask.draw(g);
+		}
+	}
+	
+	public void update() {
+		updateChildStart();
+		
+		//должен быть раньше updateChildMid, что бы танк не мог повернуть в стену
+		this.xPrevious = this.x;
+		this.yPrevious = this.y;
+		this.directionPrevious = this.direction;
+		
+		updateChildMid();//step у дочерних объектов
+		
+		this.x = this.x + this.speed * Math.cos(Math.toRadians(direction));
+		this.y = this.y - this.speed * Math.sin(Math.toRadians(direction));
+		
+		directionDrawEqulas();
+		
+		if (anim) {
+			animation.update();
+			if (maskDynamic){
+				mask.calc(this.x,this.y,this.directionDraw);
+			}
+		} else {
+			if (maskDynamic){
+				mask.calc(this.x,this.y,this.directionDraw);
+			}
+		}
+		
+		if(this.collHave){
+			mask.collCheck(collObj,this);
+		}
+		
+		updateChildFinal();//step у дочерних объектов
+		
+		if (destroy){
+			Global.delObj(id);
+		}
+	}
+	
+	public void directionDrawEqulas(){
+		this.directionDraw = this.direction;
+	}
+	
+	/*
+	 * 
+	 * ДАЛЬШЕ МЕТОДЫ SET, GET
+	 * И МЕТОДЫ ПЕРЕОПРЕДЕЛЯЕМЫЕ У НАСЛЕДНИКОВ (updateChild, collReport);
+	 * ТАК ЖЕ МЕТОДЫ P(ВЫВОД СООБЩЕНИЙ В КОНСОЛЬ)
+	 * 
+	 */
 	
 	public void setX(double x){
 		this.x = x;
@@ -228,34 +309,6 @@ public class Obj {
 		return animation;
 	}
 	
-	private void depthAddVector(int depth, long id){
-		boolean flag = false;
-		DepthVector dv;
-		for (int i=0; i<Global.depth.size(); i++){
-			dv = (DepthVector) Global.depth.get(i);
-			if (dv.depth == depth){
-				dv.add(id);
-				flag = true;
-				break;
-			}
-		}
-	
-		if (!flag){
-			Global.depth.add(new DepthVector(depth, id));
-		}
-	}
-	
-	public void destroy(){
-		DepthVector dv;
-		for (int i=0; i<Global.depth.size(); i++){
-			dv = (DepthVector) Global.depth.get(i);
-			if (dv.depth == depth){
-				dv.delete(id);
-			}
-		}
-		this.destroy = true;
-	}
-	
 	public void p(String s){
 		System.out.println(s);
 	}
@@ -266,66 +319,6 @@ public class Obj {
 	
 	public void p(){
 		System.out.println("ALARM!!!");
-	}
-
-	public void draw(Graphics2D g){
-		//для отрисовки объекта с поворотом на direction
-		directionDrawEqulas();
-		
-		//для движения камеры
-		this.xView = Global.cameraXView - (Global.cameraX - this.x);
-		this.yView = Global.cameraYView - (Global.cameraY - this.y);
-
-		if (anim) {
-			animation.draw(g,(int) Math.round(this.xView),(int) Math.round(this.yView), Math.toRadians(directionDraw));
-		} else {
-			sprite.draw(g,(int) Math.round(this.xView),(int) Math.round(this.yView), Math.toRadians(directionDraw));
-		}
-		
-		if (MASK_DRAW){
-			mask.draw(g);
-		}
-	}
-	
-	public void update() {
-		updateChildStart();
-		
-		//должен быть раньше updateChildMid, что бы танк не мог повернуть в стену
-		this.xPrevious = this.x;
-		this.yPrevious = this.y;
-		this.directionPrevious = this.direction;
-		
-		updateChildMid();//step у дочерних объектов
-		
-		this.x = this.x + this.speed * Math.cos(Math.toRadians(direction));
-		this.y = this.y - this.speed * Math.sin(Math.toRadians(direction));
-		
-		directionDrawEqulas();
-		
-		if (anim) {
-			animation.update();
-			if (maskDynamic){
-				mask.calc(this.x,this.y,this.directionDraw);
-			}
-		} else {
-			if (maskDynamic){
-				mask.calc(this.x,this.y,this.directionDraw);
-			}
-		}
-		
-		if(this.collHave){
-			mask.collCheck(collObj,this);
-		}
-		
-		updateChildFinal();//step у дочерних объектов
-		
-		if (destroy){
-			Global.delObj(id);
-		}
-	}
-	
-	public void directionDrawEqulas(){
-		this.directionDraw = this.direction;
 	}
 	
 	public void updateChildStart(){}

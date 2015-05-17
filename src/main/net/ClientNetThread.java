@@ -82,8 +82,8 @@ public class ClientNetThread extends Thread{
 			sprite = Global.linkCS.parsString(s,4);
 			name = Global.linkCS.parsString(s,5);
 			switch(name){
-				case "Home": new Home(x,y,direction,Global.linkCS.getSprite(sprite),game); break;
-				case "Road": new Road(x,y,direction,Global.linkCS.getSprite(sprite),game); break;
+				case "Home": new Home(x,y,direction,Global.linkCS.getSprite(sprite)); break;
+				case "Road": new Road(x,y,direction,Global.linkCS.getSprite(sprite)); break;
 			}
 		}
 		genTank();
@@ -99,7 +99,7 @@ public class ClientNetThread extends Thread{
 			s = downloadMap();//получение кол-во игрков
 			Global.peopleMax = Integer.parseInt(s.substring(0,s.indexOf(' ')));
 			Global.enemy = new Enemy[Global.peopleMax-1];
-			Global.player = new Player(x,y,Math.random()*360,game);
+			Global.player = new Player(x,y,Math.random()*360);
 			
 			if (Global.setting.DEBUG_CONSOLE) System.out.println("Generation tank complite.");
 		} catch(IOException e){
@@ -192,7 +192,7 @@ public class ClientNetThread extends Thread{
 			double x = Double.parseDouble(Global.linkCS.parsString(str,2));
 			double y = Double.parseDouble(Global.linkCS.parsString(str,3));
 			double direction = Double.parseDouble(Global.linkCS.parsString(str,4));
-			Global.enemy[emptySlot] = new Enemy(x,y,direction,this.game,name);
+			Global.enemy[emptySlot] = new Enemy(x,y,direction,name);
 		}
 	}
 	
@@ -205,7 +205,7 @@ public class ClientNetThread extends Thread{
 		String name = Global.linkCS.parsString(str,7);
 		long idNet = Integer.parseInt(Global.linkCS.parsString(str,8));
 		switch (bullName){
-			case "main.player.bullet.DefaultBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_default,name,idNet,this.game));
+			case "main.player.bullet.DefaultBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_default,name,idNet));
 		}
 	}
 	

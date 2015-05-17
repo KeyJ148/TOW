@@ -10,6 +10,7 @@ public class SettingStorage {
 	public boolean DEBUG_CONSOLE_MASK;//выводить в консоль сообщения загрузки маски?
 	public boolean DEBUG_CONSOLE_FPS;//выводить в консоль фпс?
 	public boolean DEBUG_MONITOR_FPS;//выводить в окно фпс?
+	public boolean MASK_DRAW;//отрисовка маски
 	
 	public int WIDTH;
 	public int HEIGHT;//размер окна
@@ -34,6 +35,7 @@ public class SettingStorage {
 		DEBUG_CONSOLE_MASK = cr.findBoolean("DEBUG_CONSOLE_MASK");
 		DEBUG_CONSOLE_FPS = cr.findBoolean("DEBUG_CONSOLE_FPS");
 		DEBUG_MONITOR_FPS = cr.findBoolean("DEBUG_MONITOR_FPS");
+		MASK_DRAW = cr.findBoolean("MASK_DRAW");
 		
 		SKIP_TICKS = 1000/TPS;
 	}

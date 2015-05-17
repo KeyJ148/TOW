@@ -4,8 +4,6 @@ import main.*;
 import main.image.Animation;
 
 public class Armor extends Obj {
-	
-	Game game;
 	Player player;
 	private double hp;
 	private double hpMax;
@@ -29,10 +27,9 @@ public class Armor extends Obj {
 	private int timer = 0; //таймер для отсёчта пройденных TPS
 	private long coll_id = -1; //id объекта с которым происходит столкновение
 	
-	public Armor(Player player, Game game, Animation animation){
-		super(player.getX(),player.getY(),0.0,player.getDirection(),0,true,animation,game);
+	public Armor(Player player, Animation animation){
+		super(player.getX(),player.getY(),0.0,player.getDirection(),0,true,animation);
 		this.player = player;
-		this.game = game;
 		
 		setCollObj(new String[] {"main.home.Home", "main.player.enemy.EnemyArmor"});
 	}

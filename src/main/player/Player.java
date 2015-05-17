@@ -22,11 +22,11 @@ public class Player extends Obj{
 	private String bullet;
 	private Armor armor;
 	
-	public Player(double x, double y, double direction, Game game){
-		super(x,y,0.0,direction,1,false,Global.player_sys,game);
+	public Player(double x, double y, double direction){
+		super(x,y,0.0,direction,1,false,Global.player_sys);
 		this.bullet = "DefaultBullet";
-		this.armor = new DefaultArmor(this,game);
-		this.gun = new DefaultGun(this,game);
+		this.armor = new DefaultArmor(this);
+		this.gun = new DefaultGun(this);
 		this.gun.setBullet1(bullet);
 		
 		Global.game.render.addKeyListener(new KeyAdapter(){

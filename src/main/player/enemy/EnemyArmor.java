@@ -7,8 +7,8 @@ public class EnemyArmor extends Obj{
 	
 	public Enemy enemy;
 	
-	public EnemyArmor(Animation anim, Enemy enemy, Game game){
-		super(enemy.getX(),enemy.getY(),0.0,enemy.getDirection(),0,true,anim,game);
+	public EnemyArmor(Animation anim, Enemy enemy){
+		super(enemy.getX(),enemy.getY(),0.0,enemy.getDirection(),0,true,anim);
 		this.enemy = enemy;
 	}
 	

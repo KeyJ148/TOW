@@ -48,7 +48,7 @@ public class ConfigReader {
 	
 	public boolean findBoolean(String findName){
 		String result = findString(findName);
-		if (result.equals("True") || result.equals("true") || result.equals("T")) 
+		if (result.equals("True") || result.equals("true") || result.equals("TRUE") || result.equals("T")) 
 			return true;
 		return false;
 	}

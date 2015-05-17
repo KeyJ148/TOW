@@ -16,8 +16,8 @@ public class DefaultGun extends Gun {
 	private final double DAMAGE_2 = 0;
 	private final double DIRECTION_GUN_UP = 1.3;
 	
-	public DefaultGun(Player player, Game game){
-		super(player, game, Global.defaultgun);
+	public DefaultGun(Player player){
+		super(player, Global.defaultgun);
 		setAttackSpeed1(this.ATTACK_SPEED_1);
 		setAttackSpeed2(this.ATTACK_SPEED_2);
 		setBullet1(player.getBullet());
