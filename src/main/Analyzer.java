@@ -49,7 +49,7 @@ public class Analyzer {
 			}
 		}
 		
-		if ((enemySize+1) == game.peopleMax){ //Если все подключены - данные сетевой игры
+		if ((enemySize+1) == Global.peopleMax){ //Если все подключены - данные сетевой игры
 			ping = Global.pingCheck.ping();
 			pingMin = Global.pingCheck.pingMin();
 			pingMid = Global.pingCheck.pingMid();
@@ -67,7 +67,7 @@ public class Analyzer {
 		String strFPS = "FPS: " + loopsRender
 						+ "          MidFPS: " + loopsRenderMid/loopsAnalysis
 						+ "          Object: " + objSize
-						+ "          Player: " + (enemySize+1) + "/" + game.peopleMax
+						+ "          Player: " + (enemySize+1) + "/" + Global.peopleMax
 						+ "          Ping: " + ping + " (" + pingMin + "-" + pingMid + "-" + pingMax + ")"
 						+ "          Speed S/L: " + send + "/" + load + " kb/s";
 		if (Global.setting.DEBUG_CONSOLE_FPS) System.out.println(strFPS);

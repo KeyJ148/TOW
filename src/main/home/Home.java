@@ -1,6 +1,7 @@
 package main.home;
 
 import main.*;
+import main.image.Sprite;
 
 public class Home extends Obj{
 	

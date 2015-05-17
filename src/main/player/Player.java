@@ -18,21 +18,18 @@ public class Player extends Obj{
 	
 	private int sendStep = 0;
 	
-	private Game game;
-	
 	private Gun gun;
 	private String bullet;
 	private Armor armor;
 	
 	public Player(double x, double y, double direction, Game game){
 		super(x,y,0.0,direction,1,false,Global.player_sys,game);
-		this.game = game;
 		this.bullet = "DefaultBullet";
 		this.armor = new DefaultArmor(this,game);
 		this.gun = new DefaultGun(this,game);
 		this.gun.setBullet1(bullet);
 		
-		game.addKeyListener(new KeyAdapter(){
+		Global.game.render.addKeyListener(new KeyAdapter(){
 			public void keyPressed(KeyEvent e){
 				if (armor.getControlMotion()){
 					if (e.getKeyCode() == KeyEvent.VK_W){
@@ -75,7 +72,7 @@ public class Player extends Obj{
 			}
 		});
 
-		game.addMouseListener(new MouseAdapter(){
+		Global.game.render.addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent e){
 				if (controlAtack){
 					if (e.getModifiers() == InputEvent.BUTTON1_MASK){
@@ -98,7 +95,7 @@ public class Player extends Obj{
 			}
 		});
 
-		game.addMouseMotionListener(new MouseMotionAdapter(){
+		Global.game.render.addMouseMotionListener(new MouseMotionAdapter(){
 			public void mouseMoved(MouseEvent e){
 				if (armor.getControlMotionMouse()){
 					mouseX = e.getX();
@@ -127,7 +124,7 @@ public class Player extends Obj{
 			+ " " + Math.round(getY())
 			+ " " + Math.round(armor.getDirection())
 			+ " " + anim
-			+ " " + game.name
+			+ " " + Global.name
 			+ " " + Math.round(gun.getDirection())
 			+ " " + Math.round(armor.getSpeed());
 		return s;
@@ -159,7 +156,7 @@ public class Player extends Obj{
 	
 	public void updateChildFinal(){
 		//Отрисовка ника
-		nameX = (int) Math.round(getXViewCenter()-game.name.length()*3.25); // lengthChar/2
+		nameX = (int) Math.round(getXViewCenter()-Global.name.length()*3.25); // lengthChar/2
 		nameY = (int) getYViewCenter()-50;
 		
 		//Отправка данных о игроке

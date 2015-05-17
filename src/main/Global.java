@@ -2,6 +2,9 @@ package main;
 
 import java.util.ArrayList;
 
+import main.image.Animation;
+import main.image.DepthVector;
+import main.image.Sprite;
 import main.net.ClientNetSend;
 import main.net.ClientNetThread;
 import main.net.LinkCS;
@@ -12,6 +15,8 @@ import main.player.enemy.EnemyBullet;
 import main.setting.SettingStorage;
 
 public class Global {
+	
+	public static Game game; //Главный игровой поток
 	
 	public static ArrayList<Obj> obj; //Массив со всеми объектами
 	public static ArrayList<DepthVector> depth; //Массив с DepthVector
@@ -29,6 +34,12 @@ public class Global {
 	
 	public static Enemy[] enemy; //список всех противников
 	public static ArrayList<EnemyBullet> enemyBullet; //список всех патронов противников (EnemyBullet)
+	
+	public static String name;//имя игрока
+	
+	public static int heightMap;
+	public static int widthMap;//размер карты
+	public static int peopleMax;//кол-во игроков на серве
 	
 	public static double cameraX;
 	public static double cameraY;

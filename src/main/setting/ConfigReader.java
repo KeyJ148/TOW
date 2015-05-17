@@ -1,7 +1,6 @@
 package main.setting;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -10,20 +9,14 @@ import main.Global;
 public class ConfigReader {
 	
 	private String path;
-	private BufferedReader fileReader;
 
 	public ConfigReader(String fileName){
 		this.path = "setting/" + fileName;
-		
-		try {
-			this.fileReader = new BufferedReader(new FileReader(path));
-		} catch (FileNotFoundException e) {
-			Global.error("File not found " + path);
-		}
 	}
 	
 	public String findString(String findName){
 		try {
+			BufferedReader fileReader = new BufferedReader(new FileReader(path));
 			String s, varName;
 			while (true){ 
 				s = fileReader.readLine();
@@ -34,14 +27,18 @@ public class ConfigReader {
 				
 				varName = s.substring(0, s.indexOf(' '));
 				if (findName.equals(varName)){
+					fileReader.close();
 					return s.substring(s.indexOf('"')+1, s.lastIndexOf('"'));
 				}
 				
 			}
-			
+			Global.error("No find setting: " + findName);
+			fileReader.close();
+			return "";
 		} catch (IOException e){
 			Global.error("Exception in read " + path);
 		}
+		Global.error("No find setting: " + findName);
 		return "";
 	}
 	
@@ -55,13 +52,4 @@ public class ConfigReader {
 			return true;
 		return false;
 	}
-	
-	public void close(){
-		try {
-			fileReader.close();
-		} catch (IOException e) {
-			Global.error("Exception in close reader " + path);
-		}
-	}
-	
 }

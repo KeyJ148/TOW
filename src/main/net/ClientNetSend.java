@@ -42,11 +42,11 @@ public class ClientNetSend extends Thread{
 	public void send1(Bullet bull){//Сдлеан выстрел
 		sendData("1 " + Math.round(bull.getX()) + " " + Math.round(bull.getY()) + " " 
 				+ bull.getDirection() + " " + bull.getSpeed() + " "
-				+ bull.getClass().getName() + " " + game.name + " " + Global.idNet);
+				+ bull.getClass().getName() + " " + Global.name + " " + Global.idNet);
 	}
 	
 	public void send2(Bullet bull){//Уничтожение пули
-		sendData("2 " + bull.getIdNet() + " " + game.name);
+		sendData("2 " + bull.getIdNet() + " " + Global.name);
 	}
 	
 	public void send3(Bullet bull, String enemyName){//Нанесение дамага
@@ -54,10 +54,10 @@ public class ClientNetSend extends Thread{
 	}
 	
 	public void send4(){//Танк игрока уничтожен
-		sendData("4 " + game.name);
+		sendData("4 " + Global.name);
 	}
 	
 	public void send5(){//Перезагрузка карты (Имя победителя)
-		sendData("5 " + game.name);
+		sendData("5 " + Global.name);
 	}
 }

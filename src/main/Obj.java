@@ -2,6 +2,11 @@ package main;
 
 import java.awt.*;
 
+import main.image.Animation;
+import main.image.DepthVector;
+import main.image.Mask;
+import main.image.Sprite;
+
 public class Obj {
 	/*
 	Доп объекты!

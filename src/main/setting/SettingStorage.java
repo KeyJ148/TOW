@@ -35,8 +35,6 @@ public class SettingStorage {
 		DEBUG_CONSOLE_FPS = cr.findBoolean("DEBUG_CONSOLE_FPS");
 		DEBUG_MONITOR_FPS = cr.findBoolean("DEBUG_MONITOR_FPS");
 		
-		cr.close();
-		
 		SKIP_TICKS = 1000/TPS;
 	}
 }

@@ -27,7 +27,6 @@ public class LoginWindow extends Dialog{
 		tf1Default = cr.findString("ip");
 		tf2Default = cr.findString("port");
 		tf3Default = cr.findString("nickname");
-		cr.close();
 		
 		Label L1 = new Label("Host ip:", Label.RIGHT);
 		L1.setBounds(20, 30, 70, 25); 

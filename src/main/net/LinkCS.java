@@ -1,8 +1,8 @@
 package main.net;
 
 import main.Global;
-import main.Sprite;
-import main.Animation;
+import main.image.Animation;
+import main.image.Sprite;
 
 public class LinkCS {
 	

@@ -1,31 +1,34 @@
 package main.login;
 
-import java.io.*;
-import java.net.*;
-import java.awt.*;
+import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
-import main.Game;
 import main.Global;
 import main.net.ClientNetThread;
 
-@SuppressWarnings("serial")
 public class WindowMain extends JFrame {
+	private static final long serialVersionUID = 1L;
 	
 	public final int hor;
 	public final int vert;
 
 	public Dialog d;
-	public Game game;
 	public ClientNetThread clientThread;
 	
-	public WindowMain(String windowName, Game game){
+	public WindowMain(String windowName){
 		super(windowName);
 		Dimension sSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.vert = sSize.height;
 		this.hor = sSize.width;
-		this.game = game;
 		this.d = new LoginWindow(this,"Entry",this.hor,this.vert);
 	}
 	
@@ -36,13 +39,11 @@ public class WindowMain extends JFrame {
 		OutputStream outS = sock.getOutputStream();
 		DataInputStream in = new DataInputStream(inS);
 		DataOutputStream out = new DataOutputStream(outS);
-		this.game.in = in;
-		this.game.out = out;
 		if (name.equals("")){
-			this.game.name = Double.toString(Math.random()); 
+			Global.name = Double.toString(Math.random()); 
 		} else {
 			if (name.indexOf(' ') == -1){
-				this.game.name = name;
+				Global.name = name;
 			} else {
 				Global.error("Invalid name!");
 				System.exit(0);
@@ -52,7 +53,7 @@ public class WindowMain extends JFrame {
 		this.clientThread = new ClientNetThread(in,out,sock);
 		Global.clientThread = this.clientThread;
 		
-		game.start();
+		Global.game.start();
 		setVisible(true);
 	}
 }

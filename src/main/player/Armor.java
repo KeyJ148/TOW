@@ -1,6 +1,7 @@
 package main.player;
 
 import main.*;
+import main.image.Animation;
 
 public class Armor extends Obj {
 	

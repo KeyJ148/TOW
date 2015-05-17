@@ -1,5 +1,6 @@
 package main.player;
 
+import main.image.Sprite;
 import main.player.bullet.*;
 import main.*;
 

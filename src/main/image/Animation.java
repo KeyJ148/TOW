@@ -1,10 +1,12 @@
-package main;
+package main.image;
 
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.image.*;
 
 import javax.imageio.*;
+
+import main.Global;
 
 import java.io.*;
 import java.net.URL;

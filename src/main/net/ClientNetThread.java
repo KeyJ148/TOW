@@ -7,9 +7,9 @@ import java.net.Socket;
 
 import main.Game;
 import main.Global;
-import main.Sprite;
 import main.home.Home;
 import main.home.Road;
+import main.image.Sprite;
 import main.player.Player;
 import main.player.enemy.Enemy;
 import main.player.enemy.EnemyBullet;
@@ -58,8 +58,8 @@ public class ClientNetThread extends Thread{
 			Global.error("Download map size");
 			System.exit(0);
 		}
-		game.widthMap = Integer.parseInt(Global.linkCS.parsString(s,1));
-		game.heightMap = Integer.parseInt(Global.linkCS.parsString(s,2));
+		Global.widthMap = Integer.parseInt(Global.linkCS.parsString(s,1));
+		Global.heightMap = Integer.parseInt(Global.linkCS.parsString(s,2));
 		switch (Integer.parseInt(Global.linkCS.parsString(s,3))){
 			case 0: Global.background = new Sprite("image/Background/grass.png"); break;
 			case 1: Global.background = new Sprite("image/Background/sand.png"); break;
@@ -92,13 +92,13 @@ public class ClientNetThread extends Thread{
 	//получение данных
 	public void genTank(){
 		try{
-			this.out.writeUTF("-3 " + game.name);//отправка имени
+			this.out.writeUTF("-3 " + Global.name);//отправка имени
 			String s = downloadMap();//получение кор танка
 			double x = (double) Integer.parseInt(s.substring(0,s.indexOf(' ')));
 			double y = (double) Integer.parseInt(s.substring(s.indexOf(' ')+1));
 			s = downloadMap();//получение кол-во игрков
-			this.game.peopleMax = Integer.parseInt(s.substring(0,s.indexOf(' ')));
-			Global.enemy = new Enemy[this.game.peopleMax-1];
+			Global.peopleMax = Integer.parseInt(s.substring(0,s.indexOf(' ')));
+			Global.enemy = new Enemy[Global.peopleMax-1];
 			Global.player = new Player(x,y,Math.random()*360,game);
 			
 			if (Global.setting.DEBUG_CONSOLE) System.out.println("Generation tank complite.");
@@ -223,7 +223,7 @@ public class ClientNetThread extends Thread{
 	
 	public void take3(String str){// ому-то нанесен урон
 		String name = Global.linkCS.parsString(str,2);
-		if (name.equals(game.name)){
+		if (name.equals(Global.name)){
 			Global.player.getArmor().setHp(Global.player.getArmor().getHp()-Double.parseDouble(Global.linkCS.parsString(str,3)));
 		}
 	}

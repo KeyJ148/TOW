@@ -1,4 +1,4 @@
-package main;
+package main.image;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Vector;
+
+import main.Global;
+import main.Obj;
 
 public class Mask implements Cloneable{
 	

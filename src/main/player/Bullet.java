@@ -1,5 +1,6 @@
 package main.player;
 
+import main.image.Sprite;
 import main.player.enemy.*;
 import main.*;
 
@@ -7,13 +8,11 @@ public class Bullet extends Obj{
 	
 	@SuppressWarnings("unused")
 	private Player player;
-	private Game game;
 	private double damage;//дамаг пушки+патрона
 	private long idNet;
 	
 	public Bullet(Player player, double x, double y, double speed, double dir,double damage, Sprite sprite, Game game){
 		super(x,y,speed,dir,0,true,sprite,game);
-		this.game = game;
 		this.player = player;
 		this.damage = damage;
 		
@@ -51,7 +50,7 @@ public class Bullet extends Obj{
 	public void updateChildStart(){
 		if (!getDestroy()){
 			try{
-				if ((getX()<0) || (getY()<0) || (getX()>game.widthMap) || (getY()>game.heightMap)){
+				if ((getX()<0) || (getY()<0) || (getX()>Global.widthMap) || (getY()>Global.heightMap)){
 					destroyBullet();
 				}
 			}catch(NullPointerException e){
