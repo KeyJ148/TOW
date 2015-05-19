@@ -2,6 +2,7 @@ package main.player;
 
 import main.*;
 import main.image.Animation;
+import main.setting.ConfigReader;
 
 public class Armor extends Obj {
 	Player player;
@@ -24,6 +25,8 @@ public class Armor extends Obj {
 	private boolean recoil = false;// в данынй момент танк отлетает от противника в рез. столкновения
 	private boolean animOn = false;
 	
+	private final String pathSetting = "armor/";
+	
 	private int timer = 0; //таймер для отсёчта пройденных TPS
 	private long coll_id = -1; //id объекта с которым происходит столкновение
 	
@@ -32,6 +35,8 @@ public class Armor extends Obj {
 		this.player = player;
 		
 		setCollObj(new String[] {"main.home.Home", "main.player.enemy.EnemyArmor"});
+		
+		loadData(getClass().getName());
 	}
 	
 	public void collReport(Obj obj){
@@ -74,7 +79,7 @@ public class Armor extends Obj {
 		//для столкновений
 		if (recoil){
 			timer++;
-			if (timer >= Global.setting.TPS){
+			if (timer >= Global.setting.TPS/3){
 				recoil = false;
 				turnRight = false;
 				turnLeft = false;
@@ -132,6 +137,20 @@ public class Armor extends Obj {
 				hp+=hpRegen;
 			}
 		}
+	}
+	
+	public void loadData(String fileName){
+		ConfigReader cr = new ConfigReader(pathSetting + fileName.substring(fileName.lastIndexOf('.')+1) + ".properties");
+		
+		hpMax = cr.findDouble("HP_MAX");
+		hp = hpMax;
+		hpRegen = cr.findDouble("HP_REGEN")/Global.setting.TPS;
+		speedTankUp = cr.findDouble("SPEED_UP");
+		speedTankDown = cr.findDouble("SPEED_DOWN");
+		directionGunUp = cr.findDouble("DIRECTION_GUN_UP");
+		directionTankUp = cr.findDouble("DIRECTION_TANK_UP");
+		
+		animSpeed = cr.findInteger("ANIMATION_SPEED");
 	}
 	
 	public void setHp(double hp){

@@ -2,13 +2,14 @@ package main.player;
 
 import main.image.Sprite;
 import main.player.bullet.*;
+import main.setting.ConfigReader;
 import main.*;
 
 public class Gun extends Obj{
 	
 	private Player player;
-	private int attackSpeed1;//скорость атаки
-	private int attackSpeed2;
+	private double attackSpeed1;//скорость атаки
+	private double attackSpeed2;
 	private double directionGunUp;//скорость поворота дула
 	
 	private String bullet1;//тип патрона
@@ -22,6 +23,8 @@ public class Gun extends Obj{
 	private int trunk2X;
 	private int trunk2Y;
 	
+	private final String pathSetting = "gun/";
+	
 	private int TPSFromAttack1 = 10000;//технические(стартовые)
 	private int TPSFromAttack2 = 10000;
 	
@@ -31,17 +34,18 @@ public class Gun extends Obj{
 	public Gun(Player player, Sprite sprite){
 		super(player.getX(),player.getY(),0.0,player.getDirection(),-1,false,sprite);
 		this.player = player;
+		loadData(getClass().getName());
 	}
 	
 	public void attack1(){
-		if (( TPSFromAttack1 > attackSpeed1) && (attackSpeed1 != -1) && (player.getControlAtack())){
+		if (( TPSFromAttack1 > attackSpeed1) && (attackSpeed1> 0) && (player.getControlAtack())){
 			switchBullet(bullet1, trunk1X, trunk1Y, damage1);
 			TPSFromAttack1 = 0;
 		}
 	}
 	
 	public void attack2(){
-		if ((TPSFromAttack2 > attackSpeed2) && (attackSpeed2 != -1) && (player.getControlAtack())){
+		if ((TPSFromAttack2 > attackSpeed2) && (attackSpeed2 > 0) && (player.getControlAtack())){
 			switchBullet(bullet2, trunk2X, trunk2Y, damage2);
 			TPSFromAttack2 = 0;
 		}
@@ -110,15 +114,30 @@ public class Gun extends Obj{
 		}
 	}
 	
+	public void loadData(String fileName){
+		ConfigReader cr = new ConfigReader(pathSetting + fileName.substring(fileName.lastIndexOf('.')+1) + ".properties");
+		
+		attackSpeed1 = Global.setting.TPS*cr.findDouble("ATTACK_SPEED_1");
+		attackSpeed2 = Global.setting.TPS*cr.findDouble("ATTACK_SPEED_2");
+		trunk1X = cr.findInteger("TRUNK_1_X");
+		trunk1Y = cr.findInteger("TRUNK_1_Y");
+		trunk2X = cr.findInteger("TRUNK_2_X");
+		trunk2Y = cr.findInteger("TRUNK_2_Y");
+		
+		directionGunUp = cr.findDouble("DIRECTION_UP");
+		damage1  = cr.findDouble("DAMAGE_1");
+		damage2  = cr.findDouble("DAMAGE_2");
+	}
+	
 	public Player getPlayer(){
 		return player;
 	}
 	
-	public int getAttackSpeed1(){
+	public double getAttackSpeed1(){
 		return attackSpeed1;
 	}
 	
-	public int getAttackSpeed2(){
+	public double getAttackSpeed2(){
 		return attackSpeed2;
 	}
 	

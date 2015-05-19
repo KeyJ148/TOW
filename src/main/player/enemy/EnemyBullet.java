@@ -21,7 +21,7 @@ public class EnemyBullet extends Obj{
 		if (sprite == Global.b_default){
 			setDirectionDraw(0);
 		} else {
-			this.directionDraw = this.direction;
+			super.directionDrawEqulas();
 		}
 	}
 	

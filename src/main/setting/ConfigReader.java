@@ -46,6 +46,10 @@ public class ConfigReader {
 		return Integer.parseInt(findString(findName));
 	}
 	
+	public double findDouble(String findName){
+		return Double.parseDouble(findString(findName));
+	}
+	
 	public boolean findBoolean(String findName){
 		String result = findString(findName);
 		if (result.equals("True") || result.equals("true") || result.equals("TRUE") || result.equals("T")) 

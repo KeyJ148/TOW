@@ -2,6 +2,7 @@ package main.player;
 
 import main.image.Sprite;
 import main.player.enemy.*;
+import main.setting.ConfigReader;
 import main.*;
 
 public class Bullet extends Obj{
@@ -11,10 +12,13 @@ public class Bullet extends Obj{
 	private double damage;//дамаг пушки+патрона
 	private long idNet;
 	
-	public Bullet(Player player, double x, double y, double speed, double dir,double damage, Sprite sprite){
-		super(x,y,speed,dir,0,true,sprite);
+	private final String pathSetting = "bullet/";
+	
+	public Bullet(Player player, double x, double y, double dir,double damage, Sprite sprite){
+		super(x,y,0,dir,0,true,sprite);
 		this.player = player;
-		this.damage = damage;
+		this.damage = damage;//Дамаг исключительно от выстрелевшей пушки
+		loadData(getClass().getName());
 		
 		this.idNet = Global.idNet;
 		Global.clientSend.send1(this);
@@ -39,14 +43,6 @@ public class Bullet extends Obj{
 		destroy();
 	}
 	
-	public double getDamage(){
-		return damage;
-	}
-	
-	public long getIdNet(){
-		return idNet;
-	}
-	
 	public void updateChildStart(){
 		if (!getDestroy()){
 			try{
@@ -57,5 +53,20 @@ public class Bullet extends Obj{
 				p("[ERROR] Bullet null");
 			}
 		}
+	}
+	
+	public void loadData(String fileName){
+		ConfigReader cr = new ConfigReader(pathSetting + fileName.substring(fileName.lastIndexOf('.')+1) + ".properties");
+		
+		setSpeed(cr.findDouble("SPEED"));
+		damage += cr.findDouble("DAMAGE");//К дамагу пушки прибавляем дамаг патрона
+	}
+	
+	public double getDamage(){
+		return damage;
+	}
+	
+	public long getIdNet(){
+		return idNet;
 	}
 }
