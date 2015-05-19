@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
@@ -13,9 +12,12 @@ import main.image.DepthVector;
 
 public class Render extends Canvas{
 	
-	//public ArrayList<Title> titleArray;
+	public ArrayList<Title> titleArray = new ArrayList<Title>();
+	public String strAnalysis1 = "";//Вывод отладочных данных
+	public String strAnalysis2 = "";
 	
 	private static final long serialVersionUID = 1L;
+	
 
 	public void loop() {
 		//Включение двойной буферизации
@@ -77,30 +79,12 @@ public class Render extends Canvas{
 		}
 		
 		//Отрисвока надписей
-		AffineTransform at = new AffineTransform(); 
-		g.setTransform(at);
-		g.setColor(new Color(0,0,0));
-		g.setFont(new Font(null,Font.PLAIN,12));
-		if (!Global.player.getDestroy()){
-			g.drawString(Global.name,Global.player.nameX,Global.player.nameY);
+		addTitle(1,Global.setting.HEIGHT_SCREEN-4,strAnalysis1, Color.BLACK, 12, Font.BOLD);
+		addTitle(1,Global.setting.HEIGHT_SCREEN+9,strAnalysis2, Color.BLACK, 12, Font.BOLD);
+		for (int i = 0; i < titleArray.size(); i++){
+			titleArray.get(i).draw(g);
 		}
-		for(int i = 0;i<Global.enemy.length;i++){
-			try{
-				if (!Global.enemy[i].getDestroy()){
-					g.drawString(Global.enemy[i].name,Global.enemy[i].nameX,Global.enemy[i].nameY);
-				}
-			}catch(NullPointerException e){}
-		}
-		g.setFont(new Font(null,Font.BOLD,20));
-		if (!Global.player.getDestroy()){
-			long hp = Math.round(Global.player.getArmor().getHp());
-			long hpMax = Math.round(Global.player.getArmor().getHpMax());
-			g.drawString("HP: " + hp + "/" + hpMax,1,16);
-		}
-		if (Global.setting.DEBUG_MONITOR_FPS){
-			g.setFont(new Font(null,Font.PLAIN,12));
-			g.drawString(Global.game.monitorStrFPS,1,Global.setting.HEIGHT_SCREEN+9);
-		}
+		
 		
 		//Магия [ON]
 		g.dispose();
@@ -124,8 +108,24 @@ public class Render extends Canvas{
 		}
 		return false;
 	}
+	
+	public void clearTitle(){
+		titleArray.clear();
+	}
 
-	private void drawTitle() {
-		
+	public void addTitle(int x, int y, String str) {
+		titleArray.add(new Title(x, y, str));
+	}
+	
+	public void addTitle(int x, int y, String str, Color c) {
+		titleArray.add(new Title(x, y, str, c));
+	}
+	
+	public void addTitle(int x, int y, String str, int size) {
+		titleArray.add(new Title(x, y, str, size));
+	}
+	
+	public void addTitle(int x, int y, String str, Color c, int size, int font) {
+		titleArray.add(new Title(x, y, str, c, size, font));
 	}
 }

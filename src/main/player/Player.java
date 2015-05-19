@@ -1,18 +1,23 @@
 package main.player;
 
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
-import main.*;
-import main.player.gun.*;
-import main.player.armor.*;
+import main.Global;
+import main.Obj;
+import main.player.armor.DefaultArmor;
+import main.player.gun.DefaultGun;
 
 public class Player extends Obj{
 	
 	public int mouseX = 0;
 	public int mouseY = 0;
-	
-	public int nameX;
-	public int nameY;
 	
 	private boolean controlAtack = true;//можно ли стрелять из танка
 	
@@ -155,9 +160,12 @@ public class Player extends Obj{
 	}
 	
 	public void updateChildFinal(){
-		//Отрисовка ника
-		nameX = (int) Math.round(getXViewCenter()-Global.name.length()*3.25); // lengthChar/2
-		nameY = (int) getYViewCenter()-50;
+		//Отрисовка ника и хп
+		int nameX = (int) Math.round(getXViewCenter()-Global.name.length()*3.25); // lengthChar/2
+		int nameY = (int) getYViewCenter()-50;
+		Global.game.render.addTitle(nameX, nameY, Global.name);
+		
+		Global.game.render.addTitle(1, 16, "HP: " +  Math.round(getArmor().getHp()) + "/" + Math.round(getArmor().getHpMax()), Color.BLACK, 20, Font.BOLD);
 		
 		//Отправка данных о игроке
 		sendStep++;

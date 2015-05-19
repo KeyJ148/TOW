@@ -4,9 +4,6 @@ import main.*;
 
 public class Enemy extends Obj{
 	
-	public int nameX;
-	public int nameY;
-	
 	public boolean animOn = false;
 	
 	public String name;
@@ -47,8 +44,10 @@ public class Enemy extends Obj{
 	public void updateChildFinal(){
 		dragIn();
 		try{
-			nameX = (int) Math.round(getXViewCenter()-name.length()*3.25); // lengthChar/2
-			nameY = (int) getYViewCenter()-50;
+			int nameX = (int) Math.round(getXViewCenter()-name.length()*3.25); // lengthChar/2
+			int nameY = (int) getYViewCenter()-50;
+			
+			Global.game.render.addTitle(nameX, nameY, name);
 		} catch(NullPointerException e){
 			p("[ERROR] Draw enemy name");
 		}

@@ -22,8 +22,6 @@ public class Game implements Runnable{
 	public boolean running = false; //Выполнение главного игрового цикла
 	public boolean restart = false; //Перезагрузка карты
 	
-	public String monitorStrFPS = "";
-	
 	public Game(){
 		update = new Update();
 		render = new Render();
@@ -38,13 +36,16 @@ public class Game implements Runnable{
 		init();
 		
 		long nextLoops = System.currentTimeMillis();//Для цикла
+		long startLoops;//Для анализатора
 		while(running) { //Главный игровой цикл
 			if (System.currentTimeMillis() >= nextLoops){
 				nextLoops += Global.setting.SKIP_TICKS; 
+				startLoops = System.nanoTime();
 				update.loop();
 				render.loop();
+				
 				if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)){
-					analyzer.loops();
+					analyzer.loops(startLoops);
 				}
 			} else {
 				try {
@@ -80,6 +81,7 @@ public class Game implements Runnable{
 		this.restart = true;
 	}
 	
+	//Перезапуск карты
 	public void restart(){
 		if (Global.setting.DEBUG_CONSOLE) System.out.println("Restart map start.");
 		

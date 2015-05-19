@@ -3,6 +3,8 @@ package main;
 public class Update {
 	
 	public void loop(){
+		Global.game.render.clearTitle();//Убрать все надписи с прошлого рендера
+		
 		for (int i=0; i<Global.obj.size(); i++){
 			if (Global.obj.get(i) != null){
 				Obj obj = (Obj) Global.obj.get(i);
