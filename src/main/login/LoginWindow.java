@@ -1,6 +1,7 @@
 package main.login;
 
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Label;
 import java.awt.TextField;
@@ -11,7 +12,7 @@ import main.setting.ConfigReader;
 @SuppressWarnings("serial")
 public class LoginWindow extends Dialog{
 	
-	public final int horFrame = 300;
+	public final int horFrame = 400;
 	public final int vertFrame = 150;
 	public final String fileName = "login.properties";
 	
@@ -19,9 +20,12 @@ public class LoginWindow extends Dialog{
 	public String tf2Default = "";//порт
 	public String tf3Default = "";//ник
 	
+	WindowMain frame;
+	
 	public LoginWindow(WindowMain frame, String s, int hor, int vert){
 		super(frame,s);
 		setLayout(null);
+		this.frame = frame;
 		
 		ConfigReader cr = new ConfigReader(fileName);
 		tf1Default = cr.findString("ip");
@@ -56,6 +60,19 @@ public class LoginWindow extends Dialog{
 		b1.setBounds(100, 100, 100, 30);
 		add(b1);
 		
+		addButtonColor(270,30,40,25,Color.RED);
+		addButtonColor(310,30,40,25,Color.GREEN);
+		addButtonColor(350,30,40,25,Color.BLUE);
+		addButtonColor(270,55,40,25,Color.WHITE);
+		addButtonColor(310,55,40,25,Color.YELLOW);
+		addButtonColor(350,55,40,25,Color.ORANGE);
+		addButtonColor(270,80,40,25,Color.PINK);
+		addButtonColor(310,80,40,25,Color.MAGENTA);
+		addButtonColor(350,80,40,25,Color.CYAN);
+		addButtonColor(270,105,40,25,Color.LIGHT_GRAY);
+		addButtonColor(310,105,40,25,Color.GRAY);
+		addButtonColor(350,105,40,25,Color.DARK_GRAY);
+		
 		LoginListener ll = new LoginListener(tf1,tf2,tf3,frame);
 		tf1.addActionListener(ll);
 		tf2.addActionListener(ll);
@@ -64,6 +81,14 @@ public class LoginWindow extends Dialog{
 		
 		setBounds(hor/2-horFrame/2,vert/2-vertFrame/2,horFrame,vertFrame);
 		setVisible(true);
+	}
+	
+	private void addButtonColor(int x, int y, int w, int h, Color c){
+		Button buttonColor = new Button(); 
+		buttonColor.setBounds(x, y, w, h);
+		buttonColor.setBackground(c);
+		buttonColor.addActionListener(new ColorListener(c,frame));
+		add(buttonColor);
 	}
 	
 }

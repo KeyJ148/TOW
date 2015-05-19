@@ -1,5 +1,6 @@
 package main.login;
 
+import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -24,12 +25,19 @@ public class WindowMain extends JFrame {
 	public Dialog d;
 	public ClientNetThread clientThread;
 	
+	Color c;
+	
 	public WindowMain(String windowName){
 		super(windowName);
 		Dimension sSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.vert = sSize.height;
 		this.hor = sSize.width;
 		this.d = new LoginWindow(this,"Entry",this.hor,this.vert);
+		this.c = Color.WHITE;
+	}
+	
+	public void setColor(Color c){
+		this.c = c;
 	}
 	
 	public void createConnection(Socket sock,String name) throws IOException{
@@ -52,6 +60,7 @@ public class WindowMain extends JFrame {
 		
 		this.clientThread = new ClientNetThread(in,out,sock);
 		Global.clientThread = this.clientThread;
+		Global.color = c;
 		
 		Global.game.start();
 		setVisible(true);

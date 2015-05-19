@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import main.image.Animation;
@@ -36,6 +37,7 @@ public class Global {
 	public static ArrayList<EnemyBullet> enemyBullet; //список всех патронов противников (EnemyBullet)
 	
 	public static String name;//имя игрока
+	public static Color color;//цвет игрока
 	
 	public static int heightMap;
 	public static int widthMap;//размер карты
