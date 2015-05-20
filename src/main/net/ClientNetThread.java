@@ -1,5 +1,6 @@
 package main.net;
 
+import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -220,6 +221,7 @@ public class ClientNetThread extends Thread{
 			double y = Double.parseDouble(Global.linkCS.parsString(str,3));
 			double direction = Double.parseDouble(Global.linkCS.parsString(str,4));
 			Global.enemy[emptySlot] = new Enemy(x,y,direction,name);
+			Global.clientSend.send10(name);
 		}
 	}
 	
@@ -281,7 +283,29 @@ public class ClientNetThread extends Thread{
 		stopThread();
 	}
 	
-	public void take9(String str){
+	public void take9(String str){//Сервер вернул пинг
 		Global.pingCheck.takePing();
+	}
+	
+	public void take10(String str){//Враг запрашивает чьи-то данные
+		if (Global.linkCS.parsString(str,2).equals(Global.name)){
+			Global.clientSend.send11();
+		}
+	}
+	
+	public void take11(String str){//Враг послал кому-то свои данные
+		String enemyName = Global.linkCS.parsString(str,2);
+		for (int i=0;i<Global.enemy.length;i++){
+			if (enemyName.equals(Global.enemy[i].name)){
+				if (!Global.enemy[i].haveData){
+					Global.enemy[i].haveData = true;
+					int red = Integer.parseInt(Global.linkCS.parsString(str,3));
+					int green = Integer.parseInt(Global.linkCS.parsString(str,4));
+					int blue =Integer.parseInt(Global.linkCS.parsString(str,5));
+					Global.enemy[i].c = new Color(red, green, blue);
+				}
+				break;
+			}
+		}
 	}
 }

@@ -133,7 +133,6 @@ public class ServerNetThread extends Thread{
 	}
 	
 	public void take1(){//Клиент готов к приёму карты (Рестарт)
-		System.out.println("TAKE -1");//
 		gameServer.messagePack[id].clear();
 		mapLoading();
 	}

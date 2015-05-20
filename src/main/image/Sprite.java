@@ -61,11 +61,21 @@ public class Sprite implements Cloneable, Rendering {
 	}
     
     public void draw(Graphics2D g,int x,int y,double direction) {
-		direction-=Math.PI/2; //смещена начального угла с ¬остока на —евер
+		g = setDefaultTransform(g, x, y, direction);
+        g.drawImage(image, x, y, null);//дл€ отрисовки спрайта нужен верхний левый угол
+    }
+    
+    public void draw(Graphics2D g,int x,int y,double direction, Color c) {
+    	g = setDefaultTransform(g, x, y, direction);
+        g.drawImage(image, x, y, c , null);//дл€ отрисовки спрайта нужен верхний левый угол
+    }
+    
+    public Graphics2D setDefaultTransform(Graphics2D g,int x,int y,double direction){
+    	direction-=Math.PI/2; //смещена начального угла с ¬остока на —евер
 		AffineTransform at = new AffineTransform(); 
 		at.rotate(-direction,x+getWidth()/2,y+getHeight()/2); //—оздание трансформа с поворотом
         g.setTransform(at); //дл€ поворота спрайта на direction
-        g.drawImage(image, x, y, null);//дл€ отрисовки спрайта нужен верхний левый угол
+        return g;
     }
     
     public boolean isAnim(){

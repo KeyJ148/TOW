@@ -2,6 +2,7 @@ package main.player;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -173,5 +174,10 @@ public class Player extends Obj{
 			sendStep = 0;
 			Global.clientSend.sendData(getData());
 		}
+	}
+	
+	@Override
+	public void draw(Graphics2D g){
+		drawColor(g, Global.color);
 	}
 }

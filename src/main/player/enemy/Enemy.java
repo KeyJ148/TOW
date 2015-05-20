@@ -1,12 +1,17 @@
 package main.player.enemy;
 
-import main.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+
+import main.Global;
 import main.obj.Obj;
 
 public class Enemy extends Obj{
 	
 	public boolean animOn = false;
+	public boolean haveData = false;//»меем ли мы все данные об этом враге
 	
+	public Color c = Color.WHITE;
 	public String name;
 	public Obj gun;
 	public EnemyArmor armor;
@@ -52,6 +57,11 @@ public class Enemy extends Obj{
 		} catch(NullPointerException e){
 			p("[ERROR] Draw enemy name");
 		}
+	}
+	
+	@Override
+	public void draw(Graphics2D g){
+		drawColor(g, c);
 	}
 	
 	public void dragIn(){

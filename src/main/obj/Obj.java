@@ -1,5 +1,6 @@
 package main.obj;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import main.Global;
@@ -50,6 +51,18 @@ public class Obj extends ObjLight{
 		yView = Global.cameraYView - (Global.cameraY - y);
 	
 		image.draw(g,(int) Math.round(xView),(int) Math.round(yView), Math.toRadians(directionDraw));
+		if (Global.setting.MASK_DRAW) mask.draw(g);
+	}
+	
+	public void drawColor(Graphics2D g, Color c){
+		//для отрисовки объекта с поворотом на direction
+		directionDrawEqulas();
+		
+		//для движения камеры
+		xView = Global.cameraXView - (Global.cameraX - x);
+		yView = Global.cameraYView - (Global.cameraY - y);
+	
+		image.draw(g,(int) Math.round(xView),(int) Math.round(yView), Math.toRadians(directionDraw), c);
 		if (Global.setting.MASK_DRAW) mask.draw(g);
 	}
 	

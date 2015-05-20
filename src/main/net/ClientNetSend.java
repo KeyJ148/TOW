@@ -60,4 +60,15 @@ public class ClientNetSend extends Thread{
 	public void send5(){//Перезагрузка карты (Имя победителя)
 		sendData("5 " + Global.name);
 	}
+	
+	public void send10(String nameEnemy){//Запросить данные от врага
+		sendData("10 " + nameEnemy);
+	}
+	
+	public void send11(){//Отправить свои данные другим игрокам
+		int red = Global.color.getRed();
+		int green = Global.color.getGreen();
+		int blue = Global.color.getBlue();
+		sendData("11 " + Global.name + " " + red + " " + green + " " + blue);
+	}
 }
