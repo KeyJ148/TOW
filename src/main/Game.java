@@ -36,16 +36,18 @@ public class Game implements Runnable{
 		init();
 		
 		long nextLoops = System.currentTimeMillis();//Для цикла
-		long startLoops;//Для анализатора
+		long startUpdate, startRender;//Для анализатора
 		while(running) { //Главный игровой цикл
 			if (System.currentTimeMillis() >= nextLoops){
 				nextLoops += Global.setting.SKIP_TICKS; 
-				startLoops = System.nanoTime();
+				
+				startUpdate = System.nanoTime();
 				update.loop();
+				startRender = System.nanoTime();
 				render.loop();
 				
 				if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)){
-					analyzer.loops(startLoops);
+					analyzer.loops(startUpdate, startRender);
 				}
 			} else {
 				try {

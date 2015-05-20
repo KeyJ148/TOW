@@ -8,25 +8,16 @@ import main.image.Mask;
 import main.image.Rendering;
 import main.image.Sprite;
 
-public class Obj {
-	
-	public double x;
-	public double y;
-	public double xView = 0; //для движения камеры
-	public double yView = 0; //коры объекта в окне
-	
-	public double direction; //0, 360 - в право, против часовой - движение
-	public double directionDraw; //0, 360 - в право, против часовой - отрисовка
+public class Obj extends ObjLight{
 	
 	public double speed; //На сколько пикселей объект смещается за 1 секунду
-	public int depth;
+	public double direction; //0, 360 - в право, против часовой - движение
 	
 	public String[] collObj;//список объектов с которыми надо проверять столкновения
 	private boolean collHave = false;//есть ли столкновения
 	
 	private boolean maskDynamic;//обновление маски каждый тик (true = динамичный)
 								//нужен для движущихся или поворачивающихся объектов
-	private long id; //уникальный номер
 	private boolean anim; //Объекту присвоен спрайт или анимация?(true = анимация)
 	private boolean destroy = false;
 	
@@ -46,7 +37,7 @@ public class Obj {
 			this.anim = false;
 			this.mask = sprite.getMask().clone();
 		} catch (CloneNotSupportedException e) {
-			Global.error("Failed with clone object. Id = " + id);
+			Global.error("Failed with clone object. Id = " + getId());
 		}
 		
 		init(x,y,speed,direction,depth,maskDynamic);
@@ -59,7 +50,7 @@ public class Obj {
 			this.anim = true;
 			this.mask = animation.getMask().clone();
 		} catch (CloneNotSupportedException e) {
-			Global.error("Failed with clone object. Id = " + id);
+			Global.error("Failed with clone object. Id = " + getId());
 		}
 		init(x,y,speed,direction,depth,maskDynamic);
 	}
@@ -71,19 +62,19 @@ public class Obj {
 		this.direction = direction;
 		this.directionDraw = direction;
 		this.depth = depth;
-		this.id = Global.id;
+		setId(Global.id);
 		Global.id++;
 		this.maskDynamic = maskDynamic;
 		
 		Global.obj.add(this);
 		
-		depthAddVector(depth, this.id); //Добавляем объект в массив в зависимости от его глубины
+		depthAddVector(depth, getId()); //Добавляем объект в массив в зависимости от его глубины
 		mask.calc(this.x,this.y,this.directionDraw);//расчёт маски
 		
 		if (this.anim){
-			if (Global.setting.DEBUG_CONSOLE) System.out.println("Object \"" + animation.path + "\" create. Id = " + id);
+			if (Global.setting.DEBUG_CONSOLE) System.out.println("Object \"" + animation.path + "\" create. Id = " + getId());
 		} else {
-			if (Global.setting.DEBUG_CONSOLE) System.out.println("Object \"" + sprite.path + "\" create. Id = " + id);
+			if (Global.setting.DEBUG_CONSOLE) System.out.println("Object \"" + sprite.path + "\" create. Id = " + getId());
 		}
 		
 	}
@@ -110,7 +101,7 @@ public class Obj {
 		for (int i=0; i<Global.depth.size(); i++){
 			dv = (DepthVector) Global.depth.get(i);
 			if (dv.depth == depth){
-				dv.delete(id);
+				dv.delete(getId());
 			}
 		}
 		this.destroy = true;
@@ -124,10 +115,8 @@ public class Obj {
 		xView = Global.cameraXView - (Global.cameraX - x);
 		yView = Global.cameraYView - (Global.cameraY - y);
 	
-		if (Global.game.render.needDraw((int) xView, (int) yView, image.getWidth(), image.getHeight())){
-			image.draw(g,(int) Math.round(xView),(int) Math.round(yView), Math.toRadians(directionDraw));
-			if (Global.setting.MASK_DRAW) mask.draw(g);
-		}
+		image.draw(g,(int) Math.round(xView),(int) Math.round(yView), Math.toRadians(directionDraw));
+		if (Global.setting.MASK_DRAW) mask.draw(g);
 	}
 	
 	public void update() {
@@ -145,15 +134,10 @@ public class Obj {
 		
 		directionDrawEqulas();
 		
-		if (anim) {
-			animation.update();
-			if (maskDynamic){
-				mask.calc(this.x,this.y,this.directionDraw);
-			}
-		} else {
-			if (maskDynamic){
-				mask.calc(this.x,this.y,this.directionDraw);
-			}
+		if (anim) animation.update();
+		
+		if (maskDynamic){
+			mask.calc(this.x,this.y,this.directionDraw);
 		}
 		
 		if(this.collHave){
@@ -163,7 +147,7 @@ public class Obj {
 		updateChildFinal();//step у дочерних объектов
 		
 		if (destroy){
-			Global.delObj(id);
+			Global.delObj(getId());
 		}
 	}
 	
@@ -294,10 +278,6 @@ public class Obj {
 	
 	public int getDepth(){
 		return depth;
-	}
-	
-	public long getId(){
-		return id;
 	}
 	
 	public boolean getDestroy(){

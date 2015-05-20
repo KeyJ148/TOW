@@ -33,20 +33,14 @@ public class Render extends Canvas{
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
 		//заливка фона
-		Global.game.analyzer.drawBack = 0;
-		Global.game.analyzer.background = 0;
 		Image back = Global.background.getImage();
 		int dxf,dyf;
 		int size = 64;//Размер плитки с фоном
 		for (int dy = 0; dy<=Global.heightMap; dy+=size){
 			for (int dx = 0; dx<=Global.widthMap; dx+=size){
-				Global.game.analyzer.background++;
 				dxf = (int) Math.round(Global.cameraXView - (Global.cameraX - dx));
 				dyf = (int) Math.round(Global.cameraYView - (Global.cameraY - dy));
-				if (needDraw(dxf, dyf, size, size)){
-					Global.game.analyzer.drawBack++;
-					g.drawImage(back,dxf,dyf,null);
-				}
+				g.drawImage(back,dxf,dyf,null);
 			}
 		}
 		
@@ -63,7 +57,6 @@ public class Render extends Canvas{
 		}
 		
 		//Отрисовка объектов	
-		Global.game.analyzer.draw = 0;
 		for (int i=0; i<Global.depth.size(); i++){
 			DepthVector dv = (DepthVector) Global.depth.get(i);
 			for (int j=0; j<dv.number.size(); j++){
@@ -90,23 +83,6 @@ public class Render extends Canvas{
 		g.dispose();
 		bs.show();
 		//Магия [OFF]
-	}
-	
-	public boolean needDraw(int xView, int yView, int width, int height){
-		int error = 10;//Погрешность в пикселях
-		
-		int size;
-		if (width > height){
-			size = width;
-		} else{
-			size = height;
-		}
-		
-		if ((xView + size*2 + error > 0) && (xView - size*2 - error < Global.setting.WIDTH_SCREEN) && (yView - size*2 - error < Global.setting.HEIGHT_SCREEN) && (yView + size*2 + error > 0)){
-			Global.game.analyzer.draw++;
-			return true;
-		}
-		return false;
 	}
 	
 	public void clearTitle(){

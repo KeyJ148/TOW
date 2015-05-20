@@ -10,7 +10,8 @@ public class Analyzer {
 	public long lastAnalysis;
 	
 	//Для подсчёта быстродействия
-	long durationLoops = 0;
+	long durationUpdate = 0;
+	long durationRender = 0;
 	
 	//Пинг
 	public int ping=0, pingMin=0, pingMax=0, pingMid=0;
@@ -18,16 +19,14 @@ public class Analyzer {
 	//Скорость сети
 	public int send=0, load=0;
 	
-	public int draw = 0, drawBack = 0;//Количество объектов в поле зрения камеры
-	public int background = 0;
-	
 	public Analyzer(){
 		lastAnalysis = System.currentTimeMillis();
 		Global.pingCheck = new Ping();
 	}
 	
-	public void loops(long startLoops){
-		durationLoops += System.nanoTime() - startLoops;
+	public void loops(long startUpdate, long startRender){
+		durationUpdate += startRender - startUpdate;
+		durationRender += System.nanoTime() - startRender;
 		loopsRender++;
 		if (System.currentTimeMillis() >= lastAnalysis + 1000){
 			analysisData();
@@ -71,9 +70,8 @@ public class Analyzer {
 						+ "          Ping: " + ping + " (" + pingMin + "-" + pingMid + "-" + pingMax + ")"
 						+ "          Speed S/L: " + send + "/" + load + " kb/s";
 		String strFPS2 =   "FPS: " + loopsRender
-				+ "          Duration loop: " + (durationLoops/loopsRender/1000) + " mks"
-				+ "          Object: " + objSize + " (D " + draw + ")"
-				+ "          Background: " + background + " (D " + drawBack + ")";
+				+ "          Duration update/render: " + (durationUpdate/loopsRender/1000) + "/" + (durationRender/loopsRender/1000) + " mks"
+				+ "          Object: " + objSize;
 				
 		if (Global.setting.DEBUG_CONSOLE_FPS){
 			System.out.println(strFPS1);
@@ -87,7 +85,8 @@ public class Analyzer {
 		
 		lastAnalysis = System.currentTimeMillis();
 		loopsRender = 0;
-		durationLoops = 0;
+		durationUpdate = 0;
+		durationRender = 0;
 	}
 	
 }
