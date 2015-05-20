@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import main.Game;
 import main.Global;
@@ -21,7 +22,9 @@ public class ClientNetThread extends Thread{
 	public Socket sock;
 	public Game game;
 	
-	public boolean takeMessage = true;
+	public volatile ArrayList<String> messages = new ArrayList<String>();
+	
+	public volatile boolean takeMessage = true;
 	
 	public volatile int sizeData = 0; //bytes
 	public Object sizeDataMonitor;
@@ -134,25 +137,26 @@ public class ClientNetThread extends Thread{
 	public void run(){
 		//постоянный обмен данными
 		//на TCP
-		takeMessage = true;//Принимать сообщения?
 		String str;
 		try{
-			
 			while(true){
-				if (takeMessage){
-					str = this.in.readUTF();
-					synchronized (sizeDataMonitor){
-						sizeData += str.length()*2;
+				str = this.in.readUTF();
+				if (!takeMessage){
+					game.startRestart();
+					while (!takeMessage){
+						try {
+							Thread.sleep(0,100);
+						} catch (InterruptedException e) {}
 					}
-					if (!takeMessage) break;
-					switch (Integer.parseInt(Global.linkCS.parsString(str,1))){
-						case 0: take0(str); break;
-						case 1: take1(str); break;
-						case 2: take2(str); break;
-						case 3: take3(str); break;
-						case 4: take4(str); break;
-						case 5: take5(str); break;
-						case 9: take9(str); break;
+				}
+				
+				synchronized (sizeDataMonitor){
+					sizeData += str.length()*2;
+				}
+				
+				if (takeMessage){
+					synchronized (messages){
+						messages.add(str);
 					}
 				}
 			}
@@ -168,6 +172,29 @@ public class ClientNetThread extends Thread{
 	
 	public void startThread(){
 		takeMessage = true;
+	}
+	
+	public void update(){
+		String str;
+		synchronized(messages){
+			
+			for (int i=0;i<messages.size();i++){
+				if (takeMessage){
+					str = messages.get(i);
+					switch (Integer.parseInt(Global.linkCS.parsString(str,1))){
+						case 0: take0(str); break;
+						case 1: take1(str); break;
+						case 2: take2(str); break;
+						case 3: take3(str); break;
+						case 4: take4(str); break;
+						case 5: take5(str); break;
+						case 9: take9(str); break;
+					}
+				}
+			}
+			messages.clear();
+			
+		}
 	}
 	
 	public void take0(String str){//Данные танка врага
@@ -246,14 +273,12 @@ public class ClientNetThread extends Thread{
 		if (allDestroy){
 			Global.clientSend.send5();
 			stopThread();
-			game.startRestart();
 		}
 		
 	}
 	
 	public void take5(String str){//Перезагрузка карты
 		stopThread();
-		game.startRestart();
 	}
 	
 	public void take9(String str){

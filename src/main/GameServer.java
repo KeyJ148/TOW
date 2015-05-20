@@ -91,7 +91,6 @@ public class GameServer {
 		ServerSocket ServerSocket = new ServerSocket(port);
 		this.peopleNow = 0;
 		
-		genTank();
 		System.out.println("Server started.");
 		
 		while(peopleNow != peopleMax){

@@ -8,6 +8,9 @@ public class Update {
 	public void loop(){
 		Global.game.render.clearTitle();//Убрать все надписи с прошлого рендера
 		
+		//Обработать все полученные сообщения
+		Global.clientThread.update();
+		
 		for (int i=0; i<Global.obj.size(); i++){
 			if (Global.obj.get(i) != null){
 				ObjLight obj = (ObjLight) Global.obj.get(i);
