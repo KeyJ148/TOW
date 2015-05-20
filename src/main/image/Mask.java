@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 import main.Global;
-import main.Obj;
+import main.obj.Obj;
 
 public class Mask implements Cloneable{
 	
@@ -44,13 +44,6 @@ public class Mask implements Cloneable{
 			maskX = new int[] {0,this.width-1,this.width-1,0};
 			maskY = new int[] {0,0,this.height-1,this.height-1};
 			center();
-			/* тестовая НЕпрямоугольная
-			maskX = new int[] {-5,getWidth()+5,getWidth()+5,getWidth()/2,-5};
-			maskY = new int[] {-5,-5,getHeight()+5,getHeight()+10,getHeight()+5};
-			*//* тестовая прямоугольная
-			maskX = new int[] {-5,getWidth()+5,getWidth()+5,-5};
-			maskY = new int[] {-5,-5,getHeight()+5,getHeight()+5};
-			*/
 		}
 	}
 	
@@ -97,10 +90,10 @@ public class Mask implements Cloneable{
 	public void collCheck(String[] collObj, Obj obj){
 		for(int vectorON=0;vectorON<Global.obj.size();vectorON++){			//Vector Object Number - цикл перебора объектов в глобале
 			for (int stringON=0;stringON<collObj.length;stringON++){ 	//String Object Number - цикл перебора объектов во входном массиве
-				if (Global.obj.get(vectorON) != null){
+				if (!Global.obj.get(vectorON).isLight()){
 					if (Global.obj.get(vectorON).getClass().getName().equals(collObj[stringON])){
-						if (collCheckConti(Global.obj.get(vectorON))){
-							obj.collReport(Global.obj.get(vectorON));
+						if (collCheckConti((Obj) Global.obj.get(vectorON))){
+							obj.collReport((Obj) Global.obj.get(vectorON));
 						}
 					}
 				}

@@ -2,6 +2,7 @@ package main.player;
 
 import main.*;
 import main.image.Animation;
+import main.obj.Obj;
 import main.setting.ConfigReader;
 
 public class Armor extends Obj {

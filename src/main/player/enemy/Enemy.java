@@ -1,6 +1,7 @@
 package main.player.enemy;
 
 import main.*;
+import main.obj.Obj;
 
 public class Enemy extends Obj{
 	

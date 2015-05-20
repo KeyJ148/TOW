@@ -1,6 +1,7 @@
 package main.player;
 
 import main.image.Sprite;
+import main.obj.Obj;
 import main.player.enemy.*;
 import main.setting.ConfigReader;
 import main.*;

@@ -9,6 +9,7 @@ import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
 import main.image.DepthVector;
+import main.obj.ObjLight;
 
 public class Render extends Canvas{
 	
@@ -18,7 +19,6 @@ public class Render extends Canvas{
 	
 	private static final long serialVersionUID = 1L;
 	
-
 	public void loop() {
 		//Включение двойной буферизации
 		BufferStrategy bs = getBufferStrategy(); 
@@ -62,7 +62,7 @@ public class Render extends Canvas{
 			for (int j=0; j<dv.number.size(); j++){
 				if (Global.obj.get(i) != null){
 					try{
-						Obj obj = (Obj) Global.getObj((long) dv.number.get(j));
+						ObjLight obj = (ObjLight) Global.getObj((long) dv.number.get(j));
 						obj.draw(g);
 					}catch (NullPointerException e){
 						Global.error("Draw object null");

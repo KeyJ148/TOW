@@ -1,7 +1,7 @@
 package main.player.enemy;
 
-import main.*;
 import main.image.Animation;
+import main.obj.Obj;
 
 public class EnemyArmor extends Obj{
 	

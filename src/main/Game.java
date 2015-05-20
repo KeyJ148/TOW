@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import main.image.DepthVector;
 import main.login.WindowMain;
 import main.net.LinkCS;
+import main.obj.ObjLight;
 import main.player.enemy.EnemyBullet;
 import main.setting.SettingStorage;
 
@@ -63,7 +64,7 @@ public class Game implements Runnable{
 	public void init() {
 		if (Global.setting.DEBUG_CONSOLE) System.out.println("Inicialization start.");
 		
-		Global.obj = new ArrayList<Obj>();
+		Global.obj = new ArrayList<ObjLight>();
 		Global.depth = new ArrayList<DepthVector>();
 		Global.enemyBullet = new ArrayList<EnemyBullet>();
 		Global.linkCS = new LinkCS();

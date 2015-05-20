@@ -2,6 +2,7 @@ package main.player.enemy;
 
 import main.*;
 import main.image.Sprite;
+import main.obj.Obj;
 
 public class EnemyBullet extends Obj{
 	

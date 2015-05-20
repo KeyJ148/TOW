@@ -12,6 +12,7 @@ import java.io.*;
 import java.net.*;
 
 public class Sprite implements Cloneable, Rendering {
+	
     private Image image;
     public String path;//путь к файлу, нужен дл€ создани€ маски и консоли
     public Mask mask;
@@ -48,6 +49,12 @@ public class Sprite implements Cloneable, Rendering {
     public Mask getMask(){
 		return this.mask;
 	}
+    
+    public String getPath(){
+		return path;
+	}
+    
+    public void update(){}//Ќаследуетс€ от Rendering, нужен дл€ анимации, вызываетс€ каждый степ
 	
 	public Sprite clone() throws CloneNotSupportedException {
 		return (Sprite) super.clone();
@@ -59,5 +66,9 @@ public class Sprite implements Cloneable, Rendering {
 		at.rotate(-direction,x+getWidth()/2,y+getHeight()/2); //—оздание трансформа с поворотом
         g.setTransform(at); //дл€ поворота спрайта на direction
         g.drawImage(image, x, y, null);//дл€ отрисовки спрайта нужен верхний левый угол
+    }
+    
+    public boolean isAnim(){
+    	return false;
     }
 }

@@ -1,5 +1,8 @@
 package main;
 
+import main.obj.Obj;
+import main.obj.ObjLight;
+
 public class Update {
 	
 	public void loop(){
@@ -7,7 +10,7 @@ public class Update {
 		
 		for (int i=0; i<Global.obj.size(); i++){
 			if (Global.obj.get(i) != null){
-				Obj obj = (Obj) Global.obj.get(i);
+				ObjLight obj = (ObjLight) Global.obj.get(i);
 				obj.update();
 			}
 		}

@@ -14,5 +14,11 @@ public interface Rendering {
     public Mask getMask();
 	
     public void draw(Graphics2D g,int x,int y,double direction);
+    
+    public boolean isAnim();
+    
+    public String getPath();
+    
+    public void update();
 
 }

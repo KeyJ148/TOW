@@ -114,4 +114,12 @@ public class Animation implements Cloneable, Rendering{
 	public Image getImage() {
 		return image[frameNow];
 	}
+	
+	public String getPath(){
+		return path;
+	}
+	
+	public boolean isAnim(){
+    	return true;
+    }
 }

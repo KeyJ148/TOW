@@ -10,6 +10,7 @@ import main.net.ClientNetSend;
 import main.net.ClientNetThread;
 import main.net.LinkCS;
 import main.net.Ping;
+import main.obj.ObjLight;
 import main.player.Player;
 import main.player.enemy.Enemy;
 import main.player.enemy.EnemyBullet;
@@ -19,7 +20,7 @@ public class Global {
 	
 	public static Game game; //Главный игровой поток
 	
-	public static ArrayList<Obj> obj; //Массив со всеми объектами
+	public static ArrayList<ObjLight> obj; //Массив со всеми объектами
 	public static ArrayList<DepthVector> depth; //Массив с DepthVector
 	
 	public static Player player; //главный игрок
@@ -105,7 +106,7 @@ public class Global {
 	}
 	
 	//Возвращение объекта из массива по id
-	public static Obj getObj(long id){
+	public static ObjLight getObj(long id){
 		for (int i = 0; i<obj.size(); i++){
 			if (obj.get(i).getId() == id){
 				return obj.get(i);

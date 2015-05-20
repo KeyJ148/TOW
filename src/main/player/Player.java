@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
 import main.Global;
-import main.Obj;
+import main.obj.Obj;
 import main.player.armor.DefaultArmor;
 import main.player.gun.DefaultGun;
 
