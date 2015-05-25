@@ -16,7 +16,7 @@ public interface Rendering {
 	
     public void draw(Graphics2D g,int x,int y,double direction);
     
-    public void draw(Graphics2D g,int x,int y,double direction, Color c);
+    public void setColor(Color c);
     
     public boolean isAnim();
     

@@ -96,21 +96,69 @@ public class Animation implements Cloneable, Rendering{
 	}
     
     public void draw(Graphics2D g,int x,int y,double direction) {
-    	g = setDefaultTransform(g, x, y, direction);
-        g.drawImage(image[frameNow], x, y, null);//для отрисовки спрайта нужен верхний левый угол
-    }
-    
-    public void draw(Graphics2D g,int x,int y,double direction, Color c) {
-    	g = setDefaultTransform(g, x, y, direction);
-        g.drawImage(image[frameNow], x, y, c , null);//для отрисовки спрайта нужен верхний левый угол
-    }
-    
-    public Graphics2D setDefaultTransform(Graphics2D g,int x,int y,double direction){
     	direction-=Math.PI/2; //смещена начального угла с Востока на Север
 		AffineTransform at = new AffineTransform(); 
 		at.rotate(-direction,x+getWidth(frameNow)/2,y+getHeight(frameNow)/2); //Создание трансформа с поворотом
         g.setTransform(at); //для поворота спрайта на direction
-        return g;
+        g.drawImage(image[frameNow], x, y, null);//для отрисовки спрайта нужен верхний левый угол
+    }
+    
+    public BufferedImage[] toBufferedImage(){
+    	BufferedImage[] bfArray= new BufferedImage[image.length]; 
+    	for (int i=0;i<image.length; i++){
+    		bfArray[i] = toBufferedImage(image[i]);
+    	}
+    	return bfArray;
+    }
+    
+    private BufferedImage toBufferedImage(Image img){
+        if (img instanceof BufferedImage)
+        {
+            return (BufferedImage) img;
+        }
+
+        BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D bGr = bimage.createGraphics();
+        bGr.drawImage(img, 0, 0, null);
+        bGr.dispose();
+
+        return bimage;
+    }
+    
+    private BufferedImage setColorBufferedImage(BufferedImage image, Color setColor) {
+        int width = getWidth();
+        int height = getHeight();
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+            	
+                Color originalColor = new Color(image.getRGB(x, y), true);//true показывает необходимость передавать alpha-канал
+                int red = originalColor.getRed();
+                int green = originalColor.getGreen();
+                int blue = originalColor.getBlue();
+                int alpha = originalColor.getAlpha();
+                
+                int newRed = setColor.getRed() * red/255;
+                int newGreen = setColor.getGreen() * green/255;
+                int newBlue = setColor.getBlue() * blue/255;
+                Color newColor = new Color(newRed, newGreen, newBlue, alpha);
+                image.setRGB(x, y, newColor.getRGB());
+                
+            }
+        }
+        return image;
+    }
+    
+    public void setColor(Color c){
+    	Image[] newImage = new Image[image.length]; 
+    	BufferedImage bi;
+	    for (int i=0;i<image.length; i++){
+	    	bi = toBufferedImage(image[i]);
+	    	bi = setColorBufferedImage(bi, c);
+	    	newImage[i] = Toolkit.getDefaultToolkit().createImage(bi.getSource());
+	    }
+	    this.image = newImage;
     }
 
 	public int getWidth() {

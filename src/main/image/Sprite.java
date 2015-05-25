@@ -28,10 +28,10 @@ public class Sprite implements Cloneable, Rendering {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+       
 		this.image = Toolkit.getDefaultToolkit().createImage(sourceImage.getSource());
 		//Создание маски
 		this.mask = new Mask(path, getWidth(), getHeight());
-		
     }
     
     public int getWidth() {
@@ -61,21 +61,57 @@ public class Sprite implements Cloneable, Rendering {
 	}
     
     public void draw(Graphics2D g,int x,int y,double direction) {
-		g = setDefaultTransform(g, x, y, direction);
-        g.drawImage(image, x, y, null);//для отрисовки спрайта нужен верхний левый угол
-    }
-    
-    public void draw(Graphics2D g,int x,int y,double direction, Color c) {
-    	g = setDefaultTransform(g, x, y, direction);
-        g.drawImage(image, x, y, c , null);//для отрисовки спрайта нужен верхний левый угол
-    }
-    
-    public Graphics2D setDefaultTransform(Graphics2D g,int x,int y,double direction){
     	direction-=Math.PI/2; //смещена начального угла с Востока на Север
 		AffineTransform at = new AffineTransform(); 
 		at.rotate(-direction,x+getWidth()/2,y+getHeight()/2); //Создание трансформа с поворотом
         g.setTransform(at); //для поворота спрайта на direction
-        return g;
+        g.drawImage(image, x, y, null);//для отрисовки спрайта нужен верхний левый угол
+    }
+    
+    public void setColor(Color c){
+    	BufferedImage bi = toBufferedImage();
+    	bi = setColorBufferedImage(bi, c);
+    	this.image = Toolkit.getDefaultToolkit().createImage(bi.getSource());
+    }
+    
+    private BufferedImage setColorBufferedImage(BufferedImage image, Color setColor) {
+        int width = getWidth();
+        int height = getHeight();
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+            	
+                Color originalColor = new Color(image.getRGB(x, y), true);//true показывает необходимость передавать alpha-канал
+                int red = originalColor.getRed();
+                int green = originalColor.getGreen();
+                int blue = originalColor.getBlue();
+                int alpha = originalColor.getAlpha();
+                
+                int newRed = setColor.getRed() * red/255;
+                int newGreen = setColor.getGreen() * green/255;
+                int newBlue = setColor.getBlue() * blue/255;
+                Color newColor = new Color(newRed, newGreen, newBlue, alpha);
+                image.setRGB(x, y, newColor.getRGB());
+                
+            }
+        }
+        return image;
+    }
+    
+    private BufferedImage toBufferedImage(){
+    	
+        if (this.image instanceof BufferedImage)
+        {
+            return (BufferedImage) this.image;
+        }
+
+        BufferedImage bimage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D bGr = bimage.createGraphics();
+        bGr.drawImage(this.image, 0, 0, null);
+        bGr.dispose();
+
+        return bimage;
     }
     
     public boolean isAnim(){

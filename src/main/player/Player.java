@@ -2,7 +2,6 @@ package main.player;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics2D;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -34,6 +33,8 @@ public class Player extends Obj{
 		this.armor = new DefaultArmor(this);
 		this.gun = new DefaultGun(this);
 		this.gun.setBullet1(bullet);
+		
+		setColor(Global.color);
 		
 		Global.game.render.addKeyListener(new KeyAdapter(){
 			public void keyPressed(KeyEvent e){
@@ -160,6 +161,11 @@ public class Player extends Obj{
 		return mouseY;
 	}
 	
+	public void setColor(Color c){
+		armor.getImage().setColor(c);
+		gun.getImage().setColor(c);
+	}
+	
 	public void updateChildFinal(){
 		//Отрисовка ника и хп
 		int nameX = (int) Math.round(getXViewCenter()-Global.name.length()*3.25); // lengthChar/2
@@ -174,10 +180,5 @@ public class Player extends Obj{
 			sendStep = 0;
 			Global.clientSend.sendData(getData());
 		}
-	}
-	
-	@Override
-	public void draw(Graphics2D g){
-		drawColor(g, Global.color);
 	}
 }

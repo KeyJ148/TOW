@@ -13,7 +13,7 @@ public class EnemyArmor extends Obj{
 	}
 	
 	public Enemy getEnemy(){
-		return this.enemy;
+		return enemy;
 	}
 	
 }

@@ -303,6 +303,7 @@ public class ClientNetThread extends Thread{
 					int green = Integer.parseInt(Global.linkCS.parsString(str,4));
 					int blue =Integer.parseInt(Global.linkCS.parsString(str,5));
 					Global.enemy[i].c = new Color(red, green, blue);
+					Global.enemy[i].setColor();
 				}
 				break;
 			}

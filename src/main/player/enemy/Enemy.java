@@ -1,7 +1,6 @@
 package main.player.enemy;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 
 import main.Global;
 import main.obj.Obj;
@@ -47,6 +46,11 @@ public class Enemy extends Obj{
 		destroy();
 	}
 	
+	public void setColor(){
+		armor.getImage().setColor(c);
+		gun.getImage().setColor(c);
+	}
+	
 	public void updateChildFinal(){
 		dragIn();
 		try{
@@ -57,11 +61,6 @@ public class Enemy extends Obj{
 		} catch(NullPointerException e){
 			p("[ERROR] Draw enemy name");
 		}
-	}
-	
-	@Override
-	public void draw(Graphics2D g){
-		drawColor(g, c);
 	}
 	
 	public void dragIn(){
