@@ -49,8 +49,10 @@ public class LinkCS {
 		Global.grayrock5 = new Sprite("image/Wall/grayrock5.png");
 		Global.grayrock6 = new Sprite("image/Wall/grayrock6.png");
 		Global.tree = new Sprite("image/Wall/tree.png");
+		Global.box = new Sprite("image/Gaming/box.png");
 		
-		Global.c_default = new Animation("animation/Corps",-1,2);
+		Global.c_default = new Animation("animation/Corps/Default",-1,2);
+		Global.c_fortified = new Animation("animation/Corps/Fortified",-1,2);
 	}
 	
 	public Sprite getSprite(String s){

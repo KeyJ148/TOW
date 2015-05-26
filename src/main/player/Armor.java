@@ -32,20 +32,27 @@ public class Armor extends Obj {
 	private long coll_id = -1; //id объекта с которым происходит столкновение
 	
 	public Armor(Player player, Animation animation){
-		super(player.getX(),player.getY(),0.0,player.getDirection(),0,true,animation);
+		super(player.getX()-animation.getWidth()/2,player.getY()-animation.getHeight()/2,0.0,player.getDirection(),0,true,animation);
 		this.player = player;
 		
-		setCollObj(new String[] {"main.home.Home", "main.player.enemy.EnemyArmor"});
+		setCollObj(new String[] {"main.home.Home", "main.player.enemy.EnemyArmor", "main.player.Box"});
 		
 		loadData(getClass().getName());
 	}
 	
 	public void collReport(Obj obj){
+		if (obj.getClass().getName().equals("main.player.Box")){
+			Box box = (Box) obj;
+			box.collisionPlayer();
+			player.newEquipment();
+		}
+		
 		if (obj.getClass().getName().equals("main.home.Home")){
 			setX(getXPrevious());
 			setY(getYPrevious());
 			setDirection(getDirectionPrevious());
 		}
+		
 		if (obj.getClass().getName().equals("main.player.enemy.EnemyArmor")){
 			if ((!recoil) || (obj.getId() != coll_id)){
 				setX(getXPrevious());

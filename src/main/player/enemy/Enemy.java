@@ -3,6 +3,8 @@ package main.player.enemy;
 import java.awt.Color;
 
 import main.Global;
+import main.image.Animation;
+import main.image.Rendering;
 import main.obj.Obj;
 
 public class Enemy extends Obj{
@@ -61,6 +63,34 @@ public class Enemy extends Obj{
 		} catch(NullPointerException e){
 			p("[ERROR] Draw enemy name");
 		}
+	}
+	
+	public void newArmor(String nameArmor){
+		double lastArmorDirection = armor.direction;
+		armor.destroy();
+		Animation anim;
+		switch(nameArmor){
+			case "DefaultArmor": anim = Global.c_default; break;
+			case "FortifiedArmor": anim = Global.c_fortified; break;
+			default: anim = Global.c_default; Global.error("Not find armor name (take14)"); break;
+		}
+		armor = new EnemyArmor(anim,this);
+		armor.direction = lastArmorDirection;
+		setColor();
+	}
+	
+	public void newGun(String nameGun){
+		double lastGunDirection = gun.direction;
+		gun.destroy();
+		Rendering image;
+		switch(nameGun){
+			case "DefaultGun": image = Global.defaultgun; break;
+			case "DoubleGun": image = Global.doublegun; break;
+			default: image = Global.defaultgun; Global.error("Not find gun name (take15)"); break;
+		}
+		gun = new Obj(x,y,0.0,direction,-1,false,image);
+		gun.direction = lastGunDirection;
+		setColor();
 	}
 	
 	public void dragIn(){

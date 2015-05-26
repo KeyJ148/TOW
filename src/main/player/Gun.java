@@ -13,9 +13,6 @@ public class Gun extends Obj{
 	private double attackSpeed2;
 	private double directionGunUp;//скорость поворота дула
 	
-	private String bullet1;//тип патрона
-	private String bullet2;
-	
 	private double damage1;//дамаг
 	private double damage2;
 	
@@ -40,14 +37,14 @@ public class Gun extends Obj{
 	
 	public void attack1(){
 		if (( TPSFromAttack1 > attackSpeed1) && (attackSpeed1> 0) && (player.getControlAtack())){
-			switchBullet(bullet1, trunk1X, trunk1Y, damage1);
+			switchBullet(player.getBullet(), trunk1X, trunk1Y, damage1);
 			TPSFromAttack1 = 0;
 		}
 	}
 	
 	public void attack2(){
 		if ((TPSFromAttack2 > attackSpeed2) && (attackSpeed2 > 0) && (player.getControlAtack())){
-			switchBullet(bullet2, trunk2X, trunk2Y, damage2);
+			switchBullet(player.getBullet(), trunk2X, trunk2Y, damage2);
 			TPSFromAttack2 = 0;
 		}
 	}
@@ -59,6 +56,7 @@ public class Gun extends Obj{
 		double trunkYdy = trunkY*Math.sin(Math.toRadians(player.getGun().getDirection())-Math.PI);//второй отступ "вбок"
 		switch(bullet){
 			case "DefaultBullet": new DefaultBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,player.getGun().getDirection(),damage); break;
+			case "StellBullet": new StellBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,player.getGun().getDirection(),damage); break;
 		}
 	}
 	
@@ -152,13 +150,6 @@ public class Gun extends Obj{
 	
 	public void setAttackSpeed2(int attackSpeed){
 		this.attackSpeed2 = attackSpeed;
-	}
-		
-	public void setBullet1(String s){
-		this.bullet1 = s;
-	}
-	public void setBullet2(String s){
-		this.bullet2 = s;
 	}
 	
 	public void setTrunk1X(int x){

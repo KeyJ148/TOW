@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import main.net.CheckMapLoad;
 import main.net.LinkCS;
@@ -40,6 +41,10 @@ public class GameServer {
 	public String pathFull; //Путь к карте
 	public int widthMap;//Размеры карты
 	public int heightMap;
+	//Загрузка объектов карты
+	ArrayList<Integer> vecX = new ArrayList<Integer>();
+	ArrayList<Integer> vecY = new ArrayList<Integer>();
+	ArrayList<String> vecSprite = new ArrayList<String>();
 	//Генерация танков
 	public volatile boolean tankGenComplite = false;
 	public int[] tankX;//Координаты танков игроков
@@ -107,7 +112,7 @@ public class GameServer {
 		
 		System.out.println("All users connected.");
 		
-		analysisTraffic();
+		mainThread();
 	}
 	
 	public void genTank(){
@@ -115,9 +120,9 @@ public class GameServer {
 		String pathFull;
 		File[] fList = new File(PATH_MAP).listFiles();
 		int fListNum;
-		Vector<Integer> vecX = new Vector<Integer>();
-		Vector<Integer> vecY = new Vector<Integer>();
-		Vector<String> vecSprite = new Vector<String>();
+		vecX.clear();
+		vecY.clear();
+		vecSprite.clear();
 		while (true) {
 			fListNum = (int) Math.round(Math.random()*(fList.length-1));
 			pathFull = PATH_MAP + "/" + fList[fListNum].getName().substring(0,fList[fListNum].getName().lastIndexOf('.')) + ".map";
@@ -153,55 +158,103 @@ public class GameServer {
 		//генерация танков
 		int wTank = Global.c_default.getWidth(0);
 		int hTank = Global.c_default.getHeight(0);
-		double disTank = Math.sqrt(wTank*wTank + hTank*hTank)/2;
-		boolean gen;
-		int xRand,yRand,x,y,w,h;
-		double disHome,disPointToHome,dxRand,dyRand;
-		for(int j=0;j<this.peopleMax;j++){
-			do{
-				gen = false;
-				dxRand = Math.random()*(widthMap-200)+100;//Если генерить сразу в инт - ошибка
-				dyRand = Math.random()*(heightMap-200)+100;//позиция танка
-				xRand = (int) dxRand;
-				yRand = (int) dyRand;
-				for(int i=0;i<vecX.size();i++){
-					x = (int) vecX.get(i);//коры объекта
-					y = (int) vecY.get(i);
-					w = (int) Global.linkCS.getSprite((String) vecSprite.get(i)).getWidth();//размеры объекта
-					h = (int) Global.linkCS.getSprite((String) vecSprite.get(i)).getHeight();
-					disHome = Math.sqrt(w*w + h*h)/2;
-					disPointToHome = Math.sqrt((x-xRand)*(x-xRand)+(y-yRand)*(y-yRand));
-					if ((disHome+disTank+30) > (disPointToHome)){
-						gen = true;
-					}
-				}
-			} while(gen);
-			this.tankX[j] = xRand;
-			this.tankY[j] = yRand;
-			vecX.add(xRand);
-			vecY.add(yRand);
+		for(int i=0;i<this.peopleMax;i++){
+			Point p = genObject(wTank, hTank);
+			int x = (int) p.getX();
+			int y = (int) p.getY();
+			this.tankX[i] = x;
+			this.tankY[i] = y;
+			vecX.add(x);
+			vecY.add(y);
 			vecSprite.add("player_color");
 		}
 		tankGenComplite = true;
 	}
 	
-	public void analysisTraffic(){
-		long t = System.currentTimeMillis();
+	public Point genObject(int width, int height){
+		double disTank = Math.sqrt(width*width + width*width)/2;
+		boolean gen;
+		int xRand,yRand,x,y,w,h;
+		double disHome,disPointToHome,dxRand,dyRand;
+		do{
+			gen = false;
+			dxRand = Math.random()*(widthMap-200)+100;//Если генерить сразу в инт - ошибка
+			dyRand = Math.random()*(heightMap-200)+100;//позиция танка
+			xRand = (int) dxRand;
+			yRand = (int) dyRand;
+			for(int i=0;i<vecX.size();i++){
+				x = (int) vecX.get(i);//коры объекта
+				y = (int) vecY.get(i);
+				w = (int) Global.linkCS.getSprite((String) vecSprite.get(i)).getWidth();//размеры объекта
+				h = (int) Global.linkCS.getSprite((String) vecSprite.get(i)).getHeight();
+				disHome = Math.sqrt(w*w + h*h)/2;
+				disPointToHome = Math.sqrt((x-xRand)*(x-xRand)+(y-yRand)*(y-yRand));
+				if ((disHome+disTank+30) > (disPointToHome)){
+					gen = true;
+				}
+			}
+		} while(gen);
+		return new Point(xRand, yRand);
+	}
+	
+	public void mainThread(){
+		long timeAnalysis = System.currentTimeMillis();//Время анализа MPS
+		int timeAnalysisDelta = 1000;
+		
+		long timeBox = System.currentTimeMillis();//Время создания ящика
+		int timeBoxDelta = 5000;
+		int idBox = 0;
 		
 		while (true){
-			if (System.currentTimeMillis() > t+1000){
-				t = System.currentTimeMillis();
+			if (System.currentTimeMillis() > timeAnalysis+timeAnalysisDelta){//Анализ MPS
+				timeAnalysis = System.currentTimeMillis();
 				for (int i = 0; i < peopleMax; i++){
 					System.out.print("ID:" + serverSend[i].id + " MPS:" + serverSend[i].numberSend + "     ");
 					serverSend[i].numberSend = 0;
 				}
 				System.out.println();
 			}
+			
+			if (System.currentTimeMillis() > timeBox+timeBoxDelta){//Созданиен ящиков
+				timeBox = System.currentTimeMillis();
+				createBox(idBox);
+				idBox++;
+			}
+			
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {}
 		}
 		
+	}
+	
+	public void createBox(int idBox) {
+		for (int i = 0; i < vecSprite.size(); i++) {// Удаляем имеющиеся танки
+			if (vecSprite.get(i).equals("player_color")) {
+				vecSprite.remove(i);
+				vecX.remove(i);
+				vecY.remove(i);
+			}
+		}
+
+		for (int i = 0; i < peopleMax; i++) {
+			vecX.add(serverSend[i].x);
+			vecY.add(serverSend[i].y);
+			vecSprite.add("player_color");
+		}
+		
+		int w = Global.box.getWidth();
+		int h = Global.box.getHeight();
+		Point p = genObject(w,h);
+		for (int i = 0; i < peopleMax; i++) {
+			synchronized(out[i]) {//Защита от одновременной работы с массивом
+				try {
+					out[i].writeUTF("12 " + Math.round(p.getX()) + " " + Math.round(p.getY()) + " " + idBox);
+				} catch (IOException e) {
+					error("Send create box");
+				}
+			}
+		}
 	}
 	
 	public synchronized void checkMapDownload(){

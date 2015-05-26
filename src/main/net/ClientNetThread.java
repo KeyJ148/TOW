@@ -12,6 +12,7 @@ import main.Global;
 import main.home.Home;
 import main.home.Road;
 import main.image.Sprite;
+import main.player.Box;
 import main.player.Player;
 import main.player.enemy.Enemy;
 import main.player.enemy.EnemyBullet;
@@ -192,6 +193,10 @@ public class ClientNetThread extends Thread{
 						case 9: take9(str); break;
 						case 10: take10(str); break;
 						case 11: take11(str); break;
+						case 12: take12(str); break;
+						case 13: take13(str); break;
+						case 14: take14(str); break;
+						case 15: take15(str); break;
 					}
 				}
 			}
@@ -303,10 +308,47 @@ public class ClientNetThread extends Thread{
 					Global.enemy[i].haveData = true;
 					int red = Integer.parseInt(Global.linkCS.parsString(str,3));
 					int green = Integer.parseInt(Global.linkCS.parsString(str,4));
-					int blue =Integer.parseInt(Global.linkCS.parsString(str,5));
+					int blue = Integer.parseInt(Global.linkCS.parsString(str,5));
 					Global.enemy[i].c = new Color(red, green, blue);
 					Global.enemy[i].setColor();
 				}
+				break;
+			}
+		}
+	}
+	
+	public void take12(String str){//Сервер создал ящик
+		int x = Integer.parseInt(Global.linkCS.parsString(str,2));
+		int y = Integer.parseInt(Global.linkCS.parsString(str,3));
+		int idBox = Integer.parseInt(Global.linkCS.parsString(str,4));
+		new Box(x,y,idBox);
+	}
+	
+	public void take13(String str){//Враг подобрал ящик
+		int idBoxDestroy = Integer.parseInt(Global.linkCS.parsString(str,2));
+		for (int i = 0; i<Global.obj.size(); i++){
+			if ((Global.obj.get(i) instanceof Box)){
+				Box box = (Box) Global.obj.get(i);
+				if (box.idBox == idBoxDestroy) box.destroy();
+			}
+		}
+	}
+	
+	public void take14(String str){//Кто-то подобрал броню
+		String enemyName = Global.linkCS.parsString(str,2);
+		for (int i=0;i<Global.enemy.length;i++){
+			if (enemyName.equals(Global.enemy[i].name)){
+				Global.enemy[i].newArmor(Global.linkCS.parsString(str,3));
+				break;
+			}
+		}
+	}
+	
+	public void take15(String str){//Кто-то подобрал пушку
+		String enemyName = Global.linkCS.parsString(str,2);
+		for (int i=0;i<Global.enemy.length;i++){
+			if (enemyName.equals(Global.enemy[i].name)){
+				Global.enemy[i].newGun(Global.linkCS.parsString(str,3));
 				break;
 			}
 		}

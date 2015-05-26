@@ -71,4 +71,16 @@ public class ClientNetSend extends Thread{
 		int blue = Global.color.getBlue();
 		sendData("11 " + Global.name + " " + red + " " + green + " " + blue);
 	}
+	
+	public void send13(int idBox){//Я подобрал ящик
+		sendData("13 " + idBox);
+	}
+	
+	public void send14(String nameArmor){//Я сменил броню
+		sendData("14 " + Global.name + " " + nameArmor);
+	}
+	
+	public void send15(String nameGun){//Я сменил пушку
+		sendData("15 " + Global.name + " " + nameGun);
+	}
 }

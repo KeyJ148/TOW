@@ -93,8 +93,10 @@ public class Global {
 	public static Sprite tree;
 	public static Sprite error;
 	public static Sprite player_sys;
+	public static Sprite box;
 	
 	public static Animation c_default;
+	public static Animation c_fortified;
 	
 	//Удаление объекта из массива по id
 	public static void delObj(long id){

@@ -8,11 +8,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.Random;
 
 import main.Global;
 import main.obj.Obj;
 import main.player.armor.DefaultArmor;
+import main.player.armor.FortifiedArmor;
 import main.player.gun.DefaultGun;
+import main.player.gun.DoubleGun;
 
 public class Player extends Obj{
 	
@@ -32,9 +35,8 @@ public class Player extends Obj{
 		this.bullet = "DefaultBullet";
 		this.armor = new DefaultArmor(this);
 		this.gun = new DefaultGun(this);
-		this.gun.setBullet1(bullet);
 		
-		setColor(Global.color);
+		setColor();
 		
 		Global.game.render.addKeyListener(new KeyAdapter(){
 			public void keyPressed(KeyEvent e){
@@ -137,33 +139,46 @@ public class Player extends Obj{
 		return s;
 	}
 	
-	public Gun getGun(){
-		return gun;
+	public void setColor(){
+		armor.getImage().setColor(Global.color);
+		gun.getImage().setColor(Global.color);
 	}
 	
-	public String getBullet(){
-		return bullet;
+	public void newEquipment(){
+		Random rand = new Random();
+		switch (rand.nextInt(3)){
+			case 0: newArmor(); break;
+			case 1: newGun(); break;
+			case 2: newBullet(); break;
+		}
 	}
 	
-	public Armor getArmor(){
-		return armor;
+	public void newArmor(){
+		double lastArmorDirection = getArmor().getDirection();
+		double lastArmorHpPercent = getArmor().getHp()/getArmor().getHpMax();
+		getArmor().destroy();
+		setArmor(new FortifiedArmor(this));//
+		getArmor().setDirection(lastArmorDirection);
+		getArmor().setHp(lastArmorHpPercent * getArmor().getHpMax());
+		setColor();
+		
+		String armorName = getArmor().getClass().getName();
+		Global.clientSend.send14(armorName.substring(armorName.lastIndexOf(".")+1));
 	}
 	
-	public boolean getControlAtack(){
-		return controlAtack;
+	public void newGun(){
+		double lastGunDirection = getGun().getDirection();
+		getGun().destroy();
+		setGun(new DoubleGun(this));//
+		getGun().setDirection(lastGunDirection);
+		setColor();
+		
+		String gunName = getGun().getClass().getName();
+		Global.clientSend.send15(gunName.substring(gunName.lastIndexOf(".")+1));
 	}
 	
-	public int getMouseX(){
-		return mouseX;
-	}
-	
-	public int getMouseY(){
-		return mouseY;
-	}
-	
-	public void setColor(Color c){
-		armor.getImage().setColor(c);
-		gun.getImage().setColor(c);
+	public void newBullet(){
+		bullet = "StellBullet";
 	}
 	
 	public void updateChildFinal(){
@@ -180,5 +195,41 @@ public class Player extends Obj{
 			sendStep = 0;
 			Global.clientSend.sendData(getData());
 		}
+	}
+	
+	public Gun getGun(){
+		return gun;
+	}
+	
+	public String getBullet(){
+		return bullet;
+	}
+	
+	public Armor getArmor(){
+		return armor;
+	}
+	
+	public void setGun(Gun gun) {
+		this.gun = gun;
+	}
+
+	public void setBullet(String bullet) {
+		this.bullet = bullet;
+	}
+
+	public void setArmor(Armor armor) {
+		this.armor = armor;
+	}
+	
+	public boolean getControlAtack(){
+		return controlAtack;
+	}
+	
+	public int getMouseX(){
+		return mouseX;
+	}
+	
+	public int getMouseY(){
+		return mouseY;
 	}
 }
