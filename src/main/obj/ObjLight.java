@@ -3,7 +3,6 @@ package main.obj;
 import java.awt.Graphics2D;
 
 import main.Global;
-import main.image.Animation;
 import main.image.DepthVector;
 import main.image.Rendering;
 
@@ -25,12 +24,8 @@ public class ObjLight {
 	
 	public ObjLight(double x, double y, double directionDraw, int depth, Rendering image){
 		try{	
-			this.image = image;
+			this.image = image.clone();
 			this.anim = image.isAnim();
-			if (this.anim){
-				Animation a = (Animation) this.image;
-				this.image = a.clone();
-			}
 		} catch (CloneNotSupportedException e) {
 			Global.error("Failed with clone light object. Id = " + getId());
 		}

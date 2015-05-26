@@ -190,6 +190,8 @@ public class ClientNetThread extends Thread{
 						case 4: take4(str); break;
 						case 5: take5(str); break;
 						case 9: take9(str); break;
+						case 10: take10(str); break;
+						case 11: take11(str); break;
 					}
 				}
 			}

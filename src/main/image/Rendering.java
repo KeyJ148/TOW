@@ -23,5 +23,7 @@ public interface Rendering {
     public String getPath();
     
     public void update();
+    
+    public Rendering clone() throws CloneNotSupportedException;
 
 }
