@@ -1,6 +1,6 @@
 package main.player;
 
-import main.*;
+import main.Global;
 import main.image.Animation;
 import main.obj.Obj;
 import main.setting.ConfigReader;
@@ -16,6 +16,8 @@ public class Armor extends Obj {
 	private double directionTankUp;
 	
 	private int animSpeed;
+	
+	public String[] allowGun;
 	
 	private boolean turnRight = false;
 	private boolean turnLeft = false;
@@ -44,7 +46,7 @@ public class Armor extends Obj {
 		if (obj.getClass().getName().equals("main.player.Box")){
 			Box box = (Box) obj;
 			box.collisionPlayer();
-			player.newEquipment();
+			player.newEquipment(box.typeBox);
 		}
 		
 		if (obj.getClass().getName().equals("main.home.Home")){
@@ -159,6 +161,8 @@ public class Armor extends Obj {
 		directionTankUp = cr.findDouble("DIRECTION_TANK_UP");
 		
 		animSpeed = cr.findInteger("ANIMATION_SPEED");
+		
+		allowGun = player.parseAllow(cr.findString("ALLOW_GUN"));
 	}
 	
 	public void setHp(double hp){

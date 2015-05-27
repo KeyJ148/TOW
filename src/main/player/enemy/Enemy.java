@@ -72,6 +72,7 @@ public class Enemy extends Obj{
 		switch(nameArmor){
 			case "DefaultArmor": anim = Global.c_default; break;
 			case "FortifiedArmor": anim = Global.c_fortified; break;
+			case "ElephantArmor": anim = Global.c_elephant; break;
 			default: anim = Global.c_default; Global.error("Not find armor name (take14)"); break;
 		}
 		armor = new EnemyArmor(anim,this);
@@ -86,6 +87,8 @@ public class Enemy extends Obj{
 		switch(nameGun){
 			case "DefaultGun": image = Global.defaultgun; break;
 			case "DoubleGun": image = Global.doublegun; break;
+			case "PowerGun": image = Global.powergun; break;
+			case "BigGun": image = Global.biggun; break;
 			default: image = Global.defaultgun; Global.error("Not find gun name (take15)"); break;
 		}
 		gun = new Obj(x,y,0.0,direction,-1,false,image);

@@ -21,6 +21,9 @@ public class Gun extends Obj{
 	private int trunk2X;
 	private int trunk2Y;
 	
+	public String[] allowArmor;
+	public String[] allowBullet;
+	
 	private final String pathSetting = "gun/";
 	
 	private int TPSFromAttack1 = 10000;//технические(стартовые)
@@ -30,7 +33,7 @@ public class Gun extends Obj{
 	private boolean mousePress2 = false;
 	
 	public Gun(Player player, Sprite sprite){
-		super(player.getX(),player.getY(),0.0,player.getDirection(),-1,false,sprite);
+		super(player.getX()-sprite.getWidth()/2,player.getY()-sprite.getHeight()/2,0.0,player.getDirection(),-1,false,sprite);
 		this.player = player;
 		loadData(getClass().getName());
 	}
@@ -56,7 +59,8 @@ public class Gun extends Obj{
 		double trunkYdy = trunkY*Math.sin(Math.toRadians(player.getGun().getDirection())-Math.PI);//второй отступ "вбок"
 		switch(bullet){
 			case "DefaultBullet": new DefaultBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,player.getGun().getDirection(),damage); break;
-			case "StellBullet": new StellBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,player.getGun().getDirection(),damage); break;
+			case "SteelBullet": new SteelBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,player.getGun().getDirection(),damage); break;
+			case "MassBullet": new MassBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,player.getGun().getDirection(),damage); break;
 		}
 	}
 	
@@ -126,6 +130,9 @@ public class Gun extends Obj{
 		directionGunUp = cr.findDouble("DIRECTION_UP");
 		damage1  = cr.findDouble("DAMAGE_1");
 		damage2  = cr.findDouble("DAMAGE_2");
+		
+		allowArmor = player.parseAllow(cr.findString("ALLOW_ARMOR"));
+		allowBullet = player.parseAllow(cr.findString("ALLOW_BULLET"));
 	}
 	
 	public Player getPlayer(){

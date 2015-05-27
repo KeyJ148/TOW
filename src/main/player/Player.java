@@ -9,13 +9,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.Random;
+import java.util.Vector;
 
 import main.Global;
 import main.obj.Obj;
 import main.player.armor.DefaultArmor;
+import main.player.armor.ElephantArmor;
 import main.player.armor.FortifiedArmor;
+import main.player.gun.BigGun;
 import main.player.gun.DefaultGun;
 import main.player.gun.DoubleGun;
+import main.player.gun.PowerGun;
+import main.setting.ConfigReader;
 
 public class Player extends Obj{
 	
@@ -140,45 +145,109 @@ public class Player extends Obj{
 	}
 	
 	public void setColor(){
+		setColorArmor();
+		setColorGun();
+	}
+	
+	public void setColorArmor(){
 		armor.getImage().setColor(Global.color);
+	}
+	
+	public void setColorGun(){
 		gun.getImage().setColor(Global.color);
 	}
 	
-	public void newEquipment(){
-		Random rand = new Random();
-		switch (rand.nextInt(3)){
+	public void newEquipment(int typeBox){
+		switch (typeBox){
 			case 0: newArmor(); break;
 			case 1: newGun(); break;
 			case 2: newBullet(); break;
+			case 3: getArmor().setHp(getArmor().getHp() + getArmor().getHpMax()*0.4); break;
 		}
 	}
 	
 	public void newArmor(){
+		String armorNameNow = getArmor().getClass().getName();
+		armorNameNow = armorNameNow.substring(armorNameNow.lastIndexOf(".")+1);
+		
+		Random rand = new Random();
+		Armor newArmor;
+		String newArmorName;
+		while (true){
+			newArmorName = getGun().allowArmor[rand.nextInt(getGun().allowArmor.length)];
+			if (!newArmorName.equals(armorNameNow)) break;
+		}
+		
+		switch(newArmorName){
+			case "DefaultArmor": newArmor = new DefaultArmor(this); break;
+			case "FortifiedArmor": newArmor = new FortifiedArmor(this); break;
+			case "ElephantArmor": newArmor = new ElephantArmor(this); break;
+			default: newArmor = new DefaultArmor(this); Global.error("Not find new armor name"); break;
+		}
+		
 		double lastArmorDirection = getArmor().getDirection();
 		double lastArmorHpPercent = getArmor().getHp()/getArmor().getHpMax();
 		getArmor().destroy();
-		setArmor(new FortifiedArmor(this));//
+		setArmor(newArmor);
 		getArmor().setDirection(lastArmorDirection);
 		getArmor().setHp(lastArmorHpPercent * getArmor().getHpMax());
-		setColor();
+		setColorArmor();
 		
 		String armorName = getArmor().getClass().getName();
 		Global.clientSend.send14(armorName.substring(armorName.lastIndexOf(".")+1));
 	}
 	
 	public void newGun(){
+		String gunNameNow = getGun().getClass().getName();
+		gunNameNow = gunNameNow.substring(gunNameNow.lastIndexOf(".")+1);
+		
+		Random rand = new Random();
+		String newGunName;
+		String[] allowGunForBullet;
+		boolean end = false;
+		do{
+			while (true){
+				newGunName = getArmor().allowGun[rand.nextInt(getArmor().allowGun.length)];
+				if (!newGunName.equals(gunNameNow)) break;
+			}
+			ConfigReader cr = new ConfigReader(Bullet.pathSetting + getBullet() + ".properties");
+			allowGunForBullet = parseAllow(cr.findString("ALLOW_GUN"));
+			for (int i=0;i<allowGunForBullet.length;i++){
+				if (newGunName.equals(allowGunForBullet[i])){
+					end = true;
+				}
+			}
+		} while(!end);
+		
+		Gun newGun;
+		switch(newGunName){
+			case "DefaultGun": newGun = new DefaultGun(this); break;
+			case "DoubleGun": newGun = new DoubleGun(this); break;
+			case "BigGun": newGun = new BigGun(this); break;
+			case "PowerGun": newGun = new PowerGun(this); break;
+			default: newGun = new DefaultGun(this); Global.error("Not find new gun name"); break;
+		}
+		
+		
 		double lastGunDirection = getGun().getDirection();
 		getGun().destroy();
-		setGun(new DoubleGun(this));//
+		setGun(newGun);
 		getGun().setDirection(lastGunDirection);
-		setColor();
+		setColorGun();
 		
 		String gunName = getGun().getClass().getName();
 		Global.clientSend.send15(gunName.substring(gunName.lastIndexOf(".")+1));
 	}
 	
 	public void newBullet(){
-		bullet = "StellBullet";
+		Random rand = new Random();
+		String newBullet;
+		while (true){
+			newBullet = getGun().allowBullet[rand.nextInt(getGun().allowBullet.length)];
+			System.out.println(newBullet);
+			if (!newBullet.equals(bullet)) break;
+		}
+		bullet = newBullet;
 	}
 	
 	public void updateChildFinal(){
@@ -195,6 +264,24 @@ public class Player extends Obj{
 			sendStep = 0;
 			Global.clientSend.sendData(getData());
 		}
+	}
+	
+	public String[] parseAllow(String allowString){
+		Vector<String> allowVector = new Vector<String>();
+		
+		boolean end = false;
+		int i = 0;
+		String name;
+		do{
+			i++;
+			name = Global.linkCS.parsString(allowString,i);
+			allowVector.add(name);
+			if (name.equals(allowString.substring(allowString.lastIndexOf(" ")+1))){
+				end = true;
+			}
+		} while(!end);
+		
+		return allowVector.toArray(new String[allowVector.size()]);
 	}
 	
 	public Gun getGun(){

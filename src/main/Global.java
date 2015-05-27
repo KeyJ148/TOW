@@ -59,18 +59,22 @@ public class Global {
 	public static Sprite road_a_g;
 	public static Sprite road_a_fork;
 	public static Sprite road_a_inter_big;
+	
 	public static Sprite b_default;
 	public static Sprite b_mortar;
-	public static Sprite b_massgun;
+	public static Sprite b_mass;
 	public static Sprite b_massgun_small;
 	public static Sprite b_gunfury;
+	public static Sprite b_steel;
+	
 	public static Sprite defaultgun;
 	public static Sprite doublegun;
 	public static Sprite gunfury;
 	public static Sprite mortar;
 	public static Sprite rocketgun;
-	public static Sprite massgun;
-	public static Sprite player_color;
+	public static Sprite biggun;
+	public static Sprite powergun;
+	
 	public static Sprite home1;
 	public static Sprite home2;
 	public static Sprite home3;
@@ -91,12 +95,19 @@ public class Global {
 	public static Sprite grayrock5;
 	public static Sprite grayrock6;
 	public static Sprite tree;
+	
 	public static Sprite error;
 	public static Sprite player_sys;
-	public static Sprite box;
+	public static Sprite player_color;
+	
+	public static Sprite box_armor;
+	public static Sprite box_gun;
+	public static Sprite box_bullet;
+	public static Sprite box_health;
 	
 	public static Animation c_default;
 	public static Animation c_fortified;
+	public static Animation c_elephant;
 	
 	//Удаление объекта из массива по id
 	public static void delObj(long id){

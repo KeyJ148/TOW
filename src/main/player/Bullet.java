@@ -13,7 +13,7 @@ public class Bullet extends Obj{
 	private double damage;//дамаг пушки+патрона
 	private long idNet;
 	
-	private final String pathSetting = "bullet/";
+	public static final String pathSetting = "bullet/";
 	
 	public Bullet(Player player, double x, double y, double dir,double damage, Sprite sprite){
 		super(x,y,0,dir,0,true,sprite);

@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Random;
 
 import main.net.CheckMapLoad;
 import main.net.LinkCS;
@@ -243,13 +244,17 @@ public class GameServer {
 			vecSprite.add("player_color");
 		}
 		
-		int w = Global.box.getWidth();
-		int h = Global.box.getHeight();
+		int w = Global.box_armor.getWidth();
+		int h = Global.box_armor.getHeight();
 		Point p = genObject(w,h);
+		
+		Random rand = new Random();
+		int typeBox = rand.nextInt(4);
+		
 		for (int i = 0; i < peopleMax; i++) {
 			synchronized(out[i]) {//«ащита от одновременной работы с массивом
 				try {
-					out[i].writeUTF("12 " + Math.round(p.getX()) + " " + Math.round(p.getY()) + " " + idBox);
+					out[i].writeUTF("12 " + Math.round(p.getX()) + " " + Math.round(p.getY()) + " " + idBox + " " + typeBox);
 				} catch (IOException e) {
 					error("Send create box");
 				}

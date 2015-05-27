@@ -242,6 +242,8 @@ public class ClientNetThread extends Thread{
 		long idNet = Integer.parseInt(Global.linkCS.parsString(str,8));
 		switch (bullName){
 			case "main.player.bullet.DefaultBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_default,name,idNet));
+			case "main.player.bullet.SteelBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_steel,name,idNet));
+			case "main.player.bullet.MassBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_mass,name,idNet));
 		}
 	}
 	
@@ -321,7 +323,16 @@ public class ClientNetThread extends Thread{
 		int x = Integer.parseInt(Global.linkCS.parsString(str,2));
 		int y = Integer.parseInt(Global.linkCS.parsString(str,3));
 		int idBox = Integer.parseInt(Global.linkCS.parsString(str,4));
-		new Box(x,y,idBox);
+		int typeBox = Integer.parseInt(Global.linkCS.parsString(str,5));
+		Sprite s;
+		switch (typeBox){
+			case 0: s = Global.box_armor; break;
+			case 1: s = Global.box_gun; break;
+			case 2: s = Global.box_bullet; break;
+			case 3: s = Global.box_health; break;
+			default: s = Global.error; Global.error("Not find type box"); break;
+		}
+		new Box(x,y,idBox,s).typeBox = typeBox;
 	}
 	
 	public void take13(String str){//Враг подобрал ящик
