@@ -27,6 +27,11 @@ public class Player extends Obj{
 	public int mouseX = 0;
 	public int mouseY = 0;
 	
+	public boolean takeArmor = true;//Разрешение на подбор определённого ящика
+	public boolean takeGun = true;
+	public boolean takeBullet = true;
+	public boolean takeHealth = true;
+	
 	private boolean controlAtack = true;//можно ли стрелять из танка
 	
 	private int sendStep = 0;
@@ -63,6 +68,36 @@ public class Player extends Obj{
 						armor.setSpeed(armor.getSpeedTankDown());
 						armor.setRunDown(true);
 						armor.setRunUp(false);
+					}
+				}
+				
+				//Клавиши запрета и разрешения на подбор ящиков
+				if (e.getKeyCode() == KeyEvent.VK_1){
+					if (takeArmor){
+						takeArmor = false;
+					} else {
+						takeArmor = true;
+					}
+				}
+				if (e.getKeyCode() == KeyEvent.VK_2){
+					if (takeGun){
+						takeGun = false;
+					} else {
+						takeGun = true;
+					}
+				}
+				if (e.getKeyCode() == KeyEvent.VK_3){
+					if (takeBullet){
+						takeBullet = false;
+					} else {
+						takeBullet = true;
+					}
+				}
+				if (e.getKeyCode() == KeyEvent.VK_4){
+					if (takeHealth){
+						takeHealth = false;
+					} else {
+						takeHealth = true;
 					}
 				}
 			}
@@ -159,14 +194,19 @@ public class Player extends Obj{
 	
 	public void newEquipment(int typeBox){
 		switch (typeBox){
-			case 0: newArmor(); break;
-			case 1: newGun(); break;
-			case 2: newBullet(); break;
-			case 3: getArmor().setHp(getArmor().getHp() + getArmor().getHpMax()*0.4); break;
+			case 0: if (takeArmor) newArmor(); break;
+			case 1: if (takeGun) newGun(); break;
+			case 2: if (takeBullet) newBullet(); break;
+			case 3: if (takeHealth) getArmor().setHp(getArmor().getHp() + getArmor().getHpMax()*0.4); break;
 		}
 	}
 	
 	public void newArmor(){
+		boolean runUp = armor.runUp;
+		boolean runDown = armor.runDown;
+		boolean turnRight = armor.turnRight;
+		boolean turnLeft = armor.turnLeft;
+		
 		String armorNameNow = getArmor().getClass().getName();
 		armorNameNow = armorNameNow.substring(armorNameNow.lastIndexOf(".")+1);
 		
@@ -177,7 +217,6 @@ public class Player extends Obj{
 			newArmorName = getGun().allowArmor[rand.nextInt(getGun().allowArmor.length)];
 			if (!newArmorName.equals(armorNameNow)) break;
 		}
-		
 		switch(newArmorName){
 			case "DefaultArmor": newArmor = new DefaultArmor(this); break;
 			case "FortifiedArmor": newArmor = new FortifiedArmor(this); break;
@@ -191,8 +230,13 @@ public class Player extends Obj{
 		setArmor(newArmor);
 		getArmor().setDirection(lastArmorDirection);
 		getArmor().setHp(lastArmorHpPercent * getArmor().getHpMax());
+		getArmor().setRunUp(runUp);
+		getArmor().setRunDown(runDown);
+		getArmor().setTurnRight(turnRight);
+		getArmor().setTurnLeft(turnLeft);
+		if (runUp) getArmor().setSpeed(getArmor().getSpeedTankUp());
+		if (runDown) getArmor().setSpeed(getArmor().getSpeedTankDown());
 		setColorArmor();
-		
 		String armorName = getArmor().getClass().getName();
 		Global.clientSend.send14(armorName.substring(armorName.lastIndexOf(".")+1));
 	}
@@ -244,7 +288,6 @@ public class Player extends Obj{
 		String newBullet;
 		while (true){
 			newBullet = getGun().allowBullet[rand.nextInt(getGun().allowBullet.length)];
-			System.out.println(newBullet);
 			if (!newBullet.equals(bullet)) break;
 		}
 		bullet = newBullet;

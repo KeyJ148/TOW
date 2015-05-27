@@ -49,7 +49,15 @@ public class Enemy extends Obj{
 	}
 	
 	public void setColor(){
+		setColorArmor();
+		setColorGun();
+	}
+	
+	public void setColorArmor(){
 		armor.getImage().setColor(c);
+	}
+	
+	public void setColorGun(){
 		gun.getImage().setColor(c);
 	}
 	
@@ -77,7 +85,7 @@ public class Enemy extends Obj{
 		}
 		armor = new EnemyArmor(anim,this);
 		armor.direction = lastArmorDirection;
-		setColor();
+		setColorArmor();
 	}
 	
 	public void newGun(String nameGun){
@@ -93,7 +101,7 @@ public class Enemy extends Obj{
 		}
 		gun = new Obj(x,y,0.0,direction,-1,false,image);
 		gun.direction = lastGunDirection;
-		setColor();
+		setColorGun();
 	}
 	
 	public void dragIn(){

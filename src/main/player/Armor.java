@@ -19,12 +19,12 @@ public class Armor extends Obj {
 	
 	public String[] allowGun;
 	
-	private boolean turnRight = false;
-	private boolean turnLeft = false;
-	private boolean controlMotion = true; //можно ли управлять танком
+	public boolean turnRight = false;
+	public boolean turnLeft = false;
+	public boolean controlMotion = true; //можно ли управлять танком
 	public boolean controlMotionMouse = true; //можно ли управлять дулом
-	private boolean runUp = false;//для столковений
-	private boolean runDown = false;
+	public boolean runUp = false;//для столковений
+	public boolean runDown = false;
 	private boolean recoil = false;// в данынй момент танк отлетает от противника в рез. столкновения
 	private boolean animOn = false;
 	
@@ -45,8 +45,10 @@ public class Armor extends Obj {
 	public void collReport(Obj obj){
 		if (obj.getClass().getName().equals("main.player.Box")){
 			Box box = (Box) obj;
-			box.collisionPlayer();
-			player.newEquipment(box.typeBox);
+			if (!box.collision){
+				box.collisionPlayer();
+				player.newEquipment(box.typeBox);
+			}
 		}
 		
 		if (obj.getClass().getName().equals("main.home.Home")){

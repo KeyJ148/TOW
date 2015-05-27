@@ -241,9 +241,9 @@ public class ClientNetThread extends Thread{
 		String name = Global.linkCS.parsString(str,7);
 		long idNet = Integer.parseInt(Global.linkCS.parsString(str,8));
 		switch (bullName){
-			case "main.player.bullet.DefaultBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_default,name,idNet));
-			case "main.player.bullet.SteelBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_steel,name,idNet));
-			case "main.player.bullet.MassBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_mass,name,idNet));
+			case "main.player.bullet.DefaultBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_default,name,idNet)); break;
+			case "main.player.bullet.SteelBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_steel,name,idNet)); break;
+			case "main.player.bullet.MassBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_mass,name,idNet)); break;
 		}
 	}
 	

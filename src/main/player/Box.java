@@ -8,6 +8,7 @@ public class Box extends Obj {
 	
 	public int idBox;
 	public int typeBox;
+	public boolean collision = false;//Произошло ли столкновение?
 	
 	public Box(double x, double y, int idBox, Sprite s) {
 		super(x, y, 0.0, 90.0, 1, false, s);
@@ -17,7 +18,8 @@ public class Box extends Obj {
 	}
 
 	public void collisionPlayer(){
-		Global.clientSend.send13(idBox);
+		collision = true;
 		destroy();
+		Global.clientSend.send13(idBox);
 	}
 }

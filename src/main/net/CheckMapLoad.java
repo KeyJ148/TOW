@@ -30,9 +30,8 @@ public class CheckMapLoad extends Thread{
 			}
 			
 			try {
-				Thread.sleep(0,100);
-			} catch (InterruptedException e) {
-			}
+				Thread.sleep(0,1);
+			} catch (InterruptedException e) {}
 		}while(!mapDownAll);
 		
 		for(int i=0;i<gS.peopleMax;i++){
