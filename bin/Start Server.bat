@@ -1,2 +1,0 @@
-java main/GameServer
-pause

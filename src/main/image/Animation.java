@@ -1,15 +1,17 @@
 package main.image;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-import javax.imageio.*;
+import javax.imageio.ImageIO;
 
 import main.Global;
-
-import java.io.*;
-import java.net.URL;
 
 public class Animation implements Cloneable, Rendering{
     private Image[] image;
@@ -26,14 +28,12 @@ public class Animation implements Cloneable, Rendering{
 		this.frameNumber = frameNumber;
 		this.image = new Image[frameNumber];
 		String urlStr;
-		URL url;
 		//Загрузка изображений
 		for(int i=0;i<frameNumber;i++){
 			BufferedImage sourceImage = null;
 			urlStr = path + "/" + (i+1) + ".png";
 			try {
-				url = this.getClass().getClassLoader().getResource(urlStr);
-				sourceImage = ImageIO.read(url);
+				sourceImage = ImageIO.read(new File(urlStr));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -1,15 +1,17 @@
 package main.image;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-import javax.imageio.*;
+import javax.imageio.ImageIO;
 
 import main.Global;
-
-import java.io.*;
-import java.net.*;
 
 public class Sprite implements Cloneable, Rendering {
 	
@@ -22,8 +24,7 @@ public class Sprite implements Cloneable, Rendering {
 		//Загрузка изображения
 		BufferedImage sourceImage = null;
         try {
-			URL url = this.getClass().getClassLoader().getResource(path);
-			sourceImage = ImageIO.read(url);
+			sourceImage = ImageIO.read(new File(path));
 			if (Global.setting.DEBUG_CONSOLE_IMAGE) System.out.println("Load image \"" + path + "\" complited.");
 		} catch (IOException e) {
 			e.printStackTrace();

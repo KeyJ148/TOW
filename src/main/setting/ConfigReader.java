@@ -11,7 +11,7 @@ public class ConfigReader {
 	private String path;
 
 	public ConfigReader(String fileName){
-		this.path = "setting/" + fileName;
+		this.path = "res/setting/" + fileName;
 	}
 	
 	public String findString(String findName){

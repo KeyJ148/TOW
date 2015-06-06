@@ -22,8 +22,8 @@ import main.setting.SettingStorage;
 
 public class GameServer {
 	
-	public final String PATH_MAP = "map";
-	public final String PATH_IMAGE = "image";  
+	public final String PATH_MAP = "res/map";
+	public final String PATH_IMAGE = "res/image";  
 
 	//Присоединение клиентов
 	public int port;

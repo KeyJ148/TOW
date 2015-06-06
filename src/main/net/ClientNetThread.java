@@ -66,9 +66,9 @@ public class ClientNetThread extends Thread{
 		Global.widthMap = Integer.parseInt(Global.linkCS.parsString(s,1));
 		Global.heightMap = Integer.parseInt(Global.linkCS.parsString(s,2));
 		switch (Integer.parseInt(Global.linkCS.parsString(s,3))){
-			case 0: Global.background = new Sprite("image/Background/grass.png"); break;
-			case 1: Global.background = new Sprite("image/Background/sand.png"); break;
-			case 2: Global.background = new Sprite("image/Background/snow.png"); break;
+			case 0: Global.background = new Sprite("res/image/Background/grass.png"); break;
+			case 1: Global.background = new Sprite("res/image/Background/sand.png"); break;
+			case 2: Global.background = new Sprite("res/image/Background/snow.png"); break;
 		}
 		//Загрузка объектов
 		int x,y,direction;

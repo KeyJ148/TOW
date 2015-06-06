@@ -6,64 +6,67 @@ import main.image.Sprite;
 
 public class LinkCS {
 	
+	private String pathImage = "res/image/";
+	private String pathAnim = "res/animation/";
+	
 	public void initSprite(){
-		Global.road_g = new Sprite("image/Backwall/road_g.png");
-		Global.road_g_fork = new Sprite("image/Backwall/road_g_fork.png");
-		Global.road_g_turn = new Sprite("image/Backwall/road_g_turn.png");
-		Global.road_g_inter = new Sprite("image/Backwall/road_g_inter.png");
-		Global.road_a = new Sprite("image/Backwall/road_a.png");
-		Global.road_a_g = new Sprite("image/Backwall/road_a_g.png");
-		Global.road_a_fork = new Sprite("image/Backwall/road_a_fork.png");
-		Global.road_a_inter_big = new Sprite("image/Backwall/road_a_inter_big.png");
+		Global.road_g = new Sprite(pathImage + "Backwall/road_g.png");
+		Global.road_g_fork = new Sprite(pathImage + "Backwall/road_g_fork.png");
+		Global.road_g_turn = new Sprite(pathImage + "Backwall/road_g_turn.png");
+		Global.road_g_inter = new Sprite(pathImage + "Backwall/road_g_inter.png");
+		Global.road_a = new Sprite(pathImage + "Backwall/road_a.png");
+		Global.road_a_g = new Sprite(pathImage + "Backwall/road_a_g.png");
+		Global.road_a_fork = new Sprite(pathImage + "Backwall/road_a_fork.png");
+		Global.road_a_inter_big = new Sprite(pathImage + "Backwall/road_a_inter_big.png");
 		
-		Global.b_default = new Sprite("image/Bullet/default.png");
-		Global.b_steel = new Sprite("image/Bullet/steel.png");
-		Global.b_mortar = new Sprite("image/Bullet/mortar.png");
-		Global.b_gunfury = new Sprite("image/Bullet/gunfury.png");
-		Global.b_mass = new Sprite("image/Bullet/massgun.png");
-		Global.b_massgun_small = new Sprite("image/Bullet/massgun_small.png");
+		Global.b_default = new Sprite(pathImage + "Bullet/default.png");
+		Global.b_steel = new Sprite(pathImage + "Bullet/steel.png");
+		Global.b_mortar = new Sprite(pathImage + "Bullet/mortar.png");
+		Global.b_gunfury = new Sprite(pathImage + "Bullet/gunfury.png");
+		Global.b_mass = new Sprite(pathImage + "Bullet/massgun.png");
+		Global.b_massgun_small = new Sprite(pathImage + "Bullet/massgun_small.png");
 		
-		Global.defaultgun = new Sprite("image/Gun/defaultgun.png");
-		Global.doublegun = new Sprite("image/Gun/doublegun.png");
-		Global.gunfury = new Sprite("image/Gun/gunfury.png");
-		Global.mortar = new Sprite("image/Gun/mortar.png");
-		Global.rocketgun = new Sprite("image/Gun/rocketgun.png");
-		Global.biggun = new Sprite("image/Gun/massgun.png");
-		Global.powergun = new Sprite("image/Gun/powergun.png");
+		Global.defaultgun = new Sprite(pathImage + "Gun/defaultgun.png");
+		Global.doublegun = new Sprite(pathImage + "Gun/doublegun.png");
+		Global.gunfury = new Sprite(pathImage + "Gun/gunfury.png");
+		Global.mortar = new Sprite(pathImage + "Gun/mortar.png");
+		Global.rocketgun = new Sprite(pathImage + "Gun/rocketgun.png");
+		Global.biggun = new Sprite(pathImage + "Gun/massgun.png");
+		Global.powergun = new Sprite(pathImage + "Gun/powergun.png");
 		
-		Global.player_color = new Sprite("image/Sys/player_color.png");
-		Global.error = new Sprite("image/Sys/error.png");
-		Global.player_sys = new Sprite("image/Sys/player_sys.png");
+		Global.player_color = new Sprite(pathImage + "Sys/player_color.png");
+		Global.error = new Sprite(pathImage + "Sys/error.png");
+		Global.player_sys = new Sprite(pathImage + "Sys/player_sys.png");
 		
-		Global.home1 = new Sprite("image/Wall/home1.png");
-		Global.home2 = new Sprite("image/Wall/home2.png");
-		Global.home3 = new Sprite("image/Wall/home3.png");
-		Global.home4 = new Sprite("image/Wall/home4.png");
-		Global.home5 = new Sprite("image/Wall/home5.png");
-		Global.home6 = new Sprite("image/Wall/home6.png");
-		Global.home7 = new Sprite("image/Wall/home7.png");
-		Global.home8 = new Sprite("image/Wall/home8.png");
-		Global.home9 = new Sprite("image/Wall/home9.png");
-		Global.home10 = new Sprite("image/Wall/home10.png");
-		Global.home11 = new Sprite("image/Wall/home11.png");
-		Global.home12 = new Sprite("image/Wall/home12.png");
-		Global.home13 = new Sprite("image/Wall/home13.png");
-		Global.grayrock1 = new Sprite("image/Wall/grayrock1.png");
-		Global.grayrock2 = new Sprite("image/Wall/grayrock2.png");
-		Global.grayrock3 = new Sprite("image/Wall/grayrock3.png");
-		Global.grayrock4 = new Sprite("image/Wall/grayrock4.png");
-		Global.grayrock5 = new Sprite("image/Wall/grayrock5.png");
-		Global.grayrock6 = new Sprite("image/Wall/grayrock6.png");
-		Global.tree = new Sprite("image/Wall/tree.png");
+		Global.home1 = new Sprite(pathImage + "Wall/home1.png");
+		Global.home2 = new Sprite(pathImage + "Wall/home2.png");
+		Global.home3 = new Sprite(pathImage + "Wall/home3.png");
+		Global.home4 = new Sprite(pathImage + "Wall/home4.png");
+		Global.home5 = new Sprite(pathImage + "Wall/home5.png");
+		Global.home6 = new Sprite(pathImage + "Wall/home6.png");
+		Global.home7 = new Sprite(pathImage + "Wall/home7.png");
+		Global.home8 = new Sprite(pathImage + "Wall/home8.png");
+		Global.home9 = new Sprite(pathImage + "Wall/home9.png");
+		Global.home10 = new Sprite(pathImage + "Wall/home10.png");
+		Global.home11 = new Sprite(pathImage + "Wall/home11.png");
+		Global.home12 = new Sprite(pathImage + "Wall/home12.png");
+		Global.home13 = new Sprite(pathImage + "Wall/home13.png");
+		Global.grayrock1 = new Sprite(pathImage + "Wall/grayrock1.png");
+		Global.grayrock2 = new Sprite(pathImage + "Wall/grayrock2.png");
+		Global.grayrock3 = new Sprite(pathImage + "Wall/grayrock3.png");
+		Global.grayrock4 = new Sprite(pathImage + "Wall/grayrock4.png");
+		Global.grayrock5 = new Sprite(pathImage + "Wall/grayrock5.png");
+		Global.grayrock6 = new Sprite(pathImage + "Wall/grayrock6.png");
+		Global.tree = new Sprite(pathImage + "Wall/tree.png");
 		
-		Global.box_armor = new Sprite("image/Gaming/box_armor.png");
-		Global.box_gun = new Sprite("image/Gaming/box_gun.png");
-		Global.box_bullet = new Sprite("image/Gaming/box_bullet.png");
-		Global.box_health = new Sprite("image/Gaming/box_health.png");
+		Global.box_armor = new Sprite(pathImage + "Gaming/box_armor.png");
+		Global.box_gun = new Sprite(pathImage + "Gaming/box_gun.png");
+		Global.box_bullet = new Sprite(pathImage + "Gaming/box_bullet.png");
+		Global.box_health = new Sprite(pathImage + "Gaming/box_health.png");
 		
-		Global.c_default = new Animation("animation/Corps/Default",-1,2);
-		Global.c_fortified = new Animation("animation/Corps/Fortified",-1,2);
-		Global.c_elephant = new Animation("animation/Corps/Elephant",-1,1);
+		Global.c_default = new Animation(pathAnim + "Corps/Default",-1,2);
+		Global.c_fortified = new Animation(pathAnim + "Corps/Fortified",-1,2);
+		Global.c_elephant = new Animation(pathAnim + "Corps/Elephant",-1,1);
 	}
 	
 	public Sprite getSprite(String s){
