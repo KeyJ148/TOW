@@ -6,7 +6,7 @@ public class Analyzer {
 	
 	//Для подсчёта fps
 	public int loopsRender = 0; 
-	public int loopsAnalysis = 0;
+	public int loopsUpdate = 0; 
 	public long lastAnalysis;
 	
 	//Для подсчёта быстродействия
@@ -24,18 +24,20 @@ public class Analyzer {
 		Global.pingCheck = new Ping();
 	}
 	
-	public void loops(long startUpdate, long startRender){
-		durationUpdate += startRender - startUpdate;
-		durationRender += System.nanoTime() - startRender;
-		loopsRender++;
+	public void loopsUpdate(long startUpdate){
+		durationUpdate += System.nanoTime() - startUpdate;
+		loopsUpdate++;
 		if (System.currentTimeMillis() >= lastAnalysis + 1000){
 			analysisData();
 		}
 	}
+	
+	public void loopsRender(long startRender){
+		durationRender += System.nanoTime() - startRender;
+		loopsRender++;
+	}
 
 	public void analysisData(){
-		loopsAnalysis++;
-		
 		int objSize = 0;
 		for (int i=0;i<Global.obj.size();i++){
 			if (Global.obj.get(i) != null){
@@ -69,8 +71,8 @@ public class Analyzer {
 		String strFPS1 =  "Player: " + (enemySize+1) + "/" + Global.peopleMax
 						+ "          Ping: " + ping + " (" + pingMin + "-" + pingMid + "-" + pingMax + ")"
 						+ "          Speed S/L: " + send + "/" + load + " kb/s";
-		String strFPS2 =   "FPS: " + loopsRender
-				+ "          Duration update/render: " + (durationUpdate/loopsRender/1000) + "/" + (durationRender/loopsRender/1000) + " mks"
+		String strFPS2 =   "FPS/TPS: " + loopsRender + "/" + loopsUpdate
+				+ "          Duration update/render: " + (durationUpdate/loopsUpdate/1000) + "/" + (durationRender/loopsRender/1000) + " mks"
 				+ "          Object: " + objSize;
 				
 		if (Global.setting.DEBUG_CONSOLE_FPS){
@@ -84,6 +86,7 @@ public class Analyzer {
 		
 		
 		lastAnalysis = System.currentTimeMillis();
+		loopsUpdate = 0;
 		loopsRender = 0;
 		durationUpdate = 0;
 		durationRender = 0;

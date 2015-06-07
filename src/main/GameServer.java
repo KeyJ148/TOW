@@ -13,6 +13,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
 
+import main.login.StartServerListener;
 import main.net.CheckMapLoad;
 import main.net.LinkCS;
 import main.net.MessagePack;
@@ -30,6 +31,7 @@ public class GameServer {
 	public int peopleMax;
 	public int peopleNow;
 	public int disconnect;//Кол-во отключённых игроков, не совмещать с peopleNow
+	public static StartServerListener ssl;//Объект клиента, которому нужно сообщить о начале коннекта
 	//Отправка данных
 	public ServerNetThread[] serverThread;
 	public DataInputStream[] in;
@@ -54,34 +56,36 @@ public class GameServer {
 	public volatile boolean[] connect;//Метка, устанавливаемая клиентским потоком, о том что игрок скачал карту
 	public CheckMapLoad cml;//Объект-поток для проверки загрузки карты всеми игроками (Проверка меток)
 	
-	public GameServer() throws IOException{
+	public GameServer(String args[]) throws IOException{
 		BufferedReader bReader = new BufferedReader (new InputStreamReader(System.in));
-		int port;
-		int peopleMax;
 		String str;
 		
 		Global.setting = new SettingStorage();
 		Global.setting.initFromFile();
 		Global.linkCS = new LinkCS();
 		Global.linkCS.initSprite();
-		
-		System.out.print("Port (Default 25566): ");
-		str = bReader.readLine();
-		if (str.equals("")){
-			port = 25566;
+		if (args.length > 0){
+			port = Integer.parseInt(args[0]);
 		} else {
-			port = Integer.parseInt(str);
+			System.out.print("Port (Default 25566): ");
+			str = bReader.readLine();
+			if (str.equals("")){
+				port = 25566;
+			} else {
+				port = Integer.parseInt(str);
+			}
 		}
-		this.port = port;
-		
-		System.out.print("Max people (Default 1): ");
-		str = bReader.readLine();
-		if (str.equals("")){
-			peopleMax = 1;
+		if (args.length > 1){
+			peopleMax = Integer.parseInt(args[1]);
 		} else {
-			peopleMax = Integer.parseInt(str);
+			System.out.print("Max people (Default 1): ");
+			str = bReader.readLine();
+			if (str.equals("")){
+				peopleMax = 1;
+			} else {
+				peopleMax = Integer.parseInt(str);
+			}
 		}
-		this.peopleMax = peopleMax;
 		
 		
 		this.serverThread = new ServerNetThread[peopleMax];
@@ -97,6 +101,9 @@ public class GameServer {
 		ServerSocket ServerSocket = new ServerSocket(port);
 		this.peopleNow = 0;
 		
+		if (ssl != null){
+			ssl.connect();
+		}
 		System.out.println("Server started.");
 		
 		while(peopleNow != peopleMax){
@@ -272,8 +279,17 @@ public class GameServer {
 		System.out.println("[ERROR] " + s);
 	}
 	
-	public static void main (String args[]) throws IOException{
-		new GameServer();
+	public static void main(String args[]){
+		try {
+			new GameServer(args);
+		} catch (IOException e) {
+			Global.error("Start server failed");
+		}
+	}
+	
+	public static void fromClient(String[] args, StartServerListener ssl){
+		GameServer.ssl = ssl;
+		main(args);
 	}
 }
 

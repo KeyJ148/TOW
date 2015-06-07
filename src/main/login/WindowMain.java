@@ -1,8 +1,8 @@
 package main.login;
 
 import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Toolkit;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -23,7 +23,7 @@ public class WindowMain extends JFrame {
 	public final int hor;
 	public final int vert;
 
-	public Dialog d;
+	public Frame loginWindow;
 	public ClientNetThread clientThread;
 	
 	Color c;
@@ -33,7 +33,7 @@ public class WindowMain extends JFrame {
 		Dimension sSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.vert = sSize.height;
 		this.hor = sSize.width;
-		this.d = new LoginWindow(this,"Entry",this.hor,this.vert);
+		this.loginWindow = new LoginWindow(this,"Entry",this.hor,this.vert);
 		Random rand = new Random();
 		this.c = new Color(rand.nextInt(200)+55,rand.nextInt(200)+55,rand.nextInt(200)+55);
 	}
@@ -43,7 +43,7 @@ public class WindowMain extends JFrame {
 	}
 	
 	public void createConnection(Socket sock,String name) throws IOException{
-		this.d.dispose();
+		this.loginWindow.dispose();
 		
 		InputStream inS = sock.getInputStream();
 		OutputStream outS = sock.getOutputStream();
