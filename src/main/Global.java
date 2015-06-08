@@ -1,6 +1,9 @@
 package main;
 
 import java.awt.Color;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import main.image.Animation;
@@ -99,6 +102,7 @@ public class Global {
 	public static Sprite error;
 	public static Sprite player_sys;
 	public static Sprite player_color;
+	public static Sprite cursor_aim;
 	
 	public static Sprite box_armor;
 	public static Sprite box_gun;
@@ -131,6 +135,19 @@ public class Global {
 	//Вывод сообщения о ошибке
 	public static void error(String s){
 		System.out.println("[ERROR] " + s);
+	}
+	
+	//Вывод сообщения  файл
+	public static PrintWriter out;
+	public static void log(String s){
+		if (out == null){
+			try {
+				out = new PrintWriter(new FileWriter("res/log.txt"));
+			} catch (IOException e) {
+				Global.error("Write log file");
+			}
+		}
+		out.println(s);
 	}
 }
 

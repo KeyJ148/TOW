@@ -1,7 +1,6 @@
 package main;
 
 import java.awt.BorderLayout;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
@@ -76,7 +75,7 @@ public class Game implements Runnable{
 		if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) 
 			analyzer = new Analyzer();
 		
-		render.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+		render.init();
 		
 		if (Global.setting.DEBUG_CONSOLE) System.out.println("Inicialization end.");
 	}

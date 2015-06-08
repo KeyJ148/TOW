@@ -37,6 +37,7 @@ public class LinkCS {
 		Global.player_color = new Sprite(pathImage + "Sys/player_color.png");
 		Global.error = new Sprite(pathImage + "Sys/error.png");
 		Global.player_sys = new Sprite(pathImage + "Sys/player_sys.png");
+		Global.cursor_aim = new Sprite(pathImage + "Sys/cursor_aim.png");
 		
 		Global.home1 = new Sprite(pathImage + "Wall/home1.png");
 		Global.home2 = new Sprite(pathImage + "Wall/home2.png");

@@ -125,11 +125,9 @@ public class Player extends Obj{
 			public void mousePressed(MouseEvent e){
 				if (controlAtack){
 					if (e.getModifiers() == InputEvent.BUTTON1_MASK){
-						gun.attack1();
 						gun.mousePress((byte) 1);
 					}
 					if (e.getModifiers() == InputEvent.BUTTON3_MASK){
-						gun.attack2();
 						gun.mousePress((byte) 2);
 					}
 				}

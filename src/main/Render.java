@@ -2,13 +2,21 @@ package main;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 import main.image.DepthVector;
+import main.image.Sprite;
 import main.obj.ObjLight;
 
 public class Render extends Canvas{
@@ -17,7 +25,36 @@ public class Render extends Canvas{
 	public String strAnalysis1 = "";//Вывод отладочных данных
 	public String strAnalysis2 = "";
 	
+	public Sprite cursor;
+	public int mouseX;
+	public int mouseY;
+	public int mouseWidth;
+	public int mouseHeight;
+	
 	private static final long serialVersionUID = 1L;
+	
+	public void init(){
+		//Отключение стнадартного курсора
+		Cursor noCursor = Toolkit.getDefaultToolkit().createCustomCursor((new ImageIcon(new byte[0])).getImage(), new Point(0,0), "noCursor");
+		setCursor(noCursor);
+		
+		//Добавление своего курсора
+		cursor = Global.cursor_aim;
+		mouseWidth = cursor.getWidth();
+		mouseHeight = cursor.getHeight();
+		addMouseMotionListener(new MouseMotionAdapter(){
+			public void mouseMoved(MouseEvent e){
+				mouseX = e.getX();
+				mouseY = e.getY();
+			}
+			
+			public void mouseDragged(MouseEvent e){
+				mouseX = e.getX();
+				mouseY = e.getY();
+			}
+		});
+		
+	}
 	
 	public void loop() {
 		//Включение двойной буферизации
@@ -78,6 +115,8 @@ public class Render extends Canvas{
 			titleArray.get(i).draw(g);
 		}
 		
+		//Отрисовка курсора
+		cursor.draw(g, mouseX-mouseWidth/2, mouseY-mouseHeight/2, 0.0);
 		
 		//Магия [ON]
 		g.dispose();

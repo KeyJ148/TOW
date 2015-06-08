@@ -130,12 +130,6 @@ public class Armor extends Obj {
 			setAnimOn(false);
 		}
 		
-		//следование player и пушки за броней
-		player.setXcenter(getXcenter());
-		player.setYcenter(getYcenter());
-		player.getGun().setXcenter(getXcenter());
-		player.getGun().setYcenter(getYcenter());
-		
 		//hp
 		if(hp <= 0){
 			Global.clientSend.send4();
@@ -149,6 +143,14 @@ public class Armor extends Obj {
 				hp+=hpRegen;
 			}
 		}
+	}
+	
+	public void updateChildFinal(){//В финал, чтобы пушка не отставала от такна
+		//следование player и пушки за броней
+		player.setXcenter(getXcenter());
+		player.setYcenter(getYcenter());
+		player.getGun().setXcenter(getXcenter());
+		player.getGun().setYcenter(getYcenter());
 	}
 	
 	public void loadData(String fileName){

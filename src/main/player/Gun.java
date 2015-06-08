@@ -55,28 +55,17 @@ public class Gun extends Obj{
 	public void switchBullet(String bullet, int trunkX, int trunkY, double damage){
 		double trunkXdx = trunkX*Math.cos(Math.toRadians(player.getGun().getDirection())-Math.PI/2);//первый отступ "вперед"
 		double trunkXdy = trunkX*Math.sin(Math.toRadians(player.getGun().getDirection())-Math.PI/2);//в отличие от маски мы отнимаем от каждого по PI/2
-		double trunkYdx = trunkY*Math.cos(Math.toRadians(player.getGun().getDirection())-Math.PI);//потому что изначально и теустуры измененное направление
+		double trunkYdx = trunkY*Math.cos(Math.toRadians(player.getGun().getDirection())-Math.PI);//потому что изначально у теустуры измененное направление
 		double trunkYdy = trunkY*Math.sin(Math.toRadians(player.getGun().getDirection())-Math.PI);//второй отступ "вбок"
 		switch(bullet){
-			case "DefaultBullet": new DefaultBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,player.getGun().getDirection(),damage); break;
-			case "SteelBullet": new SteelBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,player.getGun().getDirection(),damage); break;
-			case "MassBullet": new MassBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,player.getGun().getDirection(),damage); break;
-		}
-	}
-	
-	public void updateChildStart(){
-		TPSFromAttack1++;
-		TPSFromAttack2++;
-		if (mousePress1){
-			attack1();
-		}
-		if (mousePress2){
-			attack2();
+			case "DefaultBullet": new DefaultBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,getDirection(),damage); break;
+			case "SteelBullet": new SteelBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,getDirection(),damage); break;
+			case "MassBullet": new MassBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,getDirection(),damage); break;
 		}
 	}
 	
 	public void updateChildMid(){
-		//поворот дула
+		//поворот дула (много костылей)
 		double pointDir = -Math.toDegrees(Math.atan((getYViewCenter()-player.getMouseY())/(getXViewCenter()-player.getMouseX())));
 		double trunkUp = getDirectionGunUp()+player.getArmor().getDirectionGunUp();
 		if ((getXViewCenter()-player.getMouseX())>0){
@@ -85,9 +74,6 @@ public class Gun extends Obj{
 			pointDir+=360;
 		}
 		
-		if (Math.abs(pointDir - getDirection()) < trunkUp*2){
-			setDirection(pointDir) ;
-		}
 		if ((pointDir - getDirection()) > 0){
 			if ((pointDir - getDirection()) > 180){
 				setDirection(getDirection() - trunkUp);
@@ -100,6 +86,20 @@ public class Gun extends Obj{
 			} else {
 				setDirection(getDirection() - trunkUp);
 			}
+		}
+		
+		if ((Math.abs(pointDir - getDirection()) < trunkUp*1.5) || (Math.abs(pointDir - getDirection()) > 360-trunkUp*1.5)){
+			setDirection(pointDir);
+		}
+		
+		//Выстрел
+		TPSFromAttack1++;
+		TPSFromAttack2++;
+		if (mousePress1){
+			attack1();
+		}
+		if (mousePress2){
+			attack2();
 		}
 	}
 	
