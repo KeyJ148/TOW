@@ -1,6 +1,7 @@
 package main.image;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -16,6 +17,7 @@ import main.Global;
 public class Sprite implements Cloneable, Rendering {
 	
     private Image image;
+    private Image imageDefault;
     public String path;//путь к файлу, нужен для создания маски и консоли
     public Mask mask;
     
@@ -31,6 +33,7 @@ public class Sprite implements Cloneable, Rendering {
 		}
        
 		this.image = Toolkit.getDefaultToolkit().createImage(sourceImage.getSource());
+		this.imageDefault = image;
 		//Создание маски
 		this.mask = new Mask(path, getWidth(), getHeight());
     }
@@ -66,6 +69,10 @@ public class Sprite implements Cloneable, Rendering {
 		AffineTransform at = new AffineTransform(); 
 		at.rotate(-direction,x+getWidth()/2,y+getHeight()/2); //Создание трансформа с поворотом
         g.setTransform(at); //для поворота спрайта на direction
+        g.drawImage(image, x, y, null);//для отрисовки спрайта нужен верхний левый угол
+    }
+    
+    public void draw(Graphics g,int x,int y) {
         g.drawImage(image, x, y, null);//для отрисовки спрайта нужен верхний левый угол
     }
     
@@ -113,6 +120,10 @@ public class Sprite implements Cloneable, Rendering {
         bGr.dispose();
 
         return bimage;
+    }
+    
+    public void setDefaultImage(){
+    	this.image = imageDefault;
     }
     
     public boolean isAnim(){

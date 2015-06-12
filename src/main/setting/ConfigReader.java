@@ -43,11 +43,21 @@ public class ConfigReader {
 	}
 	
 	public int findInteger(String findName){
-		return Integer.parseInt(findString(findName));
+		String s = findString(findName);
+		if (s.equals("")){
+			return 0;
+		} else {
+			return Integer.parseInt(s);
+		}
 	}
 	
 	public double findDouble(String findName){
-		return Double.parseDouble(findString(findName));
+		String s = findString(findName);
+		if (s.equals("")){
+			return 0;
+		} else {
+			return Double.parseDouble(s);
+		}
 	}
 	
 	public boolean findBoolean(String findName){

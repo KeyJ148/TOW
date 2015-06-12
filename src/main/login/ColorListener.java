@@ -7,15 +7,16 @@ import java.awt.event.ActionListener;
 public class ColorListener implements ActionListener {
 	
 	Color c;
-	WindowMain frame;
+	LoginWindow frame;
 	
-	public ColorListener(Color c, WindowMain frame){
+	public ColorListener(Color c, LoginWindow frame){
 		this.c = c;
 		this.frame = frame;
 	}
 	
 	public void actionPerformed(ActionEvent ae){
-		frame.setColor(c);
+		frame.colorTank = c;
+		frame.repaint();
 	} 
 
 }

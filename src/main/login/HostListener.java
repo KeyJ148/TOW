@@ -7,14 +7,14 @@ import java.awt.event.ActionListener;
 import main.GameServer;
 import main.Global;
 
-public class StartServerListener implements ActionListener, Runnable{
+public class HostListener implements ActionListener, Runnable{
 	
 	private TextField tf2;
 	private TextField tf4;
-	private LoginListener ll;
+	private ConnectListener ll;
 	private boolean connect = false;//Запустился сервер? 
 		
-	public StartServerListener(TextField tf2, TextField tf4, LoginListener ll){ 
+	public HostListener(TextField tf2, TextField tf4, ConnectListener ll){ 
 		this.tf2 = tf2;
 		this.tf4 = tf4;
 		this.ll = ll;

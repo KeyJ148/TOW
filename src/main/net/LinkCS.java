@@ -35,8 +35,8 @@ public class LinkCS {
 		Global.powergun = new Sprite(pathImage + "Gun/powergun.png");
 		
 		Global.player_color = new Sprite(pathImage + "Sys/player_color.png");
-		Global.error = new Sprite(pathImage + "Sys/error.png");
 		Global.player_sys = new Sprite(pathImage + "Sys/player_sys.png");
+		Global.error = new Sprite(pathImage + "Sys/error.png");
 		Global.cursor_aim = new Sprite(pathImage + "Sys/cursor_aim.png");
 		
 		Global.home1 = new Sprite(pathImage + "Wall/home1.png");
@@ -68,6 +68,10 @@ public class LinkCS {
 		Global.c_default = new Animation(pathAnim + "Corps/Default",-1,2);
 		Global.c_fortified = new Animation(pathAnim + "Corps/Fortified",-1,2);
 		Global.c_elephant = new Animation(pathAnim + "Corps/Elephant",-1,1);
+	}
+	
+	public void initSpriteMenu(){
+		Global.player_color = new Sprite(pathImage + "Sys/player_color.png");
 	}
 	
 	public Sprite getSprite(String s){

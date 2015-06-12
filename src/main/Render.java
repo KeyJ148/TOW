@@ -53,7 +53,6 @@ public class Render extends Canvas{
 				mouseY = e.getY();
 			}
 		});
-		
 	}
 	
 	public void loop() {

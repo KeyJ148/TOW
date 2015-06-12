@@ -2,9 +2,12 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import main.image.DepthVector;
 import main.login.WindowMain;
@@ -67,7 +70,6 @@ public class Game implements Runnable{
 		Global.obj = new ArrayList<ObjLight>();
 		Global.depth = new ArrayList<DepthVector>();
 		Global.enemyBullet = new ArrayList<EnemyBullet>();
-		Global.linkCS = new LinkCS();
 		
 		Global.linkCS.initSprite();
 		Global.clientThread.initMap(this);
@@ -116,12 +118,36 @@ public class Game implements Runnable{
 		Render redner = Global.game.render;
 		redner.setPreferredSize(new Dimension(Global.setting.WIDTH_SCREEN, Global.setting.HEIGHT_SCREEN));
 
+		Global.linkCS = new LinkCS();
+		Global.linkCS.initSpriteMenu();
 		JFrame frame = new WindowMain(Global.setting.WINDOW_NAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		frame.add(redner, BorderLayout.CENTER);
 		frame.pack();
 		frame.setResizable(false);
+		
+		//Добавление закрытия на крестик
+		frame.addWindowListener(new WindowListener() {
+			public void windowClosing(WindowEvent event) {
+				Object[] options = { "Да", "Нет!" };
+				int n = JOptionPane.showOptionDialog(event.getWindow(),
+						"Закрыть окно?", "Подтверждение",
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				if (n == 0) {
+					event.getWindow().setVisible(false);
+					System.exit(0);
+				}
+			}
+			
+			public void windowOpened(WindowEvent e) {}
+			public void windowClosed(WindowEvent e) {}
+			public void windowIconified(WindowEvent e) {}
+			public void windowDeiconified(WindowEvent e) {}
+			public void windowActivated(WindowEvent e) {}
+			public void windowDeactivated(WindowEvent e) {}
+		});
 		
 		if (Global.setting.DEBUG_CONSOLE) System.out.println("Window create.");
 	}

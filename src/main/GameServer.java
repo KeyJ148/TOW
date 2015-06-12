@@ -13,7 +13,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
 
-import main.login.StartServerListener;
+import main.login.HostListener;
 import main.net.CheckMapLoad;
 import main.net.LinkCS;
 import main.net.MessagePack;
@@ -31,7 +31,7 @@ public class GameServer {
 	public int peopleMax;
 	public int peopleNow;
 	public int disconnect;//Кол-во отключённых игроков, не совмещать с peopleNow
-	public static StartServerListener ssl;//Объект клиента, которому нужно сообщить о начале коннекта
+	public static HostListener hostListener;//Объект клиента, которому нужно сообщить о начале коннекта
 	//Отправка данных
 	public ServerNetThread[] serverThread;
 	public DataInputStream[] in;
@@ -101,8 +101,8 @@ public class GameServer {
 		ServerSocket ServerSocket = new ServerSocket(port);
 		this.peopleNow = 0;
 		
-		if (ssl != null){
-			ssl.connect();
+		if (hostListener != null){
+			hostListener.connect();
 		}
 		System.out.println("Server started.");
 		
@@ -287,8 +287,8 @@ public class GameServer {
 		}
 	}
 	
-	public static void fromClient(String[] args, StartServerListener ssl){
-		GameServer.ssl = ssl;
+	public static void fromClient(String[] args, HostListener hostListener){
+		GameServer.hostListener = hostListener;
 		main(args);
 	}
 }

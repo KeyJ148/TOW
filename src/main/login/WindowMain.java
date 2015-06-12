@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.Random;
 
 import javax.swing.JFrame;
 
@@ -33,9 +32,7 @@ public class WindowMain extends JFrame {
 		Dimension sSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.vert = sSize.height;
 		this.hor = sSize.width;
-		this.loginWindow = new LoginWindow(this,"Entry",this.hor,this.vert);
-		Random rand = new Random();
-		this.c = new Color(rand.nextInt(200)+55,rand.nextInt(200)+55,rand.nextInt(200)+55);
+		this.loginWindow = new LoginWindow(this,this.hor,this.vert);
 	}
 	
 	public void setColor(Color c){

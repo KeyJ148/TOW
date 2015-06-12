@@ -9,14 +9,14 @@ import java.net.Socket;
 
 import main.Global;
 
-public class LoginListener implements ActionListener {
+public class ConnectListener implements ActionListener {
 	
 	private TextField tfIp;
 	private TextField tf2;
 	private TextField tf3;
 	private WindowMain frame;
 		
-	LoginListener(TextField tfIp, TextField tf2, TextField tf3, WindowMain frame){ 
+	ConnectListener(TextField tfIp, TextField tf2, TextField tf3, WindowMain frame){ 
 		this.tfIp = tfIp;
 		this.tf2 = tf2;
 		this.tf3 = tf3;
