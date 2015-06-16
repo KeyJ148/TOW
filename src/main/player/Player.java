@@ -315,7 +315,7 @@ public class Player extends Obj{
 		String name;
 		do{
 			i++;
-			name = Global.linkCS.parsString(allowString,i);
+			name = Global.parsString(allowString,i);
 			allowVector.add(name);
 			if (name.equals(allowString.substring(allowString.lastIndexOf(" ")+1))){
 				end = true;

@@ -83,7 +83,7 @@ public class ServerNetThread extends Thread{
 			String s;
 			do {
 				s = this.gameServer.in[id].readUTF();
-			}while(Integer.parseInt(Global.linkCS.parsString(s,1)) != -3);
+			}while(Integer.parseInt(Global.parsString(s,1)) != -3);
 			return s.substring(3);
 		} catch (IOException e) {
 			gameServer.error("Method for download nickname");
@@ -107,12 +107,12 @@ public class ServerNetThread extends Thread{
 			while (true){
 				try{
 					str = this.gameServer.in[id].readUTF();
-					if (Integer.parseInt(Global.linkCS.parsString(str, 1)) >= 0){//Если сообщение для клиента
+					if (Integer.parseInt(Global.parsString(str, 1)) >= 0){//Если сообщение для клиента
 						synchronized(this.gameServer.messagePack[id]) {//Защита от одновременной работы с массивом
 							this.gameServer.messagePack[id].add(str);
 						}
 					} else {//Если сообщение для сервера
-						switch (Integer.parseInt(Global.linkCS.parsString(str, 1))){
+						switch (Integer.parseInt(Global.parsString(str, 1))){
 							case -1: take1(); break;
 							case -2: take2(); break;
 						}

@@ -1,10 +1,10 @@
 package main.login;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Label;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,11 +16,12 @@ import main.Global;
 import main.setting.ConfigReader;
 
 
-@SuppressWarnings("serial")
 public class LoginWindow extends JFrame{
 	
-	public final int horFrame = 400+7+7;//Развер окна
-	public final int vertFrame = 235;
+	private static final long serialVersionUID = 1L;
+	
+	public final int wFrame = 400+7+7;//Размер окна
+	public final int hFrame = 235;
 	
 	//Стандартные настройки
 	public final String fileName = "login.properties";//Файл хранения настроек
@@ -38,23 +39,18 @@ public class LoginWindow extends JFrame{
 	public String defaultPort = "";//порт
 	public String defaultPortHost = "";//порт
 	
+	//Текущий выбранный цвет
 	public Color colorTank;
 	
-	public LoginWindow(WindowMain frame, int hor, int vert){
+	public LoginWindow(){
 		super("Login");
 		setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		addWindowListener(new WindowListener() {
-            public void windowClosing(WindowEvent event){ System.exit(0);}
-            public void windowOpened(WindowEvent e) {}
-			public void windowClosed(WindowEvent e) {}
-			public void windowIconified(WindowEvent e) {}
-			public void windowDeiconified(WindowEvent e) {}
-			public void windowActivated(WindowEvent e) {}
-			public void windowDeactivated(WindowEvent e) {}
-        });
 		
-		setBounds(hor/2-horFrame/2,vert/2-vertFrame/2,horFrame,vertFrame);
+		Dimension sSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int wDisplay = sSize.width;
+		int hDisplay = sSize.height;
+		setBounds(wDisplay/2-wFrame/2,hDisplay/2-hFrame/2,wFrame,hFrame);
 		
 		//Загрузка из конфига
 		ConfigReader cr = new ConfigReader(fileName);
@@ -208,17 +204,16 @@ public class LoginWindow extends JFrame{
 		//*********************************************
 		
 		colorTank = new Color(Integer.parseInt(tfRed.getText()), Integer.parseInt(tfGreen.getText()), Integer.parseInt(tfBlue.getText()));
-		/*
-		ConnectListener ll = new ConnectListener(tfIp,tf2,tf3,frame);
-		tfIp.addActionListener(ll);
-		tf2.addActionListener(ll);
-		tf3.addActionListener(ll);
-		b1.addActionListener(ll);
+
+		ConnectListener cl = new ConnectListener(tfIp,tfPort,tfName, this);
+		bConnect.addActionListener(cl);
+		tfIp.addActionListener(cl);
+		tfPort.addActionListener(cl);
 		
-		HostListener ssl = new HostListener(tf2, tf4, ll);
-		b2.addActionListener(ssl);
-		tf4.addActionListener(ssl);
-		*/
+		
+		HostListener hl = new HostListener(tfPortHost, cl);
+		bHost.addActionListener(hl);
+		tfPortHost.addActionListener(hl);
 		
 		setVisible(true);
 	}

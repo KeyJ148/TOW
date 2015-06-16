@@ -1,40 +1,70 @@
 package main.login;
 
-import java.awt.TextField;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
+
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 import main.Global;
+import main.Render;
+import main.lobby.LobbyWindow;
+import main.net.ClientNetThread;
 
 public class ConnectListener implements ActionListener {
 	
-	private TextField tfIp;
-	private TextField tf2;
-	private TextField tf3;
-	private WindowMain frame;
+	private JTextField tfIp;
+	private JTextField tfPort;
+	private JTextField tfName;
+	private LoginWindow lw;
 		
-	ConnectListener(TextField tfIp, TextField tf2, TextField tf3, WindowMain frame){ 
+	ConnectListener(JTextField tfIp, JTextField tfPort, JTextField tfName, LoginWindow lw){ 
 		this.tfIp = tfIp;
-		this.tf2 = tf2;
-		this.tf3 = tf3;
-		this.frame = frame;
+		this.tfPort = tfPort;
+		this.tfName = tfName;
+		this.lw = lw;
 	}
 	
 	public void actionPerformed(ActionEvent ae){
-		startConnect();
+		new LobbyWindow(false);
+		//lw.dispose();
+		//startConnect();
+		//createMainWindow();
 	} 
 	
 	public void startConnect(){
-		try{
-			Socket sock = new Socket(InetAddress.getByName(tfIp.getText()),Integer.parseInt(tf2.getText()));
-			frame.createConnection(sock,tf3.getText());
-		} catch(IOException e){
-			Global.error("Connection failed");
-			System.exit(0);
+		String name = tfName.getText();
+		if (name.equals("")){
+			Global.name = Double.toString(Math.random()); 
+		} else {
+			if (name.indexOf(' ') == -1){
+				Global.name = name;
+			} else {
+				Global.error("Invalid name!");
+				System.exit(0);
+			}
 		}
+		
+		Global.clientThread = new ClientNetThread(tfIp.getText(), Integer.parseInt(tfPort.getText()));
+	}
+	
+	public void createMainWindow(){
+		Render redner = Global.game.render;
+		redner.setPreferredSize(new Dimension(Global.setting.WIDTH_SCREEN, Global.setting.HEIGHT_SCREEN));
+		
+		JFrame frame = new JFrame(Global.setting.WINDOW_NAME);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new BorderLayout());
+		frame.add(redner, BorderLayout.CENTER);
+		frame.pack();
+		frame.setResizable(false);
+		
+		Global.game.start();
+		frame.setVisible(true);
+		
+		if (Global.setting.DEBUG_CONSOLE) System.out.println("Window create.");
 	}
 }
 

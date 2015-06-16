@@ -15,7 +15,6 @@ import java.util.Random;
 
 import main.login.HostListener;
 import main.net.CheckMapLoad;
-import main.net.LinkCS;
 import main.net.MessagePack;
 import main.net.ServerNetThread;
 import main.net.ServerSend;
@@ -62,8 +61,7 @@ public class GameServer {
 		
 		Global.setting = new SettingStorage();
 		Global.setting.initFromFile();
-		Global.linkCS = new LinkCS();
-		Global.linkCS.initSprite();
+		Global.initSprite();
 		if (args.length > 0){
 			port = Integer.parseInt(args[0]);
 		} else {
@@ -140,8 +138,8 @@ public class GameServer {
 					BufferedReader fileReader = new BufferedReader(new FileReader(pathFull));
 					String s;
 					s = fileReader.readLine();
-					this.widthMap = Integer.parseInt(Global.linkCS.parsString(s,1));
-					this.heightMap = Integer.parseInt(Global.linkCS.parsString(s,2));
+					this.widthMap = Integer.parseInt(Global.parsString(s,1));
+					this.heightMap = Integer.parseInt(Global.parsString(s,2));
 
 					while (true){ 
 						s = fileReader.readLine();
@@ -149,9 +147,9 @@ public class GameServer {
 							break;
 						}
 						
-						vecX.add(Integer.parseInt(Global.linkCS.parsString(s,1)));
-						vecY.add(Integer.parseInt(Global.linkCS.parsString(s,2)));
-						vecSprite.add(Global.linkCS.parsString(s,4));
+						vecX.add(Integer.parseInt(Global.parsString(s,1)));
+						vecY.add(Integer.parseInt(Global.parsString(s,2)));
+						vecSprite.add(Global.parsString(s,4));
 					}
 					
 					fileReader.close();
@@ -193,8 +191,8 @@ public class GameServer {
 			for(int i=0;i<vecX.size();i++){
 				x = (int) vecX.get(i);//коры объекта
 				y = (int) vecY.get(i);
-				w = (int) Global.linkCS.getSprite((String) vecSprite.get(i)).getWidth();//размеры объекта
-				h = (int) Global.linkCS.getSprite((String) vecSprite.get(i)).getHeight();
+				w = (int) Global.getSprite((String) vecSprite.get(i)).getWidth();//размеры объекта
+				h = (int) Global.getSprite((String) vecSprite.get(i)).getHeight();
 				disHome = Math.sqrt(w*w + h*h)/2;
 				disPointToHome = Math.sqrt((x-xRand)*(x-xRand)+(y-yRand)*(y-yRand));
 				if ((disHome+disTank+30) > (disPointToHome)){

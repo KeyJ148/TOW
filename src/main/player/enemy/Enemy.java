@@ -25,13 +25,13 @@ public class Enemy extends Obj{
 	}
 	
 	public void setData(String s){
-		setX(Double.parseDouble(Global.linkCS.parsString(s,2)));
-		setY(Double.parseDouble(Global.linkCS.parsString(s,3)));
-		setDirection(Double.parseDouble(Global.linkCS.parsString(s,4)));
-		gun.setDirection(Double.parseDouble(Global.linkCS.parsString(s,7)));
+		setX(Double.parseDouble(Global.parsString(s,2)));
+		setY(Double.parseDouble(Global.parsString(s,3)));
+		setDirection(Double.parseDouble(Global.parsString(s,4)));
+		gun.setDirection(Double.parseDouble(Global.parsString(s,7)));
 		dragIn();
-		setSpeed(Double.parseDouble(Global.linkCS.parsString(s,8)));
-		int anim = Integer.parseInt(Global.linkCS.parsString(s,5)); 
+		setSpeed(Double.parseDouble(Global.parsString(s,8)));
+		int anim = Integer.parseInt(Global.parsString(s,5)); 
 		if ((anim != -1) && (!animOn)){
 			armor.getAnimation().setFrameSpeed(anim);
 			animOn = true;

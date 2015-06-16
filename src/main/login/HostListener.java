@@ -1,28 +1,29 @@
 package main.login;
 
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JTextField;
+
 import main.GameServer;
 import main.Global;
+import main.lobby.LobbyWindow;
 
 public class HostListener implements ActionListener, Runnable{
 	
-	private TextField tf2;
-	private TextField tf4;
-	private ConnectListener ll;
+	private JTextField tfPortHost;
+	private ConnectListener cl;
 	private boolean connect = false;//«апустилс€ сервер? 
 		
-	public HostListener(TextField tf2, TextField tf4, ConnectListener ll){ 
-		this.tf2 = tf2;
-		this.tf4 = tf4;
-		this.ll = ll;
+	public HostListener(JTextField tfPortHost, ConnectListener cl){ 
+		this.tfPortHost = tfPortHost;
+		this.cl = cl;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent ae){
-		new Thread(this).start();
+		new LobbyWindow(true);
+		//new Thread(this).start();
 		while (!connect){
 			try {
 				Thread.sleep(0,1);
@@ -30,12 +31,13 @@ public class HostListener implements ActionListener, Runnable{
 				Global.error("Wait start server");
 			}
 		}
-		ll.startConnect();
+		cl.startConnect();
+		cl.createMainWindow();
 	}
 
 	@Override
 	public void run() {
-		String[] args = {tf2.getText(), tf4.getText()};
+		String[] args = {tfPortHost.getText(), "1"};//количество игроков
 		GameServer.fromClient(args, this);
 	} 
 	
