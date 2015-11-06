@@ -13,7 +13,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
 
-import main.login.HostListener;
+import main.lobby.LobbyWindow;
 import main.net.CheckMapLoad;
 import main.net.MessagePack;
 import main.net.ServerNetThread;
@@ -30,7 +30,7 @@ public class GameServer {
 	public int peopleMax;
 	public int peopleNow;
 	public int disconnect;//Кол-во отключённых игроков, не совмещать с peopleNow
-	public static HostListener hostListener;//Объект клиента, которому нужно сообщить о начале коннекта
+	public static LobbyWindow lobbyWindow;//Объект клиента, которому нужно сообщить о начале коннекта
 	//Отправка данных
 	public ServerNetThread[] serverThread;
 	public DataInputStream[] in;
@@ -99,8 +99,8 @@ public class GameServer {
 		ServerSocket ServerSocket = new ServerSocket(port);
 		this.peopleNow = 0;
 		
-		if (hostListener != null){
-			hostListener.connect();
+		if (lobbyWindow != null){
+			lobbyWindow.connect();
 		}
 		System.out.println("Server started.");
 		
@@ -282,11 +282,13 @@ public class GameServer {
 			new GameServer(args);
 		} catch (IOException e) {
 			Global.error("Start server failed");
+			e.printStackTrace();
+			System.exit(0);
 		}
 	}
 	
-	public static void fromClient(String[] args, HostListener hostListener){
-		GameServer.hostListener = hostListener;
+	public static void fromClient(String[] args, LobbyWindow lobbyWindow){
+		GameServer.lobbyWindow  = lobbyWindow;
 		main(args);
 	}
 }

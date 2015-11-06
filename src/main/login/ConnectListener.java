@@ -15,10 +15,11 @@ import main.net.ClientNetThread;
 
 public class ConnectListener implements ActionListener {
 	
-	private JTextField tfIp;
-	private JTextField tfPort;
-	private JTextField tfName;
-	private LoginWindow lw;
+	public JTextField tfIp;
+	public JTextField tfPort;
+	public JTextField tfName;
+	public LoginWindow lw;
+	public LobbyWindow lbw;
 		
 	ConnectListener(JTextField tfIp, JTextField tfPort, JTextField tfName, LoginWindow lw){ 
 		this.tfIp = tfIp;
@@ -28,11 +29,15 @@ public class ConnectListener implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent ae){
-		new LobbyWindow(false);
-		//lw.dispose();
-		//startConnect();
-		//createMainWindow();
-	} 
+		lw.dispose();
+		lbw = new LobbyWindow(false, this, null);
+	}
+	
+	public void startGame(){
+		lbw.dispose();
+		startConnect();
+		createMainWindow();
+	}
 	
 	public void startConnect(){
 		String name = tfName.getText();
