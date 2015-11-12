@@ -13,6 +13,7 @@ import java.util.Vector;
 
 import main.Global;
 import main.obj.Obj;
+import main.obj.ObjLight;
 
 public class Mask implements Cloneable{
 	
@@ -20,8 +21,12 @@ public class Mask implements Cloneable{
 	public int[] maskY;
 	public int[] maskXDraw; //маска относительно начала координат
 	public int[] maskYDraw;
+	
 	public int width; //ширина и высота спрайта
 	public int height;
+	public boolean calcInThisStep = false;
+	public boolean dynamic; //обновление маски каждый тик (true = динамичный)
+							//нужен для движущихся или поворачивающихся объектов
 	
 	public Mask (String path, int width, int height) {
 		this.width = width;
@@ -35,7 +40,6 @@ public class Mask implements Cloneable{
 			try{
 				BufferedReader fileReader = new BufferedReader(new FileReader(path));
 				parser(fileReader);
-				center();
 				if (Global.setting.DEBUG_CONSOLE_MASK) System.out.println("Load mask \"" + path + "\" complited.");
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -43,8 +47,8 @@ public class Mask implements Cloneable{
 		} else { //создание маски при отсутствие файла
 			maskX = new int[] {0,this.width-1,this.width-1,0};
 			maskY = new int[] {0,0,this.height-1,this.height-1};
-			center();
 		}
+		center();
 	}
 	
 	//клонирование объекта
@@ -87,21 +91,42 @@ public class Mask implements Cloneable{
 		}
 	}
 	
-	public void collCheck(String[] collObj, Obj obj){
+	//Проверка: нужно ли делать с этим объектом проверку столкновений
+	public void collCheck(double x, double y, double directionDraw, String[] collObj, Obj obj){
+		ObjLight objGlobal; //Объект из глобального массива
+		
 		for(int vectorON=0;vectorON<Global.obj.size();vectorON++){			//Vector Object Number - цикл перебора объектов в глобале
-			for (int stringON=0;stringON<collObj.length;stringON++){ 	//String Object Number - цикл перебора объектов во входном массиве
-				if (!Global.obj.get(vectorON).isLight()){
-					if (Global.obj.get(vectorON).getClass().getName().equals(collObj[stringON])){
-						if (collCheckConti((Obj) Global.obj.get(vectorON))){
-							obj.collReport((Obj) Global.obj.get(vectorON));
-						}
+			objGlobal = Global.obj.get(vectorON);
+			
+			if ((objGlobal != null) && (!objGlobal.isLight())){
+				for (int stringON=0;stringON<collObj.length;stringON++){ 	//String Object Number - цикл перебора объектов во входном массиве
+					if ((objGlobal.getClass().getName().equals(collObj[stringON])) && (collCheckConti(x, y, directionDraw, (Obj) objGlobal))){
+						obj.collReport((Obj) objGlobal);
 					}
 				}
 			}
 		}
 	}
 	
-	public boolean collCheckConti(Obj obj){
+	//Проверка столкновения
+	public boolean collCheckConti(double x, double y, double directionDraw, Obj obj){
+		//Проверка расстояния до объекта столкновения
+		double xCenter = x + this.width/2; //смещение начало кор в центр объекта
+		double yCenter = y + this.height/2;
+		double gipMe = Math.sqrt(sqr(height) + sqr(width)); //Гипотенуза объекта
+		double gipOther = Math.sqrt(sqr(obj.getImage().getHeight()) + sqr(obj.getImage().getWidth())); //Гипотинуза объекта, с которым сравниваем
+		double disMeToOther = Math.sqrt(sqr(xCenter-obj.getXcenter())+sqr(yCenter-obj.getYcenter())); //Расстояние от центра до центра
+		
+		if (disMeToOther > gipMe/2 + gipOther/2 + 30){//Если до объекта слишком далеко
+			return false;
+		} else {
+			if ((dynamic) && (!calcInThisStep)){
+				calc(x, y, directionDraw);
+				calcInThisStep = true;
+			}
+		}
+		
+		//Просчёт столкновения
 		Polygon pMe = new Polygon(maskXDraw,maskYDraw,maskXDraw.length);
 		Polygon pOther = new Polygon(obj.mask.maskXDraw,obj.mask.maskYDraw,obj.mask.maskXDraw.length);
 		for (int i = 0;i<obj.mask.maskXDraw.length;i++){
@@ -119,6 +144,15 @@ public class Mask implements Cloneable{
 		return false;
 	}
 	
+	public int sqr(int x){
+		return x*x;
+	}
+	
+	public double sqr(double x){
+		return x*x;
+	}
+	
+	//Расчёт маски относительно начало координат
 	public void calc(double x, double y, double direction){
 		direction = Math.toRadians(direction)-Math.PI/2;//смещена начального угла с Востока на Север
 		x+=this.width/2; //смещение начало кор в центр объекта
@@ -131,17 +165,15 @@ public class Mask implements Cloneable{
 		double YDouble; 
 		double XDouble2;
 		double YDouble2; 
-		double maskXDrawDbl;
-		double maskYDrawDbl;
+		double cos = Math.cos(direction);
+		double sin = Math.sin(direction);
 		for (int i=0;i<maskX.length;i++){
-			XDouble = Math.cos(direction) * maskX[i];//Первый отступ
-			YDouble = Math.sin(direction) * maskX[i];//"Вперёд"
-			XDouble2 = Math.cos(direction-Math.PI/2) * maskY[i];//Второй отступ
-			YDouble2 = Math.sin(direction-Math.PI/2) * maskY[i];//"В бок"
-			maskXDrawDbl = x + XDouble + XDouble2;
-			maskYDrawDbl = y - YDouble - YDouble2;
-			this.maskXDraw[i] = (int) maskXDrawDbl;
-			this.maskYDraw[i] = (int) maskYDrawDbl;
+			XDouble = cos * maskX[i];//Первый отступ
+			YDouble = sin * maskX[i];//"Вперёд"
+			XDouble2 = sin * maskY[i];//Второй отступ //Math.cos(direction-Math.PI/2) * ...
+			YDouble2 = -cos * maskY[i];//"В бок" //Math.sin(direction-Math.PI/2) * ...
+			this.maskXDraw[i] = (int) (x + XDouble + XDouble2);
+			this.maskYDraw[i] = (int) (y - YDouble - YDouble2);
 		}
 	}
 	

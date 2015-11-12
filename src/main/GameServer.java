@@ -30,7 +30,6 @@ public class GameServer {
 	public int peopleMax;
 	public int peopleNow;
 	public int disconnect;//Кол-во отключённых игроков, не совмещать с peopleNow
-	public static LobbyWindow lobbyWindow;//Объект клиента, которому нужно сообщить о начале коннекта
 	//Отправка данных
 	public ServerNetThread[] serverThread;
 	public DataInputStream[] in;
@@ -54,6 +53,9 @@ public class GameServer {
 	//Проверка загрузки карты
 	public volatile boolean[] connect;//Метка, устанавливаемая клиентским потоком, о том что игрок скачал карту
 	public CheckMapLoad cml;//Объект-поток для проверки загрузки карты всеми игроками (Проверка меток)
+	//Связь с клиентом
+	public static LobbyWindow lobbyWindow;//Объект клиента, которому нужно сообщить о начале коннекта
+	public static boolean isClient = false;
 	
 	public GameServer(String args[]) throws IOException{
 		BufferedReader bReader = new BufferedReader (new InputStreamReader(System.in));
@@ -99,7 +101,7 @@ public class GameServer {
 		ServerSocket ServerSocket = new ServerSocket(port);
 		this.peopleNow = 0;
 		
-		if (lobbyWindow != null){
+		if (isClient){
 			lobbyWindow.connect();
 		}
 		System.out.println("Server started.");
@@ -212,7 +214,7 @@ public class GameServer {
 		int idBox = 0;
 		
 		while (true){
-			if (System.currentTimeMillis() > timeAnalysis+timeAnalysisDelta){//Анализ MPS
+			if ((!isClient) && (System.currentTimeMillis() > timeAnalysis+timeAnalysisDelta)){//Анализ MPS
 				timeAnalysis = System.currentTimeMillis();
 				for (int i = 0; i < peopleMax; i++){
 					System.out.print("ID:" + serverSend[i].id + " MPS:" + serverSend[i].numberSend + "     ");
@@ -289,6 +291,7 @@ public class GameServer {
 	
 	public static void fromClient(String[] args, LobbyWindow lobbyWindow){
 		GameServer.lobbyWindow  = lobbyWindow;
+		GameServer.isClient = true;
 		main(args);
 	}
 }

@@ -15,9 +15,6 @@ public class Obj extends ObjLight{
 	public String[] collObj;//список объектов с которыми надо проверять столкновения
 	private boolean collHave = false;//есть ли столкновения
 	
-	private boolean maskDynamic;//обновление маски каждый тик (true = динамичный)
-								//нужен для движущихся или поворачивающихся объектов
-	
 	public double xPrevious;//коры объекта в предыдущем шаге
 	public double yPrevious;//(для столкновения)
 	public double directionPrevious;//директион объекта в предыдущем шаге (для столкновения)
@@ -34,7 +31,7 @@ public class Obj extends ObjLight{
 		
 		this.speed = speed;
 		this.direction = direction;
-		this.maskDynamic = maskDynamic;
+		mask.dynamic = maskDynamic;
 		
 		mask.calc(this.x,this.y,this.directionDraw);//расчёт маски
 		
@@ -70,12 +67,11 @@ public class Obj extends ObjLight{
 		
 		image.update();
 		
-		if (maskDynamic){
-			mask.calc(this.x,this.y,this.directionDraw);
-		}
-		
-		if(this.collHave){
-			mask.collCheck(collObj,this);
+		if(collHave){
+			mask.calcInThisStep = false;
+			mask.collCheck(x, y, directionDraw, collObj,this);
+		} else {
+			if (mask.dynamic) mask.calc(x,  y, directionDraw);
 		}
 		
 		updateChildFinal();//step у дочерних объектов
@@ -130,10 +126,7 @@ public class Obj extends ObjLight{
 		this.collHave = true;
 	}
 	
-	public void setMaskDynamic(boolean maskDynamic){
-		this.maskDynamic = maskDynamic;
-	}
-
+	
 	
 	public double getXcenter(){
 		return x+this.mask.width/2;

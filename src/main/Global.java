@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import main.image.Animation;
 import main.image.DepthVector;
@@ -22,7 +23,7 @@ public class Global {
 	
 	public static Game game; //Главный игровой поток
 	
-	public static ArrayList<ObjLight> obj; //Массив со всеми объектами
+	public static Vector<ObjLight> obj; //Массив со всеми объектами
 	public static ArrayList<DepthVector> depth; //Массив с DepthVector
 	
 	public static Player player; //главный игрок
@@ -32,7 +33,7 @@ public class Global {
 	public static Ping pingCheck;//Объект для проверки пинга
 	public static SettingStorage setting;//Объект хранящий основный настройки
 	
-	public static long id = 1;//Уник. номер следующего объекта
+	public static long id = 0;//Уник. номер следующего объекта
 	public static long idNet = 1; //id объекта создаваемого у противника из-за действий игрока  
 	
 	public static Enemy[] enemy; //список всех противников
@@ -242,23 +243,19 @@ public class Global {
 		}while(true);
 	}
 	
+	//Добавление объекта в массив по id
+	public static void addObj(long id, ObjLight objLight){
+		obj.add((int) id, objLight);
+	}
+	
 	//Удаление объекта из массива по id
 	public static void delObj(long id){
-		for (int i = 0; i<obj.size(); i++){
-			if (obj.get(i).getId() == id){
-				obj.remove(i);
-			}
-		}
+		obj.set((int) id, null);
 	}
 	
 	//Возвращение объекта из массива по id
 	public static ObjLight getObj(long id){
-		for (int i = 0; i<obj.size(); i++){
-			if (obj.get(i).getId() == id){
-				return obj.get(i);
-			}
-		}
-		return null;
+		return obj.get((int) id);
 	}
 	
 	//Вывод сообщения о ошибке

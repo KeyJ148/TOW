@@ -37,7 +37,7 @@ public class ObjLight {
 		setId(Global.id);
 		Global.id++;
 		
-		Global.obj.add(this);
+		Global.addObj(id, this);
 		
 		depthAddVector(depth, getId()); //Добавляем объект в массив в зависимости от его глубины
 	}

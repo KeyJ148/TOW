@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 import main.image.DepthVector;
 import main.login.LoginWindow;
@@ -59,7 +60,7 @@ public class Game implements Runnable{
 	public void init() {
 		if (Global.setting.DEBUG_CONSOLE) System.out.println("Inicialization start.");
 		
-		Global.obj = new ArrayList<ObjLight>();
+		Global.obj = new Vector<ObjLight>();
 		Global.depth = new ArrayList<DepthVector>();
 		Global.enemyBullet = new ArrayList<EnemyBullet>();
 		
