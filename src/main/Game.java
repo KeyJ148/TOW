@@ -103,7 +103,7 @@ public class Game implements Runnable{
 		if (Global.setting.DEBUG_CONSOLE) System.out.println("Restart map end.");
 	}
 	
-	//Создание окна и запуск игры
+	//Создание окна логина и запуск игры
 	public static void main (String args[]) {
 		Global.game = new Game();
 		Global.setting = new SettingStorage();

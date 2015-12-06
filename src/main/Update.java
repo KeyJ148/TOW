@@ -28,8 +28,8 @@ public class Update {
 			}
 		}
 		
-		int width = Global.setting.WIDTH_SCREEN;
-		int height = Global.setting.HEIGHT_SCREEN;
+		int width = Global.game.render.getWidth();
+		int height = Global.game.render.getHeight();
 		
 		Global.cameraXView = width/2;
 		Global.cameraYView = height/2;

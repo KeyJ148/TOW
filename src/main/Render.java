@@ -108,8 +108,8 @@ public class Render extends Canvas{
 		}
 		
 		//Отрисвока надписей
-		addTitle(1,Global.setting.HEIGHT_SCREEN-4,strAnalysis1, Color.BLACK, 12, Font.BOLD);
-		addTitle(1,Global.setting.HEIGHT_SCREEN+9,strAnalysis2, Color.BLACK, 12, Font.BOLD);
+		addTitle(1,getHeight()-15,strAnalysis1, Color.BLACK, 12, Font.BOLD);
+		addTitle(1,getHeight()-3,strAnalysis2, Color.BLACK, 12, Font.BOLD);
 		for (int i = 0; i < titleArray.size(); i++){
 			titleArray.get(i).draw(g);
 		}
@@ -121,6 +121,15 @@ public class Render extends Canvas{
 		g.dispose();
 		bs.show();
 		//Магия [OFF]
+	}
+	
+	@Override
+	public int getWidth(){
+		if (Global.setting.FULL_SCREEN){
+			return super.getWidth()-2;
+		} else {
+			return super.getWidth();
+		}
 	}
 	
 	public void clearTitle(){

@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.JFrame;
+
 import main.image.Animation;
 import main.image.DepthVector;
 import main.image.Sprite;
@@ -22,6 +24,7 @@ import main.setting.SettingStorage;
 public class Global {
 	
 	public static Game game; //Главный игровой поток
+	public static JFrame mainFrame;//Главное окно
 	
 	public static Vector<ObjLight> obj; //Массив со всеми объектами
 	public static ArrayList<DepthVector> depth; //Массив с DepthVector

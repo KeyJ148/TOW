@@ -15,6 +15,7 @@ public class SettingStorage {
 	public int WIDTH_SCREEN;
 	public int HEIGHT_SCREEN;//размер окна
 	public String WINDOW_NAME;
+	public boolean FULL_SCREEN;
 	
 	public int SEND_STEP_MAX;//Отправлять данные о игроке каждые n updat'ов
 	
@@ -24,11 +25,12 @@ public class SettingStorage {
 		ConfigReader cr = new ConfigReader(fileName);
 		
 		TPS = cr.findInteger("TPS");
-		WIDTH_SCREEN = cr.findInteger("WIDTH_SCREEN");
-		HEIGHT_SCREEN = cr.findInteger("HEIGHT_SCREEN");
 		SEND_STEP_MAX = cr.findInteger("SEND_STEP_MAX");
 		
+		WIDTH_SCREEN = cr.findInteger("WIDTH_SCREEN");
+		HEIGHT_SCREEN = cr.findInteger("HEIGHT_SCREEN");
 		WINDOW_NAME = cr.findString("WINDOW_NAME");
+		FULL_SCREEN = cr.findBoolean("FULL_SCREEN");
 		
 		DEBUG_CONSOLE = cr.findBoolean("DEBUG_CONSOLE");
 		DEBUG_CONSOLE_IMAGE = cr.findBoolean("DEBUG_CONSOLE_IMAGE");

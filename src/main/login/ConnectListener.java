@@ -1,15 +1,12 @@
 package main.login;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import main.Global;
-import main.Render;
+import main.MainWindow;
 import main.lobby.LobbyWindow;
 import main.net.ClientNetThread;
 
@@ -36,7 +33,7 @@ public class ConnectListener implements ActionListener {
 	public void startGame(){
 		lbw.dispose();
 		startConnect();
-		createMainWindow();
+		Global.mainFrame = new MainWindow();
 	}
 	
 	public void startConnect(){
@@ -55,21 +52,6 @@ public class ConnectListener implements ActionListener {
 		Global.clientThread = new ClientNetThread(tfIp.getText(), Integer.parseInt(tfPort.getText()));
 	}
 	
-	public void createMainWindow(){
-		Render redner = Global.game.render;
-		redner.setPreferredSize(new Dimension(Global.setting.WIDTH_SCREEN, Global.setting.HEIGHT_SCREEN));
-		
-		JFrame frame = new JFrame(Global.setting.WINDOW_NAME);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new BorderLayout());
-		frame.add(redner, BorderLayout.CENTER);
-		frame.pack();
-		frame.setResizable(false);
-		
-		Global.game.start();
-		frame.setVisible(true);
-		
-		if (Global.setting.DEBUG_CONSOLE) System.out.println("Window create.");
-	}
+	
 }
 
