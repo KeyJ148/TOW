@@ -6,8 +6,8 @@ import main.player.Player;
 
 public class SteelBullet extends Bullet{
 	
-	public SteelBullet(Player player, double x,double y, double dir,double damage){
-		super(player,x, y, dir,damage, Global.b_steel);
+	public SteelBullet(Player player, double x,double y, double dir,double damage, int range){
+		super(player,x, y, dir,damage, range, Global.b_steel);
 	}
 	
 	@Override

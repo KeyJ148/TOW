@@ -12,6 +12,7 @@ public class Gun extends Obj{
 	private double attackSpeed1;//скорость атаки
 	private double attackSpeed2;
 	private double directionGunUp;//скорость поворота дула
+	private int range;//Дальность выстрела
 	
 	private double damage1;//дамаг
 	private double damage2;
@@ -58,9 +59,9 @@ public class Gun extends Obj{
 		double trunkYdx = trunkY*Math.cos(Math.toRadians(player.getGun().getDirection())-Math.PI);//потому что изначально у теустуры измененное направление
 		double trunkYdy = trunkY*Math.sin(Math.toRadians(player.getGun().getDirection())-Math.PI);//второй отступ "вбок"
 		switch(bullet){
-			case "DefaultBullet": new DefaultBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,getDirection(),damage); break;
-			case "SteelBullet": new SteelBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,getDirection(),damage); break;
-			case "MassBullet": new MassBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,getDirection(),damage); break;
+			case "DefaultBullet": new DefaultBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
+			case "SteelBullet": new SteelBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
+			case "MassBullet": new MassBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
 		}
 	}
 	
@@ -130,6 +131,7 @@ public class Gun extends Obj{
 		directionGunUp = cr.findDouble("DIRECTION_UP");
 		damage1  = cr.findDouble("DAMAGE_1");
 		damage2  = cr.findDouble("DAMAGE_2");
+		range = cr.findInteger("RANGE");
 		
 		allowArmor = player.parseAllow(cr.findString("ALLOW_ARMOR"));
 		allowBullet = player.parseAllow(cr.findString("ALLOW_BULLET"));
