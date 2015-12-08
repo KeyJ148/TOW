@@ -67,7 +67,11 @@ public class Analyzer {
 			}
 		}
 				
+		//Для строк отладки, иначе делние на 0
+		if (loopsRender == 0) loopsRender = 1;
+		if (loopsUpdate == 0) loopsUpdate = 1;
 		
+		//Строки отладки
 		String strFPS1 =  "Player: " + (enemySize+1) + "/" + Global.peopleMax
 						+ "          Ping: " + ping + " (" + pingMin + "-" + pingMid + "-" + pingMax + ")"
 						+ "          Speed S/L: " + send + "/" + load + " kb/s";

@@ -67,11 +67,15 @@ public class Obj extends ObjLight{
 		
 		image.update();
 		
-		if(collHave){
-			mask.calcInThisStep = false;
-			mask.collCheck(x, y, directionDraw, collObj, this);
+		if (!mask.bullet){
+			if(collHave){
+				mask.calcInThisStep = false;
+				mask.collCheck(x, y, directionDraw, collObj, this);
+			} else {
+				if (mask.dynamic) mask.calc(x,  y, directionDraw);
+			}
 		} else {
-			if (mask.dynamic) mask.calc(x,  y, directionDraw);
+			mask.collCheckBullet(x, y, directionDraw, collObj, this);
 		}
 		
 		updateChildFinal();//step у дочерних объектов

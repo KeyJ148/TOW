@@ -15,6 +15,7 @@ import java.util.Vector;
 import main.Global;
 import main.obj.Obj;
 import main.obj.ObjLight;
+import main.player.Bullet;
 
 public class Mask implements Cloneable{
 	
@@ -31,9 +32,10 @@ public class Mask implements Cloneable{
 							//нужен для движущихся или поворачивающихся объектов
 	
 	public boolean bullet; //Прямая тракетория движения
-	public ArrayList<Integer> dynamicId;//Ид динамических объектов, с которыми надо проверять столкновения
+	public ArrayList<Integer> dynamicId = new ArrayList<Integer>();//Ид динамических объектов, с которыми надо проверять столкновения
 	public double collX = -1;//-1 заместо null
 	public double collY = -1;
+	public int start = 0;//id з глоабала, с которго надо начинать перебор
 	
 	public Mask (String path, int width, int height) {
 		this.width = width;
@@ -200,19 +202,21 @@ public class Mask implements Cloneable{
 		g.drawPolygon(maskXDrawView,maskYDrawView,maskXDrawView.length);
 		
 		if (bullet){
-			g.drawRect((int) collX-10, (int) collY-10, 20, 20);
+			g.drawRect((int) (Global.cameraXView - (Global.cameraX - (collX-10))), (int) (Global.cameraYView - (Global.cameraY - (collY-10))), 20, 20);
 		}
 	}
 	
 	public void thisBullet(int range, String[] collObj, double x, double y, double directionDraw){
 		bullet = true;
-		findDynamicIdAndStaticColl(0, collObj, x, y, directionDraw, range);
+		findDynamicIdAndStaticColl(collObj, x, y, directionDraw, range);
 	}
 	
 	//Поиск в общем массиве id, которые динамичны и сталкиваются с этим объектом
 	//Также поиск статичных объектов для проверки столкновения при помощи траектории
-	private void findDynamicIdAndStaticColl(int start, String[] collObj, double x, double y, double directionDraw, int range){
+	private void findDynamicIdAndStaticColl(String[] collObj, double x, double y, double directionDraw, int range){
+		int start = this.start;
 		ObjLight objGlobalLight;
+		
 		for(int vectorON=start;vectorON<Global.obj.size();vectorON++){//Vector Object Number - цикл перебора объектов в глобале
 			objGlobalLight = Global.obj.get(vectorON);
 			
@@ -237,6 +241,7 @@ public class Mask implements Cloneable{
 				}
 			}
 		}
+		this.start = Global.obj.size();
 	}
 	
 	//расчёт столкновения по прямой траетории
@@ -245,39 +250,32 @@ public class Mask implements Cloneable{
 		double yCenter = startY + this.height/2;
 		double gipMe = Math.sqrt(sqr(height) + sqr(width)); //Гипотенуза объекта
 		double gipOther = Math.sqrt(sqr(obj.getImage().getHeight()) + sqr(obj.getImage().getWidth())); //Гипотинуза объекта, с которым сравниваем
-		double disMeToOther = Math.sqrt(sqr(xCenter-obj.getXcenter())+sqr(yCenter-obj.getYcenter())); //Расстояние от центра до центра
+		double disMeToOther = Math.sqrt(sqr(xCenter-obj.getXcenter()) + sqr(yCenter-obj.getYcenter())); //Расстояние от центра до центра
 		
 		if (disMeToOther < range+gipOther/2+gipMe/2+30){
-			Global.p(" ");//КОНСОЛЬ
-			Global.p(" ");//КОНСОЛЬ
-			Global.p("RADIUS DETECTED");//КОНСОЛЬ
 			double k, b, x0, y0, r;
 			if ((directionDraw == 90.0) || (directionDraw == 270.0)){//КОСТЫЛЬ, ЛЮТЫЙ КОСТЫЛЬ
-				directionDraw -= Math.pow(0.1, 20);
+				directionDraw -= Math.pow(0.1, 10);
 			}
-			k = Math.tan(directionDraw);
+			k = Math.tan(Math.toRadians(directionDraw));
 			b = -(startY+k*startX);
-			x0 = obj.getX();
-			y0 = -obj.getY();
+			x0 = obj.getXcenter();
+			y0 = -obj.getYcenter();
 			r = gipOther/2;
-			Global.p("k " + k + ";b " + b + ";x0 " + x0 + ";y0 " + y0 + ";r " + r);//КОНСОЛЬ
 			
 			double aSqr, bSqr, cSqr, D;//Дискрименант и члены квадратного уровнения
 			aSqr = 1+sqr(k);
 			bSqr = 2*k*b-2*x0-2*k*y0;
 			cSqr = sqr(x0)+sqr(b)-2*b*y0+sqr(y0)-sqr(r);
 			D = sqr(bSqr) - 4*aSqr*cSqr;
-			Global.p("a " + aSqr + ";b " + bSqr + ";c " + cSqr + ";D " + D);//КОНСОЛЬ
 			
 			if (D >= 0){//Столкновение есть
-				Global.p("D > 0");//КОНСОЛЬ
 				double collX=0, collY=0;//Точки пересечения в итоге
 				double x1Coll, x2Coll, y1Coll, y2Coll;//Корни уровнения (Точки столкновения)
 				x1Coll = (-bSqr+Math.sqrt(D))/(2*aSqr);
 				x2Coll = (-bSqr-Math.sqrt(D))/(2*aSqr);
 				y1Coll = k*x1Coll + b;
 				y2Coll = k*x2Coll + b;
-				Global.p("x1 " + x1Coll + ";y1 " + y1Coll + ";x2 " + x2Coll + ";y2 " + y2Coll);//КОНСОЛЬ
 				
 				//Прямая двигается в двух направлениях, а нам нужно только одно (Луч)
 				if (	((directionDraw >= 0) && (directionDraw < 90) && (x1Coll >= startX) && (y1Coll > -startY)) ||
@@ -286,8 +284,8 @@ public class Mask implements Cloneable{
 						((directionDraw > 270) && (directionDraw < 360) && (x1Coll >= startX) && (y1Coll < -startY))	){
 					
 					//Какой из корней находится ближе к старту
-					double coll1Gip = Math.sqrt(sqr(x1Coll-startX) + sqr(y1Coll-startY));
-					double coll2Gip = Math.sqrt(sqr(x2Coll-startX) + sqr(y2Coll-startY));
+					double coll1Gip = Math.sqrt(sqr(x1Coll-startX) + sqr(-y1Coll-startY));//-y1Coll перевод из мат. сис. кор в игровую
+					double coll2Gip = Math.sqrt(sqr(x2Coll-startX) + sqr(-y2Coll-startY));
 					if (coll1Gip < coll2Gip){
 						collX = x1Coll;
 						collY = y1Coll;
@@ -300,20 +298,32 @@ public class Mask implements Cloneable{
 				//Эти точки ближе чем уже имеющаяся?
 				if ((this.collX != -1) && (this.collY != -1)){
 					double collOld = Math.sqrt(sqr(this.collX-startX) + sqr(this.collY-startY));
-					double collNew = Math.sqrt(sqr(collX-startX) + sqr(collY-startY));
+					double collNew = Math.sqrt(sqr(collX-startX) + sqr(-collY-startY));//-collY перевод из мат. сис. кор в игровую
 					if (collNew < collOld){
 						this.collX = collX;
-						this.collY = collY;
+						this.collY = -collY;
 					}
 				} else {
 					this.collX = collX;
 					this.collY = -collY;//Перевод из математических кординат в игровые
 				}
 				
-				System.out.println(this.collX + " " + this.collY);//КОНСОЛЬ
 			}
-			
+		}
+	}
+	
+	public void collCheckBullet(double x, double y, double directionDraw, String[] collObj, Obj obj){
+		double range = ((Bullet) obj).getRange();
+		findDynamicIdAndStaticColl(collObj, x, y, directionDraw, (int) range);
+		
+		for (int i=0; i<dynamicId.size(); i++){
+			if (Global.obj.get(dynamicId.get(i)) != null){
+				collCheckConti(x, y, directionDraw, (Obj) Global.obj.get(dynamicId.get(i)));
+			}
 		}
 		
+		if (Math.sqrt(sqr(x-this.collX) + sqr(y-this.collY)) < obj.getSpeed()*2){//Если максимальная близость к точке пересечения, то столкновение
+			bullet = false;
+		}
 	}
 }

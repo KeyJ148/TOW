@@ -33,7 +33,7 @@ public class Bullet extends Obj{
 		startX = getX();
 		startY = getY();
 		setCollObj(new String[] {"main.home.Home", "main.player.enemy.EnemyArmor"});
-		mask.thisBullet(range, collObj, startX, startY, directionDraw);
+		mask.thisBullet(this.range, collObj, startX, startY, directionDraw);
 	}
 	
 	public void collReport(Obj obj){
