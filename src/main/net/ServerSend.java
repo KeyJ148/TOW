@@ -54,7 +54,7 @@ public class ServerSend extends Thread {
 					}							
 				} else {
 					try {
-						Thread.sleep(0,1);
+						Thread.sleep(0,0);
 					} catch (InterruptedException e) {}
 				}
 					

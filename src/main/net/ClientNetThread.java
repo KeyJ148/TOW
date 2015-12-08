@@ -318,7 +318,7 @@ public class ClientNetThread extends Thread{
 	public void take11(String str){//Враг послал кому-то свои данные
 		String enemyName = Global.parsString(str,2);
 		for (int i=0;i<Global.enemy.length;i++){
-			if (enemyName.equals(Global.enemy[i].name)){
+			if ((Global.enemy[i] != null) && (enemyName.equals(Global.enemy[i].name))){
 				if (!Global.enemy[i].haveData){
 					Global.enemy[i].haveData = true;
 					int red = Integer.parseInt(Global.parsString(str,3));

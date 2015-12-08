@@ -110,7 +110,7 @@ public class GameServer {
 			Socket sock = ServerSocket.accept();
 			in[peopleNow] = new DataInputStream(sock.getInputStream());
 			out[peopleNow] = new DataOutputStream(sock.getOutputStream());
-			messagePack[peopleNow] = new MessagePack();
+			messagePack[peopleNow] = new MessagePack(peopleNow);
 			System.out.println("New client (" + (peopleNow+1) + "/" + peopleMax + ")");
 			serverThread[peopleNow] = new ServerNetThread(this, peopleNow);
 			serverSend[peopleNow] = new ServerSend(this, peopleNow);
@@ -276,7 +276,11 @@ public class GameServer {
 	}
 	
 	public void error(String s){
-		System.out.println("[ERROR] " + s);
+		if (isClient){
+			System.out.println("[SERVER][ERROR] " + s);
+		} else {
+			System.out.println("[ERROR] " + s);
+		}
 	}
 	
 	public static void main(String args[]){

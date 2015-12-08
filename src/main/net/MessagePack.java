@@ -6,10 +6,12 @@ public class MessagePack {
 	
 	public ArrayList<String> message;//Список сообщений
 	public long lastTrim;
+	public int id;
 	
-	public MessagePack(){
+	public MessagePack(int id){
 		this.message = new ArrayList<String>();
 		this.lastTrim = System.currentTimeMillis();//Каждые пять секунд
+		this.id = id;
 	}
 	
 	public void add(String str){
@@ -17,10 +19,14 @@ public class MessagePack {
 	}
 	
 	public String get(){
-		if (size()%25 == 0) 
-			System.out.println("Messages detained: " + size());
-		if (System.currentTimeMillis() > lastTrim + 5000)
+		if (size()%10 == 0){
+			System.out.println("Messages detained: " + size() + " Id: " + id);
+		}
+		if (System.currentTimeMillis() > lastTrim + 5000){
 			message.trimToSize();
+			lastTrim = System.currentTimeMillis();
+		}
+		
 		return message.remove(0);
 	}
 	
