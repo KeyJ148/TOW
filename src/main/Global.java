@@ -43,7 +43,7 @@ public class Global {
 	public static ArrayList<EnemyBullet> enemyBullet; //список всех патронов противников (EnemyBullet)
 	
 	public static String name;//имя игрока
-	public static Color color = Color.WHITE;//цвет игрока
+	public static Color color = new Color((int) (Math.random()*Integer.MAX_VALUE));//цвет игрока
 	
 	public static int heightMap;
 	public static int widthMap;//размер карты

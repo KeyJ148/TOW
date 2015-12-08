@@ -252,7 +252,9 @@ public class Mask implements Cloneable{
 		double gipOther = Math.sqrt(sqr(obj.getImage().getHeight()) + sqr(obj.getImage().getWidth())); //Гипотинуза объекта, с которым сравниваем
 		double disMeToOther = Math.sqrt(sqr(xCenter-obj.getXcenter()) + sqr(yCenter-obj.getYcenter())); //Расстояние от центра до центра
 		
-		if (disMeToOther < range+gipOther/2+gipMe/2+30){
+		if (disMeToOther < gipOther/2+gipMe+30){//Если пушка находится внутри дома
+			bullet = false;
+		} else if (disMeToOther < range+gipOther/2+gipMe/2+30){
 			double k, b, x0, y0, r;
 			if ((directionDraw == 90.0) || (directionDraw == 270.0)){//КОСТЫЛЬ, ЛЮТЫЙ КОСТЫЛЬ
 				directionDraw -= Math.pow(0.1, 10);
