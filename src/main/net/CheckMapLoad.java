@@ -13,12 +13,12 @@ public class CheckMapLoad extends Thread{
 			gS.connect[i] = false;
 		}
 		gS.genTank();
-		System.out.println("Check map loading = false.");
+		GameServer.p("Check map loading = false.");
 		start();
 	}
 	
 	public void run(){
-		System.out.println("Start thread CheckMapLoad.");
+		GameServer.p("Start thread CheckMapLoad.");
 		boolean mapDownAll;//все ли скачали карту
 		
 		do{
@@ -30,7 +30,7 @@ public class CheckMapLoad extends Thread{
 			}
 			
 			try {
-				Thread.sleep(0,1);
+				Thread.sleep(0,0);
 			} catch (InterruptedException e) {}
 		}while(!mapDownAll);
 		
@@ -40,7 +40,7 @@ public class CheckMapLoad extends Thread{
 		
 		gS.cml = null;
 		
-		System.out.println("End thread CheckMapLoad.");
+		GameServer.p("End thread CheckMapLoad.");
 	}
 
 }

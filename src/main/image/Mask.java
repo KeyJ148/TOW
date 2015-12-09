@@ -32,7 +32,7 @@ public class Mask implements Cloneable{
 							//нужен для движущихся или поворачивающихся объектов
 	
 	public boolean bullet; //Прямая тракетория движения
-	public ArrayList<Integer> dynamicId = new ArrayList<Integer>();//Ид динамических объектов, с которыми надо проверять столкновения
+	public ArrayList<Integer> dynamicId;//Ид динамических объектов, с которыми надо проверять столкновения
 	public double collX = -1;//-1 заместо null
 	public double collY = -1;
 	public int start = 0;//id з глоабала, с которго надо начинать перебор
@@ -208,6 +208,7 @@ public class Mask implements Cloneable{
 	
 	public void thisBullet(int range, String[] collObj, double x, double y, double directionDraw){
 		bullet = true;
+		dynamicId = new ArrayList<Integer>();
 		findDynamicIdAndStaticColl(collObj, x, y, directionDraw, range);
 	}
 	
@@ -256,8 +257,8 @@ public class Mask implements Cloneable{
 			bullet = false;
 		} else if (disMeToOther < range+gipOther/2+gipMe/2+30){
 			double k, b, x0, y0, r;
-			if ((directionDraw == 90.0) || (directionDraw == 270.0)){//КОСТЫЛЬ, ЛЮТЫЙ КОСТЫЛЬ
-				directionDraw -= Math.pow(0.1, 10);
+			if ((directionDraw == 90.0) || (directionDraw == 270.0) || (directionDraw == 0.0) || (directionDraw == 180.0)){//КОСТЫЛЬ, ЛЮТЫЙ КОСТЫЛЬ
+				directionDraw += Math.pow(0.1, 10);
 			}
 			k = Math.tan(Math.toRadians(directionDraw));
 			b = -(startY+k*startX);
@@ -318,13 +319,15 @@ public class Mask implements Cloneable{
 		double range = ((Bullet) obj).getRange();
 		findDynamicIdAndStaticColl(collObj, x, y, directionDraw, (int) range);
 		
+		Obj objGlobal;//С которым сталкиваемся
 		for (int i=0; i<dynamicId.size(); i++){
-			if (Global.obj.get(dynamicId.get(i)) != null){
-				collCheckConti(x, y, directionDraw, (Obj) Global.obj.get(dynamicId.get(i)));
+			objGlobal = (Obj) Global.obj.get(dynamicId.get(i));
+			if ((objGlobal != null) && (collCheckConti(x, y, directionDraw, objGlobal))){
+				obj.collReport(objGlobal);;
 			}
 		}
 		
-		if (Math.sqrt(sqr(x-this.collX) + sqr(y-this.collY)) < obj.getSpeed()*2){//Если максимальная близость к точке пересечения, то столкновение
+		if (Math.sqrt(sqr(x-this.collX) + sqr(y-this.collY)) <= obj.getSpeed()*3){//Если максимальная близость к точке пересечения, то столкновение
 			bullet = false;
 		}
 	}

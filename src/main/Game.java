@@ -91,7 +91,7 @@ public class Game implements Runnable{
 		Global.depth.trimToSize();
 		Global.enemyBullet.trimToSize();
 		Global.player = null;
-		Global.id = 1;
+		Global.id = 0;
 		Global.idNet = 1; 
 		for (int i =0; i<Global.enemy.length; i++){
 			Global.enemy[i] = null;

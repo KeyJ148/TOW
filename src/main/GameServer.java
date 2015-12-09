@@ -104,21 +104,21 @@ public class GameServer {
 		if (isClient){
 			lobbyWindow.connect();
 		}
-		System.out.println("Server started.");
+		GameServer.p("Server started.");
 		
 		while(peopleNow != peopleMax){
 			Socket sock = ServerSocket.accept();
 			in[peopleNow] = new DataInputStream(sock.getInputStream());
 			out[peopleNow] = new DataOutputStream(sock.getOutputStream());
 			messagePack[peopleNow] = new MessagePack(peopleNow);
-			System.out.println("New client (" + (peopleNow+1) + "/" + peopleMax + ")");
+			GameServer.p("New client (" + (peopleNow+1) + "/" + peopleMax + ")");
 			serverThread[peopleNow] = new ServerNetThread(this, peopleNow);
 			serverSend[peopleNow] = new ServerSend(this, peopleNow);
 			this.peopleNow++;	
 		}
 		ServerSocket.close();
 		
-		System.out.println("All users connected.");
+		GameServer.p("All users connected.");
 		
 		mainThread();
 	}
@@ -135,7 +135,7 @@ public class GameServer {
 			fListNum = (int) Math.round(Math.random()*(fList.length-1));
 			pathFull = PATH_MAP + "/" + fList[fListNum].getName().substring(0,fList[fListNum].getName().lastIndexOf('.')) + ".map";
 			if (new File(pathFull).exists()){
-				System.out.println("Map: " + pathFull);
+				GameServer.p("Map: " + pathFull);
 				try {
 					BufferedReader fileReader = new BufferedReader(new FileReader(pathFull));
 					String s;
@@ -275,11 +275,19 @@ public class GameServer {
 		}
 	}
 	
-	public void error(String s){
+	public static void error(String s){
 		if (isClient){
 			System.out.println("[SERVER][ERROR] " + s);
 		} else {
 			System.out.println("[ERROR] " + s);
+		}
+	}
+	
+	public static void p(String s){
+		if (isClient){
+			System.out.println("[SERVER] " + s);
+		} else {
+			System.out.println(s);
 		}
 	}
 	

@@ -2,6 +2,8 @@ package main.net;
 
 import java.util.ArrayList;
 
+import main.GameServer;
+
 public class MessagePack {
 	
 	public ArrayList<String> message;//Список сообщений
@@ -20,7 +22,7 @@ public class MessagePack {
 	
 	public String get(){
 		if (size()%10 == 0){
-			System.out.println("Messages detained: " + size() + " Id: " + id);
+			GameServer.p("Messages detained: " + size() + " Id: " + id);
 		}
 		if (System.currentTimeMillis() > lastTrim + 5000){
 			message.trimToSize();

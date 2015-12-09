@@ -60,7 +60,7 @@ public class ServerSend extends Thread {
 					
 			}
 		} catch (IOException e){
-			gameServer.error("Send message");
+			GameServer.error("Send message");
 		}
 	}
 }

@@ -41,7 +41,7 @@ public class ServerNetThread extends Thread{
 		}while(!gameServer.tankGenComplite); //Ждём пока загрузится карта и сгенирируются позиции танков
 		
 		//отправка карты
-		System.out.println("Loading map start.");
+		GameServer.p("Loading map start.");
 		String pathFull = this.gameServer.pathFull;
 		try {
 			BufferedReader fileReader = new BufferedReader(new FileReader(pathFull));
@@ -58,13 +58,13 @@ public class ServerNetThread extends Thread{
 			this.gameServer.out[id].writeUTF("8 ");//Закончена отправка карты
 			fileReader.close();
 		} catch (IOException e) {
-			gameServer.error("Load map");
+			GameServer.error("Load map");
 		}
-		System.out.println("Loading map end.");		
+		GameServer.p("Loading map end.");		
 				
 		//Считывание имени игрока
 		this.name = downloadNick();
-		System.out.println("Nickname: " + name);
+		GameServer.p("Nickname: " + name);
 		
 		//Отправка позиций танков
 		writeMap(this.gameServer.tankX[id] + " " + this.gameServer.tankY[id]);
@@ -86,7 +86,7 @@ public class ServerNetThread extends Thread{
 			}while(Integer.parseInt(Global.parsString(s,1)) != -3);
 			return s.substring(3);
 		} catch (IOException e) {
-			gameServer.error("Method for download nickname");
+			GameServer.error("Method for download nickname");
 			return "ERROR LOAD NAME";
 		}
 	}
@@ -95,7 +95,7 @@ public class ServerNetThread extends Thread{
 		try {
 			this.gameServer.out[id].writeUTF("7 " + s);
 		} catch (IOException e) {
-			gameServer.error("Method for writeMap");
+			GameServer.error("Method for writeMap");
 		}
 	}
 
@@ -118,13 +118,13 @@ public class ServerNetThread extends Thread{
 						}
 					}
 				} catch(NumberFormatException e){
-					gameServer.error("Take message not found type");
+					GameServer.error("Take message not found type");
 				}
 			}
 		} catch (IOException e){
-			gameServer.error("Take message");
+			GameServer.error("Take message");
 			if ((gameServer.disconnect+1) == gameServer.peopleMax){
-				System.out.println("All user disconnect!");
+				GameServer.p("All user disconnect!");
 				System.exit(0);
 			} else {
 				gameServer.disconnect++;
@@ -144,7 +144,7 @@ public class ServerNetThread extends Thread{
 				gameServer.out[id].writeUTF("9 ");
 			}
 		} catch (IOException e) {
-			gameServer.error("Check ping");
+			GameServer.error("Check ping");
 		}
 	}
 	
