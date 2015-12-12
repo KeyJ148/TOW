@@ -41,7 +41,6 @@ public class Bullet extends Obj{
 			destroyBullet();
 		}
 		if (obj.getClass().getName().equals("main.player.enemy.EnemyArmor")){
-			Global.p();
 			EnemyArmor ea = (EnemyArmor) obj;
 			Global.clientSend.send3(this,ea.enemy.name);
 			destroyBullet();
