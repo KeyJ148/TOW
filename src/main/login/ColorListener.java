@@ -19,7 +19,7 @@ public class ColorListener implements ActionListener {
 	public void actionPerformed(ActionEvent ae){
 		frame.colorTank = c;
 		Global.color = c;
-		frame.repaint();
+		frame.panel.repaint();
 	} 
 
 }

@@ -1,18 +1,17 @@
 package main.net;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 import main.GameServer;
 
 public class MessagePack {
 	
-	public ArrayList<String> message;//Список сообщений
+	public LinkedList<String> message;//Список сообщений
 	public long lastTrim;
 	public int id;
 	
 	public MessagePack(int id){
-		this.message = new ArrayList<String>();
-		this.lastTrim = System.currentTimeMillis();//Каждые пять секунд
+		this.message = new LinkedList<String>();
 		this.id = id;
 	}
 	
@@ -24,12 +23,8 @@ public class MessagePack {
 		if (size()%10 == 0){
 			GameServer.p("Messages detained: " + size() + " Id: " + id);
 		}
-		if (System.currentTimeMillis() > lastTrim + 5000){
-			message.trimToSize();
-			lastTrim = System.currentTimeMillis();
-		}
 		
-		return message.remove(0);
+		return message.removeFirst();
 	}
 	
 	public int size(){
@@ -38,7 +33,6 @@ public class MessagePack {
 	
 	public void clear(){
 		message.clear();
-		message.trimToSize();
 	}
 	
 	public boolean haveMessage(){

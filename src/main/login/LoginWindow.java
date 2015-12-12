@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Label;
+import java.awt.Panel;
 import java.awt.Toolkit;
 
 import javax.swing.JButton;
@@ -18,10 +19,29 @@ import main.setting.ConfigReader;
 
 public class LoginWindow extends JFrame{
 	
+	@SuppressWarnings("serial")
+	class LoginPanel extends Panel{
+		@Override
+		public void paint(Graphics g) {
+			super.paint(g);
+			g.setColor(Color.BLACK);
+			g.drawLine(217,0,217,hFrame);
+			g.drawLine(0,55,217,55);
+			g.drawLine(0,82,217, 82);
+			g.drawLine(0,164,217,164);
+			
+			Global.player_color.setDefaultImage();
+			Global.player_color.setColor(colorTank);
+			Global.player_color.draw(g, 307-8, 80);
+		}
+	}
+	
 	private static final long serialVersionUID = 1L;
 	
 	public final int wFrame = 400+7+7;//Размер окна
 	public final int hFrame = 235;
+	
+	public LoginPanel panel;//Панель для отрисовки линий
 	
 	//Стандартные настройки
 	public final String fileName = "login.properties";//Файл хранения настроек
@@ -66,8 +86,7 @@ public class LoginWindow extends JFrame{
 		defaultIP = cr.findString("IP");
 		defaultPort = cr.findString("PORT");
 		defaultPortHost = cr.findString("PORT_HOST");
-		
-		
+
 		//*********************************************
 		//***************Верхняя часть*****************
 		//*********************************************
@@ -199,6 +218,11 @@ public class LoginWindow extends JFrame{
 		tfBlue.setBackground(new Color(20,90,225));
 		add(tfBlue);
 		
+		//Панель для отрисовки
+		panel = new LoginPanel();
+		panel.setBounds(0, 0, wFrame, hFrame);
+		add(panel);
+		
 		//*********************************************
 		//******************Общее**********************
 		//*********************************************
@@ -215,21 +239,8 @@ public class LoginWindow extends JFrame{
 		bHost.addActionListener(hl);
 		tfPortHost.addActionListener(hl);
 		
+		setResizable(false);
 		setVisible(true);
-	}
-	
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		g.setColor(Color.BLACK);
-		g.drawLine(217+7,0+30,217+7,200+30);
-		g.drawLine(0+7,55+30,217+7,55+30);
-		g.drawLine(0+7,82+30,217+7,82+30);
-		g.drawLine(0+7,164+30,217+7,164+30);
-		
-		Global.player_color.setDefaultImage();
-		Global.player_color.setColor(colorTank);
-		Global.player_color.draw(g, 307-8, 80);
 	}
 	
 	private void addButtonColor(int x, int y, int w, int h, int red, int green, int blue){
