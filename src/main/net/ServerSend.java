@@ -55,7 +55,6 @@ public class ServerSend extends Thread {
 				} else {
 					if (!gameServer.maxPower)
 						try {Thread.sleep(0,1);} catch (InterruptedException e) {}
-					else GameServer.p("SERVER");
 				}
 					
 			}
