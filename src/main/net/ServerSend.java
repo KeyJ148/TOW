@@ -53,9 +53,9 @@ public class ServerSend extends Thread {
 						}
 					}							
 				} else {
-					try {
-						Thread.sleep(0,0);
-					} catch (InterruptedException e) {}
+					if (!gameServer.maxPower)
+						try {Thread.sleep(0,1);} catch (InterruptedException e) {}
+					else GameServer.p("SERVER");
 				}
 					
 			}

@@ -33,6 +33,7 @@ public class Game implements Runnable{
 		
 		long nextUpdate = System.currentTimeMillis();//Для цикла
 		long startUpdate, startRender;//Для анализатора
+		
 		while(running) { //Главный игровой цикл
 			if (System.currentTimeMillis() >= nextUpdate){
 				nextUpdate += Global.setting.SKIP_TICKS; 
@@ -47,9 +48,8 @@ public class Game implements Runnable{
 				}
 				
 			} else {
-				try {
-					Thread.sleep(0,0);
-				} catch (InterruptedException e) {}
+				if (!Global.setting.MAX_POWER)
+					try {Thread.sleep(0,1);} catch (InterruptedException e) {}
 			}
 			
 			if (restart) restart();

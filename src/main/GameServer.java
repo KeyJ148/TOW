@@ -30,6 +30,7 @@ public class GameServer {
 	public int peopleMax;
 	public int peopleNow;
 	public int disconnect;//Кол-во отключённых игроков, не совмещать с peopleNow
+	public boolean maxPower;//Максимальная производительность и потребление
 	//Отправка данных
 	public ServerNetThread[] serverThread;
 	public DataInputStream[] in;
@@ -86,7 +87,17 @@ public class GameServer {
 				peopleMax = Integer.parseInt(str);
 			}
 		}
-		
+		if (args.length > 2){
+			maxPower = Boolean.valueOf(args[2]);
+		} else {
+			System.out.print("Max power (Default false): ");
+			str = bReader.readLine();
+			if (str.equals("t") || str.equals("T") || str.equals("True") || str.equals("true")){
+				maxPower = true;
+			} else {
+				maxPower = false;
+			}
+		}
 		
 		this.serverThread = new ServerNetThread[peopleMax];
 		this.in = new DataInputStream[peopleMax];

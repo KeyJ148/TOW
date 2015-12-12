@@ -94,7 +94,9 @@ public class LobbyWindow extends JFrame implements Runnable{
 	//Поток для старта сервера
 	@Override
 	public void run() {
-		String[] args = {tfPortHost.getText(), String.valueOf(lobbyHostThread.in.size())};//количество игроков
+		String maxPowerServer = "false";
+		if (Global.setting.MAX_POWER_SERVER) maxPowerServer = "true"; 
+		String[] args = {tfPortHost.getText(), String.valueOf(lobbyHostThread.in.size()), maxPowerServer};//количество игроков
 		GameServer.fromClient(args, this);
 	} 
 	

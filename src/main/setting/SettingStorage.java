@@ -16,6 +16,8 @@ public class SettingStorage {
 	public int HEIGHT_SCREEN;//размер окна
 	public String WINDOW_NAME;
 	public boolean FULL_SCREEN;
+	public boolean MAX_POWER;
+	public boolean MAX_POWER_SERVER;
 	
 	public int SEND_STEP_MAX;//Отправлять данные о игроке каждые n updat'ов
 	
@@ -31,6 +33,8 @@ public class SettingStorage {
 		HEIGHT_SCREEN = cr.findInteger("HEIGHT_SCREEN");
 		WINDOW_NAME = cr.findString("WINDOW_NAME");
 		FULL_SCREEN = cr.findBoolean("FULL_SCREEN");
+		MAX_POWER = cr.findBoolean("MAX_POWER");
+		MAX_POWER_SERVER = cr.findBoolean("MAX_POWER_SERVER");
 		
 		DEBUG_CONSOLE = cr.findBoolean("DEBUG_CONSOLE");
 		DEBUG_CONSOLE_IMAGE = cr.findBoolean("DEBUG_CONSOLE_IMAGE");
