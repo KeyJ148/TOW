@@ -32,7 +32,7 @@ public class LoginWindow extends JFrame{
 			
 			Global.player_color.setDefaultImage();
 			Global.player_color.setColor(colorTank);
-			Global.player_color.draw(g, 307-8, 80);
+			Global.player_color.draw(g, 292, 80);
 		}
 	}
 	

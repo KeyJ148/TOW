@@ -37,6 +37,11 @@ public class ClientNetThread extends Thread{
 	public ClientNetThread(String ip, int port){
 		try{
 			Socket sock = new Socket(InetAddress.getByName(ip), port);
+			sock.setTcpNoDelay(true);
+			sock.setKeepAlive(true);
+			sock.setSendBufferSize(4096);
+			sock.setReceiveBufferSize(4096);
+			
 			InputStream inS = sock.getInputStream();
 			OutputStream outS = sock.getOutputStream();
 			DataInputStream in = new DataInputStream(inS);

@@ -119,6 +119,11 @@ public class GameServer {
 		
 		while(peopleNow != peopleMax){
 			Socket sock = ServerSocket.accept();
+			sock.setTcpNoDelay(true);
+			sock.setKeepAlive(true);
+			sock.setSendBufferSize(4096);
+			sock.setReceiveBufferSize(4096);
+			
 			in[peopleNow] = new DataInputStream(sock.getInputStream());
 			out[peopleNow] = new DataOutputStream(sock.getOutputStream());
 			messagePack[peopleNow] = new MessagePack(peopleNow);
