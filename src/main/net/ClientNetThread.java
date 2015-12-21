@@ -83,14 +83,14 @@ public class ClientNetThread extends Thread{
 		}
 		Global.widthMap = Integer.parseInt(Global.parsString(s,1));
 		Global.heightMap = Integer.parseInt(Global.parsString(s,2));
-		switch (Integer.parseInt(Global.parsString(s,3))){
-			case 0: Global.background = new Sprite("res/image/Background/grass.png"); break;
-			case 1: Global.background = new Sprite("res/image/Background/sand.png"); break;
-			case 2: Global.background = new Sprite("res/image/Background/snow.png"); break;
+		switch (Global.parsString(s,3)){
+			case "grass": Global.background = new Sprite("res/image/Background/grass.png"); break;
+			case "sand": Global.background = new Sprite("res/image/Background/sand.png"); break;
+			case "snow": Global.background = new Sprite("res/image/Background/snow.png"); break;
 		}
 		//Загрузка объектов
 		int x,y,direction;
-		String sprite,name;
+		String sprite;
 		if (Global.setting.DEBUG_CONSOLE) System.out.println("Download map object start.");
 		while(true){
 			s = downloadMap();
@@ -103,8 +103,7 @@ public class ClientNetThread extends Thread{
 			y = Integer.parseInt(Global.parsString(s,2));
 			direction = Integer.parseInt(Global.parsString(s,3));
 			sprite = Global.parsString(s,4);
-			name = Global.parsString(s,5);
-			switch(name){
+			switch(Global.getType(sprite)){
 				case "Home": new Home(x,y,direction,Global.getSprite(sprite)); break;
 				case "Road": new Road(x,y,direction,Global.getSprite(sprite)); break;
 			}

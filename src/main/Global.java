@@ -225,6 +225,41 @@ public class Global {
 		return Global.error;
 	}
 	
+	public static String getType(String s){
+		switch(s){
+			case "home1": return "Home";
+			case "home2": return "Home";
+			case "home3": return "Home";
+			case "home4": return "Home";
+			case "home5": return "Home";
+			case "home6": return "Home";
+			case "home7": return "Home";
+			case "home8": return "Home";
+			case "home9": return "Home";
+			case "home10": return "Home";
+			case "home11": return "Home";
+			case "home12": return "Home";
+			case "home13": return "Home";
+			
+			case "road_g": return "Road";
+			case "road_g_fork": return "Road";
+			case "road_g_turn": return "Road";
+			case "road_g_inter": return "Road";
+			case "road_a": return "Road";
+			case "road_a_g": return "Road";
+			case "road_a_fork": return "Road";
+			case "road_a_inter_big": return "Road";
+			
+			case "b_default": return "Bullet";
+			case "b_steel": return "Bullet";
+			case "b_mortar": return "Bullet";
+			case "b_gunfury": return "Bullet";
+			case "b_massgun": return "Bullet";
+			case "b_massgun_small": return "Bullet";
+		}
+		return "Error";
+	}
+	
 	//Разбиение строки по пробелам
 	public static String parsString(String s,int numFind){
 		int numWord = 0;

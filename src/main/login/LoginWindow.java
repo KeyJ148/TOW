@@ -19,6 +19,7 @@ import main.setting.ConfigReader;
 
 public class LoginWindow extends JFrame{
 	
+	
 	@SuppressWarnings("serial")
 	class LoginPanel extends Panel{
 		@Override
