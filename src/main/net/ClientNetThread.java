@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 import main.Game;
 import main.Global;
-import main.home.Home;
-import main.home.Road;
 import main.image.Sprite;
+import main.map.Home;
+import main.map.Road;
 import main.player.Box;
 import main.player.Player;
 import main.player.enemy.Enemy;
@@ -83,11 +83,9 @@ public class ClientNetThread extends Thread{
 		}
 		Global.widthMap = Integer.parseInt(Global.parsString(s,1));
 		Global.heightMap = Integer.parseInt(Global.parsString(s,2));
-		switch (Global.parsString(s,3)){
-			case "grass": Global.background = new Sprite("res/image/Background/grass.png"); break;
-			case "sand": Global.background = new Sprite("res/image/Background/sand.png"); break;
-			case "snow": Global.background = new Sprite("res/image/Background/snow.png"); break;
-		}
+		Global.background = new Sprite("res/image/Background/" + Global.parsString(s,3) + ".png");
+		Global.mapControl.init(Global.widthMap, Global.heightMap);
+		
 		//Загрузка объектов
 		int x,y,direction;
 		String sprite;
@@ -354,9 +352,9 @@ public class ClientNetThread extends Thread{
 	
 	public void take13(String str){//Враг подобрал ящик
 		int idBoxDestroy = Integer.parseInt(Global.parsString(str,2));
-		for (int i = 0; i<Global.obj.size(); i++){
-			if ((Global.obj.get(i) instanceof Box)){
-				Box box = (Box) Global.obj.get(i);
+		for (int i = 0; i<Global.getSize(); i++){
+			if ((Global.getObj(i) instanceof Box)){
+				Box box = (Box) Global.getObj(i);
 				if (box.idBox == idBoxDestroy) box.destroy();
 			}
 		}

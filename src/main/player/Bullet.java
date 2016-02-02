@@ -32,12 +32,12 @@ public class Bullet extends Obj{
 		
 		startX = getX();
 		startY = getY();
-		setCollObj(new String[] {"main.home.Home", "main.player.enemy.EnemyArmor"});
+		setCollObj(new String[] {"main.map.Home", "main.player.enemy.EnemyArmor"});
 		mask.thisBullet(this.range, collObj, startX, startY, directionDraw);
 	}
 	
 	public void collReport(Obj obj){
-		if (obj.getClass().getName().equals("main.home.Home")){
+		if (obj.getClass().getName().equals("main.map.Home")){
 			destroyBullet();
 		}
 		if (obj.getClass().getName().equals("main.player.enemy.EnemyArmor")){

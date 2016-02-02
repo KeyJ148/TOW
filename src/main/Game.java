@@ -3,8 +3,8 @@ package main;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import main.image.DepthVector;
 import main.login.LoginWindow;
+import main.map.MapControl;
 import main.obj.ObjLight;
 import main.player.enemy.EnemyBullet;
 import main.setting.SettingStorage;
@@ -61,7 +61,7 @@ public class Game implements Runnable{
 		if (Global.setting.DEBUG_CONSOLE) System.out.println("Inicialization start.");
 		
 		Global.obj = new Vector<ObjLight>();
-		Global.depth = new ArrayList<DepthVector>();
+		Global.mapControl = new MapControl();
 		Global.enemyBullet = new ArrayList<EnemyBullet>();
 		
 		Global.initSprite();
@@ -84,11 +84,10 @@ public class Game implements Runnable{
 		if (Global.setting.DEBUG_CONSOLE) System.out.println("Restart map start.");
 		
 		Global.obj.clear();
-		Global.depth.clear();
+		Global.mapControl.clear();
 		Global.enemyBullet.clear();
 		Global.pingCheck.clear();
 		Global.obj.trimToSize();
-		Global.depth.trimToSize();
 		Global.enemyBullet.trimToSize();
 		Global.player = null;
 		Global.id = 0;

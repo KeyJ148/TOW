@@ -3,7 +3,6 @@ package main.obj;
 import java.awt.Graphics2D;
 
 import main.Global;
-import main.image.DepthVector;
 import main.image.Rendering;
 
 public class ObjLight {
@@ -37,9 +36,7 @@ public class ObjLight {
 		setId(Global.id);
 		Global.id++;
 		
-		Global.addObj(id, this);
-		
-		depthAddVector(depth, getId()); //Добавляем объект в массив в зависимости от его глубины
+		Global.addObj(this);
 	}
 	
 	public void draw(Graphics2D g){
@@ -58,32 +55,8 @@ public class ObjLight {
 		}
 	}
 	
-	public void depthAddVector(int depth, long id){
-		boolean flag = false;
-		DepthVector dv;
-		for (int i=0; i<Global.depth.size(); i++){
-			dv = (DepthVector) Global.depth.get(i);
-			if (dv.depth == depth){
-				dv.add(id);
-				flag = true;
-				break;
-			}
-		}
-	
-		if (!flag){
-			Global.depth.add(new DepthVector(depth, id));
-		}
-	}
-	
 	public void destroy(){
-		DepthVector dv;
-		for (int i=0; i<Global.depth.size(); i++){
-			dv = (DepthVector) Global.depth.get(i);
-			if (dv.depth == depth){
-				dv.delete(getId());
-			}
-		}
-		this.destroy = true;
+		destroy = true;
 	}
 	
 	public boolean isLight(){

@@ -10,8 +10,8 @@ import java.util.Vector;
 import javax.swing.JFrame;
 
 import main.image.Animation;
-import main.image.DepthVector;
 import main.image.Sprite;
+import main.map.MapControl;
 import main.net.ClientNetSend;
 import main.net.ClientNetThread;
 import main.net.Ping;
@@ -27,7 +27,8 @@ public class Global {
 	public static JFrame mainFrame;//Главное окно
 	
 	public static Vector<ObjLight> obj; //Массив со всеми объектами
-	public static ArrayList<DepthVector> depth; //Массив с DepthVector
+	//public static ArrayList<DepthVector> depth; //Массив с DepthVector
+	public static MapControl mapControl; //Массив со всеми чанками и объектами
 	
 	public static Player player; //главный игрок
 	public static ClientNetSend clientSend; //цикл отправки данных на сервер
@@ -282,18 +283,25 @@ public class Global {
 	}
 	
 	//Добавление объекта в массив по id
-	public static void addObj(long id, ObjLight objLight){
-		obj.add((int) id, objLight);
+	public static void addObj(ObjLight objLight){
+		obj.add((int) objLight.getId(), objLight);
+		mapControl.add(objLight);
 	}
 	
 	//Удаление объекта из массива по id
 	public static void delObj(long id){
+		mapControl.del((int) id);//Используется Global.obj, так что должно быть раньше
 		obj.set((int) id, null);
 	}
 	
 	//Возвращение объекта из массива по id
 	public static ObjLight getObj(long id){
 		return obj.get((int) id);
+	}
+	
+	//Возвращение кол-ва объектов
+	public static int getSize(){
+		return obj.size();
 	}
 	
 	//Вывод сообщения о ошибке

@@ -62,6 +62,7 @@ public class Obj extends ObjLight{
 		
 		this.x = this.x + this.speed * Math.cos(Math.toRadians(direction));
 		this.y = this.y - this.speed * Math.sin(Math.toRadians(direction));
+		Global.mapControl.update(this);
 		
 		directionDrawEqulas();
 		

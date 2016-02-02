@@ -104,8 +104,8 @@ public class Mask implements Cloneable{
 	public void collCheck(double x, double y, double directionDraw, String[] collObj, Obj obj){
 		ObjLight objGlobal; //Объект из глобального массива
 		
-		for(int vectorON=0;vectorON<Global.obj.size();vectorON++){			//Vector Object Number - цикл перебора объектов в глобале
-			objGlobal = Global.obj.get(vectorON);
+		for(int vectorON=0;vectorON<Global.getSize();vectorON++){			//Vector Object Number - цикл перебора объектов в глобале
+			objGlobal = Global.getObj(vectorON);
 			
 			if ((objGlobal != null) && (!objGlobal.isLight())){
 				for (int stringON=0;stringON<collObj.length;stringON++){ 	//String Object Number - цикл перебора объектов во входном массиве
@@ -218,8 +218,8 @@ public class Mask implements Cloneable{
 		int start = this.start;
 		ObjLight objGlobalLight;
 		
-		for(int vectorON=start;vectorON<Global.obj.size();vectorON++){//Vector Object Number - цикл перебора объектов в глобале
-			objGlobalLight = Global.obj.get(vectorON);
+		for(int vectorON=start;vectorON<Global.getSize();vectorON++){//Vector Object Number - цикл перебора объектов в глобале
+			objGlobalLight = Global.getObj(vectorON);
 			
 			if ((objGlobalLight != null) && (!objGlobalLight.isLight())){
 				Obj objGlobal = (Obj) objGlobalLight;
@@ -242,7 +242,7 @@ public class Mask implements Cloneable{
 				}
 			}
 		}
-		this.start = Global.obj.size();
+		this.start = Global.getSize();
 	}
 	
 	//расчёт столкновения по прямой траетории
@@ -321,7 +321,7 @@ public class Mask implements Cloneable{
 		
 		Obj objGlobal;//С которым сталкиваемся
 		for (int i=0; i<dynamicId.size(); i++){
-			objGlobal = (Obj) Global.obj.get(dynamicId.get(i));
+			objGlobal = (Obj) Global.getObj(dynamicId.get(i));
 			if ((objGlobal != null) && (collCheckConti(x, y, directionDraw, objGlobal))){
 				obj.collReport(objGlobal);;
 			}

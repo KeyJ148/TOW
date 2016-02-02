@@ -15,9 +15,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-import main.image.DepthVector;
 import main.image.Sprite;
-import main.obj.ObjLight;
 
 public class Render extends Canvas{
 	
@@ -80,32 +78,8 @@ public class Render extends Canvas{
 			}
 		}
 		
-		//Сортировка массивов по глубине объектов в них
-		for (int i=0; i<Global.depth.size(); i++){
-			for (int j=0; j<Global.depth.size()-1; j++){
-				DepthVector dv1 = (DepthVector) Global.depth.get(j);
-				DepthVector dv2 = (DepthVector) Global.depth.get(j+1);
-				if (dv1.depth < dv2.depth){
-					Global.depth.set(j, dv2);
-					Global.depth.set(j+1, dv1);
-				}
-			}
-		}
-		
-		//Отрисовка объектов	
-		for (int i=0; i<Global.depth.size(); i++){
-			DepthVector dv = (DepthVector) Global.depth.get(i);
-			for (int j=0; j<dv.number.size(); j++){
-				if (Global.obj.get(i) != null){
-					try{
-						ObjLight obj = (ObjLight) Global.getObj((long) dv.number.get(j));
-						obj.draw(g);
-					}catch (NullPointerException e){
-						Global.error("Draw object null");
-					}
-				}
-			}
-		}
+		//Отрисовка объектов
+		Global.mapControl.render((int) Global.cameraX, (int) Global.cameraY, getWidth(), getHeight(), g);
 		
 		//Отрисвока надписей
 		addTitle(1,getHeight()-15,strAnalysis1, Color.BLACK, 12, Font.BOLD);

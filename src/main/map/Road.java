@@ -1,4 +1,4 @@
-package main.home;
+package main.map;
 
 import main.image.Sprite;
 import main.obj.ObjLight;

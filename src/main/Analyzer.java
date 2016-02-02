@@ -39,8 +39,8 @@ public class Analyzer {
 
 	public void analysisData(){
 		int objSize = 0;
-		for (int i=0;i<Global.obj.size();i++){
-			if (Global.obj.get(i) != null){
+		for (int i=0;i<Global.getSize();i++){
+			if (Global.getObj(i) != null){
 				objSize++;
 			}
 		}

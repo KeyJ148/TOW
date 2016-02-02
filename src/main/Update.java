@@ -11,9 +11,9 @@ public class Update {
 		//Обработать все полученные сообщения
 		Global.clientThread.update();
 		
-		for (int i=0; i<Global.obj.size(); i++){
-			if (Global.obj.get(i) != null){
-				ObjLight obj = (ObjLight) Global.obj.get(i);
+		for (int i=0; i<Global.getSize(); i++){
+			if (Global.getObj(i) != null){
+				ObjLight obj = (ObjLight) Global.getObj(i);
 				obj.update();
 			}
 		}

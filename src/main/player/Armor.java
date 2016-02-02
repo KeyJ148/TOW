@@ -37,7 +37,7 @@ public class Armor extends Obj {
 		super(player.getX()-animation.getWidth()/2,player.getY()-animation.getHeight()/2,0.0,player.getDirection(),0,true,animation);
 		this.player = player;
 		
-		setCollObj(new String[] {"main.home.Home", "main.player.enemy.EnemyArmor", "main.player.Box"});
+		setCollObj(new String[] {"main.map.Home", "main.player.enemy.EnemyArmor", "main.player.Box"});
 		
 		loadData(getClass().getName());
 	}
@@ -51,7 +51,7 @@ public class Armor extends Obj {
 			}
 		}
 		
-		if (obj.getClass().getName().equals("main.home.Home")){
+		if (obj.getClass().getName().equals("main.map.Home")){
 			setX(getXPrevious());
 			setY(getYPrevious());
 			setDirection(getDirectionPrevious());
@@ -149,8 +149,10 @@ public class Armor extends Obj {
 		//следование player и пушки за броней
 		player.setXcenter(getXcenter());
 		player.setYcenter(getYcenter());
+		Global.mapControl.update(player);//Необходимо делать после перемещения объекта
 		player.getGun().setXcenter(getXcenter());
 		player.getGun().setYcenter(getYcenter());
+		Global.mapControl.update(player.getGun());//Уже прописано в obj.update, но на всякий
 	}
 	
 	public void loadData(String fileName){
