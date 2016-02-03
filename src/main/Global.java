@@ -178,9 +178,9 @@ public class Global {
 		Global.box_bullet = new Sprite(pathImage + "Gaming/box_bullet.png");
 		Global.box_health = new Sprite(pathImage + "Gaming/box_health.png");
 		
-		Global.c_default = new Animation(pathAnim + "Corps/Default",-1,2);
-		Global.c_fortified = new Animation(pathAnim + "Corps/Fortified",-1,2);
-		Global.c_elephant = new Animation(pathAnim + "Corps/Elephant",-1,1);
+		Global.c_default = new Animation(pathAnim + "Corps/Default",0,2);
+		Global.c_fortified = new Animation(pathAnim + "Corps/Fortified",0,2);
+		Global.c_elephant = new Animation(pathAnim + "Corps/Elephant",0,1);
 	}
 	
 	//Загрузка спрайтов для меню

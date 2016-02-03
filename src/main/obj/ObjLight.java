@@ -47,8 +47,8 @@ public class ObjLight {
 		image.draw(g,(int) Math.round(xView),(int) Math.round(yView), Math.toRadians(directionDraw));
 	}
 	
-	public void update() {
-		image.update();
+	public void update(long delta) {
+		image.update(delta);
 		
 		if (destroy){
 			Global.delObj(getId());

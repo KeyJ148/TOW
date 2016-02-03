@@ -16,9 +16,9 @@ import main.Global;
 public class Animation implements Cloneable, Rendering{
     private Image[] image;
     private int frameNumber=0; //Кол-во кадров [1;inf)
-    private int frameSpeed; //Через сколько интераций update менять кадр
+    private int frameSpeed; //Кол-во кадров в секнду
     private int frameNow; //Номер текущего кадра [0;inf)
-    private int update; //Сколько прошло интераций update с последней смены кадра
+    private long update; //Сколько прошло наносекунд с последней смены кадра
     public String path;//путь к файлу, нужн для создания маски и консоли
     public Mask mask;
     
@@ -76,21 +76,21 @@ public class Animation implements Cloneable, Rendering{
     }
     
     public Mask getMask(){
-		return this.mask;
+		return mask;
 	}
 	
 	public Animation clone() throws CloneNotSupportedException {
 		return (Animation)super.clone();
 	}
     
-    public void update() {
-		this.update++;
-		if (this.update == this.frameSpeed) {
-			this.update = 0;
-			if (this.frameNow == this.frameNumber - 1) {
-				this.frameNow = 0;
+    public void update(long delta) {
+		update += delta;
+		if ((frameSpeed != 0) && (update > 1000000000/frameSpeed)) {
+			update = 0;
+			if (frameNow == frameNumber - 1) {
+				frameNow = 0;
 			} else {
-				this.frameNow++;
+				frameNow++;
 			}
 		}
 	}

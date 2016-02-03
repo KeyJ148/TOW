@@ -52,7 +52,8 @@ public class Bullet extends Obj{
 		destroy();
 	}
 	
-	public void updateChildStart(){
+	@Override
+	public void updateChildStart(long delta){
 		if (!getDestroy()){
 			try{
 				if ((getX()<0) || (getY()<0) || (getX()>Global.widthMap) || (getY()>Global.heightMap)){

@@ -5,7 +5,7 @@ import main.obj.ObjLight;
 
 public class Update {
 	
-	public void loop(){
+	public void loop(long delta){
 		Global.game.render.clearTitle();//Убрать все надписи с прошлого рендера
 		
 		//Обработать все полученные сообщения
@@ -14,7 +14,7 @@ public class Update {
 		for (int i=0; i<Global.getSize(); i++){
 			if (Global.getObj(i) != null){
 				ObjLight obj = (ObjLight) Global.getObj(i);
-				obj.update();
+				obj.update(delta);
 			}
 		}
 		

@@ -2,15 +2,16 @@ package main.player;
 
 import main.image.Sprite;
 import main.obj.Obj;
-import main.player.bullet.*;
+import main.player.bullet.DefaultBullet;
+import main.player.bullet.MassBullet;
+import main.player.bullet.SteelBullet;
 import main.setting.ConfigReader;
-import main.*;
 
 public class Gun extends Obj{
 	
 	private Player player;
 	private double attackSpeed1;//скорость атаки
-	private double attackSpeed2;
+	private double attackSpeed2;//Кол-во выстрелов в секунду
 	private double directionGunUp;//скорость поворота дула
 	private int range;//Дальность выстрела
 	
@@ -27,8 +28,8 @@ public class Gun extends Obj{
 	
 	private final String pathSetting = "gun/";
 	
-	private int TPSFromAttack1 = 10000;//технические(стартовые)
-	private int TPSFromAttack2 = 10000;
+	private long nanoSecFromAttack1 = 0;//технические(стартовые)
+	private long nanoSecFromAttack2 = 0;//Кол-во времени до конца перезарядки в наносекундах
 	
 	private boolean mousePress1 = false; //технические(зажатие мыши)
 	private boolean mousePress2 = false;
@@ -40,16 +41,16 @@ public class Gun extends Obj{
 	}
 	
 	public void attack1(){
-		if (( TPSFromAttack1 > attackSpeed1) && (attackSpeed1> 0) && (player.getControlAtack())){
+		if ((nanoSecFromAttack1 <= 0) && (attackSpeed1 > 0) && (player.getControlAtack())){
 			switchBullet(player.getBullet(), trunk1X, trunk1Y, damage1);
-			TPSFromAttack1 = 0;
+			nanoSecFromAttack1 = (long) ((double) 1/attackSpeed1*1000*1000*1000);
 		}
 	}
 	
 	public void attack2(){
-		if ((TPSFromAttack2 > attackSpeed2) && (attackSpeed2 > 0) && (player.getControlAtack())){
+		if ((nanoSecFromAttack2 <= 0) && (attackSpeed2 > 0) && (player.getControlAtack())){
 			switchBullet(player.getBullet(), trunk2X, trunk2Y, damage2);
-			TPSFromAttack2 = 0;
+			nanoSecFromAttack2 = (long) ((double) 1/attackSpeed2*1000*1000*1000);
 		}
 	}
 	
@@ -65,10 +66,11 @@ public class Gun extends Obj{
 		}
 	}
 	
-	public void updateChildMid(){
+	@Override
+	public void updateChildMid(long delta){
 		//поворот дула (много костылей)
 		double pointDir = -Math.toDegrees(Math.atan((getYViewCenter()-player.getMouseY())/(getXViewCenter()-player.getMouseX())));
-		double trunkUp = getDirectionGunUp()+player.getArmor().getDirectionGunUp();
+		double trunkUp = ((double) delta/1000000000)*(getDirectionGunUp()+player.getArmor().getDirectionGunUp());
 		if ((getXViewCenter()-player.getMouseX())>0){
 			pointDir+=180;
 		} else if ((getYViewCenter()-player.getMouseY())<0){
@@ -94,8 +96,8 @@ public class Gun extends Obj{
 		}
 		
 		//Выстрел
-		TPSFromAttack1++;
-		TPSFromAttack2++;
+		nanoSecFromAttack1 -= delta;
+		nanoSecFromAttack2 -= delta;
 		if (mousePress1){
 			attack1();
 		}
@@ -121,8 +123,8 @@ public class Gun extends Obj{
 	public void loadData(String fileName){
 		ConfigReader cr = new ConfigReader(pathSetting + fileName.substring(fileName.lastIndexOf('.')+1) + ".properties");
 		
-		attackSpeed1 = Global.setting.TPS*cr.findDouble("ATTACK_SPEED_1");
-		attackSpeed2 = Global.setting.TPS*cr.findDouble("ATTACK_SPEED_2");
+		attackSpeed1 = cr.findDouble("ATTACK_SPEED_1");
+		attackSpeed2 = cr.findDouble("ATTACK_SPEED_2");
 		trunk1X = cr.findInteger("TRUNK_1_X");
 		trunk1Y = cr.findInteger("TRUNK_1_Y");
 		trunk2X = cr.findInteger("TRUNK_2_X");

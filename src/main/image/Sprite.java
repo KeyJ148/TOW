@@ -58,7 +58,7 @@ public class Sprite implements Cloneable, Rendering {
 		return path;
 	}
     
-    public void update(){}//Наследуется от Rendering, нужен для анимации, вызывается каждый степ
+    public void update(long delta){}//Наследуется от Rendering, нужен для анимации, вызывается каждый степ
 	
 	public Sprite clone() throws CloneNotSupportedException {
 		return (Sprite) super.clone();

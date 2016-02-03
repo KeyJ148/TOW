@@ -31,24 +31,24 @@ public class Game implements Runnable{
 	public void run(){
 		init();
 		
-		long nextUpdate = System.currentTimeMillis();//Для цикла
+		long nextLoop = System.currentTimeMillis();//Для цикла
+		long lastUpdate = System.nanoTime();//Для update
 		long startUpdate, startRender;//Для анализатора
 		
-		while(running) { //Главный игровой цикл
-			if (System.currentTimeMillis() >= nextUpdate){
-				nextUpdate += Global.setting.SKIP_TICKS; 
+		while(running){
+			if (System.currentTimeMillis() >= nextLoop){
+				nextLoop = System.currentTimeMillis() + 1000/Global.setting.MAX_FPS;
+				
 				startUpdate = System.nanoTime();
-				update.loop();
+				update.loop(System.nanoTime() - lastUpdate);
+				lastUpdate = System.nanoTime();
 				if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) analyzer.loopsUpdate(startUpdate);
 				
-				if (System.currentTimeMillis() < nextUpdate){
-					startRender = System.nanoTime();
-					render.loop();
-					if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) analyzer.loopsRender(startRender);
-				}
-				
+				startRender = System.nanoTime();
+				render.loop();
+				if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) analyzer.loopsRender(startRender);
 			} else {
-				if (!Global.setting.MAX_POWER)
+				if (!Global.setting.MAX_POWER) 
 					try {Thread.sleep(0,1);} catch (InterruptedException e) {}
 			}
 			

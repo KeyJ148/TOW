@@ -9,10 +9,10 @@ public class Armor extends Obj {
 	Player player;
 	private double hp;
 	private double hpMax;
-	private double hpRegen;
-	private double speedTankUp;
+	private double hpRegen;//Кол-во реген хп в секунду
+	private double speedTankUp;//Кол-во пикселей в секунду
 	private double speedTankDown;
-	private double directionGunUp;
+	private double directionGunUp;//Кол-во градусов в секунду
 	private double directionTankUp;
 	
 	private int animSpeed;
@@ -30,7 +30,7 @@ public class Armor extends Obj {
 	
 	private final String pathSetting = "armor/";
 	
-	private int timer = 0; //таймер для отсёчта пройденных TPS
+	private long timer = 0; //таймер для отсёчта пройденного времени при столкновение
 	private long coll_id = -1; //id объекта с которым происходит столкновение
 	
 	public Armor(Player player, Animation animation){
@@ -87,11 +87,12 @@ public class Armor extends Obj {
 		}
 	}
 	
-	public void updateChildMid(){
+	@Override
+	public void updateChildMid(long delta){
 		//для столкновений
 		if (recoil){
-			timer++;
-			if (timer >= Global.setting.TPS/3){
+			timer+=delta;
+			if (timer > 300*1000*1000){//300 Милисекунд в наносекундах
 				recoil = false;
 				turnRight = false;
 				turnLeft = false;
@@ -106,17 +107,17 @@ public class Armor extends Obj {
 		//для поворота
 		if (recoil){
 			if (turnLeft){
-				setDirection(getDirection() + directionTankUp/3);
+				setDirection(getDirection() + (double) delta/1000000000*directionTankUp/3);//getDirection() + скорость поворота
 			}
 			if (turnRight){
-				setDirection(getDirection() - directionTankUp/3);
+				setDirection(getDirection() - (double) delta/1000000000*directionTankUp/3);
 			}
 		} else {
 			if (turnLeft){
-				setDirection(getDirection() + directionTankUp);
+				setDirection(getDirection() + (double) delta/1000000000*directionTankUp);
 			}
 			if (turnRight){
-				setDirection(getDirection() - directionTankUp);
+				setDirection(getDirection() - (double) delta/1000000000*directionTankUp);
 			}
 		}
 		
@@ -126,7 +127,7 @@ public class Armor extends Obj {
 			setAnimOn(true);
 		}
 		if ((getSpeed() == 0) && (getAnimOn())){
-			getAnimation().setFrameSpeed(-1);
+			getAnimation().setFrameSpeed(0);
 			setAnimOn(false);
 		}
 		
@@ -137,15 +138,16 @@ public class Armor extends Obj {
 			player.destroy();
 			player.getGun().destroy();
 		} else {
-			if ((hp+hpRegen) > hpMax){
+			if ((hp+delta/1000000000*hpRegen) > hpMax){
 				hp = hpMax;
 			} else {
-				hp+=hpRegen;
+				hp+=delta/1000000000*hpRegen;
 			}
 		}
 	}
 	
-	public void updateChildFinal(){//В финал, чтобы пушка не отставала от такна
+	@Override
+	public void updateChildFinal(long delta){//В финал, чтобы пушка не отставала от такна
 		//следование player и пушки за броней
 		player.setXcenter(getXcenter());
 		player.setYcenter(getYcenter());
@@ -160,7 +162,7 @@ public class Armor extends Obj {
 		
 		hpMax = cr.findDouble("HP_MAX");
 		hp = hpMax;
-		hpRegen = cr.findDouble("HP_REGEN")/Global.setting.TPS;
+		hpRegen = cr.findDouble("HP_REGEN");
 		speedTankUp = cr.findDouble("SPEED_UP");
 		speedTankDown = cr.findDouble("SPEED_DOWN");
 		directionGunUp = cr.findDouble("DIRECTION_GUN_UP");

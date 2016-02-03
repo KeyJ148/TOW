@@ -34,7 +34,7 @@ public class Player extends Obj{
 	
 	private boolean controlAtack = true;//можно ли стрелять из танка
 	
-	private int sendStep = 0;
+	private long lastSend = 0;//Время с последней отправки
 	
 	private Gun gun;
 	private String bullet;
@@ -45,7 +45,6 @@ public class Player extends Obj{
 		this.bullet = "DefaultBullet";
 		this.armor = new DefaultArmor(this);
 		this.gun = new DefaultGun(this);
-		
 		setColor();
 		
 		Global.game.render.addKeyListener(new KeyAdapter(){
@@ -104,7 +103,7 @@ public class Player extends Obj{
 			public void keyReleased(KeyEvent e){
 				if (armor.getControlMotion()){
 					if (e.getKeyCode() == KeyEvent.VK_W){
-						armor.setSpeed(0.0);
+						if (armor.getSpeed() > 0) armor.setSpeed(0.0);//Условие для ситации: W press; S press; W release;
 						armor.setRunUp(false);
 					}
 					if (e.getKeyCode() == KeyEvent.VK_A){
@@ -114,7 +113,7 @@ public class Player extends Obj{
 						armor.setTurnRight(false);
 					}
 					if (e.getKeyCode() == KeyEvent.VK_S){
-						armor.setSpeed(0.0);
+						if (armor.getSpeed() < 0) armor.setSpeed(0.0);
 						armor.setRunDown(false);
 					}
 				}
@@ -291,7 +290,8 @@ public class Player extends Obj{
 		bullet = newBullet;
 	}
 	
-	public void updateChildFinal(){
+	@Override
+	public void updateChildFinal(long delta){
 		//Отрисовка ника и хп
 		int nameX = (int) Math.round(getXViewCenter()-Global.name.length()*3.25); // lengthChar/2
 		int nameY = (int) getYViewCenter()-50;
@@ -300,9 +300,9 @@ public class Player extends Obj{
 		Global.game.render.addTitle(1, 16, "HP: " +  Math.round(getArmor().getHp()) + "/" + Math.round(getArmor().getHpMax()), Color.BLACK, 20, Font.BOLD);
 		
 		//Отправка данных о игроке
-		sendStep++;
-		if (sendStep == Global.setting.SEND_STEP_MAX){
-			sendStep = 0;
+		lastSend += delta;
+		if (lastSend > Global.setting.SEND_MILLIS*1000000){
+			lastSend = 0;
 			Global.clientSend.sendData(getData());
 		}
 	}

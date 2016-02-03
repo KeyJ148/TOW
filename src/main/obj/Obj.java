@@ -50,23 +50,23 @@ public class Obj extends ObjLight{
 		if (Global.setting.MASK_DRAW) mask.draw(g);
 	}
 	
-	public void update() {
-		updateChildStart();
+	public void update(long delta) {
+		updateChildStart(delta);
 		
 		//должен быть раньше updateChildMid, что бы танк не мог повернуть в стену
-		this.xPrevious = this.x;
-		this.yPrevious = this.y;
-		this.directionPrevious = this.direction;
+		xPrevious = x;
+		yPrevious = y;
+		directionPrevious = direction;
 		
-		updateChildMid();//step у дочерних объектов
+		updateChildMid(delta);//step у дочерних объектов
 		
-		this.x = this.x + this.speed * Math.cos(Math.toRadians(direction));
-		this.y = this.y - this.speed * Math.sin(Math.toRadians(direction));
+		x = x + speed * Math.cos(Math.toRadians(direction)) * ((double) delta/1000000000);
+		y = y - speed * Math.sin(Math.toRadians(direction)) * ((double) delta/1000000000);
 		Global.mapControl.update(this);
 		
 		directionDrawEqulas();
 		
-		image.update();
+		image.update(delta);
 		
 		mask.calcInThisStep = false;
 		if (!mask.bullet){
@@ -79,7 +79,7 @@ public class Obj extends ObjLight{
 			mask.collCheckBullet(x, y, directionDraw, collObj, this);
 		}
 		
-		updateChildFinal();//step у дочерних объектов
+		updateChildFinal(delta);//step у дочерних объектов
 		
 		if (destroy){
 			Global.delObj(getId());
@@ -198,9 +198,9 @@ public class Obj extends ObjLight{
 		System.out.println("ALARM!!!");
 	}
 	
-	public void updateChildStart(){}
-	public void updateChildMid(){}
-	public void updateChildFinal(){}
+	public void updateChildStart(long delta){}
+	public void updateChildMid(long delta){}
+	public void updateChildFinal(long delta){}
 	public void collReport(Obj obj){}
 
 }

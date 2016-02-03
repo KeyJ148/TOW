@@ -2,8 +2,7 @@ package main.setting;
 
 public class SettingStorage {
 
-	public int TPS; // ол-во повторений update в секунду
-	public int SKIP_TICKS;//ѕерерыв в милисекундах между повторени€ми
+	public int MAX_FPS; // ол-во повторений update в секунду
 	
 	public boolean DEBUG_CONSOLE;//выводить в консоль сообщени€ отладки?
 	public boolean DEBUG_CONSOLE_IMAGE;//выводить в консоль сообщени€ спрайтов и анимации?
@@ -19,15 +18,15 @@ public class SettingStorage {
 	public boolean MAX_POWER;
 	public boolean MAX_POWER_SERVER;
 	
-	public int SEND_STEP_MAX;//ќтправл€ть данные о игроке каждые n updat'ов
+	public int SEND_MILLIS;//ќтправл€ть данные о игроке каждые n миллисекунд
 	
 	public String fileName = "main.properties";
 	
 	public void initFromFile(){
 		ConfigReader cr = new ConfigReader(fileName);
 		
-		TPS = cr.findInteger("TPS");
-		SEND_STEP_MAX = cr.findInteger("SEND_STEP_MAX");
+		MAX_FPS = cr.findInteger("MAX_FPS");
+		SEND_MILLIS = cr.findInteger("SEND_MILLIS");
 		
 		WIDTH_SCREEN = cr.findInteger("WIDTH_SCREEN");
 		HEIGHT_SCREEN = cr.findInteger("HEIGHT_SCREEN");
@@ -42,7 +41,5 @@ public class SettingStorage {
 		DEBUG_CONSOLE_FPS = cr.findBoolean("DEBUG_CONSOLE_FPS");
 		DEBUG_MONITOR_FPS = cr.findBoolean("DEBUG_MONITOR_FPS");
 		MASK_DRAW = cr.findBoolean("MASK_DRAW");
-		
-		SKIP_TICKS = 1000/TPS;
 	}
 }
