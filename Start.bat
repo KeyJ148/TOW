@@ -1,2 +1,2 @@
-java -classpath ./bin main.Game
+java -classpath ./bin tow.Game
 pause

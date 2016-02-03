@@ -1,3 +1,3 @@
 mkdir bin
-javac -sourcepath ./src -d bin src/main/Game.java 
+javac -sourcepath ./src -d bin src/tow/Game.java 
 pause
