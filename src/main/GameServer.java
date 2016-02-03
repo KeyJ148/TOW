@@ -123,6 +123,8 @@ public class GameServer {
 			sock.setKeepAlive(true);
 			sock.setSendBufferSize(4096);
 			sock.setReceiveBufferSize(4096);
+			sock.setPerformancePreferences(0,2,1);
+			sock.setTrafficClass(24);
 			
 			in[peopleNow] = new DataInputStream(sock.getInputStream());
 			out[peopleNow] = new DataOutputStream(sock.getOutputStream());

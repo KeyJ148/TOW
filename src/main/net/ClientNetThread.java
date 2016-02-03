@@ -41,6 +41,8 @@ public class ClientNetThread extends Thread{
 			sock.setKeepAlive(true);
 			sock.setSendBufferSize(4096);
 			sock.setReceiveBufferSize(4096);
+			sock.setPerformancePreferences(0,2,1);
+			sock.setTrafficClass(24);
 			
 			InputStream inS = sock.getInputStream();
 			OutputStream outS = sock.getOutputStream();
