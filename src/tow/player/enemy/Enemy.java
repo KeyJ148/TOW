@@ -37,7 +37,7 @@ public class Enemy extends Obj{
 			animOn = true;
 		}
 		if ((anim == -1) && (animOn)){
-			armor.getAnimation().setFrameSpeed(anim);
+			armor.getAnimation().setFrameSpeed(0);
 			animOn = false;
 		}
 	}
@@ -61,7 +61,8 @@ public class Enemy extends Obj{
 		gun.getImage().setColor(c);
 	}
 	
-	public void updateChildFinal(){
+	@Override
+	public void updateChildFinal(long delta){
 		dragIn();
 		try{
 			int nameX = (int) Math.round(getXViewCenter()-name.length()*3.25); // lengthChar/2
@@ -109,8 +110,10 @@ public class Enemy extends Obj{
 			armor.setXcenter(getXcenter());
 			armor.setYcenter(getYcenter());
 			armor.setDirection(getDirection());
+			Global.mapControl.update(armor);//Необходимо делать после перемещения объекта
 			gun.setXcenter(getXcenter());
 			gun.setYcenter(getYcenter());
+			Global.mapControl.update(gun);//Уже прописано в obj.update, но на всякий
 		} catch(NullPointerException e){
 			p("[ERROR] DragIn to enemy");
 		}

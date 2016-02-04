@@ -35,7 +35,7 @@ public class Obj extends ObjLight{
 		
 		mask.calc(this.x,this.y,this.directionDraw);//расчёт маски
 		
-		if (Global.setting.DEBUG_CONSOLE) System.out.println("Object \"" + image.getPath() + "\" create. Id = " + getId());
+		if (Global.setting.DEBUG_CONSOLE_OBJECT) System.out.println("Object \"" + image.getPath() + "\" create. Id = " + getId());
 	}
 
 	public void draw(Graphics2D g){

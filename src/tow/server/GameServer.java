@@ -1,4 +1,4 @@
-package tow;
+package tow.server;
 
 import java.awt.Point;
 import java.io.BufferedReader;
@@ -13,11 +13,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
 
+import tow.Global;
 import tow.lobby.LobbyWindow;
-import tow.net.CheckMapLoad;
-import tow.net.MessagePack;
-import tow.net.ServerNetThread;
-import tow.net.ServerSend;
 import tow.setting.SettingStorage;
 
 public class GameServer {
@@ -63,7 +60,7 @@ public class GameServer {
 		String str;
 		
 		Global.setting = new SettingStorage();
-		Global.setting.initFromFile();
+		Global.setting.init();
 		Global.initSprite();
 		if (args.length > 0){
 			port = Integer.parseInt(args[0]);
@@ -119,12 +116,12 @@ public class GameServer {
 		
 		while(peopleNow != peopleMax){
 			Socket sock = ServerSocket.accept();
-			sock.setTcpNoDelay(true);
-			sock.setKeepAlive(true);
-			sock.setSendBufferSize(4096);
-			sock.setReceiveBufferSize(4096);
-			sock.setPerformancePreferences(0,2,1);
-			sock.setTrafficClass(24);
+			sock.setTcpNoDelay(Global.setting.TCP_NODELAY);
+			sock.setKeepAlive(Global.setting.KEEP_ALIVE);
+			sock.setSendBufferSize(Global.setting.SEND_BUF_SIZE);
+			sock.setReceiveBufferSize(Global.setting.RECEIVE_BUF_SIZE);
+			sock.setPerformancePreferences(Global.setting.PREFERENCE_CON_TIME, Global.setting.PREFERENCE_LATENCY, Global.setting.PREFERENCE_BANDWIDTH);
+			sock.setTrafficClass(Global.setting.TRAFFIC_CLASS);
 			
 			in[peopleNow] = new DataInputStream(sock.getInputStream());
 			out[peopleNow] = new DataOutputStream(sock.getOutputStream());

@@ -20,6 +20,6 @@ public class Box extends Obj {
 	public void collisionPlayer(){
 		collision = true;
 		destroy();
-		Global.clientSend.send13(idBox);
+		Global.tcpSend.send13(idBox);
 	}
 }

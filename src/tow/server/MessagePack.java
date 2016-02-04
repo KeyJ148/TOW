@@ -1,8 +1,6 @@
-package tow.net;
+package tow.server;
 
 import java.util.LinkedList;
-
-import tow.GameServer;
 
 public class MessagePack {
 	

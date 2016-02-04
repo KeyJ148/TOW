@@ -5,15 +5,19 @@ import tow.Global;
 public class Ping {
 	
 	private long pingTime;
-	private int pingSum = 0;
-	private int pingNumber = 0;
+	private int pingSum;
+	private int pingNumber;
 	
-	private int ping = 9999; //текущий
-	private int pingMin = 9999;
-	private int pingMid = 0;
-	private int pingMax = 0;
+	private int ping; //текущий
+	private int pingMin;
+	private int pingMid;
+	private int pingMax;
 	
 	private boolean returnData = true;
+	
+	public Ping(){
+		clear();
+	}
 	
 	public int ping(){
 		send();
@@ -21,8 +25,7 @@ public class Ping {
 	}
 	
 	public void takePing(){
-		long pingL = System.currentTimeMillis() - pingTime;
-		int ping = (int) pingL;
+		int ping = (int) (System.currentTimeMillis() - pingTime);
 		
 		this.ping = ping;
 		if (ping < pingMin) pingMin = ping;
@@ -39,7 +42,7 @@ public class Ping {
 		if (returnData){
 			returnData = false;
 			pingTime = System.currentTimeMillis();
-			Global.clientSend.sendM2();
+			Global.tcpSend.sendM2();
 		}
 	}
 	
@@ -47,8 +50,8 @@ public class Ping {
 		pingSum = 0;
 		pingNumber = 0;
 		
-		ping = 9999;
-		pingMin = 9999;
+		ping = 0;
+		pingMin = 999;
 		pingMid = 0;
 		pingMax = 0;
 	}

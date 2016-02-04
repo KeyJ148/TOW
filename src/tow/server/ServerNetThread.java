@@ -1,10 +1,9 @@
-package tow.net;
+package tow.server;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import tow.GameServer;
 import tow.Global;
 
 public class ServerNetThread extends Thread{

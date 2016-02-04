@@ -12,9 +12,11 @@ import javax.swing.JFrame;
 import tow.image.Animation;
 import tow.image.Sprite;
 import tow.map.MapControl;
-import tow.net.ClientNetSend;
-import tow.net.ClientNetThread;
 import tow.net.Ping;
+import tow.net.TCPControl;
+import tow.net.TCPMapLoader;
+import tow.net.TCPRead;
+import tow.net.TCPSend;
 import tow.obj.ObjLight;
 import tow.player.Player;
 import tow.player.enemy.Enemy;
@@ -27,24 +29,28 @@ public class Global {
 	public static JFrame mainFrame;//Главное окно
 	
 	public static Vector<ObjLight> obj; //Массив со всеми объектами
-	//public static ArrayList<DepthVector> depth; //Массив с DepthVector
 	public static MapControl mapControl; //Массив со всеми чанками и объектами
 	
-	public static Player player; //главный игрок
-	public static ClientNetSend clientSend; //цикл отправки данных на сервер
-	public static ClientNetThread clientThread; //цикл считывания данных с сервера
+	public static Player player; //Главный игрок
 	
+	public static TCPSend tcpSend; //Отправка данных на сервер
+	public static TCPRead tcpRead; //Цикл считывания данных с сервера
+	public static TCPControl tcpControl; //Хранит настройки и создаёт соединения
+	public static TCPMapLoader tcpMapLoader; //Загружает карту и кординаты с сервера
 	public static Ping pingCheck;//Объект для проверки пинга
+	public static String ip;//ip сервера
+	public static int port;//порт сервера
+	
 	public static SettingStorage setting;//Объект хранящий основный настройки
 	
 	public static long id = 0;//Уник. номер следующего объекта
 	public static long idNet = 1; //id объекта создаваемого у противника из-за действий игрока  
 	
 	public static Enemy[] enemy; //список всех противников
-	public static ArrayList<EnemyBullet> enemyBullet; //список всех патронов противников (EnemyBullet)
+	public static ArrayList<EnemyBullet> enemyBullet; //Список всех патронов противников (EnemyBullet)
 	
-	public static String name;//имя игрока
-	public static Color color = new Color((int) (Math.random()*Integer.MAX_VALUE));//цвет игрока
+	public static String name;//Имя игрока
+	public static Color color = new Color((int) (Math.random()*Integer.MAX_VALUE));//Цвет игрока
 	
 	public static int heightMap;
 	public static int widthMap;//размер карты

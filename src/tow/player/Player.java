@@ -166,7 +166,7 @@ public class Player extends Obj{
 		} else {
 			anim = -1;
 		}
-		s =  "0 " + Math.round(getX())
+		s = Math.round(getX())
 			+ " " + Math.round(getY())
 			+ " " + Math.round(armor.getDirection())
 			+ " " + anim
@@ -235,7 +235,7 @@ public class Player extends Obj{
 		if (runDown) getArmor().setSpeed(getArmor().getSpeedTankDown());
 		setColorArmor();
 		String armorName = getArmor().getClass().getName();
-		Global.clientSend.send14(armorName.substring(armorName.lastIndexOf(".")+1));
+		Global.tcpSend.send14(armorName.substring(armorName.lastIndexOf(".")+1));
 	}
 	
 	public void newGun(){
@@ -277,7 +277,7 @@ public class Player extends Obj{
 		setColorGun();
 		
 		String gunName = getGun().getClass().getName();
-		Global.clientSend.send15(gunName.substring(gunName.lastIndexOf(".")+1));
+		Global.tcpSend.send15(gunName.substring(gunName.lastIndexOf(".")+1));
 	}
 	
 	public void newBullet(){
@@ -303,7 +303,7 @@ public class Player extends Obj{
 		lastSend += delta;
 		if (lastSend > Global.setting.SEND_MILLIS*1000000){
 			lastSend = 0;
-			Global.clientSend.sendData(getData());
+			Global.tcpSend.send0(getData());
 		}
 	}
 	

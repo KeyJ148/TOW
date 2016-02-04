@@ -59,6 +59,11 @@ public class Animation implements Cloneable, Rendering{
     }
     
     public void setFrameSpeed(int frameSpeed) {
+    	if (frameSpeed < 0){
+    		Global.error("Frame speed must be >= 0");
+    		return;
+    	}
+    	
 		this.update = 0;
         this.frameSpeed = frameSpeed;
     }

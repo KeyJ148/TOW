@@ -9,7 +9,7 @@ public class Update {
 		Global.game.render.clearTitle();//Убрать все надписи с прошлого рендера
 		
 		//Обработать все полученные сообщения
-		Global.clientThread.update();
+		Global.tcpRead.update();
 		
 		for (int i=0; i<Global.getSize(); i++){
 			if (Global.getObj(i) != null){

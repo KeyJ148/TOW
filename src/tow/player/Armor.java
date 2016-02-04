@@ -37,13 +37,13 @@ public class Armor extends Obj {
 		super(player.getX()-animation.getWidth()/2,player.getY()-animation.getHeight()/2,0.0,player.getDirection(),0,true,animation);
 		this.player = player;
 		
-		setCollObj(new String[] {"main.map.Home", "main.player.enemy.EnemyArmor", "main.player.Box"});
+		setCollObj(new String[] {"tow.map.Home", "tow.player.enemy.EnemyArmor", "tow.player.Box"});
 		
 		loadData(getClass().getName());
 	}
 	
 	public void collReport(Obj obj){
-		if (obj.getClass().getName().equals("main.player.Box")){
+		if (obj.getClass().getName().equals("tow.player.Box")){
 			Box box = (Box) obj;
 			if (!box.collision){
 				box.collisionPlayer();
@@ -51,13 +51,13 @@ public class Armor extends Obj {
 			}
 		}
 		
-		if (obj.getClass().getName().equals("main.map.Home")){
+		if (obj.getClass().getName().equals("tow.map.Home")){
 			setX(getXPrevious());
 			setY(getYPrevious());
 			setDirection(getDirectionPrevious());
 		}
 		
-		if (obj.getClass().getName().equals("main.player.enemy.EnemyArmor")){
+		if (obj.getClass().getName().equals("tow.player.enemy.EnemyArmor")){
 			if ((!recoil) || (obj.getId() != coll_id)){
 				setX(getXPrevious());
 				setY(getYPrevious());
@@ -133,7 +133,7 @@ public class Armor extends Obj {
 		
 		//hp
 		if(hp <= 0){
-			Global.clientSend.send4();
+			Global.tcpSend.send4();
 			destroy();
 			player.destroy();
 			player.getGun().destroy();

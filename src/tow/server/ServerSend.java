@@ -1,8 +1,7 @@
-package tow.net;
+package tow.server;
 
 import java.io.IOException;
 
-import tow.GameServer;
 import tow.Global;
 
 public class ServerSend extends Thread {

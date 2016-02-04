@@ -14,9 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import tow.GameServer;
 import tow.Global;
 import tow.login.ConnectListener;
+import tow.server.GameServer;
 
 public class LobbyWindow extends JFrame implements Runnable{
 	

@@ -27,28 +27,28 @@ public class Bullet extends Obj{
 		loadData(getClass().getName());
 		
 		this.idNet = Global.idNet;
-		Global.clientSend.send1(this);
+		Global.tcpSend.send1(this);
 		Global.idNet++;
 		
 		startX = getX();
 		startY = getY();
-		setCollObj(new String[] {"main.map.Home", "main.player.enemy.EnemyArmor"});
+		setCollObj(new String[] {"tow.map.Home", "tow.player.enemy.EnemyArmor"});
 		mask.thisBullet(this.range, collObj, startX, startY, directionDraw);
 	}
 	
 	public void collReport(Obj obj){
-		if (obj.getClass().getName().equals("main.map.Home")){
+		if (obj.getClass().getName().equals("tow.map.Home")){
 			destroyBullet();
 		}
-		if (obj.getClass().getName().equals("main.player.enemy.EnemyArmor")){
+		if (obj.getClass().getName().equals("tow.player.enemy.EnemyArmor")){
 			EnemyArmor ea = (EnemyArmor) obj;
-			Global.clientSend.send3(this,ea.enemy.name);
+			Global.tcpSend.send3(this,ea.enemy.name);
 			destroyBullet();
 		}
 	}
 	
 	public void destroyBullet(){
-		Global.clientSend.send2(this);
+		Global.tcpSend.send2(this);
 		destroy();
 	}
 	

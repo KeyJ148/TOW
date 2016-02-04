@@ -8,7 +8,6 @@ import javax.swing.JTextField;
 import tow.Global;
 import tow.MainWindow;
 import tow.lobby.LobbyWindow;
-import tow.net.ClientNetThread;
 
 public class ConnectListener implements ActionListener {
 	
@@ -32,26 +31,25 @@ public class ConnectListener implements ActionListener {
 	
 	public void startGame(){
 		lbw.dispose();
-		startConnect();
+		saveData();
 		Global.mainFrame = new MainWindow();
 	}
 	
-	public void startConnect(){
+	public void saveData(){
 		String name = tfName.getText();
 		if (name.equals("")){
 			Global.name = Double.toString(Math.random()); 
 		} else {
 			if (name.indexOf(' ') == -1){
 				Global.name = name;
+				Global.ip = tfIp.getText();
+				Global.port = Integer.parseInt(tfPort.getText());
 			} else {
 				Global.error("Invalid name!");
 				System.exit(0);
 			}
 		}
-		
-		Global.clientThread = new ClientNetThread(tfIp.getText(), Integer.parseInt(tfPort.getText()));
 	}
-	
 	
 }
 

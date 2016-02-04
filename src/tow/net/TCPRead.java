@@ -1,195 +1,47 @@
 package tow.net;
 
 import java.awt.Color;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
 import java.util.ArrayList;
 
-import tow.Game;
 import tow.Global;
 import tow.image.Sprite;
-import tow.map.Home;
-import tow.map.Road;
 import tow.player.Box;
-import tow.player.Player;
 import tow.player.enemy.Enemy;
 import tow.player.enemy.EnemyBullet;
 
-public class ClientNetThread extends Thread{
-	
-	public DataInputStream in;
-	public DataOutputStream out;
-	public Socket sock;
-	public Game game;
+public class TCPRead extends Thread{
 	
 	public volatile ArrayList<String> messages = new ArrayList<String>();
-	
 	public volatile boolean takeMessage = true;
-	
-	public volatile int sizeData = 0; //bytes
-	public Object sizeDataMonitor;
-	
-	public ClientNetThread(String ip, int port){
-		try{
-			Socket sock = new Socket(InetAddress.getByName(ip), port);
-			sock.setTcpNoDelay(true);
-			sock.setKeepAlive(true);
-			sock.setSendBufferSize(4096);
-			sock.setReceiveBufferSize(4096);
-			sock.setPerformancePreferences(0,2,1);
-			sock.setTrafficClass(24);
-			
-			InputStream inS = sock.getInputStream();
-			OutputStream outS = sock.getOutputStream();
-			DataInputStream in = new DataInputStream(inS);
-			DataOutputStream out = new DataOutputStream(outS);
-			this.in = in;
-			this.out = out;
-			this.sock = sock;
-		} catch(IOException e){
-			Global.error("Connection failed");
-			System.exit(0);
-		}
-		this.sizeDataMonitor = new Object();
-	}
-	
-	public void initMap(Game game){
-		if (Global.setting.DEBUG_CONSOLE) System.out.println("Download map start.");
-		this.game = game;
-		
-		//Скачивание карты
-		String s = "";
-		try{
-			
-			if (game.restart){
-				this.out.writeUTF("-1 ");
-			}
-			
-			if (Global.setting.DEBUG_CONSOLE) System.out.println("Wait loading map.");
-			while(true){
-				s = this.in.readUTF();
-				if (s.equals("6 ")) break;
-			}
-			
-			//Разрешение карты(для камеры)
-			s = downloadMap();
-			if (Global.setting.DEBUG_CONSOLE) System.out.println("Download map size complite.");
-		} catch(IOException e){
-			Global.error("Download map size");
-			System.exit(0);
-		}
-		Global.widthMap = Integer.parseInt(Global.parsString(s,1));
-		Global.heightMap = Integer.parseInt(Global.parsString(s,2));
-		Global.background = new Sprite("res/image/Background/" + Global.parsString(s,3) + ".png");
-		Global.mapControl.init(Global.widthMap, Global.heightMap);
-		
-		//Загрузка объектов
-		int x,y,direction;
-		String sprite;
-		if (Global.setting.DEBUG_CONSOLE) System.out.println("Download map object start.");
-		while(true){
-			s = downloadMap();
-			
-			if (s.equals("8 ")){
-				if (Global.setting.DEBUG_CONSOLE) System.out.println("Download map object complite.");
-				break;
-			}
-			x = Integer.parseInt(Global.parsString(s,1));
-			y = Integer.parseInt(Global.parsString(s,2));
-			direction = Integer.parseInt(Global.parsString(s,3));
-			sprite = Global.parsString(s,4);
-			switch(Global.getType(sprite)){
-				case "Home": new Home(x,y,direction,Global.getSprite(sprite)); break;
-				case "Road": new Road(x,y,direction,Global.getSprite(sprite)); break;
-			}
-		}
-		genTank();
-	}
-	
-	//получение данных
-	public void genTank(){
-		try{
-			this.out.writeUTF("-3 " + Global.name);//отправка имени
-			String s = downloadMap();//получение кор танка
-			double x = (double) Integer.parseInt(s.substring(0,s.indexOf(' ')));
-			double y = (double) Integer.parseInt(s.substring(s.indexOf(' ')+1));
-			s = downloadMap();//получение кол-во игрков
-			Global.peopleMax = Integer.parseInt(s.substring(0,s.indexOf(' ')));
-			Global.enemy = new Enemy[Global.peopleMax-1];
-			Global.player = new Player(x,y,Math.random()*360);
-			
-			if (Global.setting.DEBUG_CONSOLE) System.out.println("Generation tank complite.");
-		} catch(IOException e){
-			Global.error("Message about generation tank");
-			System.exit(0);
-		}
-		
-		new ClientNetSend(this.out, this.game);
-		if (game.restart){
-			startThread();
-		} else {
-			start();
-		}
-	}
-	
-	public String downloadMap(){
-		try {
-			String s;
-			do {
-				s = this.in.readUTF();
-				if (Integer.parseInt(Global.parsString(s,1)) == 8){
-					return s;
-				}
-			}while(Integer.parseInt(Global.parsString(s,1)) != 7);
-			return s.substring(2);
-		} catch (IOException e) {
-			Global.error("Method for download map");
-			return "";
-		}
-	}
 	
 	public void run(){
 		//постоянный обмен данными
 		//на TCP
+		resumeThread();
+		
 		String str;
-		try{
-			while(true){
-				str = this.in.readUTF();
-				if (!takeMessage){
-					game.startRestart();
-					while (!takeMessage){
-						try {
-							Thread.sleep(0,100);
-						} catch (InterruptedException e) {}
-					}
-				}
-				
-				synchronized (sizeDataMonitor){
-					sizeData += str.length()*2;
-				}
-				
-				if (takeMessage){
-					synchronized (messages){
-						messages.add(str);
-					}
+		while(true){
+			str = Global.tcpControl.read();
+			if (!takeMessage){
+				Global.game.startRestart();
+				while (!takeMessage){
+					try { Thread.sleep(0,100); } catch (InterruptedException e) {}
 				}
 			}
-			
-		} catch(IOException e){
-			Global.error("Take internet message");
+				
+			if (takeMessage){
+				synchronized (messages){
+					messages.add(str);
+				}
+			}
 		}
 	}
 	
-	public void stopThread(){
+	public void pauseThread(){
 		takeMessage = false;
 	}
 	
-	public void startThread(){
+	public void resumeThread(){
 		takeMessage = true;
 	}
 	
@@ -245,7 +97,7 @@ public class ClientNetThread extends Thread{
 			double y = Double.parseDouble(Global.parsString(str,3));
 			double direction = Double.parseDouble(Global.parsString(str,4));
 			Global.enemy[emptySlot] = new Enemy(x,y,direction,name);
-			Global.clientSend.send10(name);
+			Global.tcpSend.send10(name);
 		}
 	}
 	
@@ -258,9 +110,9 @@ public class ClientNetThread extends Thread{
 		String name = Global.parsString(str,7);
 		long idNet = Integer.parseInt(Global.parsString(str,8));
 		switch (bullName){
-			case "main.player.bullet.DefaultBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_default,name,idNet)); break;
-			case "main.player.bullet.SteelBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_steel,name,idNet)); break;
-			case "main.player.bullet.MassBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_mass,name,idNet)); break;
+			case "tow.player.bullet.DefaultBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_default,name,idNet)); break;
+			case "tow.player.bullet.SteelBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_steel,name,idNet)); break;
+			case "tow.player.bullet.MassBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_mass,name,idNet)); break;
 		}
 	}
 	
@@ -299,14 +151,14 @@ public class ClientNetThread extends Thread{
 		}
 		
 		if (allDestroy){
-			Global.clientSend.send5();
-			stopThread();
+			Global.tcpSend.send5();
+			pauseThread();
 		}
 		
 	}
 	
 	public void take5(String str){//Перезагрузка карты
-		stopThread();
+		pauseThread();
 	}
 	
 	public void take9(String str){//Сервер вернул пинг
@@ -315,7 +167,7 @@ public class ClientNetThread extends Thread{
 	
 	public void take10(String str){//Враг запрашивает чьи-то данные
 		if (Global.parsString(str,2).equals(Global.name)){
-			Global.clientSend.send11();
+			Global.tcpSend.send11();
 		}
 	}
 	

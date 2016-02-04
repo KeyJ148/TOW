@@ -5,6 +5,10 @@ import java.util.Vector;
 
 import tow.login.LoginWindow;
 import tow.map.MapControl;
+import tow.net.TCPControl;
+import tow.net.TCPMapLoader;
+import tow.net.TCPRead;
+import tow.net.TCPSend;
 import tow.obj.ObjLight;
 import tow.player.enemy.EnemyBullet;
 import tow.setting.SettingStorage;
@@ -64,8 +68,15 @@ public class Game implements Runnable{
 		Global.mapControl = new MapControl();
 		Global.enemyBullet = new ArrayList<EnemyBullet>();
 		
+		Global.tcpControl = new TCPControl();
+		Global.tcpMapLoader = new TCPMapLoader();
+		Global.tcpSend = new TCPSend();
+		Global.tcpRead = new TCPRead();
+		
 		Global.initSprite();
-		Global.clientThread.initMap(this);
+		Global.tcpControl.connect();
+		Global.tcpMapLoader.initMap();
+		Global.tcpRead.start();
 		
 		if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) 
 			analyzer = new Analyzer();
@@ -96,7 +107,8 @@ public class Game implements Runnable{
 			Global.enemy[i] = null;
 		}
 		
-		Global.clientThread.initMap(this);
+		Global.tcpMapLoader.initMap();
+		Global.tcpRead.resumeThread();
 		
 		this.restart = false;
 		if (Global.setting.DEBUG_CONSOLE) System.out.println("Restart map end.");
@@ -106,7 +118,7 @@ public class Game implements Runnable{
 	public static void main (String args[]) {
 		Global.game = new Game();
 		Global.setting = new SettingStorage();
-		Global.setting.initFromFile();
+		Global.setting.init();
 		Global.initSpriteMenu();
 		new LoginWindow();
 	}

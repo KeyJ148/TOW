@@ -59,11 +59,11 @@ public class Analyzer {
 			pingMax = Global.pingCheck.pingMax();
 				
 			
-			send = Math.round(Global.clientSend.sizeData/1024);
-			load = Math.round(Global.clientThread.sizeData/1024);
-			Global.clientSend.sizeData = 0;
-			synchronized (Global.clientThread.sizeDataMonitor){
-				Global.clientThread.sizeData = 0;
+			send = Math.round(Global.tcpControl.sizeDataSend/1024);
+			load = Math.round(Global.tcpControl.sizeDataRead/1024);
+			Global.tcpControl.sizeDataSend = 0;
+			synchronized (Global.tcpControl.sizeDataReadMonitor){
+				Global.tcpControl.sizeDataRead = 0;
 			}
 		}
 				
@@ -75,7 +75,7 @@ public class Analyzer {
 		String strFPS1 =  "Player: " + (enemySize+1) + "/" + Global.peopleMax
 						+ "          Ping: " + ping + " (" + pingMin + "-" + pingMid + "-" + pingMax + ")"
 						+ "          Speed S/L: " + send + "/" + load + " kb/s";
-		String strFPS2 =   "FPS/TPS: " + loopsRender + "/" + loopsUpdate
+		String strFPS2 =   "FPS: " + loopsRender
 				+ "          Duration update/render: " + (durationUpdate/loopsUpdate/1000) + "/" + (durationRender/loopsRender/1000) + " mks"
 				+ "          Object: " + objSize;
 				

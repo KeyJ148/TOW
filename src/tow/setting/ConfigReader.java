@@ -25,10 +25,12 @@ public class ConfigReader {
 					break;
 				}
 				
-				varName = s.substring(0, s.indexOf(' '));
-				if (findName.equals(varName)){
-					fileReader.close();
-					return s.substring(s.indexOf('"')+1, s.lastIndexOf('"'));
+				if ((s.length() != 0) && (s.charAt(0) != '#')){
+					varName = s.substring(0, s.indexOf(' '));
+					if (findName.equals(varName)){
+						fileReader.close();
+						return s.substring(s.indexOf('"')+1, s.lastIndexOf('"'));
+					}
 				}
 				
 			}
