@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 import tow.Global;
 import tow.login.ConnectListener;
-import tow.server.GameServer;
+import tow.net.server.GameServer;
 
 public class LobbyWindow extends JFrame implements Runnable{
 	

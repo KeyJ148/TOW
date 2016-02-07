@@ -1,4 +1,4 @@
-package tow.server;
+package tow.net.server;
 
 public class CheckMapLoad extends Thread{
 	

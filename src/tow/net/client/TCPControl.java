@@ -1,4 +1,4 @@
-package tow.net;
+package tow.net.client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -20,8 +20,6 @@ public class TCPControl {
 	public Object sizeDataReadMonitor = new Object();//Нужен, т.к tcpReceive работает в отдельном потоке
 	
 	public void connect(){
-		initSettings();
-		
 		try{
 			@SuppressWarnings("resource")
 			Socket sock = new Socket(InetAddress.getByName(Global.ip), Global.port);
@@ -43,10 +41,6 @@ public class TCPControl {
 			Global.error("Connection failed");
 			System.exit(0);
 		}
-	}
-	
-	private void initSettings(){
-		
 	}
 	
 	public void send(String str){

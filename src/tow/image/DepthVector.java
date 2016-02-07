@@ -50,8 +50,8 @@ public class DepthVector {
 		Chunk chunk = getChunk(x, y);
 		int chunkPosX = chunk.getPosHeight();//Почему наоборот?
 		int chunkPosY = chunk.getPosWidth();//Магия
-		int rangeX = (int) Math.ceil((double) width/2/Global.mapControl.chunkSize);//В чанках
-		int rangeY = (int) Math.ceil((double) height/2/Global.mapControl.chunkSize);//В чанках
+		int rangeX = (int) Math.ceil((double) width/2/Global.mapControl.chunkSize)+1;//В чанках
+		int rangeY = (int) Math.ceil((double) height/2/Global.mapControl.chunkSize)+1;//В чанках
 		
 		for (int i=chunkPosX-rangeX; i<=chunkPosX+rangeX; i++)
 			for (int j=chunkPosY-rangeY; j<=chunkPosY+rangeY; j++)

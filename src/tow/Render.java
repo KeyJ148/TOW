@@ -69,9 +69,12 @@ public class Render extends Canvas{
 		//заливка фона
 		Image back = Global.background.getImage();
 		int dxf,dyf;
-		int size = 64;//Размер плитки с фоном
-		for (int dy = 0; dy<=Global.heightMap; dy+=size){
-			for (int dx = 0; dx<=Global.widthMap; dx+=size){
+		int size = back.getWidth(null);//Размер плитки с фоном
+		int startX = (int) ((Global.cameraX-Global.cameraXView) - (Global.cameraX-Global.cameraXView)%size);
+		int startY = (int) ((Global.cameraY-Global.cameraYView) - (Global.cameraY-Global.cameraYView)%size);
+		
+		for (int dy = startY; dy<=startY+getHeight()+size; dy+=size){
+			for (int dx = startX; dx<=startX+getWidth()+size; dx+=size){
 				dxf = (int) Math.round(Global.cameraXView - (Global.cameraX - dx));
 				dyf = (int) Math.round(Global.cameraYView - (Global.cameraY - dy));
 				g.drawImage(back,dxf,dyf,null);

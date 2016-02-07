@@ -1,4 +1,4 @@
-package tow.net;
+package tow.net.client;
 
 import tow.Global;
 

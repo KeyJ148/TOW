@@ -1,6 +1,6 @@
 package tow;
 
-import tow.net.Ping;
+import tow.net.client.Ping;
 
 public class Analyzer {
 	

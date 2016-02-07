@@ -1,4 +1,4 @@
-package tow.server;
+package tow.net.server;
 
 import java.awt.Point;
 import java.io.BufferedReader;

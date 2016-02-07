@@ -1,4 +1,4 @@
-package tow.net;
+package tow.net.client;
 
 import java.awt.Color;
 import java.util.ArrayList;

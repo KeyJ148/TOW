@@ -5,10 +5,10 @@ import java.util.Vector;
 
 import tow.login.LoginWindow;
 import tow.map.MapControl;
-import tow.net.TCPControl;
-import tow.net.TCPMapLoader;
-import tow.net.TCPRead;
-import tow.net.TCPSend;
+import tow.net.client.TCPControl;
+import tow.net.client.TCPMapLoader;
+import tow.net.client.TCPRead;
+import tow.net.client.TCPSend;
 import tow.obj.ObjLight;
 import tow.player.enemy.EnemyBullet;
 import tow.setting.SettingStorage;
