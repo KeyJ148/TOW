@@ -61,6 +61,7 @@ public class Game{
 			
 			if (restart) restart();
 		}
+		
 		System.exit(0);
 	}
 	
