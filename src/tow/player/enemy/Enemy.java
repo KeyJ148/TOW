@@ -54,11 +54,11 @@ public class Enemy extends Obj{
 	}
 	
 	public void setColorArmor(){
-		armor.getImage().setColor(c);
+		//armor.getImage().setColor(c);
 	}
 	
 	public void setColorGun(){
-		gun.getImage().setColor(c);
+		//gun.getImage().setColor(c);
 	}
 	
 	@Override

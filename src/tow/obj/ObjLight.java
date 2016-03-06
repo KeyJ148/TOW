@@ -1,7 +1,5 @@
 package tow.obj;
 
-import java.awt.Graphics2D;
-
 import tow.Global;
 import tow.image.Rendering;
 
@@ -22,12 +20,8 @@ public class ObjLight {
 	private long id; //уникальный номер
 	
 	public ObjLight(double x, double y, double directionDraw, int depth, Rendering image){
-		try{	
-			this.image = image.clone();
-			this.anim = image.isAnim();
-		} catch (CloneNotSupportedException e) {
-			Global.error("Failed with clone light object. Id = " + getId());
-		}
+		this.image = image;
+		this.anim = image.isAnim();
 		
 		this.x = x;
 		this.y = y;
@@ -39,12 +33,12 @@ public class ObjLight {
 		Global.addObj(this);
 	}
 	
-	public void draw(Graphics2D g){
+	public void draw(){
 		//для движения камеры
 		xView = Global.cameraXView - (Global.cameraX - x);
 		yView = Global.cameraYView - (Global.cameraY - y);
 	
-		image.draw(g,(int) Math.round(xView),(int) Math.round(yView), Math.toRadians(directionDraw));
+		image.draw((int) Math.round(xView),(int) Math.round(yView), Math.toRadians(directionDraw));
 	}
 	
 	public void update(long delta) {

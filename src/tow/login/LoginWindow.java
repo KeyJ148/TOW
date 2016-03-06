@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 
-import tow.Global;
 import tow.setting.ConfigReader;
 
 
@@ -31,9 +30,9 @@ public class LoginWindow extends JFrame{
 			g.drawLine(0,82,217, 82);
 			g.drawLine(0,164,217,164);
 			
-			Global.player_color.setDefaultImage();
-			Global.player_color.setColor(colorTank);
-			Global.player_color.draw(g, 292, 80);
+			//Global.player_color.setDefaultImage();
+			//Global.player_color.setColor(colorTank);
+			//Global.player_color.draw(g, 292, 80);
 		}
 	}
 	

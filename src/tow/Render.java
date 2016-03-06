@@ -1,23 +1,16 @@
 package tow;
 
-import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.GL11;
 
 import tow.image.Sprite;
 
-public class Render extends Canvas{
+public class Render{
 	
 	public ArrayList<Title> titleArray = new ArrayList<Title>();
 	public String strAnalysis1 = "";//Вывод отладочных данных
@@ -29,9 +22,11 @@ public class Render extends Canvas{
 	public int mouseWidth;
 	public int mouseHeight;
 	
-	private static final long serialVersionUID = 1L;
+	private int width = 1280;
+	private int height = 720;
 	
 	public void init(){
+		/*
 		//Отключение стнадартного курсора
 		Cursor noCursor = Toolkit.getDefaultToolkit().createCustomCursor((new ImageIcon(new byte[0])).getImage(), new Point(0,0), "noCursor");
 		setCursor(noCursor);
@@ -51,25 +46,40 @@ public class Render extends Canvas{
 				mouseY = e.getY();
 			}
 		});
+		*/
+		
+		try {
+            Display.setDisplayMode(new DisplayMode(width,height));
+            Display.create();
+            //Display.setVSyncEnabled(true);
+        } catch (LWJGLException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+ 
+        GL11.glEnable(GL11.GL_TEXTURE_2D);               
+         
+        GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);          
+         
+        // enable alpha blending
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+         
+        GL11.glViewport(0,0,width,height);
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+ 
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        GL11.glLoadIdentity();
+        GL11.glOrtho(0, width, height, 0, 1, -1);
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
 	}
 	
 	public void loop() {
-		//Включение двойной буферизации
-		BufferStrategy bs = getBufferStrategy(); 
-		if (bs == null) {
-			createBufferStrategy(2);
-			requestFocus();
-			return;
-		}
-        //Настройки окна
-		Graphics2D g = (Graphics2D) bs.getDrawGraphics();
-		g.setColor(new Color(24,116,0));
-		g.fillRect(0, 0, getWidth(), getHeight());
-		
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		/*
 		//заливка фона
-		Image back = Global.background.getImage();
 		int dxf,dyf;
-		int size = back.getWidth(null);//Размер плитки с фоном
+		int size = Global.background.getWidth();//Размер плитки с фоном
 		int startX = (int) ((Global.cameraX-Global.cameraXView) - (Global.cameraX-Global.cameraXView)%size);
 		int startY = (int) ((Global.cameraY-Global.cameraYView) - (Global.cameraY-Global.cameraYView)%size);
 		
@@ -77,36 +87,37 @@ public class Render extends Canvas{
 			for (int dx = startX; dx<=startX+getWidth()+size; dx+=size){
 				dxf = (int) Math.round(Global.cameraXView - (Global.cameraX - dx));
 				dyf = (int) Math.round(Global.cameraYView - (Global.cameraY - dy));
-				g.drawImage(back,dxf,dyf,null);
+				Global.background.draw(dxf,dyf,0);
 			}
 		}
-		
+		*/
 		//Отрисовка объектов
-		Global.mapControl.render((int) Global.cameraX, (int) Global.cameraY, getWidth(), getHeight(), g);
-		
+		Global.mapControl.render((int) Global.cameraX, (int) Global.cameraY, getWidth(), getHeight());
+		/*
 		//Отрисвока надписей
 		addTitle(1,getHeight()-15,strAnalysis1, Color.BLACK, 12, Font.BOLD);
 		addTitle(1,getHeight()-3,strAnalysis2, Color.BLACK, 12, Font.BOLD);
 		for (int i = 0; i < titleArray.size(); i++){
 			titleArray.get(i).draw(g);
 		}
-		
+		*/
 		//Отрисовка курсора
-		cursor.draw(g, mouseX-mouseWidth/2, mouseY-mouseHeight/2, 0.0);
+		//cursor.draw(g, mouseX-mouseWidth/2, mouseY-mouseHeight/2, 0.0);
 		
-		//Магия [ON]
-		g.dispose();
-		bs.show();
-		//Магия [OFF]
+		Display.update();
+		Display.sync(20000);
 	}
 	
-	@Override
 	public int getWidth(){
 		if (Global.setting.FULL_SCREEN){
-			return super.getWidth()-2;
+			return width-2;
 		} else {
-			return super.getWidth();
+			return width;
 		}
+	}
+	
+	public int getHeight(){
+		return height;
 	}
 	
 	public void clearTitle(){

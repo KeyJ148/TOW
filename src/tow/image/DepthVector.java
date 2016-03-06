@@ -1,6 +1,5 @@
 package tow.image;
 
-import java.awt.Graphics2D;
 import java.awt.Point;
 
 import tow.Global;
@@ -46,7 +45,7 @@ public class DepthVector {
 		}
 	}
 	
-	public void render(int x, int y, int width, int height, Graphics2D g){
+	public void render(int x, int y, int width, int height){
 		Chunk chunk = getChunk(x, y);
 		int chunkPosX = chunk.getPosHeight();//Почему наоборот?
 		int chunkPosY = chunk.getPosWidth();//Магия
@@ -56,7 +55,7 @@ public class DepthVector {
 		for (int i=chunkPosX-rangeX; i<=chunkPosX+rangeX; i++)
 			for (int j=chunkPosY-rangeY; j<=chunkPosY+rangeY; j++)
 				if ((i >= 0) && (i < Global.mapControl.numberWidth) && (j >= 0) && (j < Global.mapControl.numberHeight))
-					chunks[i][j].render(g);	
+					chunks[i][j].render();	
 	}
 	
 	private Chunk getChunk(int x, int y){

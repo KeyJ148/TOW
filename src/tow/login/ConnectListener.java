@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 
 import tow.Global;
-import tow.MainWindow;
 import tow.lobby.LobbyWindow;
 
 public class ConnectListener implements ActionListener {
@@ -32,7 +31,8 @@ public class ConnectListener implements ActionListener {
 	public void startGame(){
 		lbw.dispose();
 		saveData();
-		Global.mainFrame = new MainWindow();
+		//Global.mainFrame = new MainWindow();
+		Global.game.start();
 	}
 	
 	public void saveData(){

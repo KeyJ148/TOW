@@ -1,24 +1,24 @@
 package tow.image;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
+import org.newdawn.slick.util.ResourceLoader;
 
 import tow.Global;
 
-public class Animation implements Cloneable, Rendering{
-    private Image[] image;
+public class Animation implements Rendering{
+	
+    private Texture[] texture;
     private int frameNumber=0; //Кол-во кадров [1;inf)
     private int frameSpeed; //Кол-во кадров в секнду
     private int frameNow; //Номер текущего кадра [0;inf)
+    private int scale_x = 1;
+    private int scale_y = 1; 
     private long update; //Сколько прошло наносекунд с последней смены кадра
+    
     public String path;//путь к файлу, нужн для создания маски и консоли
     public Mask mask;
     
@@ -26,18 +26,16 @@ public class Animation implements Cloneable, Rendering{
 		this.path = path; //для создания маски и консоли
 		this.frameSpeed = frameSpeed;
 		this.frameNumber = frameNumber;
-		this.image = new Image[frameNumber];
+		this.texture = new Texture[frameNumber];
 		String urlStr;
 		//Загрузка изображений
 		for(int i=0;i<frameNumber;i++){
-			BufferedImage sourceImage = null;
 			urlStr = path + "/" + (i+1) + ".png";
 			try {
-				sourceImage = ImageIO.read(new File(urlStr));
+				texture[i] = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(urlStr));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			image[i] = Toolkit.getDefaultToolkit().createImage(sourceImage.getSource());
 		}
         
         this.update = 0;
@@ -73,19 +71,15 @@ public class Animation implements Cloneable, Rendering{
     }
     
     public int getWidth(int frame) {
-        return image[frame].getWidth(null);
+        return (int) texture[frame].getWidth();
     }
 
     public int getHeight(int frame) {
-        return image[frame].getHeight(null);
+        return (int) texture[frame].getHeight();
     }
     
     public Mask getMask(){
 		return mask;
-	}
-	
-	public Animation clone() throws CloneNotSupportedException {
-		return (Animation)super.clone();
 	}
     
     public void update(long delta) {
@@ -100,70 +94,31 @@ public class Animation implements Cloneable, Rendering{
 		}
 	}
     
-    public void draw(Graphics2D g,int x,int y,double direction) {
-    	direction-=Math.PI/2; //смещена начального угла с Востока на Север
-		AffineTransform at = new AffineTransform(); 
-		at.rotate(-direction,x+getWidth(frameNow)/2,y+getHeight(frameNow)/2); //Создание трансформа с поворотом
-        g.setTransform(at); //для поворота спрайта на direction
-        g.drawImage(image[frameNow], x, y, null);//для отрисовки спрайта нужен верхний левый угол
-    }
-    
-    public BufferedImage[] toBufferedImage(){
-    	BufferedImage[] bfArray= new BufferedImage[image.length]; 
-    	for (int i=0;i<image.length; i++){
-    		bfArray[i] = toBufferedImage(image[i]);
-    	}
-    	return bfArray;
-    }
-    
-    private BufferedImage toBufferedImage(Image img){
-        if (img instanceof BufferedImage)
-        {
-            return (BufferedImage) img;
-        }
-
-        BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-
-        Graphics2D bGr = bimage.createGraphics();
-        bGr.drawImage(img, 0, 0, null);
-        bGr.dispose();
-
-        return bimage;
-    }
-    
-    private BufferedImage setColorBufferedImage(BufferedImage image, Color setColor) {
-        int width = getWidth();
-        int height = getHeight();
-
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-            	
-                Color originalColor = new Color(image.getRGB(x, y), true);//true показывает необходимость передавать alpha-канал
-                int red = originalColor.getRed();
-                int green = originalColor.getGreen();
-                int blue = originalColor.getBlue();
-                int alpha = originalColor.getAlpha();
-                
-                int newRed = setColor.getRed() * red/255;
-                int newGreen = setColor.getGreen() * green/255;
-                int newBlue = setColor.getBlue() * blue/255;
-                Color newColor = new Color(newRed, newGreen, newBlue, alpha);
-                image.setRGB(x, y, newColor.getRGB());
-                
-            }
-        }
-        return image;
-    }
-    
-    public void setColor(Color c){
-    	Image[] newImage = new Image[image.length]; 
-    	BufferedImage bi;
-	    for (int i=0;i<image.length; i++){
-	    	bi = toBufferedImage(image[i]);
-	    	bi = setColorBufferedImage(bi, c);
-	    	newImage[i] = Toolkit.getDefaultToolkit().createImage(bi.getSource());
-	    }
-	    this.image = newImage;
+    public void draw(int x,int y,double direction) {
+    	direction -= Math.PI/2; //смещена начального угла с Востока на Север
+    	direction = Math.toDegrees(direction);
+    	
+    	int width=(int)(texture[frameNow].getImageWidth()*scale_x); 
+        int height=(int)(texture[frameNow].getImageHeight()*scale_y); 
+    	
+        GL11.glLoadIdentity();       
+	    GL11.glTranslatef(x+getWidth(frameNow)/2, y+getHeight(frameNow)/2, 0);
+	    GL11.glRotatef(Math.round(direction), 0f, 0f, 1f);
+	    GL11.glTranslatef(-getWidth()/2, -getHeight()/2, 0);
+	    
+	    org.newdawn.slick.Color.white.bind(); 
+	    texture[frameNow].bind();
+	    
+	    GL11.glBegin(GL11.GL_QUADS);
+		    GL11.glTexCoord2f(0,0); 
+		    GL11.glVertex2f(0,0); 
+		    GL11.glTexCoord2f(1,0); 
+		    GL11.glVertex2f(width, 0); 
+		    GL11.glTexCoord2f(1,1); 
+		    GL11.glVertex2f(width, height); 
+		    GL11.glTexCoord2f(0,1); 
+		    GL11.glVertex2f(0, height); 
+	    GL11.glEnd();
     }
 
 	public int getWidth() {
@@ -172,10 +127,6 @@ public class Animation implements Cloneable, Rendering{
 
 	public int getHeight() {
 		return getHeight(getFrameNow());
-	}
-
-	public Image getImage() {
-		return image[frameNow];
 	}
 	
 	public String getPath(){

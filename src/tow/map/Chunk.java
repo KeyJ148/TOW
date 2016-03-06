@@ -1,6 +1,5 @@
 package tow.map;
 
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import tow.Global;
@@ -38,11 +37,11 @@ public class Chunk {
 		return number.size();
 	}
 	
-	public void render(Graphics2D g){
+	public void render(){
 		for (int j=0; j<number.size(); j++){
 			if (Global.getObj(number.get(j)) != null){
 				ObjLight obj = (ObjLight) Global.getObj((long) number.get(j));
-				obj.draw(g);
+				obj.draw();
 			}
 		}
 	}

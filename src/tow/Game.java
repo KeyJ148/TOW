@@ -3,6 +3,8 @@ package tow;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import org.lwjgl.opengl.Display;
+
 import tow.login.LoginWindow;
 import tow.map.MapControl;
 import tow.net.client.TCPControl;
@@ -13,7 +15,7 @@ import tow.obj.ObjLight;
 import tow.player.enemy.EnemyBullet;
 import tow.setting.SettingStorage;
 
-public class Game implements Runnable{
+public class Game{
 
 	public Update update;
 	public Render render;
@@ -29,17 +31,18 @@ public class Game implements Runnable{
 	
 	public void start() {
 		running = true;
-		new Thread(this).start();
 	}
 	
 	public void run(){
+		while(!running) try {Thread.sleep(50);} catch (InterruptedException e) {}
+		
 		init();
 		
 		long nextLoop = System.currentTimeMillis();//Для цикла
 		long lastUpdate = System.nanoTime();//Для update
 		long startUpdate, startRender;//Для анализатора
 		
-		while(running){
+		while(!Display.isCloseRequested()){
 			if (System.currentTimeMillis() >= nextLoop){
 				nextLoop = System.currentTimeMillis() + 1000/Global.setting.MAX_FPS;
 				
@@ -58,6 +61,7 @@ public class Game implements Runnable{
 			
 			if (restart) restart();
 		}
+		System.exit(0);
 	}
 	
 	//инициализация перед запуском
@@ -80,8 +84,6 @@ public class Game implements Runnable{
 		
 		if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) 
 			analyzer = new Analyzer();
-		
-		render.init();
 		
 		if (Global.setting.DEBUG_CONSOLE) System.out.println("Inicialization end.");
 	}
@@ -117,9 +119,12 @@ public class Game implements Runnable{
 	//Создание окна логина и запуск игры
 	public static void main (String args[]) {
 		Global.game = new Game();
+		
+		Global.game.render.init();
 		Global.setting = new SettingStorage();
 		Global.setting.init();
 		Global.initSpriteMenu();
 		new LoginWindow();
+		Global.game.run();
 	}
 }

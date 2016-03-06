@@ -2,12 +2,6 @@ package tow.player;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.util.Random;
 import java.util.Vector;
 
@@ -46,7 +40,7 @@ public class Player extends Obj{
 		this.armor = new DefaultArmor(this);
 		this.gun = new DefaultGun(this);
 		setColor();
-		
+		/*
 		Global.game.render.addKeyListener(new KeyAdapter(){
 			public void keyPressed(KeyEvent e){
 				if (armor.getControlMotion()){
@@ -156,6 +150,7 @@ public class Player extends Obj{
 				}
 			}
 		});
+		*/
 	}
 	
 	public String getData(){
@@ -182,11 +177,11 @@ public class Player extends Obj{
 	}
 	
 	public void setColorArmor(){
-		armor.getImage().setColor(Global.color);
+		//armor.getImage().setColor(Global.color);
 	}
 	
 	public void setColorGun(){
-		gun.getImage().setColor(Global.color);
+		//gun.getImage().setColor(Global.color);
 	}
 	
 	public void newEquipment(int typeBox){

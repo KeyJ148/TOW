@@ -15,7 +15,7 @@ public class MainWindow extends JFrame{
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
-		add(Global.game.render, BorderLayout.CENTER);
+		//add(Global.game.render, BorderLayout.CENTER);
 		
 		if (Global.setting.FULL_SCREEN){
 			setResizable(false);

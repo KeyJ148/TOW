@@ -59,9 +59,9 @@ public class GameServer {
 		BufferedReader bReader = new BufferedReader (new InputStreamReader(System.in));
 		String str;
 		
-		Global.setting = new SettingStorage();
-		Global.setting.init();
-		Global.initSprite();
+		//Global.setting = new SettingStorage();
+		//Global.setting.init();
+		//Global.initSprite();
 		if (args.length > 0){
 			port = Integer.parseInt(args[0]);
 		} else {

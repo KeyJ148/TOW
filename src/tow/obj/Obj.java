@@ -1,7 +1,5 @@
 package tow.obj;
 
-import java.awt.Graphics2D;
-
 import tow.Global;
 import tow.image.Animation;
 import tow.image.Mask;
@@ -38,7 +36,7 @@ public class Obj extends ObjLight{
 		if (Global.setting.DEBUG_CONSOLE_OBJECT) System.out.println("Object \"" + image.getPath() + "\" create. Id = " + getId());
 	}
 
-	public void draw(Graphics2D g){
+	public void draw(){
 		//для отрисовки объекта с поворотом на direction
 		directionDrawEqulas();
 		
@@ -46,8 +44,8 @@ public class Obj extends ObjLight{
 		xView = Global.cameraXView - (Global.cameraX - x);
 		yView = Global.cameraYView - (Global.cameraY - y);
 	
-		image.draw(g,(int) Math.round(xView),(int) Math.round(yView), Math.toRadians(directionDraw));
-		if (Global.setting.MASK_DRAW) mask.draw(g);
+		image.draw((int) Math.round(xView),(int) Math.round(yView), Math.toRadians(directionDraw));
+		//if (Global.setting.MASK_DRAW) mask.draw();
 	}
 	
 	public void update(long delta) {

@@ -1,6 +1,5 @@
 package tow.map;
 
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import tow.Global;
@@ -78,9 +77,9 @@ public class MapControl {
 		}
 	}
 	
-	public void render(int x, int y, int width, int height, Graphics2D g){
+	public void render(int x, int y, int width, int height){
 		for (int i=0; i<depthVectors.size(); i++)
-			depthVectors.get(i).render(x, y, width, height, g);
+			depthVectors.get(i).render(x, y, width, height);
 			
 	}
 }
