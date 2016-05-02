@@ -45,7 +45,7 @@ public class Obj extends ObjLight{
 		yView = Global.cameraYView - (Global.cameraY - y);
 	
 		image.draw((int) Math.round(xView),(int) Math.round(yView), Math.toRadians(directionDraw));
-		//if (Global.setting.MASK_DRAW) mask.draw();
+		if (Global.setting.MASK_DRAW) mask.draw();
 	}
 	
 	public void update(long delta) {
@@ -100,14 +100,6 @@ public class Obj extends ObjLight{
 	 * 
 	 */
 	
-	public void setXcenter(double x){
-		this.x=x-this.mask.width/2;
-	}
-	
-	public void setYcenter(double y){
-		this.y=y-this.mask.height/2;
-	}
-	
 	public void setXView(double xView){
 		this.xView = xView;
 	}
@@ -127,24 +119,6 @@ public class Obj extends ObjLight{
 	public void setCollObj(String[] collObj){
 		this.collObj = collObj;
 		this.collHave = true;
-	}
-	
-	
-	
-	public double getXcenter(){
-		return x+this.mask.width/2;
-	}
-	
-	public double getYcenter(){
-		return y+this.mask.height/2;
-	}
-	
-	public double getXViewCenter(){
-		return xView+this.mask.width/2;
-	}
-	
-	public double getYViewCenter(){
-		return yView+this.mask.height/2;
 	}
 	
 	public double getDirection(){

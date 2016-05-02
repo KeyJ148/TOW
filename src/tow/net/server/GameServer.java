@@ -15,7 +15,6 @@ import java.util.Random;
 
 import tow.Global;
 import tow.lobby.LobbyWindow;
-import tow.setting.SettingStorage;
 
 public class GameServer {
 	

@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.util.Random;
 import java.util.Vector;
 
+import org.lwjgl.input.Keyboard;
+
 import tow.Global;
 import tow.obj.Obj;
 import tow.player.armor.DefaultArmor;
@@ -18,15 +20,10 @@ import tow.setting.ConfigReader;
 
 public class Player extends Obj{
 	
-	public int mouseX = 0;
-	public int mouseY = 0;
-	
 	public boolean takeArmor = true;//Разрешение на подбор определённого ящика
 	public boolean takeGun = true;
 	public boolean takeBullet = true;
 	public boolean takeHealth = true;
-	
-	private boolean controlAtack = true;//можно ли стрелять из танка
 	
 	private long lastSend = 0;//Время с последней отправки
 	
@@ -40,117 +37,105 @@ public class Player extends Obj{
 		this.armor = new DefaultArmor(this);
 		this.gun = new DefaultGun(this);
 		setColor();
-		/*
-		Global.game.render.addKeyListener(new KeyAdapter(){
-			public void keyPressed(KeyEvent e){
+	}
+	
+	//Обработка потока ввода
+	@Override
+	public void updateChildMid(long delta){
+		for (int i=0; i<Global.keyboardHandler.bufferState.size(); i++){
+			if (Global.keyboardHandler.bufferState.get(i)){
 				if (armor.getControlMotion()){
-					if (e.getKeyCode() == KeyEvent.VK_W){
-						armor.setSpeed(armor.getSpeedTankUp());
-						armor.setRunUp(true);
-						armor.setRunDown(false);
-					}
-					if (e.getKeyCode() == KeyEvent.VK_A){
-						armor.setTurnLeft(true);
-						armor.setTurnRight(false);
-					}
-					if (e.getKeyCode() == KeyEvent.VK_D){
-						armor.setTurnRight(true);
-						armor.setTurnLeft(false);
-					}
-					if (e.getKeyCode() == KeyEvent.VK_S){
-						armor.setSpeed(armor.getSpeedTankDown());
-						armor.setRunDown(true);
-						armor.setRunUp(false);
+					switch (Global.keyboardHandler.bufferKey.get(i)){
+						case Keyboard.KEY_W: 
+							armor.setSpeed(armor.getSpeedTankUp());
+							armor.setRunUp(true);
+							armor.setRunDown(false);
+						break;
+						case Keyboard.KEY_A: 
+							armor.setTurnLeft(true);
+							armor.setTurnRight(false);
+						break;
+						case Keyboard.KEY_D: 
+							armor.setTurnRight(true);
+							armor.setTurnLeft(false);
+						break;
+						case Keyboard.KEY_S: 
+							armor.setSpeed(armor.getSpeedTankDown());
+							armor.setRunDown(true);
+							armor.setRunUp(false);
+						break;
 					}
 				}
 				
 				//Клавиши запрета и разрешения на подбор ящиков
-				if (e.getKeyCode() == KeyEvent.VK_1){
-					if (takeArmor){
-						takeArmor = false;
-					} else {
-						takeArmor = true;
-					}
+				switch (Global.keyboardHandler.bufferKey.get(i)){
+					case Keyboard.KEY_1:
+						if (takeArmor){
+							takeArmor = false;
+						} else {
+							takeArmor = true;
+						}
+					break;
+					case Keyboard.KEY_2:
+						if (takeGun){
+							takeGun = false;
+						} else {
+							takeGun = true;
+						}
+					break;
+					case Keyboard.KEY_3:
+						if (takeBullet){
+							takeBullet = false;
+						} else {
+							takeBullet = true;
+						}
+					break;
+					case Keyboard.KEY_4:
+						if (takeHealth){
+							takeHealth = false;
+						} else {
+							takeHealth = true;
+						}
+					break;
 				}
-				if (e.getKeyCode() == KeyEvent.VK_2){
-					if (takeGun){
-						takeGun = false;
-					} else {
-						takeGun = true;
-					}
-				}
-				if (e.getKeyCode() == KeyEvent.VK_3){
-					if (takeBullet){
-						takeBullet = false;
-					} else {
-						takeBullet = true;
-					}
-				}
-				if (e.getKeyCode() == KeyEvent.VK_4){
-					if (takeHealth){
-						takeHealth = false;
-					} else {
-						takeHealth = true;
-					}
-				}
-			}
-			public void keyReleased(KeyEvent e){
+			} else {
 				if (armor.getControlMotion()){
-					if (e.getKeyCode() == KeyEvent.VK_W){
-						if (armor.getSpeed() > 0) armor.setSpeed(0.0);//Условие для ситации: W press; S press; W release;
-						armor.setRunUp(false);
-					}
-					if (e.getKeyCode() == KeyEvent.VK_A){
-						armor.setTurnLeft(false);
-					}
-					if (e.getKeyCode() == KeyEvent.VK_D){
-						armor.setTurnRight(false);
-					}
-					if (e.getKeyCode() == KeyEvent.VK_S){
-						if (armor.getSpeed() < 0) armor.setSpeed(0.0);
-						armor.setRunDown(false);
-					}
-				}
-			}
-		});
-
-		Global.game.render.addMouseListener(new MouseAdapter(){
-			public void mousePressed(MouseEvent e){
-				if (controlAtack){
-					if (e.getModifiers() == InputEvent.BUTTON1_MASK){
-						gun.mousePress((byte) 1);
-					}
-					if (e.getModifiers() == InputEvent.BUTTON3_MASK){
-						gun.mousePress((byte) 2);
+					switch (Global.keyboardHandler.bufferKey.get(i)){
+						case Keyboard.KEY_W: 
+							if (armor.getSpeed() > 0) armor.setSpeed(0.0);//Условие для ситации: W press; S press; W release;
+							armor.setRunUp(false);
+						break;
+						case Keyboard.KEY_A: 
+							armor.setTurnLeft(false);
+						break;
+						case Keyboard.KEY_D: 
+							armor.setTurnRight(false);
+						break;
+						case Keyboard.KEY_S: 
+							if (armor.getSpeed() < 0) armor.setSpeed(0.0);
+							armor.setRunDown(false);
+						break;
 					}
 				}
 			}
-			public void mouseReleased(MouseEvent e){
-				if (e.getModifiers() == InputEvent.BUTTON1_MASK){
-					gun.mouseReleas((byte) 1);
-				}
-				if (e.getModifiers() == InputEvent.BUTTON3_MASK){
-					gun.mouseReleas((byte) 2);
-				}
-			}
-		});
-
-		Global.game.render.addMouseMotionListener(new MouseMotionAdapter(){
-			public void mouseMoved(MouseEvent e){
-				if (armor.getControlMotionMouse()){
-					mouseX = e.getX();
-					mouseY = e.getY();
-				}
-			}
-			
-			public void mouseDragged(MouseEvent e){
-				if (armor.getControlMotionMouse()){
-					mouseX = e.getX();
-					mouseY = e.getY();
-				}
-			}
-		});
-		*/
+		}
+	}
+	
+	@Override
+	public void updateChildFinal(long delta){
+		//Отрисовка ника и хп
+		int nameX = (int) Math.round(getXView()-Global.name.length()*3.25); // lengthChar/2
+		int nameY = (int) getYView()-50;
+		Global.game.render.addTitle(nameX, nameY, Global.name);
+		
+		Global.game.render.addTitle(1, 16, "HP: " +  Math.round(getArmor().getHp()) + "/" + Math.round(getArmor().getHpMax()), Color.BLACK, 20, Font.BOLD);
+		
+		//Отправка данных о игроке
+		lastSend += delta;
+		if (lastSend > Global.setting.SEND_MILLIS*1000000){
+			lastSend = 0;
+			Global.tcpSend.send0(getData());
+		}
 	}
 	
 	public String getData(){
@@ -285,23 +270,6 @@ public class Player extends Obj{
 		bullet = newBullet;
 	}
 	
-	@Override
-	public void updateChildFinal(long delta){
-		//Отрисовка ника и хп
-		int nameX = (int) Math.round(getXViewCenter()-Global.name.length()*3.25); // lengthChar/2
-		int nameY = (int) getYViewCenter()-50;
-		Global.game.render.addTitle(nameX, nameY, Global.name);
-		
-		Global.game.render.addTitle(1, 16, "HP: " +  Math.round(getArmor().getHp()) + "/" + Math.round(getArmor().getHpMax()), Color.BLACK, 20, Font.BOLD);
-		
-		//Отправка данных о игроке
-		lastSend += delta;
-		if (lastSend > Global.setting.SEND_MILLIS*1000000){
-			lastSend = 0;
-			Global.tcpSend.send0(getData());
-		}
-	}
-	
 	public String[] parseAllow(String allowString){
 		Vector<String> allowVector = new Vector<String>();
 		
@@ -342,17 +310,5 @@ public class Player extends Obj{
 
 	public void setArmor(Armor armor) {
 		this.armor = armor;
-	}
-	
-	public boolean getControlAtack(){
-		return controlAtack;
-	}
-	
-	public int getMouseX(){
-		return mouseX;
-	}
-	
-	public int getMouseY(){
-		return mouseY;
 	}
 }

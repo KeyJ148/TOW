@@ -8,60 +8,29 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 
-import tow.image.Sprite;
-
 public class Render{
 	
 	public ArrayList<Title> titleArray = new ArrayList<Title>();
 	public String strAnalysis1 = "";//Вывод отладочных данных
 	public String strAnalysis2 = "";
 	
-	public Sprite cursor;
-	public int mouseX;
-	public int mouseY;
-	public int mouseWidth;
-	public int mouseHeight;
-	
 	private int width = 1280;
 	private int height = 720;
 	
 	public void init(){
-		/*
-		//Отключение стнадартного курсора
-		Cursor noCursor = Toolkit.getDefaultToolkit().createCustomCursor((new ImageIcon(new byte[0])).getImage(), new Point(0,0), "noCursor");
-		setCursor(noCursor);
-		
-		//Добавление своего курсора
-		cursor = Global.cursor_aim;
-		mouseWidth = cursor.getWidth();
-		mouseHeight = cursor.getHeight();
-		addMouseMotionListener(new MouseMotionAdapter(){
-			public void mouseMoved(MouseEvent e){
-				mouseX = e.getX();
-				mouseY = e.getY();
-			}
-			
-			public void mouseDragged(MouseEvent e){
-				mouseX = e.getX();
-				mouseY = e.getY();
-			}
-		});
-		*/
-		
 		try {
             Display.setDisplayMode(new DisplayMode(width,height));
             Display.create();
-            //Display.setVSyncEnabled(true);
+            Display.setVSyncEnabled(true);
         } catch (LWJGLException e) {
             e.printStackTrace();
             System.exit(0);
         }
- 
-        GL11.glEnable(GL11.GL_TEXTURE_2D);               
-         
+		 
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);          
-         
-        // enable alpha blending
+        
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
          
@@ -75,8 +44,8 @@ public class Render{
 	}
 	
 	public void loop() {
-		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		/*
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+		
 		//заливка фона
 		int dxf,dyf;
 		int size = Global.background.getWidth();//Размер плитки с фоном
@@ -90,9 +59,10 @@ public class Render{
 				Global.background.draw(dxf,dyf,0);
 			}
 		}
-		*/
+		
 		//Отрисовка объектов
 		Global.mapControl.render((int) Global.cameraX, (int) Global.cameraY, getWidth(), getHeight());
+		
 		/*
 		//Отрисвока надписей
 		addTitle(1,getHeight()-15,strAnalysis1, Color.BLACK, 12, Font.BOLD);
@@ -101,19 +71,20 @@ public class Render{
 			titleArray.get(i).draw(g);
 		}
 		*/
-		//Отрисовка курсора
-		//cursor.draw(g, mouseX-mouseWidth/2, mouseY-mouseHeight/2, 0.0);
+		
+		//Считывание потока ввода
+		Global.mouseHandler.update();
+		Global.keyboardHandler.update();
+		
+		//Отрисовка мыши
+		Global.mouseHandler.draw();
 		
 		Display.update();
-		Display.sync(20000);
+		Display.sync(60);
 	}
 	
 	public int getWidth(){
-		if (Global.setting.FULL_SCREEN){
-			return width-2;
-		} else {
-			return width;
-		}
+		return width;
 	}
 	
 	public int getHeight(){

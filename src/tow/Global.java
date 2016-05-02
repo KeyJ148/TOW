@@ -27,6 +27,8 @@ public class Global {
 	
 	public static Game game; //Главный игровой поток
 	public static JFrame mainFrame;//Главное окно
+	public static MouseHandler mouseHandler;//Обработик мыши
+	public static KeyboardHandler keyboardHandler;//Обработик клавиатуры
 	
 	public static Vector<ObjLight> obj; //Массив со всеми объектами
 	public static MapControl mapControl; //Массив со всеми чанками и объектами
@@ -110,7 +112,6 @@ public class Global {
 	
 	public static Sprite error;
 	public static Sprite player_sys;
-	public static Sprite player_color;
 	public static Sprite cursor_aim;
 	
 	public static Sprite box_armor;
@@ -153,7 +154,6 @@ public class Global {
 		Global.biggun = new Sprite(pathImage + "Gun/massgun.png");
 		Global.powergun = new Sprite(pathImage + "Gun/powergun.png");
 		
-		Global.player_color = new Sprite(pathImage + "Sys/player_color.png");
 		Global.player_sys = new Sprite(pathImage + "Sys/player_sys.png");
 		Global.error = new Sprite(pathImage + "Sys/error.png");
 		Global.cursor_aim = new Sprite(pathImage + "Sys/cursor_aim.png");
@@ -189,11 +189,6 @@ public class Global {
 		Global.c_elephant = new Animation(pathAnim + "Corps/Elephant",0,1);
 	}
 	
-	//Загрузка спрайтов для меню
-	public static void initSpriteMenu(){
-		Global.player_color = new Sprite(pathImage + "Sys/player_color.png");
-	}
-	
 	//Получение ссылки на спрайт из строки
 	public static Sprite getSprite(String s){
 		switch(s){
@@ -219,8 +214,6 @@ public class Global {
 			case "road_a_g": return Global.road_a_g;
 			case "road_a_fork": return Global.road_a_fork;
 			case "road_a_inter_big": return Global.road_a_inter_big;
-			
-			case "player_color": return Global.player_color;
 			
 			case "b_default": return Global.b_default;
 			case "b_steel": return Global.b_steel;

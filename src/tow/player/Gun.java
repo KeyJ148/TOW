@@ -1,5 +1,6 @@
 package tow.player;
 
+import tow.Global;
 import tow.image.Sprite;
 import tow.obj.Obj;
 import tow.player.bullet.DefaultBullet;
@@ -31,9 +32,6 @@ public class Gun extends Obj{
 	private long nanoSecFromAttack1 = 0;//технические(стартовые)
 	private long nanoSecFromAttack2 = 0;//Кол-во времени до конца перезарядки в наносекундах
 	
-	private boolean mousePress1 = false; //технические(зажатие мыши)
-	private boolean mousePress2 = false;
-	
 	public Gun(Player player, Sprite sprite){
 		super(player.getX()-sprite.getWidth()/2,player.getY()-sprite.getHeight()/2,0.0,player.getDirection(),-1,false,sprite);
 		this.player = player;
@@ -41,14 +39,14 @@ public class Gun extends Obj{
 	}
 	
 	public void attack1(){
-		if ((nanoSecFromAttack1 <= 0) && (attackSpeed1 > 0) && (player.getControlAtack())){
+		if ((nanoSecFromAttack1 <= 0) && (attackSpeed1 > 0)){
 			switchBullet(player.getBullet(), trunk1X, trunk1Y, damage1);
 			nanoSecFromAttack1 = (long) ((double) 1/attackSpeed1*1000*1000*1000);
 		}
 	}
 	
 	public void attack2(){
-		if ((nanoSecFromAttack2 <= 0) && (attackSpeed2 > 0) && (player.getControlAtack())){
+		if ((nanoSecFromAttack2 <= 0) && (attackSpeed2 > 0)){
 			switchBullet(player.getBullet(), trunk2X, trunk2Y, damage2);
 			nanoSecFromAttack2 = (long) ((double) 1/attackSpeed2*1000*1000*1000);
 		}
@@ -60,20 +58,20 @@ public class Gun extends Obj{
 		double trunkYdx = trunkY*Math.cos(Math.toRadians(player.getGun().getDirection())-Math.PI);//потому что изначально у теустуры измененное направление
 		double trunkYdy = trunkY*Math.sin(Math.toRadians(player.getGun().getDirection())-Math.PI);//второй отступ "вбок"
 		switch(bullet){
-			case "DefaultBullet": new DefaultBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
-			case "SteelBullet": new SteelBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
-			case "MassBullet": new MassBullet(this.player,player.getXcenter()+trunkXdx+trunkYdx,player.getYcenter()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
+			case "DefaultBullet": new DefaultBullet(this.player,player.getX()+trunkXdx+trunkYdx,player.getY()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
+			case "SteelBullet": new SteelBullet(this.player,player.getX()+trunkXdx+trunkYdx,player.getY()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
+			case "MassBullet": new MassBullet(this.player,player.getX()+trunkXdx+trunkYdx,player.getY()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
 		}
 	}
 	
 	@Override
 	public void updateChildMid(long delta){
 		//поворот дула (много костылей)
-		double pointDir = -Math.toDegrees(Math.atan((getYViewCenter()-player.getMouseY())/(getXViewCenter()-player.getMouseX())));
+		double pointDir = -Math.toDegrees(Math.atan((getYView()-Global.mouseHandler.mouseY)/(getXView()-Global.mouseHandler.mouseX)));
 		double trunkUp = ((double) delta/1000000000)*(getDirectionGunUp()+player.getArmor().getDirectionGunUp());
-		if ((getXViewCenter()-player.getMouseX())>0){
+		if ((getXView()-Global.mouseHandler.mouseX)>0){
 			pointDir+=180;
-		} else if ((getYViewCenter()-player.getMouseY())<0){
+		} else if ((getYView()-Global.mouseHandler.mouseY)<0){
 			pointDir+=360;
 		}
 		
@@ -98,25 +96,11 @@ public class Gun extends Obj{
 		//Выстрел
 		nanoSecFromAttack1 -= delta;
 		nanoSecFromAttack2 -= delta;
-		if (mousePress1){
+		if (Global.mouseHandler.mouseDown1){
 			attack1();
 		}
-		if (mousePress2){
+		if (Global.mouseHandler.mouseDown2){
 			attack2();
-		}
-	}
-	
-	public void mousePress(byte gun){
-		switch(gun){
-			case 1: mousePress1 = true; break;
-			case 2: mousePress2 = true; break;
-		}
-	}
-	
-	public void mouseReleas(byte gun){
-		switch(gun){
-			case 1: mousePress1 = false; break;
-			case 2: mousePress2 = false; break;
 		}
 	}
 	

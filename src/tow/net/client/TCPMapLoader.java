@@ -30,7 +30,7 @@ public class TCPMapLoader {
 		if (Global.setting.DEBUG_CONSOLE) System.out.println("Download map size complite.");
 		Global.widthMap = Integer.parseInt(Global.parsString(s,1));
 		Global.heightMap = Integer.parseInt(Global.parsString(s,2));
-		//Global.background = new Sprite("res/image/Background/" + Global.parsString(s,3) + ".png");
+		Global.background = new Sprite("res/image/Background/" + Global.parsString(s,3) + ".png");
 		Global.mapControl.init(Global.widthMap, Global.heightMap);
 		
 		//Загрузка объектов

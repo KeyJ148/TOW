@@ -1,16 +1,16 @@
 package tow.image;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.geom.AffineTransform;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
+
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
 
 import tow.Global;
 import tow.obj.Obj;
@@ -124,7 +124,7 @@ public class Mask implements Cloneable{
 		double yCenter = y + this.height/2;
 		double gipMe = Math.sqrt(sqr(height) + sqr(width)); //Гипотенуза объекта
 		double gipOther = Math.sqrt(sqr(obj.getImage().getHeight()) + sqr(obj.getImage().getWidth())); //Гипотинуза объекта, с которым сравниваем
-		double disMeToOther = Math.sqrt(sqr(xCenter-obj.getXcenter())+sqr(yCenter-obj.getYcenter())); //Расстояние от центра до центра
+		double disMeToOther = Math.sqrt(sqr(xCenter-obj.getX())+sqr(yCenter-obj.getY())); //Расстояние от центра до центра
 		
 		if (disMeToOther > gipMe/2 + gipOther/2 + 30){//Если до объекта слишком далеко
 			return false;
@@ -186,10 +186,7 @@ public class Mask implements Cloneable{
 		}
 	}
 	
-	public void draw(Graphics2D g){
-		AffineTransform at = new AffineTransform(); 
-		g.setTransform(at);
-		g.setColor(new Color(0,0,255));
+	public void draw(){
 		int maskXDrawView[] = new int[maskXDraw.length];
 		int maskYDrawView[] = new int[maskYDraw.length];
 		double xd,yd;
@@ -199,10 +196,32 @@ public class Mask implements Cloneable{
 			maskXDrawView[i] = (int) xd;
 			maskYDrawView[i] = (int) yd;
 		}
-		g.drawPolygon(maskXDrawView,maskYDrawView,maskXDrawView.length);
 		
+		GL11.glLoadIdentity();     
+	    GL11.glTranslatef(0, 0, 0);
+	    
+	    Color.blue.bind();
+	    
+	    GL11.glBegin(GL11.GL_LINE_LOOP);
+	    	for (int i=0; i<maskXDrawView.length;i++)
+	    		GL11.glVertex2f(maskXDrawView[i], maskYDrawView[i]); 
+	    GL11.glEnd();
+	    
 		if (bullet){
-			g.drawRect((int) (Global.cameraXView - (Global.cameraX - (collX-10))), (int) (Global.cameraYView - (Global.cameraY - (collY-10))), 20, 20);
+			int x = (int) (Global.cameraXView - (Global.cameraX - (collX-10)));
+			int y = (int) (Global.cameraYView - (Global.cameraY - (collY-10)));
+			int w = 20;
+			int h = 20;
+			GL11.glBegin(GL11.GL_QUADS);
+			   GL11.glTexCoord2f(0,0); 
+			   GL11.glVertex2f(x, y); 
+			   GL11.glTexCoord2f(1,0); 
+			   GL11.glVertex2f(x+w, y); 
+			   GL11.glTexCoord2f(1,1); 
+			   GL11.glVertex2f(x+w, y+h); 
+			   GL11.glTexCoord2f(0,1); 
+			   GL11.glVertex2f(x, y+h); 
+		   GL11.glEnd();
 		}
 	}
 	
@@ -251,7 +270,7 @@ public class Mask implements Cloneable{
 		double yCenter = startY + this.height/2;
 		double gipMe = Math.sqrt(sqr(height) + sqr(width)); //Гипотенуза объекта
 		double gipOther = Math.sqrt(sqr(obj.getImage().getHeight()) + sqr(obj.getImage().getWidth())); //Гипотинуза объекта, с которым сравниваем
-		double disMeToOther = Math.sqrt(sqr(xCenter-obj.getXcenter()) + sqr(yCenter-obj.getYcenter())); //Расстояние от центра до центра
+		double disMeToOther = Math.sqrt(sqr(xCenter-obj.getX()) + sqr(yCenter-obj.getY())); //Расстояние от центра до центра
 		
 		if (disMeToOther < gipOther/2+gipMe+30){//Если пушка находится внутри дома
 			bullet = false;
@@ -262,8 +281,8 @@ public class Mask implements Cloneable{
 			}
 			k = Math.tan(Math.toRadians(directionDraw));
 			b = -(startY+k*startX);
-			x0 = obj.getXcenter();
-			y0 = -obj.getYcenter();
+			x0 = obj.getX();
+			y0 = -obj.getY();
 			r = gipOther/2;
 			
 			double aSqr, bSqr, cSqr, D;//Дискрименант и члены квадратного уровнения

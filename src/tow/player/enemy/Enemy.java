@@ -65,8 +65,8 @@ public class Enemy extends Obj{
 	public void updateChildFinal(long delta){
 		dragIn();
 		try{
-			int nameX = (int) Math.round(getXViewCenter()-name.length()*3.25); // lengthChar/2
-			int nameY = (int) getYViewCenter()-50;
+			int nameX = (int) Math.round(getXView()-name.length()*3.25); // lengthChar/2
+			int nameY = (int) getYView()-50;
 			
 			Global.game.render.addTitle(nameX, nameY, name);
 		} catch(NullPointerException e){
@@ -107,12 +107,12 @@ public class Enemy extends Obj{
 	
 	public void dragIn(){
 		try{
-			armor.setXcenter(getXcenter());
-			armor.setYcenter(getYcenter());
+			armor.setX(getX());
+			armor.setY(getY());
 			armor.setDirection(getDirection());
 			Global.mapControl.update(armor);//Необходимо делать после перемещения объекта
-			gun.setXcenter(getXcenter());
-			gun.setYcenter(getYcenter());
+			gun.setX(getX());
+			gun.setY(getY());
 			Global.mapControl.update(gun);//Уже прописано в obj.update, но на всякий
 		} catch(NullPointerException e){
 			p("[ERROR] DragIn to enemy");

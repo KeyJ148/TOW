@@ -22,7 +22,6 @@ public class Armor extends Obj {
 	public boolean turnRight = false;
 	public boolean turnLeft = false;
 	public boolean controlMotion = true; //можно ли управл€ть танком
-	public boolean controlMotionMouse = true; //можно ли управл€ть дулом
 	public boolean runUp = false;//дл€ столковений
 	public boolean runDown = false;
 	private boolean recoil = false;// в данынй момент танк отлетает от противника в рез. столкновени€
@@ -149,11 +148,11 @@ public class Armor extends Obj {
 	@Override
 	public void updateChildFinal(long delta){//¬ финал, чтобы пушка не отставала от такна
 		//следование player и пушки за броней
-		player.setXcenter(getXcenter());
-		player.setYcenter(getYcenter());
+		player.setX(getX());
+		player.setY(getY());
 		Global.mapControl.update(player);//Ќеобходимо делать после перемещени€ объекта
-		player.getGun().setXcenter(getXcenter());
-		player.getGun().setYcenter(getYcenter());
+		player.getGun().setX(getX());
+		player.getGun().setY(getY());
 		Global.mapControl.update(player.getGun());//”же прописано в obj.update, но на вс€кий
 	}
 	
@@ -265,7 +264,7 @@ public class Armor extends Obj {
 		return controlMotion;
 	}
 	
-	public boolean getControlMotionMouse(){
+	/*public boolean getControlMotionMouse(){
 		return controlMotionMouse;
-	}
+	}*/
 }

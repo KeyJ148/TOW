@@ -13,11 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 
+import tow.image.SpriteAWT;
 import tow.setting.ConfigReader;
 
 
 public class LoginWindow extends JFrame{
-	
 	
 	@SuppressWarnings("serial")
 	class LoginPanel extends Panel{
@@ -30,9 +30,9 @@ public class LoginWindow extends JFrame{
 			g.drawLine(0,82,217, 82);
 			g.drawLine(0,164,217,164);
 			
-			//Global.player_color.setDefaultImage();
-			//Global.player_color.setColor(colorTank);
-			//Global.player_color.draw(g, 292, 80);
+			spriteTank.setDefaultImage();
+			spriteTank.setColor(colorTank);
+			spriteTank.draw(g, 292, 60);
 		}
 	}
 	
@@ -59,7 +59,8 @@ public class LoginWindow extends JFrame{
 	public String defaultPort = "";//порт
 	public String defaultPortHost = "";//порт
 	
-	//Текущий выбранный цвет
+	//Отображение танка
+	public SpriteAWT spriteTank = new SpriteAWT("res/image/Sys/player_color.png");
 	public Color colorTank;
 	
 	public LoginWindow(){

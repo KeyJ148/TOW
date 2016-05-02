@@ -38,27 +38,19 @@ public class Game{
 		
 		init();
 		
-		long nextLoop = System.currentTimeMillis();//Для цикла
 		long lastUpdate = System.nanoTime();//Для update
 		long startUpdate, startRender;//Для анализатора
 		
 		while(!Display.isCloseRequested()){
-			if (System.currentTimeMillis() >= nextLoop){
-				nextLoop = System.currentTimeMillis() + 1000/Global.setting.MAX_FPS;
 				
-				startUpdate = System.nanoTime();
-				update.loop(System.nanoTime() - lastUpdate);
-				lastUpdate = System.nanoTime();
-				if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) analyzer.loopsUpdate(startUpdate);
+			startUpdate = System.nanoTime();
+			update.loop(System.nanoTime() - lastUpdate);
+			lastUpdate = System.nanoTime();
+			if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) analyzer.loopsUpdate(startUpdate);
 				
-				startRender = System.nanoTime();
-				render.loop();
-				if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) analyzer.loopsRender(startRender);
-			} else {
-				if (!Global.setting.MAX_POWER) 
-					try {Thread.sleep(0,1);} catch (InterruptedException e) {}
-			}
-			
+			startRender = System.nanoTime();
+			render.loop();
+			if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) analyzer.loopsRender(startRender);
 			if (restart) restart();
 		}
 		
@@ -79,6 +71,9 @@ public class Game{
 		Global.tcpRead = new TCPRead();
 		
 		Global.initSprite();
+		Global.mouseHandler = new MouseHandler();
+		Global.keyboardHandler = new KeyboardHandler();
+		
 		Global.tcpControl.connect();
 		Global.tcpMapLoader.initMap();
 		Global.tcpRead.start();
@@ -124,7 +119,6 @@ public class Game{
 		Global.game.render.init();
 		Global.setting = new SettingStorage();
 		Global.setting.init();
-		Global.initSpriteMenu();
 		new LoginWindow();
 		Global.game.run();
 	}
