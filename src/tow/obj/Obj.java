@@ -33,7 +33,7 @@ public class Obj extends ObjLight{
 		
 		mask.calc(this.x,this.y,this.directionDraw);//расчёт маски
 		
-		if (Global.setting.DEBUG_CONSOLE_OBJECT) System.out.println("Object \"" + image.getPath() + "\" create. Id = " + getId());
+		if (Global.setting.DEBUG_CONSOLE_OBJECT) Global.p("Object \"" + image.getPath() + "\" create. Id = " + getId());
 	}
 
 	public void draw(){
@@ -156,19 +156,7 @@ public class Obj extends ObjLight{
 			Global.error("Try receive animation from sprite");
 			return null;
 		}
-	}
-	
-	public void p(String s){
-		System.out.println(s);
-	}
-	
-	public void p(int x){
-		System.out.println(x);
-	}
-	
-	public void p(){
-		System.out.println("ALARM!!!");
-	}
+	} 
 	
 	public void updateChildStart(long delta){}
 	public void updateChildMid(long delta){}

@@ -34,14 +34,18 @@ public class Animation implements Rendering{
 			urlStr = path + "/" + (i+1) + ".png";
 			try {
 				texture[i] = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(urlStr));
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				Global.error("Animation frame \"" + path + "/" + (i+1) + "\" not loading");
+			} catch (UnsupportedOperationException e2){
+				e2.printStackTrace();
+				Global.error("Animation frame \"" + path + "/" + (i+1) + "\" not loading");
 			}
 		}
         
         this.update = 0;
         
-        if (Global.setting.DEBUG_CONSOLE_IMAGE) System.out.println("Load animation \"" + path + "\" complited.");
+        if (Global.setting.DEBUG_CONSOLE_IMAGE) Global.p("Load animation \"" + path + "\" complited.");
         this.mask = new Mask(path + "/1.", getWidth(0), getHeight(0));
     }
     
@@ -72,11 +76,11 @@ public class Animation implements Rendering{
     }
     
     public int getWidth(int frame) {
-        return (int) texture[frame].getWidth();
+        return (int) texture[frame].getImageWidth();
     }
 
     public int getHeight(int frame) {
-        return (int) texture[frame].getHeight();
+        return (int) texture[frame].getImageHeight();
     }
     
     public Mask getMask(){
@@ -104,20 +108,20 @@ public class Animation implements Rendering{
     	
         GL11.glLoadIdentity();     
 	    GL11.glTranslatef(x, y, 0);
-	    GL11.glRotatef(Math.round(direction), 0f, 0f, 1f);
+	    GL11.glRotatef(Math.round(-direction), 0f, 0f, 1f);
 	    
 	    Color.white.bind(); 
 	    texture[frameNow].bind();
 	    
 	    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glTexCoord2f(0,0); 
-		    GL11.glVertex2f(0,0); 
+		    GL11.glVertex2f(-width/2, -height/2); 
 		    GL11.glTexCoord2f(1,0); 
-		    GL11.glVertex2f(width, 0); 
+		    GL11.glVertex2f(width/2, -height/2); 
 		    GL11.glTexCoord2f(1,1); 
-		    GL11.glVertex2f(width, height); 
+		    GL11.glVertex2f(width/2, height/2); 
 		    GL11.glTexCoord2f(0,1); 
-		    GL11.glVertex2f(0, height); 
+		    GL11.glVertex2f(-width/2, height/2); 
 	    GL11.glEnd();
     }
 

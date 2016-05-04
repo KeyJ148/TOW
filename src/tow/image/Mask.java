@@ -48,7 +48,7 @@ public class Mask implements Cloneable{
 			try{
 				BufferedReader fileReader = new BufferedReader(new FileReader(path));
 				parser(fileReader);
-				if (Global.setting.DEBUG_CONSOLE_MASK) System.out.println("Load mask \"" + path + "\" complited.");
+				if (Global.setting.DEBUG_CONSOLE_MASK) Global.p("Load mask \"" + path + "\" complited.");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

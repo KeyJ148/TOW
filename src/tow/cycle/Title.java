@@ -1,4 +1,4 @@
-package tow;
+package tow.cycle;
 
 import java.awt.Color;
 import java.awt.Font;

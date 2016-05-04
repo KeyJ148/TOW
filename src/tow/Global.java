@@ -9,8 +9,11 @@ import java.util.Vector;
 
 import javax.swing.JFrame;
 
+import tow.cycle.Game;
 import tow.image.Animation;
 import tow.image.Sprite;
+import tow.input.KeyboardHandler;
+import tow.input.MouseHandler;
 import tow.map.MapControl;
 import tow.net.client.Ping;
 import tow.net.client.TCPControl;

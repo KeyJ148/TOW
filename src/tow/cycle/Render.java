@@ -1,4 +1,4 @@
-package tow;
+package tow.cycle;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -7,6 +7,8 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+
+import tow.Global;
 
 public class Render{
 	
@@ -17,7 +19,7 @@ public class Render{
 	private int width = 1280;
 	private int height = 720;
 	
-	public void init(){
+	public void initGL(){
 		try {
             Display.setDisplayMode(new DisplayMode(width,height));
             Display.create();

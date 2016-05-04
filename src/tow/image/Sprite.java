@@ -25,9 +25,11 @@ public class Sprite implements Rendering {
 		//Загрузка изображения
         try {
 			texture = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(path));
-			if (Global.setting.DEBUG_CONSOLE_IMAGE) System.out.println("Load image \"" + path + "\" complited.");
-		} catch (IOException e) {
-			e.printStackTrace();
+			if (Global.setting.DEBUG_CONSOLE_IMAGE) Global.p("Load image \"" + path + "\" complited.");
+		} catch (IOException e1) {
+			Global.error("Image \"" + path + "\" not loading");
+		} catch (UnsupportedOperationException e2){
+			Global.error("Image \"" + path + "\" not loading");
 		}
         
 		//Создание маски
@@ -61,7 +63,7 @@ public class Sprite implements Rendering {
     	
         GL11.glLoadIdentity();     
 	    GL11.glTranslatef(x, y, 0);
-	    GL11.glRotatef(Math.round(direction), 0f, 0f, 1f);
+	    GL11.glRotatef(Math.round(-direction), 0f, 0f, 1f);
 	    
 	    Color.white.bind(); 
 	    texture.bind();

@@ -1,5 +1,6 @@
-package tow;
+package tow.cycle;
 
+import tow.Global;
 import tow.net.client.Ping;
 
 public class Analyzer {

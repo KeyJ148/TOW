@@ -10,7 +10,7 @@ import tow.player.enemy.Enemy;
 public class TCPMapLoader {
 	
 	public void initMap(){
-		if (Global.setting.DEBUG_CONSOLE) System.out.println("Download map start.");
+		if (Global.setting.DEBUG_CONSOLE) Global.p("Download map start.");
 		
 		//Скачивание карты
 		String s = "";
@@ -19,7 +19,7 @@ public class TCPMapLoader {
 			Global.tcpControl.send("-1 ");
 		}
 			
-		if (Global.setting.DEBUG_CONSOLE) System.out.println("Wait loading map.");
+		if (Global.setting.DEBUG_CONSOLE) Global.p("Wait loading map.");
 		while(true){
 			s = Global.tcpControl.read();
 			if (s.equals("6 ")) break;
@@ -27,7 +27,7 @@ public class TCPMapLoader {
 			
 		//Разрешение карты(для камеры)
 		s = downloadMap();
-		if (Global.setting.DEBUG_CONSOLE) System.out.println("Download map size complite.");
+		if (Global.setting.DEBUG_CONSOLE) Global.p("Download map size complite.");
 		Global.widthMap = Integer.parseInt(Global.parsString(s,1));
 		Global.heightMap = Integer.parseInt(Global.parsString(s,2));
 		Global.background = new Sprite("res/image/Background/" + Global.parsString(s,3) + ".png");
@@ -36,12 +36,12 @@ public class TCPMapLoader {
 		//Загрузка объектов
 		int x,y,direction;
 		String sprite;
-		if (Global.setting.DEBUG_CONSOLE) System.out.println("Download map object start.");
+		if (Global.setting.DEBUG_CONSOLE) Global.p("Download map object start.");
 		while(true){
 			s = downloadMap();
 			
 			if (s.equals("8 ")){
-				if (Global.setting.DEBUG_CONSOLE) System.out.println("Download map object complite.");
+				if (Global.setting.DEBUG_CONSOLE) Global.p("Download map object complite.");
 				break;
 			}
 			x = Integer.parseInt(Global.parsString(s,1));
@@ -68,7 +68,7 @@ public class TCPMapLoader {
 		Global.enemy = new Enemy[Global.peopleMax-1];
 		Global.player = new Player(x,y,Math.random()*360);
 			
-		if (Global.setting.DEBUG_CONSOLE) System.out.println("Generation tank complite.");
+		if (Global.setting.DEBUG_CONSOLE) Global.p("Generation tank complite.");
 	}
 	
 	public String downloadMap(){

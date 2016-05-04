@@ -1,4 +1,4 @@
-package tow;
+package tow.input;
 
 import java.util.ArrayList;
 

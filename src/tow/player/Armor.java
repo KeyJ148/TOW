@@ -1,7 +1,5 @@
 package tow.player;
 
-import org.lwjgl.input.Keyboard;
-
 import tow.Global;
 import tow.image.Animation;
 import tow.obj.Obj;
@@ -35,7 +33,7 @@ public class Armor extends Obj {
 	private long coll_id = -1; //id объекта с которым происходит столкновение
 	
 	public Armor(Player player, Animation animation){
-		super(player.getX()-animation.getWidth()/2,player.getY()-animation.getHeight()/2,0.0,player.getDirection(),0,true,animation);
+		super(player.getX(),player.getY(),0.0,player.getDirection(),0,true,animation);
 		this.player = player;
 		
 		setCollObj(new String[] {"tow.map.Home", "tow.player.enemy.EnemyArmor", "tow.player.Box"});
@@ -90,7 +88,6 @@ public class Armor extends Obj {
 	
 	@Override
 	public void updateChildMid(long delta){
-		if (Keyboard.isKeyDown(Keyboard.KEY_F)) direction += 5;
 		//для столкновений
 		if (recoil){
 			timer+=delta;

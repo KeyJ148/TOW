@@ -1,7 +1,8 @@
-package tow;
+package tow.input;
 
 import org.lwjgl.input.Mouse;
 
+import tow.Global;
 import tow.image.Sprite;
 
 public class MouseHandler {
