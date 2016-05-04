@@ -3,9 +3,15 @@ package tow.player;
 import tow.Global;
 import tow.image.Sprite;
 import tow.obj.Obj;
-import tow.player.bullet.DefaultBullet;
-import tow.player.bullet.MassBullet;
-import tow.player.bullet.SteelBullet;
+import tow.player.bullet.BDefault;
+import tow.player.bullet.BFury;
+import tow.player.bullet.BMass;
+import tow.player.bullet.BMassSmall;
+import tow.player.bullet.BPatron;
+import tow.player.bullet.BSquare;
+import tow.player.bullet.BSteel;
+import tow.player.bullet.BStreamlined;
+import tow.player.bullet.BVampire;
 import tow.setting.ConfigReader;
 
 public class Gun extends Obj{
@@ -58,9 +64,15 @@ public class Gun extends Obj{
 		double trunkYdx = trunkY*Math.cos(Math.toRadians(player.getGun().getDirection())-Math.PI);//потому что изначально у теустуры измененное направление
 		double trunkYdy = trunkY*Math.sin(Math.toRadians(player.getGun().getDirection())-Math.PI);//второй отступ "вбок"
 		switch(bullet){
-			case "DefaultBullet": new DefaultBullet(this.player,player.getX()+trunkXdx+trunkYdx,player.getY()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
-			case "SteelBullet": new SteelBullet(this.player,player.getX()+trunkXdx+trunkYdx,player.getY()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
-			case "MassBullet": new MassBullet(this.player,player.getX()+trunkXdx+trunkYdx,player.getY()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
+			case "BDefault": new BDefault(this.player,player.getX()+trunkXdx+trunkYdx,player.getY()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
+			case "BSteel": new BSteel(this.player,player.getX()+trunkXdx+trunkYdx,player.getY()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
+			case "BMass": new BMass(this.player,player.getX()+trunkXdx+trunkYdx,player.getY()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
+			case "BMassSmall": new BMassSmall(this.player,player.getX()+trunkXdx+trunkYdx,player.getY()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
+			case "BSquare": new BSquare(this.player,player.getX()+trunkXdx+trunkYdx,player.getY()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
+			case "BFury": new BFury(this.player,player.getX()+trunkXdx+trunkYdx,player.getY()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
+			case "BStreamlined": new BStreamlined(this.player,player.getX()+trunkXdx+trunkYdx,player.getY()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
+			case "BPatron": new BPatron(this.player,player.getX()+trunkXdx+trunkYdx,player.getY()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
+			case "BVampire": new BVampire(this.player,player.getX()+trunkXdx+trunkYdx,player.getY()-trunkXdy-trunkYdy,getDirection(),damage, range); break;
 		}
 	}
 	

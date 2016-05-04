@@ -18,9 +18,10 @@ public class TCPSend{
 	}
 	
 	public void send1(Bullet bull){//—длеан выстрел
+		String className = bull.getClass().getName().substring(bull.getClass().getName().lastIndexOf(".")+1);
 		Global.tcpControl.send("1 " + Math.round(bull.getX()) + " " + Math.round(bull.getY()) + " " 
 				+ bull.getDirection() + " " + bull.getSpeed() + " "
-				+ bull.getClass().getName() + " " + Global.name + " " + Global.idNet);
+				+ className + " " + Global.name + " " + Global.idNet);
 	}
 	
 	public void send2(Bullet bull){//”ничтожение пули

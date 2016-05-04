@@ -20,8 +20,8 @@ public class Enemy extends Obj{
 	public Enemy(double x, double y, double direction, String name){
 		super(x,y,0.0,direction,1,false,Global.player_sys);
 		this.name = name;
-		this.armor = new EnemyArmor(Global.c_default,this);
-		this.gun = new Obj(x,y,0.0,direction,-1,false,Global.defaultgun);
+		this.armor = new EnemyArmor(Global.a_default,this);
+		this.gun = new Obj(x,y,0.0,direction,-1,false,Global.g_default);
 	}
 	
 	public void setData(String s){
@@ -79,10 +79,13 @@ public class Enemy extends Obj{
 		armor.destroy();
 		Animation anim;
 		switch(nameArmor){
-			case "DefaultArmor": anim = Global.c_default; break;
-			case "FortifiedArmor": anim = Global.c_fortified; break;
-			case "ElephantArmor": anim = Global.c_elephant; break;
-			default: anim = Global.c_default; Global.error("Not find armor name (take14)"); break;
+			case "ADefault": anim = Global.a_default; break;
+			case "AFortified": anim = Global.a_fortified; break;
+			case "AElephant": anim = Global.a_elephant; break;
+			case "AFury": anim = Global.a_fury; break;
+			case "AMite": anim = Global.a_mite; break;
+			case "AVampire": anim = Global.a_vampire; break;
+			default: anim = Global.a_default; Global.error("Not find armor name (take14)"); break;
 		}
 		armor = new EnemyArmor(anim,this);
 		armor.direction = lastArmorDirection;
@@ -94,11 +97,17 @@ public class Enemy extends Obj{
 		gun.destroy();
 		Rendering image;
 		switch(nameGun){
-			case "DefaultGun": image = Global.defaultgun; break;
-			case "DoubleGun": image = Global.doublegun; break;
-			case "PowerGun": image = Global.powergun; break;
-			case "BigGun": image = Global.biggun; break;
-			default: image = Global.defaultgun; Global.error("Not find gun name (take15)"); break;
+			case "GDefault": image = Global.g_default; break;
+			case "GDouble": image = Global.g_double; break;
+			case "GPower": image = Global.g_power; break;
+			case "GBig": image = Global.g_big; break;
+			case "GFury": image = Global.g_fury; break;
+			case "GMortar": image = Global.g_mortar; break;
+			case "GRocketd": image = Global.g_rocketd; break;
+			case "GKkp": image = Global.g_kkp; break;
+			case "GSniper": image = Global.g_sniper; break;
+			case "GVampire": image = Global.g_vampire; break;
+			default: image = Global.g_default; Global.error("Not find gun name (take15)"); break;
 		}
 		gun = new Obj(x,y,0.0,direction,-1,false,image);
 		gun.direction = lastGunDirection;

@@ -178,8 +178,8 @@ public class GameServer {
 		this.pathFull = pathFull;
 		
 		//генерация танков
-		int wTank = Global.c_default.getWidth(0);
-		int hTank = Global.c_default.getHeight(0);
+		int wTank = Global.a_default.getWidth(0);
+		int hTank = Global.a_default.getHeight(0);
 		for(int i=0;i<this.peopleMax;i++){
 			Point p = genObject(wTank, hTank);
 			int x = (int) p.getX();

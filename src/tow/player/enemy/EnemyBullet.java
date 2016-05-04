@@ -11,7 +11,7 @@ public class EnemyBullet extends Obj{
 	public long idNet;
 	
 	public EnemyBullet(double x, double y, double speed, double direction,Sprite sprite, String enemyName, long idNet){
-		super(x,y,speed,direction,0,true,sprite);
+		super(x,y,speed,direction,0,false,sprite);
 		this.sprite = sprite;
 		this.enemyName = enemyName;
 		this.idNet = idNet;

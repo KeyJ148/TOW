@@ -9,14 +9,33 @@ import org.lwjgl.input.Keyboard;
 
 import tow.Global;
 import tow.obj.Obj;
-import tow.player.armor.DefaultArmor;
-import tow.player.armor.ElephantArmor;
-import tow.player.armor.FortifiedArmor;
-import tow.player.gun.BigGun;
-import tow.player.gun.DefaultGun;
-import tow.player.gun.DoubleGun;
-import tow.player.gun.PowerGun;
+import tow.player.armor.ADefault;
+import tow.player.armor.AElephant;
+import tow.player.armor.AFortified;
+import tow.player.armor.AFury;
+import tow.player.armor.AMite;
+import tow.player.armor.AVampire;
+import tow.player.gun.GBig;
+import tow.player.gun.GDefault;
+import tow.player.gun.GDouble;
+import tow.player.gun.GFury;
+import tow.player.gun.GKkp;
+import tow.player.gun.GMortar;
+import tow.player.gun.GPower;
+import tow.player.gun.GRocketd;
+import tow.player.gun.GSniper;
+import tow.player.gun.GVampire;
 import tow.setting.ConfigReader;
+
+/*
+При добавление необходимо менять...
+Броня:
+Player.newArmor, Enemy.newArmor, Global, Global.initSprite, tow.player.armor, res/settings/armor, res/settings/gun
+Оружие:
+Player.newGun, Enemy.newArmor, Global, Global.initSprite, tow.player.gun, res/settings/gun, res/settings/armor, res/settings/bullet
+Патроны:
+Gun.switchBullet, TCPRead.take1, Global, Global.initSprite, tow.player.bullet, res/settings/gun, res/settings/bullet
+*/
 
 public class Player extends Obj{
 	
@@ -33,9 +52,9 @@ public class Player extends Obj{
 	
 	public Player(double x, double y, double direction){
 		super(x,y,0.0,direction,1,false,Global.player_sys);
-		this.bullet = "DefaultBullet";
-		this.armor = new DefaultArmor(this);
-		this.gun = new DefaultGun(this);
+		this.bullet = "BDefault";
+		this.armor = new ADefault(this);
+		this.gun = new GDefault(this);
 		setColor();
 	}
 	
@@ -43,7 +62,7 @@ public class Player extends Obj{
 	@Override
 	public void updateChildMid(long delta){
 		for (int i=0; i<Global.keyboardHandler.bufferState.size(); i++){
-			if (Global.keyboardHandler.bufferState.get(i)){
+			if (Global.keyboardHandler.bufferState.get(i)){//Клавиша нажата
 				if (armor.getControlMotion()){
 					switch (Global.keyboardHandler.bufferKey.get(i)){
 						case Keyboard.KEY_W: 
@@ -98,7 +117,7 @@ public class Player extends Obj{
 						}
 					break;
 				}
-			} else {
+			} else {//Клавиша отпущена
 				if (armor.getControlMotion()){
 					switch (Global.keyboardHandler.bufferKey.get(i)){
 						case Keyboard.KEY_W: 
@@ -195,10 +214,13 @@ public class Player extends Obj{
 			if (!newArmorName.equals(armorNameNow)) break;
 		}
 		switch(newArmorName){
-			case "DefaultArmor": newArmor = new DefaultArmor(this); break;
-			case "FortifiedArmor": newArmor = new FortifiedArmor(this); break;
-			case "ElephantArmor": newArmor = new ElephantArmor(this); break;
-			default: newArmor = new DefaultArmor(this); Global.error("Not find new armor name"); break;
+			case "ADefault": newArmor = new ADefault(this); break;
+			case "AFortified": newArmor = new AFortified(this); break;
+			case "AElephant": newArmor = new AElephant(this); break;
+			case "AFury": newArmor = new AFury(this); break;
+			case "AMite": newArmor = new AMite(this); break;
+			case "AVampire": newArmor = new AVampire(this); break;
+			default: newArmor = new ADefault(this); Global.error("Not find new armor name"); break;
 		}
 		
 		double lastArmorDirection = getArmor().getDirection();
@@ -242,11 +264,17 @@ public class Player extends Obj{
 		
 		Gun newGun;
 		switch(newGunName){
-			case "DefaultGun": newGun = new DefaultGun(this); break;
-			case "DoubleGun": newGun = new DoubleGun(this); break;
-			case "BigGun": newGun = new BigGun(this); break;
-			case "PowerGun": newGun = new PowerGun(this); break;
-			default: newGun = new DefaultGun(this); Global.error("Not find new gun name"); break;
+			case "GDefault": newGun = new GDefault(this); break;
+			case "GDouble": newGun = new GDouble(this); break;
+			case "GBig": newGun = new GBig(this); break;
+			case "GPower": newGun = new GPower(this); break;
+			case "GFury": newGun = new GFury(this); break;
+			case "GMortar": newGun = new GMortar(this); break;
+			case "GRocketd": newGun = new GRocketd(this); break;
+			case "GKkp": newGun = new GKkp(this); break;
+			case "GSniper": newGun = new GSniper(this); break;
+			case "GVampire": newGun = new GVampire(this); break;
+			default: newGun = new GDefault(this); Global.error("Not find new gun name"); break;
 		}
 		
 		

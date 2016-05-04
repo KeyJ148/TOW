@@ -75,6 +75,12 @@ public class Bullet extends Obj{
 		damage += cr.findDouble("DAMAGE");//К дамагу пушки прибавляем дамаг патрона
 		range += cr.findInteger("RANGE");//К дальности пушки прибавляем дальность патрона
 	}
+
+	//У патрон спрайт не поорачивается в сторону полёта(Переопределено в ракете и т.д.)
+	@Override
+	public void directionDrawEqulas(){
+		setDirectionDraw(0);
+	}
 	
 	public double getDamage(){
 		return damage;

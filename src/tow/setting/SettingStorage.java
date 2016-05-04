@@ -2,7 +2,6 @@ package tow.setting;
 
 public class SettingStorage {
 
-	public int MAX_FPS; // ол-во повторений update в секунду
 	public int SEND_MILLIS;//ќтправл€ть данные о игроке каждые n миллисекунд
 	
 	public boolean DEBUG_CONSOLE;//выводить в консоль сообщени€ отладки?
@@ -15,8 +14,10 @@ public class SettingStorage {
 	
 	public int WIDTH_SCREEN;
 	public int HEIGHT_SCREEN;//размер окна
+	public int SYNC;
 	public String WINDOW_NAME;
 	public boolean FULL_SCREEN;
+	
 	public boolean MAX_POWER;
 	public boolean MAX_POWER_SERVER;
 	
@@ -40,13 +41,14 @@ public class SettingStorage {
 	public void initMain(){
 		ConfigReader cr = new ConfigReader(fileNameMain);
 		
-		MAX_FPS = cr.findInteger("MAX_FPS");
 		SEND_MILLIS = cr.findInteger("SEND_MILLIS");
 		
 		WIDTH_SCREEN = cr.findInteger("WIDTH_SCREEN");
 		HEIGHT_SCREEN = cr.findInteger("HEIGHT_SCREEN");
 		WINDOW_NAME = cr.findString("WINDOW_NAME");
 		FULL_SCREEN = cr.findBoolean("FULL_SCREEN");
+		SYNC = cr.findInteger("SYNC");
+		
 		MAX_POWER = cr.findBoolean("MAX_POWER");
 		MAX_POWER_SERVER = cr.findBoolean("MAX_POWER_SERVER");
 		

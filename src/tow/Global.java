@@ -78,19 +78,25 @@ public class Global {
 	public static Sprite road_a_inter_big;
 	
 	public static Sprite b_default;
-	public static Sprite b_mortar;
-	public static Sprite b_mass;
-	public static Sprite b_massgun_small;
-	public static Sprite b_gunfury;
 	public static Sprite b_steel;
+	public static Sprite b_mass;
+	public static Sprite b_mass_small;
+	public static Sprite b_square;
+	public static Sprite b_fury;
+	public static Sprite b_streamlined; 
+	public static Sprite b_patron; 
+	public static Sprite b_vampire; 
 	
-	public static Sprite defaultgun;
-	public static Sprite doublegun;
-	public static Sprite gunfury;
-	public static Sprite mortar;
-	public static Sprite rocketgun;
-	public static Sprite biggun;
-	public static Sprite powergun;
+	public static Sprite g_default;
+	public static Sprite g_double;
+	public static Sprite g_big;
+	public static Sprite g_power;
+	public static Sprite g_fury;
+	public static Sprite g_mortar;
+	public static Sprite g_rocketd; 
+	public static Sprite g_kkp; 
+	public static Sprite g_sniper; 
+	public static Sprite g_vampire; 
 	
 	public static Sprite home1;
 	public static Sprite home2;
@@ -115,6 +121,7 @@ public class Global {
 	
 	public static Sprite error;
 	public static Sprite player_sys;
+	public static Sprite player_color;
 	public static Sprite cursor_aim;
 	
 	public static Sprite box_armor;
@@ -122,9 +129,12 @@ public class Global {
 	public static Sprite box_bullet;
 	public static Sprite box_health;
 	
-	public static Animation c_default;
-	public static Animation c_fortified;
-	public static Animation c_elephant;
+	public static Animation a_default;
+	public static Animation a_fortified;
+	public static Animation a_elephant;
+	public static Animation a_fury; 
+	public static Animation a_mite; 
+	public static Animation a_vampire; 
 	
 	//Для функций
 	public static final String pathImage = "res/image/";
@@ -142,21 +152,28 @@ public class Global {
 		Global.road_a_fork = new Sprite(pathImage + "Backwall/road_a_fork.png");
 		Global.road_a_inter_big = new Sprite(pathImage + "Backwall/road_a_inter_big.png");
 		
-		Global.b_default = new Sprite(pathImage + "Bullet/default.png");
-		Global.b_steel = new Sprite(pathImage + "Bullet/steel.png");
-		Global.b_mortar = new Sprite(pathImage + "Bullet/mortar.png");
-		Global.b_gunfury = new Sprite(pathImage + "Bullet/gunfury.png");
-		Global.b_mass = new Sprite(pathImage + "Bullet/massgun.png");
-		Global.b_massgun_small = new Sprite(pathImage + "Bullet/massgun_small.png");
+		Global.b_default = new Sprite(pathImage + "Bullet/b_default.png");
+		Global.b_steel = new Sprite(pathImage + "Bullet/b_steel.png");
+		Global.b_square = new Sprite(pathImage + "Bullet/b_square.png");
+		Global.b_fury = new Sprite(pathImage + "Bullet/b_fury.png");
+		Global.b_mass = new Sprite(pathImage + "Bullet/b_mass.png");
+		Global.b_mass_small = new Sprite(pathImage + "Bullet/b_mass_small.png");
+		Global.b_vampire = new Sprite(pathImage + "Bullet/b_vampire.png"); 
+		Global.b_patron = new Sprite(pathImage + "Bullet/b_patron.png"); 
+		Global.b_streamlined = new Sprite(pathImage + "Bullet/b_streamlined.png"); 
 		
-		Global.defaultgun = new Sprite(pathImage + "Gun/defaultgun.png");
-		Global.doublegun = new Sprite(pathImage + "Gun/doublegun.png");
-		Global.gunfury = new Sprite(pathImage + "Gun/gunfury.png");
-		Global.mortar = new Sprite(pathImage + "Gun/mortar.png");
-		Global.rocketgun = new Sprite(pathImage + "Gun/rocketgun.png");
-		Global.biggun = new Sprite(pathImage + "Gun/massgun.png");
-		Global.powergun = new Sprite(pathImage + "Gun/powergun.png");
+		Global.g_default = new Sprite(pathImage + "Gun/g_default.png");
+		Global.g_double = new Sprite(pathImage + "Gun/g_double.png");
+		Global.g_fury = new Sprite(pathImage + "Gun/g_fury.png");
+		Global.g_mortar = new Sprite(pathImage + "Gun/g_mortar.png");
+		Global.g_rocketd = new Sprite(pathImage + "Gun/g_rocketd.png"); 
+		Global.g_big = new Sprite(pathImage + "Gun/g_mass.png");
+		Global.g_power = new Sprite(pathImage + "Gun/g_power.png");
+		Global.g_kkp = new Sprite(pathImage + "Gun/g_kkp.png"); 
+		Global.g_sniper = new Sprite(pathImage + "Gun/g_sniper.png"); 
+		Global.g_vampire = new Sprite(pathImage + "Gun/g_vampire.png"); 
 		
+		Global.player_color = new Sprite(pathImage + "Sys/player_color.png");
 		Global.player_sys = new Sprite(pathImage + "Sys/player_sys.png");
 		Global.error = new Sprite(pathImage + "Sys/error.png");
 		Global.cursor_aim = new Sprite(pathImage + "Sys/cursor_aim.png");
@@ -187,9 +204,12 @@ public class Global {
 		Global.box_bullet = new Sprite(pathImage + "Gaming/box_bullet.png");
 		Global.box_health = new Sprite(pathImage + "Gaming/box_health.png");
 		
-		Global.c_default = new Animation(pathAnim + "Corps/Default",0,2);
-		Global.c_fortified = new Animation(pathAnim + "Corps/Fortified",0,2);
-		Global.c_elephant = new Animation(pathAnim + "Corps/Elephant",0,1);
+		Global.a_default = new Animation(pathAnim + "Corps/a_default",0,2);
+		Global.a_fortified = new Animation(pathAnim + "Corps/a_fortified",0,2);
+		Global.a_elephant = new Animation(pathAnim + "Corps/a_elephant",0,1);
+		Global.a_fury = new Animation(pathAnim + "Corps/a_fury",0,2); 
+		Global.a_mite = new Animation(pathAnim + "Corps/a_mite",0,2); 
+		Global.a_vampire = new Animation(pathAnim + "Corps/a_vampire",0,2); 
 	}
 	
 	//Получение ссылки на спрайт из строки
@@ -218,12 +238,17 @@ public class Global {
 			case "road_a_fork": return Global.road_a_fork;
 			case "road_a_inter_big": return Global.road_a_inter_big;
 			
+			case "player_color": return Global.player_color;
+			
 			case "b_default": return Global.b_default;
 			case "b_steel": return Global.b_steel;
-			case "b_mortar": return Global.b_mortar;
-			case "b_gunfury": return Global.b_gunfury;
-			case "b_massgun": return Global.b_mass;
-			case "b_massgun_small": return Global.b_massgun_small;
+			case "b_mortar": return Global.b_square;
+			case "b_fury": return Global.b_fury;
+			case "b_mass": return Global.b_mass;
+			case "b_mass_small": return Global.b_mass_small;
+			case "b_patron": return Global.b_patron; 
+			case "b_vampire": return Global.b_vampire; 
+			case "b_streamlined": return Global.b_streamlined; 
 		}
 		return Global.error;
 	}
@@ -256,9 +281,12 @@ public class Global {
 			case "b_default": return "Bullet";
 			case "b_steel": return "Bullet";
 			case "b_mortar": return "Bullet";
-			case "b_gunfury": return "Bullet";
-			case "b_massgun": return "Bullet";
-			case "b_massgun_small": return "Bullet";
+			case "b_fury": return "Bullet";
+			case "b_mass": return "Bullet";
+			case "b_mass_small": return "Bullet";
+			case "b_vampire": return "Bullet"; 
+			case "b_patron": return "Bullet"; 
+			case "b_streamlined": return "Bullet"; 
 		}
 		return "Error";
 	}

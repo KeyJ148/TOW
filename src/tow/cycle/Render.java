@@ -24,8 +24,8 @@ public class Render{
             Display.setDisplayMode(new DisplayMode(width,height));
             Display.create();
             Display.setResizable(true);
-            Display.setTitle("Tanks: Orchestra War");
-            Display.setVSyncEnabled(true);
+            Display.setTitle(Global.setting.WINDOW_NAME);
+            Display.setVSyncEnabled(Global.setting.SYNC != 0);
         } catch (LWJGLException e) {
             e.printStackTrace();
             System.exit(0);
@@ -82,9 +82,12 @@ public class Render{
 		
 		//Отрисовка мыши
 		Global.mouseHandler.draw();
-		
+	}
+	
+	public void sync(){
 		Display.update();
-		Display.sync(60);
+		if (Global.setting.SYNC != 0)
+			Display.sync(Global.setting.SYNC);
 	}
 	
 	public int getWidth(){

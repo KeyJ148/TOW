@@ -37,6 +37,7 @@ public class Loader {
 				Global.p("64-bit native module load complite");
 			} catch (UnsatisfiedLinkError e64){
 				Global.error("Native module not loading");
+				System.exit(0);
 			}
 		}
 		

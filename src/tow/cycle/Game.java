@@ -33,6 +33,7 @@ public class Game{
 			startRender = System.nanoTime();
 			render.loop();
 			if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) analyzer.loopsRender(startRender);
+			render.sync();//Пауза для синхронизации кадров, должна быть после analyzer
 			
 			if (restart) Loader.restart();
 			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) System.exit(0);

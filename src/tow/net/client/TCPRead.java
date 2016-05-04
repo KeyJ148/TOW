@@ -30,8 +30,12 @@ public class TCPRead extends Thread{
 			}
 				
 			if (takeMessage){
-				synchronized (messages){
-					messages.add(str);
+				if (Integer.parseInt(Global.parsString(str,1)) != 9){//Если не пинг, то ждём update и там обрабатываем
+					synchronized (messages){
+						messages.add(str);
+					}
+				} else {//Пинг обрабатываем мгновенно
+					take9(str);
 				}
 			}
 		}
@@ -59,7 +63,6 @@ public class TCPRead extends Thread{
 						case 3: take3(str); break;
 						case 4: take4(str); break;
 						case 5: take5(str); break;
-						case 9: take9(str); break;
 						case 10: take10(str); break;
 						case 11: take11(str); break;
 						case 12: take12(str); break;
@@ -110,9 +113,15 @@ public class TCPRead extends Thread{
 		String name = Global.parsString(str,7);
 		long idNet = Integer.parseInt(Global.parsString(str,8));
 		switch (bullName){
-			case "tow.player.bullet.DefaultBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_default,name,idNet)); break;
-			case "tow.player.bullet.SteelBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_steel,name,idNet)); break;
-			case "tow.player.bullet.MassBullet": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_mass,name,idNet)); break;
+			case "BDefault": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_default,name,idNet)); break;
+			case "BSteel": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_steel,name,idNet)); break;
+			case "BMass": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_mass,name,idNet)); break;
+			case "BMassSmall": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_mass_small,name,idNet)); break;
+			case "BSquare": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_square,name,idNet)); break;
+			case "BFury": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_fury,name,idNet)); break;
+			case "BStreamlined": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_streamlined,name,idNet)); break;
+			case "BPatron": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_patron,name,idNet)); break;
+			case "BVampire": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_vampire,name,idNet)); break;
 		}
 	}
 	
