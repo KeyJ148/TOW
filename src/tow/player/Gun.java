@@ -68,6 +68,7 @@ public class Gun extends Obj{
 	public void updateChildMid(long delta){
 		//поворот дула (много костылей)
 		double pointDir = -Math.toDegrees(Math.atan((getYView()-Global.mouseHandler.mouseY)/(getXView()-Global.mouseHandler.mouseX)));
+		
 		double trunkUp = ((double) delta/1000000000)*(getDirectionGunUp()+player.getArmor().getDirectionGunUp());
 		if ((getXView()-Global.mouseHandler.mouseX)>0){
 			pointDir+=180;

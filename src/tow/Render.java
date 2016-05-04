@@ -21,6 +21,8 @@ public class Render{
 		try {
             Display.setDisplayMode(new DisplayMode(width,height));
             Display.create();
+            Display.setResizable(true);
+            Display.setTitle("Tanks: Orchestra War");
             Display.setVSyncEnabled(true);
         } catch (LWJGLException e) {
             e.printStackTrace();

@@ -1,5 +1,7 @@
 package tow.player;
 
+import org.lwjgl.input.Keyboard;
+
 import tow.Global;
 import tow.image.Animation;
 import tow.obj.Obj;
@@ -88,6 +90,7 @@ public class Armor extends Obj {
 	
 	@Override
 	public void updateChildMid(long delta){
+		if (Keyboard.isKeyDown(Keyboard.KEY_F)) direction += 5;
 		//для столкновений
 		if (recoil){
 			timer+=delta;
@@ -263,8 +266,4 @@ public class Armor extends Obj {
 	public boolean getControlMotion(){
 		return controlMotion;
 	}
-	
-	/*public boolean getControlMotionMouse(){
-		return controlMotionMouse;
-	}*/
 }

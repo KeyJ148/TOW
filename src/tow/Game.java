@@ -3,6 +3,7 @@ package tow;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import tow.login.LoginWindow;
@@ -52,6 +53,7 @@ public class Game{
 			render.loop();
 			if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) analyzer.loopsRender(startRender);
 			if (restart) restart();
+			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) System.exit(0);
 		}
 		
 		System.exit(0);

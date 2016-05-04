@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.Color;
 
 import tow.Global;
 import tow.obj.Obj;
@@ -164,8 +163,6 @@ public class Mask implements Cloneable{
 	//Расчёт маски относительно начало координат
 	public void calc(double x, double y, double direction){
 		direction = Math.toRadians(direction)-Math.PI/2;//смещена начального угла с Востока на Север
-		x+=this.width/2; //смещение начало кор в центр объекта
-		y+=this.height/2; //так же необходимо для просчёта маски
 			
 		//просчёт маски
 		this.maskXDraw = new int[maskX.length];
@@ -199,8 +196,9 @@ public class Mask implements Cloneable{
 		
 		GL11.glLoadIdentity();     
 	    GL11.glTranslatef(0, 0, 0);
+	    GL11.glColor3d(0.0, 0.0, 1.0);
 	    
-	    Color.blue.bind();
+	    GL11.glDisable(GL11.GL_TEXTURE_2D);
 	    
 	    GL11.glBegin(GL11.GL_LINE_LOOP);
 	    	for (int i=0; i<maskXDrawView.length;i++)
@@ -223,6 +221,8 @@ public class Mask implements Cloneable{
 			   GL11.glVertex2f(x, y+h); 
 		   GL11.glEnd();
 		}
+		
+	    GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 	
 	public void thisBullet(int range, String[] collObj, double x, double y, double directionDraw){

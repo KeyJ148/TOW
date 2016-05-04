@@ -65,7 +65,6 @@ public class Sprite implements Rendering {
 	    
 	    Color.white.bind(); 
 	    texture.bind();
-	    
 	    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glTexCoord2f(0,0); 
 		    GL11.glVertex2f(-width/2, -height/2); 

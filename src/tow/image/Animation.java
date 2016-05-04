@@ -3,6 +3,7 @@ package tow.image;
 import java.io.IOException;
 
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
@@ -101,12 +102,11 @@ public class Animation implements Rendering{
     	int width=(int)(texture[frameNow].getImageWidth()*scale_x); 
         int height=(int)(texture[frameNow].getImageHeight()*scale_y); 
     	
-        GL11.glLoadIdentity();       
-	    GL11.glTranslatef(x+getWidth(frameNow)/2, y+getHeight(frameNow)/2, 0);
+        GL11.glLoadIdentity();     
+	    GL11.glTranslatef(x, y, 0);
 	    GL11.glRotatef(Math.round(direction), 0f, 0f, 1f);
-	    GL11.glTranslatef(-getWidth()/2, -getHeight()/2, 0);
 	    
-	    org.newdawn.slick.Color.white.bind(); 
+	    Color.white.bind(); 
 	    texture[frameNow].bind();
 	    
 	    GL11.glBegin(GL11.GL_QUADS);
