@@ -70,7 +70,7 @@ public class Enemy extends Obj{
 			
 			Global.game.render.addTitle(nameX, nameY, name);
 		} catch(NullPointerException e){
-			p("[ERROR] Draw enemy name");
+			Global.error("Draw enemy name");
 		}
 	}
 	
@@ -115,7 +115,7 @@ public class Enemy extends Obj{
 			gun.setY(getY());
 			Global.mapControl.update(gun);//Уже прописано в obj.update, но на всякий
 		} catch(NullPointerException e){
-			p("[ERROR] DragIn to enemy");
+			Global.error("DragIn to enemy");
 		}
 	}
 }

@@ -63,7 +63,7 @@ public class Bullet extends Obj{
 					destroyBullet();
 				}
 			}catch(NullPointerException e){
-				p("[ERROR] Bullet null");
+				Global.error("Bullet null");
 			}
 		}
 	}
