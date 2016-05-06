@@ -100,6 +100,7 @@ public class Loader {
 			Global.enemy[i] = null;
 		}
 			
+		Global.game.render.background = null;//Чтобы фон поменялся на новый
 		Global.tcpMapLoader.initMap();
 		Border.createAll();
 		Global.tcpRead.resumeThread(); 

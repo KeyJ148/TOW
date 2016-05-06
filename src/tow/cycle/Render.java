@@ -16,6 +16,8 @@ import tow.title.Title;
 
 public class Render{
 	
+	public Sprite background;
+	
 	public String strAnalysis1 = "";//Вывод отладочных данных
 	public String strAnalysis2 = "";
 	
@@ -23,8 +25,6 @@ public class Render{
 	
 	private int width = 1280;
 	private int height = 720;
-	
-	private Sprite background;
 	
 	public void initGL(){
 		//Создание и настройка окна

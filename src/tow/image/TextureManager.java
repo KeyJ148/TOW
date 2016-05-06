@@ -17,6 +17,7 @@ public class TextureManager {
 	public static TextureHandler road_a_g;
 	public static TextureHandler road_a_d_big;
 	public static TextureHandler road_a_fork;
+	public static TextureHandler road_a_fork_big;
 	public static TextureHandler road_a_inter;
 	
 	public static TextureHandler road_d;
@@ -109,7 +110,7 @@ public class TextureManager {
 		TextureManager.road_a_big = new TextureHandler(pathImage + "Backwall/road_a_big.png");
 		TextureManager.road_a_g = new TextureHandler(pathImage + "Backwall/road_a_g.png");
 		TextureManager.road_a_fork = new TextureHandler(pathImage + "Backwall/road_a_fork.png");
-		TextureManager.road_a_fork = new TextureHandler(pathImage + "Backwall/road_a_fork_big.png");
+		TextureManager.road_a_fork_big = new TextureHandler(pathImage + "Backwall/road_a_fork_big.png");
 		TextureManager.road_a_inter = new TextureHandler(pathImage + "Backwall/road_a_inter.png");
 		TextureManager.road_a_d_big = new TextureHandler(pathImage + "Backwall/road_a_d_big.png");
 		TextureManager.road_a_g = new TextureHandler(pathImage + "Backwall/road_a_g.png");
@@ -238,6 +239,7 @@ public class TextureManager {
 			case "road_a_g": return TextureManager.road_a_g;
 			case "road_a_d_big": return TextureManager.road_a_d_big;
 			case "road_a_fork": return TextureManager.road_a_fork;
+			case "road_a_fork_big": return TextureManager.road_a_fork_big;
 			case "road_a_inter": return TextureManager.road_a_inter;
 			
 			case "road_d": return TextureManager.road_d;
