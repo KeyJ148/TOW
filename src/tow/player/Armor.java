@@ -1,5 +1,7 @@
 package tow.player;
 
+import org.lwjgl.input.Keyboard;
+
 import tow.Global;
 import tow.image.TextureHandler;
 import tow.obj.Obj;
@@ -36,7 +38,7 @@ public class Armor extends Obj {
 		super(player.getX(),player.getY(),0.0,player.getDirection(),0,true,textureHandler);
 		this.player = player;
 		
-		setCollObj(new String[] {"tow.map.Home", "tow.player.enemy.EnemyArmor", "tow.player.Box", "tow.map.Border"});
+		setCollObj(new String[] {"tow.map.Home", "tow.player.enemy.EnemyArmor", "tow.player.Box", "tow.map.Border", "tow.map.Tree"});
 		
 		loadData(getClass().getName());
 	}
@@ -50,10 +52,12 @@ public class Armor extends Obj {
 			}
 		}
 		
-		if (obj.getClass().getName().equals("tow.map.Home") || obj.getClass().getName().equals("tow.map.Border")){
-			setX(getXPrevious());
-			setY(getYPrevious());
-			setDirection(getDirectionPrevious());
+		if (obj.getClass().getName().equals("tow.map.Home") || 
+			obj.getClass().getName().equals("tow.map.Tree") || 
+			obj.getClass().getName().equals("tow.map.Border")){
+				setX(getXPrevious());
+				setY(getYPrevious());
+				setDirection(getDirectionPrevious());
 		}
 		
 		if (obj.getClass().getName().equals("tow.player.enemy.EnemyArmor")){
@@ -142,6 +146,11 @@ public class Armor extends Obj {
 			} else {
 				hp+=delta/1000000000*hpRegen;
 			}
+		}
+		
+		//Кнопка для самоубийства
+		for (int i=0; i<Global.keyboardHandler.bufferKey.size(); i++){
+			if (Global.keyboardHandler.bufferKey.get(i) == Keyboard.KEY_E) Global.tcpRead.take5("");
 		}
 	}
 	

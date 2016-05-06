@@ -210,6 +210,7 @@ public class TCPRead extends Thread{
 			case 1: s = TextureManager.box_gun; break;
 			case 2: s = TextureManager.box_bullet; break;
 			case 3: s = TextureManager.box_health; break;
+			case 4: s = TextureManager.box_healthfull; break;
 			default: s = TextureManager.error; Global.error("Not find type box"); break;
 		}
 		new Box(x,y,idBox,s).typeBox = typeBox;

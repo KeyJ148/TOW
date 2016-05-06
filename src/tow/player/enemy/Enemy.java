@@ -108,6 +108,7 @@ public class Enemy extends Obj{
 			case "GKkp": textureHandler = TextureManager.g_kkp; break;
 			case "GSniper": textureHandler = TextureManager.g_sniper; break;
 			case "GVampire": textureHandler = TextureManager.g_vampire; break;
+			case "GOsmos": textureHandler = TextureManager.g_osmos; break;
 			default: textureHandler = TextureManager.g_default; Global.error("Not find gun name (take15)"); break;
 		}
 		gun = new Obj(x,y,0.0,direction,-1,false,textureHandler);

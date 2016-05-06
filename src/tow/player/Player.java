@@ -22,6 +22,7 @@ import tow.player.gun.GDouble;
 import tow.player.gun.GFury;
 import tow.player.gun.GKkp;
 import tow.player.gun.GMortar;
+import tow.player.gun.GOsmos;
 import tow.player.gun.GPower;
 import tow.player.gun.GRocketd;
 import tow.player.gun.GSniper;
@@ -196,6 +197,7 @@ public class Player extends Obj{
 			case 1: if (takeGun) newGun(); break;
 			case 2: if (takeBullet) newBullet(); break;
 			case 3: if (takeHealth) getArmor().setHp(getArmor().getHp() + getArmor().getHpMax()*0.4); break;
+			case 4: if (takeHealth) getArmor().setHp(getArmor().getHpMax()); break;
 		}
 	}
 	
@@ -222,6 +224,7 @@ public class Player extends Obj{
 			case "AFury": newArmor = new AFury(this); break;
 			case "AMite": newArmor = new AMite(this); break;
 			case "AVampire": newArmor = new AVampire(this); break;
+			
 			default: newArmor = new ADefault(this); Global.error("Not find new armor name"); break;
 		}
 		
@@ -276,6 +279,7 @@ public class Player extends Obj{
 			case "GKkp": newGun = new GKkp(this); break;
 			case "GSniper": newGun = new GSniper(this); break;
 			case "GVampire": newGun = new GVampire(this); break;
+			case "GOsmos": newGun = new GOsmos(this); break;
 			default: newGun = new GDefault(this); Global.error("Not find new gun name"); break;
 		}
 		

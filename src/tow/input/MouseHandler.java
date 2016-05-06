@@ -20,7 +20,7 @@ public class MouseHandler {
 		Mouse.setGrabbed(true);
 				
 		//Добавление своего курсора
-		cursor = new Sprite(TextureManager.cursor_aim);
+		cursor = new Sprite(TextureManager.cursor_aim_1);
 		mouseX = Mouse.getX();
 		mouseY = Global.game.render.getHeight()-Mouse.getY();
 	}

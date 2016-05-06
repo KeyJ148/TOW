@@ -5,6 +5,7 @@ import tow.image.TextureHandler;
 import tow.image.TextureManager;
 import tow.map.Home;
 import tow.map.Road;
+import tow.map.Tree;
 import tow.player.Player;
 import tow.player.enemy.Enemy;
 
@@ -52,6 +53,7 @@ public class TCPMapLoader {
 			switch(TextureManager.getType(sprite)){
 				case "Home": new Home(x,y,direction,TextureManager.getTexture(sprite)); break;
 				case "Road": new Road(x,y,direction,TextureManager.getTexture(sprite)); break;
+				case "Tree": new Tree(x,y,direction,TextureManager.getTexture(sprite)); break;
 				default: Global.p("Not find type"); break;
 			}
 		}

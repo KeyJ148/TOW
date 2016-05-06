@@ -169,7 +169,7 @@ public class GameServer {
 				path = PATH_MAP + "/" + fList[fListNum].getName().substring(0,fList[fListNum].getName().lastIndexOf('.')) + ".map";
 			}
 			if (new File(path).exists()){
-				GameServer.p("Map: " + pathFull);
+				GameServer.p("Map: " + path);
 				try {
 					BufferedReader fileReader = new BufferedReader(new FileReader(path));
 					String s;
@@ -290,7 +290,7 @@ public class GameServer {
 		Point p = genObject(w,h);
 		
 		Random rand = new Random();
-		int typeBox = rand.nextInt(4);
+		int typeBox = rand.nextInt(5);
 		
 		for (int i = 0; i < peopleMax; i++) {
 			synchronized(out[i]) {//«ащита от одновременной работы с массивом
