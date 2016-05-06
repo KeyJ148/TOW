@@ -32,12 +32,12 @@ public class Bullet extends Obj{
 		
 		startX = getX();
 		startY = getY();
-		setCollObj(new String[] {"tow.map.Home", "tow.player.enemy.EnemyArmor"});
+		setCollObj(new String[] {"tow.map.Home", "tow.player.enemy.EnemyArmor", "tow.map.Border"});
 		mask.thisBullet(this.range, collObj, startX, startY, directionDraw);
 	}
 	
 	public void collReport(Obj obj){
-		if (obj.getClass().getName().equals("tow.map.Home")){
+		if (obj.getClass().getName().equals("tow.map.Home") || obj.getClass().getName().equals("tow.map.Border")){
 			destroyBullet();
 		}
 		if (obj.getClass().getName().equals("tow.player.enemy.EnemyArmor")){
@@ -55,15 +55,8 @@ public class Bullet extends Obj{
 	@Override
 	public void updateChildStart(long delta){
 		if (!getDestroy()){
-			try{
-				if ((getX()<0) || (getY()<0) || (getX()>Global.widthMap) || (getY()>Global.heightMap)){
-					destroyBullet();
-				}
-				if (Math.sqrt(Math.pow(startX-getX(), 2) + Math.pow(startY-getY(), 2)) >= range){
-					destroyBullet();
-				}
-			}catch(NullPointerException e){
-				Global.error("Bullet null");
+			if (Math.sqrt(Math.pow(startX-getX(), 2) + Math.pow(startY-getY(), 2)) >= range){
+				destroyBullet();
 			}
 		}
 	}

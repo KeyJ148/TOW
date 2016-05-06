@@ -20,6 +20,6 @@ public class HostListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent ae){
 		cl.lw.dispose();
-		cl.lbw = new LobbyWindow(true, cl, tfPortHost);
+		cl.lbw = new LobbyWindow(true, cl, tfPortHost, cl.lw.map);
 	}
 }

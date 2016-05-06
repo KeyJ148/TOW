@@ -4,6 +4,7 @@ import org.lwjgl.input.Mouse;
 
 import tow.Global;
 import tow.image.Sprite;
+import tow.image.TextureManager;
 
 public class MouseHandler {
 	
@@ -19,7 +20,7 @@ public class MouseHandler {
 		Mouse.setGrabbed(true);
 				
 		//Добавление своего курсора
-		cursor = new Sprite(Global.cursor_aim);
+		cursor = new Sprite(TextureManager.cursor_aim);
 		mouseX = Mouse.getX();
 		mouseY = Global.game.render.getHeight()-Mouse.getY();
 	}

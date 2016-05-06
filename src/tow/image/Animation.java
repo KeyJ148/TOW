@@ -61,6 +61,12 @@ public class Animation implements Rendering{
 		return textureHandler[0].mask;
 	}
     
+    public void setMask(Mask mask){
+    	for (int i=0;i<textureHandler.length;i++){
+    		textureHandler[i].mask = mask;
+    	}
+    }
+    
     public void update(long delta) {
 		update += delta;
 		if ((frameSpeed != 0) && (update > 1000000000/frameSpeed)) {

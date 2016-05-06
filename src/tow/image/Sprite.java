@@ -11,7 +11,6 @@ public class Sprite implements Rendering{
     private int scale_y = 1;
     
     public Sprite(TextureHandler textureHandler) {
-    	System.out.println(textureHandler.path);
 		this.textureHandler = textureHandler;
     }
     
@@ -26,6 +25,10 @@ public class Sprite implements Rendering{
     public Mask getMask(){
 		return textureHandler.mask;
 	}
+    
+    public void setMask(Mask mask){
+    	textureHandler.mask = mask;
+    }
     
     public String getPath(){
 		return textureHandler.path;

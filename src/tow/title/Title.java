@@ -2,6 +2,7 @@ package tow.title;
 
 import java.awt.Font;
 
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -50,6 +51,7 @@ public class Title {
 		int i = FontManager.existFont(size, font);
 		if (i == -1) i = FontManager.addFont(size, font);
 		TrueTypeFont ttFont = FontManager.getFont(i);
+		GL11.glLoadIdentity();
 		ttFont.drawString((float) x, (float) y, str, c);
 	}
 

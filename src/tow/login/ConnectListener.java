@@ -25,7 +25,7 @@ public class ConnectListener implements ActionListener {
 	
 	public void actionPerformed(ActionEvent ae){
 		lw.dispose();
-		lbw = new LobbyWindow(false, this, null);
+		lbw = new LobbyWindow(false, this, null, lw.map);
 	}
 	
 	public void startGame(){

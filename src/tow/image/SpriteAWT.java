@@ -27,7 +27,7 @@ public class SpriteAWT{
 		BufferedImage sourceImage = null;
         try {
 			sourceImage = ImageIO.read(new File(path));
-			if (Global.setting.DEBUG_CONSOLE_IMAGE) Global.p("Load image \"" + path + "\" complited.");
+			if (Global.setting.DEBUG_CONSOLE_IMAGE) Global.p("Load imageAWT \"" + path + "\" complited.");
         } catch (IOException e1) {
 			Global.error("Image \"" + path + "\" not loading");
 		} catch (UnsupportedOperationException e2){

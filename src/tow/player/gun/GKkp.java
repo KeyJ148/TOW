@@ -1,13 +1,13 @@
 package tow.player.gun;
 
-import tow.Global;
+import tow.image.TextureManager;
 import tow.player.Gun;
 import tow.player.Player;
 
 public class GKkp extends Gun {
 
 	public GKkp(Player player) {
-		super(player, Global.g_kkp);
+		super(player, TextureManager.g_kkp);
 	}
 
 }

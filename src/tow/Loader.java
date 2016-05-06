@@ -5,9 +5,11 @@ import java.util.Vector;
 
 import tow.cycle.Analyzer;
 import tow.cycle.Game;
+import tow.image.TextureManager;
 import tow.input.KeyboardHandler;
 import tow.input.MouseHandler;
 import tow.login.LoginWindow;
+import tow.map.Border;
 import tow.map.MapControl;
 import tow.net.client.TCPControl;
 import tow.net.client.TCPMapLoader;
@@ -49,13 +51,13 @@ public class Loader {
 	public static void init() {
 		Global.setting = new SettingStorage();//Создание хранилища настроек
 		Global.setting.init();//Загрузка настроек
-		
 		Global.game = new Game();//Создание класса для главного цикла
-		Global.game.render.initGL();//Инициализация OpenGL
 		
 		new LoginWindow();//Создание меню
 		while(!Global.game.running) try {Thread.sleep(50);} catch (InterruptedException e) {}//Ожидаем закрытия меню и лобби
-			
+		
+		Global.game.render.initGL();//Инициализация OpenGL
+		
 		Global.obj = new Vector<ObjLight>();
 		Global.mapControl = new MapControl();
 		Global.enemyBullet = new ArrayList<EnemyBullet>();
@@ -65,13 +67,14 @@ public class Loader {
 		Global.tcpSend = new TCPSend();
 		Global.tcpRead = new TCPRead();
 			
-		Global.initTexture();
+		TextureManager.initTexture();
 		
 		Global.mouseHandler = new MouseHandler();
 		Global.keyboardHandler = new KeyboardHandler();
 			
 		Global.tcpControl.connect();
 		Global.tcpMapLoader.initMap();
+		Border.createAll();
 		Global.tcpRead.start();
 			
 		if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) 
@@ -98,6 +101,7 @@ public class Loader {
 		}
 			
 		Global.tcpMapLoader.initMap();
+		Border.createAll();
 		Global.tcpRead.resumeThread(); 
 			
 		Global.game.restart = false;

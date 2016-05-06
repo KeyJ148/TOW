@@ -6,6 +6,7 @@ import org.newdawn.slick.Color;
 
 import tow.Global;
 import tow.image.TextureHandler;
+import tow.image.TextureManager;
 import tow.player.Box;
 import tow.player.enemy.Enemy;
 import tow.player.enemy.EnemyBullet;
@@ -114,15 +115,15 @@ public class TCPRead extends Thread{
 		String name = Global.parsString(str,7);
 		long idNet = Integer.parseInt(Global.parsString(str,8));
 		switch (bullName){
-			case "BDefault": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_default,name,idNet)); break;
-			case "BSteel": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_steel,name,idNet)); break;
-			case "BMass": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_mass,name,idNet)); break;
-			case "BMassSmall": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_mass_small,name,idNet)); break;
-			case "BSquare": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_square,name,idNet)); break;
-			case "BFury": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_fury,name,idNet)); break;
-			case "BStreamlined": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_streamlined,name,idNet)); break;
-			case "BPatron": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_patron,name,idNet)); break;
-			case "BVampire": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,Global.b_vampire,name,idNet)); break;
+			case "BDefault": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,TextureManager.b_default,name,idNet)); break;
+			case "BSteel": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,TextureManager.b_steel,name,idNet)); break;
+			case "BMass": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,TextureManager.b_mass,name,idNet)); break;
+			case "BMassSmall": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,TextureManager.b_mass_small,name,idNet)); break;
+			case "BSquare": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,TextureManager.b_square,name,idNet)); break;
+			case "BFury": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,TextureManager.b_fury,name,idNet)); break;
+			case "BStreamlined": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,TextureManager.b_streamlined,name,idNet)); break;
+			case "BPatron": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,TextureManager.b_patron,name,idNet)); break;
+			case "BVampire": Global.enemyBullet.add(new EnemyBullet(x,y,speed,direction,TextureManager.b_vampire,name,idNet)); break;
 		}
 	}
 	
@@ -205,11 +206,11 @@ public class TCPRead extends Thread{
 		int typeBox = Integer.parseInt(Global.parsString(str,5));
 		TextureHandler s;
 		switch (typeBox){
-			case 0: s = Global.box_armor; break;
-			case 1: s = Global.box_gun; break;
-			case 2: s = Global.box_bullet; break;
-			case 3: s = Global.box_health; break;
-			default: s = Global.error; Global.error("Not find type box"); break;
+			case 0: s = TextureManager.box_armor; break;
+			case 1: s = TextureManager.box_gun; break;
+			case 2: s = TextureManager.box_bullet; break;
+			case 3: s = TextureManager.box_health; break;
+			default: s = TextureManager.error; Global.error("Not find type box"); break;
 		}
 		new Box(x,y,idBox,s).typeBox = typeBox;
 	}

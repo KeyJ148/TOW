@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Label;
 import java.awt.Panel;
 import java.awt.Toolkit;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -62,6 +63,7 @@ public class LoginWindow extends JFrame{
 	//Отображение танка
 	public SpriteAWT spriteTank = new SpriteAWT("res/image/Sys/player_color.png");
 	public Color colorTank;
+	public File map;
 	
 	public LoginWindow(){
 		super("Login");
@@ -159,6 +161,10 @@ public class LoginWindow extends JFrame{
 		bSetting.setBounds(3, 142, 212, 20);
 		add(bSetting);
 		
+		JButton bMap = new JButton("Map"); 
+		bMap.setBounds(3, 167, 212, 20);
+		add(bMap);
+		
 		
 		//*********************************************
 		//***************Правая часть******************
@@ -235,10 +241,12 @@ public class LoginWindow extends JFrame{
 		tfIp.addActionListener(cl);
 		tfPort.addActionListener(cl);
 		
-		
 		HostListener hl = new HostListener(tfPortHost, cl);
 		bHost.addActionListener(hl);
 		tfPortHost.addActionListener(hl);
+		
+		MapListener ml = new MapListener(this);
+		bMap.addActionListener(ml);
 		
 		setResizable(false);
 		setVisible(true);

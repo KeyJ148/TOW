@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import tow.Global;
+import tow.image.TextureManager;
 import tow.lobby.LobbyWindow;
 
 public class GameServer {
@@ -36,6 +37,7 @@ public class GameServer {
 	//Хранение данных
 	public volatile MessagePack[] messagePack;
 	//Инициализация карты
+	public boolean noChangeMap = false;//Карта выбрана на клиенте
 	public String pathFull; //Путь к карте
 	public int widthMap;//Размеры карты
 	public int heightMap;
@@ -72,6 +74,7 @@ public class GameServer {
 				port = Integer.parseInt(str);
 			}
 		}
+		
 		if (args.length > 1){
 			peopleMax = Integer.parseInt(args[1]);
 		} else {
@@ -83,6 +86,7 @@ public class GameServer {
 				peopleMax = Integer.parseInt(str);
 			}
 		}
+		
 		if (args.length > 2){
 			maxPower = Boolean.valueOf(args[2]);
 		} else {
@@ -92,6 +96,18 @@ public class GameServer {
 				maxPower = true;
 			} else {
 				maxPower = false;
+			}
+		}
+		
+		if (args.length > 3){
+			noChangeMap = true;
+			pathFull = args[3];
+		} else if (!isClient){
+			System.out.print("Path to map (Default random): ");
+			str = bReader.readLine();
+			if (!str.equals("")){
+				noChangeMap = true;
+				pathFull = str;
 			}
 		}
 		
@@ -139,7 +155,7 @@ public class GameServer {
 	
 	public void genTank(){
 		//Парсинг файла с картой
-		String pathFull;
+		String path = "";
 		File[] fList = new File(PATH_MAP).listFiles();
 		int fListNum;
 		vecX.clear();
@@ -147,11 +163,15 @@ public class GameServer {
 		vecSprite.clear();
 		while (true) {
 			fListNum = (int) Math.round(Math.random()*(fList.length-1));
-			pathFull = PATH_MAP + "/" + fList[fListNum].getName().substring(0,fList[fListNum].getName().lastIndexOf('.')) + ".map";
-			if (new File(pathFull).exists()){
+			if (noChangeMap){
+				path = pathFull;
+			} else {
+				path = PATH_MAP + "/" + fList[fListNum].getName().substring(0,fList[fListNum].getName().lastIndexOf('.')) + ".map";
+			}
+			if (new File(path).exists()){
 				GameServer.p("Map: " + pathFull);
 				try {
-					BufferedReader fileReader = new BufferedReader(new FileReader(pathFull));
+					BufferedReader fileReader = new BufferedReader(new FileReader(path));
 					String s;
 					s = fileReader.readLine();
 					this.widthMap = Integer.parseInt(Global.parsString(s,1));
@@ -175,11 +195,11 @@ public class GameServer {
 				break;
 			} 
 		}
-		this.pathFull = pathFull;
+		pathFull = path;
 		
 		//генерация танков
-		int wTank = Global.a_default[0].getWidth();
-		int hTank = Global.a_default[0].getHeight();
+		int wTank = TextureManager.a_default[0].getWidth();
+		int hTank = TextureManager.a_default[0].getHeight();
 		for(int i=0;i<this.peopleMax;i++){
 			Point p = genObject(wTank, hTank);
 			int x = (int) p.getX();
@@ -207,8 +227,8 @@ public class GameServer {
 			for(int i=0;i<vecX.size();i++){
 				x = (int) vecX.get(i);//коры объекта
 				y = (int) vecY.get(i);
-				w = (int) Global.getSprite((String) vecSprite.get(i)).getWidth();//размеры объекта
-				h = (int) Global.getSprite((String) vecSprite.get(i)).getHeight();
+				w = (int) TextureManager.getTexture((String) vecSprite.get(i)).getWidth();//размеры объекта
+				h = (int) TextureManager.getTexture((String) vecSprite.get(i)).getHeight();
 				disHome = Math.sqrt(w*w + h*h)/2;
 				disPointToHome = Math.sqrt((x-xRand)*(x-xRand)+(y-yRand)*(y-yRand));
 				if ((disHome+disTank+30) > (disPointToHome)){
@@ -265,8 +285,8 @@ public class GameServer {
 			vecSprite.add("player_color");
 		}
 		
-		int w = Global.box_armor.getWidth();
-		int h = Global.box_armor.getHeight();
+		int w = TextureManager.box_armor.getWidth();
+		int h = TextureManager.box_armor.getHeight();
 		Point p = genObject(w,h);
 		
 		Random rand = new Random();

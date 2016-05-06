@@ -36,7 +36,7 @@ public class Armor extends Obj {
 		super(player.getX(),player.getY(),0.0,player.getDirection(),0,true,textureHandler);
 		this.player = player;
 		
-		setCollObj(new String[] {"tow.map.Home", "tow.player.enemy.EnemyArmor", "tow.player.Box"});
+		setCollObj(new String[] {"tow.map.Home", "tow.player.enemy.EnemyArmor", "tow.player.Box", "tow.map.Border"});
 		
 		loadData(getClass().getName());
 	}
@@ -50,7 +50,7 @@ public class Armor extends Obj {
 			}
 		}
 		
-		if (obj.getClass().getName().equals("tow.map.Home")){
+		if (obj.getClass().getName().equals("tow.map.Home") || obj.getClass().getName().equals("tow.map.Border")){
 			setX(getXPrevious());
 			setY(getYPrevious());
 			setDirection(getDirectionPrevious());

@@ -8,6 +8,7 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
 import tow.Global;
+import tow.image.TextureManager;
 import tow.obj.Obj;
 import tow.player.armor.ADefault;
 import tow.player.armor.AElephant;
@@ -52,7 +53,7 @@ public class Player extends Obj{
 	private Armor armor;
 	
 	public Player(double x, double y, double direction){
-		super(x,y,0.0,direction,1,false,Global.player_sys);
+		super(x,y,0.0,direction,1,false,TextureManager.player_sys);
 		this.bullet = "BDefault";
 		this.armor = new ADefault(this);
 		this.gun = new GDefault(this);

@@ -9,6 +9,8 @@ public interface Rendering {
     public int getHeight();
     
     public Mask getMask();
+    
+    public void setMask(Mask mask);
 	
     public void draw(int x,int y,double direction);
     

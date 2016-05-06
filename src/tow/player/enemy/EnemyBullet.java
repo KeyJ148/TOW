@@ -1,7 +1,7 @@
 package tow.player.enemy;
 
-import tow.Global;
 import tow.image.TextureHandler;
+import tow.image.TextureManager;
 import tow.obj.Obj;
 
 public class EnemyBullet extends Obj{
@@ -19,7 +19,7 @@ public class EnemyBullet extends Obj{
 	
 	@Override
 	public void directionDrawEqulas(){
-		if (textureHandler.equals(Global.b_default)){
+		if (textureHandler.equals(TextureManager.b_default)){
 			setDirectionDraw(0);
 		} else {
 			super.directionDrawEqulas();

@@ -122,7 +122,7 @@ public class Mask implements Cloneable{
 		double xCenter = x + this.width/2; //смещение начало кор в центр объекта
 		double yCenter = y + this.height/2;
 		double gipMe = Math.sqrt(sqr(height) + sqr(width)); //Гипотенуза объекта
-		double gipOther = Math.sqrt(sqr(obj.getImage().getHeight()) + sqr(obj.getImage().getWidth())); //Гипотинуза объекта, с которым сравниваем
+		double gipOther = Math.sqrt(sqr(obj.mask.height) + sqr(obj.mask.width)); //Гипотинуза объекта, с которым сравниваем
 		double disMeToOther = Math.sqrt(sqr(xCenter-obj.getX())+sqr(yCenter-obj.getY())); //Расстояние от центра до центра
 		
 		if (disMeToOther > gipMe/2 + gipOther/2 + 30){//Если до объекта слишком далеко

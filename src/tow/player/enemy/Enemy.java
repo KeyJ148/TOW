@@ -4,6 +4,7 @@ import org.newdawn.slick.Color;
 
 import tow.Global;
 import tow.image.TextureHandler;
+import tow.image.TextureManager;
 import tow.obj.Obj;
 import tow.title.Title;
 
@@ -18,10 +19,10 @@ public class Enemy extends Obj{
 	public EnemyArmor armor;
 	
 	public Enemy(double x, double y, double direction, String name){
-		super(x,y,0.0,direction,1,false,Global.player_sys);
+		super(x,y,0.0,direction,1,false,TextureManager.player_sys);
 		this.name = name;
-		this.armor = new EnemyArmor(Global.a_default,this);
-		this.gun = new Obj(x,y,0.0,direction,-1,false,Global.g_default);
+		this.armor = new EnemyArmor(TextureManager.a_default,this);
+		this.gun = new Obj(x,y,0.0,direction,-1,false,TextureManager.g_default);
 	}
 	
 	public void setData(String s){
@@ -79,13 +80,13 @@ public class Enemy extends Obj{
 		armor.destroy();
 		TextureHandler[] anim;
 		switch(nameArmor){
-			case "ADefault": anim = Global.a_default; break;
-			case "AFortified": anim = Global.a_fortified; break;
-			case "AElephant": anim = Global.a_elephant; break;
-			case "AFury": anim = Global.a_fury; break;
-			case "AMite": anim = Global.a_mite; break;
-			case "AVampire": anim = Global.a_vampire; break;
-			default: anim = Global.a_default; Global.error("Not find armor name (take14)"); break;
+			case "ADefault": anim = TextureManager.a_default; break;
+			case "AFortified": anim = TextureManager.a_fortified; break;
+			case "AElephant": anim = TextureManager.a_elephant; break;
+			case "AFury": anim = TextureManager.a_fury; break;
+			case "AMite": anim = TextureManager.a_mite; break;
+			case "AVampire": anim = TextureManager.a_vampire; break;
+			default: anim = TextureManager.a_default; Global.error("Not find armor name (take14)"); break;
 		}
 		armor = new EnemyArmor(anim,this);
 		armor.direction = lastArmorDirection;
@@ -97,17 +98,17 @@ public class Enemy extends Obj{
 		gun.destroy();
 		TextureHandler textureHandler;
 		switch(nameGun){
-			case "GDefault": textureHandler = Global.g_default; break;
-			case "GDouble": textureHandler = Global.g_double; break;
-			case "GPower": textureHandler = Global.g_power; break;
-			case "GBig": textureHandler = Global.g_big; break;
-			case "GFury": textureHandler = Global.g_fury; break;
-			case "GMortar": textureHandler = Global.g_mortar; break;
-			case "GRocketd": textureHandler = Global.g_rocketd; break;
-			case "GKkp": textureHandler = Global.g_kkp; break;
-			case "GSniper": textureHandler = Global.g_sniper; break;
-			case "GVampire": textureHandler = Global.g_vampire; break;
-			default: textureHandler = Global.g_default; Global.error("Not find gun name (take15)"); break;
+			case "GDefault": textureHandler = TextureManager.g_default; break;
+			case "GDouble": textureHandler = TextureManager.g_double; break;
+			case "GPower": textureHandler = TextureManager.g_power; break;
+			case "GBig": textureHandler = TextureManager.g_big; break;
+			case "GFury": textureHandler = TextureManager.g_fury; break;
+			case "GMortar": textureHandler = TextureManager.g_mortar; break;
+			case "GRocketd": textureHandler = TextureManager.g_rocketd; break;
+			case "GKkp": textureHandler = TextureManager.g_kkp; break;
+			case "GSniper": textureHandler = TextureManager.g_sniper; break;
+			case "GVampire": textureHandler = TextureManager.g_vampire; break;
+			default: textureHandler = TextureManager.g_default; Global.error("Not find gun name (take15)"); break;
 		}
 		gun = new Obj(x,y,0.0,direction,-1,false,textureHandler);
 		gun.direction = lastGunDirection;

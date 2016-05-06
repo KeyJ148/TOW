@@ -11,6 +11,7 @@ import org.newdawn.slick.Color;
 
 import tow.Global;
 import tow.image.Sprite;
+import tow.image.TextureManager;
 import tow.title.Title;
 
 public class Render{
@@ -60,14 +61,14 @@ public class Render{
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 		
 		//заливка фона
-		if (background == null) background = new Sprite(Global.background);
+		if (background == null) background = new Sprite(TextureManager.background);
 		int dxf,dyf;
 		int size = background.getWidth();//Размер плитки с фоном
 		int startX = (int) ((Global.cameraX-Global.cameraXView) - (Global.cameraX-Global.cameraXView)%size);
 		int startY = (int) ((Global.cameraY-Global.cameraYView) - (Global.cameraY-Global.cameraYView)%size);
 		
-		for (int dy = startY; dy<=startY+getHeight()+size; dy+=size){
-			for (int dx = startX; dx<=startX+getWidth()+size; dx+=size){
+		for (int dy = startY; dy<=startY+getHeight()+size*2; dy+=size){
+			for (int dx = startX; dx<=startX+getWidth()+size*2; dx+=size){
 				dxf = (int) Math.round(Global.cameraXView - (Global.cameraX - dx));
 				dyf = (int) Math.round(Global.cameraYView - (Global.cameraY - dy));
 				background.draw(dxf,dyf,0);

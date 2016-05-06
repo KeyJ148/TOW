@@ -1,11 +1,12 @@
 package tow.player.gun;
 
-import tow.*;
-import tow.player.*;
+import tow.image.TextureManager;
+import tow.player.Gun;
+import tow.player.Player;
 
 public class GDefault extends Gun {
 	
 	public GDefault(Player player){
-		super(player, Global.g_default);
+		super(player, TextureManager.g_default);
 	}
 }

@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -26,13 +27,15 @@ public class LobbyWindow extends JFrame implements Runnable{
 	public final int hFrame = 235;
 	
 	private JTextField tfPortHost;
+	private File map;
 	private LobbyHostThread lobbyHostThread;
 	private DefaultListModel<String> listModel;
 	private boolean connect = false;//Запустился сервер? 
 	
-	public LobbyWindow(boolean server, ConnectListener cl, JTextField tfPortHost){//Сервер ли?
+	public LobbyWindow(boolean server, ConnectListener cl, JTextField tfPortHost, File map){//Сервер ли?
 		super("Lobby");
 		this.tfPortHost = tfPortHost;
+		this.map = map;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -96,7 +99,12 @@ public class LobbyWindow extends JFrame implements Runnable{
 	public void run() {
 		String maxPowerServer = "false";
 		if (Global.setting.MAX_POWER_SERVER) maxPowerServer = "true"; 
-		String[] args = {tfPortHost.getText(), String.valueOf(lobbyHostThread.in.size()), maxPowerServer};//количество игроков
+		String[] args;
+		if (map == null){
+			args = new String[] {tfPortHost.getText(), String.valueOf(lobbyHostThread.in.size()), maxPowerServer};//количество игроков
+		} else {
+			args = new String[] {tfPortHost.getText(), String.valueOf(lobbyHostThread.in.size()), maxPowerServer, map.getPath()};//количество игроков
+		}
 		GameServer.fromClient(args, this);
 	} 
 	

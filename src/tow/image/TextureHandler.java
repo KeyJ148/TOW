@@ -34,5 +34,5 @@ public class TextureHandler {
 	public int getHeight(){
 		return texture.getImageHeight();
 	}
-
+	
 }
