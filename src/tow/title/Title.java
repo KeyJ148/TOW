@@ -1,13 +1,15 @@
-package tow.cycle;
+package tow.title;
 
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
+
+import org.newdawn.slick.Color;
+import org.newdawn.slick.TrueTypeFont;
 
 public class Title {
 	
-	private final Color defaultColor = Color.BLACK;
+	public static final int BOLD = 0;
+	
+	private final Color defaultColor = Color.black;
 	private final int defaultSize = 12;
 	private final int defaultFont = Font.PLAIN;
 	
@@ -44,12 +46,11 @@ public class Title {
 		this.font = font;
 	}
 	
-	public void draw(Graphics2D g){
-		AffineTransform at = new AffineTransform(); 
-		g.setTransform(at);
-		g.setColor(c);
-		g.setFont(new Font(null,font,size));
-		g.drawString(str,x,y);
+	public void draw(){
+		int i = FontManager.existFont(size, font);
+		if (i == -1) i = FontManager.addFont(size, font);
+		TrueTypeFont ttFont = FontManager.getFont(i);
+		ttFont.drawString((float) x, (float) y, str, c);
 	}
 
 	public int getX(){

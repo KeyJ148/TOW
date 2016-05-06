@@ -18,7 +18,7 @@ public class ColorListener implements ActionListener {
 	
 	public void actionPerformed(ActionEvent ae){
 		frame.colorTank = c;
-		Global.color = c;
+		Global.color = new org.newdawn.slick.Color(c.getRed(), c.getGreen(), c.getBlue());
 		frame.panel.repaint();
 	} 
 

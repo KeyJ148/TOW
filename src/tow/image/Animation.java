@@ -1,52 +1,26 @@
 package tow.image;
 
-import java.io.IOException;
-
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureLoader;
-import org.newdawn.slick.util.ResourceLoader;
 
 import tow.Global;
 
 public class Animation implements Rendering{
 	
-    private Texture[] texture;
-    private int frameNumber=0; //Кол-во кадров [1;inf)
-    private int frameSpeed; //Кол-во кадров в секнду
+    private TextureHandler[] textureHandler;
+    private int frameNumber = 0; //Кол-во кадров [1;inf)
+    private int frameSpeed = 0; //Кол-во кадров в секнду
     private int frameNow; //Номер текущего кадра [0;inf)
+
+    private Color color = Color.white;
     private int scale_x = 1;
     private int scale_y = 1; 
-    private long update; //Сколько прошло наносекунд с последней смены кадра
     
-    public String path;//путь к файлу, нужн для создания маски и консоли
-    public Mask mask;
+    private long update = 0; //Сколько прошло наносекунд с последней смены кадра
     
-    public Animation(String path, int frameSpeed, int frameNumber) {
-		this.path = path; //для создания маски и консоли
-		this.frameSpeed = frameSpeed;
-		this.frameNumber = frameNumber;
-		this.texture = new Texture[frameNumber];
-		String urlStr;
-		//Загрузка изображений
-		for(int i=0;i<frameNumber;i++){
-			urlStr = path + "/" + (i+1) + ".png";
-			try {
-				texture[i] = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(urlStr));
-			} catch (IOException e1) {
-				e1.printStackTrace();
-				Global.error("Animation frame \"" + path + "/" + (i+1) + "\" not loading");
-			} catch (UnsupportedOperationException e2){
-				e2.printStackTrace();
-				Global.error("Animation frame \"" + path + "/" + (i+1) + "\" not loading");
-			}
-		}
-        
-        this.update = 0;
-        
-        if (Global.setting.DEBUG_CONSOLE_IMAGE) Global.p("Load animation \"" + path + "\" complited.");
-        this.mask = new Mask(path + "/1.", getWidth(0), getHeight(0));
+    public Animation(TextureHandler[] textureHandler) {
+		this.textureHandler = textureHandler;
+		this.frameNumber = textureHandler.length;
     }
     
     public int getFrameNow() {
@@ -76,15 +50,15 @@ public class Animation implements Rendering{
     }
     
     public int getWidth(int frame) {
-        return (int) texture[frame].getImageWidth();
+        return (int) textureHandler[frame].getWidth();
     }
 
     public int getHeight(int frame) {
-        return (int) texture[frame].getImageHeight();
+        return (int) textureHandler[frame].getHeight();
     }
     
     public Mask getMask(){
-		return mask;
+		return textureHandler[0].mask;
 	}
     
     public void update(long delta) {
@@ -103,15 +77,15 @@ public class Animation implements Rendering{
     	direction -= Math.PI/2; //смещена начального угла с Востока на Север
     	direction = Math.toDegrees(direction);
     	
-    	int width=(int)(texture[frameNow].getImageWidth()*scale_x); 
-        int height=(int)(texture[frameNow].getImageHeight()*scale_y); 
+    	int width=(int)(textureHandler[frameNow].getWidth()*scale_x); 
+        int height=(int)(textureHandler[frameNow].getHeight()*scale_y); 
     	
         GL11.glLoadIdentity();     
 	    GL11.glTranslatef(x, y, 0);
 	    GL11.glRotatef(Math.round(-direction), 0f, 0f, 1f);
 	    
-	    Color.white.bind(); 
-	    texture[frameNow].bind();
+	    color.bind(); 
+	    textureHandler[frameNow].texture.bind();
 	    
 	    GL11.glBegin(GL11.GL_QUADS);
 		    GL11.glTexCoord2f(0,0); 
@@ -134,8 +108,12 @@ public class Animation implements Rendering{
 	}
 	
 	public String getPath(){
-		return path;
+		return textureHandler[frameNow].path;
 	}
+	
+	public void setColor(Color color){
+    	this.color = color;
+    }
 	
 	public boolean isAnim(){
     	return true;

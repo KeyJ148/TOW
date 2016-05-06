@@ -1,7 +1,7 @@
 package tow.player;
 
 import tow.Global;
-import tow.image.Sprite;
+import tow.image.TextureHandler;
 import tow.obj.Obj;
 import tow.player.bullet.BDefault;
 import tow.player.bullet.BFury;
@@ -38,8 +38,8 @@ public class Gun extends Obj{
 	private long nanoSecFromAttack1 = 0;//технические(стартовые)
 	private long nanoSecFromAttack2 = 0;//Кол-во времени до конца перезарядки в наносекундах
 	
-	public Gun(Player player, Sprite sprite){
-		super(player.getX()-sprite.getWidth()/2,player.getY()-sprite.getHeight()/2,0.0,player.getDirection(),-1,false,sprite);
+	public Gun(Player player, TextureHandler textureHandler){
+		super(player.getX()-textureHandler.getWidth()/2,player.getY()-textureHandler.getHeight()/2,0.0,player.getDirection(),-1,false,textureHandler);
 		this.player = player;
 		loadData(getClass().getName());
 	}

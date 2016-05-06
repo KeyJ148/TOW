@@ -1,7 +1,7 @@
 package tow.player;
 
 import tow.Global;
-import tow.image.Animation;
+import tow.image.TextureHandler;
 import tow.obj.Obj;
 import tow.setting.ConfigReader;
 
@@ -32,8 +32,8 @@ public class Armor extends Obj {
 	private long timer = 0; //таймер для отсёчта пройденного времени при столкновение
 	private long coll_id = -1; //id объекта с которым происходит столкновение
 	
-	public Armor(Player player, Animation animation){
-		super(player.getX(),player.getY(),0.0,player.getDirection(),0,true,animation);
+	public Armor(Player player, TextureHandler[] textureHandler){
+		super(player.getX(),player.getY(),0.0,player.getDirection(),0,true,textureHandler);
 		this.player = player;
 		
 		setCollObj(new String[] {"tow.map.Home", "tow.player.enemy.EnemyArmor", "tow.player.Box"});

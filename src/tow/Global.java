@@ -1,6 +1,6 @@
 package tow;
 
-import java.awt.Color;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,9 +9,10 @@ import java.util.Vector;
 
 import javax.swing.JFrame;
 
+import org.newdawn.slick.Color;
+
 import tow.cycle.Game;
-import tow.image.Animation;
-import tow.image.Sprite;
+import tow.image.TextureHandler;
 import tow.input.KeyboardHandler;
 import tow.input.MouseHandler;
 import tow.map.MapControl;
@@ -55,7 +56,7 @@ public class Global {
 	public static ArrayList<EnemyBullet> enemyBullet; //Список всех патронов противников (EnemyBullet)
 	
 	public static String name;//Имя игрока
-	public static Color color = new Color((int) (Math.random()*Integer.MAX_VALUE));//Цвет игрока
+	public static Color color = new Color((int) (Math.random()*255), (int) (Math.random()*255), (int) (Math.random()*255));//Цвет игрока
 	
 	public static int heightMap;
 	public static int widthMap;//размер карты
@@ -66,154 +67,169 @@ public class Global {
 	public static double cameraXView;
 	public static double cameraYView;
 	
-	public static Sprite background;
+	public static TextureHandler background;
 	
-	public static Sprite road_g;
-	public static Sprite road_g_fork;
-	public static Sprite road_g_turn;
-	public static Sprite road_g_inter;
-	public static Sprite road_a;
-	public static Sprite road_a_g;
-	public static Sprite road_a_fork;
-	public static Sprite road_a_inter_big;
+	public static TextureHandler road_g;
+	public static TextureHandler road_g_fork;
+	public static TextureHandler road_g_turn;
+	public static TextureHandler road_g_inter;
+	public static TextureHandler road_a;
+	public static TextureHandler road_a_g;
+	public static TextureHandler road_a_fork;
+	public static TextureHandler road_a_inter_big;
 	
-	public static Sprite b_default;
-	public static Sprite b_steel;
-	public static Sprite b_mass;
-	public static Sprite b_mass_small;
-	public static Sprite b_square;
-	public static Sprite b_fury;
-	public static Sprite b_streamlined; 
-	public static Sprite b_patron; 
-	public static Sprite b_vampire; 
+	public static TextureHandler b_default;
+	public static TextureHandler b_steel;
+	public static TextureHandler b_mass;
+	public static TextureHandler b_mass_small;
+	public static TextureHandler b_square;
+	public static TextureHandler b_fury;
+	public static TextureHandler b_streamlined; 
+	public static TextureHandler b_patron; 
+	public static TextureHandler b_vampire; 
 	
-	public static Sprite g_default;
-	public static Sprite g_double;
-	public static Sprite g_big;
-	public static Sprite g_power;
-	public static Sprite g_fury;
-	public static Sprite g_mortar;
-	public static Sprite g_rocketd; 
-	public static Sprite g_kkp; 
-	public static Sprite g_sniper; 
-	public static Sprite g_vampire; 
+	public static TextureHandler g_default;
+	public static TextureHandler g_double;
+	public static TextureHandler g_big;
+	public static TextureHandler g_power;
+	public static TextureHandler g_fury;
+	public static TextureHandler g_mortar;
+	public static TextureHandler g_rocketd; 
+	public static TextureHandler g_kkp; 
+	public static TextureHandler g_sniper; 
+	public static TextureHandler g_vampire; 
 	
-	public static Sprite home1;
-	public static Sprite home2;
-	public static Sprite home3;
-	public static Sprite home4;
-	public static Sprite home5;
-	public static Sprite home6;
-	public static Sprite home7;
-	public static Sprite home8;
-	public static Sprite home9;
-	public static Sprite home10;
-	public static Sprite home11;
-	public static Sprite home12;
-	public static Sprite home13;
-	public static Sprite grayrock1;
-	public static Sprite grayrock2;
-	public static Sprite grayrock3;
-	public static Sprite grayrock4;
-	public static Sprite grayrock5;
-	public static Sprite grayrock6;
-	public static Sprite tree;
+	public static TextureHandler home1;
+	public static TextureHandler home2;
+	public static TextureHandler home3;
+	public static TextureHandler home4;
+	public static TextureHandler home5;
+	public static TextureHandler home6;
+	public static TextureHandler home7;
+	public static TextureHandler home8;
+	public static TextureHandler home9;
+	public static TextureHandler home10;
+	public static TextureHandler home11;
+	public static TextureHandler home12;
+	public static TextureHandler home13;
+	public static TextureHandler grayrock1;
+	public static TextureHandler grayrock2;
+	public static TextureHandler grayrock3;
+	public static TextureHandler grayrock4;
+	public static TextureHandler grayrock5;
+	public static TextureHandler grayrock6;
+	public static TextureHandler tree;
 	
-	public static Sprite error;
-	public static Sprite player_sys;
-	public static Sprite player_color;
-	public static Sprite cursor_aim;
+	public static TextureHandler error;
+	public static TextureHandler player_sys;
+	public static TextureHandler player_color;
+	public static TextureHandler cursor_aim;
 	
-	public static Sprite box_armor;
-	public static Sprite box_gun;
-	public static Sprite box_bullet;
-	public static Sprite box_health;
+	public static TextureHandler box_armor;
+	public static TextureHandler box_gun;
+	public static TextureHandler box_bullet;
+	public static TextureHandler box_health;
 	
-	public static Animation a_default;
-	public static Animation a_fortified;
-	public static Animation a_elephant;
-	public static Animation a_fury; 
-	public static Animation a_mite; 
-	public static Animation a_vampire; 
+	public static TextureHandler[] a_default;
+	public static TextureHandler[] a_fortified;
+	public static TextureHandler[] a_elephant;
+	public static TextureHandler[] a_fury; 
+	public static TextureHandler[] a_mite; 
+	public static TextureHandler[] a_vampire; 
 	
 	//Для функций
 	public static final String pathImage = "res/image/";
 	public static final String pathAnim = "res/animation/";
 	
-	//Загрузка всех спрайтов
-	public static void initSprite(){
+	//Загрузка всех текстур
+	public static void initTexture(){
+		Global.road_g = new TextureHandler(pathImage + "Backwall/road_g.png");
+		Global.road_g_fork = new TextureHandler(pathImage + "Backwall/road_g_fork.png");
+		Global.road_g_turn = new TextureHandler(pathImage + "Backwall/road_g_turn.png");
+		Global.road_g_inter = new TextureHandler(pathImage + "Backwall/road_g_inter.png");
+		Global.road_a = new TextureHandler(pathImage + "Backwall/road_a.png");
+		Global.road_a_g = new TextureHandler(pathImage + "Backwall/road_a_g.png");
+		Global.road_a_fork = new TextureHandler(pathImage + "Backwall/road_a_fork.png");
+		Global.road_a_inter_big = new TextureHandler(pathImage + "Backwall/road_a_inter_big.png");
+			
+		Global.b_default = new TextureHandler(pathImage + "Bullet/b_default.png");
+		Global.b_steel = new TextureHandler(pathImage + "Bullet/b_steel.png");
+		Global.b_square = new TextureHandler(pathImage + "Bullet/b_square.png");
+		Global.b_fury = new TextureHandler(pathImage + "Bullet/b_fury.png");
+		Global.b_mass = new TextureHandler(pathImage + "Bullet/b_mass.png");
+		Global.b_mass_small = new TextureHandler(pathImage + "Bullet/b_mass_small.png");
+		Global.b_vampire = new TextureHandler(pathImage + "Bullet/b_vampire.png"); 
+		Global.b_patron = new TextureHandler(pathImage + "Bullet/b_patron.png"); 
+		Global.b_streamlined = new TextureHandler(pathImage + "Bullet/b_streamlined.png"); 
+			
+		Global.g_default = new TextureHandler(pathImage + "Gun/g_default.png");
+		Global.g_double = new TextureHandler(pathImage + "Gun/g_double.png");
+		Global.g_fury = new TextureHandler(pathImage + "Gun/g_fury.png");
+		Global.g_mortar = new TextureHandler(pathImage + "Gun/g_mortar.png");
+		Global.g_rocketd = new TextureHandler(pathImage + "Gun/g_rocketd.png"); 
+		Global.g_big = new TextureHandler(pathImage + "Gun/g_mass.png");
+		Global.g_power = new TextureHandler(pathImage + "Gun/g_power.png");
+		Global.g_kkp = new TextureHandler(pathImage + "Gun/g_kkp.png"); 
+		Global.g_sniper = new TextureHandler(pathImage + "Gun/g_sniper.png"); 
+		Global.g_vampire = new TextureHandler(pathImage + "Gun/g_vampire.png"); 
 		
-		Global.road_g = new Sprite(pathImage + "Backwall/road_g.png");
-		Global.road_g_fork = new Sprite(pathImage + "Backwall/road_g_fork.png");
-		Global.road_g_turn = new Sprite(pathImage + "Backwall/road_g_turn.png");
-		Global.road_g_inter = new Sprite(pathImage + "Backwall/road_g_inter.png");
-		Global.road_a = new Sprite(pathImage + "Backwall/road_a.png");
-		Global.road_a_g = new Sprite(pathImage + "Backwall/road_a_g.png");
-		Global.road_a_fork = new Sprite(pathImage + "Backwall/road_a_fork.png");
-		Global.road_a_inter_big = new Sprite(pathImage + "Backwall/road_a_inter_big.png");
+		Global.player_color = new TextureHandler(pathImage + "Sys/player_color.png");
+		Global.player_sys = new TextureHandler(pathImage + "Sys/player_sys.png");
+		Global.error = new TextureHandler(pathImage + "Sys/error.png");
+		Global.cursor_aim = new TextureHandler(pathImage + "Sys/cursor_aim.png");
+	
+		Global.home1 = new TextureHandler(pathImage + "Wall/home1.png");
+		Global.home2 = new TextureHandler(pathImage + "Wall/home2.png");
+		Global.home3 = new TextureHandler(pathImage + "Wall/home3.png");
+		Global.home4 = new TextureHandler(pathImage + "Wall/home4.png");
+		Global.home5 = new TextureHandler(pathImage + "Wall/home5.png");
+		Global.home6 = new TextureHandler(pathImage + "Wall/home6.png");
+		Global.home7 = new TextureHandler(pathImage + "Wall/home7.png");
+		Global.home8 = new TextureHandler(pathImage + "Wall/home8.png");
+		Global.home9 = new TextureHandler(pathImage + "Wall/home9.png");
+		Global.home10 = new TextureHandler(pathImage + "Wall/home10.png");
+		Global.home11 = new TextureHandler(pathImage + "Wall/home11.png");
+		Global.home12 = new TextureHandler(pathImage + "Wall/home12.png");
+		Global.home13 = new TextureHandler(pathImage + "Wall/home13.png");
+		Global.grayrock1 = new TextureHandler(pathImage + "Wall/grayrock1.png");
+		Global.grayrock2 = new TextureHandler(pathImage + "Wall/grayrock2.png");
+		Global.grayrock3 = new TextureHandler(pathImage + "Wall/grayrock3.png");
+		Global.grayrock4 = new TextureHandler(pathImage + "Wall/grayrock4.png");
+		Global.grayrock5 = new TextureHandler(pathImage + "Wall/grayrock5.png");
+		Global.grayrock6 = new TextureHandler(pathImage + "Wall/grayrock6.png");
+		Global.tree = new TextureHandler(pathImage + "Wall/tree.png");
 		
-		Global.b_default = new Sprite(pathImage + "Bullet/b_default.png");
-		Global.b_steel = new Sprite(pathImage + "Bullet/b_steel.png");
-		Global.b_square = new Sprite(pathImage + "Bullet/b_square.png");
-		Global.b_fury = new Sprite(pathImage + "Bullet/b_fury.png");
-		Global.b_mass = new Sprite(pathImage + "Bullet/b_mass.png");
-		Global.b_mass_small = new Sprite(pathImage + "Bullet/b_mass_small.png");
-		Global.b_vampire = new Sprite(pathImage + "Bullet/b_vampire.png"); 
-		Global.b_patron = new Sprite(pathImage + "Bullet/b_patron.png"); 
-		Global.b_streamlined = new Sprite(pathImage + "Bullet/b_streamlined.png"); 
+		Global.box_armor = new TextureHandler(pathImage + "Gaming/box_armor.png");
+		Global.box_gun = new TextureHandler(pathImage + "Gaming/box_gun.png");
+		Global.box_bullet = new TextureHandler(pathImage + "Gaming/box_bullet.png");
+		Global.box_health = new TextureHandler(pathImage + "Gaming/box_health.png");
 		
-		Global.g_default = new Sprite(pathImage + "Gun/g_default.png");
-		Global.g_double = new Sprite(pathImage + "Gun/g_double.png");
-		Global.g_fury = new Sprite(pathImage + "Gun/g_fury.png");
-		Global.g_mortar = new Sprite(pathImage + "Gun/g_mortar.png");
-		Global.g_rocketd = new Sprite(pathImage + "Gun/g_rocketd.png"); 
-		Global.g_big = new Sprite(pathImage + "Gun/g_mass.png");
-		Global.g_power = new Sprite(pathImage + "Gun/g_power.png");
-		Global.g_kkp = new Sprite(pathImage + "Gun/g_kkp.png"); 
-		Global.g_sniper = new Sprite(pathImage + "Gun/g_sniper.png"); 
-		Global.g_vampire = new Sprite(pathImage + "Gun/g_vampire.png"); 
+		Global.a_default = parseAnimation(pathAnim + "Corps/a_default");
+		Global.a_fortified = parseAnimation(pathAnim + "Corps/a_fortified");
+		Global.a_elephant = parseAnimation(pathAnim + "Corps/a_elephant");
+		Global.a_fury = parseAnimation(pathAnim + "Corps/a_fury"); 
+		Global.a_mite = parseAnimation(pathAnim + "Corps/a_mite"); 
+		Global.a_vampire = parseAnimation(pathAnim + "Corps/a_vampire");
+	}
+	
+	public static TextureHandler[] parseAnimation(String path){
+		int n=0;
+		while (new File(path + "/" + (n+1) + ".png").exists()){
+			n++;
+		}
 		
-		Global.player_color = new Sprite(pathImage + "Sys/player_color.png");
-		Global.player_sys = new Sprite(pathImage + "Sys/player_sys.png");
-		Global.error = new Sprite(pathImage + "Sys/error.png");
-		Global.cursor_aim = new Sprite(pathImage + "Sys/cursor_aim.png");
+		TextureHandler[] textureHandler = new TextureHandler[n];
 		
-		Global.home1 = new Sprite(pathImage + "Wall/home1.png");
-		Global.home2 = new Sprite(pathImage + "Wall/home2.png");
-		Global.home3 = new Sprite(pathImage + "Wall/home3.png");
-		Global.home4 = new Sprite(pathImage + "Wall/home4.png");
-		Global.home5 = new Sprite(pathImage + "Wall/home5.png");
-		Global.home6 = new Sprite(pathImage + "Wall/home6.png");
-		Global.home7 = new Sprite(pathImage + "Wall/home7.png");
-		Global.home8 = new Sprite(pathImage + "Wall/home8.png");
-		Global.home9 = new Sprite(pathImage + "Wall/home9.png");
-		Global.home10 = new Sprite(pathImage + "Wall/home10.png");
-		Global.home11 = new Sprite(pathImage + "Wall/home11.png");
-		Global.home12 = new Sprite(pathImage + "Wall/home12.png");
-		Global.home13 = new Sprite(pathImage + "Wall/home13.png");
-		Global.grayrock1 = new Sprite(pathImage + "Wall/grayrock1.png");
-		Global.grayrock2 = new Sprite(pathImage + "Wall/grayrock2.png");
-		Global.grayrock3 = new Sprite(pathImage + "Wall/grayrock3.png");
-		Global.grayrock4 = new Sprite(pathImage + "Wall/grayrock4.png");
-		Global.grayrock5 = new Sprite(pathImage + "Wall/grayrock5.png");
-		Global.grayrock6 = new Sprite(pathImage + "Wall/grayrock6.png");
-		Global.tree = new Sprite(pathImage + "Wall/tree.png");
+		//Загрузка изображений
+		for(int i=0;i<n;i++){
+			textureHandler[i] = new TextureHandler(path + "/" + (i+1) + ".png");
+		}
 		
-		Global.box_armor = new Sprite(pathImage + "Gaming/box_armor.png");
-		Global.box_gun = new Sprite(pathImage + "Gaming/box_gun.png");
-		Global.box_bullet = new Sprite(pathImage + "Gaming/box_bullet.png");
-		Global.box_health = new Sprite(pathImage + "Gaming/box_health.png");
-		
-		Global.a_default = new Animation(pathAnim + "Corps/a_default",0,2);
-		Global.a_fortified = new Animation(pathAnim + "Corps/a_fortified",0,2);
-		Global.a_elephant = new Animation(pathAnim + "Corps/a_elephant",0,1);
-		Global.a_fury = new Animation(pathAnim + "Corps/a_fury",0,2); 
-		Global.a_mite = new Animation(pathAnim + "Corps/a_mite",0,2); 
-		Global.a_vampire = new Animation(pathAnim + "Corps/a_vampire",0,2); 
+		return textureHandler;
 	}
 	
 	//Получение ссылки на спрайт из строки
-	public static Sprite getSprite(String s){
+	public static TextureHandler getSprite(String s){
 		switch(s){
 			case "home1": return Global.home1;
 			case "home2": return Global.home2;

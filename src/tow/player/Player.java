@@ -1,11 +1,11 @@
 package tow.player;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.util.Random;
 import java.util.Vector;
 
 import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.Color;
 
 import tow.Global;
 import tow.obj.Obj;
@@ -26,6 +26,7 @@ import tow.player.gun.GRocketd;
 import tow.player.gun.GSniper;
 import tow.player.gun.GVampire;
 import tow.setting.ConfigReader;
+import tow.title.Title;
 
 /*
 При добавление необходимо менять...
@@ -145,9 +146,9 @@ public class Player extends Obj{
 		//Отрисовка ника и хп
 		int nameX = (int) Math.round(getXView()-Global.name.length()*3.25); // lengthChar/2
 		int nameY = (int) getYView()-50;
-		Global.game.render.addTitle(nameX, nameY, Global.name);
+		Global.game.render.addTitle(new Title(nameX, nameY, Global.name));
 		
-		Global.game.render.addTitle(1, 16, "HP: " +  Math.round(getArmor().getHp()) + "/" + Math.round(getArmor().getHpMax()), Color.BLACK, 20, Font.BOLD);
+		Global.game.render.addTitle(new Title(1, -3, "HP: " +  Math.round(getArmor().getHp()) + "/" + Math.round(getArmor().getHpMax()), Color.black, 20, Font.BOLD));
 		
 		//Отправка данных о игроке
 		lastSend += delta;
@@ -181,11 +182,11 @@ public class Player extends Obj{
 	}
 	
 	public void setColorArmor(){
-		//armor.getImage().setColor(Global.color);
+		armor.getImage().setColor(Global.color);
 	}
 	
 	public void setColorGun(){
-		//gun.getImage().setColor(Global.color);
+		gun.getImage().setColor(Global.color);
 	}
 	
 	public void newEquipment(int typeBox){

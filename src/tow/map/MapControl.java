@@ -3,13 +3,12 @@ package tow.map;
 import java.util.ArrayList;
 
 import tow.Global;
-import tow.image.DepthVector;
 import tow.obj.Obj;
 import tow.obj.ObjLight;
 
 public class MapControl {
 
-	private ArrayList<DepthVector> depthVectors = new ArrayList<DepthVector>(); //Массив с DepthVector для этого чанка
+	private ArrayList<DepthVector> depthVectors = new ArrayList<DepthVector>(); //Массив с DepthVector хранящий чанки
 	public int numberWidth;//Кол-во чанков
 	public int numberHeight;
 	public final int chunkSize = 100;

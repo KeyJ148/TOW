@@ -1,10 +1,11 @@
 package tow.net.client;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
+import org.newdawn.slick.Color;
+
 import tow.Global;
-import tow.image.Sprite;
+import tow.image.TextureHandler;
 import tow.player.Box;
 import tow.player.enemy.Enemy;
 import tow.player.enemy.EnemyBullet;
@@ -202,7 +203,7 @@ public class TCPRead extends Thread{
 		int y = Integer.parseInt(Global.parsString(str,3));
 		int idBox = Integer.parseInt(Global.parsString(str,4));
 		int typeBox = Integer.parseInt(Global.parsString(str,5));
-		Sprite s;
+		TextureHandler s;
 		switch (typeBox){
 			case 0: s = Global.box_armor; break;
 			case 1: s = Global.box_gun; break;

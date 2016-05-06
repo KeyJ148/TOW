@@ -65,7 +65,7 @@ public class Loader {
 		Global.tcpSend = new TCPSend();
 		Global.tcpRead = new TCPRead();
 			
-		Global.initSprite();
+		Global.initTexture();
 		
 		Global.mouseHandler = new MouseHandler();
 		Global.keyboardHandler = new KeyboardHandler();

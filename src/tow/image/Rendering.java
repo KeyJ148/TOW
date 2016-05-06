@@ -1,5 +1,7 @@
 package tow.image;
 
+import org.newdawn.slick.Color;
+
 public interface Rendering {
 	
 	public int getWidth();
@@ -15,5 +17,6 @@ public interface Rendering {
     public String getPath();
     
     public void update(long delta);
-
+    
+    public void setColor(Color color);
 }

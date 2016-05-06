@@ -1,9 +1,9 @@
 package tow.player;
 
-import tow.*;
-import tow.image.Sprite;
+import tow.Global;
+import tow.image.TextureHandler;
 import tow.obj.Obj;
-import tow.player.enemy.*;
+import tow.player.enemy.EnemyArmor;
 import tow.setting.ConfigReader;
 
 public class Bullet extends Obj{
@@ -19,8 +19,8 @@ public class Bullet extends Obj{
 	
 	public static final String pathSetting = "bullet/";
 	
-	public Bullet(Player player, double x, double y, double dir,double damage, int range, Sprite sprite){
-		super(x,y,0,dir,0,true,sprite);
+	public Bullet(Player player, double x, double y, double dir,double damage, int range, TextureHandler textureHandler){
+		super(x,y,0,dir,0,true,textureHandler);
 		this.player = player;
 		this.damage = damage;//Дамаг исключительно от выстрелевшей пушки
 		this.range = range;

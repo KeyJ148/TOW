@@ -1,7 +1,7 @@
 package tow.net.client;
 
 import tow.Global;
-import tow.image.Sprite;
+import tow.image.TextureHandler;
 import tow.map.Home;
 import tow.map.Road;
 import tow.player.Player;
@@ -30,7 +30,7 @@ public class TCPMapLoader {
 		if (Global.setting.DEBUG_CONSOLE) Global.p("Download map size complite.");
 		Global.widthMap = Integer.parseInt(Global.parsString(s,1));
 		Global.heightMap = Integer.parseInt(Global.parsString(s,2));
-		Global.background = new Sprite("res/image/Background/" + Global.parsString(s,3) + ".png");
+		Global.background = new TextureHandler("res/image/Background/" + Global.parsString(s,3) + ".png");
 		Global.mapControl.init(Global.widthMap, Global.heightMap);
 		
 		//Загрузка объектов

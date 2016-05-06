@@ -1,18 +1,18 @@
 package tow.player.enemy;
 
-import java.awt.Color;
+import org.newdawn.slick.Color;
 
 import tow.Global;
-import tow.image.Animation;
-import tow.image.Rendering;
+import tow.image.TextureHandler;
 import tow.obj.Obj;
+import tow.title.Title;
 
 public class Enemy extends Obj{
 	
 	public boolean animOn = false;
 	public boolean haveData = false;//»меем ли мы все данные об этом враге
 	
-	public Color c = Color.WHITE;
+	public Color c = Color.white;
 	public String name;
 	public Obj gun;
 	public EnemyArmor armor;
@@ -54,11 +54,11 @@ public class Enemy extends Obj{
 	}
 	
 	public void setColorArmor(){
-		//armor.getImage().setColor(c);
+		armor.getImage().setColor(c);
 	}
 	
 	public void setColorGun(){
-		//gun.getImage().setColor(c);
+		gun.getImage().setColor(c);
 	}
 	
 	@Override
@@ -68,7 +68,7 @@ public class Enemy extends Obj{
 			int nameX = (int) Math.round(getXView()-name.length()*3.25); // lengthChar/2
 			int nameY = (int) getYView()-50;
 			
-			Global.game.render.addTitle(nameX, nameY, name);
+			Global.game.render.addTitle(new Title(nameX, nameY, name));
 		} catch(NullPointerException e){
 			Global.error("Draw enemy name");
 		}
@@ -77,7 +77,7 @@ public class Enemy extends Obj{
 	public void newArmor(String nameArmor){
 		double lastArmorDirection = armor.direction;
 		armor.destroy();
-		Animation anim;
+		TextureHandler[] anim;
 		switch(nameArmor){
 			case "ADefault": anim = Global.a_default; break;
 			case "AFortified": anim = Global.a_fortified; break;
@@ -95,21 +95,21 @@ public class Enemy extends Obj{
 	public void newGun(String nameGun){
 		double lastGunDirection = gun.direction;
 		gun.destroy();
-		Rendering image;
+		TextureHandler textureHandler;
 		switch(nameGun){
-			case "GDefault": image = Global.g_default; break;
-			case "GDouble": image = Global.g_double; break;
-			case "GPower": image = Global.g_power; break;
-			case "GBig": image = Global.g_big; break;
-			case "GFury": image = Global.g_fury; break;
-			case "GMortar": image = Global.g_mortar; break;
-			case "GRocketd": image = Global.g_rocketd; break;
-			case "GKkp": image = Global.g_kkp; break;
-			case "GSniper": image = Global.g_sniper; break;
-			case "GVampire": image = Global.g_vampire; break;
-			default: image = Global.g_default; Global.error("Not find gun name (take15)"); break;
+			case "GDefault": textureHandler = Global.g_default; break;
+			case "GDouble": textureHandler = Global.g_double; break;
+			case "GPower": textureHandler = Global.g_power; break;
+			case "GBig": textureHandler = Global.g_big; break;
+			case "GFury": textureHandler = Global.g_fury; break;
+			case "GMortar": textureHandler = Global.g_mortar; break;
+			case "GRocketd": textureHandler = Global.g_rocketd; break;
+			case "GKkp": textureHandler = Global.g_kkp; break;
+			case "GSniper": textureHandler = Global.g_sniper; break;
+			case "GVampire": textureHandler = Global.g_vampire; break;
+			default: textureHandler = Global.g_default; Global.error("Not find gun name (take15)"); break;
 		}
-		gun = new Obj(x,y,0.0,direction,-1,false,image);
+		gun = new Obj(x,y,0.0,direction,-1,false,textureHandler);
 		gun.direction = lastGunDirection;
 		setColorGun();
 	}

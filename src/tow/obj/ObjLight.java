@@ -1,7 +1,10 @@
 package tow.obj;
 
 import tow.Global;
+import tow.image.Animation;
 import tow.image.Rendering;
+import tow.image.Sprite;
+import tow.image.TextureHandler;
 
 public class ObjLight {
 	
@@ -19,10 +22,22 @@ public class ObjLight {
 	
 	private long id; //уникальный номер
 	
-	public ObjLight(double x, double y, double directionDraw, int depth, Rendering image){
-		this.image = image;
-		this.anim = image.isAnim();
+	public ObjLight(double x, double y, double directionDraw, int depth, TextureHandler textureHandler){
+		this(x, y, directionDraw, depth);
 		
+		this.image = new Sprite(textureHandler);
+		this.anim = false;
+	}
+	
+	public ObjLight(double x, double y, double directionDraw, int depth, TextureHandler[] textureHandler){
+		this(x, y, directionDraw, depth);
+		
+		this.image = new Animation(textureHandler);
+		this.anim = true;
+		
+	}
+	
+	public ObjLight(double x, double y, double directionDraw, int depth){
 		this.x = x;
 		this.y = y;
 		this.directionDraw = directionDraw;
@@ -38,7 +53,7 @@ public class ObjLight {
 		xView = Global.cameraXView - (Global.cameraX - x);
 		yView = Global.cameraYView - (Global.cameraY - y);
 	
-		image.draw((int) Math.round(xView),(int) Math.round(yView), Math.toRadians(directionDraw));
+		image.draw((int) Math.round(xView), (int) Math.round(yView), Math.toRadians(directionDraw));
 	}
 	
 	public void update(long delta) {

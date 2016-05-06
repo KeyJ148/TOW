@@ -4,6 +4,7 @@ import tow.Global;
 import tow.image.Animation;
 import tow.image.Mask;
 import tow.image.Rendering;
+import tow.image.TextureHandler;
 
 public class Obj extends ObjLight{
 	
@@ -19,8 +20,17 @@ public class Obj extends ObjLight{
 	
 	public Mask mask;
 	
-	public Obj(double x, double y, double speed, double direction, int depth, boolean maskDynamic, Rendering image){
-		super(x,y,direction,depth,image);
+	public Obj(double x, double y, double speed, double direction, int depth, boolean maskDynamic, TextureHandler textureHandler){
+		super(x, y, direction, depth, textureHandler);
+		create(speed, direction, maskDynamic);
+	}
+	
+	public Obj(double x, double y, double speed, double direction, int depth, boolean maskDynamic, TextureHandler[] textureHandler){
+		super(x, y, direction, depth, textureHandler);
+		create(speed, direction, maskDynamic);
+	}
+	
+	private void create(double speed, double direction,  boolean maskDynamic){
 		try{
 			this.mask = image.getMask().clone();
 		} catch (CloneNotSupportedException e) {
