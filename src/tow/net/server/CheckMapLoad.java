@@ -10,13 +10,17 @@ public class CheckMapLoad extends Thread{
 		for(int i=0;i<gS.peopleMax;i++){
 			gS.connect[i] = false;
 		}
-		gS.genTank();
+		
 		GameServer.p("Check map loading = false.");
 		start();
 	}
 	
 	public void run(){
 		GameServer.p("Start thread CheckMapLoad.");
+		
+		gS.genTank();
+		GameServer.p("Generation tank complited.");
+		
 		boolean mapDownAll;//все ли скачали карту
 		
 		do{

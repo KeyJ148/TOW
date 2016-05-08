@@ -197,6 +197,11 @@ public class GameServer {
 		}
 		pathFull = path;
 		
+		//ќжидаем пока TextureManager загрузит текстуры
+		do{
+			try { Thread.sleep(50); } catch (InterruptedException e) {}
+		} while(TextureManager.a_default == null);
+		
 		//генераци€ танков
 		int wTank = TextureManager.a_default[0].getWidth();
 		int hTank = TextureManager.a_default[0].getHeight();
@@ -320,8 +325,12 @@ public class GameServer {
 	}
 	
 	public static void p(String s){
+		GameServer.pNoSpace(" " + s);
+	}
+	
+	public static void pNoSpace(String s){
 		if (isClient){
-			System.out.println("[SERVER] " + s);
+			System.out.println("[SERVER]" + s);
 		} else {
 			System.out.println(s);
 		}

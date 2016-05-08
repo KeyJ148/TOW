@@ -30,9 +30,11 @@ public class ServerNetThread extends Thread{
 	
 	public void mapLoading(){
 		//если это первый загрузившийс€ поток -- создать проверщик скаваний
+		p("Create CML.");
 		mapDownAll = false;
 		gameServer.checkMapDownload();
 		
+		p("Wait tank generation.");
 		do{
 			try {
 				Thread.sleep(0,1);
@@ -40,7 +42,7 @@ public class ServerNetThread extends Thread{
 		}while(!gameServer.tankGenComplite); //∆дЄм пока загрузитс€ карта и сгенирируютс€ позиции танков
 		
 		//отправка карты
-		GameServer.p("Loading map start.");
+		p("Loading map start.");
 		String pathFull = this.gameServer.pathFull;
 		try {
 			BufferedReader fileReader = new BufferedReader(new FileReader(pathFull));
@@ -59,22 +61,25 @@ public class ServerNetThread extends Thread{
 		} catch (IOException e) {
 			GameServer.error("Load map");
 		}
-		GameServer.p("Loading map end.");		
+		p("Loading map end.");		
 				
 		//—читывание имени игрока
 		this.name = downloadNick();
-		GameServer.p("Nickname: " + name);
+		p("Nickname: " + name);
 		
 		//ќтправка позиций танков
 		writeMap(this.gameServer.tankX[id] + " " + this.gameServer.tankY[id]);
 		writeMap(gameServer.peopleMax + " ");
 		
 		this.gameServer.connect[id] = true;
+		
+		p("Wait all download map.");
 		do{
 			try {
 				Thread.sleep(0,1);
 			} catch (InterruptedException e) {}
 		}while(!mapDownAll);//∆дЄм пока все будут готовы к бою
+		p("All download map.");
 	}
 	
 	public String downloadNick(){
@@ -123,7 +128,7 @@ public class ServerNetThread extends Thread{
 		} catch (IOException e){
 			GameServer.error("Take message");
 			if ((gameServer.disconnect+1) == gameServer.peopleMax){
-				GameServer.p("All user disconnect!");
+				p("All user disconnect!");
 				System.exit(0);
 			} else {
 				gameServer.disconnect++;
@@ -145,6 +150,10 @@ public class ServerNetThread extends Thread{
 		} catch (IOException e) {
 			GameServer.error("Check ping");
 		}
+	}
+	
+	private void p(String s){
+		GameServer.pNoSpace("[" + id + "]" + " " + s);
 	}
 	
 }
