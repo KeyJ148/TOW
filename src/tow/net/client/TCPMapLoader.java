@@ -54,7 +54,6 @@ public class TCPMapLoader {
 				case "Home": new Home(x,y,direction,TextureManager.getTexture(sprite)); break;
 				case "Road": new Road(x,y,direction,TextureManager.getTexture(sprite)); break;
 				case "Tree": new Tree(x,y,direction,TextureManager.getTexture(sprite)); break;
-				default: Global.p("Not find type"); break;
 			}
 		}
 		

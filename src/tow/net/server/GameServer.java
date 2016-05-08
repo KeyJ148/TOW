@@ -208,34 +208,36 @@ public class GameServer {
 			this.tankY[i] = y;
 			vecX.add(x);
 			vecY.add(y);
-			vecSprite.add("player_color");
+			vecSprite.add("sys_tank");
 		}
 		tankGenComplite = true;
 	}
 	
 	public Point genObject(int width, int height){
 		double disTank = Math.sqrt(width*width + width*width)/2;
-		boolean gen;
+		boolean collision;
 		int xRand,yRand,x,y,w,h;
 		double disHome,disPointToHome,dxRand,dyRand;
 		do{
-			gen = false;
+			collision = false;
 			dxRand = Math.random()*(widthMap-200)+100;//Если генерить сразу в инт - ошибка
 			dyRand = Math.random()*(heightMap-200)+100;//позиция танка
 			xRand = (int) dxRand;
 			yRand = (int) dyRand;
 			for(int i=0;i<vecX.size();i++){
-				x = (int) vecX.get(i);//коры объекта
-				y = (int) vecY.get(i);
-				w = (int) TextureManager.getTexture((String) vecSprite.get(i)).getWidth();//размеры объекта
-				h = (int) TextureManager.getTexture((String) vecSprite.get(i)).getHeight();
-				disHome = Math.sqrt(w*w + h*h)/2;
-				disPointToHome = Math.sqrt((x-xRand)*(x-xRand)+(y-yRand)*(y-yRand));
-				if ((disHome+disTank+30) > (disPointToHome)){
-					gen = true;
+				if (!TextureManager.getType(vecSprite.get(i)).equals("Road")){
+					x = (int) vecX.get(i);//коры объекта
+					y = (int) vecY.get(i);
+					w = (int) TextureManager.getTexture(vecSprite.get(i)).getWidth();//размеры объекта
+					h = (int) TextureManager.getTexture(vecSprite.get(i)).getHeight();
+					disHome = Math.sqrt(w*w + h*h)/2;
+					disPointToHome = Math.sqrt((x-xRand)*(x-xRand)+(y-yRand)*(y-yRand));
+					if ((disHome+disTank+30) > (disPointToHome)){
+						collision = true;
+					}
 				}
 			}
-		} while(gen);
+		} while(collision);
 		return new Point(xRand, yRand);
 	}
 	
@@ -272,7 +274,7 @@ public class GameServer {
 	
 	public void createBox(int idBox) {
 		for (int i = 0; i < vecSprite.size(); i++) {// Удаляем имеющиеся танки
-			if (vecSprite.get(i).equals("player_color")) {
+			if (vecSprite.get(i).equals("sys_tank")) {
 				vecSprite.remove(i);
 				vecX.remove(i);
 				vecY.remove(i);
@@ -282,7 +284,7 @@ public class GameServer {
 		for (int i = 0; i < peopleMax; i++) {
 			vecX.add(serverSend[i].x);
 			vecY.add(serverSend[i].y);
-			vecSprite.add("player_color");
+			vecSprite.add("sys_tank");
 		}
 		
 		int w = TextureManager.box_armor.getWidth();

@@ -54,7 +54,7 @@ public class Player extends Obj{
 	private Armor armor;
 	
 	public Player(double x, double y, double direction){
-		super(x,y,0.0,direction,1,false,TextureManager.player_sys);
+		super(x,y,0.0,direction,1,false,TextureManager.sys_null);
 		this.bullet = "BDefault";
 		this.armor = new ADefault(this);
 		this.gun = new GDefault(this);
@@ -157,6 +157,11 @@ public class Player extends Obj{
 		if (lastSend > Global.setting.SEND_MILLIS*1000000){
 			lastSend = 0;
 			Global.tcpSend.send0(getData());
+		}
+		
+		//Следующая карта в одиночном режиме
+		for (int i=0; i<Global.keyboardHandler.bufferKey.size(); i++){
+			if (Global.keyboardHandler.bufferKey.get(i) == Keyboard.KEY_E && Global.enemy.length == 0) Global.tcpRead.take5("");
 		}
 	}
 	

@@ -119,11 +119,9 @@ public class Mask implements Cloneable{
 	//Проверка столкновения
 	public boolean collCheckConti(double x, double y, double directionDraw, Obj obj){
 		//Проверка расстояния до объекта столкновения
-		double xCenter = x + this.width/2; //смещение начало кор в центр объекта
-		double yCenter = y + this.height/2;
 		double gipMe = Math.sqrt(sqr(height) + sqr(width)); //Гипотенуза объекта
 		double gipOther = Math.sqrt(sqr(obj.mask.height) + sqr(obj.mask.width)); //Гипотинуза объекта, с которым сравниваем
-		double disMeToOther = Math.sqrt(sqr(xCenter-obj.getX())+sqr(yCenter-obj.getY())); //Расстояние от центра до центра
+		double disMeToOther = Math.sqrt(sqr(x-obj.getX())+sqr(y-obj.getY())); //Расстояние от центра до центра
 		
 		if (disMeToOther > gipMe/2 + gipOther/2 + 30){//Если до объекта слишком далеко
 			return false;
@@ -266,11 +264,9 @@ public class Mask implements Cloneable{
 	
 	//расчёт столкновения по прямой траетории
 	private void bulletColl(double startX, double startY, double directionDraw, Obj obj, int range){
-		double xCenter = startX + this.width/2; //смещение начало кор в центр объекта
-		double yCenter = startY + this.height/2;
 		double gipMe = Math.sqrt(sqr(height) + sqr(width)); //Гипотенуза объекта
 		double gipOther = Math.sqrt(sqr(obj.getImage().getHeight()) + sqr(obj.getImage().getWidth())); //Гипотинуза объекта, с которым сравниваем
-		double disMeToOther = Math.sqrt(sqr(xCenter-obj.getX()) + sqr(yCenter-obj.getY())); //Расстояние от центра до центра
+		double disMeToOther = Math.sqrt(sqr(startX-obj.getX()) + sqr(startY-obj.getY())); //Расстояние от центра до центра
 		
 		if (disMeToOther < gipOther/2+gipMe+30){//Если пушка находится внутри дома
 			bullet = false;

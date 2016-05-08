@@ -20,8 +20,6 @@ public class TextureHandler {
 			if (Global.setting.DEBUG_CONSOLE_IMAGE) Global.p("Load image \"" + path + "\" complited.");
 		} catch (IOException e1) {
 			Global.error("Image \"" + path + "\" not loading");
-		} catch (UnsupportedOperationException e2){
-			Global.error("Image \"" + path + "\" not loading");
 		}
 		this.path = path;
 		this.mask = new Mask(path, getWidth(), getHeight());

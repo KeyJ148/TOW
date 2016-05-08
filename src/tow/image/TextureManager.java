@@ -2,6 +2,8 @@ package tow.image;
 
 import java.io.File;
 
+import tow.Global;
+
 public class TextureManager {
 
 	public static TextureHandler background;
@@ -76,8 +78,8 @@ public class TextureManager {
 	public static TextureHandler factory2;
 	
 	public static TextureHandler error;
-	public static TextureHandler player_sys;
-	public static TextureHandler player_color;
+	public static TextureHandler sys_null;
+	public static TextureHandler sys_tank;
 	public static TextureHandler cursor_aim_1;
 	public static TextureHandler cursor_aim_2;
 	
@@ -149,8 +151,8 @@ public class TextureManager {
 		TextureManager.g_vampire = new TextureHandler(pathImage + "Gun/g_vampire.png");
 		TextureManager.g_osmos = new TextureHandler(pathImage + "Gun/g_osmos.png"); 
 		
-		TextureManager.player_color = new TextureHandler(pathImage + "Sys/player_color.png");
-		TextureManager.player_sys = new TextureHandler(pathImage + "Sys/player_sys.png");
+		TextureManager.sys_tank = new TextureHandler(pathImage + "Sys/sys_tank.png");
+		TextureManager.sys_null = new TextureHandler(pathImage + "Sys/sys_null.png");
 		TextureManager.error = new TextureHandler(pathImage + "Sys/error.png");
 		TextureManager.cursor_aim_1 = new TextureHandler(pathImage + "Sys/cursor_aim_1.png");
 		TextureManager.cursor_aim_2 = new TextureHandler(pathImage + "Sys/cursor_aim_2.png");
@@ -254,7 +256,7 @@ public class TextureManager {
 			case "road_s_inter": return TextureManager.road_s_inter;
 			case "road_s_end": return TextureManager.road_s_end;
 			
-			case "player_color": return TextureManager.player_color;
+			case "sys_tank": return TextureManager.sys_tank;
 			
 			case "b_default": return TextureManager.b_default;
 			case "b_steel": return TextureManager.b_steel;
@@ -266,6 +268,9 @@ public class TextureManager {
 			case "b_vampire": return TextureManager.b_vampire; 
 			case "b_streamlined": return TextureManager.b_streamlined; 
 		}
+		
+		Global.p("Not find texture \"" + s + "\"");
+		new Exception().printStackTrace();
 		return TextureManager.error;
 	}
 	
@@ -274,6 +279,9 @@ public class TextureManager {
 		try{ if (s.substring(0, 4).equals("home")) return "Home"; } catch(StringIndexOutOfBoundsException e){}
 		try{ if (s.substring(0, 4).equals("tree")) return "Tree"; } catch(StringIndexOutOfBoundsException e){}
 		try{ if (s.substring(0, 2).equals("b_")) return "Bullet"; } catch(StringIndexOutOfBoundsException e){}
+		try{ if (s.substring(0, 3).equals("sys")) return "System"; } catch(StringIndexOutOfBoundsException e){}
+		
+		Global.p("Not find type \"" + s + "\"");
 		return "Error";
 	}
 

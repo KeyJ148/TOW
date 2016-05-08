@@ -1,7 +1,5 @@
 package tow.player;
 
-import org.lwjgl.input.Keyboard;
-
 import tow.Global;
 import tow.image.TextureHandler;
 import tow.obj.Obj;
@@ -146,11 +144,6 @@ public class Armor extends Obj {
 			} else {
 				hp+=delta/1000000000*hpRegen;
 			}
-		}
-		
-		//Кнопка для самоубийства
-		for (int i=0; i<Global.keyboardHandler.bufferKey.size(); i++){
-			if (Global.keyboardHandler.bufferKey.get(i) == Keyboard.KEY_E) Global.tcpRead.take5("");
 		}
 	}
 	

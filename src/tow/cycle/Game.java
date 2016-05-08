@@ -27,7 +27,7 @@ public class Game{
 		while(!Display.isCloseRequested()){
 			startUpdate = System.nanoTime();
 			update.loop(System.nanoTime() - lastUpdate);
-			lastUpdate = System.nanoTime();
+			lastUpdate = startUpdate;//Начало предыдущего update, чтобы длительность update тоже учитывалась
 			if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) analyzer.loopsUpdate(startUpdate);
 				
 			startRender = System.nanoTime();

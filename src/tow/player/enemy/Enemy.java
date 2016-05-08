@@ -19,7 +19,7 @@ public class Enemy extends Obj{
 	public EnemyArmor armor;
 	
 	public Enemy(double x, double y, double direction, String name){
-		super(x,y,0.0,direction,1,false,TextureManager.player_sys);
+		super(x,y,0.0,direction,1,false,TextureManager.sys_null);
 		this.name = name;
 		this.armor = new EnemyArmor(TextureManager.a_default,this);
 		this.gun = new Obj(x,y,0.0,direction,-1,false,TextureManager.g_default);

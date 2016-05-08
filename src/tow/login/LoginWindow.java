@@ -61,7 +61,7 @@ public class LoginWindow extends JFrame{
 	public String defaultPortHost = "";//порт
 	
 	//Отображение танка
-	public SpriteAWT spriteTank = new SpriteAWT("res/image/Sys/player_color.png");
+	public SpriteAWT spriteTank = new SpriteAWT("res/image/Sys/sys_tank.png");
 	public Color colorTank;
 	public File map;
 	

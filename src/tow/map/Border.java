@@ -15,9 +15,10 @@ public class Border extends Obj {
 	private static final int size = 100;//Размер толщины каждой линии, ибо маска танка должна попасть внутрь
 
 	public Border(int type) {
-		super(0, 0, 0, 0, 0, false, TextureManager.player_sys);
+		super(0, 0, 0, 0, 0, false, TextureManager.sys_null);
 		
 		int x, y, w, h;
+		
 		switch (type){
 			case NORTH: 
 				x = Global.widthMap/2;
