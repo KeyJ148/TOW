@@ -29,6 +29,8 @@ public class TCPRead extends Thread{
 				while (!takeMessage){
 					try { Thread.sleep(0,100); } catch (InterruptedException e) {}
 				}
+				messages.clear();
+				str = Global.tcpControl.read();
 			}
 				
 			if (takeMessage){
