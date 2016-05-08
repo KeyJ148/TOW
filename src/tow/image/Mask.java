@@ -34,7 +34,7 @@ public class Mask implements Cloneable{
 	public ArrayList<Integer> dynamicId;//Ид динамических объектов, с которыми надо проверять столкновения
 	public double collX = -1;//-1 заместо null
 	public double collY = -1;
-	public int start = 0;//id з глоабала, с которго надо начинать перебор
+	public int start = 0;//id из глоабала, с которго надо начинать перебор
 	
 	public Mask (String path, int width, int height) {
 		this.width = width;
@@ -265,7 +265,7 @@ public class Mask implements Cloneable{
 	//расчёт столкновения по прямой траетории
 	private void bulletColl(double startX, double startY, double directionDraw, Obj obj, int range){
 		double gipMe = Math.sqrt(sqr(height) + sqr(width)); //Гипотенуза объекта
-		double gipOther = Math.sqrt(sqr(obj.getImage().getHeight()) + sqr(obj.getImage().getWidth())); //Гипотинуза объекта, с которым сравниваем
+		double gipOther = Math.sqrt(sqr(obj.mask.height) + sqr(obj.mask.width)); //Гипотинуза объекта, с которым сравниваем
 		double disMeToOther = Math.sqrt(sqr(startX-obj.getX()) + sqr(startY-obj.getY())); //Расстояние от центра до центра
 		
 		if (disMeToOther < gipOther/2+gipMe+30){//Если пушка находится внутри дома
@@ -312,7 +312,7 @@ public class Mask implements Cloneable{
 						collY = y2Coll;
 					}
 				}
-					
+				
 				//Эти точки ближе чем уже имеющаяся?
 				if ((this.collX != -1) && (this.collY != -1)){
 					double collOld = Math.sqrt(sqr(this.collX-startX) + sqr(this.collY-startY));
