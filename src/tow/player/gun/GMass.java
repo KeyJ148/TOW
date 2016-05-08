@@ -4,9 +4,9 @@ import tow.image.TextureManager;
 import tow.player.Gun;
 import tow.player.Player;
 
-public class GBig  extends Gun {
+public class GMass  extends Gun {
 	
-	public GBig(Player player){
-		super(player, TextureManager.g_big);
+	public GMass(Player player){
+		super(player, TextureManager.g_mass);
 	}
 }

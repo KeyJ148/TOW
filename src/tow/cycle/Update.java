@@ -50,5 +50,12 @@ public class Update {
 		if (cameraShould.getY() >Global.heightMap-height/2){
 			Global.cameraY = Global.heightMap-height/2;
 		}
+		
+		if (Global.game.render.getWidth() > Global.widthMap){
+			Global.cameraX = Global.widthMap/2;
+		}
+		if (Global.game.render.getHeight() > Global.heightMap){
+			Global.cameraY = Global.heightMap/2;
+		}
 	}
 }

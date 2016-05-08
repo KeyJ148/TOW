@@ -46,7 +46,7 @@ public class TextureManager {
 	
 	public static TextureHandler g_default;
 	public static TextureHandler g_double;
-	public static TextureHandler g_big;
+	public static TextureHandler g_mass;
 	public static TextureHandler g_power;
 	public static TextureHandler g_fury;
 	public static TextureHandler g_mortar;
@@ -144,7 +144,7 @@ public class TextureManager {
 		TextureManager.g_fury = new TextureHandler(pathImage + "Gun/g_fury.png");
 		TextureManager.g_mortar = new TextureHandler(pathImage + "Gun/g_mortar.png");
 		TextureManager.g_rocketd = new TextureHandler(pathImage + "Gun/g_rocketd.png"); 
-		TextureManager.g_big = new TextureHandler(pathImage + "Gun/g_mass.png");
+		TextureManager.g_mass = new TextureHandler(pathImage + "Gun/g_mass.png");
 		TextureManager.g_power = new TextureHandler(pathImage + "Gun/g_power.png");
 		TextureManager.g_kkp = new TextureHandler(pathImage + "Gun/g_kkp.png"); 
 		TextureManager.g_sniper = new TextureHandler(pathImage + "Gun/g_sniper.png"); 

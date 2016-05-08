@@ -101,7 +101,7 @@ public class Enemy extends Obj{
 			case "GDefault": textureHandler = TextureManager.g_default; break;
 			case "GDouble": textureHandler = TextureManager.g_double; break;
 			case "GPower": textureHandler = TextureManager.g_power; break;
-			case "GBig": textureHandler = TextureManager.g_big; break;
+			case "GMass": textureHandler = TextureManager.g_mass; break;
 			case "GFury": textureHandler = TextureManager.g_fury; break;
 			case "GMortar": textureHandler = TextureManager.g_mortar; break;
 			case "GRocketd": textureHandler = TextureManager.g_rocketd; break;

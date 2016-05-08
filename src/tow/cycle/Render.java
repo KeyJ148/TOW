@@ -75,6 +75,62 @@ public class Render{
 			}
 		}
 		
+		//Заливка фона за границами карты
+		GL11.glLoadIdentity();     
+	    GL11.glTranslatef(0, 0, 0);
+	    GL11.glDisable(GL11.GL_TEXTURE_2D);
+	    Color.gray.bind();
+	    int fillW = (width - Global.widthMap)/2;
+	    int fillH = (height - Global.heightMap)/2;
+	    
+		if (Global.game.render.getWidth() > Global.widthMap){
+				GL11.glBegin(GL11.GL_QUADS);
+				GL11.glTexCoord2f(0,0); 
+				GL11.glVertex2f(0, 0); 
+				GL11.glTexCoord2f(1,0); 
+				GL11.glVertex2f(fillW, 0); 
+				GL11.glTexCoord2f(1,1); 
+				GL11.glVertex2f(fillW, height); 
+				GL11.glTexCoord2f(0,1); 
+				GL11.glVertex2f(0, height);
+				GL11.glEnd();
+				GL11.glBegin(GL11.GL_QUADS);
+				GL11.glTexCoord2f(0,0); 
+				GL11.glVertex2f(width-fillW, 0); 
+				GL11.glTexCoord2f(1,0); 
+				GL11.glVertex2f(width, 0); 
+				GL11.glTexCoord2f(1,1); 
+				GL11.glVertex2f(width, height); 
+				GL11.glTexCoord2f(0,1); 
+				GL11.glVertex2f(width-fillW, height);
+				GL11.glEnd();
+		}
+		if (Global.game.render.getHeight() > Global.heightMap){
+				GL11.glBegin(GL11.GL_QUADS);
+				GL11.glTexCoord2f(0,0); 
+				GL11.glVertex2f(0, 0); 
+				GL11.glTexCoord2f(1,0); 
+				GL11.glVertex2f(width, 0); 
+				GL11.glTexCoord2f(1,1); 
+				GL11.glVertex2f(width, fillH); 
+				GL11.glTexCoord2f(0,1); 
+				GL11.glVertex2f(0, fillH);
+				GL11.glEnd();
+				GL11.glBegin(GL11.GL_QUADS);
+				GL11.glTexCoord2f(0,0); 
+				GL11.glVertex2f(0, height-fillH); 
+				GL11.glTexCoord2f(1,0); 
+				GL11.glVertex2f(width, height-fillH); 
+				GL11.glTexCoord2f(1,1); 
+				GL11.glVertex2f(width, height); 
+				GL11.glTexCoord2f(0,1); 
+				GL11.glVertex2f(0, height);
+				GL11.glEnd();
+		}
+		
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		
+		
 		//Отрисовка объектов
 		Global.mapControl.render((int) Global.cameraX, (int) Global.cameraY, getWidth(), getHeight());
 		

@@ -16,11 +16,11 @@ import tow.player.armor.AFortified;
 import tow.player.armor.AFury;
 import tow.player.armor.AMite;
 import tow.player.armor.AVampire;
-import tow.player.gun.GBig;
 import tow.player.gun.GDefault;
 import tow.player.gun.GDouble;
 import tow.player.gun.GFury;
 import tow.player.gun.GKkp;
+import tow.player.gun.GMass;
 import tow.player.gun.GMortar;
 import tow.player.gun.GOsmos;
 import tow.player.gun.GPower;
@@ -276,7 +276,7 @@ public class Player extends Obj{
 		switch(newGunName){
 			case "GDefault": newGun = new GDefault(this); break;
 			case "GDouble": newGun = new GDouble(this); break;
-			case "GBig": newGun = new GBig(this); break;
+			case "GMass": newGun = new GMass(this); break;
 			case "GPower": newGun = new GPower(this); break;
 			case "GFury": newGun = new GFury(this); break;
 			case "GMortar": newGun = new GMortar(this); break;
