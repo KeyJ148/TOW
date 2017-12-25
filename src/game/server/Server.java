@@ -40,6 +40,7 @@ public class Server {
         for (int i=0; i<ServerData.playerData.length; i++){
             ServerData.playerData[i].gameReady = false;
         }
+        ServerData.deadPlayerCount = 0;
 
         //Запускаем новую карту
         if (ServerLoader.mapPath != null) {

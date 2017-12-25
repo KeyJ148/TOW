@@ -33,8 +33,8 @@ public class CollisionDirect extends Collision {
 		calcInThisStep = false;
 
 		separationCollisions();
-		for (Integer id :dynamicId){ //Проверяем столкновения со всеми перемещающимися объектами
-			Obj objectFromRoom = Global.room.objects.get(dynamicId.get(id));
+		for (Integer id : dynamicId){ //Проверяем столкновения со всеми перемещающимися объектами
+			Obj objectFromRoom = Global.room.objects.get(id);
 			if (objectFromRoom != null && objectFromRoom.collision != null && checkCollision(objectFromRoom)){
 				informListeners(objectFromRoom); //Информируем об этом всех слушателей
 			}

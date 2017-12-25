@@ -60,6 +60,8 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 
 	@Override
 	public void collision(Obj obj) {
+		if (destroy) return;
+
 		if (obj.getClass().equals(Wall.class) ||
 			obj.getClass().equals(Border.class)){
 				destroyBullet();
