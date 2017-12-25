@@ -1,7 +1,7 @@
 Тип сообщения: назначение - расшифровка при получение сервом (при получение клиентом)
 1: Клиент пингует сервер
-2: координаты игрока - int x, int y, int direction, int directionGun, int speed
-                          (int x, int y, int direction, int directionGun, int speed, int id)
+2: координаты игрока - int x, int y, int direction, int directionGun, int speed, double moveDirection
+                          (int x, int y, int direction, int directionGun, int speed, double moveDirection, int id)
 3: данные о карте - (int width, int height, String background)
 4: старт сервера - (int peopleMax, int myIdFromServer)
 5: позиция танка игрока при генерации карты (int x, int y, int direction)

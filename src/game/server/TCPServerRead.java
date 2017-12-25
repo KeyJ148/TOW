@@ -45,7 +45,9 @@ public class TCPServerRead {
         ServerData.deadPlayerCount++;
 
         //Если кол-во живых игроков меньше двух и при этом кто-то умер (т.е. игра не одиночная)
-        if (GameServer.peopleMax - ServerData.deadPlayerCount < 2 && ServerData.deadPlayerCount > 0){
+        //Или если кол-во живых игроков 0 (даже при одиночной игре)
+        if ((GameServer.peopleMax - ServerData.deadPlayerCount < 2 && ServerData.deadPlayerCount > 0)
+                || (GameServer.peopleMax - ServerData.deadPlayerCount == 0)){
             GameServer.server.startNewGame();
         }
     }

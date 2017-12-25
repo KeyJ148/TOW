@@ -53,17 +53,24 @@ public class Enemy{
 		}
 	}
 
-	public void setData(int x, int y, int direction, int speed, int directionGun){
+	public void setData(int x, int y, int direction, int directionGun, int speed, double moveDirection){
 		if (armor == null){
-			armor = new EnemyArmor(x, y, direction, TextureManager.getAnimation("a_default"), this);
+			TextureHandler[] armorAnimation = TextureManager.getAnimation("a_default");
+			armor = new EnemyArmor(x, y, direction, armorAnimation, this);
+
 			Global.room.objAdd(armor);
+			setColorArmor(color);
 		}
 
 		if (gun == null){
 			TextureHandler gunTexture = TextureManager.getTexture("g_default");
 			gun = new Obj(x, y, direction, gunTexture);
+
 			gun.movement = new Movement(gun);
+			gun.movement.directionDrawEquals = false;
+
 			Global.room.objAdd(gun);
+			setColorGun(color);
 		}
 
 		if (camera == null){
@@ -74,8 +81,16 @@ public class Enemy{
 		armor.position.x = x;
 		armor.position.y = y;
 		armor.position.setDirectionDraw(direction);
-		armor.movement.speed = speed;
 		gun.position.setDirectionDraw(directionGun);
+
+		//Для интерполяции (предсказания) движения врага
+		armor.movement.speed = speed;
+		armor.movement.setDirection(moveDirection);
+
+		//Чтобы пушка не отставала, необходимо ей задать аналогичные параметры
+		gun.movement.speed = speed;
+		gun.movement.setDirection(moveDirection);
+
 		dragIn();
 	}
 

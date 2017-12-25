@@ -96,7 +96,8 @@ public class Player extends Obj {
 		+ " " + Math.round(position.y)
 		+ " " + Math.round(armor.position.getDirectionDraw())
 		+ " " + Math.round(gun.position.getDirectionDraw())
-		+ " " + Math.round(armor.movement.speed);
+		+ " " + Math.round(armor.movement.speed)
+		+ " " + armor.movement.getDirection();
 	}
 	
 	public void setColor(Color c){

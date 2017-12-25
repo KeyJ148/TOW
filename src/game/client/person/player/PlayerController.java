@@ -4,6 +4,7 @@ import engine.io.KeyboardHandler;
 import engine.map.Border;
 import engine.obj.Obj;
 import engine.obj.components.Collision;
+import game.client.ClientData;
 import game.client.map.Box;
 import game.client.map.Wall;
 import game.client.person.enemy.EnemyArmor;
@@ -94,6 +95,18 @@ public class PlayerController implements Collision.CollisionListener{
                             break;
                     }
                 }
+            }
+
+            //Клавишы для одиночной игры
+            if (ClientData.peopleMax == 1){
+                //Переход на новую карту
+                if (KeyboardHandler.isKeyDown(Keyboard.KEY_N)) ClientData.player.armor.hp = -1000;
+                //Имитация подбора ящика
+                if (KeyboardHandler.isKeyDown(Keyboard.KEY_T)) new Box(0, 0, 0, -1).collisionPlayer(player);
+                if (KeyboardHandler.isKeyDown(Keyboard.KEY_G)) new Box(0, 0, 1, -1).collisionPlayer(player);
+                if (KeyboardHandler.isKeyDown(Keyboard.KEY_B)) new Box(0, 0, 2, -1).collisionPlayer(player);
+                if (KeyboardHandler.isKeyDown(Keyboard.KEY_H)) new Box(0, 0, 3, -1).collisionPlayer(player);
+                if (KeyboardHandler.isKeyDown(Keyboard.KEY_F)) new Box(0, 0, 4, -1).collisionPlayer(player);
             }
         }
 

@@ -51,9 +51,10 @@ public class TCPGameRead{
         int direction = Integer.parseInt(str.split(" ")[2]);
         int directionGun = Integer.parseInt(str.split(" ")[3]);
         int speed = Integer.parseInt(str.split(" ")[4]);
-        int enemyId = Integer.parseInt(str.split(" ")[5]);
+        double moveDirection = Double.parseDouble(str.split(" ")[5]);
+        int enemyId = Integer.parseInt(str.split(" ")[6]);
 
-        ClientData.enemy.get(enemyId).setData(x, y, direction, speed, directionGun);
+        ClientData.enemy.get(enemyId).setData(x, y, direction, directionGun, speed, moveDirection);
 	}
 
 	//данные о карте - (int width, int height, String background)

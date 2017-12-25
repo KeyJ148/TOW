@@ -57,8 +57,8 @@ public class EquipManager {
         player.setColorArmor(ClientData.color);
 
         //Отправляем сообщение о том, что мы сменили броню
-        String armorName = player.armor.getClass().getName();
-        Global.tcpControl.send(14, armorName.substring(armorName.lastIndexOf(".")+1));
+        String newName = player.armor.animation[0].name;
+        Global.tcpControl.send(19, newName.substring(0, newName.lastIndexOf("_")));
     }
 
     public static void newGun(Player player){
@@ -101,9 +101,8 @@ public class EquipManager {
         Global.room.objAdd(newGun);
         player.setColorGun(ClientData.color);
 
-        //Отправляем сообщение о том, что мы сменили броню
-        String gunName = player.gun.getClass().getName();
-        Global.tcpControl.send(15, gunName.substring(gunName.lastIndexOf(".")+1));
+        //Отправляем сообщение о том, что мы сменили оружие
+        Global.tcpControl.send(20, player.gun.texture.name);
     }
 
     public static void newBullet(Player player){
