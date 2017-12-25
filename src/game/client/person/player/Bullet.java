@@ -6,6 +6,7 @@ import engine.image.TextureHandler;
 import engine.map.Border;
 import engine.obj.Obj;
 import engine.obj.components.Collision;
+import engine.obj.components.CollisionDirect;
 import engine.obj.components.Movement;
 import engine.obj.components.Position;
 import engine.obj.components.render.Sprite;
@@ -45,10 +46,10 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 		this.movement.setDirection(dir);
 		this.rendering = new Sprite(this, texture);
 
-		collision = new Collision(this, texture.mask);
-		//collision = new CollisionDirect(this, texture.mask, range);
-		collision.addCollisionObjects(new Class[] {Wall.class, EnemyArmor.class, Border.class});
-		collision.addListener(this);
+		this.collision = new CollisionDirect(this, texture.mask, range);
+		this.collision.addCollisionObjects(new Class[] {Wall.class, EnemyArmor.class, Border.class});
+		this.collision.addListener(this);
+		((CollisionDirect) collision).init();
 
 		String className = getClass().getName();
 		loadData(PATH_SETTING + className.substring(className.lastIndexOf('.')+1) + ".properties");

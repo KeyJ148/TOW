@@ -14,12 +14,17 @@ public class CollisionDirect extends Collision {
 	private int range; //Максимальная дальность движения объекта
 	private ArrayList<Integer> dynamicId = new ArrayList();//Ид динамических объектов, с которыми надо проверять столкновения
 	private Vector2<Integer> positionCollision; //Позиция столкновения
-	private int start = 0;//В комнате была проверена коллизия со всеми статическими объекта у которых id<start
+	private int start = 0;//В комнате была проверена коллизия со всеми статическими объектами у которых id<start
 	private boolean nearCollision = false;//Находимся близко к позиции столкновения
 
 	public CollisionDirect(Obj obj, Mask mask, int range) {
 		super(obj, mask);
 		this.range = range;
+	}
+
+	//Нельзя в конструкторе, т.к. для првоерки нужен массив collisionObject,
+	//а он устанавливается только после создания класса
+	public void init(){
 		separationCollisions();
 	}
 
@@ -60,7 +65,7 @@ public class CollisionDirect extends Collision {
 		int y = relativePosition.y;
 		int w = 20;
 		int h = 20;
-		GL11.glBegin(GL11.GL_QUADS);
+		GL11.glBegin(GL11.GL_LINE_LOOP);
 			GL11.glTexCoord2f(0,0);
 			GL11.glVertex2f(x, y);
 			GL11.glTexCoord2f(1,0);
@@ -102,7 +107,7 @@ public class CollisionDirect extends Collision {
 		double gipOther = Math.sqrt(sqr(obj.collision.getMask().getWidth()) + sqr(obj.collision.getMask().getHeight())); //Гипотинуза объекта, с которым сравниваем
 		double disMeToOther = Math.sqrt(sqr(startX-obj.position.x) + sqr(startY-obj.position.y)); //Расстояние от центра до центра
 		
-		if (disMeToOther < gipOther/2+gipMe/2+30){//Если объекта находится близко к другому объекту
+		if (disMeToOther < gipOther/2+gipMe/2+30){//Если объект находится близко к другому объекту
 			nearCollision = true ;//В дальнейшем обрабатываем как обычный объект
 		} else if (disMeToOther < range+gipOther/2+gipMe/2+30){
 			double k, b, x0, y0, r;
