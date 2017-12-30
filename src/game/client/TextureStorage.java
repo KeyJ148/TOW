@@ -38,7 +38,7 @@ public class TextureStorage {
 
                 {"Bullet/b_default.png",            "bullet",       "40"},
                 {"Bullet/b_steel.png",              "bullet",       "40"},
-                {"Bullet/b_squaremass.png",             "bullet",       "40"},
+                {"Bullet/b_squaremass.png",         "bullet",       "40"},
                 {"Bullet/b_fury.png",               "bullet",       "40"},
                 {"Bullet/b_mass.png",               "bullet",       "40"},
                 {"Bullet/b_mass_small.png",         "bullet",       "40"},

@@ -152,11 +152,19 @@ public class PlayerController implements Collision.CollisionListener{
             }
         }
 
-        if (obj.getClass().equals(Wall.class) ||
-                obj.getClass().equals(Border.class)){
+        if (obj.getClass().equals(Border.class)){
             player.armor.position.x = player.armor.movement.getXPrevious();
             player.armor.position.y = player.armor.movement.getYPrevious();
             player.armor.movement.setDirection(directionPrevious);
+        }
+
+        if (obj.getClass().equals(Wall.class)){
+            player.armor.position.x = player.armor.movement.getXPrevious();
+            player.armor.position.y = player.armor.movement.getYPrevious();
+            player.armor.movement.setDirection(directionPrevious);
+
+            Wall wall = (Wall) obj;
+            if (wall.stabillity < player.armor.stability) wall.destroyByArmor();
         }
 
         if (obj.getClass().equals(EnemyArmor.class)){

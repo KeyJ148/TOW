@@ -21,30 +21,31 @@ public class Armor extends Obj{
 
 	public double hp;
 	public double hpMax;
-	public double hpRegen;//Кол-во реген хп в секунду
-	public double speedTankUp;//Кол-во пикселей в секунду
+	public double hpRegen; //Кол-во реген хп в секунду
+	public double speedTankUp; //Кол-во пикселей в секунду
 	public double speedTankDown;
-	public double directionGunUp;//Кол-во градусов в секунду
+	public double directionGunUp; //Кол-во градусов в секунду
 	public double directionTankUp;
 	
 	public int animSpeed;
 	public String[] allowGun;
 
-	public boolean animOn = false;
-	public TextureHandler[] animation;
+	public int stability; //На сколько прочные объекты может сбивать танк
 
-	public Armor(TextureHandler[] animation){
-		this.animation = animation;
+	public TextureHandler[] textureHandlers;
+
+	public Armor(TextureHandler[] textureHandlers){
+		this.textureHandlers = textureHandlers;
 	}
 
 	public void init(Player player, double x, double y, double direction){
 		this.player = player;
 
-		position = new Position(this, x, y, animation[0].depth, direction);
+		position = new Position(this, x, y, textureHandlers[0].depth, direction);
 		movement = new Movement(this);
-		rendering = new Animation(this, animation);
+		rendering = new Animation(this, textureHandlers);
 
-		collision = new Collision(this, animation[0].mask);
+		collision = new Collision(this, textureHandlers[0].mask);
 		collision.addCollisionObjects(new Class[] {Wall.class, EnemyArmor.class, Box.class, Border.class});
 		collision.addListener(player.controller);
 
@@ -59,16 +60,13 @@ public class Armor extends Obj{
 		//Если мы мертвы, то ничего не делать
 		if (!player.alive) return;
 		
-		//для анимации гусениц
-		if ((movement.speed != 0) && (!animOn)){
-			Animation animation = (Animation) rendering;
+		//Для анимации гусениц
+		Animation animation = (Animation) rendering;
+		if (movement.speed != 0 && animation.getFrameSpeed() == 0){
 			animation.setFrameSpeed(animSpeed);
-			animOn = true;
 		}
-		if ((movement.speed == 0) && (animOn)){
-			Animation animation = (Animation) rendering;
-			animation.setFrameSpeed(animSpeed);
-			animOn = true;
+		if (movement.speed == 0 && animation.getFrameSpeed() != 0){
+			animation.setFrameSpeed(0);
 		}
 		
 		//hp
@@ -106,5 +104,7 @@ public class Armor extends Obj{
 		
 		animSpeed = cr.findInteger("ANIMATION_SPEED");
 		allowGun = cr.findString("ALLOW_GUN").split(" ");
+
+		stability = cr.findInteger("STABILITY");
 	}
 }

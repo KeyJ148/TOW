@@ -48,8 +48,8 @@ public class EquipManager {
         //Устанавливаем новой броне параметры как у текущий брони игрока
         newArmor.movement.setDirection(player.armor.movement.getDirection());
         newArmor.hp = (player.armor.hp/player.armor.hpMax) * newArmor.hpMax; //Устанавливаем эквивалетное здоровье в процентах
-        if (player.controller.runUp) newArmor.movement.speed = player.armor.speedTankUp;
-        if (player.controller.runDown) newArmor.movement.speed = player.armor.speedTankDown;
+        if (player.controller.runUp) newArmor.movement.speed = newArmor.speedTankUp;
+        if (player.controller.runDown) newArmor.movement.speed = newArmor.speedTankDown;
 
         player.armor.destroy();
         player.armor = newArmor;
@@ -57,7 +57,7 @@ public class EquipManager {
         player.setColorArmor(ClientData.color);
 
         //Отправляем сообщение о том, что мы сменили броню
-        String newName = player.armor.animation[0].name;
+        String newName = player.armor.textureHandlers[0].name;
         Global.tcpControl.send(19, newName.substring(0, newName.lastIndexOf("_")));
     }
 

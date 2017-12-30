@@ -53,7 +53,7 @@ public class Enemy{
 		}
 	}
 
-	public void setData(int x, int y, int direction, int directionGun, int speed, double moveDirection){
+	public void setData(int x, int y, int direction, int directionGun, int speed, double moveDirection, int animSpeed){
 		if (armor == null){
 			TextureHandler[] armorAnimation = TextureManager.getAnimation("a_default");
 			armor = new EnemyArmor(x, y, direction, armorAnimation, this);
@@ -91,6 +91,10 @@ public class Enemy{
 		gun.movement.speed = speed;
 		gun.movement.setDirection(moveDirection);
 
+		//Анимация гусениц
+		Animation animation = (Animation) armor.rendering;
+		if (animation.getFrameSpeed() != animSpeed) animation.setFrameSpeed(animSpeed);
+
 		dragIn();
 	}
 
@@ -112,7 +116,10 @@ public class Enemy{
 	//Данный танк взорвался (уничтожен)
 	public void exploded(){
 		alive = false;
+
 		setColor(new Color(110, 15, 0));
+		armor.movement.speed = 0;
+		gun.movement.speed = 0;
 
 		//Если в данный момент игрок мертв и наблюдает за этим врагом
 		if (Camera.getFollowObject() != null && Camera.getFollowObject() == camera){

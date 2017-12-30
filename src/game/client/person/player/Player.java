@@ -5,6 +5,7 @@ import engine.Vector2;
 import engine.image.Camera;
 import engine.inf.title.Title;
 import engine.obj.Obj;
+import engine.obj.components.render.Animation;
 import game.client.ClientData;
 import game.client.person.equipment.armor.ADefault;
 import game.client.person.equipment.bullet.BDefault;
@@ -78,10 +79,16 @@ public class Player extends Obj {
 	}
 
 	public void exploded(){
-		setColor(new Color(110, 15, 0));
 		alive = false;
 
-		//Если у врага инициализированна камера  он жив
+		setColor(new Color(110, 15, 0));
+		controller.runUp = false;
+		controller.runDown = false;
+		controller.turnRight = false;
+		controller.turnLeft = false;
+		armor.movement.speed = 0;
+
+		//Если у врага инициализированна камера и он жив
 		for (Map.Entry<Integer, Enemy> entry: ClientData.enemy.entrySet()) {
 			if (entry.getValue().camera != null && entry.getValue().alive) {
 				Camera.setFollowObject(entry.getValue().camera);
@@ -97,7 +104,8 @@ public class Player extends Obj {
 		+ " " + Math.round(armor.position.getDirectionDraw())
 		+ " " + Math.round(gun.position.getDirectionDraw())
 		+ " " + Math.round(armor.movement.speed)
-		+ " " + armor.movement.getDirection();
+		+ " " + armor.movement.getDirection()
+		+ " " + ((Animation) armor.rendering).getFrameSpeed();
 	}
 	
 	public void setColor(Color c){
