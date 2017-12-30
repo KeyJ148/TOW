@@ -4,7 +4,7 @@ import engine.image.TextureHandler;
 import engine.io.KeyboardHandler;
 import engine.io.MouseHandler;
 
-public class Button extends Label {
+public class Button extends Label{
 
     public int hotKey;
 
