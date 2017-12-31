@@ -1,5 +1,6 @@
 package game.client.person.player;
 
+import engine.Global;
 import engine.io.KeyboardHandler;
 import engine.map.Border;
 import engine.obj.Obj;
@@ -164,7 +165,10 @@ public class PlayerController implements Collision.CollisionListener{
             player.armor.movement.setDirection(directionPrevious);
 
             Wall wall = (Wall) obj;
-            if (wall.stabillity < player.armor.stability) wall.destroyByArmor();
+            if (wall.stabillity < player.armor.stability){
+                Global.tcpControl.send(22, String.valueOf(wall.mid));
+                wall.destroyByArmor();
+            }
         }
 
         if (obj.getClass().equals(EnemyArmor.class)){

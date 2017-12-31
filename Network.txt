@@ -8,7 +8,7 @@
 6: игрок готов к игре
 7: ящик создан - (int x, int y, int type, int idBox)
 8: начало рестарта
-9: объект карты - (int x, int y, int directiorn, String texture)
+9: объект карты - (int x, int y, int directiorn, String texture, int mid)
 10: конец отправки карты
 11: старт игры (рестарт полностью завершен)
 12: я умер - (int id)
@@ -21,3 +21,4 @@
 19: я сменил броню - (String armorName, int id)
 20: я сменил оружие - (String gunName, int id)
 21: я подобрал ящик - (int idBox)
+22: объект карты уничтожен бронёй - (int mid)

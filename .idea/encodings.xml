@@ -103,7 +103,7 @@
     <file url="file://$PROJECT_DIR$/src/game/client/login/logic/HostButtonListener.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/game/client/login/logic/MapButtonListener.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/game/client/map/Box.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/map/Wall.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/map/MapObject.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/game/client/person/enemy/Enemy.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/game/client/person/enemy/EnemyArmor.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/game/client/person/enemy/EnemyBullet.java" charset="UTF-8" />

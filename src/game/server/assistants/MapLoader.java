@@ -108,14 +108,23 @@ public class MapLoader implements Runnable{
 
         //Отправляем всем игрокам карту
         GameServer.sendAll(3, ServerData.widthMap + " " + ServerData.heightMap + " " + ServerData.background);
-        for (ServerData.MapObject mapObject : ServerData.map){
+
+        for (int mid = 0; mid < ServerData.map.size(); mid++){
+            ServerData.MapObject mapObject = ServerData.map.get(mid);
             if (mapObject.textureName.equals("sys_tank")) continue;
-            GameServer.sendAll(9, mapObject.x + " " + mapObject.y + " " + mapObject.direction + " " + mapObject.textureName);
+
+            GameServer.sendAll(9, mapObject.x
+                          + " " + mapObject.y
+                          + " " + mapObject.direction
+                          + " " + mapObject.textureName
+                          + " " + mid);
         }
 
         //Отправляем всем игркоам их позиции
         for (int i = 0; i<ServerData.playerData.length; i++){
-            GameServer.send(i, 5, ServerData.playerData[i].x + " " + ServerData.playerData[i].y + " " + ServerData.playerData[i].direction);
+            GameServer.send(i, 5, ServerData.playerData[i].x
+                          + " " + ServerData.playerData[i].y
+                          + " " + ServerData.playerData[i].direction);
         }
 
         //Говорим всем, что отправка карты завершена

@@ -8,8 +8,9 @@ import engine.io.Logger;
 import engine.map.Border;
 import engine.map.Room;
 import engine.obj.Obj;
-import game.client.map.Wall;
+import game.client.map.MapObject;
 import game.client.map.Box;
+import game.client.map.Wall;
 import game.client.person.player.Player;
 import game.client.person.enemy.Enemy;
 import game.client.person.enemy.EnemyBullet;
@@ -17,6 +18,7 @@ import org.newdawn.slick.Color;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Vector;
 
 public class TCPGameRead{
 
@@ -39,6 +41,7 @@ public class TCPGameRead{
             case 19: take19(str); break;
             case 20: take20(str); break;
             case 21: take21(str); break;
+            case 22: take22(str); break;
 
             //Engine: Различные действия с уникальными индексами
 		}
@@ -117,6 +120,7 @@ public class TCPGameRead{
         Global.room.destroy();
         Camera.deleteFollowObject();
 
+        ClientData.mapObjects = new Vector<>();
         ClientData.enemyBullet = new ArrayList<>();
         for (Map.Entry<Integer, Enemy> entry: ClientData.enemy.entrySet()) {
             entry.getValue().armor = null;
@@ -132,18 +136,23 @@ public class TCPGameRead{
         int y = Integer.parseInt(str.split(" ")[1]);
         int direction = Integer.parseInt(str.split(" ")[2]);
         String texture = str.split(" ")[3];
+        int mid = Integer.parseInt(str.split(" ")[4]);
 
         TextureHandler textureHandler = TextureManager.getTexture(texture);
 
+        MapObject newObject;
         switch (textureHandler.type){
-            case "home": Global.room.objAdd(new Wall(x, y, direction, textureHandler)); break;
-            case "tree": Global.room.objAdd(new Wall(x, y, direction, textureHandler)); break;
-            case "road": Global.room.objAdd(new Obj(x, y, direction, textureHandler)); break;
+            case "home": newObject = new Wall(x, y, direction, textureHandler, mid); break;
+            case "tree": newObject = new Wall(x, y, direction, textureHandler, mid); break;
+            case "road": newObject = new MapObject(x, y, direction, textureHandler, mid); break;
             default:
-                Global.room.objAdd(new Obj(x, y, direction, textureHandler));
+                newObject = new MapObject(x, y, direction, textureHandler, mid);
                 Logger.println("Not valid type for generate map: " + textureHandler.type, Logger.Type.ERROR);
             break;
         }
+
+        Global.room.objAdd(newObject);
+        ClientData.mapObjects.add(mid, newObject);
     }
 
     //конец отправки карты
@@ -240,6 +249,15 @@ public class TCPGameRead{
             if (obj != null && obj instanceof Box && ((Box) obj).idBox == idBox){
                 obj.destroy();
             }
+        }
+    }
+
+    //объект карты уничтожен бронёй - (int mid)
+    public static void take22(String str){
+        int mid = Integer.parseInt(str.split(" ")[0]);
+        if (mid < ClientData.mapObjects.size()){
+            ((Wall) ClientData.mapObjects.get(mid)).destroyByArmor();
+            ClientData.mapObjects.set(mid, null);
         }
     }
 
