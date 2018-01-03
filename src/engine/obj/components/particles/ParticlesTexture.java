@@ -1,5 +1,7 @@
 package engine.obj.components.particles;
 
+import engine.Vector2;
+import engine.image.Camera;
 import engine.obj.Obj;
 import org.lwjgl.opengl.GL11;
 
@@ -17,17 +19,18 @@ public class ParticlesTexture extends Particles {
         for (Part part : parts){
             part.color.bind();
             part.textureHandler.texture.bind();
+            Vector2<Integer> relativePosition = Camera.toRelativePosition(new Vector2((int) part.x, (int) part.y));
 
             double defaultX, defaultY;
             if (rotate) {
                 GL11.glLoadIdentity();
-                GL11.glTranslatef((float) part.x, (float) part.y, 0);
+                GL11.glTranslatef((float) relativePosition.x, (float) relativePosition.y, 0);
                 GL11.glRotatef(Math.round(-part.directionDraw), 0f, 0f, 1f);
                 defaultX = 0;
                 defaultY = 0;
             } else {
-                defaultX = part.x;
-                defaultY = part.y;
+                defaultX = relativePosition.x;
+                defaultY = relativePosition.y;
             }
 
             GL11.glBegin(GL11.GL_QUADS);

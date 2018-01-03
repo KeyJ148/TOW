@@ -7,6 +7,7 @@ import engine.inf.title.Title;
 import engine.obj.Obj;
 import engine.obj.components.render.Animation;
 import game.client.ClientData;
+import game.client.particles.Explosion;
 import game.client.person.equipment.armor.ADefault;
 import game.client.person.equipment.bullet.BDefault;
 import game.client.person.enemy.Enemy;
@@ -87,6 +88,11 @@ public class Player extends Obj {
 		controller.turnRight = false;
 		controller.turnLeft = false;
 		armor.movement.speed = 0;
+
+		Obj explosion = new Obj(armor.position.x, armor.position.y, -100);
+		explosion.particles = new Explosion(explosion, 100);
+		explosion.particles.destroyObject = true;
+		Global.room.objAdd(explosion);
 
 		//Если у врага инициализированна камера и он жив
 		for (Map.Entry<Integer, Enemy> entry: ClientData.enemy.entrySet()) {

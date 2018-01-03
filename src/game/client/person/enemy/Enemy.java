@@ -11,6 +11,7 @@ import engine.obj.components.Movement;
 import engine.obj.components.render.Animation;
 import engine.obj.components.render.Sprite;
 import game.client.ClientData;
+import game.client.particles.Explosion;
 import org.newdawn.slick.Color;
 
 import java.util.Map;
@@ -120,6 +121,11 @@ public class Enemy{
 		setColor(new Color(110, 15, 0));
 		armor.movement.speed = 0;
 		gun.movement.speed = 0;
+
+		Obj explosion = new Obj(armor.position.x, armor.position.y, -100);
+		explosion.particles = new Explosion(explosion, 100);
+		explosion.particles.destroyObject = true;
+		Global.room.objAdd(explosion);
 
 		//Если в данный момент игрок мертв и наблюдает за этим врагом
 		if (Camera.getFollowObject() != null && Camera.getFollowObject() == camera){
