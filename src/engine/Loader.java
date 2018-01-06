@@ -38,6 +38,7 @@ public class Loader {
 		if (SettingStorage.Logger.DEBUG_CONSOLE_OBJECT) Logger.enable(Logger.Type.DEBUG_OBJECT);
 		if (SettingStorage.Logger.DEBUG_CONSOLE_IMAGE) Logger.enable(Logger.Type.DEBUG_IMAGE);
 		if (SettingStorage.Logger.DEBUG_CONSOLE_MASK) Logger.enable(Logger.Type.DEBUG_MASK);
+		if (SettingStorage.Logger.DEBUG_CONSOLE_AUDIO) Logger.enable(Logger.Type.DEBUG_AUDIO);
 		if (SettingStorage.Logger.DEBUG_CONSOLE_FPS) Logger.enable(Logger.Type.CONSOLE_FPS);
 
 		//Установка настроек звука
@@ -50,7 +51,8 @@ public class Loader {
 		Global.tcpControl = new TCPControl();
 		Global.tcpRead = new TCPRead();
 
-		TextureManager.initTexture();
+		TextureManager.init();//Загрузка текстур и анимаций
+		AudioStorage.init();//Загрузка
 
 		Global.infMain = new InfMain();
 		MouseHandler.init();
@@ -123,7 +125,7 @@ public class Loader {
 
 		//Вывод пути выхода
 		if (SettingStorage.Logger.DEBUG_CONSOLE){
-			Logger.println("\nExit satck trace: ", Logger.Type.DEBUG);
+			Logger.println("\nExit stack trace: ", Logger.Type.DEBUG);
 			new Exception().printStackTrace(System.out);
 		}
 

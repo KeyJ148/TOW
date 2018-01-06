@@ -78,6 +78,7 @@ public class SettingStorage {
 		public static boolean DEBUG_CONSOLE_OBJECT;//выводить в консоль сообщения создания объектов?
 		public static boolean DEBUG_CONSOLE_IMAGE;//выводить в консоль сообщения спрайтов и анимации?
 		public static boolean DEBUG_CONSOLE_MASK;//выводить в консоль сообщения загрузки маски?
+		public static boolean DEBUG_CONSOLE_AUDIO;//выводить в консоль сообщения загрузки звука?
 		public static boolean DEBUG_CONSOLE_FPS;//выводить в консоль фпс?
 		public static boolean DEBUG_MONITOR_FPS;//выводить в окно фпс?
 		public static boolean MASK_DRAW;//отрисовка маски
@@ -91,6 +92,7 @@ public class SettingStorage {
 			DEBUG_CONSOLE_OBJECT = cr.findBoolean("DEBUG_CONSOLE_OBJECT");
 			DEBUG_CONSOLE_IMAGE = cr.findBoolean("DEBUG_CONSOLE_IMAGE");
 			DEBUG_CONSOLE_MASK = cr.findBoolean("DEBUG_CONSOLE_MASK");
+			DEBUG_CONSOLE_AUDIO = cr.findBoolean("DEBUG_CONSOLE_AUDIO");
 			DEBUG_CONSOLE_FPS = cr.findBoolean("DEBUG_CONSOLE_FPS");
 			DEBUG_MONITOR_FPS = cr.findBoolean("DEBUG_MONITOR_FPS");
 			MASK_DRAW = cr.findBoolean("MASK_DRAW");

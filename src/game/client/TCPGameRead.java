@@ -25,10 +25,10 @@ public class TCPGameRead{
 
 	public static void read(Message message){
         switch (message.type){
-			case 1: take1(message.data); break;
-			case 2: take2(message.data); break;
+            case 1: take1(message.data); break;
+            case 2: take2(message.data); break;
             case 3: take3(message.data); break;
-			case 4: take4(message.data); break;
+            case 4: take4(message.data); break;
             case 5: take5(message.data); break;
             case 7: take7(message.data); break;
             case 8: take8(message.data); break;

@@ -12,8 +12,8 @@ public class TextureManager {
 	private static TreeMap<String, TextureHandler> textures = new TreeMap<>();
 	private static TreeMap<String, TextureHandler[]> animations = new TreeMap<>();
 
-	//Загрузка всех текстур при инициализации
-	public static void initTexture(){
+	//Загрузка всех текстур и анимаций при инициализации
+	public static void init(){
         for (int i=0; i<image.length; i++){
             TextureHandler texture = new TextureHandler(pathImageRoot + image[i][0], image[i][1], Integer.parseInt(image[i][2]));
             textures.put(texture.name, texture);

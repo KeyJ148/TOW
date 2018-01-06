@@ -8,7 +8,8 @@ import java.util.Set;
 
 public class Logger {
 
-    public enum Type {INFO, ERROR, DEBUG, DEBUG_OBJECT, DEBUG_IMAGE, DEBUG_MASK, CONSOLE_FPS, SERVER_INFO, SERVER_ERROR, MPS};
+    public enum Type {INFO, ERROR, DEBUG, DEBUG_OBJECT, DEBUG_IMAGE, DEBUG_MASK, DEBUG_AUDIO, CONSOLE_FPS,
+                      SERVER_INFO, SERVER_ERROR, MPS};
 
     private static Set<Type> enable = new HashSet<>();
     private static boolean logInFile = false;
