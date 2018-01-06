@@ -24,6 +24,7 @@ public class TCPGameRead{
 
 	public static void read(int type, String str){
         switch (type){
+			case 1: take1(str); break;
 			case 2: take2(str); break;
             case 3: take3(str); break;
 			case 4: take4(str); break;
@@ -46,6 +47,11 @@ public class TCPGameRead{
             //Engine: Различные действия с уникальными индексами
 		}
 	}
+
+    public static void take1(String str){
+        //Engine: Сервер вернул пинг
+        Global.pingCheck.takePing();
+    }
 
 	//координаты игрока - (int x, int y, int direction, int speed, int directionDraw, int id)
 	public static void take2(String str){

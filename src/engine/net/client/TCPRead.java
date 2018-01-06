@@ -15,13 +15,9 @@ public class TCPRead extends Thread{
 		//на TCP
 		String str;
 		while(true){
-            str = Global.tcpControl.read();
-            if (Integer.parseInt(str.split(" ")[0]) != 1){//Если не пинг, то ждём update и там обрабатываем
-				synchronized (messages){
-					messages.add(str);
-				}
-			} else {//Пинг обрабатываем мгновенно
-				take1(str);
+			str = Global.tcpControl.read();
+			synchronized (messages){
+				messages.add(str); //Ждём update и там обрабатываем
 			}
 		}
 	}
