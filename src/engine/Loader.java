@@ -10,6 +10,9 @@ import engine.net.client.TCPControl;
 import engine.net.client.TCPRead;
 import engine.setting.SettingStorage;
 import game.client.Game;
+import org.lwjgl.openal.AL;
+import org.lwjgl.opengl.Display;
+import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.util.Log;
 
 import java.io.File;
@@ -27,14 +30,19 @@ public class Loader {
 	public static void init() {
 		Log.setVerbose(false); //Отключения логов в Slick-util
 
-		Global.setting = new SettingStorage();//Создание хранилища настроек
-		Global.setting.init();//Загрузка настроек
-		if (Global.setting.ERROR_CONSOLE) Logger.enable(Logger.Type.ERROR);
-		if (Global.setting.DEBUG_CONSOLE) Logger.enable(Logger.Type.DEBUG);
-		if (Global.setting.DEBUG_CONSOLE_OBJECT) Logger.enable(Logger.Type.DEBUG_OBJECT);
-		if (Global.setting.DEBUG_CONSOLE_IMAGE) Logger.enable(Logger.Type.DEBUG_IMAGE);
-		if (Global.setting.DEBUG_CONSOLE_MASK) Logger.enable(Logger.Type.DEBUG_MASK);
-		if (Global.setting.DEBUG_CONSOLE_FPS) Logger.enable(Logger.Type.CONSOLE_FPS);
+		SettingStorage.init();//Загрузка настроек
+
+		//Установка настроек логирования
+		if (SettingStorage.Logger.ERROR_CONSOLE) Logger.enable(Logger.Type.ERROR);
+		if (SettingStorage.Logger.DEBUG_CONSOLE) Logger.enable(Logger.Type.DEBUG);
+		if (SettingStorage.Logger.DEBUG_CONSOLE_OBJECT) Logger.enable(Logger.Type.DEBUG_OBJECT);
+		if (SettingStorage.Logger.DEBUG_CONSOLE_IMAGE) Logger.enable(Logger.Type.DEBUG_IMAGE);
+		if (SettingStorage.Logger.DEBUG_CONSOLE_MASK) Logger.enable(Logger.Type.DEBUG_MASK);
+		if (SettingStorage.Logger.DEBUG_CONSOLE_FPS) Logger.enable(Logger.Type.CONSOLE_FPS);
+
+		//Установка настроек звука
+		SoundStore.get().setMusicVolume(SettingStorage.Music.MUSIC_VOLUME);
+		SoundStore.get().setSoundVolume(SettingStorage.Music.SOUND_VOLUME);
 
 		Global.engine = new Engine();//Создание класса для главного цикла
 		Global.engine.render.initGL();//Инициализация OpenGL
@@ -46,9 +54,8 @@ public class Loader {
 
 		Global.infMain = new InfMain();
 		MouseHandler.init();
-			
-		if ((Global.setting.DEBUG_CONSOLE_FPS) || (Global.setting.DEBUG_MONITOR_FPS)) 
-			Global.engine.analyzer = new Analyzer();
+
+		Global.engine.analyzer = new Analyzer();//Создаём анализатор производительности для движка
 		
 		Logger.println("Inicialization end", Logger.Type.DEBUG);
 		
@@ -106,7 +113,20 @@ public class Loader {
 
 		if (!successLoad){
 			Logger.println("Native module not loading", Logger.Type.ERROR);
-			System.exit(0);
+			Loader.exit();
 		}
+	}
+
+	public static void exit(){
+		Display.destroy();
+		AL.destroy();
+
+		//Вывод пути выхода
+		if (SettingStorage.Logger.DEBUG_CONSOLE){
+			Logger.println("\nExit satck trace: ", Logger.Type.DEBUG);
+			new Exception().printStackTrace(System.out);
+		}
+
+		System.exit(0);
 	}
 }

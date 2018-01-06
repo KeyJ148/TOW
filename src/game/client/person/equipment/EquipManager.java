@@ -1,6 +1,7 @@
 package game.client.person.equipment;
 
 import engine.Global;
+import engine.Loader;
 import engine.io.Logger;
 import engine.setting.ConfigReader;
 import game.client.ClientData;
@@ -42,7 +43,7 @@ public class EquipManager {
             newArmor.init(player, player.armor.position.x, player.armor.position.y, player.armor.position.getDirectionDraw());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e){
             Logger.println("Armor not found: " + newArmorName, Logger.Type.ERROR);
-            System.exit(0);
+            Loader.exit();
         }
 
         //Устанавливаем новой броне параметры как у текущий брони игрока
@@ -90,7 +91,7 @@ public class EquipManager {
             newGun.init(player, player.gun.position.x, player.gun.position.y, player.gun.position.getDirectionDraw());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e){
             Logger.println("Gun not found: " + newGunName, Logger.Type.ERROR);
-            System.exit(0);
+            Loader.exit();
         }
 
         //Установление новой пушке параметров как у старой
@@ -120,7 +121,7 @@ public class EquipManager {
             player.bullet = Class.forName(newBulletFullPath);
         } catch (ClassNotFoundException e){
             Logger.println("Bullet not found: " + newBulletName, Logger.Type.ERROR);
-            System.exit(0);
+            Loader.exit();
         }
     }
 

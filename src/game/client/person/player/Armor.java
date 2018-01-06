@@ -15,7 +15,7 @@ import game.client.person.enemy.EnemyArmor;
 
 public class Armor extends Obj{
 
-	public final String PATH_SETTING = "armor/";
+	public final String PATH_SETTING = "game/armor/";
 
 	public Player player;
 

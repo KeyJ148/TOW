@@ -1,6 +1,7 @@
 package engine.cycle;
 
 import engine.Global;
+import engine.Loader;
 import engine.image.Camera;
 import engine.io.Logger;
 
@@ -17,7 +18,7 @@ public class Update {
 			Global.room.update(delta);//Обновить все объекты в комнате
 		} else {
 			Logger.println("No create room! (Global.room)", Logger.Type.ERROR);
-			System.exit(0);
+			Loader.exit();
 		}
 
 		Camera.calc();//Расчёт положения камеры

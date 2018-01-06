@@ -1,7 +1,9 @@
 package game.client.lobby;
 
 import engine.Global;
+import engine.Loader;
 import engine.io.Logger;
+import engine.setting.SettingStorage;
 import game.client.ClientData;
 import game.server.ServerLoader;
 
@@ -80,7 +82,7 @@ public class LobbyServer implements ActionListener, StartServerListener, Runnabl
         //Запуск потока сервера (+1 потому что хост тоже подключится к серверу)
         ServerLoader.startServerListener = this;
         ServerLoader.mapPath = ClientData.map;
-        new ServerLoader(port, connects.size()+1, Global.setting.MAX_POWER_SERVER);
+        new ServerLoader(port, connects.size()+1, SettingStorage.Performance.MAX_POWER_SERVER);
     }
 
     //Обратная связь сервера о том, что он готов принять клиентов
@@ -95,7 +97,7 @@ public class LobbyServer implements ActionListener, StartServerListener, Runnabl
             Global.tcpRead.start();
         } catch (IOException e){
             Logger.println(e.getMessage(), Logger.Type.ERROR);
-            System.exit(0);
+            Loader.exit();
         }
     }
 

@@ -1,7 +1,8 @@
 package engine.net.client;
 
-import engine.Global;
+import engine.Loader;
 import engine.io.Logger;
+import engine.setting.SettingStorage;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -20,12 +21,12 @@ public class TCPControl {
 		try{
 			@SuppressWarnings("resource")
 			Socket sock = new Socket(InetAddress.getByName(ip), port);
-			sock.setTcpNoDelay(Global.setting.TCP_NODELAY);
-			sock.setKeepAlive(Global.setting.KEEP_ALIVE);
-			sock.setSendBufferSize(Global.setting.SEND_BUF_SIZE);
-			sock.setReceiveBufferSize(Global.setting.RECEIVE_BUF_SIZE);
-			sock.setPerformancePreferences(Global.setting.PREFERENCE_CON_TIME, Global.setting.PREFERENCE_LATENCY, Global.setting.PREFERENCE_BANDWIDTH);
-			sock.setTrafficClass(Global.setting.TRAFFIC_CLASS);
+			sock.setTcpNoDelay(SettingStorage.Net.TCP_NODELAY);
+			sock.setKeepAlive(SettingStorage.Net.KEEP_ALIVE);
+			sock.setSendBufferSize(SettingStorage.Net.SEND_BUF_SIZE);
+			sock.setReceiveBufferSize(SettingStorage.Net.RECEIVE_BUF_SIZE);
+			sock.setPerformancePreferences(SettingStorage.Net.PREFERENCE_CON_TIME, SettingStorage.Net.PREFERENCE_LATENCY, SettingStorage.Net.PREFERENCE_BANDWIDTH);
+			sock.setTrafficClass(SettingStorage.Net.TRAFFIC_CLASS);
 			
 			InputStream inS = sock.getInputStream();
 			OutputStream outS = sock.getOutputStream();
@@ -36,7 +37,7 @@ public class TCPControl {
 			this.out = out;
 		} catch(IOException e){
 			Logger.println("Connection failed", Logger.Type.ERROR);
-			System.exit(0);
+			Loader.exit();
 		}
 	}
 	
@@ -48,8 +49,8 @@ public class TCPControl {
 				out.writeUTF(type + " " + str);
 			}
 		} catch (IOException e){
-			Logger.println("Send internet message", Logger.Type.ERROR);
-			System.exit(0);
+			Logger.println("Connection lost (Rend)", Logger.Type.ERROR);
+			Loader.exit();
 		}
 	}
 	
@@ -61,8 +62,8 @@ public class TCPControl {
 			}
 			return str;
 		} catch (IOException e){
-			Logger.println("Read internet message", Logger.Type.ERROR);
-			System.exit(0);
+			Logger.println("Connection lost (Ыутв)", Logger.Type.ERROR);
+			Loader.exit();
 			return null;
 		}
 	}

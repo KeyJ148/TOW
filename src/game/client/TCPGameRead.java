@@ -7,6 +7,7 @@ import engine.image.TextureManager;
 import engine.io.Logger;
 import engine.map.Border;
 import engine.map.Room;
+import engine.net.client.Message;
 import engine.obj.Obj;
 import game.client.map.MapObject;
 import game.client.map.Box;
@@ -22,27 +23,27 @@ import java.util.Vector;
 
 public class TCPGameRead{
 
-	public static void read(int type, String str){
-        switch (type){
-			case 1: take1(str); break;
-			case 2: take2(str); break;
-            case 3: take3(str); break;
-			case 4: take4(str); break;
-            case 5: take5(str); break;
-            case 7: take7(str); break;
-            case 8: take8(str); break;
-            case 9: take9(str); break;
-            case 10: take10(str); break;
-            case 11: take11(str); break;
-            case 12: take12(str); break;
-            case 13: take13(str); break;
-            case 14: take14(str); break;
-            case 15: take15(str); break;
-            case 18: take18(str); break;
-            case 19: take19(str); break;
-            case 20: take20(str); break;
-            case 21: take21(str); break;
-            case 22: take22(str); break;
+	public static void read(Message message){
+        switch (message.type){
+			case 1: take1(message.data); break;
+			case 2: take2(message.data); break;
+            case 3: take3(message.data); break;
+			case 4: take4(message.data); break;
+            case 5: take5(message.data); break;
+            case 7: take7(message.data); break;
+            case 8: take8(message.data); break;
+            case 9: take9(message.data); break;
+            case 10: take10(message.data); break;
+            case 11: take11(message.data); break;
+            case 12: take12(message.data); break;
+            case 13: take13(message.data); break;
+            case 14: take14(message.data); break;
+            case 15: take15(message.data); break;
+            case 18: take18(message.data); break;
+            case 19: take19(message.data); break;
+            case 20: take20(message.data); break;
+            case 21: take21(message.data); break;
+            case 22: take22(message.data); break;
 
             //Engine: Различные действия с уникальными индексами
 		}

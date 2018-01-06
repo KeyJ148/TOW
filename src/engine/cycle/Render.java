@@ -1,6 +1,7 @@
 package engine.cycle;
 
 import engine.Global;
+import engine.Loader;
 import engine.Vector2;
 import engine.image.Camera;
 import engine.inf.title.Title;
@@ -8,6 +9,7 @@ import engine.io.KeyboardHandler;
 import engine.io.Logger;
 import engine.io.MouseHandler;
 import engine.obj.Obj;
+import engine.setting.SettingStorage;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -31,22 +33,22 @@ public class Render{
 
 		//Создание и настройка окна
 		try {
-			if (Global.setting.FULL_SCREEN){
+			if (SettingStorage.Display.FULL_SCREEN){
 				Display.setFullscreen(true);
 				this.width = Display.getWidth();
 				this.height = Display.getHeight();
 			} else {
-				this.width = Global.setting.WIDTH_SCREEN;
-				this.height = Global.setting.HEIGHT_SCREEN;
+				this.width = SettingStorage.Display.WIDTH_SCREEN;
+				this.height = SettingStorage.Display.HEIGHT_SCREEN;
 				Display.setDisplayMode(new DisplayMode(width, height));
 			}
 			Display.create();
 			Display.setResizable(false);
-			Display.setTitle(Global.setting.WINDOW_NAME);
-			Display.setVSyncEnabled(Global.setting.SYNC != 0);
+			Display.setTitle(SettingStorage.Display.WINDOW_NAME);
+			Display.setVSyncEnabled(SettingStorage.Display.SYNC != 0);
 		} catch (LWJGLException e) {
 			Logger.println(e.getMessage(), Logger.Type.ERROR);
-			System.exit(0);
+			Loader.exit();
 		}
 
 		//Настройка графики
@@ -188,8 +190,8 @@ public class Render{
 
 	public void sync(){
 		Display.update();
-		if (Global.setting.SYNC != 0)
-			Display.sync(Global.setting.SYNC);
+		if (SettingStorage.Display.SYNC != 0)
+			Display.sync(SettingStorage.Display.SYNC);
 	}
 
 	public int getWidth(){

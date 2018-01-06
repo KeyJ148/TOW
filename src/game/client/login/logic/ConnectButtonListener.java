@@ -1,5 +1,6 @@
 package game.client.login.logic;
 
+import engine.Loader;
 import engine.io.Logger;
 import game.client.ClientData;
 import game.client.lobby.LobbyClient;
@@ -33,7 +34,7 @@ public class ConnectButtonListener implements ActionListener {
 
 		if (name.indexOf(' ') != -1){
 			Logger.println("Invalid name!", Logger.Type.ERROR);
-			System.exit(0);
+			Loader.exit();
 		}
 
 		ClientData.name = name;

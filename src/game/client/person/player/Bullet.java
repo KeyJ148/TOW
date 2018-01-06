@@ -17,7 +17,7 @@ import game.client.person.enemy.EnemyArmor;
 
 public class Bullet extends Obj implements Collision.CollisionListener{
 
-	public static final String PATH_SETTING = "bullet/";
+	public static final String PATH_SETTING = "game/bullet/";
 
 	public double damage;//дамаг пушки+патрона
 	public int range;//дальность пушки+патрона

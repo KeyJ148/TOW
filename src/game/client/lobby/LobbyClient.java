@@ -1,6 +1,7 @@
 package game.client.lobby;
 
 import engine.Global;
+import engine.Loader;
 import engine.io.Logger;
 
 import java.io.DataInputStream;
@@ -64,7 +65,7 @@ public class LobbyClient implements Runnable{
             Global.tcpRead.start();
         } catch(IOException e){
             Logger.println(e.getMessage(), Logger.Type.ERROR);
-            System.exit(0);
+            Loader.exit();
         }
     }
 }

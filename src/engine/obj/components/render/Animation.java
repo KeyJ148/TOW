@@ -6,7 +6,7 @@ import engine.io.Logger;
 import engine.obj.Obj;
 import org.lwjgl.opengl.GL11;
 
-public class Animation extends Rendering{
+public class Animation extends Rendering {
 	
     private TextureHandler[] textureHandler;
 
@@ -46,7 +46,7 @@ public class Animation extends Rendering{
         int height=(int)(textureHandler[frameNow].getHeight()*scale_y);
 
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glLoadIdentity();     
+        GL11.glLoadIdentity();
 	    GL11.glTranslatef((float) xView, (float) yView, 0);
 	    GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
 	    
@@ -54,14 +54,14 @@ public class Animation extends Rendering{
 	    textureHandler[frameNow].texture.bind();
 	    
 	    GL11.glBegin(GL11.GL_QUADS);
-		    GL11.glTexCoord2f(0,0); 
-		    GL11.glVertex2f(-width/2, -height/2); 
-		    GL11.glTexCoord2f(1,0); 
-		    GL11.glVertex2f(width/2, -height/2); 
-		    GL11.glTexCoord2f(1,1); 
-		    GL11.glVertex2f(width/2, height/2); 
-		    GL11.glTexCoord2f(0,1); 
-		    GL11.glVertex2f(-width/2, height/2); 
+		    GL11.glTexCoord2f(0,0);
+		    GL11.glVertex2f(-width/2, -height/2);
+		    GL11.glTexCoord2f(1,0);
+		    GL11.glVertex2f(width/2, -height/2);
+		    GL11.glTexCoord2f(1,1);
+		    GL11.glVertex2f(width/2, height/2);
+		    GL11.glTexCoord2f(0,1);
+		    GL11.glVertex2f(-width/2, height/2);
 	    GL11.glEnd();
     }
 

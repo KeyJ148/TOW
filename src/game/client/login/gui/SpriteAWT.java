@@ -1,7 +1,7 @@
 package game.client.login.gui;
 
-import engine.Global;
 import engine.io.Logger;
+import engine.setting.SettingStorage;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -23,7 +23,7 @@ public class SpriteAWT {
 		BufferedImage sourceImage = null;
         try {
 			sourceImage = ImageIO.read(new File(path));
-			if (Global.setting.DEBUG_CONSOLE_IMAGE) Logger.println("Load imageAWT \"" + path + "\" complited.", Logger.Type.INFO);
+			if (SettingStorage.Logger.DEBUG_CONSOLE_IMAGE) Logger.println("Load imageAWT \"" + path + "\" complited.", Logger.Type.INFO);
         } catch (IOException e1) {
 			Logger.println("Image \"" + path + "\" not loading", Logger.Type.ERROR);
 		} catch (UnsupportedOperationException e2){

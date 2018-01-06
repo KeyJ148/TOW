@@ -1,5 +1,6 @@
 package engine.net.server;
 
+import engine.Loader;
 import engine.io.Logger;
 import engine.setting.SettingStorage;
 import game.server.Server;
@@ -74,7 +75,7 @@ public class GameServer {
 			}
 		} catch (IOException e){
 			Logger.println("Failed io text", Logger.Type.ERROR);
-			System.exit(0);
+			Loader.exit();
 		}
 	}
 
@@ -86,8 +87,7 @@ public class GameServer {
 			messagePack = new MessagePack[peopleMax];
 			numberSend = new int[peopleMax];
 
-			SettingStorage setting = new SettingStorage();
-			setting.init();
+			SettingStorage.init();
 
 			ServerSocket ServerSocket = new ServerSocket(port);
 			server.init();
@@ -98,12 +98,12 @@ public class GameServer {
 
 			while (peopleNow != peopleMax) {
 				Socket sock = ServerSocket.accept();
-				sock.setTcpNoDelay(setting.TCP_NODELAY);
-				sock.setKeepAlive(setting.KEEP_ALIVE);
-				sock.setSendBufferSize(setting.SEND_BUF_SIZE);
-				sock.setReceiveBufferSize(setting.RECEIVE_BUF_SIZE);
-				sock.setPerformancePreferences(setting.PREFERENCE_CON_TIME, setting.PREFERENCE_LATENCY, setting.PREFERENCE_BANDWIDTH);
-				sock.setTrafficClass(setting.TRAFFIC_CLASS);
+				sock.setTcpNoDelay(SettingStorage.Net.TCP_NODELAY);
+				sock.setKeepAlive(SettingStorage.Net.KEEP_ALIVE);
+				sock.setSendBufferSize(SettingStorage.Net.SEND_BUF_SIZE);
+				sock.setReceiveBufferSize(SettingStorage.Net.RECEIVE_BUF_SIZE);
+				sock.setPerformancePreferences(SettingStorage.Net.PREFERENCE_CON_TIME, SettingStorage.Net.PREFERENCE_LATENCY, SettingStorage.Net.PREFERENCE_BANDWIDTH);
+				sock.setTrafficClass(SettingStorage.Net.TRAFFIC_CLASS);
 
 				in[peopleNow] = new DataInputStream(sock.getInputStream());
 				out[peopleNow] = new DataOutputStream(sock.getOutputStream());
@@ -120,7 +120,7 @@ public class GameServer {
 			processingData();//Старт бессконечно цикла с обработкой данных
 		} catch (IOException e){
             Logger.println("Failed server start", Logger.Type.SERVER_ERROR);
-			System.exit(0);
+			Loader.exit();
 		}
 	}
 
@@ -156,7 +156,7 @@ public class GameServer {
 		}
 
 		Logger.println("All user disconnect!", Logger.Type.SERVER_INFO);
-		System.exit(0);
+		Loader.exit();
 	}
 
 

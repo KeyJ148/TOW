@@ -5,6 +5,7 @@ import engine.Vector2;
 import engine.image.Camera;
 import engine.image.Mask;
 import engine.obj.Obj;
+import engine.setting.SettingStorage;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -35,7 +36,7 @@ public class Collision extends Component {
 
 	@Override
 	public void draw(){
-		if (!Global.setting.MASK_DRAW) return;
+		if (!SettingStorage.Logger.MASK_DRAW) return;
 
 		Vector2<Integer>[] maskDrawView = new Vector2[maskAbsolute.length];
 		for (int i=0;i<maskDrawView.length;i++)

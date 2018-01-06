@@ -5,6 +5,7 @@ import engine.Vector2;
 import engine.image.Camera;
 import engine.image.Mask;
 import engine.obj.Obj;
+import engine.setting.SettingStorage;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class CollisionDirect extends Collision {
 	//Отрисовка маски
 	@Override
 	public void draw(){
-		if (!Global.setting.MASK_DRAW || positionCollision == null) return;
+		if (!SettingStorage.Logger.MASK_DRAW || positionCollision == null) return;
 
 		GL11.glLoadIdentity();
 	    GL11.glTranslatef(0, 0, 0);

@@ -3,6 +3,7 @@ package engine.cycle;
 import engine.Global;
 import engine.io.Logger;
 import engine.net.client.Ping;
+import engine.setting.SettingStorage;
 
 public class Analyzer {
 
@@ -69,7 +70,7 @@ public class Analyzer {
 		Logger.println(strFPS1, Logger.Type.CONSOLE_FPS);
 		Logger.println(strFPS2, Logger.Type.CONSOLE_FPS);
 
-		if (Global.setting.DEBUG_MONITOR_FPS){
+		if (SettingStorage.Logger.DEBUG_MONITOR_FPS){
 			Global.engine.render.strAnalysis1 = strFPS1;
 			Global.engine.render.strAnalysis2 = strFPS2;
 		}

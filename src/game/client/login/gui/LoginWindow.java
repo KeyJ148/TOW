@@ -21,16 +21,16 @@ public class LoginWindow extends JFrame {
 	public SpriteAWT spriteTank = new SpriteAWT("res/image/Sys/sys_tank.png");
 
 	//Стандартные настройки (из конфига)
-	public String fileName = "login.properties";//Файл хранения настроек
+	public String fileName = "game/login.properties";//Файл хранения настроек
 	
 	public int defaultSound = 100;//громкость(Проценты)
 	public String defaultWidth = "";//Ширина
 	public String defaultHeight = "";//Высота
 	
 	public String defaultName = "";//ник
-	public int defaultRed = 255;//цвет танка
-	public int defaultGreen = 255;
-	public int defaultBlue = 255;
+	public int defaultRed = 0;//цвет танка
+	public int defaultGreen = 0;
+	public int defaultBlue = 0;
 	
 	public String defaultIP = "";//ip 
 	public String defaultPort = "";//порт

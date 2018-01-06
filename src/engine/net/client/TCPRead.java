@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class TCPRead extends Thread{
 	
-	public volatile ArrayList<String> messages = new ArrayList<String>();
+	public volatile ArrayList<Message> messages = new ArrayList<>();
 
 	@Override
 	public void run(){
@@ -15,30 +15,27 @@ public class TCPRead extends Thread{
 		//на TCP
 		String str;
 		while(true){
-			str = Global.tcpControl.read();
+            str = Global.tcpControl.read();
+
+			int type = Integer.parseInt(str.split(" ")[0]);
+			String data = str.substring(str.indexOf(" ")+1);
+			long timeReceipt = System.nanoTime();
+            Message message = new Message(type, data, timeReceipt);
+
 			synchronized (messages){
-				messages.add(str); //Ждём update и там обрабатываем
+				messages.add(message); //Ждём update и там обрабатываем
 			}
 		}
 	}
 	
 	public void update(){
-		String str;
 		synchronized(messages){
-			
 			for (int i=0;i<messages.size();i++){
-				str = messages.get(i);
-
-				int type = Integer.parseInt(str.split(" ")[0]);
-				String mes = str.substring(str.indexOf(" ")+1);
-				TCPGameRead.read(type, mes);
+				Message message = messages.get(i);
+				TCPGameRead.read(message);
 			}
+
 			messages.clear();
-			
 		}
-	}
-	
-	public void take1(String str){//Сервер вернул пинг
-		Global.pingCheck.takePing();
 	}
 }

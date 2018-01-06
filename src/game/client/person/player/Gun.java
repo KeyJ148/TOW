@@ -1,6 +1,7 @@
 package game.client.person.player;
 
 import engine.Global;
+import engine.Loader;
 import engine.Vector2;
 import engine.image.TextureHandler;
 import engine.io.Logger;
@@ -13,7 +14,7 @@ import engine.setting.ConfigReader;
 
 public class Gun extends Obj {
 
-	public final String PATH_SETTING = "gun/";
+	public final String PATH_SETTING = "game/gun/";
 
 	public double attackSpeed1;//скорость атаки
 	public double attackSpeed2;//Кол-во выстрелов в секунду
@@ -89,7 +90,7 @@ public class Gun extends Obj {
 			Global.room.objAdd(newBullet);
 		} catch (InstantiationException | IllegalAccessException e){
 			Logger.println("Bullet create error: " + bullet.getSimpleName(), Logger.Type.ERROR);
-			System.exit(0);
+			Loader.exit();
 		}
 	}
 

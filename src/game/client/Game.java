@@ -1,6 +1,7 @@
 package game.client;
 
 import engine.Global;
+import engine.Loader;
 import engine.io.KeyboardHandler;
 import engine.map.Room;
 import game.client.login.gui.LoginWindow;
@@ -14,11 +15,9 @@ public class Game {
         new LoginWindow();
     }
 
-    long last = System.currentTimeMillis();
-
 	public void update(long delta){
 		//Engine: Выполняется каждый степ перед обновлением всех игровых объектов
-		if (KeyboardHandler.isKeyDown(Keyboard.KEY_ESCAPE)) System.exit(0);
+		if (KeyboardHandler.isKeyDown(Keyboard.KEY_ESCAPE)) Loader.exit();
 	}
 	
 	public void render(){
