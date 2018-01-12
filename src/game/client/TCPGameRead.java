@@ -9,12 +9,12 @@ import engine.map.Border;
 import engine.map.Room;
 import engine.net.client.Message;
 import engine.obj.Obj;
-import game.client.map.MapObject;
 import game.client.map.Box;
+import game.client.map.MapObject;
 import game.client.map.Wall;
-import game.client.person.player.Player;
-import game.client.person.enemy.Enemy;
-import game.client.person.enemy.EnemyBullet;
+import game.client.tanks.enemy.Enemy;
+import game.client.tanks.enemy.EnemyBullet;
+import game.client.tanks.player.Player;
 import org.newdawn.slick.Color;
 
 import java.util.ArrayList;
@@ -108,7 +108,12 @@ public class TCPGameRead{
 
 	    ClientData.player = new Player(x, y, direction);
 	    Global.room.objAdd(ClientData.player);
-        Camera.setFollowObject(ClientData.player);
+        Camera.setFollowObject(ClientData.player.camera);
+
+        //Добавляем на карту врагов
+        for (Map.Entry<Integer, Enemy> entry : ClientData.enemy.entrySet()){
+            Global.room.objAdd(entry.getValue());
+        }
     }
 
     //ящик создан - (int x, int y, int type, int idBox)
@@ -200,7 +205,7 @@ public class TCPGameRead{
         int idSuffer = Integer.parseInt(str.split(" ")[1]);
 
         if (idSuffer == ClientData.myIdFromServer){
-            ClientData.player.armor.hp -= damage;
+            ClientData.player.hp -= damage;
         }
     }
 

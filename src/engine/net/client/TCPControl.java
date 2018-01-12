@@ -49,7 +49,7 @@ public class TCPControl {
 				out.writeUTF(type + " " + str);
 			}
 		} catch (IOException e){
-			Logger.println("Connection lost (Rend)", Logger.Type.ERROR);
+			Logger.println("Connection lost (Send)", Logger.Type.ERROR);
 			Loader.exit();
 		}
 	}
@@ -62,7 +62,7 @@ public class TCPControl {
 			}
 			return str;
 		} catch (IOException e){
-			Logger.println("Connection lost (Ыутв)", Logger.Type.ERROR);
+			Logger.println("Connection lost (Read)", Logger.Type.ERROR);
 			Loader.exit();
 			return null;
 		}

@@ -1,9 +1,9 @@
 package game.client;
 
 import game.client.map.MapObject;
-import game.client.person.player.Player;
-import game.client.person.enemy.Enemy;
-import game.client.person.enemy.EnemyBullet;
+import game.client.tanks.enemy.Enemy;
+import game.client.tanks.enemy.EnemyBullet;
+import game.client.tanks.player.Player;
 import org.newdawn.slick.Color;
 
 import java.util.ArrayList;
@@ -26,4 +26,5 @@ public class ClientData {
     public static ArrayList<EnemyBullet> enemyBullet; //Список всех патронов противников (EnemyBullet)
 
     public static String map; //Путь к карте, которая была выбрана (Если ты сервер и выбирал карту)
+    public static boolean printStats = false;
 }

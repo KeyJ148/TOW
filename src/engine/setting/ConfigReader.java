@@ -7,11 +7,12 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class ConfigReader {
-	
+
+	public static final String PATH_SETTING_DIR = "res/setting/";
 	private String path;
 
 	public ConfigReader(String fileName){
-		this.path = "res/setting/" + fileName;
+		this.path = PATH_SETTING_DIR + fileName;
 	}
 	
 	public String findString(String findName){

@@ -78,41 +78,30 @@
     <file url="file://$PROJECT_DIR$/src/game/client/login/logic/MapButtonListener.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/game/client/map/Box.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/game/client/map/MapObject.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/enemy/Enemy.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/enemy/EnemyArmor.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/enemy/EnemyBullet.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/EquipManager.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/armor/ADefault.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/armor/AElephant.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/armor/AFortified.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/armor/AFury.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/armor/AMite.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/armor/AVampire.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/bullet/BDefault.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/bullet/BFury.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/bullet/BMass.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/bullet/BMassSmall.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/bullet/BPatron.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/bullet/BSquaremass.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/bullet/BSteel.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/bullet/BStreamlined.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/bullet/BVampire.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/gun/GDefault.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/gun/GDouble.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/gun/GFury.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/gun/GKkp.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/gun/GMass.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/gun/GMortar.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/gun/GOsmos.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/gun/GPower.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/gun/GRocketd.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/gun/GSniper.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/equipment/gun/GVampire.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/player/Armor.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/player/Bullet.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/player/Gun.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/player/Player.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/game/client/person/player/PlayerController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/Effect.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/Stats.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/Tank.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/enemy/Enemy.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/enemy/EnemyArmor.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/enemy/EnemyBullet.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/equipment/EquipManager.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/equipment/armor/ADefault.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/equipment/armor/AFury.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/equipment/armor/AVampire.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/equipment/bullet/BDefault.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/equipment/bullet/BFury.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/equipment/bullet/BMass.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/equipment/bullet/BSquaremass.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/equipment/bullet/BStreamlined.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/equipment/bullet/BVampire.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/equipment/gun/GDefault.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/equipment/gun/GFury.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/equipment/gun/GVampire.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/player/Armor.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/player/Bullet.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/player/Gun.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/player/Player.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/game/client/tanks/player/PlayerController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/game/server/Server.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/game/server/ServerLoader.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/game/server/TCPServerRead.java" charset="UTF-8" />

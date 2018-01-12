@@ -45,6 +45,7 @@ public class Room {
 	public void objAdd(Obj obj){
 		obj.position.id = objects.size();
 		obj.position.room = this;
+		obj.destroy = false;
 
 		objects.add(obj);
 		mapControl.add(obj);
