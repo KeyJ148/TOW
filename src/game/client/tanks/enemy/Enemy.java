@@ -38,8 +38,13 @@ public class Enemy extends Tank {
         }
     }
 
-    public void setData(int x, int y, int direction, int directionGun, int speed, double moveDirection, int animSpeed){
+    public void setData(int x, int y, int direction, int directionGun, int speed, double moveDirection, int animSpeed, long delta){
         if (!ClientData.battle) return;
+
+        //Делаем интерполяцию с учетом времени прохода сообщения
+        //Т.к. сообщение пришло delta (nsec) назад, то танк успел проехать какое-то расстояние
+        x = (int) (x + speed * Math.cos(Math.toRadians(direction)) * ((double) delta/1000000000));
+        y = (int) (y - speed * Math.sin(Math.toRadians(direction)) * ((double) delta/1000000000));
 
         //Инициализация брони
         if (armor == null){

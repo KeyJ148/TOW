@@ -26,7 +26,7 @@ public class TCPGameRead{
 	public static void read(Message message){
         switch (message.type){
             case 1: take1(message.data); break;
-            case 2: take2(message.data); break;
+            case 2: take2(message.data, message.timeReceipt); break;
             case 3: take3(message.data); break;
             case 4: take4(message.data); break;
             case 5: take5(message.data); break;
@@ -55,7 +55,7 @@ public class TCPGameRead{
     }
 
 	//координаты игрока - (int x, int y, int direction, int speed, int directionDraw, int id)
-	public static void take2(String str){
+	public static void take2(String str, long timeReceipt){
         int x = Integer.parseInt(str.split(" ")[0]);
         int y = Integer.parseInt(str.split(" ")[1]);
         int direction = Integer.parseInt(str.split(" ")[2]);
@@ -65,7 +65,8 @@ public class TCPGameRead{
         int animSpeed = Integer.parseInt(str.split(" ")[6]);
         int enemyId = Integer.parseInt(str.split(" ")[7]);
 
-        ClientData.enemy.get(enemyId).setData(x, y, direction, directionGun, speed, moveDirection, animSpeed);
+        long delta = System.nanoTime()-timeReceipt;
+        ClientData.enemy.get(enemyId).setData(x, y, direction, directionGun, speed, moveDirection, animSpeed, delta);
 	}
 
 	//данные о карте - (int width, int height, String background)
