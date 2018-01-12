@@ -58,7 +58,7 @@ public class EquipManager {
     }
 
     public static void newGun(Player player){
-        String nowGunName = getClassName(player.gun);
+        String nowGunName = ((Gun) player.gun).name;
 
         //Получение валидного имени экиперовки (Которое не равно текущему и соответствует броне и патрону)
         String newGunName;
