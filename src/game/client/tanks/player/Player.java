@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class Player extends Tank {
 
-    private static final int SEND_DATA_EVERY_TICKS = 2;//Отправлять данные каждые N степов
+    private static final int SEND_DATA_EVERY_TICKS = 1;//Отправлять данные каждые N степов
     private int sendDataLastTicks = 0;//Как давно отправляли данные
 
     public boolean takeArmor = true;
