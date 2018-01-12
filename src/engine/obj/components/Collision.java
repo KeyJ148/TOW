@@ -192,7 +192,7 @@ public class Collision extends Component {
 
 	protected void informListeners(Obj obj){
 		for (CollisionListener listener : listeners)
-			listener.collision(obj);
+			if (listener != null) listener.collision(obj);
 	}
 
 }

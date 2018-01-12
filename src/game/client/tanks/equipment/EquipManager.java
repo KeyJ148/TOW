@@ -114,7 +114,7 @@ public class EquipManager {
         } while (!exit);
 
         //Назначение нового патрона
-        player.bullet = newBulletName;
+        player.replaceBullet(newBulletName);
     }
 
     private static String getClassName(Object object){

@@ -10,6 +10,7 @@ import game.client.tanks.Effect;
 import game.client.tanks.Stats;
 import game.client.tanks.Tank;
 import game.client.tanks.equipment.armor.ADefault;
+import game.client.tanks.equipment.bullet.BVampire;
 import game.client.tanks.equipment.gun.GDefault;
 import org.newdawn.slick.Color;
 
@@ -68,6 +69,9 @@ public class Player extends Tank {
 
         //Обновление параметров
         updateStats();
+
+        //Обновление вампирского патрона
+        BVampire.updateVampire(delta);
 
         //Отрисовка HP
         Global.engine.render.addTitle(new Title(1, -3, "HP: " +  Math.round(hp) + "/" + Math.round(stats.hpMax), Color.black, 20, Font.BOLD));
@@ -142,6 +146,11 @@ public class Player extends Tank {
 
         //Отправляем сообщение о том, что мы сменили оружие
         Global.tcpControl.send(20, ((Gun) newGun).texture.name);
+    }
+
+    public void replaceBullet(String newBullet){
+        bullet = newBullet;
+        if (newBullet.equals(BVampire.nameVampire)) BVampire.setThisBullet();
     }
 
 
