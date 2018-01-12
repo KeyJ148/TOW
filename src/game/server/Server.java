@@ -13,6 +13,7 @@ import java.io.File;
 public class Server {
 
     public static final String PATH_MAP = "res/map";
+    public static final long DELAY_MAP_CHANGE = 2000; //Задержка перед рестартом сервера (милисекунды)
 
     public void init(){
         //Engine: Инициализация сервера сразу после создания сокета (Цикл подключения ещё не запущен, но сокет существует)

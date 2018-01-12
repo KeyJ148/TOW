@@ -4,6 +4,8 @@ import engine.net.server.GameServer;
 import game.server.data.ServerData;
 
 import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TCPServerRead {
 
@@ -49,7 +51,17 @@ public class TCPServerRead {
         //Или если кол-во живых игроков 0 (даже при одиночной игре)
         if ((GameServer.peopleMax - ServerData.deadPlayerCount < 2 && ServerData.deadPlayerCount > 0)
                 || (GameServer.peopleMax - ServerData.deadPlayerCount == 0)){
-            GameServer.server.startNewGame();
+
+            //То через некоторое время перезапускам сервер
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    GameServer.server.startNewGame();
+                }
+            };
+
+            timer.schedule(task, Server.DELAY_MAP_CHANGE);
         }
     }
 

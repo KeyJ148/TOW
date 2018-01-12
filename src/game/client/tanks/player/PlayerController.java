@@ -93,6 +93,11 @@ public class PlayerController extends Obj implements Collision.CollisionListener
                         player.takeHealth = !player.takeHealth;
                     break;
 
+                    //Вывод характеристик танка
+                    case Keyboard.KEY_F3:
+                        ClientData.printStats = !ClientData.printStats;
+                    break;
+
                     //Клавиши для одиночной игры
                     //Переход на новую карту
                     case Keyboard.KEY_N:
@@ -114,9 +119,6 @@ public class PlayerController extends Obj implements Collision.CollisionListener
                     break;
                     case Keyboard.KEY_F:
                         if (ClientData.peopleMax == 1) new Box(0, 0, 4, -1).collisionPlayer(player);
-                    break;
-                    case Keyboard.KEY_P:
-                        if (ClientData.peopleMax == 1) ClientData.printStats = !ClientData.printStats;
                     break;
                 }
             }
