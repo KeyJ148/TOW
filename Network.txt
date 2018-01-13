@@ -13,7 +13,7 @@
 11: старт игры (рестарт полностью завершен)
 12: я умер - (int id)
 13: я выстрелил - (int x, int y, double direction, double speed, String texture, long idNet, int id)
-14: я нанёс урон игроку enemyId (double damage, int enemyId)
+14: я нанёс урон игроку idSuffer (double damage, int idSuffer, idDamager)
 15: моя пуля уничтожилась (long idNet, int id)
 16: я запрашиваю данные об игроке id - int enemyId
 17: игрок id отправил свои данные на сервер - int red, int green, int blue, String name
@@ -22,3 +22,5 @@
 20: я сменил оружие - (String gunName, int id)
 21: я подобрал ящик - (int idBox)
 22: объект карты уничтожен бронёй - (int mid)
+23: прибавить этому игроку одно убийство, он меня убил - (int id)
+24: прибавить мне одну победу, я остался один - (int id)

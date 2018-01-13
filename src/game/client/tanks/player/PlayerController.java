@@ -1,6 +1,7 @@
 package game.client.tanks.player;
 
 import engine.Global;
+import engine.Loader;
 import engine.Vector2;
 import engine.io.KeyboardHandler;
 import engine.io.MouseHandler;
@@ -8,6 +9,7 @@ import engine.map.Border;
 import engine.obj.Obj;
 import engine.obj.components.Collision;
 import game.client.ClientData;
+import game.client.inf.PlayerTable;
 import game.client.map.Box;
 import game.client.map.Wall;
 import game.client.tanks.enemy.EnemyArmor;
@@ -39,6 +41,72 @@ public class PlayerController extends Obj implements Collision.CollisionListener
     @Override
     public void update(long delta) {
         /*
+         * Смотрим на все зажатые клавиши
+         */
+
+        if (KeyboardHandler.isKeyDown(Keyboard.KEY_ESCAPE)) Loader.exit();
+
+        if (KeyboardHandler.isKeyDown(Keyboard.KEY_TAB) && !PlayerTable.enable) PlayerTable.enable();
+        if (!KeyboardHandler.isKeyDown(Keyboard.KEY_TAB) && PlayerTable.enable) PlayerTable.disable();
+
+        /*
+         * Перебираем все события нажатия клавиш
+         */
+        for (int i = 0; i < KeyboardHandler.bufferState.size(); i++) {
+            if (KeyboardHandler.bufferState.get(i)) {// Клавиша нажата
+
+                switch (KeyboardHandler.bufferKey.get(i)) {
+
+                    //Клавиши запрета и разрешения на подбор ящиков
+                    case Keyboard.KEY_1:
+                        player.takeArmor = !player.takeArmor;
+                        break;
+                    case Keyboard.KEY_2:
+                        player.takeGun = !player.takeGun;
+                        break;
+                    case Keyboard.KEY_3:
+                        player.takeBullet = !player.takeBullet;
+                        break;
+                    case Keyboard.KEY_4:
+                        player.takeHealth = !player.takeHealth;
+                        break;
+
+                    //Вывод характеристик танка
+                    case Keyboard.KEY_F3:
+                        ClientData.printStats = !ClientData.printStats;
+                        break;
+
+                    //Клавиши для одиночной игры
+                    //Переход на новую карту
+                    case Keyboard.KEY_N:
+                        if (ClientData.peopleMax == 1) player.hp = -1000;
+                        break;
+
+                    //Имитация подбора ящика
+                    case Keyboard.KEY_T:
+                        if (ClientData.peopleMax == 1) new Box(0, 0, 0, -1).collisionPlayer(player);
+                        break;
+                    case Keyboard.KEY_G:
+                        if (ClientData.peopleMax == 1) new Box(0, 0, 1, -1).collisionPlayer(player);
+                        break;
+                    case Keyboard.KEY_B:
+                        if (ClientData.peopleMax == 1) new Box(0, 0, 2, -1).collisionPlayer(player);
+                        break;
+                    case Keyboard.KEY_H:
+                        if (ClientData.peopleMax == 1) new Box(0, 0, 3, -1).collisionPlayer(player);
+                        break;
+                    case Keyboard.KEY_F:
+                        if (ClientData.peopleMax == 1) new Box(0, 0, 4, -1).collisionPlayer(player);
+                        break;
+                }
+            }
+        }
+
+
+        //Если мы мертвы, то не обрабатываем действия движения и прочего
+        if (!player.alive) return;
+
+        /*
          * Выстрел
          */
         //Если нажата мышь и перезарядилась пушка и игрок вообще может стрелять
@@ -69,59 +137,6 @@ public class PlayerController extends Obj implements Collision.CollisionListener
             player.armor.movement.speed = 0;
             if (runUp) player.armor.movement.speed = player.stats.speedTankUp;
             if (runDown) player.armor.movement.speed = -player.stats.speedTankDown;
-        }
-
-        /*
-         * Перебираем все события нажатия клавиш
-         */
-        for (int i = 0; i < KeyboardHandler.bufferState.size(); i++) {
-            if (KeyboardHandler.bufferState.get(i)) {// Клавиша нажата
-
-                switch (KeyboardHandler.bufferKey.get(i)) {
-
-                    //Клавиши запрета и разрешения на подбор ящиков
-                    case Keyboard.KEY_1:
-                        player.takeArmor = !player.takeArmor;
-                    break;
-                    case Keyboard.KEY_2:
-                        player.takeGun = !player.takeGun;
-                    break;
-                    case Keyboard.KEY_3:
-                        player.takeBullet = !player.takeBullet;
-                    break;
-                    case Keyboard.KEY_4:
-                        player.takeHealth = !player.takeHealth;
-                    break;
-
-                    //Вывод характеристик танка
-                    case Keyboard.KEY_F3:
-                        ClientData.printStats = !ClientData.printStats;
-                    break;
-
-                    //Клавиши для одиночной игры
-                    //Переход на новую карту
-                    case Keyboard.KEY_N:
-                        if (ClientData.peopleMax == 1) player.hp = -1000;
-                    break;
-
-                    //Имитация подбора ящика
-                    case Keyboard.KEY_T:
-                        if (ClientData.peopleMax == 1) new Box(0, 0, 0, -1).collisionPlayer(player);
-                    break;
-                    case Keyboard.KEY_G:
-                        if (ClientData.peopleMax == 1) new Box(0, 0, 1, -1).collisionPlayer(player);
-                    break;
-                    case Keyboard.KEY_B:
-                        if (ClientData.peopleMax == 1) new Box(0, 0, 2, -1).collisionPlayer(player);
-                    break;
-                    case Keyboard.KEY_H:
-                        if (ClientData.peopleMax == 1) new Box(0, 0, 3, -1).collisionPlayer(player);
-                    break;
-                    case Keyboard.KEY_F:
-                        if (ClientData.peopleMax == 1) new Box(0, 0, 4, -1).collisionPlayer(player);
-                    break;
-                }
-            }
         }
 
 

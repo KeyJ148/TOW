@@ -44,6 +44,8 @@ public class TCPGameRead{
             case 20: take20(message.data); break;
             case 21: take21(message.data); break;
             case 22: take22(message.data); break;
+            case 23: take23(message.data); break;
+            case 24: take24(message.data); break;
 
             //Engine: Различные действия с уникальными индексами
 		}
@@ -106,7 +108,18 @@ public class TCPGameRead{
         int y = Integer.parseInt(str.split(" ")[1]);
         int direction = Integer.parseInt(str.split(" ")[2]);
 
+        int kill = 0, death = 0, win = 0;
+        if (ClientData.player != null){
+            kill = ClientData.player.kill;
+            death = ClientData.player.death;
+            win = ClientData.player.win;
+        }
+
 	    ClientData.player = new Player(x, y, direction);
+	    ClientData.player.kill = kill;
+	    ClientData.player.death = death;
+	    ClientData.player.win = win;
+
 	    Global.room.objAdd(ClientData.player);
         Camera.setFollowObject(ClientData.player.camera);
 
@@ -128,6 +141,11 @@ public class TCPGameRead{
 
 	//начало рестарта
     public static void take8(String str){
+        if (ClientData.player != null && ClientData.player.alive){
+            Global.tcpControl.send(24, "");
+            ClientData.player.win++;
+        }
+
         ClientData.battle = false;
         Global.room.destroy();
         Camera.deleteFollowObject();
@@ -199,13 +217,15 @@ public class TCPGameRead{
         Global.room.objAdd(enemyBullet);
     }
 
-    //я нанёс урон игроку enemyId (double damage, int enemyId)
+    //я нанёс урон игроку enemyId (double damage, int idSuffer, int idDamager)
     public static void take14(String str){
         double damage = Double.parseDouble(str.split(" ")[0]);
         int idSuffer = Integer.parseInt(str.split(" ")[1]);
+        int idDamager = Integer.parseInt(str.split(" ")[2]);
 
         if (idSuffer == ClientData.myIdFromServer){
             ClientData.player.hp -= damage;
+            ClientData.player.lastDamagerEnemyId = idDamager;
         }
     }
 
@@ -271,6 +291,24 @@ public class TCPGameRead{
             ((Wall) ClientData.mapObjects.get(mid)).destroyByArmor();
             ClientData.mapObjects.set(mid, null);
         }
+    }
+
+    //прибавить этому игроку одно убийство, он меня убил - (int id)
+    public static void take23(String str){
+        int id = Integer.parseInt(str.split(" ")[0]);
+
+        if (ClientData.myIdFromServer == id) {
+            ClientData.player.kill++;
+        } else {
+            ClientData.enemy.get(id).kill++;
+        }
+    }
+
+    //прибавить мне одну победу, я остался один - (int id)
+    public static void take24(String str){
+        int id = Integer.parseInt(str.split(" ")[0]);
+
+        ClientData.enemy.get(id).win++;
     }
 
 }

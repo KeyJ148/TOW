@@ -28,6 +28,7 @@ public class Player extends Tank {
     public boolean takeHealth = true;
 
     public double hp;
+    public int lastDamagerEnemyId = -1;
     
     public ArrayList<Effect> effects = new ArrayList<>();
     public Stats stats;
@@ -89,6 +90,11 @@ public class Player extends Tank {
 
         //Проверка HP
         if(hp <= 0){
+            if (lastDamagerEnemyId != -1){
+                Global.tcpControl.send(23, String.valueOf(lastDamagerEnemyId));
+                ClientData.enemy.get(lastDamagerEnemyId).kill++;
+            }
+
             Global.tcpControl.send(12, "");
             exploded();
         } else {

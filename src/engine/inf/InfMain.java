@@ -22,4 +22,9 @@ public class InfMain {
         for (Inf inf : infs) inf.draw();
     }
 
+    public void add(Inf inf){
+        inf.delete = false;
+        infs.add(inf);
+    }
+
 }

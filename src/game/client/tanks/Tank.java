@@ -24,6 +24,10 @@ public abstract class Tank extends Obj{
     public Color color = Color.white;
     public boolean alive = true;
 
+    public int kill = 0;
+    public int death = 0;
+    public int win = 0;
+
     public Tank(){
         super(0, 0, 0);
 
@@ -52,6 +56,7 @@ public abstract class Tank extends Obj{
 
     public void exploded(){
         alive = false;
+        death++;
 
         armor.movement.speed = 0;
 
