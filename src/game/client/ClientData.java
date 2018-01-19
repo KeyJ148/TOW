@@ -20,6 +20,7 @@ public class ClientData {
     public static int myIdFromServer; //Мой id на сервере
     public static boolean battle = false; //В текущий момент идет основной процесс игры (бой)
     public static long idNet = 1; //id объекта создаваемого у противника из-за действий игрока
+    public static int MPS;
 
     public static Vector<MapObject> mapObjects = new Vector<>();//Список всех объектов на карте
     public static TreeMap<Integer, Enemy> enemy = new TreeMap<>(); //список всех противников

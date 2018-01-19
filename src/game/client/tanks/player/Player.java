@@ -10,7 +10,6 @@ import game.client.tanks.Effect;
 import game.client.tanks.Stats;
 import game.client.tanks.Tank;
 import game.client.tanks.equipment.armor.ADefault;
-import game.client.tanks.equipment.bullet.BVampire;
 import game.client.tanks.equipment.gun.GDefault;
 import org.newdawn.slick.Color;
 
@@ -19,8 +18,9 @@ import java.util.ArrayList;
 
 public class Player extends Tank {
 
-    private static final int SEND_DATA_EVERY_TICKS = 1;//Отправлять данные каждые N степов
-    private int sendDataLastTicks = 0;//Как давно отправляли данные
+    public static final double VAMPIRE_UP_FROM_HIT = 0.15;
+    public static final double VAMPIRE_DOWN_FROM_SEC = 0.015;
+    public double vampire = 0.5; //Сколько набрано вампиризма в процентах (от 0 до 1)
 
     public boolean takeArmor = true;
     public boolean takeGun = true;
@@ -28,13 +28,15 @@ public class Player extends Tank {
     public boolean takeHealth = true;
 
     public double hp;
-    public int lastDamagerEnemyId = -1;
-    
+
     public ArrayList<Effect> effects = new ArrayList<>();
     public Stats stats;
 
     public PlayerController controller;
     public String bullet;
+
+    public int lastDamagerEnemyId = -1;
+    private int sendDataLast = 0;//Как давно отправляли данные
 
     public Player(double x, double y, double direction){
         position = new Position(this, x, y, 0);
@@ -60,6 +62,8 @@ public class Player extends Tank {
         color = ClientData.color;
         name = ClientData.name;
         setColor(color);
+
+
     }
 
 
@@ -71,8 +75,9 @@ public class Player extends Tank {
         //Обновление параметров
         updateStats();
 
-        //Обновление вампирского патрона
-        BVampire.updateVampire(delta);
+        //Обновление вампирского сета
+        vampire -= VAMPIRE_DOWN_FROM_SEC * ((double) delta/1000000000);
+        if (vampire < 0.0) vampire = 0.0;
 
         //Отрисовка HP
         Global.engine.render.addTitle(new Title(1, -3, "HP: " +  Math.round(hp) + "/" + Math.round(stats.hpMax), Color.black, 20, Font.BOLD));
@@ -86,6 +91,7 @@ public class Player extends Tank {
             Global.engine.render.addTitle(new Title(1, 22+array.length*15+7, "Armor: " + ((Armor) armor).name, Color.black, 14, Font.PLAIN));
             Global.engine.render.addTitle(new Title(1, 22+array.length*15+7+15, "Gun: " + ((Gun) gun).name, Color.black, 14, Font.PLAIN));
             Global.engine.render.addTitle(new Title(1, 22+array.length*15+7+30, "Bullet: " + bullet, Color.black, 14, Font.PLAIN));
+            Global.engine.render.addTitle(new Title(1, 22+array.length*15+7+55, "Vampire: " + Math.round(vampire*100) + "%", Color.black, 14, Font.PLAIN));
         }
 
         //Проверка HP
@@ -106,9 +112,9 @@ public class Player extends Tank {
         }
 
         //Отправка данных о игроке
-        sendDataLastTicks++;
-        if (ClientData.battle && sendDataLastTicks >= SEND_DATA_EVERY_TICKS){
-            sendDataLastTicks = 0;
+        sendDataLast += delta;
+        if (ClientData.battle && sendDataLast >= Math.pow(10,9)/ClientData.MPS){
+            sendDataLast = 0;
             Global.tcpControl.send(2, getData());
         }
     }
@@ -154,11 +160,15 @@ public class Player extends Tank {
         Global.tcpControl.send(20, ((Gun) newGun).texture.name);
     }
 
-    public void replaceBullet(String newBullet){
-        bullet = newBullet;
-        if (newBullet.equals(BVampire.nameVampire)) BVampire.setThisBullet();
+    //Игрок попал по врагу
+    public void hitting(){
+        vampire += VAMPIRE_UP_FROM_HIT;
+        if (vampire > 1.0) vampire = 1.0;
     }
 
+    public void replaceBullet(String newBullet){
+        bullet = newBullet;
+    }
 
     public String getData(){
 

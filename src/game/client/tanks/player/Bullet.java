@@ -15,9 +15,6 @@ import engine.setting.ConfigReader;
 import game.client.ClientData;
 import game.client.map.Wall;
 import game.client.tanks.enemy.EnemyArmor;
-import game.client.tanks.equipment.armor.AVampire;
-import game.client.tanks.equipment.bullet.BVampire;
-import game.client.tanks.equipment.gun.GVampire;
 
 public class Bullet extends Obj implements Collision.CollisionListener{
 
@@ -75,17 +72,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 			destroy();
 
 			//Для вампирского сета
-			if (ea.enemy.alive) {
-				if (player.armor instanceof AVampire) {
-					((AVampire) player.armor).hitting();
-				}
-				if (player.gun instanceof GVampire) {
-					((GVampire) player.gun).hitting();
-				}
-				if (player.bullet.equals(BVampire.nameVampire)) {
-					BVampire.hitting();
-				}
-			}
+			if (ea.enemy.alive) player.hitting();
 		}
 	}
 
