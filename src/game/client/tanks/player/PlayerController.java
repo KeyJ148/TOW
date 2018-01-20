@@ -84,19 +84,19 @@ public class PlayerController extends Obj implements Collision.CollisionListener
 
                     //Имитация подбора ящика
                     case Keyboard.KEY_T:
-                        if (ClientData.peopleMax == 1) new Box(0, 0, 0, -1).collisionPlayer(player);
+                        if (ClientData.peopleMax == 1) new Box(player.position.x, player.position.y, 0, -1).collisionPlayer(player);
                         break;
                     case Keyboard.KEY_G:
-                        if (ClientData.peopleMax == 1) new Box(0, 0, 1, -1).collisionPlayer(player);
+                        if (ClientData.peopleMax == 1) new Box(player.position.x, player.position.y, 1, -1).collisionPlayer(player);
                         break;
                     case Keyboard.KEY_B:
-                        if (ClientData.peopleMax == 1) new Box(0, 0, 2, -1).collisionPlayer(player);
+                        if (ClientData.peopleMax == 1) new Box(player.position.x, player.position.y, 2, -1).collisionPlayer(player);
                         break;
                     case Keyboard.KEY_H:
-                        if (ClientData.peopleMax == 1) new Box(0, 0, 3, -1).collisionPlayer(player);
+                        if (ClientData.peopleMax == 1) new Box(player.position.x, player.position.y, 3, -1).collisionPlayer(player);
                         break;
                     case Keyboard.KEY_F:
-                        if (ClientData.peopleMax == 1) new Box(0, 0, 4, -1).collisionPlayer(player);
+                        if (ClientData.peopleMax == 1) new Box(player.position.x, player.position.y, 4, -1).collisionPlayer(player);
                         break;
                 }
             }

@@ -60,15 +60,15 @@ public class SettingStorage {
 	}
 
 	public static class Music{
-		public static int MUSIC_VOLUME;
-		public static int SOUND_VOLUME;
+		public static double MUSIC_VOLUME;
+		public static double SOUND_VOLUME;
 
 		private static String fileName = "engine/music.properties";
 		private static void init(){
 			ConfigReader cr = new ConfigReader(fileName);
 
-			MUSIC_VOLUME = cr.findInteger("MUSIC_VOLUME");
-			SOUND_VOLUME = cr.findInteger("SOUND_VOLUME");
+			MUSIC_VOLUME = cr.findDouble("MUSIC_VOLUME");
+			SOUND_VOLUME = cr.findDouble("SOUND_VOLUME");
 		}
 	}
 

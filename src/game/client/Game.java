@@ -16,6 +16,7 @@ public class Game {
 
 		ConfigReader cr = new ConfigReader(SETTING_NAME);
 		ClientData.MPS = cr.findInteger("MPS");
+		ClientData.soundRange = cr.findInteger("SOUND_RANGE");
 	}
 
 	public void update(long delta){

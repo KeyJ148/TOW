@@ -9,6 +9,7 @@ import engine.obj.Obj;
 import engine.obj.components.Collision;
 import engine.obj.components.Position;
 import engine.obj.components.render.Sprite;
+import game.client.ClientData;
 import game.client.tanks.equipment.EquipManager;
 import game.client.tanks.player.Player;
 
@@ -51,10 +52,10 @@ public class Box extends Obj {
 		Global.tcpControl.send(21, String.valueOf(idBox));
 
 		if (typeBox == 0 || typeBox == 1 || typeBox == 2){
-			AudioStorage.playSoundEffect("recharge");
+			AudioStorage.playSoundEffect("recharge", (int) position.x, (int) position.y, ClientData.soundRange);
 		}
 		if (typeBox == 3 || typeBox == 4){
-			AudioStorage.playSoundEffect("healing");
+			AudioStorage.playSoundEffect("healing", (int) position.x, (int) position.y, ClientData.soundRange);
 		}
 	}
 }

@@ -72,7 +72,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 
 		if (obj.getClass().equals(Wall.class)){
 			destroy();
-			AudioStorage.playSoundEffect(sound_hit);
+			AudioStorage.playSoundEffect(sound_hit, (int) position.x, (int) position.y, ClientData.soundRange);
 		}
 
 		if (obj.getClass().equals(EnemyArmor.class)){
@@ -80,7 +80,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 
 			Global.tcpControl.send(14, damage + " " + ea.enemy.id);
 			destroy();
-			AudioStorage.playSoundEffect(sound_hit);
+			AudioStorage.playSoundEffect(sound_hit, (int) position.x, (int) position.y, ClientData.soundRange);
 
 			//Для вампирского сета
 			if (ea.enemy.alive) player.hitting();
@@ -105,7 +105,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 	}
 
 	public void playSoundShot(){
-		AudioStorage.playSoundEffect(sound_shot);
+		AudioStorage.playSoundEffect(sound_shot, (int) position.x, (int) position.y, ClientData.soundRange);
 	}
 
 	public String getData(){

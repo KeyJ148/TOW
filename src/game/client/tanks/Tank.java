@@ -79,7 +79,7 @@ public abstract class Tank extends Obj{
             }
         }
 
-        AudioStorage.playSoundEffect("explosion");
+        AudioStorage.playSoundEffect("explosion", (int) position.x, (int) position.y, ClientData.soundRange);
     }
 
     public void replaceArmor(Obj newArmor){

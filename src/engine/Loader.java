@@ -12,7 +12,6 @@ import engine.setting.SettingStorage;
 import game.client.Game;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.util.Log;
 
 import java.io.File;
@@ -40,10 +39,6 @@ public class Loader {
 		if (SettingStorage.Logger.DEBUG_CONSOLE_MASK) Logger.enable(Logger.Type.DEBUG_MASK);
 		if (SettingStorage.Logger.DEBUG_CONSOLE_AUDIO) Logger.enable(Logger.Type.DEBUG_AUDIO);
 		if (SettingStorage.Logger.DEBUG_CONSOLE_FPS) Logger.enable(Logger.Type.CONSOLE_FPS);
-
-		//Установка настроек звука
-		SoundStore.get().setMusicVolume(SettingStorage.Music.MUSIC_VOLUME);
-		SoundStore.get().setSoundVolume(SettingStorage.Music.SOUND_VOLUME);
 
 		Global.engine = new Engine();//Создание класса для главного цикла
 		Global.engine.render.initGL();//Инициализация OpenGL
