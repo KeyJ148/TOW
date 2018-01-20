@@ -33,7 +33,7 @@ public class Player extends Tank {
     public Stats stats;
 
     public PlayerController controller;
-    public String bullet;
+    public BulletFactory bullet;
 
     public int lastDamagerEnemyId = -1;
     private int sendDataLast = 0;//Как давно отправляли данные
@@ -54,7 +54,7 @@ public class Player extends Tank {
         effects.add(((Gun) gun).effect);
         Global.room.objAdd(gun);
 
-        bullet = "BDefault";
+        bullet = new BulletFactory("BDefault", this);
 
         updateStats();
         hp = stats.hpMax;
@@ -62,8 +62,6 @@ public class Player extends Tank {
         color = ClientData.color;
         name = ClientData.name;
         setColor(color);
-
-
     }
 
 
@@ -88,9 +86,9 @@ public class Player extends Tank {
             for (int i = 0; i < array.length; i++) {
                 Global.engine.render.addTitle(new Title(1, 22+i*15, array[i], Color.black, 14, Font.PLAIN));
             }
-            Global.engine.render.addTitle(new Title(1, 22+array.length*15+7, "Armor: " + ((Armor) armor).name, Color.black, 14, Font.PLAIN));
-            Global.engine.render.addTitle(new Title(1, 22+array.length*15+7+15, "Gun: " + ((Gun) gun).name, Color.black, 14, Font.PLAIN));
-            Global.engine.render.addTitle(new Title(1, 22+array.length*15+7+30, "Bullet: " + bullet, Color.black, 14, Font.PLAIN));
+            Global.engine.render.addTitle(new Title(1, 22+array.length*15+7, "Armor: " + ((Armor) armor).title, Color.black, 14, Font.PLAIN));
+            Global.engine.render.addTitle(new Title(1, 22+array.length*15+7+15, "Gun: " + ((Gun) gun).title, Color.black, 14, Font.PLAIN));
+            Global.engine.render.addTitle(new Title(1, 22+array.length*15+7+30, "Bullet: " + bullet.title, Color.black, 14, Font.PLAIN));
             Global.engine.render.addTitle(new Title(1, 22+array.length*15+7+55, "Vampire: " + Math.round(vampire*100) + "%", Color.black, 14, Font.PLAIN));
         }
 
@@ -167,7 +165,7 @@ public class Player extends Tank {
     }
 
     public void replaceBullet(String newBullet){
-        bullet = newBullet;
+        bullet = new BulletFactory(newBullet, this);
     }
 
     public String getData(){

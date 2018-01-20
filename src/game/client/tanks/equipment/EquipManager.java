@@ -14,11 +14,11 @@ import java.util.Random;
 /*
 При добавление необходимо менять...
 Броня:
-TextureStorage, tow.player.armor, res/settings/armor
+TextureStorage, tow.player.equipment.armor/, res/settings/armor
 Оружие:
-TextureStorage, tow.player.gun, res/settings/gun, res/settings/armor, res/settings/bullet
+TextureStorage, tow.player.equipment.gun/, res/settings/gun, res/settings/armor, res/settings/bullet
 Патроны:
-TextureStorage, tow.player.bullet, res/settings/bullet
+TextureStorage, tow.player.equipment.bullet/, res/settings/bullet
 */
 
 public class EquipManager {
@@ -69,7 +69,7 @@ public class EquipManager {
                 newGunName = allowGun[random.nextInt(allowGun.length)];
             } while (newGunName.equals(nowGunName));
 
-            ConfigReader cr = new ConfigReader(Bullet.PATH_SETTING + player.bullet + ".properties");
+            ConfigReader cr = new ConfigReader(Bullet.PATH_SETTING + player.bullet.name + ".properties");
             String[] allowGunForBullet = cr.findString("ALLOW_GUN").split(" ");
 
             for (int i=0;i<allowGunForBullet.length;i++){
@@ -110,7 +110,7 @@ public class EquipManager {
             if (!contain(cr.findString("ALLOW_GUN").split(" "), ((Gun) player.gun).name)) continue;
 
             newBulletName = config.getName().substring(0, config.getName().lastIndexOf("."));
-            if (!newBulletName.equals(player.bullet)) exit = true;
+            if (!newBulletName.equals(player.bullet.name)) exit = true;
         } while (!exit);
 
         //Назначение нового патрона

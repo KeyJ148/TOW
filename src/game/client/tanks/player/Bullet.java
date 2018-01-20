@@ -19,7 +19,7 @@ import game.client.tanks.enemy.EnemyArmor;
 public class Bullet extends Obj implements Collision.CollisionListener{
 
 	public static final String PATH_SETTING = "game/bullet/";
-	public String name;
+	public String name, title; //name - техническое название, title - игровое
 
 	public double damage; //Дамаг (пушка и в loadData добавляем дамаг пули)
 	public int range; //Дальность (пушка и в loadData добавляем дальность пули)
@@ -113,6 +113,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 		damage += cr.findDouble("DAMAGE");//К дамагу пушки прибавляем дамаг патрона
 		range += cr.findInteger("RANGE");//К дальности пушки прибавляем дальность патрона
 		texture = TextureManager.getTexture(cr.findString("IMAGE_NAME"));
+		title = cr.findString("TITLE");
 	}
 
 }

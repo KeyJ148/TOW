@@ -17,7 +17,7 @@ import game.client.tanks.enemy.EnemyArmor;
 public class Armor extends Obj{
 
 	public static final String PATH_SETTING = "game/armor/";
-	public String name;
+	public String name, title; //name - техническое название, title - игровое
 
 	public Player player;
 	public Effect effect = new Effect();
@@ -84,5 +84,6 @@ public class Armor extends Obj{
 
 		animSpeed = cr.findInteger("ANIMATION_SPEED");
 		textureHandlers = TextureManager.getAnimation(cr.findString("IMAGE_NAME"));
+		title = cr.findString("TITLE");
 	}
 }
