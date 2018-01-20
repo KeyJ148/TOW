@@ -20,7 +20,7 @@ public class Analyzer {
 	public int ping=0, pingMin=0, pingMax=0, pingMid=0;
 
 	//Скорость сети
-	public int send=0, load=0;
+	public int send=0, load=0, sendPackage=0, loadPackage=0;
 
 	public Analyzer(){
 		lastAnalysis = System.currentTimeMillis();
@@ -48,8 +48,13 @@ public class Analyzer {
 
 		send = Math.round(Global.tcpControl.sizeDataSend/1024);
 		load = Math.round(Global.tcpControl.sizeDataRead/1024);
+		sendPackage = Global.tcpControl.countPackageSend;
+		loadPackage = Global.tcpControl.countPackageRead;
+
+		Global.tcpControl.countPackageSend = 0;
 		Global.tcpControl.sizeDataSend = 0;
 		synchronized (Global.tcpControl.sizeDataReadMonitor){
+			Global.tcpControl.countPackageRead = 0;
 			Global.tcpControl.sizeDataRead = 0;
 		}
 
@@ -60,7 +65,8 @@ public class Analyzer {
 
 		//Строки отладки
 		String strFPS1 = 	 "Ping: " + ping + " (" + pingMin + "-" + pingMid + "-" + pingMax + ")"
-				+ "          Speed S/L: " + send + "/" + load + " kb/s";
+				+ "          Speed S/L: " + send + "/" + load + " kb/s"
+				+ "          Package S/L: " + sendPackage + "/" + loadPackage;
 		String strFPS2 =	 "FPS: " + loopsRender
 				+ "          Duration update/render: " + (durationUpdate/loopsUpdate/1000) + "/" + (durationRender/loopsRender/1000) + " mks"
 				+ "          Objects: " + Global.room.objCount()

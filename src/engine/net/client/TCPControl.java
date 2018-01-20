@@ -9,14 +9,15 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 public class TCPControl {
-	
+
 	private DataInputStream in;
 	private DataOutputStream out;
 
-	public int sizeDataSend = 0;//bytes 
-	public int sizeDataRead = 0;
+	//Статистика отправки и получения сообщений
+	public int sizeDataSend = 0, sizeDataRead = 0;//В байтах
+	public int countPackageSend = 0, countPackageRead = 0;//В кол-ве сообщений
 	public Object sizeDataReadMonitor = new Object();//Нужен, чтобы не запрашивать sizeDataRead из потока считывания и анализатора
-	
+
 	public void connect(String ip, int port){
 		try{
 			@SuppressWarnings("resource")
@@ -27,12 +28,12 @@ public class TCPControl {
 			sock.setReceiveBufferSize(SettingStorage.Net.RECEIVE_BUF_SIZE);
 			sock.setPerformancePreferences(SettingStorage.Net.PREFERENCE_CON_TIME, SettingStorage.Net.PREFERENCE_LATENCY, SettingStorage.Net.PREFERENCE_BANDWIDTH);
 			sock.setTrafficClass(SettingStorage.Net.TRAFFIC_CLASS);
-			
+
 			InputStream inS = sock.getInputStream();
 			OutputStream outS = sock.getOutputStream();
 			DataInputStream in = new DataInputStream(inS);
 			DataOutputStream out = new DataOutputStream(outS);
-			
+
 			this.in = in;
 			this.out = out;
 		} catch(IOException e){
@@ -40,9 +41,10 @@ public class TCPControl {
 			Loader.exit();
 		}
 	}
-	
+
 	public void send(int type, String str){
 		try{
+			countPackageSend++;
 			sizeDataSend += str.length()*2;
 			if (out != null) {
 				out.flush();
@@ -53,11 +55,12 @@ public class TCPControl {
 			Loader.exit();
 		}
 	}
-	
+
 	public String read(){
 		try{
 			String str = in.readUTF();
 			synchronized (sizeDataReadMonitor){
+				countPackageRead++;
 				sizeDataRead += str.length()*2;
 			}
 			return str;
