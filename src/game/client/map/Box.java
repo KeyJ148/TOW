@@ -1,6 +1,7 @@
 package game.client.map;
 
 
+import engine.AudioStorage;
 import engine.Global;
 import engine.image.TextureHandler;
 import engine.image.TextureManager;
@@ -48,5 +49,12 @@ public class Box extends Obj {
 		}
 
 		Global.tcpControl.send(21, String.valueOf(idBox));
+
+		if (typeBox == 0 || typeBox == 1 || typeBox == 2){
+			AudioStorage.playSoundEffect("recharge");
+		}
+		if (typeBox == 3 || typeBox == 4){
+			AudioStorage.playSoundEffect("healing");
+		}
 	}
 }

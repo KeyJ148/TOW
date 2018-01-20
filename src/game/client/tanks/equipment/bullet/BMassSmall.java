@@ -25,4 +25,7 @@ public class BMassSmall extends Bullet{
 
         super.collision(obj);
     }
+
+    @Override
+    public void playSoundShot(){}
 }

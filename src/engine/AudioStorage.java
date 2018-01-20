@@ -50,4 +50,9 @@ public class AudioStorage {
         Logger.println("Not find audio: " + name, Logger.Type.ERROR);
         return null;
     }
+
+    public static void playSoundEffect(String name){
+        Audio audio = getAudio(name);
+        if (audio != null) audio.playAsSoundEffect(1.0f, 1.0f, false);
+    }
 }

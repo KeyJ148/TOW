@@ -1,6 +1,7 @@
 package game.client.tanks.player;
 
 
+import engine.AudioStorage;
 import engine.Global;
 import engine.image.TextureHandler;
 import engine.image.TextureManager;
@@ -28,6 +29,9 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 	public double startY;
 	public long idNet;
 
+	public String sound_shot;
+	public String sound_hit;
+
 	public Player player;
 	public TextureHandler texture;
 
@@ -54,15 +58,21 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 
 		Global.tcpControl.send(13, getData());
 		ClientData.idNet++;
+
+		playSoundShot();
 	}
 
 	@Override
 	public void collision(Obj obj) {
 		if (destroy) return;
 
-		if (obj.getClass().equals(Wall.class) ||
-			obj.getClass().equals(Border.class)){
-				destroy();
+		if (obj.getClass().equals(Border.class)){
+			destroy();
+		}
+
+		if (obj.getClass().equals(Wall.class)){
+			destroy();
+			AudioStorage.playSoundEffect(sound_hit);
 		}
 
 		if (obj.getClass().equals(EnemyArmor.class)){
@@ -70,6 +80,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 
 			Global.tcpControl.send(14, damage + " " + ea.enemy.id);
 			destroy();
+			AudioStorage.playSoundEffect(sound_hit);
 
 			//Для вампирского сета
 			if (ea.enemy.alive) player.hitting();
@@ -93,6 +104,10 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 		super.update(delta);
 	}
 
+	public void playSoundShot(){
+		AudioStorage.playSoundEffect(sound_shot);
+	}
+
 	public String getData(){
 		return  Math.round(position.x)
 		+ " " +	Math.round(position.y)
@@ -114,6 +129,8 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 		range += cr.findInteger("RANGE");//К дальности пушки прибавляем дальность патрона
 		texture = TextureManager.getTexture(cr.findString("IMAGE_NAME"));
 		title = cr.findString("TITLE");
+		sound_shot = cr.findString("SOUND_SHOT");
+		sound_hit = cr.findString("SOUND_HIT");
 	}
 
 }

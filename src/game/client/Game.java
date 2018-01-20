@@ -20,12 +20,6 @@ public class Game {
 
 	public void update(long delta){
 		//Engine: Выполняется каждый степ перед обновлением всех игровых объектов
-
-		/*
-		if (Keyboard.isKeyDown(Keyboard.KEY_Q)){
-			AudioStorage.getAudio("shot_tank").playAsSoundEffect(1.0f, 1.0f, false);
-		}
-		*/
 	}
 	
 	public void render(){

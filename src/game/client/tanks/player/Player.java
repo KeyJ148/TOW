@@ -5,7 +5,9 @@ import engine.inf.title.Title;
 import engine.obj.Obj;
 import engine.obj.components.Position;
 import engine.obj.components.render.Animation;
+import engine.setting.ConfigReader;
 import game.client.ClientData;
+import game.client.Game;
 import game.client.tanks.Effect;
 import game.client.tanks.Stats;
 import game.client.tanks.Tank;
@@ -17,10 +19,6 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Player extends Tank {
-
-    public static final double VAMPIRE_UP_FROM_HIT = 0.15;
-    public static final double VAMPIRE_DOWN_FROM_SEC = 0.015;
-    public double vampire = 0.5; //Сколько набрано вампиризма в процентах (от 0 до 1)
 
     public boolean takeArmor = true;
     public boolean takeGun = true;
@@ -34,6 +32,10 @@ public class Player extends Tank {
 
     public PlayerController controller;
     public BulletFactory bullet;
+
+    public double vampireUpFromHit;
+    public double vampireDownFromSec;
+    public double vampire = 0.5; //Сколько набрано вампиризма в процентах (от 0 до 1)
 
     public int lastDamagerEnemyId = -1;
     private int sendDataLast = 0;//Как давно отправляли данные
@@ -62,6 +64,10 @@ public class Player extends Tank {
         color = ClientData.color;
         name = ClientData.name;
         setColor(color);
+
+        ConfigReader cr = new ConfigReader(Game.SETTING_NAME);
+        vampireUpFromHit = cr.findDouble("VAMPIRE_UP_FROM_HIT");
+        vampireDownFromSec = cr.findDouble("VAMPIRE_DOWN_FROM_SEC");
     }
 
 
@@ -74,7 +80,7 @@ public class Player extends Tank {
         updateStats();
 
         //Обновление вампирского сета
-        vampire -= VAMPIRE_DOWN_FROM_SEC * ((double) delta/1000000000);
+        vampire -= vampireDownFromSec * ((double) delta/1000000000);
         if (vampire < 0.0) vampire = 0.0;
 
         //Отрисовка HP
@@ -160,7 +166,7 @@ public class Player extends Tank {
 
     //Игрок попал по врагу
     public void hitting(){
-        vampire += VAMPIRE_UP_FROM_HIT;
+        vampire += vampireUpFromHit;
         if (vampire > 1.0) vampire = 1.0;
     }
 
