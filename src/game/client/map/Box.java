@@ -53,9 +53,11 @@ public class Box extends Obj {
 
 		if (typeBox == 0 || typeBox == 1 || typeBox == 2){
 			AudioStorage.playSoundEffect("recharge", (int) position.x, (int) position.y, ClientData.soundRange);
+			Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + "recharge");
 		}
 		if (typeBox == 3 || typeBox == 4){
 			AudioStorage.playSoundEffect("healing", (int) position.x, (int) position.y, ClientData.soundRange);
+			Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + "healing");
 		}
 	}
 }

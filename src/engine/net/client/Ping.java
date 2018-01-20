@@ -69,6 +69,6 @@ public class Ping {
 	}
 	
 	public int pingMin(){
-		return (pingMin == 1000)? 0 : pingMid;
+		return (pingMin == 1000)? 0 : pingMin;
 	}
 }

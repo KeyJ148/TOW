@@ -1,5 +1,6 @@
 package game.client;
 
+import engine.AudioStorage;
 import engine.Global;
 import engine.image.Camera;
 import engine.image.TextureHandler;
@@ -46,6 +47,7 @@ public class TCPGameRead{
             case 22: take22(message.data); break;
             case 23: take23(message.data); break;
             case 24: take24(message.data); break;
+            case 25: take25(message.data); break;
 
             //Engine: Различные действия с уникальными индексами
 		}
@@ -229,14 +231,15 @@ public class TCPGameRead{
         }
     }
 
-    //моя пуля уничтожилась (long idNet, int id)
+    //моя пуля уничтожилась (long idNet, int explosion, int id)
     public static void take15(String str){
         long idNet = Long.parseLong(str.split(" ")[0]);
-        int idEnemy = Integer.parseInt(str.split(" ")[1]);
+        int explosionSize = Integer.parseInt(str.split(" ")[1]);
+        int idEnemy = Integer.parseInt(str.split(" ")[2]);
 
         for(EnemyBullet bullet : ClientData.enemyBullet){
             if (bullet.idEnemy == idEnemy && bullet.idNet == idNet){
-                bullet.destroy();
+                bullet.destroy(explosionSize);
                 break;
             }
         }
@@ -309,6 +312,15 @@ public class TCPGameRead{
         int id = Integer.parseInt(str.split(" ")[0]);
 
         ClientData.enemy.get(id).win++;
+    }
+
+    //я инициировал событие звука - (int x, int y, String sound)
+    public static void take25(String str){
+        int x = Integer.parseInt(str.split(" ")[0]);
+        int y = Integer.parseInt(str.split(" ")[1]);
+        String sound = str.split(" ")[2];
+
+        AudioStorage.playSoundEffect(sound, x, y, ClientData.soundRange);
     }
 
 }

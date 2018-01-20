@@ -15,6 +15,7 @@ import engine.obj.components.render.Sprite;
 import engine.setting.ConfigReader;
 import game.client.ClientData;
 import game.client.map.Wall;
+import game.client.particles.Explosion;
 import game.client.tanks.enemy.EnemyArmor;
 
 public class Bullet extends Obj implements Collision.CollisionListener{
@@ -24,6 +25,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 
 	public double damage; //Дамаг (пушка и в loadData добавляем дамаг пули)
 	public int range; //Дальность (пушка и в loadData добавляем дальность пули)
+	public int explosionSize;
 	
 	public double startX;
 	public double startY;
@@ -67,37 +69,47 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 		if (destroy) return;
 
 		if (obj.getClass().equals(Border.class)){
-			destroy();
+			destroy(0);
 		}
 
 		if (obj.getClass().equals(Wall.class)){
-			destroy();
+			destroy(explosionSize);
+
 			AudioStorage.playSoundEffect(sound_hit, (int) position.x, (int) position.y, ClientData.soundRange);
+			Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + sound_hit);
 		}
 
 		if (obj.getClass().equals(EnemyArmor.class)){
 			EnemyArmor ea = (EnemyArmor) obj;
 
 			Global.tcpControl.send(14, damage + " " + ea.enemy.id);
-			destroy();
+			destroy(explosionSize);
+
 			AudioStorage.playSoundEffect(sound_hit, (int) position.x, (int) position.y, ClientData.soundRange);
+			Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + sound_hit);
 
 			//Для вампирского сета
 			if (ea.enemy.alive) player.hitting();
 		}
 	}
 
-	@Override
-	public void destroy(){
-		super.destroy();
-		Global.tcpControl.send(15, String.valueOf(idNet));
+	public void destroy(int expSize){
+		destroy();
+		Global.tcpControl.send(15, idNet + " " + expSize);
+
+		if (explosionSize > 0) {
+			Obj explosion = new Obj(position.x, position.y, -100);
+			explosion.particles = new Explosion(explosion, expSize);
+			explosion.particles.destroyObject = true;
+			Global.room.objAdd(explosion);
+		}
 	}
 
 	@Override
 	public void update(long delta) {
 		if (!destroy) {
 			if (Math.sqrt(Math.pow(startX - position.x, 2) + Math.pow(startY - position.y, 2)) >= range) {
-				destroy();
+				destroy(0);
 			}
 		}
 
@@ -106,6 +118,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 
 	public void playSoundShot(){
 		AudioStorage.playSoundEffect(sound_shot, (int) position.x, (int) position.y, ClientData.soundRange);
+		Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + sound_hit);
 	}
 
 	public String getData(){
@@ -131,6 +144,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 		title = cr.findString("TITLE");
 		sound_shot = cr.findString("SOUND_SHOT");
 		sound_hit = cr.findString("SOUND_HIT");
+		explosionSize = cr.findInteger("EXPLOSION_SIZE");
 	}
 
 }

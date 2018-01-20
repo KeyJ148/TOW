@@ -27,6 +27,7 @@ public class TCPServerRead {
             case 22: take22(id, str); break;
             case 23: take23(id, str); break;
             case 24: take24(id, str); break;
+            case 25: take25(id, str); break;
             //Engine: Различные действия с уникальными индексами
         }
     }
@@ -124,6 +125,10 @@ public class TCPServerRead {
 
     public void take24(int id, String str){
         GameServer.sendAllExceptId(id, 24, String.valueOf(id));
+    }
+
+    public void take25(int id, String str){
+        GameServer.sendAllExceptId(id, 25, str);
     }
 
 }

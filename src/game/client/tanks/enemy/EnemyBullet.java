@@ -1,9 +1,11 @@
 package game.client.tanks.enemy;
 
+import engine.Global;
 import engine.image.TextureHandler;
 import engine.image.TextureManager;
 import engine.obj.Obj;
 import engine.obj.components.Movement;
+import game.client.particles.Explosion;
 import game.client.particles.Pixel;
 
 public class EnemyBullet extends Obj {
@@ -28,6 +30,17 @@ public class EnemyBullet extends Obj {
 
 		if (texture.equals(TextureManager.getTexture("b_patron"))){
 			particles = new Pixel(this, x, y, direction, speed);
+		}
+	}
+
+	public void destroy(int explosionSize){
+		destroy();
+
+		if (explosionSize > 0) {
+			Obj explosion = new Obj(position.x, position.y, -100);
+			explosion.particles = new Explosion(explosion, explosionSize);
+			explosion.particles.destroyObject = true;
+			Global.room.objAdd(explosion);
 		}
 	}
 }
