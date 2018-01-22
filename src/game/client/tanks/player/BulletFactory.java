@@ -7,7 +7,7 @@ import game.client.tanks.equipment.bullet.BDefault;
 
 public class BulletFactory {
 
-    public String name, title; //name - техническое название, title - игровое
+    public String name, title; //name - С‚РµС…РЅРёС‡РµСЃРєРѕРµ РЅР°Р·РІР°РЅРёРµ, title - РёРіСЂРѕРІРѕРµ
     public Player player;
 
     public BulletFactory(String name, Player player){
@@ -17,7 +17,7 @@ public class BulletFactory {
         title = new ConfigReader(Bullet.PATH_SETTING + name + ".properties").findString("TITLE");
     }
 
-    //Создание класса через рефлексию
+    //РЎРѕР·РґР°РЅРёРµ РєР»Р°СЃСЃР° С‡РµСЂРµР· СЂРµС„Р»РµРєСЃРёСЋ
     public Bullet create(){
         try{
             String newBulletClassName = new ConfigReader(Bullet.PATH_SETTING + name + ".properties").findString("CLASS");
