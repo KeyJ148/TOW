@@ -6,7 +6,6 @@ import engine.image.TextureManager;
 import engine.obj.Obj;
 import engine.obj.components.Movement;
 import game.client.particles.Explosion;
-import game.client.particles.Pixel;
 
 public class EnemyBullet extends Obj {
 
@@ -26,10 +25,6 @@ public class EnemyBullet extends Obj {
 			position.setDirectionDraw(0);
 		} else {
 			movement.directionDrawEquals = false;
-		}
-
-		if (texture.equals(TextureManager.getTexture("b_patron"))){
-			particles = new Pixel(this, x, y, direction, speed);
 		}
 	}
 

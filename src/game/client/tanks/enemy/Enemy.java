@@ -23,6 +23,7 @@ public class Enemy extends Tank {
         this.id = id;
 
         position = new Position(this, 0, 0, 0);
+        movement = new Movement(this);
     }
 
     @Override
@@ -70,6 +71,9 @@ public class Enemy extends Tank {
 
         followToArmor(gun);
         gun.position.setDirectionDraw(directionGun);
+
+        //Для верных координат источника звука при взрыве
+        followToArmor(this);
 
         //Для интерполяции (предсказания) движения врага
         armor.movement.speed = speed;

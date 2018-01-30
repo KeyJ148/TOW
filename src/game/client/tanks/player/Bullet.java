@@ -119,7 +119,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 
 	public void playSoundShot(){
 		AudioStorage.playSoundEffect(sound_shot, (int) position.x, (int) position.y, ClientData.soundRange);
-		Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + sound_hit);
+		Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + sound_shot);
 	}
 
 	public String getData(){
