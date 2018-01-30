@@ -43,7 +43,6 @@ public class TextureStorage {
                 {"Bullet/b_mass.png",                    "bullet",       "40"},
                 {"Bullet/b_mass_small.png",              "bullet",       "40"},
                 {"Bullet/b_vampire.png",                 "bullet",       "40"},
-                {"Bullet/b_patron.png",                  "bullet",       "40"},
                 {"Bullet/b_streamlined.png",             "bullet",       "40"},
 
                 {"Gun/g_default.png",                    "gun",          "40"},
@@ -53,7 +52,6 @@ public class TextureStorage {
                 {"Gun/g_rocketd.png",                    "gun",          "40"},
                 {"Gun/g_mass.png",                       "gun",          "40"},
                 {"Gun/g_power.png",                      "gun",          "40"},
-                {"Gun/g_kkp.png",                        "gun",          "40"},
                 {"Gun/g_sniper.png",                     "gun",          "40"},
                 {"Gun/g_vampire.png",                    "gun",          "40"},
                 {"Gun/g_osmos.png",                      "gun",          "40"},

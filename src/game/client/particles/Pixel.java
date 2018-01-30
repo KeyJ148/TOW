@@ -7,7 +7,11 @@ import org.newdawn.slick.Color;
 
 public class Pixel extends ParticlesGeometry {
 
-    public Pixel(Obj obj, double x, double y, double dir, double speed) {
+    public Pixel(Obj obj, double x, double y, double dir, double speed){
+        this(obj, x, y, dir, speed, Color.black);
+    }
+
+    public Pixel(Obj obj, double x, double y, double dir, double speed, Color color) {
         super(obj);
 
         Part part = new Part();
@@ -20,7 +24,7 @@ public class Pixel extends ParticlesGeometry {
         part.directionDraw = 0;
         part.width = 1;
         part.height = 1;
-        part.color = Color.black;
+        part.color = color;
         part.type = Part.Type.FILL;
         part.life = Integer.MAX_VALUE;
 
