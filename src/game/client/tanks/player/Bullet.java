@@ -14,6 +14,7 @@ import engine.obj.components.Position;
 import engine.obj.components.render.Sprite;
 import engine.setting.ConfigReader;
 import game.client.ClientData;
+import game.client.Game;
 import game.client.map.Wall;
 import game.client.particles.Explosion;
 import game.client.tanks.enemy.EnemyArmor;
@@ -135,9 +136,14 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 	}
 	
 	public void loadData(){
+		ConfigReader crMain = new ConfigReader(Game.SETTING_NAME);
+		double MIN_BULLET_SPEED_KOEF = crMain.findDouble("MIN_BULLET_SPEED_KOEF");
+
 		ConfigReader cr = new ConfigReader(getConfigFileName());
 		
-		movement.speed = cr.findDouble("SPEED");
+		movement.speed = cr.findDouble("SPEED") + player.stats.speedTankUp/2;
+		movement.speed = Math.max(movement.speed, player.stats.speedTankUp*MIN_BULLET_SPEED_KOEF);
+
 		damage += cr.findDouble("DAMAGE");//К дамагу пушки прибавляем дамаг патрона
 		range += cr.findInteger("RANGE");//К дальности пушки прибавляем дальность патрона
 		texture = TextureManager.getTexture(cr.findString("IMAGE_NAME"));

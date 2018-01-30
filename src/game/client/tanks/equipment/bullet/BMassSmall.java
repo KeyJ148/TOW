@@ -1,6 +1,7 @@
 package game.client.tanks.equipment.bullet;
 
 import engine.obj.Obj;
+import engine.setting.ConfigReader;
 import game.client.tanks.player.Armor;
 import game.client.tanks.player.Bullet;
 import game.client.tanks.player.Player;
@@ -28,4 +29,12 @@ public class BMassSmall extends Bullet{
 
     @Override
     public void playSoundShot(){}
+
+    @Override
+    public void loadData(){
+        super.loadData();
+
+        ConfigReader cr = new ConfigReader(getConfigFileName());
+        movement.speed = cr.findDouble("SPEED");
+    }
 }

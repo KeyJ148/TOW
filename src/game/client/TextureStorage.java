@@ -49,6 +49,7 @@ public class TextureStorage {
                 {"Gun/g_double.png",                     "gun",          "40"},
                 {"Gun/g_fury.png",                       "gun",          "40"},
                 {"Gun/g_mortar.png",                     "gun",          "40"},
+                {"Gun/g_quick.png",                     "gun",          "40"},
                 {"Gun/g_rocketd.png",                    "gun",          "40"},
                 {"Gun/g_mass.png",                       "gun",          "40"},
                 {"Gun/g_power.png",                      "gun",          "40"},
@@ -107,6 +108,8 @@ public class TextureStorage {
                 {"Corps/a_elephant",                "armor",        "81"},
                 {"Corps/a_fury",                    "armor",        "81"},
                 {"Corps/a_mite",                    "armor",        "81"},
-                {"Corps/a_vampire",                 "armor",        "81"}
+                {"Corps/a_vampire",                 "armor",        "81"},
+                {"Corps/a_light",                 "armor",        "81"},
+                {"Corps/a_renegat",                 "armor",        "81"}
             };
 }
