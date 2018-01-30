@@ -33,7 +33,7 @@ public class Player extends Tank {
     public PlayerController controller;
     public BulletFactory bullet;
 
-    public double vampireUpFromHit;
+    public double vampireUpFromOneDamage;
     public double vampireDownFromSec;
     public double vampire = 0.5; //Сколько набрано вампиризма в процентах (от 0 до 1)
 
@@ -66,7 +66,7 @@ public class Player extends Tank {
         setColor(color);
 
         ConfigReader cr = new ConfigReader(Game.SETTING_NAME);
-        vampireUpFromHit = cr.findDouble("VAMPIRE_UP_FROM_HIT");
+        vampireUpFromOneDamage = cr.findDouble("VAMPIRE_UP_FROM_ONE_DAMAGE");
         vampireDownFromSec = cr.findDouble("VAMPIRE_DOWN_FROM_SEC");
     }
 
@@ -164,9 +164,9 @@ public class Player extends Tank {
         Global.tcpControl.send(20, ((Gun) newGun).texture.name);
     }
 
-    //Игрок попал по врагу
-    public void hitting(){
-        vampire += vampireUpFromHit;
+    //Игрок попал по врагу и нанес damage урона
+    public void hitting(double damage){
+        vampire += damage*vampireUpFromOneDamage;
         if (vampire > 1.0) vampire = 1.0;
     }
 

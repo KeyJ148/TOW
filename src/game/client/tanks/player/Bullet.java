@@ -89,7 +89,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 			Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + sound_hit);
 
 			//Для вампирского сета
-			if (ea.enemy.alive) player.hitting();
+			if (ea.enemy.alive) player.hitting(damage);
 		}
 	}
 
