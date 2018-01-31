@@ -71,6 +71,7 @@ public class Player extends Tank {
 
         //Обновление параметров
         updateStats();
+        followToArmor(this);
 
         //Обновление вампирского сета
         vampire -= GameSetting.VAMPIRE_DOWN_FROM_SEC * ((double) delta/1000000000);

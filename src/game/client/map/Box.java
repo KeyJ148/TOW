@@ -41,23 +41,18 @@ public class Box extends Obj {
 	public void collisionPlayer(Player player){
 		destroy();
 
-		switch (typeBox){
-			case 0: if (player.takeArmor) EquipManager.newArmor(player); break;
-			case 1: if (player.takeGun) EquipManager.newGun(player); break;
-			case 2: if (player.takeBullet) EquipManager.newBullet(player); break;
-			case 3: if (player.takeHealth) player.hp = player.hp + player.stats.hpMax*0.4; break;
-			case 4: if (player.takeHealth) player.hp = player.stats.hpMax; break;
+        String soundName = "";
+        switch (typeBox){
+			case 0: if (player.takeArmor) EquipManager.newArmor(player); soundName = "armor"; break;
+			case 1: if (player.takeGun) EquipManager.newGun(player); soundName = "gun"; break;
+			case 2: if (player.takeBullet) EquipManager.newBullet(player); soundName = "bullet"; break;
+			case 3: if (player.takeHealth) player.hp = player.hp + player.stats.hpMax*0.4; soundName = "heal"; break;
+			case 4: if (player.takeHealth) player.hp = player.stats.hpMax; soundName = "heal"; break;
 		}
 
 		Global.tcpControl.send(21, String.valueOf(idBox));
 
-		if (typeBox == 0 || typeBox == 1 || typeBox == 2){
-			AudioStorage.playSoundEffect("recharge", (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
-			Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + "recharge");
-		}
-		if (typeBox == 3 || typeBox == 4){
-			AudioStorage.playSoundEffect("healing", (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
-			Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + "healing");
-		}
+		AudioStorage.playSoundEffect(soundName, (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
+		Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + soundName);
 	}
 }

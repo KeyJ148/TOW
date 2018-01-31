@@ -82,6 +82,11 @@ public class PlayerController extends Obj implements Collision.CollisionListener
                         if (ClientData.peopleMax == 1) player.hp = -1000;
                         break;
 
+                    //Поднятие вампиризма до максимума
+                    case Keyboard.KEY_V:
+                        if (ClientData.peopleMax == 1) player.vampire = 1;
+                        break;
+
                     //Имитация подбора ящика
                     case Keyboard.KEY_T:
                         if (ClientData.peopleMax == 1) new Box(player.position.x, player.position.y, 0, -1).collisionPlayer(player);
