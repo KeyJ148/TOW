@@ -7,6 +7,7 @@ import engine.image.Camera;
 import engine.inf.title.Title;
 import engine.obj.Obj;
 import game.client.ClientData;
+import game.client.GameSetting;
 import game.client.particles.Explosion;
 import game.client.tanks.enemy.Enemy;
 import org.newdawn.slick.Color;
@@ -79,7 +80,7 @@ public abstract class Tank extends Obj{
             }
         }
 
-        AudioStorage.playSoundEffect("explosion", (int) position.x, (int) position.y, ClientData.soundRange);
+        AudioStorage.playSoundEffect("explosion", (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
     }
 
     public void replaceArmor(Obj newArmor){

@@ -14,7 +14,7 @@ import engine.obj.components.Position;
 import engine.obj.components.render.Sprite;
 import engine.setting.ConfigReader;
 import game.client.ClientData;
-import game.client.Game;
+import game.client.GameSetting;
 import game.client.map.Wall;
 import game.client.particles.Explosion;
 import game.client.tanks.enemy.EnemyArmor;
@@ -76,7 +76,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 		if (obj.getClass().equals(Wall.class)){
 			destroy(explosionSize);
 
-			AudioStorage.playSoundEffect(sound_hit, (int) position.x, (int) position.y, ClientData.soundRange);
+			AudioStorage.playSoundEffect(sound_hit, (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
 			Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + sound_hit);
 		}
 
@@ -86,7 +86,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 			Global.tcpControl.send(14, damage + " " + ea.enemy.id);
 			destroy(explosionSize);
 
-			AudioStorage.playSoundEffect(sound_hit, (int) position.x, (int) position.y, ClientData.soundRange);
+			AudioStorage.playSoundEffect(sound_hit, (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
 			Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + sound_hit);
 
 			//Для вампирского сета
@@ -118,7 +118,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 	}
 
 	public void playSoundShot(){
-		AudioStorage.playSoundEffect(sound_shot, (int) position.x, (int) position.y, ClientData.soundRange);
+		AudioStorage.playSoundEffect(sound_shot, (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
 		Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + sound_shot);
 	}
 
@@ -136,13 +136,10 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 	}
 	
 	public void loadData(){
-		ConfigReader crMain = new ConfigReader(Game.SETTING_NAME);
-		double MIN_BULLET_SPEED_KOEF = crMain.findDouble("MIN_BULLET_SPEED_KOEF");
-
 		ConfigReader cr = new ConfigReader(getConfigFileName());
 		
 		movement.speed = cr.findDouble("SPEED") + player.stats.speedTankUp/2;
-		movement.speed = Math.max(movement.speed, player.stats.speedTankUp*MIN_BULLET_SPEED_KOEF);
+		movement.speed = Math.max(movement.speed, player.stats.speedTankUp*GameSetting.MIN_BULLET_SPEED_KOEF);
 
 		damage += cr.findDouble("DAMAGE");//К дамагу пушки прибавляем дамаг патрона
 		range += cr.findInteger("RANGE");//К дальности пушки прибавляем дальность патрона

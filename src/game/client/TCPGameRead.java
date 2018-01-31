@@ -320,7 +320,7 @@ public class TCPGameRead{
         int y = Integer.parseInt(str.split(" ")[1]);
         String sound = str.split(" ")[2];
 
-        AudioStorage.playSoundEffect(sound, x, y, ClientData.soundRange);
+        AudioStorage.playSoundEffect(sound, x, y, GameSetting.SOUND_RANGE);
     }
 
 }

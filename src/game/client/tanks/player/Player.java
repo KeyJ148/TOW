@@ -5,9 +5,8 @@ import engine.inf.title.Title;
 import engine.obj.Obj;
 import engine.obj.components.Position;
 import engine.obj.components.render.Animation;
-import engine.setting.ConfigReader;
 import game.client.ClientData;
-import game.client.Game;
+import game.client.GameSetting;
 import game.client.tanks.Effect;
 import game.client.tanks.Stats;
 import game.client.tanks.Tank;
@@ -33,8 +32,6 @@ public class Player extends Tank {
     public PlayerController controller;
     public BulletFactory bullet;
 
-    public double vampireUpFromOneDamage;
-    public double vampireDownFromSec;
     public double vampire = 0.5; //Сколько набрано вампиризма в процентах (от 0 до 1)
 
     public int lastDamagerEnemyId = -1;
@@ -64,10 +61,6 @@ public class Player extends Tank {
         color = ClientData.color;
         name = ClientData.name;
         setColor(color);
-
-        ConfigReader cr = new ConfigReader(Game.SETTING_NAME);
-        vampireUpFromOneDamage = cr.findDouble("VAMPIRE_UP_FROM_ONE_DAMAGE");
-        vampireDownFromSec = cr.findDouble("VAMPIRE_DOWN_FROM_SEC");
     }
 
 
@@ -80,7 +73,7 @@ public class Player extends Tank {
         updateStats();
 
         //Обновление вампирского сета
-        vampire -= vampireDownFromSec * ((double) delta/1000000000);
+        vampire -= GameSetting.VAMPIRE_DOWN_FROM_SEC * ((double) delta/1000000000);
         if (vampire < 0.0) vampire = 0.0;
 
         //Отрисовка HP
@@ -117,8 +110,8 @@ public class Player extends Tank {
 
         //Отправка данных о игроке
         sendDataLast += delta;
-        if (ClientData.battle && sendDataLast >= Math.pow(10,9)/ClientData.MPS){
-            sendDataLast -= Math.pow(10,9)/ClientData.MPS;
+        if (ClientData.battle && sendDataLast >= Math.pow(10,9)/GameSetting.MPS){
+            sendDataLast -= Math.pow(10,9)/GameSetting.MPS;
             Global.tcpControl.send(2, getData());
         }
     }
@@ -166,7 +159,7 @@ public class Player extends Tank {
 
     //Игрок попал по врагу и нанес damage урона
     public void hitting(double damage){
-        vampire += damage*vampireUpFromOneDamage;
+        vampire += damage*GameSetting.VAMPIRE_UP_FROM_ONE_DAMAGE;
         if (vampire > 1.0) vampire = 1.0;
     }
 
