@@ -18,7 +18,7 @@ public class BoxCreator {
         timeBoxDelta -= delta;
 
         if (timeBoxDelta <= 0 && ServerData.battle){//Создание ящиков
-            timeBoxDelta = BOX_CREATE_TIME;
+            timeBoxDelta = BOX_CREATE_TIME/GameServer.peopleMax;
             createBox();
             idBox++;
         }
