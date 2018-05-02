@@ -3,6 +3,7 @@ package game.server.assistants;
 import engine.Vector2;
 import engine.image.TextureManager;
 import engine.net.server.GameServer;
+import engine.net.server.senders.ServerSendTCP;
 import game.server.Server;
 import game.server.data.ServerData;
 
@@ -56,6 +57,6 @@ public class BoxCreator {
         int typeBox = rand.nextInt(5);
 
         //Отправляем всем сообщение
-        GameServer.sendAll(7, pos.x + " " + pos.y + " " + typeBox + " " + idBox);
+        ServerSendTCP.sendAll(7, pos.x + " " + pos.y + " " + typeBox + " " + idBox);
     }
 }

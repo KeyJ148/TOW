@@ -6,33 +6,58 @@ import java.util.LinkedList;
 
 public class MessagePack {
 	
-	private LinkedList<String> message;//Список сообщений
+	private LinkedList<Message> messages;//Список сообщений
 	public int id;
 	
 	public MessagePack(int id){
-		this.message = new LinkedList<>();
+		this.messages = new LinkedList<>();
 		this.id = id;
 	}
 	
-	public void add(String str){
-		message.add(str);
+	public void add(String str, Message.InetType inetType){
+		if (str.length() > 0){
+			int type = Integer.parseInt(str.split(" ")[0]);
+			String mes = str.substring(str.indexOf(" ")+1);
+			add(new Message(type, mes, id, inetType));
+		}
+	}
+
+	public void add(Message message){
+		messages.add(message);
 	}
 	
-	public String get(){
+	public Message get(){
 		if (size()%10 == 0){
 			Logger.println("Messages detained: " + size() + " Id: " + id, Logger.Type.DEBUG);
 		}
 		
-		return message.removeFirst();
+		return messages.removeFirst();
 	}
 	
 	public int size(){
-		return message.size();
+		return messages.size();
 	}
 	
 	public boolean haveMessage(){
-		if (message.isEmpty()) return false;
+		if (messages.isEmpty()) return false;
 		return true;
+	}
+
+	public static class Message{
+
+		public enum InetType {TCP, UDP};
+
+		public int type;
+		public String text;
+		public int authorId;
+		public InetType inetType;
+
+		public Message(int type, String text, int authorId, InetType inetType){
+			this.type = type;
+			this.text = text;
+			this.authorId = authorId;
+			this.inetType = inetType;
+		}
 	}
 	
 }

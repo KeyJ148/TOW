@@ -2,13 +2,16 @@ package engine.net.server;
 
 import engine.Loader;
 import engine.io.Logger;
+import engine.net.server.readers.ServerReadUDP;
 import engine.setting.SettingStorage;
+import game.server.NetServerRead;
 import game.server.Server;
-import game.server.TCPServerRead;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.DatagramSocket;
 import java.net.ServerSocket;
-import java.net.Socket;
 
 public class GameServer {
 	//Присоединение клиентов
@@ -17,15 +20,13 @@ public class GameServer {
 	public static int peopleNow;
 	public static int disconnect = 0; //Не совмещать с peopleNow
 	public static boolean maxPower;//Максимальная производительность и потребление
-	//Сокеты
-	public static DataInputStream[] in;
-	public static DataOutputStream[] out;
-	//Поток для приёма сообщений
-	public static ServerRead[] serverRead;
-	//Хранение принятых сообщений, очередь на обработку
-	public static volatile MessagePack[] messagePack;
-	//Кол-во отправленных сообщений клиенту
-	public static int[] numberSend;
+
+	//Все данные о подключение конкретного клиента
+	public static Connect[] connects;
+
+	//Сокет для работы по UDP
+	public static DatagramSocket socketUDP;
+
 	//Объект сервера для реализации в игре
 	public static Server server = new Server();
 
@@ -66,12 +67,8 @@ public class GameServer {
 				maxPower = Boolean.valueOf(args[2]);
 			} else {
 				System.out.print("Max power (Default false): ");
-				str = bReader.readLine();
-				if (str.equals("t") || str.equals("T") || str.equals("True") || str.equals("true")) {
-					maxPower = true;
-				} else {
-					maxPower = false;
-				}
+				str = bReader.readLine().toLowerCase();
+				maxPower = (str.equals("t") || str.equals("true"));
 			}
 		} catch (IOException e){
 			Logger.println("Failed io text", Logger.Type.ERROR);
@@ -81,15 +78,15 @@ public class GameServer {
 
 	public static void waitConnect(){
 		try {
-			in = new DataInputStream[peopleMax];
-			out = new DataOutputStream[peopleMax];
-			serverRead = new ServerRead[peopleMax];
-			messagePack = new MessagePack[peopleMax];
-			numberSend = new int[peopleMax];
-
+			connects = new Connect[peopleMax]; //Выделение места под массив подключений всех игроков
 			SettingStorage.init();
 
-			ServerSocket ServerSocket = new ServerSocket(port);
+			ServerSocket serverSocketTCP = new ServerSocket(port);
+			socketUDP = new DatagramSocket(port);
+			socketUDP.setSendBufferSize(SettingStorage.Net.SEND_BUF_SIZE);
+			socketUDP.setReceiveBufferSize(SettingStorage.Net.RECEIVE_BUF_SIZE);
+			socketUDP.setTrafficClass(SettingStorage.Net.TRAFFIC_CLASS);
+
 			server.init();
 
 			peopleNow = 0;
@@ -97,35 +94,31 @@ public class GameServer {
 			Logger.println("Server started", Logger.Type.SERVER_INFO);
 
 			while (peopleNow != peopleMax) {
-				Socket sock = ServerSocket.accept();
-				sock.setTcpNoDelay(SettingStorage.Net.TCP_NODELAY);
-				sock.setKeepAlive(SettingStorage.Net.KEEP_ALIVE);
-				sock.setSendBufferSize(SettingStorage.Net.SEND_BUF_SIZE);
-				sock.setReceiveBufferSize(SettingStorage.Net.RECEIVE_BUF_SIZE);
-				sock.setPerformancePreferences(SettingStorage.Net.PREFERENCE_CON_TIME, SettingStorage.Net.PREFERENCE_LATENCY, SettingStorage.Net.PREFERENCE_BANDWIDTH);
-				sock.setTrafficClass(SettingStorage.Net.TRAFFIC_CLASS);
-
-				in[peopleNow] = new DataInputStream(sock.getInputStream());
-				out[peopleNow] = new DataOutputStream(sock.getOutputStream());
-				messagePack[peopleNow] = new MessagePack(peopleNow);
-				Logger.println("New client (" + (peopleNow + 1) + "/" + peopleMax + ")", Logger.Type.SERVER_INFO);
-				serverRead[peopleNow] = new ServerRead(peopleNow);
+				connects[peopleNow] = ConnectFactory.createConnect(serverSocketTCP, socketUDP, peopleNow);
 				peopleNow++;
+
+				Logger.println("New client (" + peopleNow + "/" + peopleMax + ")", Logger.Type.SERVER_INFO);
 			}
-			ServerSocket.close();
+			serverSocketTCP.close();
 
 			Logger.println("All users connected", Logger.Type.SERVER_INFO);
 
+			//Запуск всех основных потоков
+			for (Connect connect : connects) {
+				connect.serverReadTCP.start(); //Старт потока считывания данных по TCP
+			}
+			new ServerReadUDP().start();//Старт потока считывания данных по UDP
 			new AnalyzerThread().start();//Старт отдельного потока для анализатора
 			processingData();//Старт бессконечно цикла с обработкой данных
 		} catch (IOException e){
+			e.printStackTrace();
             Logger.println("Failed server start", Logger.Type.SERVER_ERROR);
 			Loader.exit();
 		}
 	}
 
 	public static void processingData(){
-		TCPServerRead tcpServerRead = new TCPServerRead();
+		NetServerRead inetServerRead = new NetServerRead();
 		server.startProcessingData();
 
 		long lastUpdate = System.nanoTime();//Для update
@@ -136,20 +129,18 @@ public class GameServer {
 			lastUpdate = startUpdate; //Начало предыдущего update, чтобы длительность update тоже учитывалась
 
 			for (int i = 0; i< GameServer.peopleMax; i++){
-				String str = "";
+				MessagePack.Message message = null;
 
-				synchronized(GameServer.messagePack[i]) {//Защита от одновременной работы с массивом
-					if (GameServer.messagePack[i].haveMessage()){//Если у игрока имеются сообщения
-						str = GameServer.messagePack[i].get();//Читаем сообщение
+				synchronized(GameServer.connects[i].messagePack) {//Защита от одновременной работы с массивом
+					if (GameServer.connects[i].messagePack.haveMessage()){//Если у игрока имеются сообщения
+						message = GameServer.connects[i].messagePack.get();//Читаем сообщение
 					}
 				}
 
-				if (str.length() > 0){
-					int type = Integer.parseInt(str.split(" ")[0]);
-					String mes = str.substring(str.indexOf(" ")+1);
-					tcpServerRead.read(i, type, mes);
+				if (message != null) {
+					if (message.inetType == MessagePack.Message.InetType.TCP) inetServerRead.readTCP(message);
+					if (message.inetType == MessagePack.Message.InetType.UDP) inetServerRead.readUDP(message);
 				}
-
 			}
 
 			if (!GameServer.maxPower) try {Thread.sleep(0,1);} catch (InterruptedException e) {}
@@ -157,34 +148,6 @@ public class GameServer {
 
 		Logger.println("All user disconnect!", Logger.Type.SERVER_INFO);
 		Loader.exit();
-	}
-
-
-
-	public static void send(int id, int type, String str){
-		try {
-			synchronized (GameServer.out[id]) {
-				GameServer.out[id].flush();
-				GameServer.out[id].writeUTF(type + " " + str);
-			}
-			numberSend[id]++; //Кол-во отправленных пакетов
-		} catch (IOException e) {
-			if (!GameServer.serverRead[id].disconnect) Logger.print("Send message failed", Logger.Type.SERVER_ERROR);
-		}
-	}
-
-	public static void sendAllExceptId(int id, int type, String str){
-		for(int i=0; i<peopleMax; i++){//Отправляем сообщение всем
-			if (i != id){//Кроме игрока, приславшего сообщение
-				GameServer.send(i, type, str);
-			}
-		}
-	}
-	
-	public static void sendAll(int type, String str){
-		for(int i=0; i<peopleMax; i++){//Отправляем сообщение всем
-			GameServer.send(i, type, str);
-		}
 	}
 	
 	public static void main(String args[]){

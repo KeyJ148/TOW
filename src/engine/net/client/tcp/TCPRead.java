@@ -1,18 +1,18 @@
-package engine.net.client;
+package engine.net.client.tcp;
 
 import engine.Global;
-import game.client.TCPGameRead;
+import engine.net.client.Message;
+import game.client.NetGameRead;
 
 import java.util.ArrayList;
 
 public class TCPRead extends Thread{
 	
-	public volatile ArrayList<Message> messages = new ArrayList<>();
+	private volatile ArrayList<Message> messages = new ArrayList<>();
 
 	@Override
 	public void run(){
-		//постоянный обмен данными
-		//на TCP
+		//Постоянный обмен данными на TCP
 		String str;
 		while(true){
             str = Global.tcpControl.read();
@@ -32,7 +32,7 @@ public class TCPRead extends Thread{
 		synchronized(messages){
 			for (int i=0;i<messages.size();i++){
 				Message message = messages.get(i);
-				TCPGameRead.read(message);
+				NetGameRead.readTCP(message);
 			}
 
 			messages.clear();

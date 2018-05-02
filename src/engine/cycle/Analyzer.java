@@ -20,7 +20,8 @@ public class Analyzer {
 	public int ping=0, pingMin=0, pingMax=0, pingMid=0;
 
 	//Скорость сети
-	public int send=0, load=0, sendPackage=0, loadPackage=0;
+	public int sendTCP=0, loadTCP=0, sendPackageTCP=0, loadPackageTCP=0;
+	public int sendUDP=0, loadUDP=0, sendPackageUDP=0, loadPackageUDP=0;
 
 	public Analyzer(){
 		lastAnalysis = System.currentTimeMillis();
@@ -46,17 +47,17 @@ public class Analyzer {
 		pingMid = Global.pingCheck.pingMid();
 		pingMax = Global.pingCheck.pingMax();
 
-		send = Math.round(Global.tcpControl.sizeDataSend/1024);
-		load = Math.round(Global.tcpControl.sizeDataRead/1024);
-		sendPackage = Global.tcpControl.countPackageSend;
-		loadPackage = Global.tcpControl.countPackageRead;
+		sendTCP = Math.round(Global.tcpControl.sizeDataSend/1024);
+		loadTCP = Math.round(Global.tcpControl.sizeDataRead/1024);
+		sendPackageTCP = Global.tcpControl.countPackageSend;
+		loadPackageTCP = Global.tcpControl.countPackageRead;
+		Global.tcpControl.analyzeClear();
 
-		Global.tcpControl.countPackageSend = 0;
-		Global.tcpControl.sizeDataSend = 0;
-		synchronized (Global.tcpControl.sizeDataReadMonitor){
-			Global.tcpControl.countPackageRead = 0;
-			Global.tcpControl.sizeDataRead = 0;
-		}
+		sendUDP = Math.round(Global.udpControl.sizeDataSend/1024);
+		loadUDP = Math.round(Global.udpControl.sizeDataRead/1024);
+		sendPackageUDP = Global.udpControl.countPackageSend;
+		loadPackageUDP = Global.udpControl.countPackageRead;
+		Global.udpControl.analyzeClear();
 
 		//Для строк отладки, иначе делние на 0
 		if (loopsRender == 0) loopsRender = 1;
@@ -65,8 +66,8 @@ public class Analyzer {
 
 		//Строки отладки
 		String strFPS1 = 	 "Ping: " + ping + " (" + pingMin + "-" + pingMid + "-" + pingMax + ")"
-				+ "          Speed S/L: " + send + "/" + load + " kb/s"
-				+ "          Package S/L: " + sendPackage + "/" + loadPackage;
+				+ "          Speed TCP S/L, UDP S/L: " + sendTCP + "/" + loadTCP + ", " + sendUDP + "/" + loadUDP + " kb/s"
+				+ "          Package TCP S/L, UDP S/L: " + sendPackageTCP + "/" + loadPackageTCP + ", " + sendPackageUDP + "/" + loadPackageUDP;
 		String strFPS2 =	 "FPS: " + loopsRender
 				+ "          Duration update/render: " + (durationUpdate/loopsUpdate/1000) + "/" + (durationRender/loopsRender/1000) + " mks"
 				+ "          Objects: " + Global.room.objCount()

@@ -11,7 +11,8 @@ public class Update {
 		Global.game.update(delta);//Обновить главный игровой класс при необходимости
 
 		Global.engine.render.clearTitle();//Убрать все надписи с прошлого рендера
-		Global.tcpRead.update();//Обработать все полученные сообщения
+		Global.tcpRead.update();//Обработать все полученные сообщения по TCP
+		Global.udpRead.update();//Обработать все полученные сообщения по UDP
 		Global.infMain.update();
 
 		if (Global.room != null) {

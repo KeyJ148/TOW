@@ -3,7 +3,7 @@ package game.server.assistants;
 import engine.Vector2;
 import engine.image.TextureManager;
 import engine.io.Logger;
-import engine.net.server.GameServer;
+import engine.net.server.senders.ServerSendTCP;
 import game.server.Server;
 import game.server.data.ServerData;
 
@@ -98,7 +98,7 @@ public class MapLoader implements Runnable{
     //Отправка карты всем подключенным игрокам
     private void sendMap(){
         //Отправка всем сообщения о начале рестарта
-        GameServer.sendAll(8, "");
+        ServerSendTCP.sendAll(8, "");
 
         //Ставим всем игркокам флаг о том, что они ещё не готовы к старту
         ServerData.battle = false;
@@ -107,13 +107,13 @@ public class MapLoader implements Runnable{
         }
 
         //Отправляем всем игрокам карту
-        GameServer.sendAll(3, ServerData.widthMap + " " + ServerData.heightMap + " " + ServerData.background);
+        ServerSendTCP.sendAll(3, ServerData.widthMap + " " + ServerData.heightMap + " " + ServerData.background);
 
         for (int mid = 0; mid < ServerData.map.size(); mid++){
             ServerData.MapObject mapObject = ServerData.map.get(mid);
             if (mapObject.textureName.equals("sys_tank")) continue;
 
-            GameServer.sendAll(9, mapObject.x
+            ServerSendTCP.sendAll(9, mapObject.x
                           + " " + mapObject.y
                           + " " + mapObject.direction
                           + " " + mapObject.textureName
@@ -122,13 +122,13 @@ public class MapLoader implements Runnable{
 
         //Отправляем всем игркоам их позиции
         for (int i = 0; i<ServerData.playerData.length; i++){
-            GameServer.send(i, 5, ServerData.playerData[i].x
+            ServerSendTCP.send(i, 5, ServerData.playerData[i].x
                           + " " + ServerData.playerData[i].y
                           + " " + ServerData.playerData[i].direction);
         }
 
         //Говорим всем, что отправка карты завершена
-        GameServer.sendAll(10, "");
+        ServerSendTCP.sendAll(10, "");
 
         //Ждем, пока всем игроки будут готовы (в отдельном потоке)
         new Thread(this).start();
@@ -155,6 +155,6 @@ public class MapLoader implements Runnable{
 
         //Говорим всем, что игра началась
         ServerData.battle = true;
-        GameServer.sendAll(11, "");
+        ServerSendTCP.sendAll(11, "");
     }
 }

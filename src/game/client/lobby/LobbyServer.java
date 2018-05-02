@@ -1,8 +1,8 @@
 package game.client.lobby;
 
-import engine.Global;
 import engine.Loader;
 import engine.io.Logger;
+import engine.net.client.Connector;
 import engine.setting.SettingStorage;
 import game.client.ClientData;
 import game.server.ServerLoader;
@@ -93,8 +93,7 @@ public class LobbyServer implements ActionListener, StartServerListener, Runnabl
                 connect.out.writeUTF(" "); //Отправка всем игрокам сообщения о старте сервера
             }
 
-            Global.tcpControl.connect("127.0.0.1", port);
-            Global.tcpRead.start();
+            new Connector().connect("127.0.0.1", port);
         } catch (IOException e){
             Logger.println(e.getMessage(), Logger.Type.ERROR);
             Loader.exit();

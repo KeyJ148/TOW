@@ -1,17 +1,18 @@
-package engine.net.server;
+package engine.net.server.readers;
 
 import engine.io.Logger;
+import engine.net.server.GameServer;
+import engine.net.server.MessagePack;
 
 import java.io.IOException;
 
-public class ServerRead extends Thread{
+public class ServerReadTCP extends Thread{
 
 	private int id; //номер соединения в массиве в gameServer
 	public boolean disconnect = false;//Отключён ли этот игрок
 
-	public ServerRead(int id){
+	public ServerReadTCP(int id){
 		this.id = id;
-		start();
 	}
 
 	@Override
@@ -21,9 +22,9 @@ public class ServerRead extends Thread{
 		String str;
 		try{
 			while (true){
-				str = GameServer.in[id].readUTF();
-				synchronized(GameServer.messagePack[id]) {//Защита от одновременной работы с массивом
-					GameServer.messagePack[id].add(str);
+				str = GameServer.connects[id].in.readUTF();
+				synchronized(GameServer.connects[id].messagePack) {//Защита от одновременной работы с массивом
+					GameServer.connects[id].messagePack.add(str, MessagePack.Message.InetType.TCP);
 				}
 			}
 		} catch (IOException e){

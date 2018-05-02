@@ -14,9 +14,9 @@ public class AnalyzerThread extends Thread{
                 timeAnalysis = System.currentTimeMillis();
                 Logger.print("MPS: ", Logger.Type.MPS);
                 for (int i = 0; i < GameServer.peopleMax; i++){
-                    Logger.print(String.valueOf(GameServer.numberSend[i]), Logger.Type.MPS);
+                    Logger.print(String.valueOf(GameServer.connects[i].numberSend), Logger.Type.MPS);
                     if (i != GameServer.peopleMax-1) Logger.print(" | ", Logger.Type.MPS);
-                    GameServer.numberSend[i] = 0;
+                    GameServer.connects[i].numberSend = 0;
                 }
                 Logger.println("", Logger.Type.MPS);
             }

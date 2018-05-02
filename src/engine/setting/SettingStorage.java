@@ -43,6 +43,7 @@ public class SettingStorage {
 		public static int PREFERENCE_CON_TIME;
 		public static int PREFERENCE_LATENCY;
 		public static int PREFERENCE_BANDWIDTH;
+		public static int UDP_READ_BYTE_ARRAY_LEN;
 
 		private static String fileName = "engine/net.properties";
 		private static void init(){
@@ -56,6 +57,7 @@ public class SettingStorage {
 			PREFERENCE_CON_TIME = cr.findInteger("PREFERENCE_CON_TIME");
 			PREFERENCE_LATENCY = cr.findInteger("PREFERENCE_LATENCY");
 			PREFERENCE_BANDWIDTH = cr.findInteger("PREFERENCE_BANDWIDTH");
+			UDP_READ_BYTE_ARRAY_LEN = cr.findInteger("UDP_READ_BYTE_ARRAY_LEN");
 		}
 	}
 

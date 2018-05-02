@@ -3,6 +3,7 @@ package game.server;
 import engine.Vector2;
 import engine.image.TextureManager;
 import engine.net.server.GameServer;
+import engine.net.server.senders.ServerSendTCP;
 import game.server.assistants.BoxCreator;
 import game.server.assistants.MapLoader;
 import game.server.data.PlayerData;
@@ -17,7 +18,9 @@ public class Server {
 
     public void init(){
         //Engine: Инициализация сервера сразу после создания сокета (Цикл подключения ещё не запущен, но сокет существует)
-        if (ServerLoader.startServerListener != null) ServerLoader.startServerListener.serverStart();
+        if (ServerLoader.startServerListener != null){
+            new Thread(() -> ServerLoader.startServerListener.serverStart()).start();
+        }
     }
 
     public void startProcessingData(){
@@ -29,7 +32,7 @@ public class Server {
 
         //Отправка данных при страте сервера (кол-во игроков)
         for (int id = 0; id < GameServer.peopleMax; id++) {
-            GameServer.send(id, 4, GameServer.peopleMax + " " + id);
+            ServerSendTCP.send(id, 4, GameServer.peopleMax + " " + id);
         }
 
         startNewGame();

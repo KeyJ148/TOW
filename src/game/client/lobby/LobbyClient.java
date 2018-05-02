@@ -1,8 +1,8 @@
 package game.client.lobby;
 
-import engine.Global;
 import engine.Loader;
 import engine.io.Logger;
+import engine.net.client.Connector;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -61,8 +61,7 @@ public class LobbyClient implements Runnable{
             lobbyWindow.dispose();
 
             //Подключение к серверу
-            Global.tcpControl.connect(ip, port);
-            Global.tcpRead.start();
+            new Connector().connect(ip, port);
         } catch(IOException e){
             Logger.println(e.getMessage(), Logger.Type.ERROR);
             Loader.exit();

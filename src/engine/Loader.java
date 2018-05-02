@@ -6,8 +6,10 @@ import engine.image.TextureManager;
 import engine.inf.InfMain;
 import engine.io.Logger;
 import engine.io.MouseHandler;
-import engine.net.client.TCPControl;
-import engine.net.client.TCPRead;
+import engine.net.client.tcp.TCPControl;
+import engine.net.client.tcp.TCPRead;
+import engine.net.client.udp.UDPControl;
+import engine.net.client.udp.UDPRead;
 import engine.setting.SettingStorage;
 import game.client.Game;
 import org.lwjgl.openal.AL;
@@ -45,6 +47,8 @@ public class Loader {
 
 		Global.tcpControl = new TCPControl();
 		Global.tcpRead = new TCPRead();
+		Global.udpControl = new UDPControl();
+		Global.udpRead = new UDPRead();
 
 		TextureManager.init();//Загрузка текстур и анимаций
 		AudioStorage.init();//Загрузка
