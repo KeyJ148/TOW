@@ -113,7 +113,7 @@ public class Player extends Tank {
         sendDataLast += delta;
         if (ClientData.battle && sendDataLast >= Math.pow(10,9)/GameSetting.MPS){
             sendDataLast -= Math.pow(10,9)/GameSetting.MPS;
-            Global.tcpControl.send(2, getData());
+            Global.udpControl.send(2, getData());
         }
     }
 

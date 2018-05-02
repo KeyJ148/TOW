@@ -27,7 +27,6 @@ public class NetGameRead {
 	public static void readTCP(Message message){
 		switch (message.type){
 			case 1: take1(message.data); break;
-			case 2: take2(message.data); break;
 			case 3: take3(message.data); break;
 			case 4: take4(message.data); break;
 			case 5: take5(message.data); break;
@@ -55,7 +54,7 @@ public class NetGameRead {
 
 	public static void readUDP(Message message){
 		switch (message.type){
-			//case 2: take2(message.data); break;
+			case 2: take2(message.data); break;
 			//Engine: Различные действия с уникальными индексами с пакетами UDP
 		}
 	}

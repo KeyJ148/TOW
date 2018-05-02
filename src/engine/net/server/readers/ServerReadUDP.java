@@ -18,6 +18,7 @@ public class ServerReadUDP extends Thread{
 		//Постоянный обмен данными (на UDP)
 		//Только после подключения всех игроков
 		String str, ipSender;
+		int portSender;
 		try{
 			int size = SettingStorage.Net.UDP_READ_BYTE_ARRAY_LEN;;
 
@@ -29,10 +30,11 @@ public class ServerReadUDP extends Thread{
 				//Получаем информацию из сообщения
 				str = new String(NetTools.clearByteData(packet.getData()));
 				ipSender = packet.getAddress().getHostAddress();
+				portSender = packet.getPort();
 
 				//Находим игрока-отправителя
 				for (Connect connect : GameServer.connects){
-					if (connect.ipRemote.equals(ipSender)){
+					if (connect.ipRemote.equals(ipSender) && connect.portUDP == portSender){
 						//Добавляем в очередь сообщений
 						synchronized(connect.messagePack) {//Защита от одновременной работы с массивом
 							connect.messagePack.add(str, MessagePack.Message.InetType.UDP);
