@@ -13,22 +13,22 @@ public class ServerSendTCP {
                 GameServer.connects[id].out.writeUTF(type + " " + str);
                 GameServer.connects[id].out.flush();
             }
-            GameServer.connects[id].numberSend++; //Кол-во отправленных пакетов
+            GameServer.connects[id].numberSend++; //РљРѕР»-РІРѕ РѕС‚РїСЂР°РІР»РµРЅРЅС‹С… РїР°РєРµС‚РѕРІ
         } catch (IOException e) {
             if (!GameServer.connects[id].disconnect) Logger.print("Send message failed", Logger.Type.SERVER_ERROR);
         }
     }
 
     public static void sendAllExceptId(int id, int type, String str){
-        for(int i = 0; i< GameServer.peopleMax; i++){//Отправляем сообщение всем
-            if (i != id){//Кроме игрока, приславшего сообщение
+        for(int i = 0; i< GameServer.peopleMax; i++){//РћС‚РїСЂР°РІР»СЏРµРј СЃРѕРѕР±С‰РµРЅРёРµ РІСЃРµРј
+            if (i != id){//РљСЂРѕРјРµ РёРіСЂРѕРєР°, РїСЂРёСЃР»Р°РІС€РµРіРѕ СЃРѕРѕР±С‰РµРЅРёРµ
                 send(i, type, str);
             }
         }
     }
 
     public static void sendAll(int type, String str){
-        for(int i = 0; i< GameServer.peopleMax; i++){//Отправляем сообщение всем
+        for(int i = 0; i< GameServer.peopleMax; i++){//РћС‚РїСЂР°РІР»СЏРµРј СЃРѕРѕР±С‰РµРЅРёРµ РІСЃРµРј
             send(i, type, str);
         }
     }

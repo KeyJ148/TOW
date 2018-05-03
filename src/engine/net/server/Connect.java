@@ -9,18 +9,18 @@ import java.net.Socket;
 
 public class Connect {
 
-    public int id; //Номер соединения в массиве в gameServer
-    public boolean disconnect = false; //Отключён ли этот игрок
-    public int numberSend = 0; //Кол-во отправленных сообщений клиенту
+    public int id; //РќРѕРјРµСЂ СЃРѕРµРґРёРЅРµРЅРёСЏ РІ РјР°СЃСЃРёРІРµ РІ gameServer
+    public boolean disconnect = false; //РћС‚РєР»СЋС‡С‘РЅ Р»Рё СЌС‚РѕС‚ РёРіСЂРѕРє
+    public int numberSend = 0; //РљРѕР»-РІРѕ РѕС‚РїСЂР°РІР»РµРЅРЅС‹С… СЃРѕРѕР±С‰РµРЅРёР№ РєР»РёРµРЅС‚Сѓ
 
-    public String ipRemote; //Ip клиента
-    public int portUDP; //Порт клиента для отправки UDP
+    public String ipRemote; //Ip РєР»РёРµРЅС‚Р°
+    public int portUDP; //РџРѕСЂС‚ РєР»РёРµРЅС‚Р° РґР»СЏ РѕС‚РїСЂР°РІРєРё UDP
 
-    public DataInputStream in; //Сокет для приёма TCP
-    public DataOutputStream out; //Сокет для отправки TCP
+    public DataInputStream in; //РЎРѕРєРµС‚ РґР»СЏ РїСЂРёС‘РјР° TCP
+    public DataOutputStream out; //РЎРѕРєРµС‚ РґР»СЏ РѕС‚РїСЂР°РІРєРё TCP
 
-    public volatile MessagePack messagePack; //Хранение принятых сообщений, очередь на обработку
-    public ServerReadTCP serverReadTCP; //Поток для приёма сообщений
+    public volatile MessagePack messagePack; //РҐСЂР°РЅРµРЅРёРµ РїСЂРёРЅСЏС‚С‹С… СЃРѕРѕР±С‰РµРЅРёР№, РѕС‡РµСЂРµРґСЊ РЅР° РѕР±СЂР°Р±РѕС‚РєСѓ
+    public ServerReadTCP serverReadTCP; //РџРѕС‚РѕРє РґР»СЏ РїСЂРёС‘РјР° СЃРѕРѕР±С‰РµРЅРёР№
 
     public Connect(int id, Socket socket, int portUDP) throws IOException{
         this.id = id;

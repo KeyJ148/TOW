@@ -2,9 +2,9 @@ package engine.net.client;
 
 public abstract class NetControl {
 
-    //Статистика отправки и получения сообщений
-    public int sizeDataSend = 0, sizeDataRead = 0;//В байтах
-    public int countPackageSend = 0, countPackageRead = 0;//В кол-ве сообщений
+    //РЎС‚Р°С‚РёСЃС‚РёРєР° РѕС‚РїСЂР°РІРєРё Рё РїРѕР»СѓС‡РµРЅРёСЏ СЃРѕРѕР±С‰РµРЅРёР№
+    public int sizeDataSend = 0, sizeDataRead = 0;//Р’ Р±Р°Р№С‚Р°С…
+    public int countPackageSend = 0, countPackageRead = 0;//Р’ РєРѕР»-РІРµ СЃРѕРѕР±С‰РµРЅРёР№
 
     public void analyzeSend(int byteCount){
         sizeDataSend += byteCount;

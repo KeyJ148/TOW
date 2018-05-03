@@ -2,7 +2,7 @@ package engine.net;
 
 public class NetTools {
 
-    //Обрезаем пустые байты
+    //РћР±СЂРµР·Р°РµРј РїСѓСЃС‚С‹Рµ Р±Р°Р№С‚С‹
     public static byte[] clearByteData(byte[] data){
         int pos = 0;
         while (pos < data.length && data[pos] != 0) pos++;

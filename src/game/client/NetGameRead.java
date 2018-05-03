@@ -73,9 +73,10 @@ public class NetGameRead {
 		int speed = Integer.parseInt(str.split(" ")[4]);
 		double moveDirection = Double.parseDouble(str.split(" ")[5]);
 		int animSpeed = Integer.parseInt(str.split(" ")[6]);
-		int enemyId = Integer.parseInt(str.split(" ")[7]);
+		long numberPackage = Long.parseLong(str.split(" ")[7]);
+		int enemyId = Integer.parseInt(str.split(" ")[8]);
 
-		ClientData.enemy.get(enemyId).setData(x, y, direction, directionGun, speed, moveDirection, animSpeed);
+		ClientData.enemy.get(enemyId).setData(x, y, direction, directionGun, speed, moveDirection, animSpeed, numberPackage);
 	}
 
 	//данные о карте - (int width, int height, String background)
