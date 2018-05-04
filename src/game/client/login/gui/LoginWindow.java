@@ -176,15 +176,15 @@ public class LoginWindow extends JFrame {
 		addButtonColor(239, 90, 20, 20, 0, 255, 255);
 		addButtonColor(239, 110, 20, 20, 125, 255, 0);
 
-		addButtonColor(356, 30, 20, 20, 50, 0 , 0);
-		addButtonColor(356, 50, 20, 20, 0, 50, 0);
-		addButtonColor(356, 70, 20, 20, 0, 0, 50);
-		addButtonColor(356, 90, 20, 20, 50, 50, 0);
-		addButtonColor(356, 110, 20, 20, 50, 0, 50);
+		addButtonColor(356, 30, 20, 20, 130, 0 , 0);
+		addButtonColor(356, 50, 20, 20, 0, 130, 0);
+		addButtonColor(356, 70, 20, 20, 0, 0, 130);
+		addButtonColor(356, 90, 20, 20, 65, 65, 0);
+		addButtonColor(356, 110, 20, 20, 65, 0, 65);
 
-		addButtonColor(376, 30, 20, 20, 0, 50, 50);
+		addButtonColor(376, 30, 20, 20, 0, 65, 65);
 		addButtonColor(376, 50, 20, 20, 125, 50, 0);
-		addButtonColor(376, 70, 20, 20, 10, 30, 65);
+		addButtonColor(376, 70, 20, 20, 25, 40, 65);
 		addButtonColor(376, 90, 20, 20, 40, 81, 75);
 		addButtonColor(376, 110, 20, 20, 70, 100, 30);
 

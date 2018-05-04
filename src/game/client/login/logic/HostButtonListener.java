@@ -1,7 +1,5 @@
 package game.client.login.logic;
 
-import engine.Loader;
-import engine.io.Logger;
 import game.client.ClientData;
 import game.client.lobby.LobbyServer;
 import game.client.login.gui.LoginWindow;
@@ -29,10 +27,8 @@ public class HostButtonListener implements ActionListener {
 		int port = Integer.parseInt(tfPortHost.getText());
 		String name = tfName.getText();
 
-		if (name.indexOf(' ') != -1){
-			Logger.println("Invalid name!", Logger.Type.ERROR);
-			Loader.exit();
-		}
+		LoginDataChecker.checkName(name);
+		LoginDataChecker.checkColor(ClientData.color);
 
         ClientData.name = name;
 		new LobbyServer(port, name);
