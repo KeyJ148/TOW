@@ -59,10 +59,10 @@ public class NetServerRead {
         ServerSendTCP.sendAllExceptId(message.authorId, 12, String.valueOf(message.authorId));
         ServerData.deadPlayerCount++;
 
-        //Если кол-во живых игроков меньше двух и при этом кто-то умер (т.е. игра не одиночная)
-        //Или если кол-во живых игроков 0 (даже при одиночной игре)
-        if ((GameServer.peopleMax - ServerData.deadPlayerCount < 2 && ServerData.deadPlayerCount > 0)
-                || (GameServer.peopleMax - ServerData.deadPlayerCount == 0)){
+        //Если игра одиночка и все мерты
+        //Или если игра сетевая и жив ровно один (если проверять < 1, то рестарт может быть дважды при одновременной смерти)
+        if ((GameServer.peopleMax == 1 && ServerData.deadPlayerCount == 1) ||
+                (GameServer.peopleMax > 1 && GameServer.peopleMax - ServerData.deadPlayerCount == 1)){
 
             //То через некоторое время перезапускам сервер
             Timer timer = new Timer();

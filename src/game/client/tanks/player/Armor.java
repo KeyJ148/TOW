@@ -36,8 +36,10 @@ public class Armor extends Obj{
 		loadData();
 
 		position = new Position(this, x, y, textureHandlers[0].depth, direction);
-		movement = new Movement(this);
 		rendering = new Animation(this, textureHandlers);
+		movement = new Movement(this);
+		movement.setDirection(direction);
+		movement.update(0);
 
 		collision = new Collision(this, textureHandlers[0].mask);
 		collision.addCollisionObjects(new Class[] {Wall.class, EnemyArmor.class, Box.class, Border.class});

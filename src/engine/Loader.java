@@ -129,7 +129,7 @@ public class Loader {
 
 		//Вывод пути выхода
 		if (SettingStorage.Logger.DEBUG_CONSOLE){
-			Logger.println("\nExit stack trace: ", Logger.Type.DEBUG);
+			Logger.println("Exit stack trace: ", Logger.Type.DEBUG);
 			new Exception().printStackTrace(System.out);
 		}
 
