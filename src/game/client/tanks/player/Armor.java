@@ -14,6 +14,10 @@ import game.client.map.Wall;
 import game.client.tanks.Effect;
 import game.client.tanks.enemy.EnemyArmor;
 
+/*
+ПРИ ДОБАВЛЕНИЕ НОВОГО КЛАССА БРОНИ ОБНОВИТЬ BMassSmall.java
+ */
+
 public class Armor extends Obj{
 
 	public static final String PATH_SETTING = "game/armor/";
