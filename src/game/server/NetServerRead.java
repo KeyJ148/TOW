@@ -3,7 +3,6 @@ package game.server;
 import engine.net.server.GameServer;
 import engine.net.server.MessagePack;
 import engine.net.server.senders.ServerSendTCP;
-import engine.net.server.senders.ServerSendUDP;
 import game.server.data.ServerData;
 
 import java.awt.*;
@@ -16,6 +15,7 @@ public class NetServerRead {
         //Engine: вызывается каждый раз при получение сервером сообщения по протоколу TCP
         switch (message.type){
             case 1: take1(message); break;//Engine: Клиент пингует сервер
+            case 2: take2(message); break;
             case 6: take6(message); break;
             case 12: take12(message); break;
             case 13: take13(message); break;
@@ -35,9 +35,6 @@ public class NetServerRead {
     }
 
     public void readUDP(MessagePack.Message message) {
-        switch (message.type){
-            case 2: take2(message); break;
-        }
         //Engine: вызывается каждый раз при получение сервером сообщения по протоколу UDP
     }
 
@@ -48,7 +45,7 @@ public class NetServerRead {
     public void take2(MessagePack.Message message){
         ServerData.playerData[message.authorId].x = Integer.parseInt(message.text.split(" ")[0]);
         ServerData.playerData[message.authorId].y = Integer.parseInt(message.text.split(" ")[1]);
-        ServerSendUDP.sendAllExceptId(message.authorId, 2, message.text + " " + message.authorId);
+        ServerSendTCP.sendAllExceptId(message.authorId, 2, message.text + " " + message.authorId);
     }
 
     public void take6(MessagePack.Message message){

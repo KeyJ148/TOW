@@ -18,7 +18,6 @@ public class Enemy extends Tank {
     public boolean valid = false; //Этот враг уже инициализирован? (Отправл свои данные: цвет, ник)
     public static final long REQUEST_DATA_EVERY_TIME = (long) (0.5 * Math.pow(10, 9));//Промежуток времени между запросами информации о враге
     public long timeLastRequestDelta = 0;
-    private long lastNumberPackage = -1; //Номер последнего пакета UDP
 
     public Enemy(int id){
         this.id = id;
@@ -40,10 +39,8 @@ public class Enemy extends Tank {
         }
     }
 
-    public void setData(int x, int y, int direction, int directionGun, int speed, double moveDirection, int animSpeed, long numberPackage){
+    public void setData(int x, int y, int direction, int directionGun, int speed, double moveDirection, int animSpeed){
         if (!ClientData.battle) return;
-        if (numberPackage < lastNumberPackage) return;
-        lastNumberPackage = numberPackage;
 
         //Инициализация брони
         if (armor == null){
