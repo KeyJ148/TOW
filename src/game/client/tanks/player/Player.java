@@ -36,6 +36,7 @@ public class Player extends Tank {
 
     public int lastDamagerEnemyId = -1;
     private int sendDataLast = 0;//Как давно отправляли данные
+    private static long numberPackage = 0; //Номер пакета UDP
 
     public Player(double x, double y, double direction){
         position = new Position(this, x, y, 0);
@@ -113,7 +114,7 @@ public class Player extends Tank {
         sendDataLast += delta;
         if (ClientData.battle && sendDataLast >= Math.pow(10,9)/GameSetting.MPS){
             sendDataLast -= Math.pow(10,9)/GameSetting.MPS;
-            Global.tcpControl.send(2, getData());
+            Global.udpControl.send(2, getData());
         }
     }
 
@@ -176,7 +177,8 @@ public class Player extends Tank {
                 + " " + Math.round(gun.position.getDirectionDraw())
                 + " " + Math.round(armor.movement.speed)
                 + " " + armor.movement.getDirection()
-                + " " + ((Animation) armor.rendering).getFrameSpeed();
+                + " " + ((Animation) armor.rendering).getFrameSpeed()
+                + " " + Player.numberPackage++;
     }
     
     private void updateStats(){

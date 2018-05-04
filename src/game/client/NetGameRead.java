@@ -27,7 +27,6 @@ public class NetGameRead {
 	public static void readTCP(Message message){
 		switch (message.type){
 			case 1: take1(message.data); break;
-			case 2: take2(message.data); break;
 			case 3: take3(message.data); break;
 			case 4: take4(message.data); break;
 			case 5: take5(message.data); break;
@@ -54,7 +53,10 @@ public class NetGameRead {
 	}
 
 	public static void readUDP(Message message){
-		//Engine: Различные действия с уникальными индексами с пакетами UDP
+		switch (message.type){
+			case 2: take2(message.data); break;
+			//Engine: Различные действия с уникальными индексами с пакетами UDP
+		}
 	}
 
 	public static void take1(String str){
@@ -71,9 +73,10 @@ public class NetGameRead {
 		int speed = Integer.parseInt(str.split(" ")[4]);
 		double moveDirection = Double.parseDouble(str.split(" ")[5]);
 		int animSpeed = Integer.parseInt(str.split(" ")[6]);
-		int enemyId = Integer.parseInt(str.split(" ")[7]);
+		long numberPackage = Long.parseLong(str.split(" ")[7]);
+		int enemyId = Integer.parseInt(str.split(" ")[8]);
 
-		ClientData.enemy.get(enemyId).setData(x, y, direction, directionGun, speed, moveDirection, animSpeed);
+		ClientData.enemy.get(enemyId).setData(x, y, direction, directionGun, speed, moveDirection, animSpeed, numberPackage);
 	}
 
 	//данные о карте - (int width, int height, String background)
