@@ -71,8 +71,12 @@
     <file url="file://$PROJECT_DIR$/src/engine/map/Room.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/map/Room.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/NetTools.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/engine/net/NetTools.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/engine/net/client/Connector.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/client/Connector.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/client/Message.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/engine/net/client/Message.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/engine/net/client/NetControl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/client/NetControl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/client/Ping.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/client/Ping.java" charset="UTF-8" />
@@ -81,11 +85,14 @@
     <file url="file://$PROJECT_DIR$/src/engine/net/client/tcp/TCPRead.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/client/tcp/TCPRead.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/client/udp/UDPControl.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/engine/net/client/udp/UDPControl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/client/udp/UDPRead.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/client/udp/UDPRead.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/server/AnalyzerThread.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/server/AnalyzerThread.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/server/Connect.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/engine/net/server/Connect.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/engine/net/server/ConnectFactory.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/server/ConnectFactory.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/server/GameServer.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/server/GameServer.java" charset="UTF-8" />
@@ -96,6 +103,8 @@
     <file url="file://$PROJECT_DIR$/src/engine/net/server/readers/ServerReadUDP.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/server/readers/ServerReadUDP.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/server/senders/ServerSendTCP.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/engine/net/server/senders/ServerSendTCP.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/engine/net/server/senders/ServerSendUDP.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/net/server/senders/ServerSendUDP.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/obj/Obj.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/engine/obj/Obj.java" charset="UTF-8" />

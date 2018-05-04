@@ -9,7 +9,6 @@ import java.io.IOException;
 public class ServerReadTCP extends Thread{
 
 	private int id; //номер соединения в массиве в gameServer
-	public boolean disconnect = false;//Отключён ли этот игрок
 
 	public ServerReadTCP(int id){
 		this.id = id;
@@ -30,7 +29,7 @@ public class ServerReadTCP extends Thread{
 		} catch (IOException e){
 			Logger.println("Player disconnect (id: " + id + ")", Logger.Type.SERVER_INFO);
 			GameServer.disconnect++;
-			disconnect = true;
+			GameServer.connects[id].disconnect = true;
 		}
 	}
 	
