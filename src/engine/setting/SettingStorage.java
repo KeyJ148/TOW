@@ -76,12 +76,15 @@ public class SettingStorage {
 
 	public static class Logger{
 		public static boolean ERROR_CONSOLE;//выводить в консоль сообщения об ошибках?
+		public static boolean ERROR_CONSOLE_SERVER;//выводить в консоль ошибки сервера?
 		public static boolean DEBUG_CONSOLE;//выводить в консоль сообщения отладки?
 		public static boolean DEBUG_CONSOLE_OBJECT;//выводить в консоль сообщения создания объектов?
 		public static boolean DEBUG_CONSOLE_IMAGE;//выводить в консоль сообщения спрайтов и анимации?
 		public static boolean DEBUG_CONSOLE_MASK;//выводить в консоль сообщения загрузки маски?
 		public static boolean DEBUG_CONSOLE_AUDIO;//выводить в консоль сообщения загрузки звука?
 		public static boolean DEBUG_CONSOLE_FPS;//выводить в консоль фпс?
+		public static boolean DEBUG_CONSOLE_SERVER;//выводить в консоль дебаг сообщения сервера?
+		public static boolean DEBUG_CONSOLE_MPS;//выводить в консоль мпс?
 		public static boolean DEBUG_MONITOR_FPS;//выводить в окно фпс?
 		public static boolean MASK_DRAW;//отрисовка маски
 
@@ -90,12 +93,15 @@ public class SettingStorage {
 			ConfigReader cr = new ConfigReader(fileName);
 
 			ERROR_CONSOLE = cr.findBoolean("ERROR_CONSOLE");
+			ERROR_CONSOLE_SERVER = cr.findBoolean("ERROR_CONSOLE_SERVER");
 			DEBUG_CONSOLE = cr.findBoolean("DEBUG_CONSOLE");
 			DEBUG_CONSOLE_OBJECT = cr.findBoolean("DEBUG_CONSOLE_OBJECT");
 			DEBUG_CONSOLE_IMAGE = cr.findBoolean("DEBUG_CONSOLE_IMAGE");
 			DEBUG_CONSOLE_MASK = cr.findBoolean("DEBUG_CONSOLE_MASK");
 			DEBUG_CONSOLE_AUDIO = cr.findBoolean("DEBUG_CONSOLE_AUDIO");
 			DEBUG_CONSOLE_FPS = cr.findBoolean("DEBUG_CONSOLE_FPS");
+			DEBUG_CONSOLE_SERVER = cr.findBoolean("DEBUG_CONSOLE_SERVER");
+			DEBUG_CONSOLE_MPS = cr.findBoolean("DEBUG_CONSOLE_MPS");
 			DEBUG_MONITOR_FPS = cr.findBoolean("DEBUG_MONITOR_FPS");
 			MASK_DRAW = cr.findBoolean("MASK_DRAW");
 		}

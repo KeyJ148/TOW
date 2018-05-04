@@ -28,7 +28,7 @@ public class MessagePack {
 	
 	public Message get(){
 		if (size()%10 == 0){
-			Logger.println("Messages detained: " + size() + " Id: " + id, Logger.Type.DEBUG);
+			Logger.println("Messages detained: " + size() + " (id: " + id + ")", Logger.Type.SERVER_DEBUG);
 		}
 		
 		return messages.removeFirst();

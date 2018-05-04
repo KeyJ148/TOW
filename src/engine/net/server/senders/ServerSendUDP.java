@@ -27,7 +27,7 @@ public class ServerSendUDP {
     }
 
     public static void sendAllExceptId(int id, int type, String str){
-        for(int i=0; i<GameServer.peopleMax; i++){//Отправляем сообщение всем
+        for(int i = 0; i< GameServer.peopleMax; i++){//Отправляем сообщение всем
             if (i != id){//Кроме игрока, приславшего сообщение
                 send(i, type, str);
             }
@@ -35,7 +35,7 @@ public class ServerSendUDP {
     }
 
     public static void sendAll(int type, String str){
-        for(int i=0; i<GameServer.peopleMax; i++){//Отправляем сообщение всем
+        for(int i = 0; i< GameServer.peopleMax; i++){//Отправляем сообщение всем
             send(i, type, str);
         }
     }

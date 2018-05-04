@@ -6,6 +6,7 @@ import engine.Vector2;
 import engine.image.Camera;
 import engine.inf.title.Title;
 import engine.obj.Obj;
+import engine.obj.components.render.Animation;
 import game.client.ClientData;
 import game.client.GameSetting;
 import game.client.particles.Explosion;
@@ -61,6 +62,7 @@ public abstract class Tank extends Obj{
         death++;
 
         armor.movement.speed = 0;
+        ((Animation) armor.rendering).setFrameSpeed(0);
 
         setColor(explodedTankColor);
 

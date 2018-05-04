@@ -83,8 +83,10 @@ public class Enemy extends Tank {
         armor.movement.setDirection(moveDirection);
 
         //Анимация гусениц
-        Animation animation = (Animation) armor.rendering;
-        if (animation.getFrameSpeed() != animSpeed) animation.setFrameSpeed(animSpeed);
+        if (alive) {
+            Animation animation = (Animation) armor.rendering;
+            if (animation.getFrameSpeed() != animSpeed) animation.setFrameSpeed(animSpeed);
+        }
     }
 
     public void newArmor(String nameArmor){

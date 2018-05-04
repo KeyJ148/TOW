@@ -9,7 +9,7 @@ import java.util.Set;
 public class Logger {
 
     public enum Type {INFO, ERROR, DEBUG, DEBUG_OBJECT, DEBUG_IMAGE, DEBUG_MASK, DEBUG_AUDIO, CONSOLE_FPS,
-                      SERVER_INFO, SERVER_ERROR, MPS};
+                      SERVER_INFO, SERVER_DEBUG, SERVER_ERROR, MPS};
 
     private static Set<Type> enable = new HashSet<>();
     private static boolean logInFile = false;
@@ -19,8 +19,16 @@ public class Logger {
     public static void print(String s, Type type){
         if (type.equals(Type.ERROR)) s = "[ERROR] " + s;
         if (type.equals(Type.INFO)) s = "[INFO] " + s;
+        if (    type.equals(Type.DEBUG) ||
+                type.equals(Type.DEBUG_OBJECT) ||
+                type.equals(Type.DEBUG_IMAGE) ||
+                type.equals(Type.DEBUG_MASK) ||
+                type.equals(Type.DEBUG_AUDIO) ||
+                type.equals(Type.CONSOLE_FPS)) s = "[DEBUG] " + s;
+
         if (type.equals(Type.SERVER_ERROR)) s = "[SERVER ERROR] " + s;
         if (type.equals(Type.SERVER_INFO)) s = "[SERVER INFO] " + s;
+        if (type.equals(Type.SERVER_DEBUG)) s = "[SERVER DEBUG] " + s;
 
 
         if (enable.contains(type)){

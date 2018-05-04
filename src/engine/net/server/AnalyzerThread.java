@@ -12,7 +12,7 @@ public class AnalyzerThread extends Thread{
         while (true){
             if (System.currentTimeMillis() > timeAnalysis+timeAnalysisDelta){//Анализ MPS
                 timeAnalysis = System.currentTimeMillis();
-                Logger.print("MPS: ", Logger.Type.MPS);
+                Logger.print("[MPS] ", Logger.Type.MPS);
                 for (int i = 0; i < GameServer.peopleMax; i++){
                     Logger.print(String.valueOf(GameServer.connects[i].numberSend), Logger.Type.MPS);
                     if (i != GameServer.peopleMax-1) Logger.print(" | ", Logger.Type.MPS);

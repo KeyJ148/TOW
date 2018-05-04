@@ -71,7 +71,7 @@ public class GameServer {
 				maxPower = (str.equals("t") || str.equals("true"));
 			}
 		} catch (IOException e){
-			Logger.println("Failed io text", Logger.Type.ERROR);
+			Logger.println("Failed io text", Logger.Type.SERVER_ERROR);
 			Loader.exit();
 		}
 	}
