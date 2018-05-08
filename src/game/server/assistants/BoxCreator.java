@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class BoxCreator {
 
-    public static final long BOX_CREATE_TIME = (long) (5 * Math.pow(10, 9));//Промежуток времени между созданием ящиков
+    public static final long BOX_CREATE_TIME = (long) (5 * Math.pow(10, 9));//Промежуток времени между созданием ящиков (на одного игрока)
     private long timeBoxDelta = BOX_CREATE_TIME; //Сколько осталось до создания нового ящика
     private int idBox = 0;
 
