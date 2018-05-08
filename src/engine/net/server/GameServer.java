@@ -31,10 +31,6 @@ public class GameServer {
 	public static Server server = new Server();
 
 	public static void initSettings(String args[]){
-		Logger.enable(Logger.Type.SERVER_INFO);
-		Logger.enable(Logger.Type.SERVER_ERROR);
-		Logger.enable(Logger.Type.MPS);
-
 		try{
 			BufferedReader bReader = new BufferedReader(new InputStreamReader(System.in));
 			String str;
