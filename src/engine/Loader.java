@@ -16,36 +16,39 @@ import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.util.Log;
 
-import java.io.File;
+import java.io.*;
 
 public class Loader {
 	
 
 	public static void main (String args[]) {
+	    preInit();//Загрузка логгера для вывода ошибок
 		loadLibrary();//Загрузка библиотек
 		init(); //Инициализация перед запуском
 		Global.engine.run();//Запуск главного цикла
+	}
+
+	public static void preInit(){
+        SettingStorage.init();//Загрузка настроек
+
+        //Установка настроек логирования
+        Logger.enable(Logger.Type.INFO);
+        Logger.enable(Logger.Type.SERVER_INFO);
+        if (SettingStorage.Logger.ERROR_CONSOLE) Logger.enable(Logger.Type.ERROR);
+        if (SettingStorage.Logger.ERROR_CONSOLE_SERVER) Logger.enable(Logger.Type.SERVER_ERROR);
+        if (SettingStorage.Logger.DEBUG_CONSOLE) Logger.enable(Logger.Type.DEBUG);
+        if (SettingStorage.Logger.DEBUG_CONSOLE_OBJECT) Logger.enable(Logger.Type.DEBUG_OBJECT);
+        if (SettingStorage.Logger.DEBUG_CONSOLE_IMAGE) Logger.enable(Logger.Type.DEBUG_IMAGE);
+        if (SettingStorage.Logger.DEBUG_CONSOLE_MASK) Logger.enable(Logger.Type.DEBUG_MASK);
+        if (SettingStorage.Logger.DEBUG_CONSOLE_AUDIO) Logger.enable(Logger.Type.DEBUG_AUDIO);
+        if (SettingStorage.Logger.DEBUG_CONSOLE_FPS) Logger.enable(Logger.Type.CONSOLE_FPS);
+        if (SettingStorage.Logger.DEBUG_CONSOLE_SERVER) Logger.enable(Logger.Type.SERVER_DEBUG);
+        if (SettingStorage.Logger.DEBUG_CONSOLE_MPS) Logger.enable(Logger.Type.MPS);
 	}
 	
 	//Инициализация движка перед запуском
 	public static void init() {
 		Log.setVerbose(false); //Отключения логов в Slick-util
-
-		SettingStorage.init();//Загрузка настроек
-
-		//Установка настроек логирования
-		Logger.enable(Logger.Type.INFO);
-		Logger.enable(Logger.Type.SERVER_INFO);
-		if (SettingStorage.Logger.ERROR_CONSOLE) Logger.enable(Logger.Type.ERROR);
-		if (SettingStorage.Logger.ERROR_CONSOLE_SERVER) Logger.enable(Logger.Type.SERVER_ERROR);
-		if (SettingStorage.Logger.DEBUG_CONSOLE) Logger.enable(Logger.Type.DEBUG);
-		if (SettingStorage.Logger.DEBUG_CONSOLE_OBJECT) Logger.enable(Logger.Type.DEBUG_OBJECT);
-		if (SettingStorage.Logger.DEBUG_CONSOLE_IMAGE) Logger.enable(Logger.Type.DEBUG_IMAGE);
-		if (SettingStorage.Logger.DEBUG_CONSOLE_MASK) Logger.enable(Logger.Type.DEBUG_MASK);
-		if (SettingStorage.Logger.DEBUG_CONSOLE_AUDIO) Logger.enable(Logger.Type.DEBUG_AUDIO);
-		if (SettingStorage.Logger.DEBUG_CONSOLE_FPS) Logger.enable(Logger.Type.CONSOLE_FPS);
-		if (SettingStorage.Logger.DEBUG_CONSOLE_SERVER) Logger.enable(Logger.Type.SERVER_DEBUG);
-		if (SettingStorage.Logger.DEBUG_CONSOLE_MPS) Logger.enable(Logger.Type.MPS);
 
 		Global.engine = new Engine();//Создание класса для главного цикла
 		Global.engine.render.initGL();//Инициализация OpenGL
