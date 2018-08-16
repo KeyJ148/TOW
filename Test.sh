@@ -1,0 +1,2 @@
+./Compile.sh;
+./Start.sh;
