@@ -14,11 +14,11 @@ import java.util.Random;
 /*
 При добавление необходимо менять...
 Броня:
-TextureStorage, tow.player.equipment.armor/, res/settings/armor
+Storage, tow.player.equipment.armor/, res/settings/armor
 Оружие:
-TextureStorage, tow.player.equipment.gun/, res/settings/gun, res/settings/armor, res/settings/bullet
+Storage, tow.player.equipment.gun/, res/settings/gun, res/settings/armor, res/settings/bullet
 Патроны:
-TextureStorage, tow.player.equipment.bullet/, res/settings/bullet
+Storage, tow.player.equipment.bullet/, res/settings/bullet
 */
 
 public class EquipManager {

@@ -3,6 +3,7 @@ package engine;
 import engine.image.Camera;
 import engine.io.Logger;
 import engine.setting.SettingStorage;
+import game.client.Storage;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.util.ResourceLoader;
@@ -11,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.TreeMap;
 
-public class AudioStorage {
+public class AudioManager {
 
     public static final String PATH_TO_AUDIO_ROOT = "res/audio/";
 
@@ -19,6 +20,9 @@ public class AudioStorage {
 
     public static void init(){
         loadFromDirectory(new File(PATH_TO_AUDIO_ROOT), "wav");
+        for(int i=0; i<Storage.audio.length; i++){
+            load(Storage.audio[i]);
+        }
     }
 
     private static void loadFromDirectory(File directiory, String format){

@@ -1,6 +1,6 @@
 package game.client;
 
-import engine.AudioStorage;
+import engine.AudioManager;
 import engine.Global;
 import engine.image.Camera;
 import engine.image.TextureHandler;
@@ -327,7 +327,7 @@ public class NetGameRead {
 		int y = Integer.parseInt(str.split(" ")[1]);
 		String sound = str.split(" ")[2];
 
-		AudioStorage.playSoundEffect(sound, x, y, GameSetting.SOUND_RANGE);
+		AudioManager.playSoundEffect(sound, x, y, GameSetting.SOUND_RANGE);
 	}
 
 }

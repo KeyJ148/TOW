@@ -1,7 +1,7 @@
 package game.client.map;
 
 
-import engine.AudioStorage;
+import engine.AudioManager;
 import engine.Global;
 import engine.image.TextureHandler;
 import engine.image.TextureManager;
@@ -52,7 +52,7 @@ public class Box extends Obj {
 
 		Global.tcpControl.send(21, String.valueOf(idBox));
 
-		AudioStorage.playSoundEffect(soundName, (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
+		AudioManager.playSoundEffect(soundName, (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
 		Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + soundName);
 	}
 }

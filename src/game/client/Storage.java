@@ -1,6 +1,8 @@
 package game.client;
 
-public class TextureStorage {
+import java.awt.*;
+
+public class Storage {
 
     //Engine: чем больше глубина, тем больше объектов будет отрисовыватсья поверх
     //Engine: объекты отрисовываются в порядке уменьшения глубины
@@ -109,7 +111,20 @@ public class TextureStorage {
                 {"Corps/a_fury",                    "armor",        "81"},
                 {"Corps/a_mite",                    "armor",        "81"},
                 {"Corps/a_vampire",                 "armor",        "81"},
-                {"Corps/a_light",                 "armor",        "81"},
+                {"Corps/a_light",                   "armor",        "81"},
                 {"Corps/a_renegat",                 "armor",        "81"}
             };
+
+    public static final int[][] font = //Engine: Описание шрифта (Размер, тип)
+            {
+                {12, Font.PLAIN},
+                {14, Font.PLAIN},
+                {15, Font.PLAIN},
+                {16, Font.PLAIN},
+                {12, Font.BOLD},
+                {20, Font.BOLD}
+            };
+
+    public static final String[] audio = //Engine: Путь к файлу звуков (.wav)
+            {};
 }

@@ -1,6 +1,6 @@
 package game.client.tanks;
 
-import engine.AudioStorage;
+import engine.AudioManager;
 import engine.Global;
 import engine.Vector2;
 import engine.image.Camera;
@@ -82,7 +82,7 @@ public abstract class Tank extends Obj{
             }
         }
 
-        AudioStorage.playSoundEffect("explosion", (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
+        AudioManager.playSoundEffect("explosion", (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
     }
 
     public void replaceArmor(Obj newArmor){

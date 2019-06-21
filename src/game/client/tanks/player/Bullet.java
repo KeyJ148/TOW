@@ -1,7 +1,7 @@
 package game.client.tanks.player;
 
 
-import engine.AudioStorage;
+import engine.AudioManager;
 import engine.Global;
 import engine.image.TextureHandler;
 import engine.image.TextureManager;
@@ -76,7 +76,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 		if (obj.getClass().equals(Wall.class)){
 			destroy(explosionSize);
 
-			AudioStorage.playSoundEffect(sound_hit, (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
+			AudioManager.playSoundEffect(sound_hit, (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
 			Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + sound_hit);
 		}
 
@@ -86,7 +86,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 			Global.tcpControl.send(14, damage + " " + ea.enemy.id);
 			destroy(explosionSize);
 
-			AudioStorage.playSoundEffect(sound_hit, (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
+			AudioManager.playSoundEffect(sound_hit, (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
 			Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + sound_hit);
 
 			//Для вампирского сета
@@ -118,7 +118,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 	}
 
 	public void playSoundShot(){
-		AudioStorage.playSoundEffect(sound_shot, (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
+		AudioManager.playSoundEffect(sound_shot, (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
 		Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + sound_shot);
 	}
 

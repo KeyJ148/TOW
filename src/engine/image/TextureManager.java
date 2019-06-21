@@ -5,7 +5,7 @@ import engine.io.Logger;
 import java.io.File;
 import java.util.TreeMap;
 
-import static game.client.TextureStorage.*;
+import static game.client.Storage.*;
 
 public class TextureManager {
 
