@@ -93,12 +93,18 @@ public class Storage {
                 {"Particles/part_ball.png",              "particles",    "0"},
                 {"Particles/Explosion/part_metall.png",  "particles",    "0"},
 
+                {"Inf/cursor.png",                       "interface",    "-1000"},
+                {"Inf/cursor_aim_1.png",                 "interface",    "-1000"},
+                {"Inf/cursor_aim_2.png",                 "interface",    "-1000"},
+                {"Inf/icon_save.png",                    "interface",    "-1000"},
+                {"Inf/inf_death.png",                    "interface",    "-1000"},
+                {"Inf/inf_kills.png",                    "interface",    "-1000"},
+                {"Inf/inf_ping.png",                     "interface",    "-1000"},
+                {"Inf/inf_wins.png",                     "interface",    "-1000"},
+
                 {"Sys/sys_null.png",                     "system",       "-1000"},
-                {"Sys/cursor.png",                       "system",       "-1000"},
                 {"Sys/sys_tank.png",                     "system",       "-1000"},
                 {"Sys/error.png",                        "system",       "-1000"},
-                {"Sys/cursor_aim_1.png",                 "system",       "-1000"},
-                {"Sys/cursor_aim_2.png",                 "system",       "-1000"}
             };
 
 
