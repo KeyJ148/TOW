@@ -51,7 +51,7 @@ public class Storage {
                 {"Gun/g_double.png",                     "gun",          "40"},
                 {"Gun/g_fury.png",                       "gun",          "40"},
                 {"Gun/g_mortar.png",                     "gun",          "40"},
-                {"Gun/g_quick.png",                     "gun",          "40"},
+                {"Gun/g_quick.png",                      "gun",          "40"},
                 {"Gun/g_rocketd.png",                    "gun",          "40"},
                 {"Gun/g_mass.png",                       "gun",          "40"},
                 {"Gun/g_power.png",                      "gun",          "40"},

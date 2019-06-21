@@ -9,7 +9,7 @@ public class LoginDataChecker {
     public static final int MIN_COLOR_VALUE = 125;
 
     public static void checkName(String name){
-        if (name.indexOf(' ') != -1){
+        if (name.indexOf(' ') != -1 || name.length() > 20 || name.length() == 0){
             Logger.println("Invalid name!", Logger.Type.ERROR);
             Loader.exit();
         }
