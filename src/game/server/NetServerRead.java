@@ -46,6 +46,8 @@ public class NetServerRead {
     }
 
     public void take2(MessagePack.Message message){
+        if (!ServerData.battle) return;
+
         ServerData.playerData[message.authorId].x = Integer.parseInt(message.text.split(" ")[0]);
         ServerData.playerData[message.authorId].y = Integer.parseInt(message.text.split(" ")[1]);
         ServerSendUDP.sendAllExceptId(message.authorId, 2, message.text + " " + message.authorId);

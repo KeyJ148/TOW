@@ -22,12 +22,22 @@ public class MapLoader implements Runnable{
     public void loadMap(File map){
         Logger.println("Loading map: " + map.getName(), Logger.Type.SERVER_INFO);
 
-        ServerData.map.clear();
-
+        disableBattle();
         loadMapToMemory(map);
         genTanks();
-
         sendMap();
+    }
+
+    private void disableBattle(){
+        //Отправка всем сообщения о начале рестарта
+        ServerSendTCP.sendAll(8, "");
+
+        //Ставим всем игркокам флаг о том, что они ещё не готовы к старту
+        ServerData.battle = false;
+        for(int i=0; i<ServerData.playerData.length; i++){
+            ServerData.playerData[i].gameReady = false;
+        }
+
     }
 
     //Выбор рандомной карты из папки с картами
@@ -47,6 +57,8 @@ public class MapLoader implements Runnable{
 
     //Загрузка всех объектов карты в память сервера (ServerData)
     private void loadMapToMemory(File map){
+        ServerData.map.clear();
+
         try {
             BufferedReader fileReader = new BufferedReader(new FileReader(map));
 
@@ -97,15 +109,6 @@ public class MapLoader implements Runnable{
 
     //Отправка карты всем подключенным игрокам
     private void sendMap(){
-        //Отправка всем сообщения о начале рестарта
-        ServerSendTCP.sendAll(8, "");
-
-        //Ставим всем игркокам флаг о том, что они ещё не готовы к старту
-        ServerData.battle = false;
-        for(int i=0; i<ServerData.playerData.length; i++){
-            ServerData.playerData[i].gameReady = false;
-        }
-
         //Отправляем всем игрокам карту
         ServerSendTCP.sendAll(3, ServerData.widthMap + " " + ServerData.heightMap + " " + ServerData.background);
 
