@@ -97,7 +97,7 @@ public class Storage {
                 {"Inf/cursor_aim_1.png",                 "interface",    "-1000"},
                 {"Inf/cursor_aim_2.png",                 "interface",    "-1000"},
                 {"Inf/icon_save.png",                    "interface",    "-1000"},
-                {"Inf/inf_death.png",                    "interface",    "-1000"},
+                {"Inf/inf_deaths.png",                   "interface",    "-1000"},
                 {"Inf/inf_kills.png",                    "interface",    "-1000"},
                 {"Inf/inf_ping.png",                     "interface",    "-1000"},
                 {"Inf/inf_wins.png",                     "interface",    "-1000"},

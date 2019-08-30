@@ -44,9 +44,10 @@ public class Inf  {
 
             GL11.glLoadIdentity();
             GL11.glTranslatef(0, 0, 0);
-            GL11.glColor3b((byte) (colorBackground.getRedByte()+128),
-                           (byte) (colorBackground.getGreenByte()+128),
-                           (byte) (colorBackground.getBlueByte()+128));
+            GL11.glColor4f(colorBackground.r,
+                           colorBackground.g,
+                           colorBackground.b,
+                           colorBackground.a);
 
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glBegin(GL11.GL_QUADS);
