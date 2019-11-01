@@ -22,7 +22,7 @@ import java.io.File;
 public class Loader {
 
 
-	public static void main (String args[]) {
+	public static void main(String args[]) {
 		preInit();//Загрузка логгера для вывода ошибок
 		loadLibrary();//Загрузка библиотек
 		init(); //Инициализация перед запуском
@@ -80,33 +80,11 @@ public class Loader {
 
 		if (!successLoad){
 			try{
-				System.loadLibrary("jinput-dx8");
-				System.loadLibrary("jinput-raw");
-				System.loadLibrary("lwjgl");
-				System.loadLibrary("OpenAL32");
-				Logger.println("32-bit native module load complite (Windows)", Logger.Type.DEBUG);
-				successLoad = true;
-			} catch (UnsatisfiedLinkError e){}
-		}
-
-		if (!successLoad){
-			try{
 				System.loadLibrary("jinput-dx8_64");
 				System.loadLibrary("jinput-raw_64");
 				System.loadLibrary("lwjgl64");
 				System.loadLibrary("OpenAL64");
 				Logger.println("64-bit native module load complite (Windows)", Logger.Type.DEBUG);
-				successLoad = true;
-			} catch (UnsatisfiedLinkError e){}
-		}
-
-		if (!successLoad){
-			try{
-				String nativeLibPath = new File("").getAbsolutePath() + "/lib/native/";
-				System.load(nativeLibPath + "libjinput-linux.so");
-				System.load(nativeLibPath + "libopenal.so");
-				System.load(nativeLibPath + "liblwjgl.so");
-				Logger.println("32-bit native module load complite (Linux)", Logger.Type.DEBUG);
 				successLoad = true;
 			} catch (UnsatisfiedLinkError e){}
 		}
