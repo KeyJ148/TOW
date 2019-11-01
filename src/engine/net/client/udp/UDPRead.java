@@ -32,7 +32,7 @@ public class UDPRead extends Thread{
 		synchronized(messages){
 			for (int i=0;i<messages.size();i++){
 				Message message = messages.get(i);
-				NetGameRead.readUDP(message);
+				Global.netGameRead.readUDP(message);
 			}
 
 			messages.clear();

@@ -32,7 +32,7 @@ public class TCPRead extends Thread{
 		synchronized(messages){
 			for (int i=0;i<messages.size();i++){
 				Message message = messages.get(i);
-				NetGameRead.readTCP(message);
+				Global.netGameRead.readTCP(message);
 			}
 
 			messages.clear();

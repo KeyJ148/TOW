@@ -5,6 +5,7 @@ import engine.Global;
 import engine.image.Camera;
 import engine.image.TextureHandler;
 import engine.image.TextureManager;
+import engine.implementation.NetGameReadInterface;
 import engine.io.Logger;
 import engine.map.Border;
 import engine.map.Room;
@@ -22,9 +23,10 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Vector;
 
-public class NetGameRead {
+public class NetGameRead implements NetGameReadInterface {
 
-	public static void readTCP(Message message){
+	@Override
+	public void readTCP(Message message){
 		switch (message.type){
 			case 1: take1(message.data); break;
 			case 3: take3(message.data); break;
@@ -47,25 +49,22 @@ public class NetGameRead {
 			case 23: take23(message.data); break;
 			case 24: take24(message.data); break;
 			case 25: take25(message.data); break;
-
-			//Engine: Различные действия с уникальными индексами с пакетами TCP
 		}
 	}
 
-	public static void readUDP(Message message){
+	@Override
+	public void readUDP(Message message){
 		switch (message.type){
 			case 2: take2(message.data); break;
-			//Engine: Различные действия с уникальными индексами с пакетами UDP
 		}
 	}
 
-	public static void take1(String str){
-		//Engine: Сервер вернул пинг
+	public void take1(String str){
 		Global.pingCheck.takePing();
 	}
 
 	//координаты игрока - (int x, int y, int direction, int speed, int directionDraw, int id)
-	public static void take2(String str){
+	public void take2(String str){
 		int x = Integer.parseInt(str.split(" ")[0]);
 		int y = Integer.parseInt(str.split(" ")[1]);
 		int direction = Integer.parseInt(str.split(" ")[2]);
@@ -80,7 +79,7 @@ public class NetGameRead {
 	}
 
 	//данные о карте - (int width, int height, String background)
-	public static void take3(String str){
+	public void take3(String str){
 		int width = Integer.parseInt(str.split(" ")[0]);
 		int height = Integer.parseInt(str.split(" ")[1]);
 		String background = str.split(" ")[2];
@@ -91,7 +90,7 @@ public class NetGameRead {
 	}
 
 	//старт сервера - (int peopleMax, int myIdFromServer)
-	public static void take4(String str){
+	public void take4(String str){
 		ClientData.peopleMax = Integer.parseInt(str.split(" ")[0]);
 		ClientData.myIdFromServer = Integer.parseInt(str.split(" ")[1]);
 
@@ -112,7 +111,7 @@ public class NetGameRead {
 	}
 
 	//позиция танка игрока при генерации карты (int x, int y, int direction)
-	public static void take5(String str){
+	public void take5(String str){
 		int x = Integer.parseInt(str.split(" ")[0]);
 		int y = Integer.parseInt(str.split(" ")[1]);
 		int direction = Integer.parseInt(str.split(" ")[2]);
@@ -139,7 +138,7 @@ public class NetGameRead {
 	}
 
 	//ящик создан - (int x, int y, int type, int idBox)
-	public static void take7(String str){
+	public void take7(String str){
 		int x = Integer.parseInt(str.split(" ")[0]);
 		int y = Integer.parseInt(str.split(" ")[1]);
 		int type = Integer.parseInt(str.split(" ")[2]);
@@ -149,7 +148,7 @@ public class NetGameRead {
 	}
 
 	//начало рестарта
-	public static void take8(String str){
+	public void take8(String str){
 		if (ClientData.player != null && ClientData.player.alive){
 			Global.tcpControl.send(24, "");
 			ClientData.player.win++;
@@ -170,7 +169,7 @@ public class NetGameRead {
 	}
 
 	//объект карты - (int x, int y, int directiorn, String texture)
-	public static void take9(String str){
+	public void take9(String str){
 		int x = Integer.parseInt(str.split(" ")[0]);
 		int y = Integer.parseInt(str.split(" ")[1]);
 		int direction = Integer.parseInt(str.split(" ")[2]);
@@ -195,24 +194,24 @@ public class NetGameRead {
 	}
 
 	//конец отправки карты
-	public static void take10(String str){
+	public void take10(String str){
 		Global.tcpControl.send(6, "");
 	}
 
 	//старт игры (рестарт полностью завершен)
-	public static void take11(String str){
+	public void take11(String str){
 		ClientData.battle = true;
 	}
 
 	//я умер - (int id)
-	public static void take12(String str){
+	public void take12(String str){
 		int id = Integer.parseInt(str.split(" ")[0]);
 
 		ClientData.enemy.get(id).exploded(); //Взорвался
 	}
 
 	//я выстрелил - (int x, int y, double direction, double speed, String texture, long idNet, int id)
-	public static void take13(String str){
+	public void take13(String str){
 		int x = Integer.parseInt(str.split(" ")[0]);
 		int y = Integer.parseInt(str.split(" ")[1]);
 		double direction = Double.parseDouble(str.split(" ")[2]);
@@ -227,7 +226,7 @@ public class NetGameRead {
 	}
 
 	//я нанёс урон игроку enemyId (double damage, int idSuffer, int idDamager)
-	public static void take14(String str){
+	public void take14(String str){
 		double damage = Double.parseDouble(str.split(" ")[0]);
 		int idSuffer = Integer.parseInt(str.split(" ")[1]);
 		int idDamager = Integer.parseInt(str.split(" ")[2]);
@@ -239,7 +238,7 @@ public class NetGameRead {
 	}
 
 	//моя пуля уничтожилась (long idNet, int explosion, int id)
-	public static void take15(String str){
+	public void take15(String str){
 		long idNet = Long.parseLong(str.split(" ")[0]);
 		int explosionSize = Integer.parseInt(str.split(" ")[1]);
 		int idEnemy = Integer.parseInt(str.split(" ")[2]);
@@ -253,7 +252,7 @@ public class NetGameRead {
 	}
 
 	//сервер отправил данные об игроке id - (int red, int green, int blue, String name, int id)
-	public static void take18(String str){
+	public void take18(String str){
 		int red = Integer.parseInt(str.split(" ")[0]);
 		int green = Integer.parseInt(str.split(" ")[1]);
 		int blue = Integer.parseInt(str.split(" ")[2]);
@@ -269,7 +268,7 @@ public class NetGameRead {
 	}
 
 	//я сменил броню - (String armorName, int id)
-	public static void take19(String str){
+	public void take19(String str){
 		String armorName = str.split(" ")[0];
 		int enemyId = Integer.parseInt(str.split(" ")[1]);
 
@@ -277,7 +276,7 @@ public class NetGameRead {
 	}
 
 	//я сменил оружие - (String gunName, int id)
-	public static void take20(String str){
+	public void take20(String str){
 		String gunName = str.split(" ")[0];
 		int enemyId = Integer.parseInt(str.split(" ")[1]);
 
@@ -285,7 +284,7 @@ public class NetGameRead {
 	}
 
 	//я подобрал ящик - (int idBox)
-	public static void take21(String str){
+	public void take21(String str){
 		int idBox = Integer.parseInt(str.split(" ")[0]);
 		for(Obj obj : Global.room.objects){
 			if (obj != null && obj instanceof Box && ((Box) obj).idBox == idBox){
@@ -295,7 +294,7 @@ public class NetGameRead {
 	}
 
 	//объект карты уничтожен бронёй - (int mid)
-	public static void take22(String str){
+	public void take22(String str){
 		int mid = Integer.parseInt(str.split(" ")[0]);
 		if (mid < ClientData.mapObjects.size()){
 			((Wall) ClientData.mapObjects.get(mid)).destroyByArmor();
@@ -304,7 +303,7 @@ public class NetGameRead {
 	}
 
 	//прибавить этому игроку одно убийство, он меня убил - (int id)
-	public static void take23(String str){
+	public void take23(String str){
 		int id = Integer.parseInt(str.split(" ")[0]);
 
 		if (ClientData.myIdFromServer == id) {
@@ -315,14 +314,14 @@ public class NetGameRead {
 	}
 
 	//прибавить мне одну победу, я остался один - (int id)
-	public static void take24(String str){
+	public void take24(String str){
 		int id = Integer.parseInt(str.split(" ")[0]);
 
 		ClientData.enemy.get(id).win++;
 	}
 
 	//я инициировал событие звука - (int x, int y, String sound)
-	public static void take25(String str){
+	public void take25(String str){
 		int x = Integer.parseInt(str.split(" ")[0]);
 		int y = Integer.parseInt(str.split(" ")[1]);
 		String sound = str.split(" ")[2];

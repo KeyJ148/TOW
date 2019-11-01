@@ -19,9 +19,11 @@ public class AudioManager {
     private static TreeMap<String, Audio> audios = new TreeMap<>();
 
     public static void init(){
+        String[] audios = Global.storage.getAudios();
+
         loadFromDirectory(new File(PATH_TO_AUDIO_ROOT), "wav");
-        for(int i=0; i<Storage.audio.length; i++){
-            load(Storage.audio[i]);
+        for(int i=0; i<audios.length; i++){
+            load(audios[i]);
         }
     }
 

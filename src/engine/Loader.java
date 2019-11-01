@@ -3,6 +3,7 @@ package engine;
 import engine.cycle.Analyzer;
 import engine.cycle.Engine;
 import engine.image.TextureManager;
+import engine.implementation.*;
 import engine.inf.InfMain;
 import engine.inf.title.FontManager;
 import engine.io.Logger;
@@ -13,6 +14,7 @@ import engine.net.client.udp.UDPControl;
 import engine.net.client.udp.UDPRead;
 import engine.setting.SettingStorage;
 import game.client.Game;
+import game.client.Storage;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.util.Log;
@@ -22,14 +24,21 @@ import java.io.File;
 public class Loader {
 
 
-	public static void main(String args[]) {
-		preInit();//Загрузка логгера для вывода ошибок
+	public static void start(GameInterface game, NetGameReadInterface netGameRead, StorageInterface storage,
+							 ServerInterface server, NetServerReadInterface netServerRead) {
+		Global.game = game;
+		Global.server = server;
+		Global.netGameRead = netGameRead;
+		Global.netServerRead = netServerRead;
+		Global.storage = storage;
+
+		loggerInit();//Загрузка логгера для вывода ошибок
 		loadLibrary();//Загрузка библиотек
 		init(); //Инициализация перед запуском
 		Global.engine.run();//Запуск главного цикла
 	}
 
-	public static void preInit(){
+	private static void loggerInit(){
 		SettingStorage.init();//Загрузка настроек
 
 		//Установка настроек логирования
@@ -48,7 +57,7 @@ public class Loader {
 	}
 
 	//Инициализация движка перед запуском
-	public static void init() {
+	private static void init() {
 		Log.setVerbose(false); //Отключения логов в Slick-util
 
 		Global.engine = new Engine();//Создание класса для главного цикла
@@ -71,11 +80,10 @@ public class Loader {
 		Logger.println("Inicialization end", Logger.Type.DEBUG);
 
 		//Инициализация игры
-		Global.game = new Game();
 		Global.game.init();
 	}
 
-	public static void loadLibrary(){
+	private static void loadLibrary(){
 		boolean successLoad = false;
 
 		if (!successLoad){

@@ -1,5 +1,6 @@
 package engine.inf.title;
 
+import engine.Global;
 import engine.Loader;
 import engine.io.Logger;
 import game.client.Storage;
@@ -22,8 +23,9 @@ public class FontManager {
 	private static char[] alphabet = "абвгдеёжзийклмнопрстуфхцчшщьыъэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯ".toCharArray();
 
 	public static void init(){
-		for(int i=0; i<Storage.font.length; i++){
-			addFont(Storage.font[i][0], Storage.font[i][1]);
+		int[][] fonts = Global.storage.getFonts();
+		for(int i=0; i<fonts.length; i++){
+			addFont(fonts[i][0], fonts[i][1]);
 		}
 	}
 

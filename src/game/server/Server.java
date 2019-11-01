@@ -2,6 +2,7 @@ package game.server;
 
 import engine.Vector2;
 import engine.image.TextureManager;
+import engine.implementation.ServerInterface;
 import engine.net.server.GameServer;
 import engine.net.server.senders.ServerSendTCP;
 import game.server.assistants.BoxCreator;
@@ -11,11 +12,12 @@ import game.server.data.ServerData;
 
 import java.io.File;
 
-public class Server {
+public class Server implements ServerInterface {
 
     public static final String PATH_MAP = "res/map";
     public static final long DELAY_MAP_CHANGE = 2000; //Задержка перед рестартом сервера (милисекунды)
 
+    @Override
     public void init(){
         //Engine: Инициализация сервера сразу после создания сокета (Цикл подключения ещё не запущен, но сокет существует)
         if (ServerLoader.startServerListener != null){
@@ -23,6 +25,7 @@ public class Server {
         }
     }
 
+    @Override
     public void startProcessingData(){
         //Engine: Инициализация сервера перед запуском главного цикла, после подключения всех игроков
         ServerData.playerData = new PlayerData[GameServer.peopleMax];
@@ -57,6 +60,7 @@ public class Server {
         ServerData.boxCreator = new BoxCreator();
     }
 
+    @Override
     public void update(long delta){
         //Engine: Выполняется каждый степ перед обработкой сообщений
         ServerData.boxCreator.update(delta);

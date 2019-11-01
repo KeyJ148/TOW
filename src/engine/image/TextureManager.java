@@ -1,5 +1,6 @@
 package engine.image;
 
+import engine.Global;
 import engine.io.Logger;
 
 import java.io.File;
@@ -14,14 +15,18 @@ public class TextureManager {
 
 	//Загрузка всех текстур и анимаций при инициализации
 	public static void init(){
-        for (int i=0; i<image.length; i++){
-            TextureHandler texture = new TextureHandler(pathImageRoot + image[i][0], image[i][1], Integer.parseInt(image[i][2]));
+		String[][] images = Global.storage.getImages();
+        for (int i=0; i<images.length; i++){
+            TextureHandler texture = new TextureHandler(Global.storage.getPathImagesRoot() + images[i][0],
+					images[i][1], Integer.parseInt(images[i][2]));
             textures.put(texture.name, texture);
         }
 
-        for (int i=0; i<anim.length; i++){
-            TextureHandler[] animation = parseAnimation(pathAnimRoot + anim[i][0], anim[i][1], Integer.parseInt(anim[i][2]));
-            animations.put(anim[i][0].substring(anim[i][0].lastIndexOf("/")+1), animation);
+        String[][] anims = Global.storage.getAnimations();
+        for (int i=0; i<anims.length; i++){
+            TextureHandler[] animation = parseAnimation(Global.storage.getPathAnimationsRoot() + anims[i][0],
+					anims[i][1], Integer.parseInt(anims[i][2]));
+            animations.put(anims[i][0].substring(anims[i][0].lastIndexOf("/")+1), animation);
         }
 	}
 

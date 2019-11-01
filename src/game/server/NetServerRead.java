@@ -1,5 +1,6 @@
 package game.server;
 
+import engine.implementation.NetServerReadInterface;
 import engine.net.server.GameServer;
 import engine.net.server.MessagePack;
 import engine.net.server.senders.ServerSendTCP;
@@ -10,8 +11,9 @@ import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class NetServerRead {
+public class NetServerRead implements NetServerReadInterface {
 
+    @Override
     public void readTCP(MessagePack.Message message){
         //Engine: вызывается каждый раз при получение сервером сообщения по протоколу TCP
         switch (message.type){
@@ -34,6 +36,7 @@ public class NetServerRead {
         }
     }
 
+    @Override
     public void readUDP(MessagePack.Message message) {
         switch (message.type){
             case 2: take2(message); break;
