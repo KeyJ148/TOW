@@ -1,6 +1,9 @@
-package game.client;
+package game;
 
 import engine.Loader;
+import game.client.Game;
+import game.client.NetGameRead;
+import game.client.Storage;
 import game.server.NetServerRead;
 import game.server.Server;
 

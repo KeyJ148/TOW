@@ -4,6 +4,6 @@ import engine.net.client.Message;
 
 public interface NetGameReadInterface {
 
-    void readTCP(Message message);  //Engine: Различные действия с уникальными индексами с пакетами TCP
-    void readUDP(Message message); //Engine: Различные действия с уникальными индексами с пакетами UDP
+    void readTCP(Message message);  //Engine: Р Р°Р·Р»РёС‡РЅС‹Рµ РґРµР№СЃС‚РІРёСЏ СЃ СѓРЅРёРєР°Р»СЊРЅС‹РјРё РёРЅРґРµРєСЃР°РјРё СЃ РїР°РєРµС‚Р°РјРё TCP
+    void readUDP(Message message); //Engine: Р Р°Р·Р»РёС‡РЅС‹Рµ РґРµР№СЃС‚РІРёСЏ СЃ СѓРЅРёРєР°Р»СЊРЅС‹РјРё РёРЅРґРµРєСЃР°РјРё СЃ РїР°РєРµС‚Р°РјРё UDP
 }

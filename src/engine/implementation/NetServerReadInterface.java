@@ -4,6 +4,6 @@ import engine.net.server.MessagePack;
 
 public interface NetServerReadInterface {
 
-    void readTCP(MessagePack.Message message); //Engine: вызывается каждый раз при получение сервером сообщения по протоколу TCP
-    void readUDP(MessagePack.Message message); //Engine: вызывается каждый раз при получение сервером сообщения по протоколу UDP
+    void readTCP(MessagePack.Message message); //Engine: РІС‹Р·С‹РІР°РµС‚СЃСЏ РєР°Р¶РґС‹Р№ СЂР°Р· РїСЂРё РїРѕР»СѓС‡РµРЅРёРµ СЃРµСЂРІРµСЂРѕРј СЃРѕРѕР±С‰РµРЅРёСЏ РїРѕ РїСЂРѕС‚РѕРєРѕР»Сѓ TCP
+    void readUDP(MessagePack.Message message); //Engine: РІС‹Р·С‹РІР°РµС‚СЃСЏ РєР°Р¶РґС‹Р№ СЂР°Р· РїСЂРё РїРѕР»СѓС‡РµРЅРёРµ СЃРµСЂРІРµСЂРѕРј СЃРѕРѕР±С‰РµРЅРёСЏ РїРѕ РїСЂРѕС‚РѕРєРѕР»Сѓ UDP
 }

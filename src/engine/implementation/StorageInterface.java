@@ -2,16 +2,16 @@ package engine.implementation;
 
 public interface StorageInterface {
 
-    //Engine: чем больше глубина, тем больше объектов будет отрисовыватсья поверх
-    //Engine: объекты отрисовываются в порядке уменьшения глубины
+    //Engine: С‡РµРј Р±РѕР»СЊС€Рµ РіР»СѓР±РёРЅР°, С‚РµРј Р±РѕР»СЊС€Рµ РѕР±СЉРµРєС‚РѕРІ Р±СѓРґРµС‚ РѕС‚СЂРёСЃРѕРІС‹РІР°С‚СЃСЊСЏ РїРѕРІРµСЂС…
+    //Engine: РѕР±СЉРµРєС‚С‹ РѕС‚СЂРёСЃРѕРІС‹РІР°СЋС‚СЃСЏ РІ РїРѕСЂСЏРґРєРµ СѓРјРµРЅСЊС€РµРЅРёСЏ РіР»СѓР±РёРЅС‹
 
-    default String getPathImagesRoot(){ return "res/image/"; } //Engine: Путь к корню папки с текстурами
-    String[][] getImages();  //Engine: Описание картинки (Путь от корня, тип объекта, глубина)
+    default String getPathImagesRoot(){ return "res/image/"; } //Engine: РџСѓС‚СЊ Рє РєРѕСЂРЅСЋ РїР°РїРєРё СЃ С‚РµРєСЃС‚СѓСЂР°РјРё
+    String[][] getImages();  //Engine: РћРїРёСЃР°РЅРёРµ РєР°СЂС‚РёРЅРєРё (РџСѓС‚СЊ РѕС‚ РєРѕСЂРЅСЏ, С‚РёРї РѕР±СЉРµРєС‚Р°, РіР»СѓР±РёРЅР°)
 
-    default String getPathAnimationsRoot(){ return "res/animation/"; }//Engine: Путь к корню папки с анимацией
-    String[][] getAnimations();//Описание анимации (Путь от корня, тип объекта, глубина)
+    default String getPathAnimationsRoot(){ return "res/animation/"; }//Engine: РџСѓС‚СЊ Рє РєРѕСЂРЅСЋ РїР°РїРєРё СЃ Р°РЅРёРјР°С†РёРµР№
+    String[][] getAnimations();//РћРїРёСЃР°РЅРёРµ Р°РЅРёРјР°С†РёРё (РџСѓС‚СЊ РѕС‚ РєРѕСЂРЅСЏ, С‚РёРї РѕР±СЉРµРєС‚Р°, РіР»СѓР±РёРЅР°)
 
-    int[][] getFonts(); //Engine: Описание шрифта (Размер, тип)
-    String[] getAudios(); //Engine: Путь к файлу звуков (.wav)
+    int[][] getFonts(); //Engine: РћРїРёСЃР°РЅРёРµ С€СЂРёС„С‚Р° (Р Р°Р·РјРµСЂ, С‚РёРї)
+    String[] getAudios(); //Engine: РџСѓС‚СЊ Рє С„Р°Р№Р»Сѓ Р·РІСѓРєРѕРІ (.wav)
 
 }
