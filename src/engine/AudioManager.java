@@ -3,7 +3,6 @@ package engine;
 import engine.image.Camera;
 import engine.io.Logger;
 import engine.setting.SettingStorage;
-import game.client.Storage;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.util.ResourceLoader;

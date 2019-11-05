@@ -13,8 +13,6 @@ import engine.net.client.tcp.TCPRead;
 import engine.net.client.udp.UDPControl;
 import engine.net.client.udp.UDPRead;
 import engine.setting.SettingStorage;
-import game.client.Game;
-import game.client.Storage;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.util.Log;

@@ -1,11 +1,11 @@
 package engine.net.server;
 
 import engine.Loader;
+import engine.implementation.NetServerReadInterface;
+import engine.implementation.ServerInterface;
 import engine.io.Logger;
 import engine.net.server.readers.ServerReadUDP;
 import engine.setting.SettingStorage;
-import game.server.NetServerRead;
-import game.server.Server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,9 +28,13 @@ public class GameServer {
 	public static DatagramSocket socketUDP;
 
 	//Объект сервера для реализации в игре
-	public static Server server = new Server();
+	public static ServerInterface server;
+	public static NetServerReadInterface inetServerRead;
 
-	public static void initSettings(String args[]){
+	public static void initSettings(String args[], ServerInterface server, NetServerReadInterface inetServerRead){
+		GameServer.server = server;
+		GameServer.inetServerRead = inetServerRead;
+
 		try{
 			BufferedReader bReader = new BufferedReader(new InputStreamReader(System.in));
 			String str;
@@ -114,7 +118,6 @@ public class GameServer {
 	}
 
 	public static void processingData(){
-		NetServerRead inetServerRead = new NetServerRead();
 		server.startProcessingData();
 
 		long lastUpdate = System.nanoTime();//Для update

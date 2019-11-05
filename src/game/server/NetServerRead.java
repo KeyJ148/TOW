@@ -74,7 +74,7 @@ public class NetServerRead implements NetServerReadInterface {
             TimerTask task = new TimerTask() {
                 @Override
                 public void run() {
-                    GameServer.server.startNewGame();
+                    ((Server) GameServer.server).startNewGame();
                 }
             };
 

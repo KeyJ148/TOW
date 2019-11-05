@@ -3,7 +3,6 @@ package engine.inf.title;
 import engine.Global;
 import engine.Loader;
 import engine.io.Logger;
-import game.client.Storage;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.util.ResourceLoader;
 

@@ -2,7 +2,6 @@ package engine.net.client.tcp;
 
 import engine.Global;
 import engine.net.client.Message;
-import game.client.NetGameRead;
 
 import java.util.ArrayList;
 
