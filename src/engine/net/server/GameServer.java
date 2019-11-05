@@ -145,11 +145,6 @@ public class GameServer {
 		Logger.println("All user disconnect!", Logger.Type.SERVER_INFO);
 		Loader.exit();
 	}
-	
-	public static void main(String args[]){
-		initSettings(args);
-		waitConnect();
-	}
 
 }
 

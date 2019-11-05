@@ -1,7 +1,10 @@
 package game.server;
 
 import engine.net.server.GameServer;
+import game.ServerStart;
 import game.client.lobby.StartServerListener;
+
+import java.net.ServerSocket;
 
 public class ServerLoader extends Thread{
 
@@ -30,7 +33,7 @@ public class ServerLoader extends Thread{
         args[1] = String.valueOf(peopleMax);
         args[2] = String.valueOf(maxPower);
 
-        GameServer.main(args);
+        ServerStart.main(args);
     }
 
 }
