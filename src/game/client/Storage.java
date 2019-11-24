@@ -77,7 +77,7 @@ public class Storage implements StorageInterface {
 
             {"wall/tree/tree_1.png", "tree", "20"},
             {"wall/tree/tree_snowpart_1.png", "tree", "20"},
-            {"wall/tree/tree_snowfull_2.png", "tree", "20"},
+            {"wall/tree/tree_snowfull_1.png", "tree", "20"},
             {"wall/tree/conifer_1.png", "tree", "20"},
             {"wall/tree/conifer_snowfull_1.png", "tree", "20"},
             {"wall/tree/tree_wither_1.png", "tree", "20"},
