@@ -4,7 +4,11 @@
 
 Ящики для смены оборудования позволяют игроку получить новый корпус, орудие или тип снарядов. В результате получается достаточно большое количество комбинаций, каждая из которых может найти своё применение в зависимости от ситуации. 
 
-скриншот.png
+Скриншоты:
+
+![](https://github.com/KeyJ148/TOW/blob/develop/archive/screenshots/1.bmp)
+![](https://github.com/KeyJ148/TOW/blob/develop/archive/screenshots/2.bmp)
+![](https://github.com/KeyJ148/TOW/blob/develop/archive/screenshots/3.bmp)
 
 ## Управление 
 WS - движение вперёд/назад.  
