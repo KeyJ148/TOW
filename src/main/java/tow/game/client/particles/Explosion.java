@@ -1,5 +1,6 @@
 package tow.game.client.particles;
 
+import tow.engine.image.TextureManager;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.particles.Part;
 import tow.engine.obj.components.particles.ParticlesTexture;
@@ -19,7 +20,7 @@ public class Explosion extends ParticlesTexture {
         if(size>70) count = size*3;
         for (int i=0; i<count; i++){
             Part part = new Part();
-            part.textureHandler = engine.image.TextureManager.getTexture("part_ball");
+            part.textureHandler = TextureManager.getTexture("part_ball");
             part.x = getObj().position.x;
             part.y = getObj().position.y;
             part.direction = getObj().position.getDirectionDraw() + rand.nextInt(360);

@@ -9,7 +9,6 @@ import tow.engine.setting.SettingStorage;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
-import java.awt.Component;
 import java.util.ArrayList;
 
 public class Collision extends Component {
