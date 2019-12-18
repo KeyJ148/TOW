@@ -7,8 +7,6 @@ import tow.game.client.Storage;
 import tow.game.server.NetServerRead;
 import tow.game.server.Server;
 
-import static tow.engine.Global.engine;
-
 public class GameStart {
 
     public static void main(String[] args) {
