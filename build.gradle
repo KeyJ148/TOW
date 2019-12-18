@@ -18,7 +18,7 @@ dependencies {
     //implementation 'org.lwjgl.lwjgl:lwjgl:2.9.3'
     //implementation 'org.lwjgl.lwjgl:lwjgl_util:2.9.3'
     //implementation 'slick-util:slick-util:1.0.0'
-    //implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     implementation files('lib/lwjgl.jar')
     implementation files('lib/slick-util.jar')
@@ -30,6 +30,11 @@ dependencies {
 
 application {
     mainClassName = 'tow.game.GameStart'
+}
+
+distributions.main.contents {
+    into ('map') { from 'map' }
+    into ('setting') { from 'setting' }
 }
 
 test {
