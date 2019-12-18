@@ -1,5 +1,6 @@
 package tow.game.server.assistants;
 
+import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.TextureManager;
 import tow.engine.io.Logger;
@@ -42,7 +43,7 @@ public class MapLoader implements Runnable{
 
     //Выбор рандомной карты из папки с картами
     private File chooseRandomMap(String allMapsPath){
-        File[] allFiles = new File(allMapsPath).listFiles();
+        File[] allFiles = Global.getFile(allMapsPath).listFiles();
 
         String path;
         do {

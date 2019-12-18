@@ -1,5 +1,7 @@
 package tow.engine;
 
+import java.io.File;
+
 import tow.engine.cycle.Engine;
 import tow.engine.implementation.*;
 import tow.engine.inf.InfMain;
@@ -29,6 +31,10 @@ public class Global {
 	public static NetGameReadInterface netGameRead; //Объект для обработки сетевых сообщений на клиенте
 	public static NetServerReadInterface netServerRead; //Объект для обработки сетевых сообщений на сервере
 	public static StorageInterface storage; //Объект для хранения описания картинок, анимаций и звуков
+	
+	public static File getFile(String path){
+		return new File(Thread.currentThread().getContextClassLoader().getResource(path).getFile());
+	}
 
 }
 

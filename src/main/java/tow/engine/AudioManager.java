@@ -1,5 +1,6 @@
 package tow.engine;
 
+import tow.engine.Global;
 import tow.engine.image.Camera;
 import tow.engine.io.Logger;
 import tow.engine.setting.SettingStorage;
@@ -20,7 +21,7 @@ public class AudioManager {
     public static void init(){
         String[] audios = Global.storage.getAudios();
 
-        loadFromDirectory(new File(PATH_TO_AUDIO_ROOT), "wav");
+        loadFromDirectory(Global.getFile(PATH_TO_AUDIO_ROOT), "wav");
         for(int i=0; i<audios.length; i++){
             load(audios[i]);
         }

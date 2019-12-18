@@ -1,5 +1,6 @@
 package tow.engine.setting;
 
+import tow.engine.Global;
 import tow.engine.io.Logger;
 
 import java.io.BufferedReader;
@@ -17,7 +18,7 @@ public class ConfigReader {
 	
 	public String findString(String findName){
 		try {
-			BufferedReader fileReader = new BufferedReader(new FileReader(path));
+			BufferedReader fileReader = new BufferedReader(new FileReader(Global.getFile(path)));
 			String s, varName;
 			while (true){ 
 				s = fileReader.readLine();

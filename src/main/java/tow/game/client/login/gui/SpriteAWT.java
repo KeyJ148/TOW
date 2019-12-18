@@ -1,5 +1,6 @@
 package tow.game.client.login.gui;
 
+import tow.engine.Global;
 import tow.engine.io.Logger;
 import tow.engine.setting.SettingStorage;
 
@@ -22,7 +23,7 @@ public class SpriteAWT {
 		//Загрузка картинки
 		BufferedImage sourceImage = null;
         try {
-			sourceImage = ImageIO.read(new File(path));
+			sourceImage = ImageIO.read(Global.getFile(path));
 			if (SettingStorage.Logger.DEBUG_CONSOLE_IMAGE) Logger.println("Load imageAWT \"" + path + "\" complited.", Logger.Type.INFO);
         } catch (IOException e1) {
 			Logger.println("Image \"" + path + "\" not loading", Logger.Type.ERROR);
