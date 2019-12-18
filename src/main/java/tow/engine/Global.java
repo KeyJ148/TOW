@@ -31,9 +31,14 @@ public class Global {
 	public static NetGameReadInterface netGameRead; //Объект для обработки сетевых сообщений на клиенте
 	public static NetServerReadInterface netServerRead; //Объект для обработки сетевых сообщений на сервере
 	public static StorageInterface storage; //Объект для хранения описания картинок, анимаций и звуков
-	
+
+	//Костыль, разбить на 2 функции, вынести в отдельный класс, не возвращать файл, а только стрим
 	public static File getFile(String path){
-		return new File(Thread.currentThread().getContextClassLoader().getResource(path).getFile());
+		try {
+			return new File(Thread.currentThread().getContextClassLoader().getResource(path).getFile());
+		} catch (NullPointerException e){
+			return new File("*");
+		}
 	}
 
 }

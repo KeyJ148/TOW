@@ -45,7 +45,7 @@ public class TextureManager {
 	private static TextureHandler[] parseAnimation(String path, String type, int depth){
 		int n=0;
 		String beginPath = path + "/" + path.substring(path.lastIndexOf("/")+1);
-		while (new File(beginPath + "_" + (n+1) + ".png").exists()){
+		while (Global.getFile(beginPath + "_" + (n+1) + ".png").exists()){
 			n++;
 		}
 		

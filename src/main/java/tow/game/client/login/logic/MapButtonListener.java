@@ -1,5 +1,6 @@
 package tow.game.client.login.logic;
 
+import tow.engine.Global;
 import tow.game.client.ClientData;
 import tow.game.client.login.gui.LoginWindow;
 
@@ -19,7 +20,7 @@ public class MapButtonListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JFileChooser fileOpen = new JFileChooser();
-		fileOpen.setCurrentDirectory(new File("./res/map"));
+		fileOpen.setCurrentDirectory(Global.getFile("./res/map"));
 		if (fileOpen.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION){
 			File file = fileOpen.getSelectedFile();
 			ClientData.map = file.getPath();

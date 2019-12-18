@@ -1,5 +1,6 @@
 package tow.engine.image;
 
+import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.io.Logger;
 
@@ -21,7 +22,7 @@ public class Mask {
         path = new String(pathBuffer) + ".txt";
 
         Vector2<Integer>[] mask;
-        if (new File(path).exists()) mask = loadFromFile(path, width, height);
+        if (Global.getFile(path).exists()) mask = loadFromFile(path, width, height);
         else mask = createDefault(width, height);
 
         this.maskDefault = mask;
@@ -33,7 +34,7 @@ public class Mask {
     //Загрузка маски из файла
     public Vector2<Integer>[] loadFromFile(String path, int width, int height){
         try{
-            BufferedReader fileReader = new BufferedReader(new FileReader(path));
+            BufferedReader fileReader = new BufferedReader(new FileReader(Global.getFile(path)));
             ArrayList<Vector2<Integer>> maskArr = new ArrayList<>();
             String s;
 

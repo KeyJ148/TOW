@@ -51,9 +51,9 @@ public class MapLoader implements Runnable{
             String nameOfRandFile = allFiles[randFileIndex].getName();
 
             path = allMapsPath + "/" + nameOfRandFile.substring(0, nameOfRandFile.lastIndexOf('.')) + ".map";
-        } while (!new File(path).exists()); //Если у файла расширение .map, то выходим из цикла
+        } while (!Global.getFile(path).exists()); //Если у файла расширение .map, то выходим из цикла
 
-        return new File(path);
+        return Global.getFile(path);
     }
 
     //Загрузка всех объектов карты в память сервера (ServerData)

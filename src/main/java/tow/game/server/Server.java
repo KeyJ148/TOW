@@ -1,5 +1,6 @@
 package tow.game.server;
 
+import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.TextureManager;
 import tow.engine.implementation.ServerInterface;
@@ -51,7 +52,7 @@ public class Server implements ServerInterface {
 
         //Запускаем новую карту
         if (ServerLoader.mapPath != null) {
-            new MapLoader().loadMap(new File(ServerLoader.mapPath));
+            new MapLoader().loadMap(Global.getFile(ServerLoader.mapPath));
         } else {
             new MapLoader().loadRandomMap(PATH_MAP);
         }

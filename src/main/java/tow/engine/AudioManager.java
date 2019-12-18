@@ -23,7 +23,7 @@ public class AudioManager {
 
         loadFromDirectory(Global.getFile(PATH_TO_AUDIO_ROOT), "wav");
         for(int i=0; i<audios.length; i++){
-            load(audios[i]);
+            load(Global.getFile(audios[i]));
         }
     }
 
@@ -33,22 +33,22 @@ public class AudioManager {
                 loadFromDirectory(file, format);
             } else {
                 String name = file.getName();
-                if (name.substring(name.lastIndexOf(".")+1).equals(format)) load(file.getPath());
+                if (name.substring(name.lastIndexOf(".")+1).equals(format)) load(file);
             }
         }
     }
 
-    private static void load(String path){
+    private static void load(File file){
         try{
-            Audio audio = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream(path));
+            Audio audio = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream(file.getPath()));
 
-            String name = new File(path).getName();
+            String name = file.getName();
             String shortName = name.substring(0, name.lastIndexOf("."));
             audios.put(shortName, audio);
 
-            Logger.println("Load audio \"" + path + "\" complited", Logger.Type.DEBUG_AUDIO);
-        } catch (IOException e1) {
-            Logger.println("Audio \"" + path + "\" not loading", Logger.Type.ERROR);
+            Logger.println("Load audio \"" + file.getPath() + "\" complited", Logger.Type.DEBUG_AUDIO);
+        } catch (Exception e1) {
+            Logger.println("Audio \"" + file.getPath() + "\" not loading", Logger.Type.ERROR);
         }
     }
 
