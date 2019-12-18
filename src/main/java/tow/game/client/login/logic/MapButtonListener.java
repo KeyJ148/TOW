@@ -20,7 +20,7 @@ public class MapButtonListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JFileChooser fileOpen = new JFileChooser();
-		fileOpen.setCurrentDirectory(Global.getFile("./res/map"));
+		fileOpen.setCurrentDirectory(Global.getFile("map"));
 		if (fileOpen.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION){
 			File file = fileOpen.getSelectedFile();
 			ClientData.map = file.getPath();

@@ -11,11 +11,9 @@ import tow.game.server.assistants.MapLoader;
 import tow.game.server.data.PlayerData;
 import tow.game.server.data.ServerData;
 
-import java.io.File;
-
 public class Server implements ServerInterface {
 
-    public static final String PATH_MAP = "res/map";
+    public static final String PATH_MAP = "map";
     public static final long DELAY_MAP_CHANGE = 2000; //Задержка перед рестартом сервера (милисекунды)
 
     @Override
