@@ -3,9 +3,24 @@ plugins {
     id 'application'
 }
 
+version = '4.0a-SNAPSHOT'
+
+applicationDefaultJvmArgs = ["-Djava.library.path=./lib;./lib/native"]
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
 repositories {
     jcenter()
 }
+
+/*
+processResources {
+    from 'main/res' into 'res'
+    from 'res' into 'res'
+    from 'resources' into 'res'
+}
+*/
 
 dependencies {
     //implementation 'org.lwjgl.lwjgl:lwjgl:2.9.3'
@@ -14,7 +29,7 @@ dependencies {
 
     implementation files('lib/lwjgl.jar')
     implementation files('lib/slick-util.jar')
-    runtime fileTree('lib/naive')
+runtime fileTree('lib/native/')
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.1'
