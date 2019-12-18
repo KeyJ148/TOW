@@ -97,10 +97,9 @@ public class Loader {
 
 		if (!successLoad){
 			try{
-				String nativeLibPath = new File("").getAbsolutePath() + "/lib/native/";
-				System.load(nativeLibPath + "libjinput-linux64.so");
-				System.load(nativeLibPath + "libopenal64.so");
-				System.load(nativeLibPath + "liblwjgl64.so");
+				System.loadLibrary("libjinput-linux64");
+				System.loadLibrary("libopenal64");
+				System.loadLibrary("liblwjgl64");
 				Logger.println("64-bit native module load complite (Linux)", Logger.Type.DEBUG);
 				successLoad = true;
 			} catch (UnsatisfiedLinkError e){}
