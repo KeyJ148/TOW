@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class ConfigReader {
 
-	public static final String PATH_SETTING_DIR = "setting/";
+	public static final String PATH_SETTING_DIR = "settings/";
 	private String path;
 
 	public ConfigReader(String fileName){

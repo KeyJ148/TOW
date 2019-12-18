@@ -13,7 +13,7 @@ import tow.game.server.data.ServerData;
 
 public class Server implements ServerInterface {
 
-    public static final String PATH_MAP = "map";
+    public static final String PATH_MAP = "maps/";
     public static final long DELAY_MAP_CHANGE = 2000; //Задержка перед рестартом сервера (милисекунды)
 
     @Override
