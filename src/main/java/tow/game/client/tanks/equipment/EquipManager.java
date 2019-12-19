@@ -1,6 +1,5 @@
 package tow.game.client.tanks.equipment;
 
-import tow.engine.Global;
 import tow.engine.Loader;
 import tow.engine.io.Logger;
 import tow.engine.setting.ConfigReader;
@@ -33,7 +32,7 @@ public class EquipManager {
         do{
             exit = false;
 
-            File[] dir = Global.getFile(ConfigReader.PATH_SETTING_DIR + Armor.PATH_SETTING).listFiles();
+            File[] dir = new File(ConfigReader.PATH_SETTING_DIR + Armor.PATH_SETTING).listFiles();
             File config = dir[random.nextInt(dir.length)];
             if (!config.getName().contains(".properties")) continue;
 
@@ -103,7 +102,7 @@ public class EquipManager {
         do{
             exit = false;
 
-            File[] dir = Global.getFile(ConfigReader.PATH_SETTING_DIR + Bullet.PATH_SETTING).listFiles();
+            File[] dir = new File(ConfigReader.PATH_SETTING_DIR + Bullet.PATH_SETTING).listFiles();
             File config = dir[random.nextInt(dir.length)];
             if (!config.getName().contains(".properties")) continue;
 
@@ -136,3 +135,4 @@ public class EquipManager {
     }
 
 }
+
