@@ -1,5 +1,7 @@
 package tow.game.server;
 
+import java.io.File;
+
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.TextureManager;
@@ -50,7 +52,7 @@ public class Server implements ServerInterface {
 
         //Запускаем новую карту
         if (ServerLoader.mapPath != null) {
-            new MapLoader().loadMap(Global.getFile(ServerLoader.mapPath));
+            new MapLoader().loadMap(new File(ServerLoader.mapPath));
         } else {
             new MapLoader().loadRandomMap(PATH_MAP);
         }
@@ -102,3 +104,4 @@ public class Server implements ServerInterface {
         return new Vector2<>(xRand, yRand);
     }
 }
+

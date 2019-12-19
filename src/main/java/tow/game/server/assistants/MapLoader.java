@@ -22,6 +22,7 @@ public class MapLoader implements Runnable{
 
     public void loadMap(File map){
         Logger.println("Loading map: " + map.getName(), Logger.Type.SERVER_INFO);
+        System.out.println(map.getAbsolutePath());
 
         disableBattle();
         loadMapToMemory(map);
@@ -43,17 +44,20 @@ public class MapLoader implements Runnable{
 
     //Выбор рандомной карты из папки с картами
     private File chooseRandomMap(String allMapsPath){
-        File[] allFiles = Global.getFile(allMapsPath).listFiles();
+        System.out.println(allMapsPath);
+        File[] allFiles = new File(allMapsPath).listFiles();
+        System.out.println(new File(allMapsPath).getAbsolutePath());
+        System.out.println(allFiles.length);
 
         String path;
         do {
             int randFileIndex = (int) Math.round(Math.random()*(allFiles.length-1));
             String nameOfRandFile = allFiles[randFileIndex].getName();
 
-            path = allMapsPath + "/" + nameOfRandFile.substring(0, nameOfRandFile.lastIndexOf('.')) + ".map";
-        } while (!Global.getFile(path).exists()); //Если у файла расширение .map, то выходим из цикла
+            path = allMapsPath + nameOfRandFile.substring(0, nameOfRandFile.lastIndexOf('.')) + ".map";
+        } while (! new File(path).exists()); //Если у файла расширение .map, то выходим из цикла
 
-        return Global.getFile(path);
+        return new File(path);
     }
 
     //Загрузка всех объектов карты в память сервера (ServerData)
@@ -118,17 +122,17 @@ public class MapLoader implements Runnable{
             if (mapObject.textureName.equals("sys_tank")) continue;
 
             ServerSendTCP.sendAll(9, mapObject.x
-                          + " " + mapObject.y
-                          + " " + mapObject.direction
-                          + " " + mapObject.textureName
-                          + " " + mid);
+                    + " " + mapObject.y
+                    + " " + mapObject.direction
+                    + " " + mapObject.textureName
+                    + " " + mid);
         }
 
         //Отправляем всем игркоам их позиции
         for (int i = 0; i<ServerData.playerData.length; i++){
             ServerSendTCP.send(i, 5, ServerData.playerData[i].x
-                          + " " + ServerData.playerData[i].y
-                          + " " + ServerData.playerData[i].direction);
+                    + " " + ServerData.playerData[i].y
+                    + " " + ServerData.playerData[i].direction);
         }
 
         //Говорим всем, что отправка карты завершена
@@ -162,3 +166,4 @@ public class MapLoader implements Runnable{
         ServerSendTCP.sendAll(11, "");
     }
 }
+
