@@ -14,10 +14,19 @@ public class SettingsStorageHandler {
         initExternalSettings();
     }
 
-    private static void initExternalSettings() throws IOException {
-        SettingsStorage.DISPLAY = SettingsLoader.loadExternalSettings(SettingsStorage.Display.class);
-        SettingsStorage.MUSIC = SettingsLoader.loadExternalSettings(SettingsStorage.Music.class);
-        SettingsStorage.LOGGER = SettingsLoader.loadExternalSettings(SettingsStorage.Logger.class);
+    private static void initExternalSettings() throws IOException{
+        SettingsStorage.DISPLAY = initExternalSettingsOrDefaultFromInternal(SettingsStorage.Display.class);
+        SettingsStorage.LOGGER = initExternalSettingsOrDefaultFromInternal(SettingsStorage.Logger.class);
+        SettingsStorage.MUSIC = initExternalSettingsOrDefaultFromInternal(SettingsStorage.Music.class);
+    }
+
+    private static <T> T initExternalSettingsOrDefaultFromInternal(Class<T> settingsContainerClass) throws IOException{
+        try {
+            return SettingsLoader.loadExternalSettings(settingsContainerClass);
+        } catch (Exception e){
+            saveDefaultSettingsToExternalSettings(settingsContainerClass);
+            return SettingsLoader.loadExternalSettings(settingsContainerClass);
+        }
     }
 
     private static void initInternalSettings() throws IOException{
