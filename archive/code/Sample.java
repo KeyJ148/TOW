@@ -1,9 +1,9 @@
 package game.client;
 
-import engine.Vector2;
-import engine.obj.Obj;
-import engine.obj.components.particles.Part;
-import engine.obj.components.particles.ParticlesGeometry;
+import tow.engine.Vector2;
+import tow.engine.obj.Obj;
+import tow.engine.obj.components.particles.Part;
+import tow.engine.obj.components.particles.ParticlesGeometry;
 import org.newdawn.slick.Color;
 
 import java.util.Random;
