@@ -5,7 +5,8 @@ import tow.engine.implementation.NetServerReadInterface;
 import tow.engine.implementation.ServerInterface;
 import tow.engine.io.Logger;
 import tow.engine.net.server.readers.ServerReadUDP;
-import tow.engine.setting.SettingStorage;
+import tow.engine.resources.settings.SettingsStorage;
+import tow.engine.resources.settings.SettingsStorageHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -79,13 +80,18 @@ public class GameServer {
 	public static void waitConnect(){
 		try {
 			connects = new Connect[peopleMax]; //Выделение места под массив подключений всех игроков
-			SettingStorage.init();
+			try {
+				SettingsStorageHandler.init();
+			} catch (IOException e){
+				e.printStackTrace();
+				System.exit(0);
+			}
 
 			ServerSocket serverSocketTCP = new ServerSocket(port);
 			socketUDP = new DatagramSocket(port);
-			socketUDP.setSendBufferSize(SettingStorage.Net.SEND_BUF_SIZE);
-			socketUDP.setReceiveBufferSize(SettingStorage.Net.RECEIVE_BUF_SIZE);
-			socketUDP.setTrafficClass(SettingStorage.Net.TRAFFIC_CLASS);
+			socketUDP.setSendBufferSize(SettingsStorage.NETWORK.SEND_BUF_SIZE);
+			socketUDP.setReceiveBufferSize(SettingsStorage.NETWORK.RECEIVE_BUF_SIZE);
+			socketUDP.setTrafficClass(SettingsStorage.NETWORK.TRAFFIC_CLASS);
 
 			server.init();
 

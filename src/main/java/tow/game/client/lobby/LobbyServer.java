@@ -3,7 +3,6 @@ package tow.game.client.lobby;
 import tow.engine.Loader;
 import tow.engine.io.Logger;
 import tow.engine.net.client.Connector;
-import tow.engine.setting.SettingStorage;
 import tow.game.client.ClientData;
 import tow.game.server.ServerLoader;
 
@@ -82,7 +81,7 @@ public class LobbyServer implements ActionListener, StartServerListener, Runnabl
         //Запуск потока сервера (+1 потому что хост тоже подключится к серверу)
         ServerLoader.startServerListener = this;
         ServerLoader.mapPath = ClientData.map;
-        new ServerLoader(port, connects.size()+1, SettingStorage.Performance.MAX_POWER_SERVER);
+        new ServerLoader(port, connects.size()+1, false);
     }
 
     //Обратная связь сервера о том, что он готов принять клиентов

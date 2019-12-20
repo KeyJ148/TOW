@@ -1,15 +1,13 @@
 package tow.engine;
 
-import tow.engine.Global;
-import tow.engine.image.Camera;
-import tow.engine.io.Logger;
-import tow.engine.setting.SettingStorage;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.util.ResourceLoader;
+import tow.engine.image.Camera;
+import tow.engine.io.Logger;
+import tow.engine.resources.settings.SettingsStorage;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.TreeMap;
 
 public class AudioManager {
@@ -61,7 +59,7 @@ public class AudioManager {
 
     public static void playSoundEffect(String name){
         Audio audio = getAudio(name);
-        if (audio != null) audio.playAsSoundEffect(1.0f, (float) SettingStorage.Music.SOUND_VOLUME, false);
+        if (audio != null) audio.playAsSoundEffect(1.0f, (float) SettingsStorage.MUSIC.SOUND_VOLUME, false);
     }
 
     public static void playSoundEffect(String name, int x, int y, int range){
@@ -85,7 +83,7 @@ public class AudioManager {
         double dis = Math.sqrt(Math.pow(x-cameraX, 2) + Math.pow(y-cameraY, 2));
 
         if (audio != null && dis < range){
-            float soundVolume = (float) (SettingStorage.Music.SOUND_VOLUME * (1-(dis/range)));
+            float soundVolume = (float) (SettingsStorage.MUSIC.SOUND_VOLUME * (1-(dis/range)));
             audio.playAsSoundEffect(1.0f, soundVolume, false);
         }
     }

@@ -2,13 +2,11 @@ package tow.game.client.login.gui;
 
 import tow.engine.Global;
 import tow.engine.io.Logger;
-import tow.engine.setting.SettingStorage;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class SpriteAWT {
@@ -24,7 +22,7 @@ public class SpriteAWT {
 		BufferedImage sourceImage = null;
         try {
 			sourceImage = ImageIO.read(Global.getFile(path));
-			if (SettingStorage.Logger.DEBUG_CONSOLE_IMAGE) Logger.println("Load imageAWT \"" + path + "\" complited.", Logger.Type.INFO);
+			Logger.println("Load imageAWT \"" + path + "\" complited.", Logger.Type.DEBUG_IMAGE);
         } catch (IOException e1) {
 			Logger.println("Image \"" + path + "\" not loading", Logger.Type.ERROR);
 		} catch (UnsupportedOperationException e2){

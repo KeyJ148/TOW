@@ -5,8 +5,8 @@ import tow.engine.Vector2;
 import tow.engine.image.Camera;
 import tow.engine.image.Mask;
 import tow.engine.obj.Obj;
-import tow.engine.setting.SettingStorage;
 import org.lwjgl.opengl.GL11;
+import tow.engine.resources.settings.SettingsStorage;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class Collision extends Component {
 
 	@Override
 	public void draw(){
-		if (!SettingStorage.Logger.MASK_DRAW) return;
+		if (!SettingsStorage.LOGGER.MASK_DRAW) return;
 
 		Vector2<Integer>[] maskDrawView = new Vector2[maskAbsolute.length];
 		for (int i=0;i<maskDrawView.length;i++)

@@ -3,7 +3,7 @@ package tow.engine.cycle;
 import tow.engine.Global;
 import tow.engine.io.Logger;
 import tow.engine.net.client.Ping;
-import tow.engine.setting.SettingStorage;
+import tow.engine.resources.settings.SettingsStorage;
 
 public class Analyzer {
 
@@ -77,7 +77,7 @@ public class Analyzer {
 		Logger.println(strFPS1, Logger.Type.CONSOLE_FPS);
 		Logger.println(strFPS2, Logger.Type.CONSOLE_FPS);
 
-		if (SettingStorage.Logger.DEBUG_MONITOR_FPS){
+		if (SettingsStorage.LOGGER.DEBUG_MONITOR_FPS){
 			Global.engine.render.strAnalysis1 = strFPS1;
 			Global.engine.render.strAnalysis2 = strFPS2;
 		}

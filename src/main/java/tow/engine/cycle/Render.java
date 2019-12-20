@@ -1,5 +1,10 @@
 package tow.engine.cycle;
 
+import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
 import tow.engine.Global;
 import tow.engine.Loader;
 import tow.engine.Vector2;
@@ -9,12 +14,7 @@ import tow.engine.io.KeyboardHandler;
 import tow.engine.io.Logger;
 import tow.engine.io.MouseHandler;
 import tow.engine.obj.Obj;
-import tow.engine.setting.SettingStorage;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.Color;
+import tow.engine.resources.settings.SettingsStorage;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -33,19 +33,19 @@ public class Render{
 
 		//Создание и настройка окна
 		try {
-			if (SettingStorage.Display.FULL_SCREEN){
+			if (SettingsStorage.DISPLAY.FULL_SCREEN){
 				Display.setFullscreen(true);
 				this.width = Display.getWidth();
 				this.height = Display.getHeight();
 			} else {
-				this.width = SettingStorage.Display.WIDTH_SCREEN;
-				this.height = SettingStorage.Display.HEIGHT_SCREEN;
+				this.width = SettingsStorage.DISPLAY.WIDTH_SCREEN;
+				this.height = SettingsStorage.DISPLAY.HEIGHT_SCREEN;
 				Display.setDisplayMode(new DisplayMode(width, height));
 			}
 			Display.create();
 			Display.setResizable(false);
-			Display.setTitle(SettingStorage.Display.WINDOW_NAME);
-			Display.setVSyncEnabled(SettingStorage.Display.SYNC != 0);
+			Display.setTitle(SettingsStorage.DISPLAY.WINDOW_NAME);
+			Display.setVSyncEnabled(SettingsStorage.DISPLAY.SYNC != 0);
 		} catch (LWJGLException e) {
 			Logger.println(e.getMessage(), Logger.Type.ERROR);
 			Loader.exit();
@@ -190,8 +190,8 @@ public class Render{
 
 	public void sync(){
 		Display.update();
-		if (SettingStorage.Display.SYNC != 0)
-			Display.sync(SettingStorage.Display.SYNC);
+		if (SettingsStorage.DISPLAY.SYNC != 0)
+			Display.sync(SettingsStorage.DISPLAY.SYNC);
 	}
 
 	public int getWidth(){

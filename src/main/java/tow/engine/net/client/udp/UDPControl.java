@@ -4,7 +4,7 @@ import tow.engine.Loader;
 import tow.engine.io.Logger;
 import tow.engine.net.NetTools;
 import tow.engine.net.client.NetControl;
-import tow.engine.setting.SettingStorage;
+import tow.engine.resources.settings.SettingsStorage;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -22,9 +22,9 @@ public class UDPControl extends NetControl {
         this.port = port;
         try {
             socket = new DatagramSocket();
-            socket.setSendBufferSize(SettingStorage.Net.SEND_BUF_SIZE);
-            socket.setReceiveBufferSize(SettingStorage.Net.RECEIVE_BUF_SIZE);
-            socket.setTrafficClass(SettingStorage.Net.TRAFFIC_CLASS);
+            socket.setSendBufferSize(SettingsStorage.NETWORK.SEND_BUF_SIZE);
+            socket.setReceiveBufferSize(SettingsStorage.NETWORK.RECEIVE_BUF_SIZE);
+            socket.setTrafficClass(SettingsStorage.NETWORK.TRAFFIC_CLASS);
         } catch (IOException e){
             Logger.println("Connection failed (UDP)", Logger.Type.ERROR);
             Loader.exit();
@@ -51,7 +51,7 @@ public class UDPControl extends NetControl {
 
     @Override
     public String read() {
-        int size = SettingStorage.Net.UDP_READ_BYTE_ARRAY_LEN;
+        int size = SettingsStorage.NETWORK.UDP_READ_BYTE_ARRAY_LEN;
 
         try{
             DatagramPacket packet = new DatagramPacket(new byte[size], size);

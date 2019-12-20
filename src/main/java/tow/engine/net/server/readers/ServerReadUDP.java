@@ -6,7 +6,7 @@ import tow.engine.net.NetTools;
 import tow.engine.net.server.Connect;
 import tow.engine.net.server.GameServer;
 import tow.engine.net.server.MessagePack;
-import tow.engine.setting.SettingStorage;
+import tow.engine.resources.settings.SettingsStorage;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -20,7 +20,7 @@ public class ServerReadUDP extends Thread{
 		String str, ipSender;
 		int portSender;
 		try{
-			int size = SettingStorage.Net.UDP_READ_BYTE_ARRAY_LEN;;
+			int size = SettingsStorage.NETWORK.UDP_READ_BYTE_ARRAY_LEN;;
 
 			while (true){
 				//Ждем сообщение

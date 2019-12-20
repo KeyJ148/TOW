@@ -3,7 +3,7 @@ package tow.engine.net.client.tcp;
 import tow.engine.Loader;
 import tow.engine.io.Logger;
 import tow.engine.net.client.NetControl;
-import tow.engine.setting.SettingStorage;
+import tow.engine.resources.settings.SettingsStorage;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -17,12 +17,14 @@ public class TCPControl extends NetControl {
 	public void connect(String ip, int port){
 		try{
 			Socket socket = new Socket(InetAddress.getByName(ip), port);
-			socket.setTcpNoDelay(SettingStorage.Net.TCP_NODELAY);
-			socket.setKeepAlive(SettingStorage.Net.KEEP_ALIVE);
-			socket.setSendBufferSize(SettingStorage.Net.SEND_BUF_SIZE);
-			socket.setReceiveBufferSize(SettingStorage.Net.RECEIVE_BUF_SIZE);
-			socket.setPerformancePreferences(SettingStorage.Net.PREFERENCE_CON_TIME, SettingStorage.Net.PREFERENCE_LATENCY, SettingStorage.Net.PREFERENCE_BANDWIDTH);
-			socket.setTrafficClass(SettingStorage.Net.TRAFFIC_CLASS);
+			socket.setTcpNoDelay(SettingsStorage.NETWORK.TCP_NODELAY);
+			socket.setKeepAlive(SettingsStorage.NETWORK.KEEP_ALIVE);
+			socket.setSendBufferSize(SettingsStorage.NETWORK.SEND_BUF_SIZE);
+			socket.setReceiveBufferSize(SettingsStorage.NETWORK.RECEIVE_BUF_SIZE);
+			socket.setPerformancePreferences(SettingsStorage.NETWORK.PREFERENCE_CON_TIME,
+					SettingsStorage.NETWORK.PREFERENCE_LATENCY,
+					SettingsStorage.NETWORK.PREFERENCE_BANDWIDTH);
+			socket.setTrafficClass(SettingsStorage.NETWORK.TRAFFIC_CLASS);
 			
 			InputStream inS = socket.getInputStream();
 			OutputStream outS = socket.getOutputStream();

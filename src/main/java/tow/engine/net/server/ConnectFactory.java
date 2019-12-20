@@ -1,6 +1,6 @@
 package tow.engine.net.server;
 
-import tow.engine.setting.SettingStorage;
+import tow.engine.resources.settings.SettingsStorage;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -12,14 +12,16 @@ public class ConnectFactory {
 
     public static Connect createConnect(ServerSocket serverSocket, DatagramSocket socketUDP, int id) throws IOException{
         Socket socketTCP = serverSocket.accept();
-        socketTCP.setTcpNoDelay(SettingStorage.Net.TCP_NODELAY);
-        socketTCP.setKeepAlive(SettingStorage.Net.KEEP_ALIVE);
-        socketTCP.setSendBufferSize(SettingStorage.Net.SEND_BUF_SIZE);
-        socketTCP.setReceiveBufferSize(SettingStorage.Net.RECEIVE_BUF_SIZE);
-        socketTCP.setPerformancePreferences(SettingStorage.Net.PREFERENCE_CON_TIME, SettingStorage.Net.PREFERENCE_LATENCY, SettingStorage.Net.PREFERENCE_BANDWIDTH);
-        socketTCP.setTrafficClass(SettingStorage.Net.TRAFFIC_CLASS);
+        socketTCP.setTcpNoDelay(SettingsStorage.NETWORK.TCP_NODELAY);
+        socketTCP.setKeepAlive(SettingsStorage.NETWORK.KEEP_ALIVE);
+        socketTCP.setSendBufferSize(SettingsStorage.NETWORK.SEND_BUF_SIZE);
+        socketTCP.setReceiveBufferSize(SettingsStorage.NETWORK.RECEIVE_BUF_SIZE);
+        socketTCP.setPerformancePreferences(SettingsStorage.NETWORK.PREFERENCE_CON_TIME,
+                SettingsStorage.NETWORK.PREFERENCE_LATENCY,
+                SettingsStorage.NETWORK.PREFERENCE_BANDWIDTH);
+        socketTCP.setTrafficClass(SettingsStorage.NETWORK.TRAFFIC_CLASS);
 
-        int size = SettingStorage.Net.UDP_READ_BYTE_ARRAY_LEN;
+        int size = SettingsStorage.NETWORK.UDP_READ_BYTE_ARRAY_LEN;
         while (true){
             DatagramPacket connectionPacket = new DatagramPacket(new byte[size], size);
             socketUDP.receive(connectionPacket);

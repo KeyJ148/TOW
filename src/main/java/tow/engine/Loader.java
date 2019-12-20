@@ -1,5 +1,8 @@
 package tow.engine;
 
+import org.lwjgl.openal.AL;
+import org.lwjgl.opengl.Display;
+import org.newdawn.slick.util.Log;
 import tow.engine.cycle.Analyzer;
 import tow.engine.cycle.Engine;
 import tow.engine.image.TextureManager;
@@ -12,12 +15,10 @@ import tow.engine.net.client.tcp.TCPControl;
 import tow.engine.net.client.tcp.TCPRead;
 import tow.engine.net.client.udp.UDPControl;
 import tow.engine.net.client.udp.UDPRead;
-import tow.engine.setting.SettingStorage;
-import org.lwjgl.openal.AL;
-import org.lwjgl.opengl.Display;
-import org.newdawn.slick.util.Log;
+import tow.engine.resources.settings.SettingsStorage;
+import tow.engine.resources.settings.SettingsStorageHandler;
 
-import java.io.File;
+import java.io.IOException;
 
 public class Loader {
 
@@ -37,21 +38,26 @@ public class Loader {
 	}
 
 	private static void loggerInit(){
-		SettingStorage.init();//Загрузка настроек
+		try {
+			SettingsStorageHandler.init();//Загрузка настроек
+		} catch (IOException e){
+			e.printStackTrace();
+			exit();
+		}
 
 		//Установка настроек логирования
 		Logger.enable(Logger.Type.INFO);
 		Logger.enable(Logger.Type.SERVER_INFO);
-		if (SettingStorage.Logger.ERROR_CONSOLE) Logger.enable(Logger.Type.ERROR);
-		if (SettingStorage.Logger.ERROR_CONSOLE_SERVER) Logger.enable(Logger.Type.SERVER_ERROR);
-		if (SettingStorage.Logger.DEBUG_CONSOLE) Logger.enable(Logger.Type.DEBUG);
-		if (SettingStorage.Logger.DEBUG_CONSOLE_OBJECT) Logger.enable(Logger.Type.DEBUG_OBJECT);
-		if (SettingStorage.Logger.DEBUG_CONSOLE_IMAGE) Logger.enable(Logger.Type.DEBUG_IMAGE);
-		if (SettingStorage.Logger.DEBUG_CONSOLE_MASK) Logger.enable(Logger.Type.DEBUG_MASK);
-		if (SettingStorage.Logger.DEBUG_CONSOLE_AUDIO) Logger.enable(Logger.Type.DEBUG_AUDIO);
-		if (SettingStorage.Logger.DEBUG_CONSOLE_FPS) Logger.enable(Logger.Type.CONSOLE_FPS);
-		if (SettingStorage.Logger.DEBUG_CONSOLE_SERVER) Logger.enable(Logger.Type.SERVER_DEBUG);
-		if (SettingStorage.Logger.DEBUG_CONSOLE_MPS) Logger.enable(Logger.Type.MPS);
+		if (SettingsStorage.LOGGER.ERROR_CONSOLE) Logger.enable(Logger.Type.ERROR);
+		if (SettingsStorage.LOGGER.ERROR_CONSOLE_SERVER) Logger.enable(Logger.Type.SERVER_ERROR);
+		if (SettingsStorage.LOGGER.DEBUG_CONSOLE) Logger.enable(Logger.Type.DEBUG);
+		if (SettingsStorage.LOGGER.DEBUG_CONSOLE_OBJECT) Logger.enable(Logger.Type.DEBUG_OBJECT);
+		if (SettingsStorage.LOGGER.DEBUG_CONSOLE_IMAGE) Logger.enable(Logger.Type.DEBUG_IMAGE);
+		if (SettingsStorage.LOGGER.DEBUG_CONSOLE_MASK) Logger.enable(Logger.Type.DEBUG_MASK);
+		if (SettingsStorage.LOGGER.DEBUG_CONSOLE_AUDIO) Logger.enable(Logger.Type.DEBUG_AUDIO);
+		if (SettingsStorage.LOGGER.DEBUG_CONSOLE_FPS) Logger.enable(Logger.Type.CONSOLE_FPS);
+		if (SettingsStorage.LOGGER.DEBUG_CONSOLE_SERVER) Logger.enable(Logger.Type.SERVER_DEBUG);
+		if (SettingsStorage.LOGGER.DEBUG_CONSOLE_MPS) Logger.enable(Logger.Type.MPS);
 	}
 
 	//Инициализация движка перед запуском
@@ -116,7 +122,7 @@ public class Loader {
 		AL.destroy();
 
 		//Вывод пути выхода
-		if (SettingStorage.Logger.DEBUG_CONSOLE){
+		if (SettingsStorage.LOGGER.DEBUG_CONSOLE){
 			Logger.println("Exit stack trace: ", Logger.Type.DEBUG);
 			new Exception().printStackTrace(System.out);
 		}

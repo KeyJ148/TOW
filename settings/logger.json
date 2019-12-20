@@ -1,0 +1,14 @@
+{
+  "ERROR_CONSOLE": true,
+  "ERROR_CONSOLE_SERVER": true,
+  "DEBUG_CONSOLE": true,
+  "DEBUG_CONSOLE_OBJECT": false,
+  "DEBUG_CONSOLE_IMAGE": false,
+  "DEBUG_CONSOLE_MASK": false,
+  "DEBUG_CONSOLE_AUDIO": false,
+  "DEBUG_CONSOLE_FPS": false,
+  "DEBUG_CONSOLE_SERVER": true,
+  "DEBUG_CONSOLE_MPS": true,
+  "DEBUG_MONITOR_FPS": true,
+  "MASK_DRAW": false
+}

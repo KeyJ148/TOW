@@ -1,12 +1,12 @@
 package tow.engine.obj.components;
 
+import org.lwjgl.opengl.GL11;
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.Camera;
 import tow.engine.image.Mask;
 import tow.engine.obj.Obj;
-import tow.engine.setting.SettingStorage;
-import org.lwjgl.opengl.GL11;
+import tow.engine.resources.settings.SettingsStorage;
 
 import java.util.ArrayList;
 
@@ -54,7 +54,7 @@ public class CollisionDirect extends Collision {
 	//Отрисовка маски
 	@Override
 	public void draw(){
-		if (!SettingStorage.Logger.MASK_DRAW || positionCollision == null) return;
+		if (!SettingsStorage.LOGGER.MASK_DRAW || positionCollision == null) return;
 
 		GL11.glLoadIdentity();
 	    GL11.glTranslatef(0, 0, 0);
