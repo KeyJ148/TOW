@@ -2,7 +2,7 @@ package tow.game.client.login.logic;
 
 import tow.engine2.Loader;
 import tow.engine2.io.Logger;
-import java.awt.Color;
+import tow.engine2.image.Color;
 
 public class LoginDataChecker {
 

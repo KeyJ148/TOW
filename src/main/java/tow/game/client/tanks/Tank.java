@@ -11,7 +11,7 @@ import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
 import tow.game.client.particles.Explosion;
 import tow.game.client.tanks.enemy.Enemy;
-import java.awt.Color;
+import tow.engine2.image.Color;
 
 import java.util.Map;
 
@@ -24,7 +24,7 @@ public abstract class Tank extends Obj{
     public Obj camera;
 
     public String name = "";
-    public Color color = Color.white;
+    public Color color = new Color(Color.WHITE);
     public boolean alive = true;
 
     public int kill = 0;

@@ -19,7 +19,7 @@ public class ParticlesTexture extends Particles {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
 
         for (Part part : parts){
-            glColor4i(part.color.getRed(), part.color.getGreen(), part.color.getBlue(), part.color.getAlpha());
+            part.color.bind();
             part.textureHandler.texture.bind();
             Vector2<Integer> relativePosition = Camera.toRelativePosition(new Vector2((int) part.x, (int) part.y));
 

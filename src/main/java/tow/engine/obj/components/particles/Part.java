@@ -1,7 +1,7 @@
 package tow.engine.obj.components.particles;
 
 import tow.engine.image.TextureHandler;
-import java.awt.Color;
+import tow.engine2.image.Color;
 
 public class Part{
 
@@ -38,7 +38,7 @@ public class Part{
     }
 
     public Part(int x, int y, double life, double speed, double direction, double directionDraw, int width, int height, Type type){
-        this(x, y, life, speed, direction, directionDraw, width, height, Color.white, type);
+        this(x, y, life, speed, direction, directionDraw, width, height, new Color(Color.WHITE), type);
     }
 
     public Part(int x, int y, double life, double speed, double direction, double directionDraw, int width, int height, Color color, Type type){

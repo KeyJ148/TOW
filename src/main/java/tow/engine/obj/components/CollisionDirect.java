@@ -6,6 +6,7 @@ import tow.engine2.Vector2;
 import tow.engine.image.Camera;
 import tow.engine.image.Mask;
 import tow.engine.obj.Obj;
+import tow.engine2.image.Color;
 import tow.engine2.resources.settings.SettingsStorage;
 
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class CollisionDirect extends Collision {
 
 		GL11.glLoadIdentity();
 	    GL11.glTranslatef(0, 0, 0);
-	    GL11.glColor3d(0.0, 0.0, 1.0);
+		new Color(Color.BLUE).bind();
 	    GL11.glDisable(GL11.GL_TEXTURE_2D);
 
 		Vector2<Integer> relativePosition = Camera.toRelativePosition(new Vector2(positionCollision.x-10, positionCollision.y-10));

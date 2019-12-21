@@ -2,13 +2,13 @@ package tow.engine.obj.components.render;
 
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.Component;
-import java.awt.Color;
+import tow.engine2.image.Color;
 
 public abstract class Rendering extends Component {
 
     public double scale_x = 1;
     public double scale_y = 1;
-    public Color color = Color.white;
+    public Color color = new Color(Color.WHITE);
 
     public Rendering(Obj obj) {
         super(obj);

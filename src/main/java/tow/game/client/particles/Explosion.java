@@ -5,7 +5,7 @@ import tow.engine.obj.Obj;
 import tow.engine.obj.components.particles.Part;
 import tow.engine.obj.components.particles.ParticlesTexture;
 
-import java.awt.Color;
+import tow.engine2.image.Color;
 import java.util.Random;
 
 public class Explosion extends ParticlesTexture {

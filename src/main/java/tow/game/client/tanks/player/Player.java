@@ -12,7 +12,7 @@ import tow.game.client.tanks.Stats;
 import tow.game.client.tanks.Tank;
 import tow.game.client.tanks.equipment.armor.ADefault;
 import tow.game.client.tanks.equipment.gun.GDefault;
-import java.awt.Color;
+import tow.engine2.image.Color;
 
 import java.awt.*;
 import java.util.ArrayList;

@@ -33,7 +33,7 @@ public class Sprite extends Rendering {
 	    GL11.glTranslatef((float) xView, (float) yView, 0);
 	    GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
 
-        glColor4i(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+        color.bind();
 	    textureHandler.texture.bind();
 
         GL11.glBegin(GL11.GL_QUADS);

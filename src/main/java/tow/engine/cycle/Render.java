@@ -14,8 +14,9 @@ import tow.engine2.io.Logger;
 import tow.engine.io.MouseHandler;
 import tow.engine.obj.Obj;
 import tow.engine2.resources.settings.SettingsStorage;
+import tow.engine2.image.Color;
 
-import java.awt.*;
+import java.awt.Font;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 
@@ -148,8 +149,7 @@ public class Render{
 			GL11.glTranslatef(0, 0, 0);
 			GL11.glDisable(GL11.GL_TEXTURE_2D);
 
-			GL11.glColor3f(1f, 1f, 1f);
-			//GL11.glColor4b((byte) Color.white.getRed(), (byte) Color.white.getGreen(), (byte) Color.white.getBlue(), (byte) Color.white.getAlpha());
+			new Color(Color.WHITE).bind();
 
 			GL11.glBegin(GL11.GL_QUADS);
 			GL11.glTexCoord2f(0,0);
@@ -167,8 +167,7 @@ public class Render{
 		GL11.glLoadIdentity();
 		GL11.glTranslatef(0, 0, 0);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glColor3f(0.5f, 0.5f, 0.5f);
-		//GL11.glColor4b((byte) Color.gray.getRed(), (byte) Color.gray.getGreen(), (byte) Color.gray.getBlue(), (byte) Color.gray.getAlpha());
+		new Color(Color.GRAY).bind();
 
 		int fillW = (width - Global.room.width)/2;
 		int fillH = (height - Global.room.height)/2;
