@@ -1,7 +1,7 @@
 package tow.game.client.lobby;
 
-import tow.engine.Loader;
-import tow.engine.io.Logger;
+import tow.engine2.Loader;
+import tow.engine2.io.Logger;
 import tow.engine.net.client.Connector;
 
 import java.io.DataInputStream;

@@ -1,6 +1,6 @@
 package tow.engine.net.client;
 
-import tow.engine.Global;
+import tow.engine2.Global;
 
 public class Ping {
 	

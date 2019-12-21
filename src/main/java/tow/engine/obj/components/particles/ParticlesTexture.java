@@ -1,9 +1,11 @@
 package tow.engine.obj.components.particles;
 
-import tow.engine.Vector2;
+import tow.engine2.Vector2;
 import tow.engine.image.Camera;
 import tow.engine.obj.Obj;
 import org.lwjgl.opengl.GL11;
+
+import static org.lwjgl.opengl.GL11.glColor4i;
 
 public class ParticlesTexture extends Particles {
 
@@ -17,7 +19,7 @@ public class ParticlesTexture extends Particles {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
 
         for (Part part : parts){
-            part.color.bind();
+            glColor4i(part.color.getRed(), part.color.getGreen(), part.color.getBlue(), part.color.getAlpha());
             part.textureHandler.texture.bind();
             Vector2<Integer> relativePosition = Camera.toRelativePosition(new Vector2((int) part.x, (int) part.y));
 

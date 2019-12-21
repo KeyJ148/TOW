@@ -1,6 +1,6 @@
 package tow.game.client.login.logic;
 
-import tow.engine.Global;
+import tow.engine2.Global;
 import tow.game.client.ClientData;
 import tow.game.client.login.gui.LoginWindow;
 

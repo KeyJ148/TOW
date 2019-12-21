@@ -1,7 +1,7 @@
 package tow.game.client.tanks.player;
 
-import tow.engine.Global;
-import tow.engine.inf.title.Title;
+import tow.engine2.Global;
+import tow.engine.title.Title;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.Position;
 import tow.engine.obj.components.render.Animation;
@@ -12,7 +12,7 @@ import tow.game.client.tanks.Stats;
 import tow.game.client.tanks.Tank;
 import tow.game.client.tanks.equipment.armor.ADefault;
 import tow.game.client.tanks.equipment.gun.GDefault;
-import org.newdawn.slick.Color;
+import java.awt.Color;
 
 import java.awt.*;
 import java.util.ArrayList;

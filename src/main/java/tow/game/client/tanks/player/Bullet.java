@@ -2,7 +2,7 @@ package tow.game.client.tanks.player;
 
 
 import tow.engine.AudioManager;
-import tow.engine.Global;
+import tow.engine2.Global;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
 import tow.engine.map.Border;

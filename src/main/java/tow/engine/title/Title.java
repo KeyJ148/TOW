@@ -1,8 +1,4 @@
-package tow.engine.inf.title;
-
-import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.TrueTypeFont;
+package tow.engine.title;
 
 import java.awt.*;
 
@@ -49,9 +45,11 @@ public class Title {
 	}
 
 	public void draw(){
+		//TODO
+		/*
 		TrueTypeFont ttFont = FontManager.getFont(size, font);
 		GL11.glLoadIdentity();
-		ttFont.drawString((float) x, (float) y, str, c);
+		ttFont.drawString((float) x, (float) y, str, c);*/
 	}
 
 	public int getX(){

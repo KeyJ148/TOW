@@ -1,6 +1,6 @@
 package tow.engine.net.server;
 
-import tow.engine.resources.settings.SettingsStorage;
+import tow.engine2.resources.settings.SettingsStorage;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

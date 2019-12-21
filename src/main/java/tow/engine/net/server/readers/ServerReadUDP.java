@@ -1,12 +1,12 @@
 package tow.engine.net.server.readers;
 
-import tow.engine.Loader;
-import tow.engine.io.Logger;
+import tow.engine2.Loader;
+import tow.engine2.io.Logger;
 import tow.engine.net.NetTools;
 import tow.engine.net.server.Connect;
 import tow.engine.net.server.GameServer;
 import tow.engine.net.server.MessagePack;
-import tow.engine.resources.settings.SettingsStorage;
+import tow.engine2.resources.settings.SettingsStorage;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

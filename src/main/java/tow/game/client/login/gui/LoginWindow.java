@@ -18,7 +18,7 @@ public class LoginWindow extends JFrame {
 
 	//Отображение танка
 	public LoginPanel panel;
-	public SpriteAWT spriteTank = new SpriteAWT("res/image/Sys/sys_tank.png");
+	public SpriteAWT spriteTank = new SpriteAWT("res/image/sys/sys_tank.png");
 
 	//Стандартные настройки (из конфига)
 	public String fileName = "game/login.properties";//Файл хранения настроек
@@ -55,7 +55,7 @@ public class LoginWindow extends JFrame {
 	}
 
 	public void recolorTank(Color c){
-        ClientData.color = new org.newdawn.slick.Color(c.getRed(), c.getGreen(), c.getBlue());
+        ClientData.color = new Color(c.getRed(), c.getGreen(), c.getBlue());
 
         spriteTank.setDefaultImage();
 		spriteTank.setColor(c);

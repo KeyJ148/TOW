@@ -1,10 +1,7 @@
-package tow.engine;
-
-import java.io.File;
+package tow.engine2;
 
 import tow.engine.cycle.Engine;
-import tow.engine.implementation.*;
-import tow.engine.inf.InfMain;
+import tow.engine2.implementation.*;
 import tow.engine.map.Room;
 import tow.engine.net.client.Ping;
 import tow.engine.net.client.tcp.TCPControl;
@@ -12,12 +9,13 @@ import tow.engine.net.client.tcp.TCPRead;
 import tow.engine.net.client.udp.UDPControl;
 import tow.engine.net.client.udp.UDPRead;
 
+import java.io.File;
+
 public class Global {
-	
+
+	public static long window; //ID окна игры для LWJGL
 	public static Engine engine; //Главный игровой поток
 	public static Room room; //Текущая комната
-
-	public static InfMain infMain; //Главный класс интерфейса
 
 	public static TCPControl tcpControl; //Хранит настройки и работает с сетью по TCP протоколу
 	public static TCPRead tcpRead; //Цикл считывания данных с сервера по TCP протоколу

@@ -1,7 +1,9 @@
 package tow.engine.cycle;
 
-import tow.engine.Loader;
-import org.lwjgl.opengl.Display;
+import tow.engine2.Global;
+import tow.engine2.Loader;
+
+import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 
 public class Engine{
 
@@ -19,7 +21,7 @@ public class Engine{
 		long lastUpdate = System.nanoTime();//Для update
 		long startUpdate, startRender;//Для анализатора
 
-		while(!Display.isCloseRequested()){
+		while(!glfwWindowShouldClose(Global.window) ){
 			startUpdate = System.nanoTime();
 			update.loop(System.nanoTime() - lastUpdate);
 			lastUpdate = startUpdate;//Начало предыдущего update, чтобы длительность update тоже учитывалась

@@ -1,7 +1,7 @@
 package tow.game.client.tanks.player;
 
-import tow.engine.Loader;
-import tow.engine.io.Logger;
+import tow.engine2.Loader;
+import tow.engine2.io.Logger;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.tanks.equipment.bullet.BDefault;
 

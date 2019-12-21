@@ -1,32 +1,25 @@
-package tow.engine.inf.title;
+package tow.engine.title;
 
-import tow.engine.Global;
-import tow.engine.Loader;
-import tow.engine.io.Logger;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.util.ResourceLoader;
-
-import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
+//TODO
 public class FontManager {
 
-	private static ArrayList<TrueTypeFont> ttFontArray = new ArrayList<>();
+	//private static ArrayList<TrueTypeFont> ttFontArray = new ArrayList<>();
 	private static ArrayList<Integer> sizeArray = new ArrayList<>();
 	private static ArrayList<Integer> fontArray = new ArrayList<>();//Тип, например awt.Font.BOLD
 
 	private static String path = "res/font/";
 	private static String name = "arial";
 	private static char[] alphabet = "абвгдеёжзийклмнопрстуфхцчшщьыъэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯ".toCharArray();
-
+/*
 	public static void init(){
 		int[][] fonts = Global.storage.getFonts();
 		for(int i=0; i<fonts.length; i++){
 			addFont(fonts[i][0], fonts[i][1]);
 		}
 	}
+
 
 	public static int addFont(int size, int font) {
 		try {
@@ -72,7 +65,7 @@ public class FontManager {
 
 		return -1;
 	}
-
+*/
 
 
 }

@@ -1,6 +1,6 @@
 package tow.engine.net.client.tcp;
 
-import tow.engine.Global;
+import tow.engine2.Global;
 import tow.engine.net.client.Message;
 
 import java.util.ArrayList;

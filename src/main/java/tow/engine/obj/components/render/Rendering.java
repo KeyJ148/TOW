@@ -2,7 +2,7 @@ package tow.engine.obj.components.render;
 
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.Component;
-import org.newdawn.slick.Color;
+import java.awt.Color;
 
 public abstract class Rendering extends Component {
 

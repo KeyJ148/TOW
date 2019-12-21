@@ -1,12 +1,12 @@
 package tow.game.client;
 
 import tow.engine.AudioManager;
-import tow.engine.Global;
+import tow.engine2.Global;
 import tow.engine.image.Camera;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
-import tow.engine.implementation.NetGameReadInterface;
-import tow.engine.io.Logger;
+import tow.engine2.implementation.NetGameReadInterface;
+import tow.engine2.io.Logger;
 import tow.engine.map.Border;
 import tow.engine.map.Room;
 import tow.engine.net.client.Message;
@@ -17,7 +17,7 @@ import tow.game.client.map.Wall;
 import tow.game.client.tanks.enemy.Enemy;
 import tow.game.client.tanks.enemy.EnemyBullet;
 import tow.game.client.tanks.player.Player;
-import org.newdawn.slick.Color;
+import java.awt.Color;
 
 import java.util.ArrayList;
 import java.util.Map;

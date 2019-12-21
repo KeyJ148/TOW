@@ -1,6 +1,6 @@
 package tow.game.server.assistants;
 
-import tow.engine.Vector2;
+import tow.engine2.Vector2;
 import tow.engine.image.TextureManager;
 import tow.engine.net.server.GameServer;
 import tow.engine.net.server.senders.ServerSendTCP;

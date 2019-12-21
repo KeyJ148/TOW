@@ -1,6 +1,6 @@
 package tow.game.server;
 
-import tow.engine.implementation.NetServerReadInterface;
+import tow.engine2.implementation.NetServerReadInterface;
 import tow.engine.net.server.GameServer;
 import tow.engine.net.server.MessagePack;
 import tow.engine.net.server.senders.ServerSendTCP;

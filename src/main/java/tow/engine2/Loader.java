@@ -1,24 +1,25 @@
-package tow.engine;
+package tow.engine2;
 
-import org.lwjgl.openal.AL;
-import org.lwjgl.opengl.Display;
-import org.newdawn.slick.util.Log;
+import org.lwjgl.glfw.GLFWErrorCallback;
+import tow.engine.AudioManager;
 import tow.engine.cycle.Analyzer;
 import tow.engine.cycle.Engine;
 import tow.engine.image.TextureManager;
-import tow.engine.implementation.*;
-import tow.engine.inf.InfMain;
-import tow.engine.inf.title.FontManager;
-import tow.engine.io.Logger;
+import tow.engine2.implementation.*;
+import tow.engine2.io.Logger;
 import tow.engine.io.MouseHandler;
 import tow.engine.net.client.tcp.TCPControl;
 import tow.engine.net.client.tcp.TCPRead;
 import tow.engine.net.client.udp.UDPControl;
 import tow.engine.net.client.udp.UDPRead;
-import tow.engine.resources.settings.SettingsStorage;
-import tow.engine.resources.settings.SettingsStorageHandler;
+import tow.engine2.resources.settings.SettingsStorage;
+import tow.engine2.resources.settings.SettingsStorageHandler;
+import tow.engine.title.FontManager;
 
 import java.io.IOException;
+
+import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class Loader {
 
@@ -32,7 +33,6 @@ public class Loader {
 		Global.storage = storage;
 
 		loggerInit();//Загрузка логгера для вывода ошибок
-		loadLibrary();//Загрузка библиотек
 		init(); //Инициализация перед запуском
 		Global.engine.run();//Запуск главного цикла
 	}
@@ -62,8 +62,6 @@ public class Loader {
 
 	//Инициализация движка перед запуском
 	private static void init() {
-		Log.setVerbose(false); //Отключения логов в Slick-util
-
 		Global.engine = new Engine();//Создание класса для главного цикла
 		Global.engine.render.initGL();//Инициализация OpenGL
 
@@ -72,11 +70,11 @@ public class Loader {
 		Global.udpControl = new UDPControl();
 		Global.udpRead = new UDPRead();
 
+		//TODO
 		TextureManager.init();//Загрузка текстур и анимаций
-		FontManager.init();//Загрузка шрифтов
-		AudioManager.init();//Загрузка звуков
+		//FontManager.init();//Загрузка шрифтов
+		//AudioManager.init();//Загрузка звуков
 
-		Global.infMain = new InfMain();
 		MouseHandler.init();
 
 		Global.engine.analyzer = new Analyzer();//Создаём анализатор производительности для движка
@@ -87,39 +85,14 @@ public class Loader {
 		Global.game.init();
 	}
 
-	private static void loadLibrary(){
-		boolean successLoad = false;
-
-		if (!successLoad){
-			try{
-				System.loadLibrary("jinput-dx8_64");
-				System.loadLibrary("jinput-raw_64");
-				System.loadLibrary("lwjgl64");
-				System.loadLibrary("OpenAL64");
-				Logger.println("64-bit native module load complite (Windows)", Logger.Type.DEBUG);
-				successLoad = true;
-			} catch (UnsatisfiedLinkError e){}
-		}
-
-		if (!successLoad){
-			try{
-				System.loadLibrary("libjinput-linux64");
-				System.loadLibrary("libopenal64");
-				System.loadLibrary("liblwjgl64");
-				Logger.println("64-bit native module load complite (Linux)", Logger.Type.DEBUG);
-				successLoad = true;
-			} catch (UnsatisfiedLinkError e){}
-		}
-
-		if (!successLoad){
-			Logger.println("Native module not loading", Logger.Type.ERROR);
-			Loader.exit();
-		}
-	}
-
 	public static void exit(){
-		Display.destroy();
-		AL.destroy();
+		glfwFreeCallbacks(Global.window);
+		glfwDestroyWindow(Global.window);
+		glfwTerminate();
+		GLFWErrorCallback errorCallback = glfwSetErrorCallback(null);
+		if (errorCallback != null) errorCallback.free();
+
+		//TODO: AL.destroy();
 
 		//Вывод пути выхода
 		if (SettingsStorage.LOGGER.DEBUG_CONSOLE){

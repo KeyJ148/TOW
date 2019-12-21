@@ -1,6 +1,6 @@
-package tow.engine.resources.settings;
+package tow.engine2.resources.settings;
 
-import tow.engine.resources.JsonContainerLoader;
+import tow.engine2.resources.JsonContainerLoader;
 
 import java.io.IOException;
 

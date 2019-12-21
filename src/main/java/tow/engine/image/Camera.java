@@ -1,7 +1,7 @@
 package tow.engine.image;
 
-import tow.engine.Global;
-import tow.engine.Vector2;
+import tow.engine2.Global;
+import tow.engine2.Vector2;
 import tow.engine.obj.Obj;
 
 public class Camera {

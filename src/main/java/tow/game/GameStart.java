@@ -1,6 +1,6 @@
 package tow.game;
 
-import tow.engine.Loader;
+import tow.engine2.Loader;
 import tow.game.client.Game;
 import tow.game.client.NetGameRead;
 import tow.game.client.Storage;

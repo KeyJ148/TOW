@@ -1,9 +1,8 @@
 package tow.engine.image;
 
-import tow.engine.Global;
-import tow.engine.io.Logger;
+import tow.engine2.Global;
+import tow.engine2.io.Logger;
 
-import java.io.File;
 import java.util.TreeMap;
 
 public class TextureManager {

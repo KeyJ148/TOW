@@ -1,8 +1,8 @@
 package tow.game.client.login.logic;
 
-import tow.engine.Loader;
-import tow.engine.io.Logger;
-import org.newdawn.slick.Color;
+import tow.engine2.Loader;
+import tow.engine2.io.Logger;
+import java.awt.Color;
 
 public class LoginDataChecker {
 

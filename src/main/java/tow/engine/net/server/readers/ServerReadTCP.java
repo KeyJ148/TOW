@@ -1,6 +1,6 @@
 package tow.engine.net.server.readers;
 
-import tow.engine.io.Logger;
+import tow.engine2.io.Logger;
 import tow.engine.net.server.GameServer;
 import tow.engine.net.server.MessagePack;
 

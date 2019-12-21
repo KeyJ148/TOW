@@ -1,9 +1,9 @@
 package tow.engine.cycle;
 
-import tow.engine.Global;
-import tow.engine.io.Logger;
+import tow.engine2.Global;
+import tow.engine2.io.Logger;
 import tow.engine.net.client.Ping;
-import tow.engine.resources.settings.SettingsStorage;
+import tow.engine2.resources.settings.SettingsStorage;
 
 public class Analyzer {
 

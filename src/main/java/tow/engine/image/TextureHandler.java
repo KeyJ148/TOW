@@ -1,9 +1,9 @@
 package tow.engine.image;
 
-import tow.engine.io.Logger;
-import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureLoader;
-import org.newdawn.slick.util.ResourceLoader;
+import tow.engine2.image.Texture;
+import tow.engine2.image.TextureLoader;
+import tow.engine2.io.Logger;
+import tow.engine2.resources.ResourceLoader;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public class TextureHandler {
 
 	public TextureHandler(String path, String type, int depth) {
 		try {
-			this.texture = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(path));
+			this.texture = TextureLoader.getTexture(path);
 			Logger.println("Load image \"" + path + "\" complited", Logger.Type.DEBUG_IMAGE);
 		} catch (IOException e1) {
 			Logger.println("Image \"" + path + "\" not loading", Logger.Type.ERROR);
@@ -32,11 +32,11 @@ public class TextureHandler {
     }
 	
 	public int getWidth(){
-		return texture.getImageWidth();
+		return texture.getWidth();
 	}
 	
 	public int getHeight(){
-		return texture.getImageHeight();
+		return texture.getHeight();
 	}
 	
 }

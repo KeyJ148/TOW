@@ -1,6 +1,6 @@
 package tow.engine.net.server;
 
-import tow.engine.io.Logger;
+import tow.engine2.io.Logger;
 
 public class AnalyzerThread extends Thread{
 

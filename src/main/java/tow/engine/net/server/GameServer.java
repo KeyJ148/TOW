@@ -1,12 +1,12 @@
 package tow.engine.net.server;
 
-import tow.engine.Loader;
-import tow.engine.implementation.NetServerReadInterface;
-import tow.engine.implementation.ServerInterface;
-import tow.engine.io.Logger;
+import tow.engine2.Loader;
+import tow.engine2.implementation.NetServerReadInterface;
+import tow.engine2.implementation.ServerInterface;
+import tow.engine2.io.Logger;
 import tow.engine.net.server.readers.ServerReadUDP;
-import tow.engine.resources.settings.SettingsStorage;
-import tow.engine.resources.settings.SettingsStorageHandler;
+import tow.engine2.resources.settings.SettingsStorage;
+import tow.engine2.resources.settings.SettingsStorageHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;

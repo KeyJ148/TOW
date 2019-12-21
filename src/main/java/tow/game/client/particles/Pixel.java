@@ -3,7 +3,7 @@ package tow.game.client.particles;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.particles.Part;
 import tow.engine.obj.components.particles.ParticlesGeometry;
-import org.newdawn.slick.Color;
+import java.awt.Color;
 
 public class Pixel extends ParticlesGeometry {
 

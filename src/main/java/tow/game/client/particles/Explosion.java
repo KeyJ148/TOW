@@ -4,8 +4,8 @@ import tow.engine.image.TextureManager;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.particles.Part;
 import tow.engine.obj.components.particles.ParticlesTexture;
-import org.newdawn.slick.Color;
 
+import java.awt.Color;
 import java.util.Random;
 
 public class Explosion extends ParticlesTexture {
@@ -50,9 +50,9 @@ public class Explosion extends ParticlesTexture {
     @Override
     public void updateChild(long delta, Part part) {
         if(part.speed > (2*size/5)) part.speed -= (float) (40*delta)/1000000000;
-        part.color = new Color((float) (part.color.r - ((double) ((1 + part.speed/150)*delta)/1000000000/12)),
-                               (float) (part.color.g  - ((double) ((1 + part.speed/150)*delta)/1000000000/4)),
-                               (float) (part.color.b - (((double) (4*delta))/1000000000/2)),
+        part.color = new Color((float) (part.color.getRed() - ((double) ((1 + part.speed/150)*delta)/1000000000/12)),
+                               (float) (part.color.getGreen()  - ((double) ((1 + part.speed/150)*delta)/1000000000/4)),
+                               (float) (part.color.getBlue() - (((double) (4*delta))/1000000000/2)),
                                (float) part.life*10);
     }
 }

@@ -1,8 +1,8 @@
 package tow.game.client;
 
-import tow.engine.Global;
+import tow.engine2.Global;
 import tow.engine.image.TextureManager;
-import tow.engine.implementation.GameInterface;
+import tow.engine2.implementation.GameInterface;
 import tow.engine.io.MouseHandler;
 import tow.engine.map.Room;
 import tow.engine.obj.components.render.Sprite;

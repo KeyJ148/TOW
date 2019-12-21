@@ -1,4 +1,4 @@
-package tow.engine.resources.settings;
+package tow.engine2.resources.settings;
 
 public class SettingsStorage {
 

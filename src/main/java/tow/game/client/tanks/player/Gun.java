@@ -1,7 +1,7 @@
 package tow.game.client.tanks.player;
 
-import tow.engine.Global;
-import tow.engine.Vector2;
+import tow.engine2.Global;
+import tow.engine2.Vector2;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
 import tow.engine.obj.Obj;

@@ -1,4 +1,4 @@
-package tow.engine.resources;
+package tow.engine2.resources;
 
 import java.io.InputStream;
 

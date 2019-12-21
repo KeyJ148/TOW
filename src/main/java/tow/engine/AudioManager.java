@@ -1,27 +1,24 @@
 package tow.engine;
 
-import org.newdawn.slick.openal.Audio;
-import org.newdawn.slick.openal.AudioLoader;
-import org.newdawn.slick.util.ResourceLoader;
 import tow.engine.image.Camera;
-import tow.engine.io.Logger;
-import tow.engine.resources.settings.SettingsStorage;
+import tow.engine2.Global;
+import tow.engine2.resources.settings.SettingsStorage;
 
 import java.io.File;
-import java.util.TreeMap;
 
+//TODO
 public class AudioManager {
 
     public static final String PATH_TO_AUDIO_ROOT = "res/audio/";
 
-    private static TreeMap<String, Audio> audios = new TreeMap<>();
+    //private static TreeMap<String, Audio> audios = new TreeMap<>();
 
     public static void init(){
         String[] audios = Global.storage.getAudios();
 
         loadFromDirectory(Global.getFile(PATH_TO_AUDIO_ROOT), "wav");
         for(int i=0; i<audios.length; i++){
-            load(Global.getFile(audios[i]));
+            //load(Global.getFile(audios[i]));
         }
     }
 
@@ -31,11 +28,12 @@ public class AudioManager {
                 loadFromDirectory(file, format);
             } else {
                 String name = file.getName();
-                if (name.substring(name.lastIndexOf(".")+1).equals(format)) load(file);
+                //if (name.substring(name.lastIndexOf(".")+1).equals(format)) load(file);
             }
         }
     }
 
+    /*
     private static void load(File file){
         try{
             Audio audio = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream(file.getPath()));
@@ -61,9 +59,11 @@ public class AudioManager {
         Audio audio = getAudio(name);
         if (audio != null) audio.playAsSoundEffect(1.0f, (float) SettingsStorage.MUSIC.SOUND_VOLUME, false);
     }
+    */
+
 
     public static void playSoundEffect(String name, int x, int y, int range){
-        Audio audio = getAudio(name);
+        //TODO Audio audio = getAudio(name);
 
         double cameraX = Camera.absoluteX;
         double cameraY = Camera.absoluteY;
@@ -82,9 +82,11 @@ public class AudioManager {
 
         double dis = Math.sqrt(Math.pow(x-cameraX, 2) + Math.pow(y-cameraY, 2));
 
+        /*
         if (audio != null && dis < range){
             float soundVolume = (float) (SettingsStorage.MUSIC.SOUND_VOLUME * (1-(dis/range)));
             audio.playAsSoundEffect(1.0f, soundVolume, false);
-        }
+        }*/
     }
+
 }

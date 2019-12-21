@@ -1,8 +1,8 @@
-package tow.engine.resources;
+package tow.engine2.resources;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import tow.engine.io.Logger;
+import tow.engine2.io.Logger;
 
 import java.io.*;
 

@@ -1,11 +1,10 @@
 package tow.engine.image;
 
-import tow.engine.Global;
-import tow.engine.Vector2;
-import tow.engine.io.Logger;
+import tow.engine2.Global;
+import tow.engine2.Vector2;
+import tow.engine2.io.Logger;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;

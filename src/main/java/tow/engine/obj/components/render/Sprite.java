@@ -1,9 +1,11 @@
 package tow.engine.obj.components.render;
 
-import tow.engine.Vector2;
+import tow.engine2.Vector2;
 import tow.engine.image.TextureHandler;
 import tow.engine.obj.Obj;
 import org.lwjgl.opengl.GL11;
+
+import static org.lwjgl.opengl.GL11.glColor4i;
 
 public class Sprite extends Rendering {
 	
@@ -30,8 +32,8 @@ public class Sprite extends Rendering {
         GL11.glLoadIdentity();
 	    GL11.glTranslatef((float) xView, (float) yView, 0);
 	    GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
-	    
-	    color.bind(); 
+
+        glColor4i(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
 	    textureHandler.texture.bind();
 
         GL11.glBegin(GL11.GL_QUADS);

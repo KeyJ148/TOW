@@ -1,7 +1,7 @@
 package tow.engine.obj.components.particles;
 
 import tow.engine.image.TextureHandler;
-import org.newdawn.slick.Color;
+import java.awt.Color;
 
 public class Part{
 

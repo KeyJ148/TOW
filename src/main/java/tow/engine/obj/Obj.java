@@ -1,6 +1,6 @@
 package tow.engine.obj;
 
-import tow.engine.Global;
+import tow.engine2.Global;
 import tow.engine.image.TextureHandler;
 import tow.engine.obj.components.Collision;
 import tow.engine.obj.components.Movement;

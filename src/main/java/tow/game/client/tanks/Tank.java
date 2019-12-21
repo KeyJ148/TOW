@@ -1,17 +1,17 @@
 package tow.game.client.tanks;
 
 import tow.engine.AudioManager;
-import tow.engine.Global;
-import tow.engine.Vector2;
+import tow.engine2.Global;
+import tow.engine2.Vector2;
 import tow.engine.image.Camera;
-import tow.engine.inf.title.Title;
+import tow.engine.title.Title;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.render.Animation;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
 import tow.game.client.particles.Explosion;
 import tow.game.client.tanks.enemy.Enemy;
-import org.newdawn.slick.Color;
+import java.awt.Color;
 
 import java.util.Map;
 
