@@ -138,7 +138,7 @@ public class Render{
 
 			for (int dy = startY; dy<=startY+getHeight()+size*2; dy+=size){
 				for (int dx = startX; dx<=startX+getWidth()+size*2; dx+=size){
-					Vector2<Integer> relativePosition = Camera.toRelativePosition(new Vector2(dx, dy));
+					Vector2<Integer> relativePosition = Camera.toRelativePosition(new Vector2<>(dx, dy));
 					backgroundObj.position.x = relativePosition.x;
 					backgroundObj.position.y = relativePosition.y;
 					backgroundObj.draw();

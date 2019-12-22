@@ -1,5 +1,6 @@
 package tow.engine2.image;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryStack;
 import tow.engine2.resources.ResourceLoader;
 
@@ -33,7 +34,7 @@ public class TextureLoader {
 
         ByteBuffer buffer;
         //try (MemoryStack stack = MemoryStack.stackPush()) {
-            buffer = ByteBuffer.allocateDirect(width * height * 4);//stack.malloc(width * height * 4);//ByteBuffer.allocate(width * height * 4);
+            buffer = BufferUtils.createByteBuffer(width * height * 4);//stack.malloc(width * height * 4);//ByteBuffer.allocate(width * height * 4);
 
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
