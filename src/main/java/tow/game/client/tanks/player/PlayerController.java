@@ -53,10 +53,11 @@ public class PlayerController extends Obj implements Collision.CollisionListener
         /*
          * Перебираем все события нажатия клавиш
          */
-        for (int i = 0; i < KeyboardHandler.bufferState.size(); i++) {
-            if (KeyboardHandler.bufferState.get(i)) {// Клавиша нажата
+        for (int i = 0; i < KeyboardHandler.events.size(); i++) {
+            if (KeyboardHandler.events.get(i).action == GLFW_PRESS ||
+                KeyboardHandler.events.get(i).action == GLFW_REPEAT) {// Клавиша нажата
 
-                switch (KeyboardHandler.bufferKey.get(i)) {
+                switch (KeyboardHandler.events.get(i).key) {
 
                     //Клавиши запрета и разрешения на подбор ящиков
                     case GLFW_KEY_1:
