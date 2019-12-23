@@ -9,7 +9,7 @@ import tow.engine2.Global;
 
 import java.nio.DoubleBuffer;
 
-import static org.lwjgl.glfw.GLFW.glfwGetCursorPos;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class MouseHandler {
 	
@@ -24,6 +24,7 @@ public class MouseHandler {
 	public static void init() {
 		//Отключение стнадартного курсора
 		//TODO: Mouse.setGrabbed(true);
+		glfwSetInputMode(Global.window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 				
 		//Добавление своего курсора
 		cursor = new Obj();
@@ -33,25 +34,29 @@ public class MouseHandler {
 
 		mouseX = getMouseX();
 		mouseY = Global.engine.render.getHeight() - getMouseY();
+
+		//TODO:
+		glfwSetMouseButtonCallback(Global.window, (window, button, action, mods) -> {
+
+		});
 	}
 	
 	public static void update(){
 		mouseX = getMouseX();
-		mouseY = Global.engine.render.getHeight() - getMouseY();
+		mouseY = getMouseY();
 
-		//TODO:
-		/*
-		mouseDown1 = Mouse.isButtonDown(0);
-		mouseDown2 = Mouse.isButtonDown(1);
-		mouseDown3 = Mouse.isButtonDown(2);
-		 */
+		//TODO: выход курсора за границы экрана
+
+		mouseDown1 = glfwGetMouseButton(Global.window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS;
+		mouseDown2 = glfwGetMouseButton(Global.window, GLFW_MOUSE_BUTTON_2) == GLFW_PRESS;
+		mouseDown3 = glfwGetMouseButton(Global.window, GLFW_MOUSE_BUTTON_3) == GLFW_PRESS;
 			
 	}
 	
 	public static void draw(){
 		cursor.position.x = mouseX;
 		cursor.position.y = mouseY;
-		//TODO: cursor.draw();
+		cursor.draw();
 	}
 
 	private static int getMouseX(){
