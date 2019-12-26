@@ -20,11 +20,13 @@ public class TextureLoader {
         InputStream in = ResourceLoader.getResourceAsStream(path);
         BufferedImage image = ImageIO.read(in);
 
+        //TODO: vertical flip
+        /*
         AffineTransform transform = AffineTransform.getScaleInstance(1f, -1f);
         transform.translate(0, -image.getHeight());
         AffineTransformOp operation = new AffineTransformOp(transform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
         image = operation.filter(image, null);
-
+        */
 
         int width = image.getWidth();
         int height = image.getHeight();
