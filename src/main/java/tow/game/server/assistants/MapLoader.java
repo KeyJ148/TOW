@@ -21,7 +21,6 @@ public class MapLoader implements Runnable{
 
     public void loadMap(File map){
         Logger.println("Loading map: " + map.getName(), Logger.Type.SERVER_INFO);
-        System.out.println(map.getAbsolutePath());
 
         disableBattle();
         loadMapToMemory(map);
@@ -43,10 +42,7 @@ public class MapLoader implements Runnable{
 
     //Выбор рандомной карты из папки с картами
     private File chooseRandomMap(String allMapsPath){
-        System.out.println(allMapsPath);
         File[] allFiles = new File(allMapsPath).listFiles();
-        System.out.println(new File(allMapsPath).getAbsolutePath());
-        System.out.println(allFiles.length);
 
         String path;
         do {
