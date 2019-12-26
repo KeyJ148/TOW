@@ -45,7 +45,7 @@ public class Title {
 	}
 
 	public void draw(){
-		//TODO
+		//TODO LEGUI (git, gradle, demo in src: Demo->ExampleGUI)
 		/*
 		TrueTypeFont ttFont = FontManager.getFont(size, font);
 		GL11.glLoadIdentity();
