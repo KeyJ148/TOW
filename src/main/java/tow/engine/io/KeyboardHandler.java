@@ -1,6 +1,7 @@
 package tow.engine.io;
 
 import org.lwjgl.glfw.GLFWKeyCallback;
+import org.lwjgl.glfw.GLFWKeyCallbackI;
 import tow.engine2.Global;
 
 import java.util.ArrayList;
@@ -10,11 +11,12 @@ import static org.lwjgl.glfw.GLFW.*;
 public class KeyboardHandler {
 
 	public static ArrayList<Event> events = new ArrayList<>();
+	private static GLFWKeyCallbackI keyCallback;
 
 	public static void init(){
-		glfwSetKeyCallback(Global.window, (window, key, scancode, action, mods) -> {
+		glfwSetKeyCallback(Global.window, keyCallback = GLFWKeyCallback.create((window, key, scancode, action, mods) -> {
 			events.add(new Event(key, action));
-		});
+		}));
 	}
 
 	public static void update(){
