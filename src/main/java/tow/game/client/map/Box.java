@@ -1,14 +1,14 @@
 package tow.game.client.map;
 
 
-import tow.engine.AudioManager;
+import tow.engine3.AudioManager;
 import tow.engine2.Global;
-import tow.engine.image.TextureHandler;
-import tow.engine.image.TextureManager;
-import tow.engine.obj.Obj;
-import tow.engine.obj.components.Collision;
-import tow.engine.obj.components.Position;
-import tow.engine.obj.components.render.Sprite;
+import tow.engine3.image.TextureHandler;
+import tow.engine3.image.TextureManager;
+import tow.engine3.obj.Obj;
+import tow.engine3.obj.components.Collision;
+import tow.engine3.obj.components.Position;
+import tow.engine3.obj.components.render.Sprite;
 import tow.game.client.GameSetting;
 import tow.game.client.tanks.equipment.EquipManager;
 import tow.game.client.tanks.player.Player;

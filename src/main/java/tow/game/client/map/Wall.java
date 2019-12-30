@@ -1,8 +1,8 @@
 package tow.game.client.map;
 
-import tow.engine.image.TextureHandler;
+import tow.engine3.image.TextureHandler;
 import tow.engine2.io.Logger;
-import tow.engine.obj.components.Collision;
+import tow.engine3.obj.components.Collision;
 
 public class Wall extends MapObject {
 

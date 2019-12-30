@@ -1,16 +1,16 @@
 package tow.game.client;
 
-import tow.engine.AudioManager;
+import tow.engine3.AudioManager;
 import tow.engine2.Global;
-import tow.engine.image.Camera;
-import tow.engine.image.TextureHandler;
-import tow.engine.image.TextureManager;
+import tow.engine3.image.Camera;
+import tow.engine3.image.TextureHandler;
+import tow.engine3.image.TextureManager;
 import tow.engine2.implementation.NetGameReadInterface;
 import tow.engine2.io.Logger;
-import tow.engine.map.Border;
-import tow.engine.map.Room;
-import tow.engine.net.client.Message;
-import tow.engine.obj.Obj;
+import tow.engine3.map.Border;
+import tow.engine3.map.Room;
+import tow.engine3.net.client.Message;
+import tow.engine3.obj.Obj;
 import tow.game.client.map.Box;
 import tow.game.client.map.MapObject;
 import tow.game.client.map.Wall;

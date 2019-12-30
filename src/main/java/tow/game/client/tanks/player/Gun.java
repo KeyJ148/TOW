@@ -2,13 +2,13 @@ package tow.game.client.tanks.player;
 
 import tow.engine2.Global;
 import tow.engine2.Vector2;
-import tow.engine.image.TextureHandler;
-import tow.engine.image.TextureManager;
-import tow.engine.obj.Obj;
-import tow.engine.obj.components.Movement;
-import tow.engine.obj.components.Position;
-import tow.engine.obj.components.render.Sprite;
-import tow.engine.setting.ConfigReader;
+import tow.engine3.image.TextureHandler;
+import tow.engine3.image.TextureManager;
+import tow.engine3.obj.Obj;
+import tow.engine3.obj.components.Movement;
+import tow.engine3.obj.components.Position;
+import tow.engine3.obj.components.render.Sprite;
+import tow.engine3.setting.ConfigReader;
 import tow.game.client.tanks.Effect;
 
 public class Gun extends Obj {

@@ -1,6 +1,6 @@
 package tow.engine2.implementation;
 
-import tow.engine.net.client.Message;
+import tow.engine3.net.client.Message;
 
 public interface NetGameReadInterface {
 

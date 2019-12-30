@@ -1,7 +1,7 @@
 package tow.game.client.map;
 
-import tow.engine.image.TextureHandler;
-import tow.engine.obj.Obj;
+import tow.engine3.image.TextureHandler;
+import tow.engine3.obj.Obj;
 
 public class MapObject extends Obj {
 

@@ -1,6 +1,6 @@
 package tow.game.client.tanks.equipment.armor;
 
-import tow.engine.setting.ConfigReader;
+import tow.engine3.setting.ConfigReader;
 import tow.game.client.tanks.player.Armor;
 
 public class AVampire extends Armor{

@@ -1,7 +1,7 @@
 package tow.game.client.tanks.equipment.bullet;
 
-import tow.engine.obj.Obj;
-import tow.engine.setting.ConfigReader;
+import tow.engine3.obj.Obj;
+import tow.engine3.setting.ConfigReader;
 import tow.game.client.tanks.equipment.armor.ADefault;
 import tow.game.client.tanks.equipment.armor.AFury;
 import tow.game.client.tanks.equipment.armor.AVampire;

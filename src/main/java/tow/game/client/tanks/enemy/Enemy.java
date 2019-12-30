@@ -1,13 +1,13 @@
 package tow.game.client.tanks.enemy;
 
 import tow.engine2.Global;
-import tow.engine.image.TextureHandler;
-import tow.engine.image.TextureManager;
-import tow.engine.obj.Obj;
-import tow.engine.obj.components.Movement;
-import tow.engine.obj.components.Position;
-import tow.engine.obj.components.render.Animation;
-import tow.engine.obj.components.render.Sprite;
+import tow.engine3.image.TextureHandler;
+import tow.engine3.image.TextureManager;
+import tow.engine3.obj.Obj;
+import tow.engine3.obj.components.Movement;
+import tow.engine3.obj.components.Position;
+import tow.engine3.obj.components.render.Animation;
+import tow.engine3.obj.components.render.Sprite;
 import tow.game.client.ClientData;
 import tow.game.client.tanks.Tank;
 

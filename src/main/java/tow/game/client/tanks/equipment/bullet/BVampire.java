@@ -1,6 +1,6 @@
 package tow.game.client.tanks.equipment.bullet;
 
-import tow.engine.setting.ConfigReader;
+import tow.engine3.setting.ConfigReader;
 import tow.game.client.tanks.player.Bullet;
 
 public class BVampire extends Bullet {

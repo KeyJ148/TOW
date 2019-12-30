@@ -2,7 +2,7 @@ package tow.game.client.tanks.equipment;
 
 import tow.engine2.Loader;
 import tow.engine2.io.Logger;
-import tow.engine.setting.ConfigReader;
+import tow.engine3.setting.ConfigReader;
 import tow.game.client.tanks.player.Armor;
 import tow.game.client.tanks.player.Bullet;
 import tow.game.client.tanks.player.Gun;

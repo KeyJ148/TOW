@@ -1,7 +1,7 @@
 package tow.game.client.login.gui;
 
 
-import tow.engine.setting.ConfigReader;
+import tow.engine3.setting.ConfigReader;
 import tow.game.client.ClientData;
 import tow.game.client.login.logic.ConnectButtonListener;
 import tow.game.client.login.logic.HostButtonListener;
