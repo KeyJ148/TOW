@@ -53,9 +53,9 @@ public class PlayerController extends Obj implements Collision.CollisionListener
         /*
          * Перебираем все события нажатия клавиш
          */
+        //TODO: возможно обновляется после очистки, ибо size() всегда 0
         for (int i = 0; i < KeyboardHandler.events.size(); i++) {
-            if (KeyboardHandler.events.get(i).action == GLFW_PRESS ||
-                KeyboardHandler.events.get(i).action == GLFW_REPEAT) {// Клавиша нажата
+            if (KeyboardHandler.events.get(i).action == GLFW_PRESS) {// Клавиша нажата
 
                 switch (KeyboardHandler.events.get(i).key) {
 
