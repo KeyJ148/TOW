@@ -234,15 +234,17 @@ public class Render{
 		//Отрисовка мыши
 		MouseHandler.draw();
 
+		//TODO: эвенты приходят в PollEvents
+		//Очистка потока ввода
+		MouseHandler.update();
+		KeyboardHandler.update();
+
 		glfwSwapBuffers(Global.window);
 		//TODO: syncFPS(60) - не выполнять при корректном swapBuffer
 		glfwPollEvents();
 
 
-		//TODO: эвенты приходят в PollEvents
-		//Очистка потока ввода
-		MouseHandler.update();
-		KeyboardHandler.update();
+
 	}
 
 	//TODO:

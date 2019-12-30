@@ -10,7 +10,7 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class KeyboardHandler {
 
-	public static ArrayList<Event> events = new ArrayList<>();
+	public static  ArrayList<Event> events = new ArrayList<>(); //TODO: synchronized
 	private static GLFWKeyCallbackI keyCallback;
 
 	public static void init(){

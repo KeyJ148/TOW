@@ -24,7 +24,7 @@ public class MouseHandler {
 	public static boolean mouseDown2;
 	public static boolean mouseDown3;
 
-	public static ArrayList<Event> events = new ArrayList<>();
+	public static ArrayList<Event> events = new ArrayList<>();  //TODO: synchronized
 	private static GLFWMouseButtonCallbackI mouseCallback;
 
 	public static void init() {

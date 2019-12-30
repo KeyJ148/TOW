@@ -6,6 +6,7 @@ import tow.engine3.cycle.Engine;
 import tow.engine3.image.TextureManager;
 import tow.engine2.implementation.*;
 import tow.engine2.io.Logger;
+import tow.engine3.io.KeyboardHandler;
 import tow.engine3.io.MouseHandler;
 import tow.engine3.net.client.tcp.TCPControl;
 import tow.engine3.net.client.tcp.TCPRead;
@@ -74,6 +75,7 @@ public class Loader {
 		//AudioManager.init();//Загрузка звуков
 
 		MouseHandler.init();
+		KeyboardHandler.init();
 
 		Global.engine.analyzer = new Analyzer();//Создаём анализатор производительности для движка
 
