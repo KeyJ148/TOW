@@ -4,6 +4,13 @@ import org.lwjgl.opengl.GL11;
 
 public class Color extends java.awt.Color {
 
+    public static Color BLACK = new Color(0, 0, 0);
+    public static Color WHITE = new Color(255, 255, 255);
+    public static Color GRAY = new Color(127, 127, 127);
+    public static Color RED = new Color(255, 0, 0);
+    public static Color GREEN = new Color(0, 255, 0);
+    public static Color BLUE = new Color(0, 0, 255);
+
     public Color(int r, int g, int b) {
         super(r, g, b);
     }

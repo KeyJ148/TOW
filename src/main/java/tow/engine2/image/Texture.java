@@ -4,6 +4,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL30;
 import org.lwjgl.stb.STBImage;
 
 import javax.imageio.ImageIO;
@@ -31,6 +32,7 @@ public class Texture {
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+
     }
 
     public int getWidth(){
@@ -42,6 +44,10 @@ public class Texture {
     }
 
     public void bind(){
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, id);
+        glBindTexture(GL11.GL_TEXTURE_2D, id);
+    }
+
+    public static void unbind(){
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
 }
