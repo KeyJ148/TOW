@@ -1,6 +1,7 @@
 package tow.engine3.obj.components.particles;
 
 import tow.engine.Vector2;
+import tow.engine2.image.Texture;
 import tow.engine3.image.Camera;
 import tow.engine3.obj.Obj;
 import org.lwjgl.opengl.GL11;
@@ -14,7 +15,6 @@ public class ParticlesTexture extends Particles {
     @Override
     public void draw(){
         GL11.glLoadIdentity();
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
 
         for (Part part : parts){
             part.color.bind();
@@ -43,6 +43,7 @@ public class ParticlesTexture extends Particles {
                 GL11.glTexCoord2f(0,1);
                 GL11.glVertex2f((float) (defaultX-part.width/2), (float) (defaultY+part.height/2));
             GL11.glEnd();
+            Texture.unbind();
         }
     }
 

@@ -28,7 +28,7 @@ public class Render{
 	public String strAnalysis1 = "";//Вывод отладочных данных
 	public String strAnalysis2 = "";
 
-	private ArrayList<Title> titleArray = new ArrayList<Title>();
+	private ArrayList<Title> titleArray = new ArrayList<>();
 
 	private long windowID; //ID окна игры для LWJGL
 	private long monitorID; //ID монитора (0 для не полноэкранного режима)
@@ -146,7 +146,6 @@ public class Render{
 
 		//Заливка фона за границами карты
 		GL11.glLoadIdentity();
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		Color.GRAY.bind();
 
 		int fillW = (width - Global.room.width)/2;

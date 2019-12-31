@@ -1,6 +1,7 @@
 package tow.engine3.obj.components.render;
 
 import tow.engine.Vector2;
+import tow.engine2.image.Texture;
 import tow.engine3.image.TextureHandler;
 import tow.engine3.obj.Obj;
 import org.lwjgl.opengl.GL11;
@@ -26,7 +27,6 @@ public class Sprite extends Rendering {
     	int width=(int)(getWidthTexture()*scale_x);
         int height=(int)(getHeightTexture()*scale_y);
 
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glLoadIdentity();
 	    GL11.glTranslatef((float) xView, (float) yView, 0);
 	    GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
@@ -44,6 +44,8 @@ public class Sprite extends Rendering {
 		    GL11.glTexCoord2f(0,1);
 		    GL11.glVertex2f(-width/2, height/2);
 	    GL11.glEnd();
+
+	    Texture.unbind();
     }
 
     @Override

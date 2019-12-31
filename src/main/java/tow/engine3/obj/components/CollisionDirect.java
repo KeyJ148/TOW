@@ -58,9 +58,7 @@ public class CollisionDirect extends Collision {
 		if (!SettingsStorage.LOGGER.MASK_DRAW || positionCollision == null) return;
 
 		GL11.glLoadIdentity();
-	    GL11.glTranslatef(0, 0, 0);
 		new Color(Color.BLUE).bind();
-	    GL11.glDisable(GL11.GL_TEXTURE_2D);
 
 		Vector2<Integer> relativePosition = Camera.toRelativePosition(new Vector2(positionCollision.x-10, positionCollision.y-10));
 		int x = relativePosition.x;
@@ -77,8 +75,6 @@ public class CollisionDirect extends Collision {
 			GL11.glTexCoord2f(0,1);
 			GL11.glVertex2f(x, y+h);
 		GL11.glEnd();
-		
-	    GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 
 	//Поиск в общем массиве id, которые динамичны и сталкиваются с этим объектом

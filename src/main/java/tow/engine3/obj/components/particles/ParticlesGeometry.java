@@ -14,7 +14,6 @@ public class ParticlesGeometry extends Particles {
     @Override
     public void draw(){
         GL11.glLoadIdentity();
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
 
         for (Part part : parts){
             part.color.bind();
@@ -43,7 +42,5 @@ public class ParticlesGeometry extends Particles {
                 GL11.glVertex2f((float) (defaultX-part.width/2), (float) (defaultY+part.height/2));
             GL11.glEnd();
         }
-
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
     }
 }

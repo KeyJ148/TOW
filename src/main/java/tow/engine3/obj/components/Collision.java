@@ -45,17 +45,13 @@ public class Collision extends Component {
 			maskDrawView[i] = Camera.toRelativePosition(maskAbsolute[i].copy());
 
 		GL11.glLoadIdentity();
-		GL11.glTranslatef(0, 0, 0);
 		new Color(Color.BLUE).bind();
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
 
 		GL11.glBegin(GL11.GL_LINE_LOOP);
 		for (int i=0; i<maskDrawView.length;i++) {
             GL11.glVertex2f(maskDrawView[i].x, maskDrawView[i].y);
         }
 		GL11.glEnd();
-
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 
 	//Вызывает проверку столкновения с каждым объектом в комнате
