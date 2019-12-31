@@ -1,7 +1,8 @@
 package tow.engine3.image;
 
-import tow.engine2.Global;
+import tow.engine.Global;
 import tow.engine2.io.Logger;
+import tow.engine2.resources.ResourceLoader;
 
 import java.util.TreeMap;
 
@@ -44,7 +45,7 @@ public class TextureManager {
 	private static TextureHandler[] parseAnimation(String path, String type, int depth){
 		int n=0;
 		String beginPath = path + "/" + path.substring(path.lastIndexOf("/")+1);
-		while (Global.getFile(beginPath + "_" + (n+1) + ".png").exists()){
+		while (ResourceLoader.existResource(beginPath + "_" + (n+1) + ".png")){
 			n++;
 		}
 		

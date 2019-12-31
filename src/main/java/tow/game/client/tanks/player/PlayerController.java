@@ -1,8 +1,8 @@
 package tow.game.client.tanks.player;
 
-import tow.engine2.Global;
+import tow.engine.Global;
 import tow.engine2.Loader;
-import tow.engine2.Vector2;
+import tow.engine.Vector2;
 import tow.engine3.io.KeyboardHandler;
 import tow.engine3.io.MouseHandler;
 import tow.engine3.map.Border;

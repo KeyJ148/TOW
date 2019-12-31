@@ -1,4 +1,4 @@
-package tow.engine2;
+package tow.engine;
 
 public class Vector2<T> {
 
@@ -22,6 +22,6 @@ public class Vector2<T> {
 
     @Override
     public String toString(){
-        return "{" + x +"," + y + "}";
+        return "{" + x +", " + y + "}";
     }
 }

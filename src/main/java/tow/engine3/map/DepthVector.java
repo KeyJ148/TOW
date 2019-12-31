@@ -1,6 +1,6 @@
 package tow.engine3.map;
 
-import tow.engine2.Vector2;
+import tow.engine.Vector2;
 import tow.engine3.obj.Obj;
 
 import java.util.ArrayList;

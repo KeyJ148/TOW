@@ -1,12 +1,11 @@
 package tow.engine3.image;
 
-import tow.engine2.Global;
-import tow.engine2.Vector2;
+import tow.engine.Global;
+import tow.engine.Vector2;
 import tow.engine2.io.Logger;
+import tow.engine2.resources.ResourceLoader;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Mask {
@@ -21,7 +20,7 @@ public class Mask {
         path = new String(pathBuffer) + ".txt";
 
         Vector2<Integer>[] mask;
-        if (Global.getFile(path).exists()) mask = loadFromFile(path, width, height);
+        if (ResourceLoader.existResource(path)) mask = loadFromResources(path, width, height);
         else mask = createDefault(width, height);
 
         this.maskDefault = mask;
@@ -31,13 +30,12 @@ public class Mask {
     }
 
     //Загрузка маски из файла
-    public Vector2<Integer>[] loadFromFile(String path, int width, int height){
-        try{
-            BufferedReader fileReader = new BufferedReader(new FileReader(Global.getFile(path)));
+    public Vector2<Integer>[] loadFromResources(String path, int width, int height){
+        try (BufferedReader reader = ResourceLoader.getResourceAsBufferedReader(path)){
             ArrayList<Vector2<Integer>> maskArr = new ArrayList<>();
             String s;
 
-            while ((s = fileReader.readLine()) != null) {
+            while ((s = reader.readLine()) != null) {
                 int x = Integer.parseInt(s.substring(0, s.indexOf(' ')));
                 int y = Integer.parseInt(s.substring(s.indexOf(' ') + 1));
                 maskArr.add(new Vector2(x, y));

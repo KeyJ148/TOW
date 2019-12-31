@@ -1,6 +1,6 @@
 package tow.game.client;
 
-import tow.engine2.Global;
+import tow.engine.Global;
 import tow.engine3.image.TextureManager;
 import tow.engine2.implementation.GameInterface;
 import tow.engine3.io.MouseHandler;

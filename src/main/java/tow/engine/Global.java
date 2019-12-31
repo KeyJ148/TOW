@@ -1,4 +1,4 @@
-package tow.engine2;
+package tow.engine;
 
 import tow.engine3.cycle.Engine;
 import tow.engine2.implementation.*;
@@ -13,10 +13,10 @@ import java.io.File;
 
 public class Global {
 
-	public static long window; //ID окна игры для LWJGL
 	public static Engine engine; //Главный игровой поток
 	public static Room room; //Текущая комната
 
+	//TODO: убрать в главный класс Network при рефакторинге сети
 	public static TCPControl tcpControl; //Хранит настройки и работает с сетью по TCP протоколу
 	public static TCPRead tcpRead; //Цикл считывания данных с сервера по TCP протоколу
 	public static UDPControl udpControl; //Хранит настройки и работает с сетью по UDP протоколу
@@ -29,15 +29,5 @@ public class Global {
 	public static NetGameReadInterface netGameRead; //Объект для обработки сетевых сообщений на клиенте
 	public static NetServerReadInterface netServerRead; //Объект для обработки сетевых сообщений на сервере
 	public static StorageInterface storage; //Объект для хранения описания картинок, анимаций и звуков
-
-	//Костыль, разбить на 2 функции, вынести в отдельный класс, не возвращать файл, а только стрим
-	public static File getFile(String path){
-		try {
-			return new File(Thread.currentThread().getContextClassLoader().getResource(path).getFile());
-		} catch (NullPointerException e){
-			return new File("*");
-		}
-	}
-
 }
 

@@ -2,7 +2,7 @@ package tow.engine3.io;
 
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWKeyCallbackI;
-import tow.engine2.Global;
+import tow.engine.Global;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,8 @@ public class KeyboardHandler {
 	private static GLFWKeyCallbackI keyCallback;
 
 	public static void init(){
-		glfwSetKeyCallback(Global.window, keyCallback = GLFWKeyCallback.create((window, key, scancode, action, mods) -> {
+		glfwSetKeyCallback(Global.engine.render.getWindowID(),
+				keyCallback = GLFWKeyCallback.create((window, key, scancode, action, mods) -> {
 			events.add(new Event(key, action));
 		}));
 	}
@@ -24,7 +25,7 @@ public class KeyboardHandler {
 	}
 
 	public static boolean isKeyDown(int key){
-		return glfwGetKey(Global.window, key) == GLFW_PRESS;
+		return glfwGetKey(Global.engine.render.getWindowID(), key) == GLFW_PRESS;
 	}
 
 	public static class Event{

@@ -1,6 +1,6 @@
 package tow.engine3.obj.components.render;
 
-import tow.engine2.Vector2;
+import tow.engine.Vector2;
 import tow.engine3.image.TextureHandler;
 import tow.engine2.io.Logger;
 import tow.engine3.obj.Obj;

@@ -1,6 +1,6 @@
 package tow.game.client.tanks.enemy;
 
-import tow.engine2.Global;
+import tow.engine.Global;
 import tow.engine3.image.TextureHandler;
 import tow.engine3.image.TextureManager;
 import tow.engine3.obj.Obj;

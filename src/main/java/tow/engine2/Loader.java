@@ -1,6 +1,7 @@
 package tow.engine2;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
+import tow.engine.Global;
 import tow.engine3.cycle.Analyzer;
 import tow.engine3.cycle.Engine;
 import tow.engine3.image.TextureManager;
@@ -16,12 +17,13 @@ import tow.engine2.resources.settings.SettingsStorage;
 import tow.engine2.resources.settings.SettingsStorageHandler;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Loader {
-
 
 	public static void start(GameInterface game, NetGameReadInterface netGameRead, StorageInterface storage,
 							 ServerInterface server, NetServerReadInterface netServerRead) {
@@ -69,10 +71,9 @@ public class Loader {
 		Global.udpControl = new UDPControl();
 		Global.udpRead = new UDPRead();
 
-		//TODO
 		TextureManager.init();//Загрузка текстур и анимаций
-		//FontManager.init();//Загрузка шрифтов
-		//AudioManager.init();//Загрузка звуков
+		//TODO: FontManager.init();//Загрузка шрифтов
+		//TODO: AudioManager.init();//Загрузка звуков
 
 		MouseHandler.init();
 		KeyboardHandler.init();
@@ -86,20 +87,20 @@ public class Loader {
 	}
 
 	public static void exit(){
-		glfwFreeCallbacks(Global.window);
-		glfwDestroyWindow(Global.window);
+		glfwFreeCallbacks(Global.engine.render.getWindowID());
+		glfwDestroyWindow(Global.engine.render.getWindowID());
 		glfwTerminate();
 		GLFWErrorCallback errorCallback = glfwSetErrorCallback(null);
 		if (errorCallback != null) errorCallback.free();
-
 		//TODO: AL.destroy();
 
-		//Вывод пути выхода
-		if (SettingsStorage.LOGGER.DEBUG_CONSOLE){
-			Logger.println("Exit stack trace: ", Logger.Type.DEBUG);
-			new Exception().printStackTrace(System.out);
-		}
-
+		Logger.println("Exit stack trace: " + getStackTraceAsString(new Exception()), Logger.Type.DEBUG);
 		System.exit(0);
+	}
+
+	private static String getStackTraceAsString(Exception e){
+		StringWriter errors = new StringWriter();
+		e.printStackTrace(new PrintWriter(errors));
+		return errors.toString();
 	}
 }

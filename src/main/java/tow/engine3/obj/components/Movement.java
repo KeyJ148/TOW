@@ -1,6 +1,6 @@
 package tow.engine3.obj.components;
 
-import tow.engine2.Global;
+import tow.engine.Global;
 import tow.engine3.obj.Obj;
 
 public class Movement extends Component {

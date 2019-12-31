@@ -1,6 +1,6 @@
 package tow.engine3.cycle;
 
-import tow.engine2.Global;
+import tow.engine.Global;
 import tow.engine2.Loader;
 import tow.engine3.image.Camera;
 import tow.engine2.io.Logger;

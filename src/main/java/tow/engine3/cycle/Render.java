@@ -4,9 +4,9 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryStack;
-import tow.engine2.Global;
+import tow.engine.Global;
 import tow.engine2.Loader;
-import tow.engine2.Vector2;
+import tow.engine.Vector2;
 import tow.engine3.image.Camera;
 import tow.engine3.title.Title;
 import tow.engine3.io.KeyboardHandler;
@@ -33,6 +33,7 @@ public class Render{
 
 	private ArrayList<Title> titleArray = new ArrayList<Title>();
 
+	private long windowID; //ID окна игры для LWJGL
 	private int width;
 	private int height;
 
@@ -58,7 +59,7 @@ public class Render{
 
 				this.width = SettingsStorage.DISPLAY.WIDTH_SCREEN;
 				this.height = SettingsStorage.DISPLAY.HEIGHT_SCREEN;
-				Global.window = glfwCreateWindow(width, height, "Hello World!", NULL, NULL);
+				windowID = glfwCreateWindow(width, height, "Hello World!", NULL, NULL);
 			}
 
 			// Get the thread stack and push a new frame
@@ -67,26 +68,26 @@ public class Render{
 				IntBuffer pHeight = stack.mallocInt(1); // int*
 
 				// Get the window size passed to glfwCreateWindow
-				glfwGetWindowSize(Global.window, pWidth, pHeight);
+				glfwGetWindowSize(windowID, pWidth, pHeight);
 
 				// Get the resolution of the primary monitor
 				GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
 				// Center the window
 				glfwSetWindowPos(
-						Global.window,
+						windowID,
 						(vidmode.width() - pWidth.get(0)) / 2,
 						(vidmode.height() - pHeight.get(0)) / 2
 				);
 			} // the stack frame is popped automatically
 
 			//Make the OpenGL context current
-			glfwMakeContextCurrent(Global.window);
+			glfwMakeContextCurrent(windowID);
 			// Enable v-sync
 			glfwSwapInterval(1);
 
 			// Make the window visible
-			glfwShowWindow(Global.window);
+			glfwShowWindow(windowID);
 
 			GL.createCapabilities();
 			glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
@@ -239,7 +240,7 @@ public class Render{
 		MouseHandler.update();
 		KeyboardHandler.update();
 
-		glfwSwapBuffers(Global.window);
+		glfwSwapBuffers(windowID);
 		//TODO: syncFPS(60) - не выполнять при корректном swapBuffer
 		glfwPollEvents();
 
@@ -267,6 +268,10 @@ public class Render{
 
 	public int getHeight(){
 		return height;
+	}
+
+	public long getWindowID() {
+		return windowID;
 	}
 
 	public void clearTitle(){

@@ -7,7 +7,7 @@ import tow.engine3.image.TextureManager;
 import tow.engine3.obj.Obj;
 import tow.engine3.obj.components.Position;
 import tow.engine3.obj.components.render.Sprite;
-import tow.engine2.Global;
+import tow.engine.Global;
 
 import java.nio.DoubleBuffer;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class MouseHandler {
 	public static void init() {
 		//Отключение стнадартного курсора
 		//TODO: Mouse.setGrabbed(true);
-		glfwSetInputMode(Global.window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(Global.engine.render.getWindowID(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 				
 		//Добавление своего курсора
 		cursor = new Obj();
@@ -41,7 +41,8 @@ public class MouseHandler {
 		mouseX = getMouseX();
 		mouseY = Global.engine.render.getHeight() - getMouseY();
 
-		glfwSetMouseButtonCallback(Global.window, mouseCallback = GLFWMouseButtonCallback.create((window, button, action, mods) -> {
+		glfwSetMouseButtonCallback(Global.engine.render.getWindowID(),
+				mouseCallback = GLFWMouseButtonCallback.create((window, button, action, mods) -> {
 			events.add(new Event(button, action));
 		}));
 	}
@@ -52,9 +53,9 @@ public class MouseHandler {
 
 		//TODO: выход курсора за границы экрана
 
-		mouseDown1 = glfwGetMouseButton(Global.window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS;
-		mouseDown2 = glfwGetMouseButton(Global.window, GLFW_MOUSE_BUTTON_2) == GLFW_PRESS;
-		mouseDown3 = glfwGetMouseButton(Global.window, GLFW_MOUSE_BUTTON_3) == GLFW_PRESS;
+		mouseDown1 = glfwGetMouseButton(Global.engine.render.getWindowID(), GLFW_MOUSE_BUTTON_1) == GLFW_PRESS;
+		mouseDown2 = glfwGetMouseButton(Global.engine.render.getWindowID(), GLFW_MOUSE_BUTTON_2) == GLFW_PRESS;
+		mouseDown3 = glfwGetMouseButton(Global.engine.render.getWindowID(), GLFW_MOUSE_BUTTON_3) == GLFW_PRESS;
 
 		events.clear();
 	}
@@ -67,13 +68,13 @@ public class MouseHandler {
 
 	private static int getMouseX(){
 		DoubleBuffer posX = BufferUtils.createDoubleBuffer(1);
-		glfwGetCursorPos(Global.window, posX, null);
+		glfwGetCursorPos(Global.engine.render.getWindowID(), posX, null);
 		return (int) Math.round(posX.get(0));
 	}
 
 	private static int getMouseY(){
 		DoubleBuffer posY = BufferUtils.createDoubleBuffer(1);
-		glfwGetCursorPos(Global.window, null, posY);
+		glfwGetCursorPos(Global.engine.render.getWindowID(), null, posY);
 		return (int) Math.round(posY.get(0));
 	}
 

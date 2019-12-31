@@ -1,6 +1,6 @@
 package tow.game.client.tanks.player;
 
-import tow.engine2.Global;
+import tow.engine.Global;
 import tow.engine3.title.Title;
 import tow.engine3.obj.Obj;
 import tow.engine3.obj.components.Position;

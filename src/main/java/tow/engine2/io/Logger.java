@@ -1,6 +1,6 @@
 package tow.engine2.io;
 
-import tow.engine2.Global;
+import tow.engine.Global;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -54,7 +54,7 @@ public class Logger {
     public static void logInFileEnable(){
         if (!logInFile){
             try {
-                out = new PrintWriter(new FileWriter(Global.getFile("res/log.txt")));
+                out = new PrintWriter(new FileWriter("logs/log-" + System.currentTimeMillis() + ".txt"));
                 logInFile = true;
             } catch (IOException e) {
                 out.close();

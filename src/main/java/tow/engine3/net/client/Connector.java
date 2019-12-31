@@ -1,6 +1,6 @@
 package tow.engine3.net.client;
 
-import tow.engine2.Global;
+import tow.engine.Global;
 
 public class Connector extends Thread{
 

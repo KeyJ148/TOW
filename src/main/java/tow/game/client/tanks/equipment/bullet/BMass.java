@@ -1,6 +1,6 @@
 package tow.game.client.tanks.equipment.bullet;
 
-import tow.engine2.Global;
+import tow.engine.Global;
 import tow.engine2.Loader;
 import tow.engine2.io.Logger;
 import tow.engine3.obj.Obj;

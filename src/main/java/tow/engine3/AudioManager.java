@@ -1,7 +1,7 @@
 package tow.engine3;
 
 import tow.engine3.image.Camera;
-import tow.engine2.Global;
+import tow.engine.Global;
 
 import java.io.File;
 
@@ -15,12 +15,13 @@ public class AudioManager {
     public static void init(){
         String[] audios = Global.storage.getAudios();
 
-        loadFromDirectory(Global.getFile(PATH_TO_AUDIO_ROOT), "wav");
+        //loadFromDirectory(Global.getFile(PATH_TO_AUDIO_ROOT), "wav");
         for(int i=0; i<audios.length; i++){
             //load(Global.getFile(audios[i]));
         }
     }
 
+    /*
     private static void loadFromDirectory(File directiory, String format){
         for(File file : directiory.listFiles()){
             if (file.isDirectory()){
@@ -31,7 +32,7 @@ public class AudioManager {
             }
         }
     }
-
+*/
     /*
     private static void load(File file){
         try{

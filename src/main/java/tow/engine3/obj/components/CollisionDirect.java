@@ -1,8 +1,8 @@
 package tow.engine3.obj.components;
 
 import org.lwjgl.opengl.GL11;
-import tow.engine2.Global;
-import tow.engine2.Vector2;
+import tow.engine.Global;
+import tow.engine.Vector2;
 import tow.engine3.image.Camera;
 import tow.engine3.image.Mask;
 import tow.engine3.obj.Obj;

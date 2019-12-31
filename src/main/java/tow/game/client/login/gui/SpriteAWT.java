@@ -1,6 +1,5 @@
 package tow.game.client.login.gui;
 
-import tow.engine2.Global;
 import tow.engine2.io.Logger;
 import tow.engine2.resources.ResourceLoader;
 
