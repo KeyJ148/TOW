@@ -5,6 +5,7 @@ import tow.engine.Global;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,6 +44,15 @@ public class Logger {
         Logger.print(s + "\n", type);
     }
 
+    public static void print(String s, Exception e, Type type){
+        print(s + getStackTraceAsString(e).replaceAll("\n", ""), type);
+    }
+
+    public static void println(String s, Exception e, Type type){
+        //Не println, потому что stackTrace и так содержит в конце перенос строки
+        print(s + getStackTraceAsString(e), type);
+    }
+
     public static void enable(Type type){
         enable.add(type);
     }
@@ -69,5 +79,11 @@ public class Logger {
             out.close();
             logInFile = false;
         }
+    }
+
+    private static String getStackTraceAsString(Exception e){
+        StringWriter errors = new StringWriter();
+        e.printStackTrace(new PrintWriter(errors));
+        return errors.toString();
     }
 }
