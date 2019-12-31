@@ -1,4 +1,4 @@
-package tow.engine3.cycle;
+package tow.engine2.cycle;
 
 import tow.engine.Global;
 import tow.engine2.io.Logger;
@@ -10,11 +10,13 @@ public class Analyzer {
 	//Для подсчёта fps
 	public int loopsRender = 0;
 	public int loopsUpdate = 0;
-	public long lastAnalysis;
+	public int loopsSync = 0;
+	private long startUpdate, startRender, startSync, lastAnalysis;
 
 	//Для подсчёта быстродействия
 	long durationUpdate = 0;
 	long durationRender = 0;
+	long durationSync = 0;
 
 	//Пинг
 	public int ping=0, pingMin=0, pingMax=0, pingMid=0;
@@ -25,10 +27,14 @@ public class Analyzer {
 
 	public Analyzer(){
 		lastAnalysis = System.currentTimeMillis();
-		Global.pingCheck = new Ping();
+		Global.pingCheck = new Ping(); //TODO: при рефакторинге сети убрать связанность пинга и аналайзера
 	}
 
-	public void loopsUpdate(long startUpdate){
+	public void startUpdate(){
+		startUpdate = System.nanoTime();
+	}
+
+	public void endUpdate(){
 		durationUpdate += System.nanoTime() - startUpdate;
 		loopsUpdate++;
 		if (System.currentTimeMillis() >= lastAnalysis + 1000){
@@ -36,9 +42,22 @@ public class Analyzer {
 		}
 	}
 
-	public void loopsRender(long startRender){
+	public void startRender(){
+		startRender = System.nanoTime();
+	}
+
+	public void endRender(){
 		durationRender += System.nanoTime() - startRender;
 		loopsRender++;
+	}
+
+	public void startSync(){
+		startSync = System.nanoTime();
+	}
+
+	public void endSync(){
+		durationSync += System.nanoTime() - startSync;
+		loopsSync++;
 	}
 
 	public void analysisData(){
@@ -62,6 +81,7 @@ public class Analyzer {
 		//Для строк отладки, иначе делние на 0
 		if (loopsRender == 0) loopsRender = 1;
 		if (loopsUpdate == 0) loopsUpdate = 1;
+		if (loopsSync == 0) loopsSync = 1;
 		int chunkInDepthVector = (Global.room.mapControl.getCountDepthVectors() == 0)? 0: Global.room.mapControl.chunkRender/ Global.room.mapControl.getCountDepthVectors();
 
 		//Строки отладки
@@ -69,7 +89,7 @@ public class Analyzer {
 				+ "          Speed TCP S/L, UDP S/L: " + sendTCP + "/" + loadTCP + ", " + sendUDP + "/" + loadUDP + " kb/s"
 				+ "          Package TCP S/L, UDP S/L: " + sendPackageTCP + "/" + loadPackageTCP + ", " + sendPackageUDP + "/" + loadPackageUDP;
 		String strFPS2 =	 "FPS: " + loopsRender
-				+ "          Duration update/render: " + (durationUpdate/loopsUpdate/1000) + "/" + (durationRender/loopsRender/1000) + " mks"
+				+ "          Duration update/render/sync: " + (durationUpdate/loopsUpdate/1000) + "/" + (durationRender/loopsRender/1000) + "/" + (durationSync/loopsSync/1000) + " mks"
 				+ "          Objects: " + Global.room.objCount()
 				+ "          Chunks: " + Global.room.mapControl.chunkRender +
 				" (" + (chunkInDepthVector) + "*" + (Global.room.mapControl.getCountDepthVectors()) + ")";

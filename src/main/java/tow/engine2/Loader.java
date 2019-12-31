@@ -2,8 +2,7 @@ package tow.engine2;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 import tow.engine.Global;
-import tow.engine3.cycle.Analyzer;
-import tow.engine3.cycle.Engine;
+import tow.engine.cycle.Engine;
 import tow.engine3.image.TextureManager;
 import tow.engine2.implementation.*;
 import tow.engine2.io.Logger;
@@ -17,8 +16,6 @@ import tow.engine2.resources.settings.SettingsStorage;
 import tow.engine2.resources.settings.SettingsStorageHandler;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -78,8 +75,6 @@ public class Loader {
 		MouseHandler.init();
 		KeyboardHandler.init();
 
-		Global.engine.analyzer = new Analyzer();//Создаём анализатор производительности для движка
-
 		Logger.println("Inicialization end", Logger.Type.DEBUG);
 
 		//Инициализация игры
@@ -94,13 +89,9 @@ public class Loader {
 		if (errorCallback != null) errorCallback.free();
 		//TODO: AL.destroy();
 
-		Logger.println("Exit stack trace: " + getStackTraceAsString(new Exception()), Logger.Type.DEBUG);
+		Logger.println("Exit stack trace: ", new Exception(), Logger.Type.DEBUG);
 		System.exit(0);
 	}
 
-	private static String getStackTraceAsString(Exception e){
-		StringWriter errors = new StringWriter();
-		e.printStackTrace(new PrintWriter(errors));
-		return errors.toString();
-	}
+
 }

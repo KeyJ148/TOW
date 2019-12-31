@@ -1,4 +1,4 @@
-package tow.engine3.cycle;
+package tow.engine.cycle;
 
 import tow.engine.Global;
 import tow.engine2.Loader;
@@ -6,8 +6,20 @@ import tow.engine3.image.Camera;
 import tow.engine2.io.Logger;
 
 public class Update {
-	
-	public void loop(long delta){
+
+	private long startUpdateTime, lastUpdateTime = 0;//Для вычисления delta
+
+	public void loop(){
+		//При первом вызове устанавливаем текущее время
+		if (lastUpdateTime == 0) lastUpdateTime = System.nanoTime();
+
+		startUpdateTime = System.nanoTime();
+		loop(System.nanoTime() - lastUpdateTime);
+		lastUpdateTime = startUpdateTime;//Начало предыдущего update, чтобы длительность update тоже учитывалась
+	}
+
+	//Обновляем игру в соответствие с временем прошедшим с последнего обновления
+	private void loop(long delta){
 		Global.game.update(delta);//Обновить главный игровой класс при необходимости
 
 		Global.engine.render.clearTitle();//Убрать все надписи с прошлого рендера
