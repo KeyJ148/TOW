@@ -8,7 +8,7 @@ import tow.engine2.Loader;
 import tow.engine3.image.Camera;
 import tow.engine2.io.Logger;
 import tow.engine3.io.MouseHandler;
-import tow.engine2.resources.settings.SettingsStorage;
+import tow.engine.resources.settings.SettingsStorage;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;

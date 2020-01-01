@@ -1,7 +1,6 @@
 package tow.game.client.tanks.player;
 
 import tow.engine.Global;
-import tow.engine3.title.Title;
 import tow.engine3.obj.Obj;
 import tow.engine3.obj.components.Position;
 import tow.engine3.obj.components.render.Animation;
@@ -12,9 +11,7 @@ import tow.game.client.tanks.Stats;
 import tow.game.client.tanks.Tank;
 import tow.game.client.tanks.equipment.armor.ADefault;
 import tow.game.client.tanks.equipment.gun.GDefault;
-import tow.engine2.image.Color;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Player extends Tank {

@@ -2,7 +2,7 @@ package tow.engine3.obj.components.render;
 
 import tow.engine3.obj.Obj;
 import tow.engine3.obj.components.Component;
-import tow.engine2.image.Color;
+import tow.engine.image.Color;
 
 public abstract class Rendering extends Component {
 

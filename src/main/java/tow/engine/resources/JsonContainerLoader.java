@@ -1,4 +1,4 @@
-package tow.engine2.resources;
+package tow.engine.resources;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

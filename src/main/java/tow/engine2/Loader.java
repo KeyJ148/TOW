@@ -13,8 +13,8 @@ import tow.engine3.net.client.tcp.TCPControl;
 import tow.engine3.net.client.tcp.TCPRead;
 import tow.engine3.net.client.udp.UDPControl;
 import tow.engine3.net.client.udp.UDPRead;
-import tow.engine2.resources.settings.SettingsStorage;
-import tow.engine2.resources.settings.SettingsStorageHandler;
+import tow.engine.resources.settings.SettingsStorage;
+import tow.engine.resources.settings.SettingsStorageHandler;
 
 import java.io.IOException;
 

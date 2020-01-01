@@ -6,8 +6,8 @@ import tow.engine.Vector2;
 import tow.engine3.image.Camera;
 import tow.engine3.image.Mask;
 import tow.engine3.obj.Obj;
-import tow.engine2.image.Color;
-import tow.engine2.resources.settings.SettingsStorage;
+import tow.engine.image.Color;
+import tow.engine.resources.settings.SettingsStorage;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
 package tow.engine3.obj.components.particles;
 
 import tow.engine3.image.TextureHandler;
-import tow.engine2.image.Color;
+import tow.engine.image.Color;
 
 public class Part{
 

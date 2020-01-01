@@ -4,7 +4,7 @@ import tow.engine2.Loader;
 import tow.engine2.io.Logger;
 import tow.engine3.net.NetTools;
 import tow.engine3.net.client.NetControl;
-import tow.engine2.resources.settings.SettingsStorage;
+import tow.engine.resources.settings.SettingsStorage;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

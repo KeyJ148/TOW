@@ -20,7 +20,7 @@ public class Wall extends MapObject {
             case "home": return 100;
             case "tree": return 30;
             default:
-                Logger.println("This type not have stability parametr: " + type, Logger.Type.ERROR);
+                Logger.println("This type not have stability parameter: " + type, Logger.Type.ERROR);
                 return 100;
         }
     }

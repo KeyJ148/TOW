@@ -1,7 +1,7 @@
 package tow.game.client.login.gui;
 
 import tow.engine2.io.Logger;
-import tow.engine2.resources.ResourceLoader;
+import tow.engine.resources.ResourceLoader;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

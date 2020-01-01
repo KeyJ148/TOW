@@ -2,7 +2,7 @@ package tow.engine.cycle;
 
 import tow.engine2.Loader;
 import tow.engine.analysis.Analyzer;
-import tow.engine2.resources.settings.SettingsStorage;
+import tow.engine.resources.settings.SettingsStorage;
 
 import org.lwjgl.glfw.GLFW;
 

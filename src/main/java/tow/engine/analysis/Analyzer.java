@@ -2,7 +2,7 @@ package tow.engine.analysis;
 
 import tow.engine.Global;
 import tow.engine2.io.Logger;
-import tow.engine2.resources.settings.SettingsStorage;
+import tow.engine.resources.settings.SettingsStorage;
 
 public class Analyzer {
 

@@ -1,28 +1,20 @@
 package tow.engine3.image;
 
-import tow.engine2.image.Texture;
-import tow.engine2.image.TextureLoader;
-import tow.engine2.io.Logger;
-
-import java.io.IOException;
+import tow.engine.image.Texture;
+import tow.engine.resources.TextureLoader;
 
 public class TextureHandler {
 	
 	public Texture texture;
-    public Mask mask;
+    public Mask mask; //TODO: mask и name вынести в texture
 
     public String name;
-	public String type;
-	public int depth;
+	public String type; //TODO: type - разные наследники для MapObject
+	public int depth; //TODO: depth - свойство для наследника MapObject
+	//TODO: карта в JSON, для объекта указана текстура, тип объекта (наследник MapObject) и специфичные свойства (color для машин)
 
 	public TextureHandler(String path, String type, int depth) {
-		try {
-			this.texture = TextureLoader.getTexture(path);
-			Logger.println("Load image \"" + path + "\" complited", Logger.Type.DEBUG_IMAGE);
-		} catch (IOException e1) {
-			Logger.println("Image \"" + path + "\" not loading", Logger.Type.ERROR);
-		}
-
+		this.texture = TextureLoader.getTexture(path);
 		this.mask = new Mask(path, getWidth(), getHeight());
 
         this.name = path.substring(path.lastIndexOf("/")+1, path.lastIndexOf("."));

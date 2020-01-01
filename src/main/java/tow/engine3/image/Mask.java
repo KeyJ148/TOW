@@ -1,9 +1,8 @@
 package tow.engine3.image;
 
-import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine2.io.Logger;
-import tow.engine2.resources.ResourceLoader;
+import tow.engine.resources.ResourceLoader;
 
 import java.io.*;
 import java.util.ArrayList;

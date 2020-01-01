@@ -18,7 +18,7 @@ import tow.game.client.map.Wall;
 import tow.game.client.tanks.enemy.Enemy;
 import tow.game.client.tanks.enemy.EnemyBullet;
 import tow.game.client.tanks.player.Player;
-import tow.engine2.image.Color;
+import tow.engine.image.Color;
 
 import java.util.ArrayList;
 import java.util.Map;

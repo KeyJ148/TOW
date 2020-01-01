@@ -1,4 +1,4 @@
-package tow.engine2.resources;
+package tow.engine.resources;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

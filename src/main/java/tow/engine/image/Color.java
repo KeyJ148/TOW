@@ -1,4 +1,4 @@
-package tow.engine2.image;
+package tow.engine.image;
 
 import org.lwjgl.opengl.GL11;
 

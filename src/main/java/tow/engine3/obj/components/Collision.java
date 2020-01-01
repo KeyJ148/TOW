@@ -6,8 +6,8 @@ import tow.engine3.image.Camera;
 import tow.engine3.image.Mask;
 import tow.engine3.obj.Obj;
 import org.lwjgl.opengl.GL11;
-import tow.engine2.image.Color;
-import tow.engine2.resources.settings.SettingsStorage;
+import tow.engine.image.Color;
+import tow.engine.resources.settings.SettingsStorage;
 
 import java.awt.Polygon;
 import java.awt.Point;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class Collision extends Component {
 
 	private Mask mask;//Маска для текстуры этого объекта
-	private Vector2<Integer>[] maskAbsolute; //Абсолютные координаты маски от левого верхнего угла картыМ
+	private Vector2<Integer>[] maskAbsolute; //Абсолютные координаты маски от левого верхнего угла карты
 
 	protected ArrayList<Class> collisionObjects = new ArrayList();//Список объектов с которыми надо проверять столкновения
 	private ArrayList<CollisionListener> listeners = new ArrayList();//Список объектов которых нужно оповещать при коллизии

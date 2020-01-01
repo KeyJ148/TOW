@@ -3,7 +3,7 @@ package tow.engine3.net.client.tcp;
 import tow.engine2.Loader;
 import tow.engine2.io.Logger;
 import tow.engine3.net.client.NetControl;
-import tow.engine2.resources.settings.SettingsStorage;
+import tow.engine.resources.settings.SettingsStorage;
 
 import java.io.*;
 import java.net.InetAddress;

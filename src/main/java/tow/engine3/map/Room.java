@@ -1,7 +1,5 @@
 package tow.engine3.map;
 
-import tow.engine2.image.Color;
-import tow.engine3.image.TextureHandler;
 import tow.engine3.obj.Obj;
 
 import java.util.Vector;

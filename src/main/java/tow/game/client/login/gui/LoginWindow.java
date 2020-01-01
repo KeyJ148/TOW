@@ -55,7 +55,7 @@ public class LoginWindow extends JFrame {
 	}
 
 	public void recolorTank(Color c){
-        ClientData.color = new tow.engine2.image.Color(c.getRed(), c.getGreen(), c.getBlue());
+        ClientData.color = new tow.engine.image.Color(c.getRed(), c.getGreen(), c.getBlue());
 
         spriteTank.setDefaultImage();
 		spriteTank.setColor(c);
