@@ -8,7 +8,7 @@ public abstract class Rendering extends Component {
 
     public double scale_x = 1;
     public double scale_y = 1;
-    public Color color = new Color(Color.WHITE);
+    public Color color = Color.WHITE;
 
     public Rendering(Obj obj) {
         super(obj);

@@ -1,5 +1,6 @@
 package tow.engine3.map;
 
+import tow.engine2.image.Color;
 import tow.engine3.image.TextureHandler;
 import tow.engine3.obj.Obj;
 
@@ -7,7 +8,7 @@ import java.util.Vector;
 
 public class Room {
 
-	public TextureHandler background;
+	public Background background;
 	public int width, height;
 
 	public Vector<Obj> objects; //Массив со всеми объектами
@@ -16,6 +17,7 @@ public class Room {
 	public Room(int width, int height) {
 		this.width = width;
 		this.height = height;
+		this.background = new Background();
 
 		objects = new Vector<>();
 		mapControl = new MapControl(width, height);
@@ -30,6 +32,11 @@ public class Room {
 		for (Obj obj : objects) {
 			if (obj != null) obj.updateFollow();
 		}
+	}
+
+	public void render(int x, int y, int width, int height){
+		background.render(x, y, width, height);
+		mapControl.render(x, y, width, height);
 	}
 
 	public int objCount(){

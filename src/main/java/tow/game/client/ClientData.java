@@ -13,7 +13,7 @@ import java.util.Vector;
 public class ClientData {
 
     public static String name = "";
-    public static Color color = new Color(Color.WHITE);
+    public static Color color = Color.WHITE;
     public static Player player;
 
     public static int peopleMax;

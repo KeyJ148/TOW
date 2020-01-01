@@ -24,7 +24,7 @@ public abstract class Tank extends Obj{
     public Obj camera;
 
     public String name = "";
-    public Color color = new Color(Color.WHITE);
+    public Color color = Color.WHITE;
     public boolean alive = true;
 
     public int kill = 0;
@@ -53,7 +53,7 @@ public abstract class Tank extends Obj{
             Vector2<Integer> relativePosition = armor.position.getRelativePosition();
             int nameX = (int) Math.round(relativePosition.x - name.length() * 3.25); // lengthChar/2
             int nameY = relativePosition.y - 50;
-            Global.engine.render.addTitle(new Title(nameX, nameY, name));
+            //TODO: Global.engine.render.addTitle(new Title(nameX, nameY, name));
         }
     }
 

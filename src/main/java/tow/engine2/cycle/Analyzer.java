@@ -98,8 +98,12 @@ public class Analyzer {
 		Logger.println(strFPS2, Logger.Type.CONSOLE_FPS);
 
 		if (SettingsStorage.LOGGER.DEBUG_MONITOR_FPS){
-			Global.engine.render.strAnalysis1 = strFPS1;
-			Global.engine.render.strAnalysis2 = strFPS2;
+			//TODO: надпись - компонент объекта
+			//Отрисвока надписей
+			/*
+			addTitle(new Title(1, getHeight()-27,strAnalysis1, Color.black, 12, Font.BOLD));
+			addTitle(new Title(1, getHeight()-15,strAnalysis2, Color.black, 12, Font.BOLD));
+			*/
 		}
 
 		lastAnalysis = System.currentTimeMillis();

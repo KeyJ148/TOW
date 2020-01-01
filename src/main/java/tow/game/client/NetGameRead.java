@@ -7,6 +7,7 @@ import tow.engine3.image.TextureHandler;
 import tow.engine3.image.TextureManager;
 import tow.engine2.implementation.NetGameReadInterface;
 import tow.engine2.io.Logger;
+import tow.engine3.map.Background;
 import tow.engine3.map.Border;
 import tow.engine3.map.Room;
 import tow.engine3.net.client.Message;
@@ -85,7 +86,7 @@ public class NetGameRead implements NetGameReadInterface {
 		String background = str.split(" ")[2];
 
 		Global.room = new Room(width, height);
-		Global.room.background = TextureManager.getTexture(background);
+		Global.room.background = new Background(TextureManager.getTexture(background));
 		Border.createAll(Global.room);
 	}
 

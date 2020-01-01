@@ -45,7 +45,7 @@ public class Collision extends Component {
 			maskDrawView[i] = Camera.toRelativePosition(maskAbsolute[i].copy());
 
 		GL11.glLoadIdentity();
-		new Color(Color.BLUE).bind();
+		Color.BLUE.bind();
 
 		GL11.glBegin(GL11.GL_LINE_LOOP);
 		for (int i=0; i<maskDrawView.length;i++) {

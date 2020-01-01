@@ -59,7 +59,7 @@ public class Camera {
         }
     }
 
-
+    //Преобразует координаты относительно угла карты в координаты относительно угла экрана (области видимости камеры)
     public static Vector2<Integer> toRelativePosition(Vector2 absolutePosition){
         //Преобразуем входной верктор в int
         if (absolutePosition.x.getClass().equals(Double.class)) absolutePosition.x = ((Double) absolutePosition.x).intValue();
