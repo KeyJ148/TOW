@@ -8,6 +8,7 @@ import tow.engine2.implementation.*;
 import tow.engine2.io.Logger;
 import tow.engine3.io.KeyboardHandler;
 import tow.engine3.io.MouseHandler;
+import tow.engine3.net.client.Ping;
 import tow.engine3.net.client.tcp.TCPControl;
 import tow.engine3.net.client.tcp.TCPRead;
 import tow.engine3.net.client.udp.UDPControl;
@@ -67,6 +68,8 @@ public class Loader {
 		Global.tcpRead = new TCPRead();
 		Global.udpControl = new UDPControl();
 		Global.udpRead = new UDPRead();
+
+		Global.pingCheck = new Ping();
 
 		TextureManager.init();//Загрузка текстур и анимаций
 		//TODO: FontManager.init();//Загрузка шрифтов

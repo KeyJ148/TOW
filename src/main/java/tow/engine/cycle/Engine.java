@@ -1,7 +1,7 @@
 package tow.engine.cycle;
 
 import tow.engine2.Loader;
-import tow.engine2.cycle.Analyzer;
+import tow.engine.analysis.Analyzer;
 import tow.engine2.resources.settings.SettingsStorage;
 
 import org.lwjgl.glfw.GLFW;
@@ -25,6 +25,7 @@ public class Engine{
 			//Цикл Update
 			analyzer.startUpdate();
 			update.loop();
+			analyzer.update();
 			analyzer.endUpdate();
 
 			//Цикл Render
