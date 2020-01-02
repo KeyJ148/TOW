@@ -7,8 +7,6 @@ import tow.engine.Global;
 import tow.engine.io.logger.Logger;
 import tow.engine2.Loader;
 import tow.engine3.image.Camera;
-import tow.engine.io.logger.AggregateLogger;
-import tow.engine3.io.MouseHandler;
 import tow.engine.resources.settings.SettingsStorage;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -93,7 +91,7 @@ public class Render{
 
 		Global.game.render(); //Отрисовка в главном игровом классе (ссылка передается в движок при инициализации)
 		Global.room.render((int) Camera.absoluteX, (int) Camera.absoluteY, getWidth(), getHeight()); //Отрисовка комнаты
-		MouseHandler.draw(); //Отрисовка мыши
+		Global.mouse.draw(); //Отрисовка мыши
 	}
 
 	public void vsync(){

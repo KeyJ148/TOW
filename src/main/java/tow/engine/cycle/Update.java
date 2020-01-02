@@ -4,9 +4,7 @@ import tow.engine.Global;
 import tow.engine.io.logger.Logger;
 import tow.engine2.Loader;
 import tow.engine3.image.Camera;
-import tow.engine.io.logger.AggregateLogger;
 import tow.engine3.io.KeyboardHandler;
-import tow.engine3.io.MouseHandler;
 
 import static org.lwjgl.glfw.GLFW.glfwPollEvents;
 
@@ -41,7 +39,7 @@ public class Update {
 
 		Camera.calc();//Расчёт положения камеры
 
-		MouseHandler.update(); //Очистка истории событий мыши
+		Global.mouse.update(); //Очистка истории событий мыши
 		KeyboardHandler.update(); //Очистка истории событий клавиатуры
 	}
 

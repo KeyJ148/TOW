@@ -62,7 +62,7 @@ public class FileLogger extends Logger {
     }
 
     private static String getDefaultFilename(){
-        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yy_HH-mm-ss-SSS");
+        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy_HH-mm-ss-SSS");
         Date date = new Date();
         return dateFormat.format(date) + ".log";
     }

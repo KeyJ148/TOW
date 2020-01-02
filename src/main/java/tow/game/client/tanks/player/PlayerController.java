@@ -4,7 +4,6 @@ import tow.engine.Global;
 import tow.engine2.Loader;
 import tow.engine.Vector2;
 import tow.engine3.io.KeyboardHandler;
-import tow.engine3.io.MouseHandler;
 import tow.engine3.map.Border;
 import tow.engine3.obj.Obj;
 import tow.engine3.obj.components.Collision;
@@ -117,7 +116,7 @@ public class PlayerController extends Obj implements Collision.CollisionListener
          * Выстрел
          */
         //Если нажата мышь и перезарядилась пушка и игрок вообще может стрелять
-        if (MouseHandler.mouseDown1 && ((Gun) player.gun).nanoSecFromAttack <= 0 && player.stats.attackSpeed > 0){
+        if (Global.mouse.isButtonDown(GLFW_MOUSE_BUTTON_1) && ((Gun) player.gun).nanoSecFromAttack <= 0 && player.stats.attackSpeed > 0){
             ((Gun) player.gun).attack(); //Стреляем
         }
 
@@ -191,12 +190,12 @@ public class PlayerController extends Obj implements Collision.CollisionListener
         double relativeX = relativePosition.x+0.1;
         double relativeY = relativePosition.y+0.1;
 
-        double pointDir = -Math.toDegrees(Math.atan((relativeY-MouseHandler.mouseY)/(relativeX-MouseHandler.mouseX)));
+        double pointDir = -Math.toDegrees(Math.atan((relativeY-Global.mouse.getMousePos().y)/(relativeX-Global.mouse.getMousePos().x)));
 
         double trunkUp = ((double) delta/1000000000)*(player.stats.directionGunUp);
-        if ((relativeX-MouseHandler.mouseX)>0){
+        if ((relativeX-Global.mouse.getMousePos().x)>0){
             pointDir+=180;
-        } else if ((relativeY-MouseHandler.mouseY)<0){
+        } else if ((relativeY-Global.mouse.getMousePos().y)<0){
             pointDir+=360;
         }
 
