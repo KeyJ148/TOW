@@ -1,7 +1,6 @@
 package tow.engine3.setting;
 
 import tow.engine.Global;
-import tow.engine.io.logger.AggregateLogger;
 import tow.engine.io.logger.Logger;
 
 import java.io.BufferedReader;

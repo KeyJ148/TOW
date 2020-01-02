@@ -1,6 +1,6 @@
 package tow.engine2.implementation;
 
-import tow.engine3.net.server.MessagePack;
+import tow.engine2.net.server.MessagePack;
 
 public interface NetServerReadInterface {
 

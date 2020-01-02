@@ -2,12 +2,12 @@ package tow.game.client.tanks.player;
 
 import tow.engine3.image.TextureHandler;
 import tow.engine3.image.TextureManager;
-import tow.engine3.map.Border;
-import tow.engine3.obj.Obj;
-import tow.engine3.obj.components.Collision;
-import tow.engine3.obj.components.Movement;
-import tow.engine3.obj.components.Position;
-import tow.engine3.obj.components.render.Animation;
+import tow.engine2.map.Border;
+import tow.engine2.obj.Obj;
+import tow.engine2.obj.components.Collision;
+import tow.engine2.obj.components.Movement;
+import tow.engine2.obj.components.Position;
+import tow.engine2.obj.components.render.Animation;
 import tow.engine3.setting.ConfigReader;
 import tow.game.client.map.Box;
 import tow.game.client.map.Wall;

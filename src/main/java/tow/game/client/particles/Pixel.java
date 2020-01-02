@@ -1,8 +1,8 @@
 package tow.game.client.particles;
 
-import tow.engine3.obj.Obj;
-import tow.engine3.obj.components.particles.Part;
-import tow.engine3.obj.components.particles.ParticlesGeometry;
+import tow.engine2.obj.Obj;
+import tow.engine2.obj.components.particles.Part;
+import tow.engine2.obj.components.particles.ParticlesGeometry;
 import tow.engine.image.Color;
 
 public class Pixel extends ParticlesGeometry {

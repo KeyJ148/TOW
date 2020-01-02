@@ -3,7 +3,7 @@ package tow.engine.cycle;
 import tow.engine.Global;
 import tow.engine.io.logger.Logger;
 import tow.engine2.Loader;
-import tow.engine3.image.Camera;
+import tow.engine2.image.Camera;
 
 import static org.lwjgl.glfw.GLFW.glfwPollEvents;
 

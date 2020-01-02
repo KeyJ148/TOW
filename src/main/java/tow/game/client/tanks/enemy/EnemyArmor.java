@@ -1,9 +1,9 @@
 package tow.game.client.tanks.enemy;
 
 import tow.engine3.image.TextureHandler;
-import tow.engine3.obj.Obj;
-import tow.engine3.obj.components.Collision;
-import tow.engine3.obj.components.Movement;
+import tow.engine2.obj.Obj;
+import tow.engine2.obj.components.Collision;
+import tow.engine2.obj.components.Movement;
 
 public class EnemyArmor extends Obj {
 	

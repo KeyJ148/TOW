@@ -2,6 +2,7 @@ package tow.engine3.image;
 
 import tow.engine.image.Texture;
 import tow.engine.resources.TextureLoader;
+import tow.engine2.image.Mask;
 
 public class TextureHandler {
 	

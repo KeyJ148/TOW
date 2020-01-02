@@ -3,7 +3,6 @@ package tow.game.client.login.logic;
 import tow.engine.Global;
 import tow.engine.io.logger.Logger;
 import tow.engine2.Loader;
-import tow.engine.io.logger.AggregateLogger;
 import tow.engine.image.Color;
 
 public class LoginDataChecker {

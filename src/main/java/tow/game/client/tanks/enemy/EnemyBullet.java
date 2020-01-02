@@ -3,8 +3,8 @@ package tow.game.client.tanks.enemy;
 import tow.engine.Global;
 import tow.engine3.image.TextureHandler;
 import tow.engine3.image.TextureManager;
-import tow.engine3.obj.Obj;
-import tow.engine3.obj.components.Movement;
+import tow.engine2.obj.Obj;
+import tow.engine2.obj.components.Movement;
 import tow.game.client.particles.Explosion;
 
 public class EnemyBullet extends Obj {

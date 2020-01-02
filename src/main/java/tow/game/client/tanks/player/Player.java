@@ -1,9 +1,9 @@
 package tow.game.client.tanks.player;
 
 import tow.engine.Global;
-import tow.engine3.obj.Obj;
-import tow.engine3.obj.components.Position;
-import tow.engine3.obj.components.render.Animation;
+import tow.engine2.obj.Obj;
+import tow.engine2.obj.components.Position;
+import tow.engine2.obj.components.render.Animation;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
 import tow.game.client.tanks.Effect;

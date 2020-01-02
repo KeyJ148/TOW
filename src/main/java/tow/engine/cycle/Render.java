@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL11;
 import tow.engine.Global;
 import tow.engine.io.logger.Logger;
 import tow.engine2.Loader;
-import tow.engine3.image.Camera;
+import tow.engine2.image.Camera;
 import tow.engine.resources.settings.SettingsStorage;
 
 import static org.lwjgl.glfw.GLFW.*;

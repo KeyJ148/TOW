@@ -7,7 +7,7 @@ import tow.engine.Global;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.lwjgl.glfw.GLFW.glfwSetKeyCallback;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class KeyboardEventHistory {
 
