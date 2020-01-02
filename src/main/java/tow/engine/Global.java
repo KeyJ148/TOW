@@ -4,6 +4,7 @@ import tow.engine.cycle.Engine;
 import tow.engine.io.logger.AggregateLogger;
 import tow.engine2.implementation.*;
 import tow.engine.io.mouse.MouseHandler;
+import tow.engine.io.keyboard.KeyboardHandler;
 import tow.engine3.map.Room;
 import tow.engine3.net.client.Ping;
 import tow.engine3.net.client.tcp.TCPControl;
@@ -18,6 +19,7 @@ public class Global {
 
 	public static AggregateLogger logger; //Объект для вывода лога в консоль и файл
 	public static MouseHandler mouse; //Объект хранящий события мыши и рисующий курсор на экране
+	public static KeyboardHandler keyboard; //Объект хранящий события клавитуры
 
 	//TODO: убрать в главный класс Network при рефакторинге сети
 	public static TCPControl tcpControl; //Хранит настройки и работает с сетью по TCP протоколу

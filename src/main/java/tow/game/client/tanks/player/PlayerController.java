@@ -3,7 +3,7 @@ package tow.game.client.tanks.player;
 import tow.engine.Global;
 import tow.engine2.Loader;
 import tow.engine.Vector2;
-import tow.engine3.io.KeyboardHandler;
+import tow.engine.io.keyboard.KeyboardEventHistory;
 import tow.engine3.map.Border;
 import tow.engine3.obj.Obj;
 import tow.engine3.obj.components.Collision;
@@ -11,6 +11,8 @@ import tow.game.client.ClientData;
 import tow.game.client.map.Box;
 import tow.game.client.map.Wall;
 import tow.game.client.tanks.enemy.EnemyArmor;
+
+import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -43,20 +45,21 @@ public class PlayerController extends Obj implements Collision.CollisionListener
          * Смотрим на все зажатые клавиши
          */
 
-        if (KeyboardHandler.isKeyDown(GLFW_KEY_ESCAPE)) Loader.exit();
+        if (Global.keyboard.isKeyDown(GLFW_KEY_ESCAPE)) Loader.exit();
 
         //TODO:
-        //if (KeyboardHandler.isKeyDown(GLFW_KEY_TAB) && !PlayerTable.enable) PlayerTable.enable();
-        //if (!KeyboardHandler.isKeyDown(GLFW_KEY_TAB) && PlayerTable.enable) PlayerTable.disable();
+        //if (Global.keyboard.isKeyDown(GLFW_KEY_TAB) && !PlayerTable.enable) PlayerTable.enable();
+        //if (!Global.keyboard.isKeyDown(GLFW_KEY_TAB) && PlayerTable.enable) PlayerTable.disable();
 
         /*
          * Перебираем все события нажатия клавиш
          */
         //TODO: возможно обновляется после очистки, ибо size() всегда 0
-        for (int i = 0; i < KeyboardHandler.events.size(); i++) {
-            if (KeyboardHandler.events.get(i).action == GLFW_PRESS) {// Клавиша нажата
+        List<KeyboardEventHistory.Event> keyboardEvents = Global.keyboard.getEventHistory().getList();
+        for (KeyboardEventHistory.Event event : keyboardEvents) {
+            if (event.action == GLFW_PRESS) {// Клавиша нажата
 
-                switch (KeyboardHandler.events.get(i).key) {
+                switch (event.key) {
 
                     //Клавиши запрета и разрешения на подбор ящиков
                     case GLFW_KEY_1:
@@ -125,10 +128,10 @@ public class PlayerController extends Obj implements Collision.CollisionListener
          */
         if (!recoil) {
             int vectorUp = 0, vectorRight = 0;
-            if (KeyboardHandler.isKeyDown(GLFW_KEY_W)) vectorUp++;
-            if (KeyboardHandler.isKeyDown(GLFW_KEY_S)) vectorUp--;
-            if (KeyboardHandler.isKeyDown(GLFW_KEY_D)) vectorRight++;
-            if (KeyboardHandler.isKeyDown(GLFW_KEY_A)) vectorRight--;
+            if (Global.keyboard.isKeyDown(GLFW_KEY_W)) vectorUp++;
+            if (Global.keyboard.isKeyDown(GLFW_KEY_S)) vectorUp--;
+            if (Global.keyboard.isKeyDown(GLFW_KEY_D)) vectorRight++;
+            if (Global.keyboard.isKeyDown(GLFW_KEY_A)) vectorRight--;
 
             runUp = false;
             runDown = false;

@@ -6,7 +6,7 @@ import tow.engine.cycle.Engine;
 import tow.engine3.image.TextureManager;
 import tow.engine2.implementation.*;
 import tow.engine.io.logger.AggregateLogger;
-import tow.engine3.io.KeyboardHandler;
+import tow.engine.io.keyboard.KeyboardHandler;
 import tow.engine.io.mouse.MouseHandler;
 import tow.engine3.net.client.Ping;
 import tow.engine3.net.client.tcp.TCPControl;
@@ -79,7 +79,7 @@ public class Loader {
 		//TODO: AudioManager.init();//Загрузка звуков
 
 		Global.mouse = new MouseHandler();
-		KeyboardHandler.init();
+		Global.keyboard = new KeyboardHandler();
 
 		Global.logger.println("Inicialization end", Logger.Type.DEBUG);
 
