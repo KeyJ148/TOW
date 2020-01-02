@@ -1,7 +1,9 @@
 package tow.game.client.lobby;
 
+import tow.engine.Global;
+import tow.engine.io.logger.Logger;
 import tow.engine2.Loader;
-import tow.engine2.io.Logger;
+import tow.engine.io.logger.AggregateLogger;
 import tow.engine3.net.client.Connector;
 
 import java.io.DataInputStream;
@@ -63,7 +65,7 @@ public class LobbyClient implements Runnable{
             //Подключение к серверу
             new Connector().connect(ip, port);
         } catch(IOException e){
-            Logger.println(e.getMessage(), Logger.Type.ERROR);
+            Global.logger.println(e.getMessage(), Logger.Type.ERROR);
             Loader.exit();
         }
     }

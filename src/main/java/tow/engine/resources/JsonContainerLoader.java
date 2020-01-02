@@ -2,7 +2,8 @@ package tow.engine.resources;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import tow.engine2.io.Logger;
+import tow.engine.Global;
+import tow.engine.io.logger.Logger;
 
 import java.io.*;
 
@@ -14,7 +15,7 @@ public class JsonContainerLoader {
         try(Reader reader = new FileReader(path)){
             return gson.fromJson(reader, containerClass);
         } catch (IOException e){
-            Logger.println("Unable to load external JSON file \"" + path + "\" to class " + containerClass.getName(), Logger.Type.ERROR);
+            Global.logger.println("Unable to load external JSON file \"" + path + "\" to class " + containerClass.getName(), Logger.Type.ERROR);
             throw e;
         }
     }
@@ -25,7 +26,7 @@ public class JsonContainerLoader {
         try (Writer writer = new FileWriter(path)) {
             gson.toJson(containerObject, writer);
         } catch (IOException e) {
-            Logger.println("Unable to save external JSON file \"" + path + "\" from class " + containerObject.getClass().getName(), Logger.Type.ERROR);
+            Global.logger.println("Unable to save external JSON file \"" + path + "\" from class " + containerObject.getClass().getName(), Logger.Type.ERROR);
             throw e;
         }
     }
@@ -36,7 +37,7 @@ public class JsonContainerLoader {
         try(Reader reader = new InputStreamReader(ResourceLoader.getResourceAsStream(path))){
             return gson.fromJson(reader, containerClass);
         } catch (IOException e){
-            Logger.println("Unable to load internal JSON file \"" + path + "\" to class " + containerClass.getName(), Logger.Type.ERROR);
+            Global.logger.println("Unable to load internal JSON file \"" + path + "\" to class " + containerClass.getName(), Logger.Type.ERROR);
             throw e;
         }
     }

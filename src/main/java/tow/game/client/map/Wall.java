@@ -1,7 +1,9 @@
 package tow.game.client.map;
 
+import tow.engine.Global;
+import tow.engine.io.logger.Logger;
 import tow.engine3.image.TextureHandler;
-import tow.engine2.io.Logger;
+import tow.engine.io.logger.AggregateLogger;
 import tow.engine3.obj.components.Collision;
 
 public class Wall extends MapObject {
@@ -20,7 +22,7 @@ public class Wall extends MapObject {
             case "home": return 100;
             case "tree": return 30;
             default:
-                Logger.println("This type not have stability parameter: " + type, Logger.Type.ERROR);
+                Global.logger.println("This type not have stability parameter: " + type, Logger.Type.ERROR);
                 return 100;
         }
     }

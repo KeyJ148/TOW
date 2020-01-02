@@ -4,9 +4,10 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import tow.engine.Global;
+import tow.engine.io.logger.Logger;
 import tow.engine2.Loader;
 import tow.engine3.image.Camera;
-import tow.engine2.io.Logger;
+import tow.engine.io.logger.AggregateLogger;
 import tow.engine3.io.MouseHandler;
 import tow.engine.resources.settings.SettingsStorage;
 
@@ -24,7 +25,7 @@ public class Render{
 	public void initGL(){
 		//Инициализация GLFW
 		if (!glfwInit()){
-			Logger.println("GLFW initialization failed", Logger.Type.ERROR);
+			Global.logger.println("GLFW initialization failed", Logger.Type.ERROR);
 			Loader.exit();
 		}
 
@@ -82,7 +83,7 @@ public class Render{
 			//Обновление кадра
 			glfwSwapBuffers(windowID);
 		} catch (Exception e) {
-			Logger.println("OpenGL initialization failed", e, Logger.Type.ERROR);
+			Global.logger.println("OpenGL initialization failed", e, Logger.Type.ERROR);
 			Loader.exit();
 		}
 	}

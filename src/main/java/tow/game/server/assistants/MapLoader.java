@@ -1,8 +1,10 @@
 package tow.game.server.assistants;
 
+import tow.engine.Global;
 import tow.engine.Vector2;
+import tow.engine.io.logger.Logger;
 import tow.engine3.image.TextureManager;
-import tow.engine2.io.Logger;
+import tow.engine.io.logger.AggregateLogger;
 import tow.engine3.net.server.senders.ServerSendTCP;
 import tow.game.server.Server;
 import tow.game.server.data.ServerData;
@@ -20,7 +22,7 @@ public class MapLoader implements Runnable{
     }
 
     public void loadMap(File map){
-        Logger.println("Loading map: " + map.getName(), Logger.Type.SERVER_INFO);
+        Global.logger.println("Loading map: " + map.getName(), Logger.Type.SERVER_INFO);
 
         disableBattle();
         loadMapToMemory(map);
@@ -81,7 +83,7 @@ public class MapLoader implements Runnable{
 
             fileReader.close();
         } catch (IOException e) {
-            Logger.println("Error map loading from: " + map.getAbsolutePath(), Logger.Type.SERVER_ERROR);
+            Global.logger.println("Error map loading from: " + map.getAbsolutePath(), Logger.Type.SERVER_ERROR);
         }
     }
 

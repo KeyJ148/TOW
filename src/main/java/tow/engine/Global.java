@@ -1,6 +1,7 @@
 package tow.engine;
 
 import tow.engine.cycle.Engine;
+import tow.engine.io.logger.AggregateLogger;
 import tow.engine2.implementation.*;
 import tow.engine3.map.Room;
 import tow.engine3.net.client.Ping;
@@ -13,6 +14,7 @@ public class Global {
 
 	public static Engine engine; //Главный игровой поток
 	public static Room room; //Текущая комната
+	public static AggregateLogger logger; //Объект для вывода лога в консоль и файл
 
 	//TODO: убрать в главный класс Network при рефакторинге сети
 	public static TCPControl tcpControl; //Хранит настройки и работает с сетью по TCP протоколу

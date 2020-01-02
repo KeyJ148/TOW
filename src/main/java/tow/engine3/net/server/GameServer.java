@@ -1,9 +1,11 @@
 package tow.engine3.net.server;
 
+import tow.engine.Global;
+import tow.engine.io.logger.Logger;
 import tow.engine2.Loader;
 import tow.engine2.implementation.NetServerReadInterface;
 import tow.engine2.implementation.ServerInterface;
-import tow.engine2.io.Logger;
+import tow.engine.io.logger.AggregateLogger;
 import tow.engine3.net.server.readers.ServerReadUDP;
 import tow.engine.resources.settings.SettingsStorage;
 import tow.engine.resources.settings.SettingsStorageHandler;
@@ -72,7 +74,7 @@ public class GameServer {
 				maxPower = (str.equals("t") || str.equals("true"));
 			}
 		} catch (IOException e){
-			Logger.println("Failed io text", Logger.Type.SERVER_ERROR);
+			Global.logger.println("Failed io text", Logger.Type.SERVER_ERROR);
 			Loader.exit();
 		}
 	}
@@ -97,17 +99,17 @@ public class GameServer {
 
 			peopleNow = 0;
 
-			Logger.println("Server started", Logger.Type.SERVER_INFO);
+			Global.logger.println("Server started", Logger.Type.SERVER_INFO);
 
 			while (peopleNow != peopleMax) {
 				connects[peopleNow] = ConnectFactory.createConnect(serverSocketTCP, socketUDP, peopleNow);
 				peopleNow++;
 
-				Logger.println("New client (" + peopleNow + "/" + peopleMax + ")", Logger.Type.SERVER_INFO);
+				Global.logger.println("New client (" + peopleNow + "/" + peopleMax + ")", Logger.Type.SERVER_INFO);
 			}
 			serverSocketTCP.close();
 
-			Logger.println("All users connected", Logger.Type.SERVER_INFO);
+			Global.logger.println("All users connected", Logger.Type.SERVER_INFO);
 
 			//Запуск всех основных потоков
 			for (Connect connect : connects) {
@@ -118,7 +120,7 @@ public class GameServer {
 			processingData();//Старт бессконечно цикла с обработкой данных
 		} catch (IOException e){
 			e.printStackTrace();
-            Logger.println("Failed server start", Logger.Type.SERVER_ERROR);
+            Global.logger.println("Failed server start", Logger.Type.SERVER_ERROR);
 			Loader.exit();
 		}
 	}
@@ -151,7 +153,7 @@ public class GameServer {
 			if (!GameServer.maxPower) try {Thread.sleep(0,1);} catch (InterruptedException e) {}
 		}
 
-		Logger.println("All user disconnect!", Logger.Type.SERVER_INFO);
+		Global.logger.println("All user disconnect!", Logger.Type.SERVER_INFO);
 		Loader.exit();
 	}
 

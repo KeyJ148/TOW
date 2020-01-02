@@ -1,7 +1,9 @@
 package tow.engine3.net.server.readers;
 
+import tow.engine.Global;
+import tow.engine.io.logger.Logger;
 import tow.engine2.Loader;
-import tow.engine2.io.Logger;
+import tow.engine.io.logger.AggregateLogger;
 import tow.engine3.net.NetTools;
 import tow.engine3.net.server.Connect;
 import tow.engine3.net.server.GameServer;
@@ -45,7 +47,7 @@ public class ServerReadUDP extends Thread{
 				}
 			}
 		} catch (IOException e){
-			Logger.println("UDP server socket closed", Logger.Type.SERVER_ERROR);
+			Global.logger.println("UDP server socket closed", Logger.Type.SERVER_ERROR);
 			Loader.exit();
 		}
 	}

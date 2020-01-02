@@ -1,7 +1,8 @@
 package tow.engine.analysis;
 
 import tow.engine.Global;
-import tow.engine2.io.Logger;
+import tow.engine.io.logger.AggregateLogger;
+import tow.engine.io.logger.Logger;
 import tow.engine.resources.settings.SettingsStorage;
 
 public class Analyzer {
@@ -112,8 +113,8 @@ public class Analyzer {
 		String str2 = analysisStringBuilder.getAnalysisString2();
 
 		//Вывод результатов в консоль
-		Logger.println(str1, Logger.Type.CONSOLE_FPS);
-		Logger.println(str2, Logger.Type.CONSOLE_FPS);
+		Global.logger.println(str1, Logger.Type.CONSOLE_FPS);
+		Global.logger.println(str2, Logger.Type.CONSOLE_FPS);
 
 		//Вывод результатов на монитор
 		if (SettingsStorage.LOGGER.DEBUG_MONITOR_FPS){

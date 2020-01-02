@@ -1,9 +1,11 @@
 package tow.engine3.obj.components.render;
 
+import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.Texture;
+import tow.engine.io.logger.Logger;
 import tow.engine3.image.TextureHandler;
-import tow.engine2.io.Logger;
+import tow.engine.io.logger.AggregateLogger;
 import tow.engine3.obj.Obj;
 import org.lwjgl.opengl.GL11;
 
@@ -68,7 +70,7 @@ public class Animation extends Rendering {
 
 	public void setFrameSpeed(int frameSpeed) {
 		if (frameSpeed < 0){
-			Logger.println("Frame speed must be >= 0", Logger.Type.ERROR);
+			Global.logger.println("Frame speed must be >= 0", Logger.Type.ERROR);
 			return;
 		}
 

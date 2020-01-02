@@ -1,7 +1,9 @@
 package tow.engine3.image;
 
+import tow.engine.Global;
 import tow.engine.Vector2;
-import tow.engine2.io.Logger;
+import tow.engine.io.logger.AggregateLogger;
+import tow.engine.io.logger.Logger;
 import tow.engine.resources.ResourceLoader;
 
 import java.io.*;
@@ -40,12 +42,12 @@ public class Mask {
                 maskArr.add(new Vector2(x, y));
             }
 
-            Logger.println("Load mask \"" + path + "\" complited", Logger.Type.DEBUG_MASK);
+            Global.logger.println("Load mask \"" + path + "\" complited", Logger.Type.DEBUG_MASK);
             Vector2<Integer>[] result = new Vector2[maskArr.size()];
 
             return maskArr.toArray(result);
         } catch (IOException e) {
-            Logger.println("Load mask \"" + path +"\" error", Logger.Type.ERROR);
+            Global.logger.println("Load mask \"" + path +"\" error", Logger.Type.ERROR);
         }
 
         return createDefault(width, height);

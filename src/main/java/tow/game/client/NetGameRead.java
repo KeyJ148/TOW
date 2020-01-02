@@ -1,12 +1,13 @@
 package tow.game.client;
 
+import tow.engine.io.logger.Logger;
 import tow.engine3.AudioManager;
 import tow.engine.Global;
 import tow.engine3.image.Camera;
 import tow.engine3.image.TextureHandler;
 import tow.engine3.image.TextureManager;
 import tow.engine2.implementation.NetGameReadInterface;
-import tow.engine2.io.Logger;
+import tow.engine.io.logger.AggregateLogger;
 import tow.engine3.map.Background;
 import tow.engine3.map.Border;
 import tow.engine3.map.Room;
@@ -186,7 +187,7 @@ public class NetGameRead implements NetGameReadInterface {
 			case "road": newObject = new MapObject(x, y, direction, textureHandler, mid); break;
 			default:
 				newObject = new MapObject(x, y, direction, textureHandler, mid);
-				Logger.println("Not valid type for generate map: " + textureHandler.type, Logger.Type.ERROR);
+				Global.logger.println("Not valid type for generate map: " + textureHandler.type, Logger.Type.ERROR);
 				break;
 		}
 

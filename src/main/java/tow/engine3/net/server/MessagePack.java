@@ -1,6 +1,8 @@
 package tow.engine3.net.server;
 
-import tow.engine2.io.Logger;
+import tow.engine.Global;
+import tow.engine.io.logger.AggregateLogger;
+import tow.engine.io.logger.Logger;
 
 import java.util.LinkedList;
 
@@ -28,7 +30,7 @@ public class MessagePack {
 	
 	public Message get(){
 		if (size()%10 == 0){
-			Logger.println("Messages detained: " + size() + " (id: " + id + ")", Logger.Type.SERVER_DEBUG);
+			Global.logger.println("Messages detained: " + size() + " (id: " + id + ")", Logger.Type.SERVER_DEBUG);
 		}
 		
 		return messages.removeFirst();

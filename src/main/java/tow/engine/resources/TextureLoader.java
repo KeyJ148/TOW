@@ -1,8 +1,9 @@
 package tow.engine.resources;
 
 import org.lwjgl.BufferUtils;
+import tow.engine.Global;
 import tow.engine.image.Texture;
-import tow.engine2.io.Logger;
+import tow.engine.io.logger.Logger;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -43,10 +44,10 @@ public class TextureLoader {
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
             Texture.unbind();
 
-            Logger.println("Load image \"" + path + "\" complited", Logger.Type.DEBUG_IMAGE);
+            Global.logger.println("Load image \"" + path + "\" complited", Logger.Type.DEBUG_IMAGE);
             return texture;
         } catch (IOException e){
-            Logger.println("Image \"" + path + "\" not loading", Logger.Type.ERROR);
+            Global.logger.println("Image \"" + path + "\" not loading", Logger.Type.ERROR);
             return null;
         }
     }

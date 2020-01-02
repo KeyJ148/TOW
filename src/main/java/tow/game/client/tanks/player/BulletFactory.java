@@ -1,7 +1,9 @@
 package tow.game.client.tanks.player;
 
+import tow.engine.Global;
+import tow.engine.io.logger.Logger;
 import tow.engine2.Loader;
-import tow.engine2.io.Logger;
+import tow.engine.io.logger.AggregateLogger;
 import tow.engine3.setting.ConfigReader;
 import tow.game.client.tanks.equipment.bullet.BDefault;
 
@@ -26,7 +28,7 @@ public class BulletFactory {
 
             return newBullet;
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e){
-            Logger.println("Bullet create error: " + player.bullet.name, Logger.Type.ERROR);
+            Global.logger.println("Bullet create error: " + player.bullet.name, Logger.Type.ERROR);
             Loader.exit();
         }
 

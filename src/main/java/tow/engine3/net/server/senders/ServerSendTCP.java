@@ -1,6 +1,8 @@
 package tow.engine3.net.server.senders;
 
-import tow.engine2.io.Logger;
+import tow.engine.Global;
+import tow.engine.io.logger.AggregateLogger;
+import tow.engine.io.logger.Logger;
 import tow.engine3.net.server.GameServer;
 
 import java.io.IOException;
@@ -16,7 +18,7 @@ public class ServerSendTCP {
                 }
                 GameServer.connects[id].numberSend++; //Кол-во отправленных пакетов
             } catch (IOException e) {
-                Logger.print("Send message failed (TCP)", Logger.Type.SERVER_ERROR);
+                Global.logger.print("Send message failed (TCP)", Logger.Type.SERVER_ERROR);
             }
         }
     }

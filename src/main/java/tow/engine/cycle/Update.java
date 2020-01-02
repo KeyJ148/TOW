@@ -1,9 +1,10 @@
 package tow.engine.cycle;
 
 import tow.engine.Global;
+import tow.engine.io.logger.Logger;
 import tow.engine2.Loader;
 import tow.engine3.image.Camera;
-import tow.engine2.io.Logger;
+import tow.engine.io.logger.AggregateLogger;
 import tow.engine3.io.KeyboardHandler;
 import tow.engine3.io.MouseHandler;
 
@@ -34,7 +35,7 @@ public class Update {
 		if (Global.room != null) {
 			Global.room.update(delta);//Обновить все объекты в комнате
 		} else {
-			Logger.println("No create room! (Global.room)", Logger.Type.ERROR);
+			Global.logger.println("No create room! (Global.room)", Logger.Type.ERROR);
 			Loader.exit();
 		}
 

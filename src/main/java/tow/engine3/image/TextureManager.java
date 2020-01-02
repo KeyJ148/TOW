@@ -1,7 +1,8 @@
 package tow.engine3.image;
 
 import tow.engine.Global;
-import tow.engine2.io.Logger;
+import tow.engine.io.logger.AggregateLogger;
+import tow.engine.io.logger.Logger;
 import tow.engine.resources.ResourceLoader;
 
 import java.util.TreeMap;
@@ -31,14 +32,14 @@ public class TextureManager {
 	public static TextureHandler getTexture(String name){
         if (textures.containsKey(name)) return textures.get(name);
 
-        Logger.println("Not find texture: " + name, Logger.Type.ERROR);
+        Global.logger.println("Not find texture: " + name, Logger.Type.ERROR);
         return textures.get("error");
     }
 
     public static TextureHandler[] getAnimation(String name){
         if (animations.containsKey(name)) return animations.get(name);
 
-        Logger.println("Not find animation: " + name, Logger.Type.ERROR);
+        Global.logger.println("Not find animation: " + name, Logger.Type.ERROR);
         return null;
     }
 	
