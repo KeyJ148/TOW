@@ -1,4 +1,4 @@
-package tow.engine.io.logger;
+package tow.engine.logger;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -63,7 +63,7 @@ public abstract class Logger {
 
     public void println(String s, Exception e, Type type){
         //Не println, потому что stackTrace и так содержит в конце перенос строки
-        print(s + getStackTraceAsString(e), type);
+        print(s + "\n" + getStackTraceAsString(e), type);
     }
 
     private String getStackTraceAsString(Exception e){

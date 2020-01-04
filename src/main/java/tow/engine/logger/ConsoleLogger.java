@@ -1,4 +1,4 @@
-package tow.engine.io.logger;
+package tow.engine.logger;
 
 public class ConsoleLogger extends Logger {
 

@@ -1,4 +1,4 @@
-package tow.engine.io.mouse;
+package tow.engine.input.mouse;
 
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallbackI;

@@ -1,4 +1,4 @@
-package tow.engine.io.keyboard;
+package tow.engine.input.keyboard;
 
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWKeyCallbackI;
