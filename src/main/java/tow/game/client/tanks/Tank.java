@@ -1,6 +1,5 @@
 package tow.game.client.tanks;
 
-import tow.engine3.AudioManager;
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine2.image.Camera;
@@ -81,7 +80,7 @@ public abstract class Tank extends Obj{
             }
         }
 
-        AudioManager.playSoundEffect("explosion", (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
+        Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio("explosion"), (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
     }
 
     public void replaceArmor(Obj newArmor){

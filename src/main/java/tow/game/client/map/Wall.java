@@ -1,7 +1,7 @@
 package tow.game.client.map;
 
 import tow.engine.Global;
-import tow.engine.io.logger.Logger;
+import tow.engine.logger.Logger;
 import tow.engine3.image.TextureHandler;
 import tow.engine2.obj.components.Collision;
 

@@ -1,8 +1,7 @@
 package tow.game.client.login.gui;
 
 import tow.engine.Global;
-import tow.engine.io.logger.AggregateLogger;
-import tow.engine.io.logger.Logger;
+import tow.engine.logger.Logger;
 import tow.engine.resources.ResourceLoader;
 
 import javax.imageio.ImageIO;

@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.Color;
-import tow.engine.image.Texture;
+import tow.engine.resources.textures.Texture;
 import tow.engine2.image.Camera;
 import tow.engine3.image.TextureHandler;
 

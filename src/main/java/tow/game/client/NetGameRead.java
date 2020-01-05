@@ -1,7 +1,6 @@
 package tow.game.client;
 
-import tow.engine.io.logger.Logger;
-import tow.engine3.AudioManager;
+import tow.engine.logger.Logger;
 import tow.engine.Global;
 import tow.engine2.image.Camera;
 import tow.engine3.image.TextureHandler;
@@ -327,7 +326,7 @@ public class NetGameRead implements NetGameReadInterface {
 		int y = Integer.parseInt(str.split(" ")[1]);
 		String sound = str.split(" ")[2];
 
-		AudioManager.playSoundEffect(sound, x, y, GameSetting.SOUND_RANGE);
+		Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio(sound), x, y, GameSetting.SOUND_RANGE);
 	}
 
 }

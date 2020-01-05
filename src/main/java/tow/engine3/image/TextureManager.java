@@ -1,9 +1,8 @@
 package tow.engine3.image;
 
 import tow.engine.Global;
-import tow.engine.io.logger.Logger;
+import tow.engine.logger.Logger;
 import tow.engine.resources.ResourceLoader;
-import tow.engine3.image.TextureHandler;
 
 import java.util.TreeMap;
 

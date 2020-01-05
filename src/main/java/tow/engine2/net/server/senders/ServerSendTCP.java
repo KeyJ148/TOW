@@ -1,7 +1,7 @@
 package tow.engine2.net.server.senders;
 
 import tow.engine.Global;
-import tow.engine.io.logger.Logger;
+import tow.engine.logger.Logger;
 import tow.engine2.net.server.GameServer;
 
 import java.io.IOException;

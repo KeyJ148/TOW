@@ -1,7 +1,7 @@
 package tow.engine3.setting;
 
 import tow.engine.Global;
-import tow.engine.io.logger.Logger;
+import tow.engine.logger.Logger;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

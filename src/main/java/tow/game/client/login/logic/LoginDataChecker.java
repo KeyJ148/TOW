@@ -1,7 +1,7 @@
 package tow.game.client.login.logic;
 
 import tow.engine.Global;
-import tow.engine.io.logger.Logger;
+import tow.engine.logger.Logger;
 import tow.engine2.Loader;
 import tow.engine.image.Color;
 

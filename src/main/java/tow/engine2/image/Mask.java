@@ -2,7 +2,7 @@ package tow.engine2.image;
 
 import tow.engine.Global;
 import tow.engine.Vector2;
-import tow.engine.io.logger.Logger;
+import tow.engine.logger.Logger;
 import tow.engine.resources.ResourceLoader;
 
 import java.io.*;

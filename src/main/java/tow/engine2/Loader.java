@@ -2,12 +2,14 @@ package tow.engine2;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 import tow.engine.Global;
+import tow.engine.audio.AudioPlayer;
 import tow.engine.cycle.Engine;
+import tow.engine.resources.audios.AudioStorage;
 import tow.engine3.image.TextureManager;
 import tow.engine2.implementation.*;
-import tow.engine.io.logger.AggregateLogger;
-import tow.engine.io.keyboard.KeyboardHandler;
-import tow.engine.io.mouse.MouseHandler;
+import tow.engine.logger.AggregateLogger;
+import tow.engine.input.keyboard.KeyboardHandler;
+import tow.engine.input.mouse.MouseHandler;
 import tow.engine2.net.client.Ping;
 import tow.engine2.net.client.tcp.TCPControl;
 import tow.engine2.net.client.tcp.TCPRead;
@@ -15,7 +17,7 @@ import tow.engine2.net.client.udp.UDPControl;
 import tow.engine2.net.client.udp.UDPRead;
 import tow.engine.resources.settings.SettingsStorage;
 import tow.engine.resources.settings.SettingsStorageHandler;
-import tow.engine.io.logger.Logger;
+import tow.engine.logger.Logger;
 
 import java.io.IOException;
 
@@ -32,9 +34,15 @@ public class Loader {
 		Global.netServerRead = netServerRead;
 		Global.storage = storage;
 
-		loggerInit();//Загрузка логгера для вывода ошибок
-		init(); //Инициализация перед запуском
-		Global.engine.run();//Запуск главного цикла
+		try {
+			loggerInit();//Загрузка логгера для вывода ошибок
+			init(); //Инициализация перед запуском
+			Global.engine.run();//Запуск главного цикла
+		} catch (Exception e){
+			e.printStackTrace();
+			Global.logger.println("Unknown exception: ", e, Logger.Type.ERROR); //TODO: если logger не создан
+			exit();
+		}
 	}
 
 	private static void loggerInit(){
@@ -74,6 +82,9 @@ public class Loader {
 
 		Global.pingCheck = new Ping();
 
+		Global.audioPlayer = new AudioPlayer();
+		Global.audioStorage = new AudioStorage();
+
 		TextureManager.init();//Загрузка текстур и анимаций
 		//TODO: FontManager.init();//Загрузка шрифтов
 		//TODO: AudioManager.init();//Загрузка звуков
@@ -88,16 +99,21 @@ public class Loader {
 	}
 
 	public static void exit(){
-		glfwFreeCallbacks(Global.engine.render.getWindowID());
-		glfwDestroyWindow(Global.engine.render.getWindowID());
-		glfwTerminate();
-		GLFWErrorCallback errorCallback = glfwSetErrorCallback(null);
-		if (errorCallback != null) errorCallback.free();
-		//TODO: AL.destroy();
+		try {
+			glfwFreeCallbacks(Global.engine.render.getWindowID());
+			glfwDestroyWindow(Global.engine.render.getWindowID());
+			glfwTerminate();
+			GLFWErrorCallback errorCallback = glfwSetErrorCallback(null);
+			if (errorCallback != null) errorCallback.free();
+			Global.audioPlayer.close();
 
-		Global.logger.println("Exit stack trace: ", new Exception(), Logger.Type.DEBUG);
-		Global.logger.close();
-		System.exit(0);
+			Global.logger.println("Exit stack trace: ", new Exception(), Logger.Type.DEBUG);
+		} catch (Exception e){
+			Global.logger.println("Unknown exception: ", e, Logger.Type.ERROR); //TODO: если logger не создан
+		} finally {
+			Global.logger.close();
+			System.exit(0);
+		}
 	}
 
 

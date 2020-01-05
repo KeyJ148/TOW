@@ -1,7 +1,7 @@
 package tow.engine2.obj.components.render;
 
 import tow.engine.Vector2;
-import tow.engine.image.Texture;
+import tow.engine.resources.textures.Texture;
 import tow.engine3.image.TextureHandler;
 import tow.engine2.obj.Obj;
 import org.lwjgl.opengl.GL11;

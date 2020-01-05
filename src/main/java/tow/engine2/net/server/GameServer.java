@@ -1,7 +1,7 @@
 package tow.engine2.net.server;
 
 import tow.engine.Global;
-import tow.engine.io.logger.Logger;
+import tow.engine.logger.Logger;
 import tow.engine2.Loader;
 import tow.engine2.implementation.NetServerReadInterface;
 import tow.engine2.implementation.ServerInterface;
