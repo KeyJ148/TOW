@@ -1,13 +1,12 @@
-package tow.engine.resources;
+package tow.engine.resources.textures;
 
 import org.lwjgl.BufferUtils;
 import tow.engine.Global;
-import tow.engine.image.Texture;
-import tow.engine.io.logger.Logger;
+import tow.engine.resources.ResourceLoader;
+import tow.engine.logger.Logger;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
@@ -46,7 +45,7 @@ public class TextureLoader {
 
             Global.logger.println("Load image \"" + path + "\" complited", Logger.Type.DEBUG_IMAGE);
             return texture;
-        } catch (IOException e){
+        } catch (Exception e){
             Global.logger.println("Image \"" + path + "\" not loading", Logger.Type.ERROR);
             return null;
         }

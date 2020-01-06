@@ -3,7 +3,7 @@ package tow.engine.resources;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import tow.engine.Global;
-import tow.engine.io.logger.Logger;
+import tow.engine.logger.Logger;
 
 import java.io.*;
 

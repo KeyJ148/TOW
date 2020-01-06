@@ -1,10 +1,10 @@
-package tow.engine.image;
+package tow.engine.resources.textures;
 
 import static org.lwjgl.opengl.GL11.*;
 
 public class Texture {
 
-    private int id;
+    private final int id;
     private int width, height;
 
     public Texture(int width, int height) {
@@ -28,5 +28,9 @@ public class Texture {
 
     public static void unbind(){
         glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+    public void delete(){
+        glDeleteTextures(id);
     }
 }

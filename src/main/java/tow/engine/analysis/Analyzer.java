@@ -1,8 +1,7 @@
 package tow.engine.analysis;
 
 import tow.engine.Global;
-import tow.engine.io.logger.AggregateLogger;
-import tow.engine.io.logger.Logger;
+import tow.engine.logger.Logger;
 import tow.engine.resources.settings.SettingsStorage;
 
 public class Analyzer {
