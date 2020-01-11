@@ -1,6 +1,6 @@
 package tow.game.client;
 
-import tow.engine2.implementation.StorageInterface;
+import tow.engine.implementation.StorageInterface;
 
 import java.awt.*;
 

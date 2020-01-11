@@ -1,6 +1,6 @@
 package tow.game;
 
-import tow.engine2.net.server.GameServer;
+import tow.engine.net.server.GameServer;
 import tow.game.server.NetServerRead;
 import tow.game.server.Server;
 

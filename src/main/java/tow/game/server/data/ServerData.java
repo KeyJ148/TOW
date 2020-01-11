@@ -1,6 +1,6 @@
 package tow.game.server.data;
 
-import tow.engine3.image.TextureHandler;
+import tow.engine.image.TextureHandler;
 import tow.game.server.assistants.BoxCreator;
 
 import java.util.ArrayList;

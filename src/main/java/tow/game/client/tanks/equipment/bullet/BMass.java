@@ -2,9 +2,9 @@ package tow.game.client.tanks.equipment.bullet;
 
 import tow.engine.Global;
 import tow.engine.logger.Logger;
-import tow.engine2.Loader;
-import tow.engine2.obj.Obj;
-import tow.engine3.setting.ConfigReader;
+import tow.engine.Loader;
+import tow.engine.obj.Obj;
+import tow.engine.setting.ConfigReader;
 import tow.game.client.map.Wall;
 import tow.game.client.tanks.enemy.EnemyArmor;
 import tow.game.client.tanks.player.Bullet;

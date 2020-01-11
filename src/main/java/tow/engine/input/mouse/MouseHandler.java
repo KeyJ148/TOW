@@ -2,10 +2,10 @@ package tow.engine.input.mouse;
 
 import org.lwjgl.BufferUtils;
 import tow.engine.Vector2;
-import tow.engine3.image.TextureHandler;
-import tow.engine2.obj.Obj;
-import tow.engine2.obj.components.Position;
-import tow.engine2.obj.components.render.Sprite;
+import tow.engine.image.TextureHandler;
+import tow.engine.obj.Obj;
+import tow.engine.obj.components.Position;
+import tow.engine.obj.components.render.Sprite;
 import tow.engine.Global;
 
 import java.nio.DoubleBuffer;

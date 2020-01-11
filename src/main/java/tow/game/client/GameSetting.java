@@ -1,6 +1,6 @@
 package tow.game.client;
 
-import tow.engine3.setting.ConfigReader;
+import tow.engine.setting.ConfigReader;
 
 public class GameSetting {
 

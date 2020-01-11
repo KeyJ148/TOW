@@ -4,15 +4,15 @@ import tow.engine.audio.AudioPlayer;
 import tow.engine.cycle.Engine;
 import tow.engine.logger.AggregateLogger;
 import tow.engine.resources.audios.AudioStorage;
-import tow.engine2.implementation.*;
+import tow.engine.implementation.*;
 import tow.engine.input.mouse.MouseHandler;
 import tow.engine.input.keyboard.KeyboardHandler;
-import tow.engine2.map.Room;
-import tow.engine2.net.client.Ping;
-import tow.engine2.net.client.tcp.TCPControl;
-import tow.engine2.net.client.tcp.TCPRead;
-import tow.engine2.net.client.udp.UDPControl;
-import tow.engine2.net.client.udp.UDPRead;
+import tow.engine.map.Room;
+import tow.engine.net.client.Ping;
+import tow.engine.net.client.tcp.TCPControl;
+import tow.engine.net.client.tcp.TCPRead;
+import tow.engine.net.client.udp.UDPControl;
+import tow.engine.net.client.udp.UDPRead;
 
 public class Global {
 

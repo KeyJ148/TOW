@@ -2,8 +2,8 @@ package tow.engine.cycle;
 
 import tow.engine.Global;
 import tow.engine.logger.Logger;
-import tow.engine2.Loader;
-import tow.engine2.image.Camera;
+import tow.engine.Loader;
+import tow.engine.image.Camera;
 
 import static org.lwjgl.glfw.GLFW.glfwPollEvents;
 

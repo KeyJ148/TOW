@@ -1,6 +1,6 @@
 package tow.game.client.tanks.equipment.gun;
 
-import tow.engine3.setting.ConfigReader;
+import tow.engine.setting.ConfigReader;
 import tow.game.client.tanks.player.Gun;
 
 public class GVampire extends Gun {

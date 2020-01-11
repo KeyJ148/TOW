@@ -2,8 +2,8 @@ package tow.game.client.tanks.player;
 
 import tow.engine.Global;
 import tow.engine.logger.Logger;
-import tow.engine2.Loader;
-import tow.engine3.setting.ConfigReader;
+import tow.engine.Loader;
+import tow.engine.setting.ConfigReader;
 import tow.game.client.tanks.equipment.bullet.BDefault;
 
 public class BulletFactory {
