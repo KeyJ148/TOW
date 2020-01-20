@@ -6,9 +6,11 @@ import tow.engine.image.Camera;
 import tow.engine.image.Mask;
 import tow.engine.obj.Obj;
 import org.lwjgl.opengl.GL11;
+import tow.engine.image.Color;
 import tow.engine.resources.settings.SettingsStorage;
 
-import java.awt.*;
+import java.awt.Polygon;
+import java.awt.Point;
 import java.util.ArrayList;
 
 public class Collision extends Component {
@@ -43,17 +45,13 @@ public class Collision extends Component {
 			maskDrawView[i] = Camera.toRelativePosition(maskAbsolute[i].copy());
 
 		GL11.glLoadIdentity();
-		GL11.glTranslatef(0, 0, 0);
-		GL11.glColor3d(0.0, 0.0, 1.0);
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		Color.BLUE.bind();
 
 		GL11.glBegin(GL11.GL_LINE_LOOP);
 		for (int i=0; i<maskDrawView.length;i++) {
             GL11.glVertex2f(maskDrawView[i].x, maskDrawView[i].y);
         }
 		GL11.glEnd();
-
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 
 	//Вызывает проверку столкновения с каждым объектом в комнате

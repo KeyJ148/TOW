@@ -22,6 +22,6 @@ public class Vector2<T> {
 
     @Override
     public String toString(){
-        return "{" + x +"," + y + "}";
+        return "{" + x +", " + y + "}";
     }
 }

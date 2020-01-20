@@ -1,6 +1,6 @@
 package game.client;
 
-import tow.engine.Vector2;
+import tow.engine3.Vector2;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.particles.Part;
 import tow.engine.obj.components.particles.ParticlesGeometry;

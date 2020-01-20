@@ -1,7 +1,7 @@
 package tow.engine.setting;
 
 import tow.engine.Global;
-import tow.engine.io.Logger;
+import tow.engine.logger.Logger;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -36,13 +36,13 @@ public class ConfigReader {
 				}
 
 			}
-			Logger.println("No find setting: " + findName, Logger.Type.ERROR);
+			Global.logger.println("No find setting: " + findName, Logger.Type.ERROR);
 			fileReader.close();
 			return "";
 		} catch (IOException e){
-			Logger.println("Exception in read " + path, Logger.Type.ERROR);
+			Global.logger.println("Exception in read " + path, Logger.Type.ERROR);
 		}
-		Logger.println("No find setting: " + findName, Logger.Type.ERROR);
+		Global.logger.println("No find setting: " + findName, Logger.Type.ERROR);
 		return "";
 	}
 

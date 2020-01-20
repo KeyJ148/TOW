@@ -1,8 +1,10 @@
 package tow.engine.obj.components.render;
 
+import tow.engine.Global;
 import tow.engine.Vector2;
+import tow.engine.resources.textures.Texture;
+import tow.engine.logger.Logger;
 import tow.engine.image.TextureHandler;
-import tow.engine.io.Logger;
 import tow.engine.obj.Obj;
 import org.lwjgl.opengl.GL11;
 
@@ -45,12 +47,11 @@ public class Animation extends Rendering {
     	int width=(int)(textureHandler[frameNow].getWidth()*scale_x); 
         int height=(int)(textureHandler[frameNow].getHeight()*scale_y);
 
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glLoadIdentity();
 	    GL11.glTranslatef((float) xView, (float) yView, 0);
 	    GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
-	    
-	    color.bind(); 
+
+	    color.bind();
 	    textureHandler[frameNow].texture.bind();
 	    
 	    GL11.glBegin(GL11.GL_QUADS);
@@ -63,11 +64,12 @@ public class Animation extends Rendering {
 		    GL11.glTexCoord2f(0,1);
 		    GL11.glVertex2f(-width/2, height/2);
 	    GL11.glEnd();
+		Texture.unbind();
     }
 
 	public void setFrameSpeed(int frameSpeed) {
 		if (frameSpeed < 0){
-			Logger.println("Frame speed must be >= 0", Logger.Type.ERROR);
+			Global.logger.println("Frame speed must be >= 0", Logger.Type.ERROR);
 			return;
 		}
 

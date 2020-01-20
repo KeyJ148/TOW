@@ -1,7 +1,8 @@
 package tow.engine.net.client.udp;
 
+import tow.engine.Global;
+import tow.engine.logger.Logger;
 import tow.engine.Loader;
-import tow.engine.io.Logger;
 import tow.engine.net.NetTools;
 import tow.engine.net.client.NetControl;
 import tow.engine.resources.settings.SettingsStorage;
@@ -26,7 +27,7 @@ public class UDPControl extends NetControl {
             socket.setReceiveBufferSize(SettingsStorage.NETWORK.RECEIVE_BUF_SIZE);
             socket.setTrafficClass(SettingsStorage.NETWORK.TRAFFIC_CLASS);
         } catch (IOException e){
-            Logger.println("Connection failed (UDP)", Logger.Type.ERROR);
+            Global.logger.println("Connection failed (UDP)", Logger.Type.ERROR);
             Loader.exit();
         }
     }
@@ -44,7 +45,7 @@ public class UDPControl extends NetControl {
                 analyzeSend(data.length);
             }
         } catch (IOException e){
-            Logger.println("Connection lost (UDP send)", Logger.Type.ERROR);
+            Global.logger.println("Connection lost (UDP send)", Logger.Type.ERROR);
             Loader.exit();
         }
     }
@@ -61,7 +62,7 @@ public class UDPControl extends NetControl {
             analyzeRead(data.length);
             return new String(data);
         } catch (IOException e){
-            Logger.println("Connection lost (TCP read)", Logger.Type.ERROR);
+            Global.logger.println("Connection lost (TCP read)", Logger.Type.ERROR);
             Loader.exit();
             return null;
         }

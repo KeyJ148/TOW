@@ -1,6 +1,7 @@
 package tow.engine.net.server.readers;
 
-import tow.engine.io.Logger;
+import tow.engine.Global;
+import tow.engine.logger.Logger;
 import tow.engine.net.server.GameServer;
 import tow.engine.net.server.MessagePack;
 
@@ -27,7 +28,7 @@ public class ServerReadTCP extends Thread{
 				}
 			}
 		} catch (IOException e){
-			Logger.println("Player disconnect (id: " + id + ")", Logger.Type.SERVER_INFO);
+			Global.logger.println("Player disconnect (id: " + id + ")", Logger.Type.SERVER_INFO);
 			GameServer.disconnect++;
 			GameServer.connects[id].disconnect = true;
 		}

@@ -2,7 +2,6 @@ package tow.game.server;
 
 import java.io.File;
 
-import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.TextureManager;
 import tow.engine.implementation.ServerInterface;

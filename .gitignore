@@ -7,3 +7,7 @@ build
 #Ignore IDEA setting files
 .idea
 TOW.iml
+
+#Ignore game created files
+logs
+#settings

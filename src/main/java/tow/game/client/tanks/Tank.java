@@ -1,17 +1,15 @@
 package tow.game.client.tanks;
 
-import tow.engine.AudioManager;
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.Camera;
-import tow.engine.inf.title.Title;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.render.Animation;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
 import tow.game.client.particles.Explosion;
 import tow.game.client.tanks.enemy.Enemy;
-import org.newdawn.slick.Color;
+import tow.engine.image.Color;
 
 import java.util.Map;
 
@@ -24,7 +22,7 @@ public abstract class Tank extends Obj{
     public Obj camera;
 
     public String name = "";
-    public Color color = Color.white;
+    public Color color = Color.WHITE;
     public boolean alive = true;
 
     public int kill = 0;
@@ -53,7 +51,7 @@ public abstract class Tank extends Obj{
             Vector2<Integer> relativePosition = armor.position.getRelativePosition();
             int nameX = (int) Math.round(relativePosition.x - name.length() * 3.25); // lengthChar/2
             int nameY = relativePosition.y - 50;
-            Global.engine.render.addTitle(new Title(nameX, nameY, name));
+            //TODO: Global.engine.render.addTitle(new Title(nameX, nameY, name));
         }
     }
 
@@ -82,7 +80,7 @@ public abstract class Tank extends Obj{
             }
         }
 
-        AudioManager.playSoundEffect("explosion", (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
+        Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio("explosion"), (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
     }
 
     public void replaceArmor(Obj newArmor){

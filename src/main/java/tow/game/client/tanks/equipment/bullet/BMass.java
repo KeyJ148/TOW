@@ -1,8 +1,8 @@
 package tow.game.client.tanks.equipment.bullet;
 
 import tow.engine.Global;
+import tow.engine.logger.Logger;
 import tow.engine.Loader;
-import tow.engine.io.Logger;
 import tow.engine.obj.Obj;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.map.Wall;
@@ -44,7 +44,7 @@ public class BMass extends Bullet {
                     Global.room.objAdd(newBullet);
                 }
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-                Logger.println("Bullet create error: " + configName, Logger.Type.ERROR);
+                Global.logger.println("Bullet create error: " + configName, Logger.Type.ERROR);
                 Loader.exit();
             }
         }

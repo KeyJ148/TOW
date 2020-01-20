@@ -1,6 +1,7 @@
 package tow.engine.net.server.senders;
 
-import tow.engine.io.Logger;
+import tow.engine.Global;
+import tow.engine.logger.Logger;
 import tow.engine.net.server.GameServer;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class ServerSendUDP {
 
                 GameServer.connects[id].numberSend++; //Кол-во отправленных пакетов
             } catch (IOException e) {
-                Logger.print("Send message failed (UDP)", Logger.Type.SERVER_ERROR);
+                Global.logger.print("Send message failed (UDP)", Logger.Type.SERVER_ERROR);
             }
         }
     }

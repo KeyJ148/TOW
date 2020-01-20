@@ -4,8 +4,8 @@ import tow.engine.image.TextureManager;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.particles.Part;
 import tow.engine.obj.components.particles.ParticlesTexture;
-import org.newdawn.slick.Color;
 
+import tow.engine.image.Color;
 import java.util.Random;
 
 public class Explosion extends ParticlesTexture {
@@ -49,10 +49,17 @@ public class Explosion extends ParticlesTexture {
 
     @Override
     public void updateChild(long delta, Part part) {
-        if(part.speed > (2*size/5)) part.speed -= (float) (40*delta)/1000000000;
-        part.color = new Color((float) (part.color.r - ((double) ((1 + part.speed/150)*delta)/1000000000/12)),
-                               (float) (part.color.g  - ((double) ((1 + part.speed/150)*delta)/1000000000/4)),
-                               (float) (part.color.b - (((double) (4*delta))/1000000000/2)),
-                               (float) part.life*10);
+        if (part.speed > (2*size/5)) part.speed -= (float) (40*delta)/1000000000;
+        float r = (float) (part.color.getFloatRed() - ((double) ((1 + part.speed/150)*delta)/1000000000/12));
+        float g = (float) (part.color.getFloatGreen()  - ((double) ((1 + part.speed/150)*delta)/1000000000/4));
+        float b = (float) (part.color.getFloatBlue() - (((double) (4*delta))/1000000000/2));
+        float a = (float) part.life*10;
+
+        //TODO: убрать нормализацию, либо переписать
+        r = Math.min(Math.max(r, 0), 1);
+        g = Math.min(Math.max(g, 0), 1);
+        b = Math.min(Math.max(b, 0), 1);
+        a = Math.min(Math.max(a, 0), 1);
+        part.color = new Color(r, g, b, a);
     }
 }

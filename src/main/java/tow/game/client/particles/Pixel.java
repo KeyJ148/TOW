@@ -3,12 +3,12 @@ package tow.game.client.particles;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.particles.Part;
 import tow.engine.obj.components.particles.ParticlesGeometry;
-import org.newdawn.slick.Color;
+import tow.engine.image.Color;
 
 public class Pixel extends ParticlesGeometry {
 
     public Pixel(Obj obj, double x, double y, double dir, double speed){
-        this(obj, x, y, dir, speed, Color.black);
+        this(obj, x, y, dir, speed, Color.BLACK);
     }
 
     public Pixel(Obj obj, double x, double y, double dir, double speed, Color color) {

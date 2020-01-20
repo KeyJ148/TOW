@@ -1,9 +1,9 @@
 package tow.engine.image;
 
 import tow.engine.Global;
-import tow.engine.io.Logger;
+import tow.engine.logger.Logger;
+import tow.engine.resources.ResourceLoader;
 
-import java.io.File;
 import java.util.TreeMap;
 
 public class TextureManager {
@@ -31,21 +31,21 @@ public class TextureManager {
 	public static TextureHandler getTexture(String name){
         if (textures.containsKey(name)) return textures.get(name);
 
-        Logger.println("Not find texture: " + name, Logger.Type.ERROR);
+        Global.logger.println("Not find texture: " + name, Logger.Type.ERROR);
         return textures.get("error");
     }
 
     public static TextureHandler[] getAnimation(String name){
         if (animations.containsKey(name)) return animations.get(name);
 
-        Logger.println("Not find animation: " + name, Logger.Type.ERROR);
+        Global.logger.println("Not find animation: " + name, Logger.Type.ERROR);
         return null;
     }
 	
 	private static TextureHandler[] parseAnimation(String path, String type, int depth){
 		int n=0;
 		String beginPath = path + "/" + path.substring(path.lastIndexOf("/")+1);
-		while (Global.getFile(beginPath + "_" + (n+1) + ".png").exists()){
+		while (ResourceLoader.existResource(beginPath + "_" + (n+1) + ".png")){
 			n++;
 		}
 		

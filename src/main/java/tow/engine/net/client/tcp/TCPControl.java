@@ -1,7 +1,8 @@
 package tow.engine.net.client.tcp;
 
+import tow.engine.Global;
+import tow.engine.logger.Logger;
 import tow.engine.Loader;
-import tow.engine.io.Logger;
 import tow.engine.net.client.NetControl;
 import tow.engine.resources.settings.SettingsStorage;
 
@@ -34,7 +35,7 @@ public class TCPControl extends NetControl {
 			this.in = in;
 			this.out = out;
 		} catch(IOException e){
-			Logger.println("Connection failed (TCP)", Logger.Type.ERROR);
+			Global.logger.println("Connection failed (TCP)", Logger.Type.ERROR);
 			Loader.exit();
 		}
 	}
@@ -49,7 +50,7 @@ public class TCPControl extends NetControl {
 				analyzeSend(str.length()*2);
 			}
 		} catch (IOException e){
-			Logger.println("Connection lost (TCP send)", Logger.Type.ERROR);
+			Global.logger.println("Connection lost (TCP send)", Logger.Type.ERROR);
 			Loader.exit();
 		}
 	}
@@ -62,7 +63,7 @@ public class TCPControl extends NetControl {
 
 			return str;
 		} catch (IOException e){
-			Logger.println("Connection lost (TCP read)", Logger.Type.ERROR);
+			Global.logger.println("Connection lost (TCP read)", Logger.Type.ERROR);
 			Loader.exit();
 			return null;
 		}

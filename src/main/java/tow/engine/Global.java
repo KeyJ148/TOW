@@ -1,10 +1,12 @@
 package tow.engine;
 
-import java.io.File;
-
+import tow.engine.audio.AudioPlayer;
 import tow.engine.cycle.Engine;
+import tow.engine.logger.AggregateLogger;
+import tow.engine.resources.audios.AudioStorage;
 import tow.engine.implementation.*;
-import tow.engine.inf.InfMain;
+import tow.engine.input.mouse.MouseHandler;
+import tow.engine.input.keyboard.KeyboardHandler;
 import tow.engine.map.Room;
 import tow.engine.net.client.Ping;
 import tow.engine.net.client.tcp.TCPControl;
@@ -13,12 +15,18 @@ import tow.engine.net.client.udp.UDPControl;
 import tow.engine.net.client.udp.UDPRead;
 
 public class Global {
-	
+
 	public static Engine engine; //Главный игровой поток
 	public static Room room; //Текущая комната
 
-	public static InfMain infMain; //Главный класс интерфейса
+	public static AggregateLogger logger; //Объект для вывода лога в консоль и файл
+	public static MouseHandler mouse; //Объект хранящий события мыши и рисующий курсор на экране
+	public static KeyboardHandler keyboard; //Объект хранящий события клавитуры
 
+	public static AudioPlayer audioPlayer; //Объект, воспроизводящий музыку и хранящий источники музыки
+	public static AudioStorage audioStorage; //Объект хранящий звуки (буфферы OpenAL)
+
+	//TODO: убрать в главный класс Network при рефакторинге сети
 	public static TCPControl tcpControl; //Хранит настройки и работает с сетью по TCP протоколу
 	public static TCPRead tcpRead; //Цикл считывания данных с сервера по TCP протоколу
 	public static UDPControl udpControl; //Хранит настройки и работает с сетью по UDP протоколу
@@ -31,15 +39,5 @@ public class Global {
 	public static NetGameReadInterface netGameRead; //Объект для обработки сетевых сообщений на клиенте
 	public static NetServerReadInterface netServerRead; //Объект для обработки сетевых сообщений на сервере
 	public static StorageInterface storage; //Объект для хранения описания картинок, анимаций и звуков
-
-	//Костыль, разбить на 2 функции, вынести в отдельный класс, не возвращать файл, а только стрим
-	public static File getFile(String path){
-		try {
-			return new File(Thread.currentThread().getContextClassLoader().getResource(path).getFile());
-		} catch (NullPointerException e){
-			return new File("*");
-		}
-	}
-
 }
 

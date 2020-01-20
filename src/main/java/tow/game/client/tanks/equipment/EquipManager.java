@@ -1,7 +1,8 @@
 package tow.game.client.tanks.equipment;
 
+import tow.engine.Global;
+import tow.engine.logger.Logger;
 import tow.engine.Loader;
-import tow.engine.io.Logger;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.tanks.player.Armor;
 import tow.game.client.tanks.player.Bullet;
@@ -52,7 +53,7 @@ public class EquipManager {
             newArmor.init(player, player.armor.position.x, player.armor.position.y, player.armor.position.getDirectionDraw(), newArmorName);
             player.replaceArmor(newArmor);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e){
-            Logger.println("Armor not found: " + newArmorClass, Logger.Type.ERROR);
+            Global.logger.println("Armor not found: " + newArmorClass, Logger.Type.ERROR);
             Loader.exit();
         }
     }
@@ -87,7 +88,7 @@ public class EquipManager {
             newGun = (Gun) Class.forName(newGunFullPath).newInstance();
             newGun.init(player, player.gun.position.x, player.gun.position.y, player.gun.position.getDirectionDraw(), newGunName);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e){
-            Logger.println("Gun not found: " + newGunName, Logger.Type.ERROR);
+            Global.logger.println("Gun not found: " + newGunName, Logger.Type.ERROR);
             Loader.exit();
         }
 

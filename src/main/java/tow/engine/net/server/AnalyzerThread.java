@@ -1,6 +1,7 @@
 package tow.engine.net.server;
 
-import tow.engine.io.Logger;
+import tow.engine.Global;
+import tow.engine.logger.Logger;
 
 public class AnalyzerThread extends Thread{
 
@@ -12,13 +13,13 @@ public class AnalyzerThread extends Thread{
         while (true){
             if (System.currentTimeMillis() > timeAnalysis+timeAnalysisDelta){//Анализ MPS
                 timeAnalysis = System.currentTimeMillis();
-                Logger.print("[MPS] ", Logger.Type.MPS);
+                Global.logger.print("[MPS] ", Logger.Type.MPS);
                 for (int i = 0; i < GameServer.peopleMax; i++){
-                    Logger.print(String.valueOf(GameServer.connects[i].numberSend), Logger.Type.MPS);
-                    if (i != GameServer.peopleMax-1) Logger.print(" | ", Logger.Type.MPS);
+                    Global.logger.print(String.valueOf(GameServer.connects[i].numberSend), Logger.Type.MPS);
+                    if (i != GameServer.peopleMax-1) Global.logger.print(" | ", Logger.Type.MPS);
                     GameServer.connects[i].numberSend = 0;
                 }
-                Logger.println("", Logger.Type.MPS);
+                Global.logger.println("", Logger.Type.MPS);
             }
 
             try {

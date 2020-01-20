@@ -2,13 +2,13 @@ package tow.engine.obj.components.render;
 
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.Component;
-import org.newdawn.slick.Color;
+import tow.engine.image.Color;
 
 public abstract class Rendering extends Component {
 
     public double scale_x = 1;
     public double scale_y = 1;
-    public Color color = Color.white;
+    public Color color = Color.WHITE;
 
     public Rendering(Obj obj) {
         super(obj);

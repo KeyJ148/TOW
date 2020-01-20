@@ -1,10 +1,7 @@
 package tow.game.server;
 
-import tow.engine.net.server.GameServer;
 import tow.game.ServerStart;
 import tow.game.client.lobby.StartServerListener;
-
-import java.net.ServerSocket;
 
 public class ServerLoader extends Thread{
 

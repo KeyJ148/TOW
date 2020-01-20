@@ -1,7 +1,6 @@
 package tow.game.client.map;
 
 
-import tow.engine.AudioManager;
 import tow.engine.Global;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
@@ -52,7 +51,7 @@ public class Box extends Obj {
 
 		Global.tcpControl.send(21, String.valueOf(idBox));
 
-		AudioManager.playSoundEffect(soundName, (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
+		Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio(soundName), (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
 		Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + soundName);
 	}
 }

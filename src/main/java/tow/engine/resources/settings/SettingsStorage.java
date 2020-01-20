@@ -10,7 +10,8 @@ public class SettingsStorage {
 	public static class Display{
 		public int WIDTH_SCREEN;
 		public int HEIGHT_SCREEN;
-		public int SYNC;
+		public int FPS_LIMIT;
+		public int VSYNC_DIVIDER;
 		public String WINDOW_NAME;
 		public boolean FULL_SCREEN;
 	}

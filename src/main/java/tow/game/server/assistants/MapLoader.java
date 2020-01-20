@@ -2,8 +2,8 @@ package tow.game.server.assistants;
 
 import tow.engine.Global;
 import tow.engine.Vector2;
+import tow.engine.logger.Logger;
 import tow.engine.image.TextureManager;
-import tow.engine.io.Logger;
 import tow.engine.net.server.senders.ServerSendTCP;
 import tow.game.server.Server;
 import tow.game.server.data.ServerData;
@@ -21,8 +21,7 @@ public class MapLoader implements Runnable{
     }
 
     public void loadMap(File map){
-        Logger.println("Loading map: " + map.getName(), Logger.Type.SERVER_INFO);
-        System.out.println(map.getAbsolutePath());
+        Global.logger.println("Loading map: " + map.getName(), Logger.Type.SERVER_INFO);
 
         disableBattle();
         loadMapToMemory(map);
@@ -44,10 +43,7 @@ public class MapLoader implements Runnable{
 
     //Выбор рандомной карты из папки с картами
     private File chooseRandomMap(String allMapsPath){
-        System.out.println(allMapsPath);
         File[] allFiles = new File(allMapsPath).listFiles();
-        System.out.println(new File(allMapsPath).getAbsolutePath());
-        System.out.println(allFiles.length);
 
         String path;
         do {
@@ -86,7 +82,7 @@ public class MapLoader implements Runnable{
 
             fileReader.close();
         } catch (IOException e) {
-            Logger.println("Error map loading from: " + map.getAbsolutePath(), Logger.Type.SERVER_ERROR);
+            Global.logger.println("Error map loading from: " + map.getAbsolutePath(), Logger.Type.SERVER_ERROR);
         }
     }
 

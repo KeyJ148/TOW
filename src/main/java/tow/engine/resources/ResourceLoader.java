@@ -1,6 +1,8 @@
 package tow.engine.resources;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /*
     Класс используется для получения ресурсов
@@ -18,6 +20,10 @@ public class ResourceLoader {
 
     public static InputStream getResourceAsStream(String path){
         return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+    }
+
+    public static BufferedReader getResourceAsBufferedReader(String path){
+        return new BufferedReader(new InputStreamReader(getResourceAsStream(path)));
     }
 
     public static boolean existResource(String path){

@@ -6,6 +6,7 @@ import tow.engine.Vector2;
 import tow.engine.image.Camera;
 import tow.engine.image.Mask;
 import tow.engine.obj.Obj;
+import tow.engine.image.Color;
 import tow.engine.resources.settings.SettingsStorage;
 
 import java.util.ArrayList;
@@ -57,9 +58,7 @@ public class CollisionDirect extends Collision {
 		if (!SettingsStorage.LOGGER.MASK_DRAW || positionCollision == null) return;
 
 		GL11.glLoadIdentity();
-	    GL11.glTranslatef(0, 0, 0);
-	    GL11.glColor3d(0.0, 0.0, 1.0);
-	    GL11.glDisable(GL11.GL_TEXTURE_2D);
+		Color.BLUE.bind();
 
 		Vector2<Integer> relativePosition = Camera.toRelativePosition(new Vector2(positionCollision.x-10, positionCollision.y-10));
 		int x = relativePosition.x;
@@ -76,8 +75,6 @@ public class CollisionDirect extends Collision {
 			GL11.glTexCoord2f(0,1);
 			GL11.glVertex2f(x, y+h);
 		GL11.glEnd();
-		
-	    GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 
 	//Поиск в общем массиве id, которые динамичны и сталкиваются с этим объектом

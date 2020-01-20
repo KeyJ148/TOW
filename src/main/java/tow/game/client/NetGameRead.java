@@ -1,12 +1,12 @@
 package tow.game.client;
 
-import tow.engine.AudioManager;
+import tow.engine.logger.Logger;
 import tow.engine.Global;
 import tow.engine.image.Camera;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
 import tow.engine.implementation.NetGameReadInterface;
-import tow.engine.io.Logger;
+import tow.engine.map.Background;
 import tow.engine.map.Border;
 import tow.engine.map.Room;
 import tow.engine.net.client.Message;
@@ -17,7 +17,7 @@ import tow.game.client.map.Wall;
 import tow.game.client.tanks.enemy.Enemy;
 import tow.game.client.tanks.enemy.EnemyBullet;
 import tow.game.client.tanks.player.Player;
-import org.newdawn.slick.Color;
+import tow.engine.image.Color;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -85,7 +85,7 @@ public class NetGameRead implements NetGameReadInterface {
 		String background = str.split(" ")[2];
 
 		Global.room = new Room(width, height);
-		Global.room.background = TextureManager.getTexture(background);
+		Global.room.background = new Background(TextureManager.getTexture(background));
 		Border.createAll(Global.room);
 	}
 
@@ -185,7 +185,7 @@ public class NetGameRead implements NetGameReadInterface {
 			case "road": newObject = new MapObject(x, y, direction, textureHandler, mid); break;
 			default:
 				newObject = new MapObject(x, y, direction, textureHandler, mid);
-				Logger.println("Not valid type for generate map: " + textureHandler.type, Logger.Type.ERROR);
+				Global.logger.println("Not valid type for generate map: " + textureHandler.type, Logger.Type.ERROR);
 				break;
 		}
 
@@ -326,7 +326,7 @@ public class NetGameRead implements NetGameReadInterface {
 		int y = Integer.parseInt(str.split(" ")[1]);
 		String sound = str.split(" ")[2];
 
-		AudioManager.playSoundEffect(sound, x, y, GameSetting.SOUND_RANGE);
+		Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio(sound), x, y, GameSetting.SOUND_RANGE);
 	}
 
 }
