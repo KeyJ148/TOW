@@ -6,31 +6,43 @@ import tow.engine.obj.Obj;
 
 public class Camera {
 
-    private static Obj camera;//Объект, за которым следует камера
+    private Obj followObject;//Объект, за которым следует камера (Если followObject != null, то x и y не учитываются)
+    private double x = 0, y = 0;//Абсолютная позиция камеры в комнате, отрисовка происходит вокруг этой позиции
 
-    public static double absoluteX;//Абсолютная позиция камеры на карте
-    public static double absoluteY;//Отрисовка происходит вокруг этой позиции
+    public double getX(){
+        return x;
+    }
 
-    public static void setFollowObject(Obj obj){
+    public double getY(){
+        return y;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setFollowObject(Obj obj){
         if (obj.position == null) return;
-        camera = obj;
+        followObject = obj;
     }
 
-    public static Obj getFollowObject(){
-        return camera;
+    public Obj getFollowObject(){
+        return followObject;
     }
 
-    public static void deleteFollowObject(){
-        camera = null;
+    public void deleteFollowObject(){
+        followObject = null;
     }
 
-    public static void calc(){
-        if (camera == null){
-            absoluteX = 0;
-            absoluteY = 0;
-        } else {
-            absoluteX = camera.position.x;
-            absoluteY = camera.position.y;
+    //Расчёт текущей позиции
+    public void update(){
+        if (followObject != null){
+            x = followObject.position.x;
+            y = followObject.position.y;
         }
 
         int width = Global.engine.render.getWidth();
@@ -38,36 +50,25 @@ public class Camera {
         int widthMap = Global.room.width;
         int heightMap = Global.room.height;
 
-        if (absoluteX < width/2){
-            absoluteX = width/2;
-        }
-        if (absoluteY < height/2){
-            absoluteY = height/2;
-        }
-        if (absoluteX > widthMap-width/2){
-            absoluteX = widthMap-width/2;
-        }
-        if (absoluteY >heightMap-height/2){
-            absoluteY = heightMap-height/2;
-        }
+        if (x < width/2) x = width/2;
+        if (y < height/2) y = height/2;
 
-        if (Global.engine.render.getWidth() > widthMap){
-            absoluteX = widthMap/2;
-        }
-        if (Global.engine.render.getHeight() > heightMap){
-            absoluteY = heightMap/2;
-        }
+        if (x > widthMap-width/2) x = widthMap-width/2;
+        if (y > heightMap-height/2) y = heightMap-height/2;
+
+        if (Global.engine.render.getWidth() > widthMap) x = widthMap/2;
+        if (Global.engine.render.getHeight() > heightMap) y = heightMap/2;
     }
 
     //Преобразует координаты относительно угла карты в координаты относительно угла экрана (области видимости камеры)
-    public static Vector2<Integer> toRelativePosition(Vector2 absolutePosition){
+    public Vector2<Integer> toRelativePosition(Vector2 absolutePosition){
         //Преобразуем входной верктор в int
         if (absolutePosition.x.getClass().equals(Double.class)) absolutePosition.x = ((Double) absolutePosition.x).intValue();
         if (absolutePosition.y.getClass().equals(Double.class)) absolutePosition.y = ((Double) absolutePosition.y).intValue();
 
         Vector2<Integer> relativePosition = new Vector2();
-        relativePosition.x = (int) (Global.engine.render.getWidth()/2 - (absoluteX - (int) absolutePosition.x));
-        relativePosition.y = (int) (Global.engine.render.getHeight()/2 - (absoluteY - (int) absolutePosition.y));
+        relativePosition.x = (int) (Global.engine.render.getWidth()/2 - (x - (int) absolutePosition.x));
+        relativePosition.y = (int) (Global.engine.render.getHeight()/2 - (y - (int) absolutePosition.y));
 
         return relativePosition;
     }

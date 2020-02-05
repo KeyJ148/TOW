@@ -1,5 +1,7 @@
 package tow.engine.map;
 
+import tow.engine.Global;
+import tow.engine.image.Camera;
 import tow.engine.obj.Obj;
 
 import java.util.Vector;
@@ -11,6 +13,7 @@ public class Room {
 
 	public Vector<Obj> objects; //Массив со всеми объектами
 	public MapControl mapControl; //Массив со всеми чанками и объектами
+	public Camera camera;
 
 	public Room(int width, int height) {
 		this.width = width;
@@ -19,9 +22,12 @@ public class Room {
 
 		objects = new Vector<>();
 		mapControl = new MapControl(width, height);
+		camera = new Camera();
 	}
 
 	public void update(long delta){
+		camera.update();//Расчёт положения камеры
+
 		for (int i=0; i<objects.size(); i++){
 			Obj obj = objects.get(i);
 			if (obj != null) obj.update(delta);
@@ -32,8 +38,14 @@ public class Room {
 		}
 	}
 
+	//Отрисовка комнаты с размерами width и height вокруг камеры
+	public void render(int width, int height){
+		render((int) camera.getX(), (int) camera.getY(), width, height);
+	}
+
+	//Отрисовка комнаты с размерами width и height вокруг координат (x;y)
 	public void render(int x, int y, int width, int height){
-		background.render(x, y, width, height);
+		background.render(x, y, width, height, camera);
 		mapControl.render(x, y, width, height);
 	}
 

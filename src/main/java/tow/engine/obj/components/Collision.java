@@ -42,7 +42,7 @@ public class Collision extends Component {
 
 		Vector2<Integer>[] maskDrawView = new Vector2[maskAbsolute.length];
 		for (int i=0;i<maskDrawView.length;i++)
-			maskDrawView[i] = Camera.toRelativePosition(maskAbsolute[i].copy());
+			maskDrawView[i] = Global.room.camera.toRelativePosition(maskAbsolute[i].copy());
 
 		GL11.glLoadIdentity();
 		Color.BLUE.bind();

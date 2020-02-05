@@ -129,7 +129,7 @@ public class NetGameRead implements NetGameReadInterface {
 		ClientData.player.win = win;
 
 		Global.room.objAdd(ClientData.player);
-		Camera.setFollowObject(ClientData.player.camera);
+		Global.room.camera.setFollowObject(ClientData.player.camera);
 
 		//Добавляем на карту врагов
 		for (Map.Entry<Integer, Enemy> entry : ClientData.enemy.entrySet()){
@@ -156,7 +156,7 @@ public class NetGameRead implements NetGameReadInterface {
 
 		ClientData.battle = false;
 		Global.room.destroy();
-		Camera.deleteFollowObject();
+		Global.room.camera.deleteFollowObject();
 
 		ClientData.mapObjects = new Vector<>();
 		ClientData.enemyBullet = new ArrayList<>();

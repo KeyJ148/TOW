@@ -90,7 +90,7 @@ public class Render{
 		glClear(GL_COLOR_BUFFER_BIT); //Очистка буфера (только буфера цвета, буфер глубины не используется)
 
 		Global.game.render(); //Отрисовка в главном игровом классе (ссылка передается в движок при инициализации)
-		Global.room.render((int) Camera.absoluteX, (int) Camera.absoluteY, getWidth(), getHeight()); //Отрисовка комнаты
+		Global.room.render(getWidth(), getHeight()); //Отрисовка комнаты
 		Global.mouse.draw(); //Отрисовка мыши
 	}
 

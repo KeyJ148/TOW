@@ -60,7 +60,7 @@ public class CollisionDirect extends Collision {
 		GL11.glLoadIdentity();
 		Color.BLUE.bind();
 
-		Vector2<Integer> relativePosition = Camera.toRelativePosition(new Vector2(positionCollision.x-10, positionCollision.y-10));
+		Vector2<Integer> relativePosition = Global.room.camera.toRelativePosition(new Vector2(positionCollision.x-10, positionCollision.y-10));
 		int x = relativePosition.x;
 		int y = relativePosition.y;
 		int w = 20;

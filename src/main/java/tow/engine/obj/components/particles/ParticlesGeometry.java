@@ -1,5 +1,6 @@
 package tow.engine.obj.components.particles;
 
+import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.Camera;
 import tow.engine.obj.Obj;
@@ -17,7 +18,7 @@ public class ParticlesGeometry extends Particles {
 
         for (Part part : parts){
             part.color.bind();
-            Vector2<Integer> relativePosition = Camera.toRelativePosition(new Vector2((int) part.x, (int) part.y));
+            Vector2<Integer> relativePosition = Global.room.camera.toRelativePosition(new Vector2((int) part.x, (int) part.y));
 
             double defaultX, defaultY;
             if (rotate) {

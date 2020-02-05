@@ -70,11 +70,11 @@ public abstract class Tank extends Obj{
         Global.room.objAdd(explosion);
 
         //Если в данный момент камера установлена на этот объект
-        if (Camera.getFollowObject() != null && Camera.getFollowObject() == camera){
+        if (Global.room.camera.getFollowObject() != null && Global.room.camera.getFollowObject() == camera){
             //Выбираем живого врага с инициализированной камерой, переносим камеру туда
             for (Map.Entry<Integer, Enemy> entry: ClientData.enemy.entrySet()) {
                 if (entry.getValue().camera != null && entry.getValue().alive) {
-                    Camera.setFollowObject(entry.getValue().camera);
+                    Global.room.camera.setFollowObject(entry.getValue().camera);
                     break;
                 }
             }

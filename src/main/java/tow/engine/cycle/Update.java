@@ -3,7 +3,6 @@ package tow.engine.cycle;
 import tow.engine.Global;
 import tow.engine.logger.Logger;
 import tow.engine.Loader;
-import tow.engine.image.Camera;
 
 import static org.lwjgl.glfw.GLFW.glfwPollEvents;
 
@@ -35,8 +34,6 @@ public class Update {
 			Global.logger.println("No create room! (Global.room)", Logger.Type.ERROR);
 			Loader.exit();
 		}
-
-		Camera.calc();//Расчёт положения камеры
 
 		Global.mouse.update(); //Очистка истории событий мыши
 		Global.keyboard.update(); //Очистка истории событий клавиатуры

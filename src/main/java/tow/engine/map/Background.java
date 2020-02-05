@@ -32,13 +32,13 @@ public class Background {
         this.outsideMapColor = outsideMapColor;
     }
 
-    public void render(int x, int y, int width, int height){
+    public void render(int x, int y, int width, int height, Camera camera){
         //Заливка фона карты на весь экран
         if (backgroundTexture != null){
             Vector2<Integer> startAbsolutePosition = new Vector2<>();
             startAbsolutePosition.x = ((x - width/2)  - (x - width/2)  % backgroundTexture.getWidth());
             startAbsolutePosition.y = ((y - height/2) - (y - height/2) % backgroundTexture.getHeight());
-            Vector2<Integer> startRelativePosition = Camera.toRelativePosition(startAbsolutePosition);
+            Vector2<Integer> startRelativePosition = camera.toRelativePosition(startAbsolutePosition);
 
             int countTexturesInWidth = width / backgroundTexture.getWidth() + 2;
             int countTexturesInHeight = height / backgroundTexture.getHeight() + 2;
