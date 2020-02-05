@@ -86,7 +86,6 @@ public class Loader {
 
 		TextureManager.init();//Загрузка текстур и анимаций
 		//TODO: FontManager.init();//Загрузка шрифтов
-		//TODO: AudioManager.init();//Загрузка звуков
 
 		Global.mouse = new MouseHandler();
 		Global.keyboard = new KeyboardHandler();
