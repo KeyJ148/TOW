@@ -5,7 +5,6 @@ import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.Color;
 import tow.engine.resources.textures.Texture;
-import tow.engine.image.Camera;
 import tow.engine.image.TextureHandler;
 
 public class Background {

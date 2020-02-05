@@ -2,7 +2,6 @@ package tow.game.client;
 
 import tow.engine.logger.Logger;
 import tow.engine.Global;
-import tow.engine.image.Camera;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
 import tow.engine.implementation.NetGameReadInterface;

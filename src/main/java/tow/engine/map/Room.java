@@ -1,7 +1,5 @@
 package tow.engine.map;
 
-import tow.engine.Global;
-import tow.engine.image.Camera;
 import tow.engine.obj.Obj;
 
 import java.util.Vector;

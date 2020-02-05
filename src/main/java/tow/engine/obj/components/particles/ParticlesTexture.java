@@ -3,7 +3,6 @@ package tow.engine.obj.components.particles;
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.resources.textures.Texture;
-import tow.engine.image.Camera;
 import tow.engine.obj.Obj;
 import org.lwjgl.opengl.GL11;
 

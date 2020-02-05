@@ -1,4 +1,4 @@
-package tow.engine.image;
+package tow.engine.map;
 
 import tow.engine.Global;
 import tow.engine.Vector2;

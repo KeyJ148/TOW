@@ -2,7 +2,6 @@ package tow.engine.obj.components;
 
 import tow.engine.Global;
 import tow.engine.Vector2;
-import tow.engine.image.Camera;
 import tow.engine.map.Room;
 import tow.engine.obj.Obj;
 

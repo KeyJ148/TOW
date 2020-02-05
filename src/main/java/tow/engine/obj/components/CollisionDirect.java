@@ -3,7 +3,6 @@ package tow.engine.obj.components;
 import org.lwjgl.opengl.GL11;
 import tow.engine.Global;
 import tow.engine.Vector2;
-import tow.engine.image.Camera;
 import tow.engine.image.Mask;
 import tow.engine.obj.Obj;
 import tow.engine.image.Color;

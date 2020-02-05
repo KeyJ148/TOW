@@ -2,7 +2,6 @@ package tow.game.client.tanks;
 
 import tow.engine.Global;
 import tow.engine.Vector2;
-import tow.engine.image.Camera;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.render.Animation;
 import tow.game.client.ClientData;

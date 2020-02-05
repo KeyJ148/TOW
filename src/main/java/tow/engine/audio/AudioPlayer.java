@@ -7,7 +7,7 @@ import org.lwjgl.openal.ALCapabilities;
 import tow.engine.Global;
 import tow.engine.resources.audios.Audio;
 import tow.engine.resources.settings.SettingsStorage;
-import tow.engine.image.Camera;
+import tow.engine.map.Camera;
 
 import java.util.Iterator;
 import java.util.LinkedList;
