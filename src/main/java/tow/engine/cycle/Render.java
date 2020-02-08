@@ -1,5 +1,13 @@
 package tow.engine.cycle;
 
+import legui.ExampleGui;
+import org.liquidengine.legui.DefaultInitializer;
+import org.liquidengine.legui.animation.Animator;
+import org.liquidengine.legui.animation.AnimatorProvider;
+import org.liquidengine.legui.component.Frame;
+import org.liquidengine.legui.event.WindowSizeEvent;
+import org.liquidengine.legui.listener.WindowSizeEventListener;
+import org.liquidengine.legui.system.context.Context;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
@@ -83,14 +91,107 @@ public class Render{
 			Global.logger.println("OpenGL initialization failed", e, Logger.Type.ERROR);
 			Loader.exit();
 		}
+
+		initGUI();
 	}
 
 	public void loop() {
-		glClear(GL_COLOR_BUFFER_BIT); //Очистка буфера (только буфера цвета, буфер глубины не используется)
-
+		prerender();
 		Global.game.render(); //Отрисовка в главном игровом классе (ссылка передается в движок при инициализации)
 		Global.room.render(getWidth(), getHeight()); //Отрисовка комнаты
+		renderGUI();
+		normilizeGL();
 		Global.mouse.draw(); //Отрисовка мыши
+	}
+
+	DefaultInitializer initializer;
+	Frame frame;
+	Animator animator;
+
+	public void initGUI(){
+		frame = new Frame(800, 600);
+		ExampleGui gui = new ExampleGui(800, 600);
+		gui.setFocusable(false);
+		gui.getListenerMap().addListener(WindowSizeEvent.class, (WindowSizeEventListener) event -> gui.setSize(event.getWidth(), event.getHeight()));
+		frame.getContainer().add(gui);
+		frame.getContainer().setFocusable(false);
+
+		initializer = new DefaultInitializer(Global.engine.render.getWindowID(), frame);
+		animator = AnimatorProvider.getAnimator();
+		//Инициализация callbacks
+		initializer.getRenderer().initialize();
+	}
+
+	public void prerender(){
+		initializer.getContext().updateGlfwWindow();
+		glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+		//normilizeGL();
+	}
+
+	public void normilizeGL(){
+		glDisable(GL_DEPTH_TEST);
+		glEnable(GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+	}
+
+	public void renderGUI(){
+		Context context = initializer.getContext();
+
+		/*
+		int[] windowWidth = {0}, windowHeight = {0};
+		GLFW.glfwGetWindowSize(Global.engine.render.getWindowID(), windowWidth, windowHeight);
+		int[] frameBufferWidth = {0}, frameBufferHeight = {0};
+		GLFW.glfwGetFramebufferSize(Global.engine.render.getWindowID(), frameBufferWidth, frameBufferHeight);
+		int[] xpos = {0}, ypos = {0};
+		GLFW.glfwGetWindowPos(Global.engine.render.getWindowID(), xpos, ypos);
+		double[] mx = {0}, my = {0};
+		GLFW.glfwGetCursorPos(Global.engine.render.getWindowID(), mx, my);
+
+
+		context.update(windowWidth[0], windowHeight[0],
+		        frameBufferWidth[0], frameBufferHeight[0],
+		        xpos[0], ypos[0],
+		        false //!!!!!!!!! In example 8 paametrs
+		);
+		*/
+
+
+
+		initializer.getRenderer().render(frame, context);
+/*
+		glClear(GL_COLOR_BUFFER_BIT); //ИЗ РЕНДЕР!!!!!!!
+
+		Vector2i windowSize = context.getFramebufferSize();
+		glViewport(0, 0, windowSize.x, windowSize.y);
+		glClearColor(1, 1, 1, 1);
+		glViewport(0, 0, windowSize.x, windowSize.y);
+		glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+*/
+
+		//Настройка графики
+		//GL11.glEnable(GL11.GL_TEXTURE_2D);
+		//GL11.glDisable(GL11.GL_COLOR_MATERIAL);
+		///////GL11.glDisable(GL11.GL_DEPTH_TEST);
+
+		///////GL11.glEnable(GL11.GL_BLEND);
+		///////GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+		//GL11.glMatrixMode(GL11.GL_PROJECTION);
+		//GL11.glLoadIdentity();
+		//GL11.glOrtho(0, Global.engine.render.getHeight(), Global.engine.render.getHeight(), 0, 1, -1);
+		//GL11.glMatrixMode(GL11.GL_MODELVIEW);
+
+		//SwapBuffers & PollEvents
+
+
+		animator.runAnimations();
+		// Now we need to handle events. Firstly we need to handle system events.
+		// And we need to know to which frame they should be passed.
+		initializer.getSystemEventProcessor().processEvents(frame, context);
+		// When system events are translated to GUI events we need to handle them.
+		// This event processor calls listeners added to ui components
+		initializer.getGuiEventProcessor().processEvents();
 	}
 
 	public void vsync(){

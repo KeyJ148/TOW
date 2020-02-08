@@ -10,6 +10,10 @@ import tow.game.server.Server;
 public class GameStart {
 
     public static void main(String[] args) {
+
+        System.setProperty("joml.nounsafe", Boolean.TRUE.toString());
+        System.setProperty("java.awt.headless", Boolean.TRUE.toString());
+
         Loader.start(new Game(), new NetGameRead(), new Storage(), new Server(), new NetServerRead());
     }
 }
