@@ -4,10 +4,17 @@ import legui.ExampleGui;
 import org.liquidengine.legui.DefaultInitializer;
 import org.liquidengine.legui.animation.Animator;
 import org.liquidengine.legui.animation.AnimatorProvider;
-import org.liquidengine.legui.component.Frame;
+import org.liquidengine.legui.component.*;
+import org.liquidengine.legui.event.CursorEnterEvent;
+import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.event.WindowSizeEvent;
+import org.liquidengine.legui.listener.CursorEnterEventListener;
+import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.listener.WindowSizeEventListener;
+import org.liquidengine.legui.style.border.SimpleLineBorder;
+import org.liquidengine.legui.style.color.ColorConstants;
 import org.liquidengine.legui.system.context.Context;
+import org.liquidengine.legui.system.layout.LayoutManager;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
@@ -15,6 +22,9 @@ import tow.engine.Global;
 import tow.engine.logger.Logger;
 import tow.engine.Loader;
 import tow.engine.resources.settings.SettingsStorage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -109,12 +119,8 @@ public class Render{
 	Animator animator;
 
 	public void initGUI(){
-		frame = new Frame(800, 600);
-		ExampleGui gui = new ExampleGui(800, 600);
-		gui.setFocusable(false);
-		gui.getListenerMap().addListener(WindowSizeEvent.class, (WindowSizeEventListener) event -> gui.setSize(event.getWidth(), event.getHeight()));
-		frame.getContainer().add(gui);
-		frame.getContainer().setFocusable(false);
+		frame = new Frame(400, 200);
+		createFrameWithGUI(frame);
 
 		initializer = new DefaultInitializer(Global.engine.render.getWindowID(), frame);
 		animator = AnimatorProvider.getAnimator();
@@ -185,14 +191,65 @@ public class Render{
 		//SwapBuffers & PollEvents
 
 
-		animator.runAnimations();
 		// Now we need to handle events. Firstly we need to handle system events.
 		// And we need to know to which frame they should be passed.
 		initializer.getSystemEventProcessor().processEvents(frame, context);
 		// When system events are translated to GUI events we need to handle them.
 		// This event processor calls listeners added to ui components
 		initializer.getGuiEventProcessor().processEvents();
+
+		// When everything done we need to relayout components.
+		LayoutManager.getInstance().layout(frame);
+
+		// Run animations. Should be also called cause some components use animations for updating state.
+		animator.runAnimations();
 	}
+
+	private Frame createFrameWithGUI(Frame frame) {
+		// Set background color for frame
+		frame.getContainer().getStyle().getBackground().setColor(ColorConstants.transparent());
+		frame.getContainer().setFocusable(false);
+
+		Button button = new Button("Add components", 20, 20, 160, 30);
+		SimpleLineBorder border = new SimpleLineBorder(ColorConstants.black(), 1);
+		button.getStyle().setBorder(border);
+
+		boolean[] added = {false};
+		button.getListenerMap().addListener(MouseClickEvent.class, (MouseClickEventListener) event -> {
+			if (!added[0]) {
+				added[0] = true;
+				for (Component c : generateOnFly()) {
+					frame.getContainer().add(c);
+				}
+			}
+		});
+
+		button.getListenerMap().addListener(CursorEnterEvent.class, (CursorEnterEventListener) System.out::println);
+
+		frame.getContainer().add(button);
+		return frame;
+	}
+
+	private List<Component> generateOnFly() {
+		List<Component> list = new ArrayList<>();
+
+		Label label = new Label(20, 60, 200, 20);
+		label.getTextState().setText("Generated on fly label");
+
+		RadioButtonGroup group = new RadioButtonGroup();
+		RadioButton radioButtonFirst = new RadioButton("First", 20, 90, 200, 20);
+		RadioButton radioButtonSecond = new RadioButton("Second", 20, 110, 200, 20);
+
+		radioButtonFirst.setRadioButtonGroup(group);
+		radioButtonSecond.setRadioButtonGroup(group);
+
+		list.add(label);
+		list.add(radioButtonFirst);
+		list.add(radioButtonSecond);
+
+		return list;
+	}
+
 
 	public void vsync(){
 		glfwSwapBuffers(windowID);

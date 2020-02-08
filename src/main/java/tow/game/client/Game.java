@@ -42,8 +42,8 @@ public class Game implements GameInterface, StartServerListener {
 		ClientData.name = "Key_J";
 		ServerLoader.startServerListener = this;
 		ServerLoader.mapPath = ClientData.map;
-		new ServerLoader(25566, 1, false);
-
+		new ServerLoader(25566, 2, false);
+		//new Connector().connect("127.0.0.1", 25566);
 		GameSetting.init();
 
 		Global.mouse.setCaptureCursor(true);

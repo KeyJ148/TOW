@@ -12,7 +12,7 @@ import static org.lwjgl.glfw.GLFW.*;
 public class KeyboardEventHistory {
 
     private List<Event> eventHistory = new LinkedList<>();
-    private static GLFWKeyCallbackI keyCallback;
+    private static GLFWKeyCallbackI keyCallback; //Необходим, чтобы сборщик мусора не удалил анонимный класс
 
     public KeyboardEventHistory(){
         //Создание обратного вызова для фиксирования всех событий клавиатуры

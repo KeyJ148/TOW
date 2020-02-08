@@ -12,14 +12,15 @@ import static org.lwjgl.glfw.GLFW.*;
 public class MouseEventHistory {
 
     private List<Event> eventHistory = new LinkedList<>();
-    private GLFWMouseButtonCallbackI mouseCallback;
+    private GLFWMouseButtonCallbackI mouseCallback; //Необходим, чтобы сборщик мусора не удалил анонимный класс
 
     public MouseEventHistory(){
+        /*
         //Создание обратного вызова для фиксирования всех событий мыши
         glfwSetMouseButtonCallback(Global.engine.render.getWindowID(),
                 mouseCallback = GLFWMouseButtonCallback.create((window, button, action, mods) -> {
                     eventHistory.add(new Event(button, action));
-                }));
+                }));*/
     }
 
     public List<Event> getList(){
