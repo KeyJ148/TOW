@@ -1,4 +1,4 @@
-package tow.engine.ui.keyboard;
+package tow.engine.input.keyboard;
 
 import org.liquidengine.legui.event.KeyEvent;
 import tow.engine.Global;
@@ -12,8 +12,9 @@ public class KeyboardEventHistory {
 
     public KeyboardEventHistory(){
         //Создание обратного вызова для фиксирования всех событий клавиатуры (кроме GUI)
-        Global.engine.render.frame.getContainer().getListenerMap().addListener(KeyEvent.class, event -> {
+        Global.engine.render.getFrameContainer().getListenerMap().addListener(KeyEvent.class, event -> {
             eventHistory.add(event);
+            System.out.println(event);
         });
     }
 

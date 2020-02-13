@@ -21,8 +21,6 @@ public class Update {
 
 	//Обновляем игру в соответствие с временем прошедшим с последнего обновления
 	private void loop(long delta){
-		glfwPollEvents();//Получение событий ввода и других callbacks
-
 		Global.game.update(delta);//Обновить главный игровой класс при необходимости
 
 		Global.tcpRead.update();//Обработать все полученные сообщения по TCP

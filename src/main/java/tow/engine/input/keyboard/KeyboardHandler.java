@@ -1,4 +1,4 @@
-package tow.engine.ui.keyboard;
+package tow.engine.input.keyboard;
 
 import tow.engine.Global;
 

@@ -22,8 +22,11 @@ public class Engine{
 	
 	public void run(){
 		while(!GLFW.glfwWindowShouldClose(render.getWindowID())){
+			//Получение событий и Callbacks
+
 			//Цикл Update
 			analyzer.startUpdate();
+			render.pollEvents();
 			update.loop();
 			analyzer.update();
 			analyzer.endUpdate();

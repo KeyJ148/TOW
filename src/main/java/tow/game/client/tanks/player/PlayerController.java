@@ -3,7 +3,6 @@ package tow.game.client.tanks.player;
 import tow.engine.Global;
 import tow.engine.Loader;
 import tow.engine.Vector2;
-import tow.engine.ui.keyboard.KeyboardEventHistory;
 import tow.engine.map.Border;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.Collision;

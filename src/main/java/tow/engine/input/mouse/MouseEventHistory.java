@@ -1,4 +1,4 @@
-package tow.engine.ui.mouse;
+package tow.engine.input.mouse;
 
 import org.liquidengine.legui.event.MouseClickEvent;
 import tow.engine.Global;
@@ -12,8 +12,9 @@ public class MouseEventHistory {
 
     public MouseEventHistory(){
         //Создание обратного вызова для фиксирования всех событий мыши (кроме GUI)
-        Global.engine.render.frame.getContainer().getListenerMap().addListener(MouseClickEvent.class, event -> {
+        Global.engine.render.getFrameContainer().getListenerMap().addListener(MouseClickEvent.class, event -> {
             eventHistory.add(event);
+            System.out.println(event);
         });
     }
 

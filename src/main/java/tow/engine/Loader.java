@@ -7,8 +7,8 @@ import tow.engine.resources.audios.AudioStorage;
 import tow.engine.image.TextureManager;
 import tow.engine.implementation.*;
 import tow.engine.logger.AggregateLogger;
-import tow.engine.ui.keyboard.KeyboardHandler;
-import tow.engine.ui.mouse.MouseHandler;
+import tow.engine.input.keyboard.KeyboardHandler;
+import tow.engine.input.mouse.MouseHandler;
 import tow.engine.net.client.Ping;
 import tow.engine.net.client.tcp.TCPControl;
 import tow.engine.net.client.tcp.TCPRead;
@@ -72,7 +72,7 @@ public class Loader {
 	//Инициализация движка перед запуском
 	private static void init() {
 		Global.engine = new Engine();//Создание класса для главного цикла
-		Global.engine.render.initGL();//Инициализация OpenGL
+		//Global.engine.render.initGL();//Инициализация OpenGL
 
 		Global.tcpControl = new TCPControl();
 		Global.tcpRead = new TCPRead();
