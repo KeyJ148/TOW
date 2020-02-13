@@ -1,6 +1,7 @@
 package tow.engine.cycle;
 
 import legui.ExampleGui;
+import legui.MenuLayerDemo;
 import org.liquidengine.legui.DefaultInitializer;
 import org.liquidengine.legui.animation.Animator;
 import org.liquidengine.legui.animation.AnimatorProvider;
@@ -123,6 +124,9 @@ public class Render{
 		createFrameWithGUI(frame);
 
 		initializer = new DefaultInitializer(Global.engine.render.getWindowID(), frame);
+		//Global.mouse.getEventHistory().init(initializer);
+		//initializer.getCallbackKeeper().getChainMouseButtonCallback().add();
+
 		animator = AnimatorProvider.getAnimator();
 		//Инициализация callbacks
 		initializer.getRenderer().initialize();
@@ -208,7 +212,11 @@ public class Render{
 	private Frame createFrameWithGUI(Frame frame) {
 		// Set background color for frame
 		frame.getContainer().getStyle().getBackground().setColor(ColorConstants.transparent());
-		frame.getContainer().setFocusable(false);
+		frame.getContainer().setFocusable(true);
+
+		frame.getContainer().getListenerMap().addListener(MouseClickEvent.class, event -> {
+			System.out.println(event);
+		});
 
 		Button button = new Button("Add components", 20, 20, 160, 30);
 		SimpleLineBorder border = new SimpleLineBorder(ColorConstants.black(), 1);
