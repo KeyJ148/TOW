@@ -1,4 +1,4 @@
-package tow.engine.input.mouse;
+package tow.engine.ui.mouse;
 
 import org.lwjgl.BufferUtils;
 import tow.engine.Vector2;
@@ -33,6 +33,7 @@ public class MouseHandler {
 		return new Vector2<>((int) cursor.position.x, (int) cursor.position.y);
 	}
 
+	//TODO: убрать и оставить только History (либо генерировать это из History)
 	public boolean isButtonDown(int button){
 		return glfwGetMouseButton(Global.engine.render.getWindowID(), button) == GLFW_PRESS;
 	}

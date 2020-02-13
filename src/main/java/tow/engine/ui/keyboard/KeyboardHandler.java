@@ -1,4 +1,4 @@
-package tow.engine.input.keyboard;
+package tow.engine.ui.keyboard;
 
 import tow.engine.Global;
 
@@ -13,7 +13,7 @@ public class KeyboardHandler {
 		eventHistory = new KeyboardEventHistory();
 	}
 
-
+	//TODO: убрать и оставить только History (либо генерировать это из History)
 	public boolean isKeyDown(int key){
 		return glfwGetKey(Global.engine.render.getWindowID(), key) == GLFW_PRESS;
 	}

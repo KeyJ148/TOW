@@ -116,7 +116,7 @@ public class Render{
 	}
 
 	DefaultInitializer initializer;
-	Frame frame;
+	public Frame frame;
 	Animator animator;
 
 	public void initGUI(){
@@ -214,10 +214,6 @@ public class Render{
 		frame.getContainer().getStyle().getBackground().setColor(ColorConstants.transparent());
 		frame.getContainer().setFocusable(true);
 
-		frame.getContainer().getListenerMap().addListener(MouseClickEvent.class, event -> {
-			System.out.println(event);
-		});
-
 		Button button = new Button("Add components", 20, 20, 160, 30);
 		SimpleLineBorder border = new SimpleLineBorder(ColorConstants.black(), 1);
 		button.getStyle().setBorder(border);
@@ -230,6 +226,7 @@ public class Render{
 					frame.getContainer().add(c);
 				}
 			}
+
 		});
 
 		button.getListenerMap().addListener(CursorEnterEvent.class, (CursorEnterEventListener) System.out::println);

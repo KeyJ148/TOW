@@ -3,7 +3,7 @@ package tow.game.client.tanks.player;
 import tow.engine.Global;
 import tow.engine.Loader;
 import tow.engine.Vector2;
-import tow.engine.input.keyboard.KeyboardEventHistory;
+import tow.engine.ui.keyboard.KeyboardEventHistory;
 import tow.engine.map.Border;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.Collision;
@@ -12,6 +12,7 @@ import tow.game.client.map.Box;
 import tow.game.client.map.Wall;
 import tow.game.client.tanks.enemy.EnemyArmor;
 
+import org.liquidengine.legui.event.KeyEvent;
 import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -55,12 +56,11 @@ public class PlayerController extends Obj implements Collision.CollisionListener
         /*
          * Перебираем все события нажатия клавиш
          */
-        //TODO: возможно обновляется после очистки, ибо size() всегда 0
-        List<KeyboardEventHistory.Event> keyboardEvents = Global.keyboard.getEventHistory().getList();
-        for (KeyboardEventHistory.Event event : keyboardEvents) {
-            if (event.action == GLFW_PRESS) {// Клавиша нажата
+        List<KeyEvent> keyboardEvents = Global.keyboard.getEventHistory().getList();
+        for (KeyEvent event : keyboardEvents) {
+            if (event.getAction() == GLFW_PRESS) {// Клавиша нажата
 
-                switch (event.key) {
+                switch (event.getKey()) {
 
                     //Клавиши запрета и разрешения на подбор ящиков
                     case GLFW_KEY_1:
