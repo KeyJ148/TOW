@@ -1,7 +1,13 @@
 package tow.engine.map;
 
+import org.liquidengine.legui.component.Component;
+import org.liquidengine.legui.component.ComponentLayer;
+import org.liquidengine.legui.component.Panel;
+import tow.engine.Global;
 import tow.engine.obj.Obj;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Vector;
 
 public class Room {
@@ -13,6 +19,8 @@ public class Room {
 	public MapControl mapControl; //Массив со всеми чанками и объектами
 	public Camera camera;
 
+	private List<Component> guiComponents;
+
 	public Room(int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -21,6 +29,8 @@ public class Room {
 		objects = new Vector<>();
 		mapControl = new MapControl(width, height);
 		camera = new Camera();
+
+		guiComponents = new LinkedList<>();
 	}
 
 	public void update(long delta){
@@ -72,11 +82,30 @@ public class Room {
 		objects.set(id, null);
 	}
 
+	//Сделать комнату активной (update и render), одновременно может быть максимум одна активная комната
+	public void activate(){
+		Global.room = this;
+		Global.engine.render.getFrameContainer().clearChildComponents();
+		for (Component component : guiComponents) Global.engine.render.getFrameContainer().add(component);
+	}
+
 	//Удаление всех объектов в комнате
 	public void destroy() {
 		for (int i = 0; i < objects.size(); i++) {
 			if (objects.get(i) != null) objects.get(i).destroy();
 		}
+	}
+
+	//Добавление GUI элемента в комнату
+	public void addGUIComponent(Component component){
+		guiComponents.add(component);
+		if (Global.room == this) Global.engine.render.getFrameContainer().add(component);
+	}
+
+	//Удаление GUI элемента из комнаты
+	public void removeGUIComponent(Component component){
+		guiComponents.remove(component);
+		if (Global.room == this) Global.engine.render.getFrameContainer().remove(component);
 	}
 
 }

@@ -44,8 +44,8 @@ public class Animation extends Rendering {
 
 		directionDraw -= 90; //смещена начального угла с Востока на Север
     	
-    	int width=(int)(textureHandler[frameNow].getWidth()*scale_x); 
-        int height=(int)(textureHandler[frameNow].getHeight()*scale_y);
+    	int width = getWidth();
+        int height = getHeight();
 
         GL11.glLoadIdentity();
 	    GL11.glTranslatef((float) xView, (float) yView, 0);

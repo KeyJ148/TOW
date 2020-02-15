@@ -24,8 +24,8 @@ public class Sprite extends Rendering {
 
         directionDraw -= 90; //смещена начального угла с Востока на Север
     	
-    	int width=(int)(getWidthTexture()*scale_x);
-        int height=(int)(getHeightTexture()*scale_y);
+    	int width = getWidth();
+        int height = getHeight();
 
         GL11.glLoadIdentity();
 	    GL11.glTranslatef((float) xView, (float) yView, 0);

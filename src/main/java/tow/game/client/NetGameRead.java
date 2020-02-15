@@ -83,9 +83,10 @@ public class NetGameRead implements NetGameReadInterface {
 		int height = Integer.parseInt(str.split(" ")[1]);
 		String background = str.split(" ")[2];
 
-		Global.room = new Room(width, height);
-		Global.room.background = new Background(TextureManager.getTexture(background));
-		Border.createAll(Global.room);
+		Room room = new Room(width, height);
+		room.background = new Background(TextureManager.getTexture(background));
+		Border.createAll(room);
+		room.activate();
 	}
 
 	//старт сервера - (int peopleMax, int myIdFromServer)
