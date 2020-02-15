@@ -1,4 +1,4 @@
-package tow.game.client.lobby;
+package tow.game.client.menu;
 
 public interface StartServerListener {
 

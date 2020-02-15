@@ -10,7 +10,6 @@ import org.liquidengine.legui.style.Background;
 import org.liquidengine.legui.style.border.SimpleLineBorder;
 import org.liquidengine.legui.style.color.ColorConstants;
 import tow.engine.net.client.Connector;
-import tow.game.client.lobby.StartServerListener;
 import tow.game.server.ServerLoader;
 
 public class MenuPlayRoom extends MenuRoom implements StartServerListener {
