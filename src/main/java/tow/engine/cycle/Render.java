@@ -1,11 +1,5 @@
 package tow.engine.cycle;
 
-import org.liquidengine.legui.DefaultInitializer;
-import org.liquidengine.legui.animation.AnimatorProvider;
-import org.liquidengine.legui.component.Component;
-import org.liquidengine.legui.component.Frame;
-import org.liquidengine.legui.component.Layer;
-import org.liquidengine.legui.system.layout.LayoutManager;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
@@ -18,19 +12,16 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
-public class Render{
+public class Render {
 
 	private long windowID; //ID окна игры для LWJGL
 	private long monitorID; //ID монитора (0 для не полноэкранного режима)
 	private int width;
 	private int height;
 
-	private Frame frame; //Основное окно для работы с LeGUI
-	private DefaultInitializer initializer; //Инициализатор LeGUI
-
-	public Render(){
+	public Render() {
 		//Инициализация GLFW
-		if (!glfwInit()){
+		if (!glfwInit()) {
 			Global.logger.println("GLFW initialization failed", Logger.Type.ERROR);
 			Loader.exit();
 		}
@@ -42,17 +33,9 @@ public class Render{
 			Global.logger.println("OpenGL initialization failed", e, Logger.Type.ERROR);
 			Loader.exit();
 		}
-
-		//Инициализация интерфейса
-		try{
-			initLeGUI();
-		} catch (Exception e){
-			Global.logger.println("LeGUI initialization failed", e, Logger.Type.ERROR);
-			Loader.exit();
-		}
 	}
 
-	private void initOpenGL(){
+	private void initOpenGL() {
 		//Установка параметров для окна
 		glfwDefaultWindowHints();
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
@@ -64,7 +47,7 @@ public class Render{
 		int monitorHeight = vidMode.height();
 
 		//Выбор экрана и размеров окна
-		if (SettingsStorage.DISPLAY.FULL_SCREEN){
+		if (SettingsStorage.DISPLAY.FULL_SCREEN) {
 			monitorID = glfwGetPrimaryMonitor();
 			width = monitorWidth;
 			height = monitorHeight;
@@ -77,7 +60,7 @@ public class Render{
 		//Создание окна
 		windowID = glfwCreateWindow(width, height, SettingsStorage.DISPLAY.WINDOW_NAME, monitorID, NULL);
 		//Перемещение окна на центр монитора
-		glfwSetWindowPos(windowID, (monitorWidth - width)/2, (monitorHeight - height)/2);
+		glfwSetWindowPos(windowID, (monitorWidth - width) / 2, (monitorHeight - height) / 2);
 		//Создание контекста GLFW
 		glfwMakeContextCurrent(windowID);
 		//Включение VSync: будет происходить синхронизация через каждые N кадров
@@ -106,61 +89,26 @@ public class Render{
 		glfwSwapBuffers(windowID);
 	}
 
-	private void initLeGUI(){
-		frame = new Frame(getWidth(), getHeight());
-		getFrameContainer().setFocusable(true);
-
-		initializer = new DefaultInitializer(getWindowID(), frame);
-		initializer.getRenderer().initialize();
-	}
 
 	public void loop() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); //Очистка рендера
 
 		Global.game.render(); //Отрисовка в главном игровом классе (ссылка передается в движок при инициализации)
 		Global.location.render(getWidth(), getHeight()); //Отрисовка комнаты
-		renderGUI(); //Отрисовка интерфейса (LeGUI)
+		Global.engine.gui.renderGUI(); //Отрисовка интерфейса (LeGUI)
 		Global.mouse.draw(); //Отрисовка курсора мыши
 	}
 
-	private void renderGUI(){
-		//Обновление интерфейса в соответствие с параметрами окна
-		initializer.getContext().updateGlfwWindow();
 
-		//Отрисовка интерфейса
-		initializer.getRenderer().render(frame, initializer.getContext());
-
-		//Нормализация параметров OpenGL после отрисовки интерфейса
-		glDisable(GL_DEPTH_TEST);
-		glEnable(GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-	}
-
-	public void pollEvents(){
-		//Получение событий ввода и других callbacks
-		glfwPollEvents();
-
-		//Обработка событий (Системных и GUI)
-		initializer.getSystemEventProcessor().processEvents(frame, initializer.getContext());
-		initializer.getGuiEventProcessor().processEvents();
-
-		//Перерасположить компоненты
-		LayoutManager.getInstance().layout(frame);
-
-		//Запуск анимаций
-		AnimatorProvider.getAnimator().runAnimations();
-	}
-
-
-	public void vsync(){
+	public void vsync() {
 		glfwSwapBuffers(windowID);
 	}
 
-	public int getWidth(){
+	public int getWidth() {
 		return width;
 	}
 
-	public int getHeight(){
+	public int getHeight() {
 		return height;
 	}
 
@@ -170,28 +118,5 @@ public class Render{
 
 	public long getMonitorID() {
 		return monitorID;
-	}
-
-	public Component getFrameContainer(){
-		return frame.getContainer();
-	}
-
-	public Layer<Component> getFrameLayer(){
-		return frame.getComponentLayer();
-	}
-
-	public void setFrameFocused(){
-		initializer.getContext().setFocusedGui(frame.getContainer());
-	}
-
-	public Frame getFrame(){
-		return frame;
-	}
-
-	public Frame createFrame(){
-		initLeGUI();
-		Global.keyboard.getEventHistory().initCallback();
-		Global.mouse.getEventHistory().initCallback();
-		return getFrame();
 	}
 }

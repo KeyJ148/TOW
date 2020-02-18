@@ -16,14 +16,14 @@ public class Location {
 	public MapControl mapControl; //Массив со всеми чанками и объектами
 	public Camera camera = new Camera();
 
-	private Frame guiFrame;
+	public final Frame guiFrame;
 
 	public Location(int width, int height) {
 		this.width = width;
 		this.height = height;
 		mapControl = new MapControl(width, height);
 
-		guiFrame = Global.engine.render.createFrame();
+		guiFrame = Global.engine.gui.createFrame();
 	}
 
 	public void update(long delta){
@@ -80,7 +80,7 @@ public class Location {
 		Global.location = this;
 		//Global.engine.render.getFrameContainer().clearChildComponents();
 		//Global.engine.render.createFrame();
-		Global.engine.render.setFrameFocused();
+		Global.engine.gui.setFrameFocused();
 	}
 
 	//Удаление всех объектов в комнате

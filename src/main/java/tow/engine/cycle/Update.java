@@ -19,6 +19,8 @@ public class Update {
 
 	//Обновляем игру в соответствие с временем прошедшим с последнего обновления
 	private void loop(long delta){
+		Global.engine.gui.pollEvents();//Получение событий и Callbacks
+
 		Global.game.update(delta);//Обновить главный игровой класс при необходимости
 
 		Global.tcpRead.update();//Обработать все полученные сообщения по TCP
@@ -33,6 +35,8 @@ public class Update {
 
 		Global.mouse.update(); //Очистка истории событий мыши
 		Global.keyboard.update(); //Очистка истории событий клавиатуры
+
+		Global.engine.analyzer.update(); //Обновление состояния анализатора
 	}
 
 }

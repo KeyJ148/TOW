@@ -12,13 +12,13 @@ public class KeyboardEventHistory {
 
     public KeyboardEventHistory(){
         //Создание обратного вызова для фиксирования всех событий клавиатуры (кроме GUI)
-        Global.engine.render.getFrameContainer().getListenerMap().addListener(KeyEvent.class, event -> {
+        Global.engine.gui.getFrameContainer().getListenerMap().addListener(KeyEvent.class, event -> {
             eventHistory.add(event);
         });
     }
 
     public void initCallback(){
-        Global.engine.render.getFrameContainer().getListenerMap().addListener(KeyEvent.class, event -> {
+        Global.engine.gui.getFrameContainer().getListenerMap().addListener(KeyEvent.class, event -> {
             eventHistory.add(event);
         });
     }

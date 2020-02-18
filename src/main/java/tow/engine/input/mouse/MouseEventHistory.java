@@ -13,13 +13,13 @@ public class MouseEventHistory {
 
     public MouseEventHistory(){
         //Создание обратного вызова для фиксирования всех событий мыши (кроме GUI)
-        Global.engine.render.getFrameContainer().getListenerMap().addListener(MouseClickEvent.class, event -> {
+        Global.engine.gui.getFrameContainer().getListenerMap().addListener(MouseClickEvent.class, event -> {
             eventHistory.add(event);
         });
     }
 
     public void initCallback(){
-        Global.engine.render.getFrameContainer().getListenerMap().addListener(MouseClickEvent.class, event -> {
+        Global.engine.gui.getFrameContainer().getListenerMap().addListener(MouseClickEvent.class, event -> {
             eventHistory.add(event);
         });
     }

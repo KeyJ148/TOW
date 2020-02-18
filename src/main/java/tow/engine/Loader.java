@@ -72,6 +72,7 @@ public class Loader {
 	//Инициализация движка перед запуском
 	private static void init() {
 		Global.engine = new Engine();//Создание класса для главного цикла
+		Global.engine.init();
 		//Global.engine.render.initGL();//Инициализация OpenGL
 
 		Global.tcpControl = new TCPControl();
