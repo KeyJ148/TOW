@@ -47,8 +47,8 @@ public class Camera {
 
         int width = Global.engine.render.getWidth();
         int height = Global.engine.render.getHeight();
-        int widthMap = Global.room.width;
-        int heightMap = Global.room.height;
+        int widthMap = Global.location.width;
+        int heightMap = Global.location.height;
 
         if (x < width/2) x = width/2;
         if (y < height/2) y = height/2;

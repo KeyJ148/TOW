@@ -10,7 +10,6 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import tow.engine.Global;
-import tow.engine.input.keyboard.KeyboardHandler;
 import tow.engine.logger.Logger;
 import tow.engine.Loader;
 import tow.engine.resources.settings.SettingsStorage;
@@ -119,7 +118,7 @@ public class Render{
 		glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); //Очистка рендера
 
 		Global.game.render(); //Отрисовка в главном игровом классе (ссылка передается в движок при инициализации)
-		Global.room.render(getWidth(), getHeight()); //Отрисовка комнаты
+		Global.location.render(getWidth(), getHeight()); //Отрисовка комнаты
 		renderGUI(); //Отрисовка интерфейса (LeGUI)
 		Global.mouse.draw(); //Отрисовка курсора мыши
 	}
@@ -183,5 +182,16 @@ public class Render{
 
 	public void setFrameFocused(){
 		initializer.getContext().setFocusedGui(frame.getContainer());
+	}
+
+	public Frame getFrame(){
+		return frame;
+	}
+
+	public Frame createFrame(){
+		initLeGUI();
+		Global.keyboard.getEventHistory().initCallback();
+		Global.mouse.getEventHistory().initCallback();
+		return getFrame();
 	}
 }

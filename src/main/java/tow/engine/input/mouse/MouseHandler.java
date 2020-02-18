@@ -41,8 +41,6 @@ public class MouseHandler {
 	}
 	
 	public void update(){
-		cursor.update();
-
 		List<MouseClickEvent> eventHistoryList = getEventHistory().getList();
 		for(MouseClickEvent event : eventHistoryList){
 			if (event.getAction() == MouseClickEvent.MouseClickAction.PRESS) buttonPressed.add(event.getButton().getCode());
@@ -50,6 +48,7 @@ public class MouseHandler {
 		}
 
 		eventHistory.update();
+		cursor.update();
 	}
 	
 	public void draw(){

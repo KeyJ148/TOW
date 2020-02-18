@@ -82,7 +82,7 @@ public class Gun extends Obj {
 				player.bullet.name
 		);
 
-		Global.room.objAdd(newBullet);
+		Global.location.objAdd(newBullet);
 	}
 
 	public String getConfigFileName(){

@@ -41,7 +41,7 @@ public class Collision extends Component {
 
 		Vector2<Integer>[] maskDrawView = new Vector2[maskAbsolute.length];
 		for (int i=0;i<maskDrawView.length;i++)
-			maskDrawView[i] = Global.room.camera.toRelativePosition(maskAbsolute[i].copy());
+			maskDrawView[i] = Global.location.camera.toRelativePosition(maskAbsolute[i].copy());
 
 		GL11.glLoadIdentity();
 		Color.BLUE.bind();
@@ -57,8 +57,8 @@ public class Collision extends Component {
 	public void checkCollisionFromRoom(){
 		if (collisionObjects.size() == 0) return;
 
-		for(int i = 0; i< Global.room.objects.size(); i++){//Цикл перебора всех объектов в комнате
-			Obj objectFromRoom = Global.room.objects.get(i);
+		for(int i = 0; i< Global.location.objects.size(); i++){//Цикл перебора всех объектов в комнате
+			Obj objectFromRoom = Global.location.objects.get(i);
 			if (objectFromRoom != null && objectFromRoom.collision != null){//Если объект не был уничтожен и у него есть маска
 				for (Class collisionObject : collisionObjects){ //Цикл перебора объектов, с которыми надо проверять столкновение
 					if ((objectFromRoom.getClass().equals(collisionObject)) //Если с эти объектом надо проверять столкновени

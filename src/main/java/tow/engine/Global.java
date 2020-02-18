@@ -3,11 +3,11 @@ package tow.engine;
 import tow.engine.audio.AudioPlayer;
 import tow.engine.cycle.Engine;
 import tow.engine.logger.AggregateLogger;
+import tow.engine.map.Location;
 import tow.engine.resources.audios.AudioStorage;
 import tow.engine.implementation.*;
 import tow.engine.input.mouse.MouseHandler;
 import tow.engine.input.keyboard.KeyboardHandler;
-import tow.engine.map.Room;
 import tow.engine.net.client.Ping;
 import tow.engine.net.client.tcp.TCPControl;
 import tow.engine.net.client.tcp.TCPRead;
@@ -17,7 +17,7 @@ import tow.engine.net.client.udp.UDPRead;
 public class Global {
 
 	public static Engine engine; //Главный игровой поток
-	public static Room room; //Текущая комната
+	public static Location location; //Текущая комната
 
 	public static AggregateLogger logger; //Объект для вывода лога в консоль и файл
 	public static MouseHandler mouse; //Объект хранящий события мыши и рисующий курсор на экране

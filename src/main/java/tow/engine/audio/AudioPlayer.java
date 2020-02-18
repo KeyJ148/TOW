@@ -38,7 +38,7 @@ public class AudioPlayer {
         звука находится на таком же расстояние от объекта танка (игрока) как и раньше
         Условие (Camera.getFollowObject() != null) исправляет этот баг
         */
-        Camera camera = Global.room.camera;
+        Camera camera = Global.location.camera;
         double listenerX = camera.getX();
         double listenerY = camera.getY();
 

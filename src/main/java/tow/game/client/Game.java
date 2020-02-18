@@ -4,8 +4,9 @@ import tow.engine.Global;
 import tow.engine.image.Color;
 import tow.engine.image.TextureManager;
 import tow.engine.implementation.GameInterface;
-import tow.engine.map.Room;
-import tow.game.client.menu.MenuMainRoom;
+import tow.engine.map.Location;
+import tow.game.client.menu.MenuMainLocation;
+
 import java.util.Random;
 
 public class Game implements GameInterface {
@@ -14,8 +15,8 @@ public class Game implements GameInterface {
 	public void init() {
 		GameSetting.init();
 
-        Room room = new Room(700, 500);
-        room.activate();
+        Location location = new Location(700, 500);
+        location.activate();
 
         //new LoginWindow();
 
@@ -28,7 +29,7 @@ public class Game implements GameInterface {
 		Global.mouse.getCursor().setCapture(true);
 		Global.mouse.getCursor().setTexture(TextureManager.getTexture("cursor_aim_1"));
 
-        new MenuMainRoom();
+        new MenuMainLocation();
 	}
 
 	@Override

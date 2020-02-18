@@ -35,7 +35,7 @@ public class EnemyBullet extends Obj {
 			Obj explosion = new Obj(position.x, position.y, -100);
 			explosion.particles = new Explosion(explosion, explosionSize);
 			explosion.particles.destroyObject = true;
-			Global.room.objAdd(explosion);
+			Global.location.objAdd(explosion);
 		}
 	}
 }

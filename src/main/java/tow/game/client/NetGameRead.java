@@ -7,7 +7,7 @@ import tow.engine.image.TextureManager;
 import tow.engine.implementation.NetGameReadInterface;
 import tow.engine.map.Background;
 import tow.engine.map.Border;
-import tow.engine.map.Room;
+import tow.engine.map.Location;
 import tow.engine.net.client.Message;
 import tow.engine.obj.Obj;
 import tow.game.client.map.Box;
@@ -83,10 +83,10 @@ public class NetGameRead implements NetGameReadInterface {
 		int height = Integer.parseInt(str.split(" ")[1]);
 		String background = str.split(" ")[2];
 
-		Room room = new Room(width, height);
-		room.background = new Background(TextureManager.getTexture(background));
-		Border.createAll(room);
-		room.activate();
+		Location location = new Location(width, height);
+		location.background = new Background(TextureManager.getTexture(background));
+		Border.createAll(location);
+		location.activate();
 	}
 
 	//старт сервера - (int peopleMax, int myIdFromServer)
@@ -128,12 +128,12 @@ public class NetGameRead implements NetGameReadInterface {
 		ClientData.player.death = death;
 		ClientData.player.win = win;
 
-		Global.room.objAdd(ClientData.player);
-		Global.room.camera.setFollowObject(ClientData.player.camera);
+		Global.location.objAdd(ClientData.player);
+		Global.location.camera.setFollowObject(ClientData.player.camera);
 
 		//Добавляем на карту врагов
 		for (Map.Entry<Integer, Enemy> entry : ClientData.enemy.entrySet()){
-			Global.room.objAdd(entry.getValue());
+			Global.location.objAdd(entry.getValue());
 		}
 	}
 
@@ -144,7 +144,7 @@ public class NetGameRead implements NetGameReadInterface {
 		int type = Integer.parseInt(str.split(" ")[2]);
 		int idBox = Integer.parseInt(str.split(" ")[3]);
 
-		Global.room.objAdd(new Box(x, y, type, idBox));
+		Global.location.objAdd(new Box(x, y, type, idBox));
 	}
 
 	//начало рестарта
@@ -155,8 +155,8 @@ public class NetGameRead implements NetGameReadInterface {
 		}
 
 		ClientData.battle = false;
-		Global.room.destroy();
-		Global.room.camera.deleteFollowObject();
+		Global.location.destroy();
+		Global.location.camera.deleteFollowObject();
 
 		ClientData.mapObjects = new Vector<>();
 		ClientData.enemyBullet = new ArrayList<>();
@@ -189,7 +189,7 @@ public class NetGameRead implements NetGameReadInterface {
 				break;
 		}
 
-		Global.room.objAdd(newObject);
+		Global.location.objAdd(newObject);
 		ClientData.mapObjects.add(mid, newObject);
 	}
 
@@ -222,7 +222,7 @@ public class NetGameRead implements NetGameReadInterface {
 
 		EnemyBullet enemyBullet = new EnemyBullet(x, y, speed, direction, TextureManager.getTexture(texture), idEmeny, idNet);
 		ClientData.enemyBullet.add(enemyBullet);
-		Global.room.objAdd(enemyBullet);
+		Global.location.objAdd(enemyBullet);
 	}
 
 	//я нанёс урон игроку enemyId (double damage, int idSuffer, int idDamager)
@@ -286,7 +286,7 @@ public class NetGameRead implements NetGameReadInterface {
 	//я подобрал ящик - (int idBox)
 	public void take21(String str){
 		int idBox = Integer.parseInt(str.split(" ")[0]);
-		for(Obj obj : Global.room.objects){
+		for(Obj obj : Global.location.objects){
 			if (obj != null && obj instanceof Box && ((Box) obj).idBox == idBox){
 				obj.destroy();
 			}

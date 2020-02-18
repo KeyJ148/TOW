@@ -56,11 +56,11 @@ public class Border extends Obj {
 		this.collision = new Collision(this, new Mask("mask.png", h, w));
 	}
 	
-	public static void createAll(Room room){
-		room.objAdd(new Border(room.width, room.height, Border.NORTH));
-		room.objAdd(new Border(room.width, room.height, Border.EAST));
-		room.objAdd(new Border(room.width, room.height, Border.SOUTH));
-		room.objAdd(new Border(room.width, room.height, Border.WEST));
+	public static void createAll(Location location){
+		location.objAdd(new Border(location.width, location.height, Border.NORTH));
+		location.objAdd(new Border(location.width, location.height, Border.EAST));
+		location.objAdd(new Border(location.width, location.height, Border.SOUTH));
+		location.objAdd(new Border(location.width, location.height, Border.WEST));
 	}
 
 }

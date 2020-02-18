@@ -35,7 +35,7 @@ public class CollisionDirect extends Collision {
 
 		separationCollisions();
 		for (Integer id : dynamicId){ //Проверяем столкновения со всеми перемещающимися объектами
-			Obj objectFromRoom = Global.room.objects.get(id);
+			Obj objectFromRoom = Global.location.objects.get(id);
 			if (objectFromRoom != null && objectFromRoom.collision != null && checkCollision(objectFromRoom)){
 				informListeners(objectFromRoom); //Информируем об этом всех слушателей
 			}
@@ -59,7 +59,7 @@ public class CollisionDirect extends Collision {
 		GL11.glLoadIdentity();
 		Color.BLUE.bind();
 
-		Vector2<Integer> relativePosition = Global.room.camera.toRelativePosition(new Vector2(positionCollision.x-10, positionCollision.y-10));
+		Vector2<Integer> relativePosition = Global.location.camera.toRelativePosition(new Vector2(positionCollision.x-10, positionCollision.y-10));
 		int x = relativePosition.x;
 		int y = relativePosition.y;
 		int w = 20;
@@ -79,8 +79,8 @@ public class CollisionDirect extends Collision {
 	//Поиск в общем массиве id, которые динамичны и сталкиваются с этим объектом
 	//Также поиск статичных объектов для проверки столкновения при помощи траектории
 	private void separationCollisions(){
-		for(int i = start; i< Global.room.objects.size(); i++){//Цикл перебора объектов в комнате
-			Obj objFromRoom = Global.room.objects.get(i);
+		for(int i = start; i< Global.location.objects.size(); i++){//Цикл перебора объектов в комнате
+			Obj objFromRoom = Global.location.objects.get(i);
 			if (objFromRoom != null && objFromRoom.collision != null){//Если объект не был уничтожен и у него есть маска
 				for (Class collisionObject : collisionObjects) {//Цикл перебора объектов с которыми надо проверять столкновения
 					if (objFromRoom.getClass().equals(collisionObject)) {//Если с объектом из комнаты надо проверять столкновения
@@ -91,7 +91,7 @@ public class CollisionDirect extends Collision {
 			}
 		}
 
-		this.start = Global.room.objects.size();
+		this.start = Global.location.objects.size();
 	}
 
 	//Расчёт столкновения прямолинейно перемещающегося объекта с статичным объектом obj

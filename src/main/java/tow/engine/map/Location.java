@@ -1,36 +1,29 @@
 package tow.engine.map;
 
 import org.liquidengine.legui.component.Component;
-import org.liquidengine.legui.component.ComponentLayer;
-import org.liquidengine.legui.component.Panel;
+import org.liquidengine.legui.component.Frame;
 import tow.engine.Global;
 import tow.engine.obj.Obj;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Vector;
 
-public class Room {
+public class Location {
 
-	public Background background;
-	public int width, height;
+	public Background background = new Background();
+	public final int width, height;
 
-	public Vector<Obj> objects; //Массив со всеми объектами
+	public Vector<Obj> objects = new Vector<>(); //Массив со всеми объектами
 	public MapControl mapControl; //Массив со всеми чанками и объектами
-	public Camera camera;
+	public Camera camera = new Camera();
 
-	private List<Component> guiComponents;
+	private Frame guiFrame;
 
-	public Room(int width, int height) {
+	public Location(int width, int height) {
 		this.width = width;
 		this.height = height;
-		this.background = new Background();
-
-		objects = new Vector<>();
 		mapControl = new MapControl(width, height);
-		camera = new Camera();
 
-		guiComponents = new LinkedList<>();
+		guiFrame = Global.engine.render.createFrame();
 	}
 
 	public void update(long delta){
@@ -69,7 +62,7 @@ public class Room {
 	//Добавление объекта в комнату
 	public void objAdd(Obj obj){
 		obj.position.id = objects.size();
-		obj.position.room = this;
+		obj.position.location = this;
 		obj.destroy = false;
 
 		objects.add(obj);
@@ -84,9 +77,9 @@ public class Room {
 
 	//Сделать комнату активной (update и render), одновременно может быть максимум одна активная комната
 	public void activate(){
-		Global.room = this;
-		Global.engine.render.getFrameContainer().clearChildComponents();
-		for (Component component : guiComponents) Global.engine.render.getFrameContainer().add(component);
+		Global.location = this;
+		//Global.engine.render.getFrameContainer().clearChildComponents();
+		//Global.engine.render.createFrame();
 		Global.engine.render.setFrameFocused();
 	}
 
@@ -99,14 +92,12 @@ public class Room {
 
 	//Добавление GUI элемента в комнату
 	public void addGUIComponent(Component component){
-		guiComponents.add(component);
-		if (Global.room == this) Global.engine.render.getFrameContainer().add(component);
+		guiFrame.getContainer().add(component);
 	}
 
 	//Удаление GUI элемента из комнаты
 	public void removeGUIComponent(Component component){
-		guiComponents.remove(component);
-		if (Global.room == this) Global.engine.render.getFrameContainer().remove(component);
+		guiFrame.getContainer().remove(component);
 	}
 
 }

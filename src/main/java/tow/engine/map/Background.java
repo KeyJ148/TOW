@@ -87,10 +87,10 @@ public class Background {
         GL11.glLoadIdentity();
         outsideMapColor.bind();
 
-        int fillW = (width - Global.room.width)/2;
-        int fillH = (height - Global.room.height)/2;
+        int fillW = (width - Global.location.width)/2;
+        int fillH = (height - Global.location.height)/2;
 
-        if (Global.engine.render.getWidth() > Global.room.width){
+        if (Global.engine.render.getWidth() > Global.location.width){
             GL11.glBegin(GL11.GL_QUADS);
             GL11.glTexCoord2f(0,0);
             GL11.glVertex2f(0, 0);
@@ -112,7 +112,7 @@ public class Background {
             GL11.glVertex2f(width-fillW, height);
             GL11.glEnd();
         }
-        if (Global.engine.render.getHeight() > Global.room.height){
+        if (Global.engine.render.getHeight() > Global.location.height){
             GL11.glBegin(GL11.GL_QUADS);
             GL11.glTexCoord2f(0,0);
             GL11.glVertex2f(0, 0);

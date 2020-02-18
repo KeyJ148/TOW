@@ -1,23 +1,17 @@
 package tow.game.client.menu;
 
 import org.liquidengine.legui.component.*;
-import org.liquidengine.legui.event.CursorEnterEvent;
 import org.liquidengine.legui.event.MouseClickEvent;
-import org.liquidengine.legui.listener.CursorEnterEventListener;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.border.SimpleLineBorder;
 import org.liquidengine.legui.style.color.ColorConstants;
 import tow.engine.Loader;
-import tow.game.server.ServerLoader;
 
-import java.util.ArrayList;
-import java.util.List;
+public class MenuMainLocation extends MenuLocation {
 
-public class MenuMainRoom extends MenuRoom {
+    public MenuMainLocation(){
 
-    public MenuMainRoom(){
-
-        createButton("Play", -2, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new MenuPlayRoom();});
+        createButton("Play", -2, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new MenuPlayLocation();});
         createButton("Profile", -1, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) return;});
         createButton("Settings", 0, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) return;});
         createButton("Exit", 1, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) Loader.exit();});

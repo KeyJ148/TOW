@@ -49,7 +49,7 @@ public class Enemy extends Tank {
         if (armor == null){
             TextureHandler[] armorAnimation = TextureManager.getAnimation("a_default");
             armor = new EnemyArmor(x, y, direction, armorAnimation, this);
-            Global.room.objAdd(armor);
+            Global.location.objAdd(armor);
             setColorArmor(color);
         }
 
@@ -59,7 +59,7 @@ public class Enemy extends Tank {
             gun = new Obj(x, y, directionGun, gunTexture);
             gun.movement = new Movement(gun);
             gun.movement.directionDrawEquals = false;
-            Global.room.objAdd(gun);
+            Global.location.objAdd(gun);
             setColorGun(color);
         }
 
@@ -93,13 +93,13 @@ public class Enemy extends Tank {
         armor.rendering = new Animation(armor, TextureManager.getAnimation(nameArmor));
         setColorArmor(color);
 
-        Global.room.mapControl.update(armor);
+        Global.location.mapControl.update(armor);
     }
 
     public void newGun(String nameGun){
         gun.rendering = new Sprite(gun, TextureManager.getTexture(nameGun));
         setColorGun(color);
 
-        Global.room.mapControl.update(gun);
+        Global.location.mapControl.update(gun);
     }
 }

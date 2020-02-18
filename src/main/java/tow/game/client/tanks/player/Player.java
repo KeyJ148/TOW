@@ -44,17 +44,17 @@ public class Player extends Tank {
         position = new Position(this, x, y, 0);
 
         controller = new PlayerController(this);
-        Global.room.objAdd(controller);
+        Global.location.objAdd(controller);
 
         armor = new ADefault();
         ((Armor) armor).init(this, x, y, direction, "ADefault");
         effects.add(((Armor) armor).effect);
-        Global.room.objAdd(armor);
+        Global.location.objAdd(armor);
 
         gun = new GDefault();
         ((Gun) gun).init(this, x, y, direction, "GDefault");
         effects.add(((Gun) gun).effect);
-        Global.room.objAdd(gun);
+        Global.location.objAdd(gun);
 
         bullet = new BulletFactory("BDefault", this);
 
@@ -67,7 +67,7 @@ public class Player extends Tank {
 
         hpLabel = new Obj(1, 10, 0);
         hpLabel.position.absolute = false;
-        Global.room.objAdd(hpLabel);
+        Global.location.objAdd(hpLabel);
         hpLabel.rendering = new GUIElement(new Label(), 1, 1, hpLabel);
         ((Label) ((GUIElement) hpLabel.rendering).getComponent()).setFocusable(false);
         ((Label) ((GUIElement) hpLabel.rendering).getComponent()).getTextState().setFontSize(30);
@@ -76,7 +76,7 @@ public class Player extends Tank {
         for (int i = 0; i < statsLabel.length; i++) {
             statsLabel[i] = new Obj(1, 30+i*15, 0);
             statsLabel[i].position.absolute = false;
-            Global.room.objAdd(statsLabel[i]);
+            Global.location.objAdd(statsLabel[i]);
             statsLabel[i].rendering = new GUIElement(new Label(), 1, 1, statsLabel[i]);
             ((Label) ((GUIElement) statsLabel[i].rendering).getComponent()).setFocusable(false);
             ((Label) ((GUIElement) statsLabel[i].rendering).getComponent()).getTextState().setFontSize(17);

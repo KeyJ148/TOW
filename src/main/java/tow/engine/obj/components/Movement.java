@@ -31,7 +31,7 @@ public class Movement extends Component {
 
         getObj().position.x = getObj().position.x + speed * Math.cos(Math.toRadians(direction)) * ((double) delta/1000000000);
         getObj().position.y = getObj().position.y - speed * Math.sin(Math.toRadians(direction)) * ((double) delta/1000000000);
-        Global.room.mapControl.update(getObj());
+        Global.location.mapControl.update(getObj());
 
         if (directionDrawEquals) getObj().position.setDirectionDraw(direction);
     }

@@ -17,6 +17,12 @@ public class KeyboardEventHistory {
         });
     }
 
+    public void initCallback(){
+        Global.engine.render.getFrameContainer().getListenerMap().addListener(KeyEvent.class, event -> {
+            eventHistory.add(event);
+        });
+    }
+
     public List<KeyEvent> getList(){
         return List.copyOf(eventHistory);
     }

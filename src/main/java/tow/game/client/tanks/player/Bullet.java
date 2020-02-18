@@ -101,7 +101,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 			Obj explosion = new Obj(position.x, position.y, -100);
 			explosion.particles = new Explosion(explosion, expSize);
 			explosion.particles.destroyObject = true;
-			Global.room.objAdd(explosion);
+			Global.location.objAdd(explosion);
 		}
 	}
 

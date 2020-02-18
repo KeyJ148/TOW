@@ -12,11 +12,11 @@ import org.liquidengine.legui.style.color.ColorConstants;
 import tow.engine.net.client.Connector;
 import tow.game.server.ServerLoader;
 
-public class MenuPlayRoom extends MenuRoom implements StartServerListener {
+public class MenuPlayLocation extends MenuLocation implements StartServerListener {
 
     private int portHosted;
 
-    public MenuPlayRoom(){
+    public MenuPlayLocation(){
         createComponent(new Panel(), width/2, height/2-1*MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
 
         createComponent(new Label("IP:"), width/2-50, height/2-1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);

@@ -2,7 +2,6 @@ package tow.engine.obj.components.render;
 
 import org.joml.Vector2f;
 import org.liquidengine.legui.component.Component;
-import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.obj.Obj;
 
@@ -13,7 +12,7 @@ public class GUIElement extends Rendering {
     public GUIElement(Component component, Obj obj) {
         super(obj);
         this.component = component;
-        getObj().position.room.addGUIComponent(component);
+        getObj().position.location.addGUIComponent(component);
     }
 
     public GUIElement(Component component, int width, int height, Obj obj) {
@@ -34,7 +33,7 @@ public class GUIElement extends Rendering {
 
         component.setPosition(xView, yView);
 
-        if (getObj().destroy) getObj().position.room.removeGUIComponent(component);
+        if (getObj().destroy) getObj().position.location.removeGUIComponent(component);
     }
 
     @Override

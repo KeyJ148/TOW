@@ -63,15 +63,15 @@ public class AnalysisStringBuilder {
         sb.append("          ");
 
         sb.append("Objects: ");
-        sb.append(Global.room.objCount());
+        sb.append(Global.location.objCount());
         sb.append("          ");
 
         sb.append("Chunks: ");
-        sb.append(Global.room.mapControl.chunkRender);
+        sb.append(Global.location.mapControl.chunkRender);
         sb.append(" (");
         sb.append(analyzer.chunkInDepthVector);
         sb.append("*");
-        sb.append(Global.room.mapControl.getCountDepthVectors());
+        sb.append(Global.location.mapControl.getCountDepthVectors());
         sb.append(")");
         sb.append("          ");
 

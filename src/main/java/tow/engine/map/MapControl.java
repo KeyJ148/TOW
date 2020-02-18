@@ -50,7 +50,7 @@ public class MapControl {
 	}
 
 	public void del(int id){
-		Obj obj = Global.room.objects.get(id);
+		Obj obj = Global.location.objects.get(id);
 		int depth = obj.position.depth;
 
 		DepthVector dv;

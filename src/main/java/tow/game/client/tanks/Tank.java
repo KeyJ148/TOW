@@ -1,9 +1,7 @@
 package tow.game.client.tanks;
 
-import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.Label;
 import tow.engine.Global;
-import tow.engine.Vector2;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.render.Animation;
 import tow.engine.obj.components.render.GUIElement;
@@ -41,10 +39,10 @@ public abstract class Tank extends Obj{
     public void initCamera(){
         //Инициализация камеры
         camera = new Obj(0, 0, 0);
-        Global.room.objAdd(camera);
+        Global.location.objAdd(camera);
 
         nickname = new Obj(0, 0, 0);
-        Global.room.objAdd(nickname);
+        Global.location.objAdd(nickname);
         nickname.rendering = new GUIElement(new Label(), 500, 30, nickname);
     }
 
@@ -76,14 +74,14 @@ public abstract class Tank extends Obj{
         Obj explosion = new Obj(armor.position.x, armor.position.y, -100);
         explosion.particles = new Explosion(explosion, 100);
         explosion.particles.destroyObject = true;
-        Global.room.objAdd(explosion);
+        Global.location.objAdd(explosion);
 
         //Если в данный момент камера установлена на этот объект
-        if (Global.room.camera.getFollowObject() != null && Global.room.camera.getFollowObject() == camera){
+        if (Global.location.camera.getFollowObject() != null && Global.location.camera.getFollowObject() == camera){
             //Выбираем живого врага с инициализированной камерой, переносим камеру туда
             for (Map.Entry<Integer, Enemy> entry: ClientData.enemy.entrySet()) {
                 if (entry.getValue().camera != null && entry.getValue().alive) {
-                    Global.room.camera.setFollowObject(entry.getValue().camera);
+                    Global.location.camera.setFollowObject(entry.getValue().camera);
                     break;
                 }
             }
@@ -98,7 +96,7 @@ public abstract class Tank extends Obj{
 
         armor.destroy();
         armor = newArmor;
-        Global.room.objAdd(newArmor);
+        Global.location.objAdd(newArmor);
         setColorArmor(color);
     }
 
@@ -107,7 +105,7 @@ public abstract class Tank extends Obj{
 
         gun.destroy();
         gun = newGun;
-        Global.room.objAdd(newGun);
+        Global.location.objAdd(newGun);
         setColorGun(color);
     }
 
@@ -132,6 +130,6 @@ public abstract class Tank extends Obj{
         obj.position.x = armor.position.x;
         obj.position.y = armor.position.y;
 
-        Global.room.mapControl.update(obj);
+        Global.location.mapControl.update(obj);
     }
 }

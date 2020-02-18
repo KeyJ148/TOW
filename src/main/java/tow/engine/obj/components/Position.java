@@ -2,7 +2,7 @@ package tow.engine.obj.components;
 
 import tow.engine.Global;
 import tow.engine.Vector2;
-import tow.engine.map.Room;
+import tow.engine.map.Location;
 import tow.engine.obj.Obj;
 
 public class Position extends Component {
@@ -13,7 +13,7 @@ public class Position extends Component {
     private double directionDraw; //0, 360 - в право, против часовой - отрисовка
     public boolean absolute = true; //Позиция относительно угла карты? (Иначе относительно угла экрана)
 
-    public Room room;//Комната в которой находится объект
+    public Location location;//Комната в которой находится объект
     public int id;//Уникальный номер объекта в комнате
 
     public Position(Obj obj, double x, double y, int depth){
@@ -47,7 +47,7 @@ public class Position extends Component {
             relativePosition.y = (int) y;
             return relativePosition;
         } else {
-            return Global.room.camera.toRelativePosition(new Vector2(x, y));
+            return Global.location.camera.toRelativePosition(new Vector2(x, y));
         }
     }
 

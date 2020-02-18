@@ -41,7 +41,7 @@ public class BMass extends Bullet {
                             configName
                     );
 
-                    Global.room.objAdd(newBullet);
+                    Global.location.objAdd(newBullet);
                 }
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 Global.logger.println("Bullet create error: " + configName, Logger.Type.ERROR);

@@ -57,7 +57,7 @@ public class Obj {
 		if (collision != null) collision.update(delta);
 		if (particles != null) particles.update(delta);
 
-		if (destroy) position.room.objDel(position.id);
+		if (destroy) position.location.objDel(position.id);
 	}
 
 	public void updateFollow(){
@@ -65,7 +65,7 @@ public class Obj {
 			position.x = follow.position.x;
 			position.y = follow.position.y;
 			position.setDirectionDraw(follow.position.getDirectionDraw());
-			Global.room.mapControl.update(this);
+			Global.location.mapControl.update(this);
 		}
 	}
 
