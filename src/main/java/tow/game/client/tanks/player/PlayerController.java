@@ -193,12 +193,12 @@ public class PlayerController extends Obj implements Collision.CollisionListener
         double relativeX = relativePosition.x+0.1;
         double relativeY = relativePosition.y+0.1;
 
-        double pointDir = -Math.toDegrees(Math.atan((relativeY-Global.mouse.getMousePos().y)/(relativeX-Global.mouse.getMousePos().x)));
+        double pointDir = -Math.toDegrees(Math.atan((relativeY-Global.mouse.getCursor().getPosition().y)/(relativeX-Global.mouse.getCursor().getPosition().x)));
 
         double trunkUp = ((double) delta/1000000000)*(player.stats.directionGunUp);
-        if ((relativeX-Global.mouse.getMousePos().x)>0){
+        if ((relativeX-Global.mouse.getCursor().getPosition().x)>0){
             pointDir+=180;
-        } else if ((relativeY-Global.mouse.getMousePos().y)<0){
+        } else if ((relativeY-Global.mouse.getCursor().getPosition().y)<0){
             pointDir+=360;
         }
 

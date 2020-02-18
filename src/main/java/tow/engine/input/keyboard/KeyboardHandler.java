@@ -1,11 +1,18 @@
 package tow.engine.input.keyboard;
 
+import org.liquidengine.legui.event.KeyEvent;
+import org.liquidengine.legui.input.Keyboard;
 import tow.engine.Global;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.lwjgl.glfw.GLFW.*;
 
 public class KeyboardHandler {
 
+	private Set<Integer> keyPressed = new HashSet<>();
 	private KeyboardEventHistory eventHistory;
 
 	public KeyboardHandler(){
@@ -13,12 +20,17 @@ public class KeyboardHandler {
 		eventHistory = new KeyboardEventHistory();
 	}
 
-	//TODO: убрать и оставить только History (либо генерировать это из History)
 	public boolean isKeyDown(int key){
-		return glfwGetKey(Global.engine.render.getWindowID(), key) == GLFW_PRESS;
+		return keyPressed.contains(key);
 	}
 
 	public void update(){
+		List<KeyEvent> eventHistoryList = getEventHistory().getList();
+		for(KeyEvent event : eventHistoryList){
+			if (event.getAction() == GLFW_PRESS) keyPressed.add(event.getKey());
+			if (event.getAction() == GLFW_RELEASE) keyPressed.remove(event.getKey());
+		}
+
 		eventHistory.update();
 	}
 

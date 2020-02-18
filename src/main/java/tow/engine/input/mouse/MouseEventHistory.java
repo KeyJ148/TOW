@@ -14,7 +14,6 @@ public class MouseEventHistory {
         //Создание обратного вызова для фиксирования всех событий мыши (кроме GUI)
         Global.engine.render.getFrameContainer().getListenerMap().addListener(MouseClickEvent.class, event -> {
             eventHistory.add(event);
-            System.out.println(event);
         });
     }
 

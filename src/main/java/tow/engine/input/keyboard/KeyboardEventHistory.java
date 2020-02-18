@@ -14,7 +14,6 @@ public class KeyboardEventHistory {
         //Создание обратного вызова для фиксирования всех событий клавиатуры (кроме GUI)
         Global.engine.render.getFrameContainer().getListenerMap().addListener(KeyEvent.class, event -> {
             eventHistory.add(event);
-            System.out.println(event);
         });
     }
 
