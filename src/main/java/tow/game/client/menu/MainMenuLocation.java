@@ -7,11 +7,11 @@ import org.liquidengine.legui.style.border.SimpleLineBorder;
 import org.liquidengine.legui.style.color.ColorConstants;
 import tow.engine.Loader;
 
-public class MenuMainLocation extends MenuLocation {
+public class MainMenuLocation extends MenuLocation {
 
-    public MenuMainLocation(){
+    public MainMenuLocation(){
 
-        createButton("Play", -2, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new MenuPlayLocation();});
+        createButton("Play", -2, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new PlayMenuLocation();});
         createButton("Profile", -1, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) return;});
         createButton("Settings", 0, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) return;});
         createButton("Exit", 1, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) Loader.exit();});

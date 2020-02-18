@@ -5,7 +5,7 @@ import tow.engine.image.Color;
 import tow.engine.image.TextureManager;
 import tow.engine.implementation.GameInterface;
 import tow.engine.map.Location;
-import tow.game.client.menu.MenuMainLocation;
+import tow.game.client.menu.MainMenuLocation;
 
 import java.util.Random;
 
@@ -29,7 +29,7 @@ public class Game implements GameInterface {
 		Global.mouse.getCursor().setCapture(true);
 		Global.mouse.getCursor().setTexture(TextureManager.getTexture("cursor_aim_1"));
 
-        new MenuMainLocation();
+        new MainMenuLocation();
 	}
 
 	@Override
