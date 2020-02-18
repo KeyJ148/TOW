@@ -4,11 +4,13 @@ import org.liquidengine.legui.DefaultInitializer;
 import org.liquidengine.legui.animation.AnimatorProvider;
 import org.liquidengine.legui.component.Component;
 import org.liquidengine.legui.component.Frame;
+import org.liquidengine.legui.component.Layer;
 import org.liquidengine.legui.system.layout.LayoutManager;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import tow.engine.Global;
+import tow.engine.input.keyboard.KeyboardHandler;
 import tow.engine.logger.Logger;
 import tow.engine.Loader;
 import tow.engine.resources.settings.SettingsStorage;
@@ -173,5 +175,9 @@ public class Render{
 
 	public Component getFrameContainer(){
 		return frame.getContainer();
+	}
+
+	public Layer<Component> getFrameLayer(){
+		return frame.getComponentLayer();
 	}
 }

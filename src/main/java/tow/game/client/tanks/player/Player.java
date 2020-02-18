@@ -1,9 +1,11 @@
 package tow.game.client.tanks.player;
 
+import org.liquidengine.legui.component.Label;
 import tow.engine.Global;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.Position;
 import tow.engine.obj.components.render.Animation;
+import tow.engine.obj.components.render.GUIElement;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
 import tow.game.client.tanks.Effect;
@@ -35,6 +37,9 @@ public class Player extends Tank {
     private int sendDataLast = 0;//Как давно отправляли данные
     private static long numberPackage = 0; //Номер пакета UDP
 
+    public Obj hpLabel;
+    public Obj[] statsLabel;
+
     public Player(double x, double y, double direction){
         position = new Position(this, x, y, 0);
 
@@ -59,6 +64,21 @@ public class Player extends Tank {
         color = ClientData.color;
         name = ClientData.name;
         setColor(color);
+
+        hpLabel = new Obj(1, 10, 0);
+        hpLabel.position.absolute = false;
+        Global.room.objAdd(hpLabel);
+        hpLabel.rendering = new GUIElement(new Label(), 1, 1, hpLabel);
+        ((Label) ((GUIElement) hpLabel.rendering).getComponent()).getTextState().setFontSize(30);
+
+        statsLabel = new Obj[stats.toString().split("\n").length + 4];
+        for (int i = 0; i < statsLabel.length; i++) {
+            statsLabel[i] = new Obj(1, 30+i*15, 0);
+            statsLabel[i].position.absolute = false;
+            Global.room.objAdd(statsLabel[i]);
+            statsLabel[i].rendering = new GUIElement(new Label(), 1, 1, statsLabel[i]);
+            ((Label) ((GUIElement) statsLabel[i].rendering).getComponent()).getTextState().setFontSize(17);
+        }
     }
 
 
@@ -76,18 +96,22 @@ public class Player extends Tank {
         if (vampire < 0.0) vampire = 0.0;
 
         //Отрисовка HP
-        //TODO: Global.engine.render.addTitle(new Title(1, -3, "HP: " +  Math.round(hp) + "/" + Math.round(stats.hpMax), Color.black, 20, Font.BOLD));
+        ((Label) ((GUIElement) hpLabel.rendering).getComponent()).getTextState().setText("HP: " +  Math.round(hp) + "/" + Math.round(stats.hpMax));
 
         //Отрисовка статов
         if (ClientData.printStats){
             String[] array = stats.toString().split("\n");
             for (int i = 0; i < array.length; i++) {
-                //TODO: Global.engine.render.addTitle(new Title(1, 22+i*15, array[i], Color.black, 14, Font.PLAIN));
+                ((Label) ((GUIElement) statsLabel[i].rendering).getComponent()).getTextState().setText(array[i]);
             }
-            //TODO: Global.engine.render.addTitle(new Title(1, 22+array.length*15+7, "Armor: " + ((Armor) armor).title, Color.black, 14, Font.PLAIN));
-            //TODO: Global.engine.render.addTitle(new Title(1, 22+array.length*15+7+15, "Gun: " + ((Gun) gun).title, Color.black, 14, Font.PLAIN));
-            //TODO: Global.engine.render.addTitle(new Title(1, 22+array.length*15+7+30, "Bullet: " + bullet.title, Color.black, 14, Font.PLAIN));
-            //TODO: Global.engine.render.addTitle(new Title(1, 22+array.length*15+7+55, "Vampire: " + Math.round(vampire*100) + "%", Color.black, 14, Font.PLAIN));
+            ((Label) ((GUIElement) statsLabel[array.length].rendering).getComponent()).getTextState().setText("Armor: " + ((Armor) armor).title);
+            ((Label) ((GUIElement) statsLabel[array.length+1].rendering).getComponent()).getTextState().setText("Gun: " + ((Gun) gun).title);
+            ((Label) ((GUIElement) statsLabel[array.length+2].rendering).getComponent()).getTextState().setText("Bullet: " + bullet.title);
+            ((Label) ((GUIElement) statsLabel[array.length+3].rendering).getComponent()).getTextState().setText("Vampire: " + Math.round(vampire*100) + "%");
+       } else {
+            for (int i = 0; i < statsLabel.length; i++) {
+                ((Label) ((GUIElement) statsLabel[i].rendering).getComponent()).getTextState().setText("");
+            }
         }
 
         //Проверка HP

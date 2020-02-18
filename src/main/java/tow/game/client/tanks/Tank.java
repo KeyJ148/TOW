@@ -1,9 +1,12 @@
 package tow.game.client.tanks;
 
+import org.liquidengine.legui.component.Button;
+import org.liquidengine.legui.component.Label;
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.render.Animation;
+import tow.engine.obj.components.render.GUIElement;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
 import tow.game.client.particles.Explosion;
@@ -19,6 +22,7 @@ public abstract class Tank extends Obj{
     public Obj armor;
     public Obj gun;
     public Obj camera;
+    public Obj nickname;
 
     public String name = "";
     public Color color = Color.WHITE;
@@ -38,6 +42,10 @@ public abstract class Tank extends Obj{
         //Инициализация камеры
         camera = new Obj(0, 0, 0);
         Global.room.objAdd(camera);
+
+        nickname = new Obj(0, 0, 0);
+        Global.room.objAdd(nickname);
+        nickname.rendering = new GUIElement(new Label(), 500, 30, nickname);
     }
 
     @Override
@@ -47,10 +55,12 @@ public abstract class Tank extends Obj{
         if (!alive) return;
 
         if (armor != null && armor.position != null) {
-            Vector2<Integer> relativePosition = armor.position.getRelativePosition();
-            int nameX = (int) Math.round(relativePosition.x - name.length() * 3.25); // lengthChar/2
-            int nameY = relativePosition.y - 50;
-            //TODO: Global.engine.render.addTitle(new Title(nameX, nameY, name));
+            Label label = ((Label) ((GUIElement) nickname.rendering).getComponent());
+            label.setFocusable(false); //Иначе событие мыши перехватывает надпись, и оно не поступает в игру
+            label.getTextState().setText(name); //TODO: присваивать только один раз
+
+            nickname.position.x = armor.position.x - name.length() * 3.45 + label.getSize().x/2;
+            nickname.position.y = armor.position.y - 50;
         }
     }
 
