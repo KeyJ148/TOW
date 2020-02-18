@@ -87,7 +87,7 @@ public class Room {
 		Global.room = this;
 		Global.engine.render.getFrameContainer().clearChildComponents();
 		for (Component component : guiComponents) Global.engine.render.getFrameContainer().add(component);
-
+		Global.engine.render.setFrameFocused();
 	}
 
 	//Удаление всех объектов в комнате

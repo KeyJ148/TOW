@@ -180,4 +180,8 @@ public class Render{
 	public Layer<Component> getFrameLayer(){
 		return frame.getComponentLayer();
 	}
+
+	public void setFrameFocused(){
+		initializer.getContext().setFocusedGui(frame.getContainer());
+	}
 }
