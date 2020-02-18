@@ -1,8 +1,7 @@
 package tow.engine.input.keyboard;
 
+import org.liquidengine.legui.component.Frame;
 import org.liquidengine.legui.event.KeyEvent;
-import org.liquidengine.legui.input.Keyboard;
-import tow.engine.Global;
 
 import java.util.HashSet;
 import java.util.List;
@@ -15,9 +14,16 @@ public class KeyboardHandler {
 	private Set<Integer> keyPressed = new HashSet<>();
 	private KeyboardEventHistory eventHistory;
 
-	public KeyboardHandler(){
+	public KeyboardHandler(Frame frame){
 		//Создание объекта фиксирующего все события клавиатуры
-		eventHistory = new KeyboardEventHistory();
+		eventHistory = new KeyboardEventHistory(frame);
+	}
+
+	//Инициализация обработчика клавиатуры с сохранением состояния предыдущего обработчика (нажатых клавиш)
+	public KeyboardHandler(Frame frame, KeyboardHandler keyboard){
+		this(frame);
+		keyPressed = new HashSet<>(keyboard.keyPressed) {
+		};
 	}
 
 	public boolean isKeyDown(int key){

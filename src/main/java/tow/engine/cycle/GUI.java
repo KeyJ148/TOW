@@ -9,6 +9,8 @@ import org.liquidengine.legui.system.layout.LayoutManager;
 import org.lwjgl.opengl.GL11;
 import tow.engine.Global;
 import tow.engine.Loader;
+import tow.engine.input.keyboard.KeyboardHandler;
+import tow.engine.input.mouse.MouseHandler;
 import tow.engine.logger.Logger;
 
 import java.io.Reader;
@@ -86,8 +88,8 @@ public class GUI {
 
     public Frame createFrame(){
         initLeGUI();
-        Global.keyboard.getEventHistory().initCallback();
-        Global.mouse.getEventHistory().initCallback();
+        Global.keyboard = new KeyboardHandler(frame, Global.keyboard);
+        Global.mouse = new MouseHandler(frame, Global.mouse);
         return getFrame();
     }
 

@@ -1,5 +1,6 @@
 package tow.engine.input.mouse;
 
+import org.liquidengine.legui.component.Frame;
 import org.liquidengine.legui.event.KeyEvent;
 import org.liquidengine.legui.event.MouseClickEvent;
 import tow.engine.Global;
@@ -11,15 +12,9 @@ public class MouseEventHistory {
 
     private List<MouseClickEvent> eventHistory = new LinkedList<>();
 
-    public MouseEventHistory(){
+    public MouseEventHistory(Frame frame){
         //Создание обратного вызова для фиксирования всех событий мыши (кроме GUI)
-        Global.engine.gui.getFrameContainer().getListenerMap().addListener(MouseClickEvent.class, event -> {
-            eventHistory.add(event);
-        });
-    }
-
-    public void initCallback(){
-        Global.engine.gui.getFrameContainer().getListenerMap().addListener(MouseClickEvent.class, event -> {
+        frame.getContainer().getListenerMap().addListener(MouseClickEvent.class, event -> {
             eventHistory.add(event);
         });
     }

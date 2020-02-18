@@ -16,7 +16,7 @@ public class Location {
 	public MapControl mapControl; //Массив со всеми чанками и объектами
 	public Camera camera = new Camera();
 
-	public final Frame guiFrame;
+	private final Frame guiFrame;
 
 	public Location(int width, int height) {
 		this.width = width;

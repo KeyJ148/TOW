@@ -1,10 +1,13 @@
 package tow.engine.input.mouse;
 
+import org.liquidengine.legui.component.Frame;
 import org.liquidengine.legui.event.KeyEvent;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.lwjgl.BufferUtils;
 import tow.engine.Vector2;
 import tow.engine.image.TextureHandler;
+import tow.engine.input.keyboard.KeyboardEventHistory;
+import tow.engine.input.keyboard.KeyboardHandler;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.Position;
 import tow.engine.obj.components.render.Sprite;
@@ -24,12 +27,19 @@ public class MouseHandler {
 	private Set<Integer> buttonPressed = new HashSet<>();
 	private MouseEventHistory eventHistory;
 
-	public MouseHandler() {
+	public MouseHandler(Frame frame) {
 		//Создание объекта для обработки курсора
 		cursor = new MouseCursor();
 
 		//Создание объекта фиксирующего все события мыши
-		eventHistory = new MouseEventHistory();
+		eventHistory = new MouseEventHistory(frame);
+	}
+
+	//Инициализация обработчика мыши с сохранением состояния предыдущего обработчика (нажатых клавиш, курсора)
+	public MouseHandler(Frame frame, MouseHandler mouse){
+		this(frame);
+		buttonPressed = new HashSet<>(mouse.buttonPressed);
+		cursor = mouse.cursor;
 	}
 
 	public MouseCursor getCursor(){

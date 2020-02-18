@@ -88,8 +88,8 @@ public class Loader {
 		TextureManager.init();//Загрузка текстур и анимаций
 		//TODO: FontManager.init();//Загрузка шрифтов
 
-		Global.mouse = new MouseHandler();
-		Global.keyboard = new KeyboardHandler();
+		Global.mouse = new MouseHandler(Global.engine.gui.getFrame());
+		Global.keyboard = new KeyboardHandler(Global.engine.gui.getFrame());
 
 		Global.logger.println("Inicialization end", Logger.Type.DEBUG);
 
