@@ -83,7 +83,7 @@ public class NetGameRead implements NetGameReadInterface {
 		int height = Integer.parseInt(str.split(" ")[1]);
 		String background = str.split(" ")[2];
 
-		Location location = new Location(width, height);
+		Location location = new Location(width, height, true);
 		location.background = new Background(TextureManager.getTexture(background));
 		Border.createAll(location);
 		location.activate();

@@ -3,6 +3,7 @@ package tow.engine;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import tow.engine.audio.AudioPlayer;
 import tow.engine.cycle.Engine;
+import tow.engine.map.Location;
 import tow.engine.resources.audios.AudioStorage;
 import tow.engine.image.TextureManager;
 import tow.engine.implementation.*;
@@ -88,8 +89,7 @@ public class Loader {
 		TextureManager.init();//Загрузка текстур и анимаций
 		//TODO: FontManager.init();//Загрузка шрифтов
 
-		Global.mouse = new MouseHandler(Global.engine.gui.getFrame());
-		Global.keyboard = new KeyboardHandler(Global.engine.gui.getFrame());
+		new Location(640, 480, false).activate();
 
 		Global.logger.println("Inicialization end", Logger.Type.DEBUG);
 

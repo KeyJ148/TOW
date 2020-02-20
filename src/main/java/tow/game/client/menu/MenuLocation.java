@@ -15,7 +15,7 @@ public class MenuLocation extends Location {
     protected final static int MENU_TEXT_FIELD_HEIGHT = 30;
 
     public MenuLocation(){
-        super(Global.engine.render.getWidth(), Global.engine.render.getHeight());
+        super(Global.engine.render.getWidth(), Global.engine.render.getHeight(), true);
         background = new Background(tow.engine.image.Color.GRAY, Color.GRAY);
         activate();
     }

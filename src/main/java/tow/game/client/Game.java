@@ -15,9 +15,6 @@ public class Game implements GameInterface {
 	public void init() {
 		GameSetting.init();
 
-        Location location = new Location(700, 500);
-        location.activate();
-
         //new LoginWindow();
 
 		ClientData.name = "Key_J";

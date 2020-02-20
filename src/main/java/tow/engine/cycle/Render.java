@@ -95,7 +95,7 @@ public class Render {
 
 		Global.game.render(); //Отрисовка в главном игровом классе (ссылка передается в движок при инициализации)
 		Global.location.render(getWidth(), getHeight()); //Отрисовка комнаты
-		Global.engine.gui.renderGUI(); //Отрисовка интерфейса (LeGUI)
+		Global.engine.gui.render(); //Отрисовка интерфейса (LeGUI)
 		Global.mouse.draw(); //Отрисовка курсора мыши
 	}
 

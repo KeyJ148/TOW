@@ -22,8 +22,7 @@ public class KeyboardHandler {
 	//Инициализация обработчика клавиатуры с сохранением состояния предыдущего обработчика (нажатых клавиш)
 	public KeyboardHandler(Frame frame, KeyboardHandler keyboard){
 		this(frame);
-		keyPressed = new HashSet<>(keyboard.keyPressed) {
-		};
+		keyPressed = new HashSet<>(keyboard.keyPressed);
 	}
 
 	public boolean isKeyDown(int key){

@@ -3,6 +3,8 @@ package tow.engine.map;
 import org.liquidengine.legui.component.Component;
 import org.liquidengine.legui.component.Frame;
 import tow.engine.Global;
+import tow.engine.input.keyboard.KeyboardHandler;
+import tow.engine.input.mouse.MouseHandler;
 import tow.engine.obj.Obj;
 
 import java.util.Vector;
@@ -16,14 +18,21 @@ public class Location {
 	public MapControl mapControl; //Массив со всеми чанками и объектами
 	public Camera camera = new Camera();
 
-	private final Frame guiFrame;
+	private Frame guiFrame;
 
-	public Location(int width, int height) {
+	public Location(int width, int height, boolean saveInput) {
 		this.width = width;
 		this.height = height;
 		mapControl = new MapControl(width, height);
 
 		guiFrame = Global.engine.gui.createFrame();
+		if (saveInput){
+			Global.keyboard = new KeyboardHandler(guiFrame, Global.keyboard);
+			Global.mouse = new MouseHandler(guiFrame, Global.mouse);
+		} else {
+			Global.keyboard = new KeyboardHandler(guiFrame);
+			Global.mouse = new MouseHandler(guiFrame);
+		}
 	}
 
 	public void update(long delta){
@@ -80,7 +89,7 @@ public class Location {
 		Global.location = this;
 		//Global.engine.render.getFrameContainer().clearChildComponents();
 		//Global.engine.render.createFrame();
-		Global.engine.gui.setFrameFocused();
+		Global.engine.gui.setFrameFocused(guiFrame);
 	}
 
 	//Удаление всех объектов в комнате
@@ -88,6 +97,10 @@ public class Location {
 		for (int i = 0; i < objects.size(); i++) {
 			if (objects.get(i) != null) objects.get(i).destroy();
 		}
+	}
+
+	public Frame getGuiFrame() {
+		return guiFrame;
 	}
 
 	//Добавление GUI элемента в комнату

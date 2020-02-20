@@ -21,12 +21,11 @@ import static org.lwjgl.opengl.GL11.GL_BLEND;
 
 public class GUI {
 
-    private Frame frame; //Основное окно для работы с LeGUI
     private DefaultInitializer initializer; //Инициализатор LeGUI
 
     public GUI(){
-        //Инициализация интерфейса
         try {
+            //Инициализация интерфейса
             initLeGUI();
         } catch (Exception e) {
             Global.logger.println("LeGUI initialization failed", e, Logger.Type.ERROR);
@@ -35,19 +34,25 @@ public class GUI {
     }
 
     private void initLeGUI(){
-        frame = new Frame(Global.engine.render.getWidth(), Global.engine.render.getHeight());
-        getFrameContainer().setFocusable(true);
+        Frame frame = createFrame();
 
         initializer = new DefaultInitializer(Global.engine.render.getWindowID(), frame);
         initializer.getRenderer().initialize();
     }
 
-    public void renderGUI(){
+    public Frame createFrame(){
+        Frame frame = new Frame(Global.engine.render.getWidth(), Global.engine.render.getHeight());
+        frame.getContainer().setFocusable(true);
+
+        return frame;
+    }
+
+    public void render(){
         //Обновление интерфейса в соответствие с параметрами окна
         initializer.getContext().updateGlfwWindow();
 
         //Отрисовка интерфейса
-        initializer.getRenderer().render(frame, initializer.getContext());
+        initializer.getRenderer().render(Global.location.getGuiFrame(), initializer.getContext());
 
         //Нормализация параметров OpenGL после отрисовки интерфейса
         glDisable(GL_DEPTH_TEST);
@@ -60,37 +65,17 @@ public class GUI {
         glfwPollEvents();
 
         //Обработка событий (Системных и GUI)
-        initializer.getSystemEventProcessor().processEvents(frame, initializer.getContext());
+        initializer.getSystemEventProcessor().processEvents(Global.location.getGuiFrame(), initializer.getContext());
         initializer.getGuiEventProcessor().processEvents();
 
         //Перерасположить компоненты
-        LayoutManager.getInstance().layout(frame);
+        LayoutManager.getInstance().layout(Global.location.getGuiFrame());
 
         //Запуск анимаций
         AnimatorProvider.getAnimator().runAnimations();
     }
 
-    public Component getFrameContainer(){
-        return frame.getContainer();
-    }
-
-    public Layer<Component> getFrameLayer(){
-        return frame.getComponentLayer();
-    }
-
-    public void setFrameFocused(){
+    public void setFrameFocused(Frame frame){
         initializer.getContext().setFocusedGui(frame.getContainer());
     }
-
-    public Frame getFrame(){
-        return frame;
-    }
-
-    public Frame createFrame(){
-        initLeGUI();
-        Global.keyboard = new KeyboardHandler(frame, Global.keyboard);
-        Global.mouse = new MouseHandler(frame, Global.mouse);
-        return getFrame();
-    }
-
 }
