@@ -23,8 +23,8 @@ public class Game implements GameInterface {
 		//ServerLoader.mapPath = "maps/town100k.maptest";
 
 
-		Global.mouse.getCursor().setCapture(true);
-		Global.mouse.getCursor().setTexture(TextureManager.getTexture("cursor_aim_1"));
+		Global.location.getMouse().getCursor().setCapture(true);
+		Global.location.getMouse().getCursor().setTexture(TextureManager.getTexture("cursor_aim_1"));
 
         new MainMenuLocation();
 	}

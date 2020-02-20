@@ -19,6 +19,8 @@ public class Location {
 	public Camera camera = new Camera();
 
 	private Frame guiFrame;
+	private KeyboardHandler keyboard; //Объект хранящий события клавитуры
+	private MouseHandler mouse; //Объект хранящий события мыши и рисующий курсор на экране
 
 	public Location(int width, int height, boolean saveInput) {
 		this.width = width;
@@ -27,11 +29,11 @@ public class Location {
 
 		guiFrame = Global.engine.gui.createFrame();
 		if (saveInput){
-			Global.keyboard = new KeyboardHandler(guiFrame, Global.keyboard);
-			Global.mouse = new MouseHandler(guiFrame, Global.mouse);
+			keyboard = new KeyboardHandler(guiFrame, Global.location.getKeyboard());
+			mouse = new MouseHandler(guiFrame, Global.location.getMouse());
 		} else {
-			Global.keyboard = new KeyboardHandler(guiFrame);
-			Global.mouse = new MouseHandler(guiFrame);
+			keyboard = new KeyboardHandler(guiFrame);
+			mouse = new MouseHandler(guiFrame);
 		}
 	}
 
@@ -101,6 +103,15 @@ public class Location {
 
 	public Frame getGuiFrame() {
 		return guiFrame;
+	}
+
+
+	public KeyboardHandler getKeyboard() {
+		return keyboard;
+	}
+
+	public MouseHandler getMouse() {
+		return mouse;
 	}
 
 	//Добавление GUI элемента в комнату

@@ -46,16 +46,16 @@ public class PlayerController extends Obj implements Collision.CollisionListener
          */
 
         //TODO: не всегда срабатывает
-        if (Global.keyboard.isKeyDown(GLFW_KEY_ESCAPE)) Loader.exit();
+        if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_ESCAPE)) Loader.exit();
 
         //TODO:
-        //if (Global.keyboard.isKeyDown(GLFW_KEY_TAB) && !PlayerTable.enable) PlayerTable.enable();
-        //if (!Global.keyboard.isKeyDown(GLFW_KEY_TAB) && PlayerTable.enable) PlayerTable.disable();
+        //if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_TAB) && !PlayerTable.enable) PlayerTable.enable();
+        //if (!Global.location.getKeyboard().isKeyDown(GLFW_KEY_TAB) && PlayerTable.enable) PlayerTable.disable();
 
         /*
          * Перебираем все события нажатия клавиш
          */
-        List<KeyEvent> keyboardEvents = Global.keyboard.getEventHistory().getList();
+        List<KeyEvent> keyboardEvents = Global.location.getKeyboard().getEventHistory().getList();
         for (KeyEvent event : keyboardEvents) {
             if (event.getAction() == GLFW_PRESS) {// Клавиша нажата
 
@@ -119,7 +119,7 @@ public class PlayerController extends Obj implements Collision.CollisionListener
          * Выстрел
          */
         //Если нажата мышь и перезарядилась пушка и игрок вообще может стрелять
-        if (Global.mouse.isButtonDown(GLFW_MOUSE_BUTTON_1) && ((Gun) player.gun).nanoSecFromAttack <= 0 && player.stats.attackSpeed > 0){
+        if (Global.location.getMouse().isButtonDown(GLFW_MOUSE_BUTTON_1) && ((Gun) player.gun).nanoSecFromAttack <= 0 && player.stats.attackSpeed > 0){
             ((Gun) player.gun).attack(); //Стреляем
         }
 
@@ -128,10 +128,10 @@ public class PlayerController extends Obj implements Collision.CollisionListener
          */
         if (!recoil) {
             int vectorUp = 0, vectorRight = 0;
-            if (Global.keyboard.isKeyDown(GLFW_KEY_W)) vectorUp++;
-            if (Global.keyboard.isKeyDown(GLFW_KEY_S)) vectorUp--;
-            if (Global.keyboard.isKeyDown(GLFW_KEY_D)) vectorRight++;
-            if (Global.keyboard.isKeyDown(GLFW_KEY_A)) vectorRight--;
+            if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_W)) vectorUp++;
+            if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_S)) vectorUp--;
+            if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_D)) vectorRight++;
+            if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_A)) vectorRight--;
 
             runUp = false;
             runDown = false;
@@ -193,12 +193,12 @@ public class PlayerController extends Obj implements Collision.CollisionListener
         double relativeX = relativePosition.x+0.1;
         double relativeY = relativePosition.y+0.1;
 
-        double pointDir = -Math.toDegrees(Math.atan((relativeY-Global.mouse.getCursor().getPosition().y)/(relativeX-Global.mouse.getCursor().getPosition().x)));
+        double pointDir = -Math.toDegrees(Math.atan((relativeY-Global.location.getMouse().getCursor().getPosition().y)/(relativeX-Global.location.getMouse().getCursor().getPosition().x)));
 
         double trunkUp = ((double) delta/1000000000)*(player.stats.directionGunUp);
-        if ((relativeX-Global.mouse.getCursor().getPosition().x)>0){
+        if ((relativeX-Global.location.getMouse().getCursor().getPosition().x)>0){
             pointDir+=180;
-        } else if ((relativeY-Global.mouse.getCursor().getPosition().y)<0){
+        } else if ((relativeY-Global.location.getMouse().getCursor().getPosition().y)<0){
             pointDir+=360;
         }
 

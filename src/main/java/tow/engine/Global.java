@@ -20,8 +20,6 @@ public class Global {
 	public static Location location; //Текущая комната
 
 	public static AggregateLogger logger; //Объект для вывода лога в консоль и файл
-	public static MouseHandler mouse; //Объект хранящий события мыши и рисующий курсор на экране
-	public static KeyboardHandler keyboard; //Объект хранящий события клавитуры
 
 	public static AudioPlayer audioPlayer; //Объект, воспроизводящий музыку и хранящий источники музыки
 	public static AudioStorage audioStorage; //Объект хранящий звуки (буфферы OpenAL)

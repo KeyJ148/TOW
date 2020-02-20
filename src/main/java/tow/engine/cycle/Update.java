@@ -33,8 +33,8 @@ public class Update {
 			Loader.exit();
 		}
 
-		Global.mouse.update(); //Очистка истории событий мыши
-		Global.keyboard.update(); //Очистка истории событий клавиатуры
+		Global.location.getMouse().update(); //Очистка истории событий мыши
+		Global.location.getKeyboard().update(); //Очистка истории событий клавиатуры
 
 		Global.engine.analyzer.update(); //Обновление состояния анализатора
 	}
