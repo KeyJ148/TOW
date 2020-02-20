@@ -11,30 +11,24 @@ import java.util.Vector;
 
 public class Location {
 
-	public Background background = new Background();
 	public final int width, height;
+	public Background background = new Background(); //Фон карты (цвет и текстура)
+	public Camera camera = new Camera(); //Положение камеры в этой локации
 
+	//TODO: Сделать приватными и immutable getter / iterator
 	public Vector<Obj> objects = new Vector<>(); //Массив со всеми объектами
 	public MapControl mapControl; //Массив со всеми чанками и объектами
-	public Camera camera = new Camera();
 
-	private Frame guiFrame;
+	private Frame guiFrame; //Объект хранящий все элементы gui в данной комнате
 	private KeyboardHandler keyboard; //Объект хранящий события клавитуры
 	private MouseHandler mouse; //Объект хранящий события мыши и рисующий курсор на экране
 
-	public Location(int width, int height, boolean saveInput) {
+	public Location(int width, int height) {
 		this.width = width;
 		this.height = height;
 		mapControl = new MapControl(width, height);
 
 		guiFrame = Global.engine.gui.createFrame();
-		if (saveInput){
-			keyboard = new KeyboardHandler(guiFrame, Global.location.getKeyboard());
-			mouse = new MouseHandler(guiFrame, Global.location.getMouse());
-		} else {
-			keyboard = new KeyboardHandler(guiFrame);
-			mouse = new MouseHandler(guiFrame);
-		}
 	}
 
 	public void update(long delta){
@@ -43,10 +37,6 @@ public class Location {
 		for (int i=0; i<objects.size(); i++){
 			Obj obj = objects.get(i);
 			if (obj != null) obj.update(delta);
-		}
-
-		for (Obj obj : objects) {
-			if (obj != null) obj.updateFollow();
 		}
 	}
 
@@ -86,11 +76,22 @@ public class Location {
 		objects.set(id, null);
 	}
 
-	//Сделать комнату активной (update и render), одновременно может быть максимум одна активная комната
 	public void activate(){
+		activate(true);
+	}
+
+	//Сделать комнату активной (update и render), одновременно может быть максимум одна активная комната
+	public void activate(boolean saveInput){
+		//Перенести нажатые клавиши и настройки мыши/курсора или нет
+		if (saveInput){
+			keyboard = new KeyboardHandler(guiFrame, Global.location.getKeyboard());
+			mouse = new MouseHandler(guiFrame, Global.location.getMouse());
+		} else {
+			keyboard = new KeyboardHandler(guiFrame);
+			mouse = new MouseHandler(guiFrame);
+		}
+
 		Global.location = this;
-		//Global.engine.render.getFrameContainer().clearChildComponents();
-		//Global.engine.render.createFrame();
 		Global.engine.gui.setFrameFocused(guiFrame);
 	}
 

@@ -9,14 +9,14 @@ public class GUIElement extends Rendering {
 
     private Component component;
 
-    public GUIElement(Component component, Obj obj) {
+    public GUIElement(Obj obj, Component component) {
         super(obj);
         this.component = component;
         getObj().position.location.addGUIComponent(component);
     }
 
-    public GUIElement(Component component, int width, int height, Obj obj) {
-        this(component, obj);
+    public GUIElement(Obj obj, Component component, int width, int height) {
+        this(obj, component);
         setWidth(width);
         setHeight(height);
     }

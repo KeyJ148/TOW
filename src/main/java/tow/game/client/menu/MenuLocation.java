@@ -15,7 +15,7 @@ public class MenuLocation extends Location {
     protected final static int MENU_TEXT_FIELD_HEIGHT = 30;
 
     public MenuLocation(){
-        super(Global.engine.render.getWidth(), Global.engine.render.getHeight(), true);
+        super(Global.engine.render.getWidth(), Global.engine.render.getHeight());
         background = new Background(tow.engine.image.Color.GRAY, Color.GRAY);
         activate();
     }
@@ -23,12 +23,12 @@ public class MenuLocation extends Location {
     public void createComponent(Component component){
         Obj obj = new Obj(component.getPosition().x, component.getPosition().y, 0);
         objAdd(obj);
-        obj.rendering = new GUIElement(component, (int) component.getSize().x, (int) component.getSize().y, obj);
+        obj.rendering = new GUIElement(obj, component, (int) component.getSize().x, (int) component.getSize().y);
     }
 
     public void createComponent(Component component, int x, int y, int width, int height){
         Obj obj = new Obj(x, y, 0);
         objAdd(obj);
-        obj.rendering = new GUIElement(component, width, height, obj);
+        obj.rendering = new GUIElement(obj, component, width, height);
     }
 }

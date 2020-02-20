@@ -68,7 +68,7 @@ public class Player extends Tank {
         hpLabel = new Obj(1, 10, 0);
         hpLabel.position.absolute = false;
         Global.location.objAdd(hpLabel);
-        hpLabel.rendering = new GUIElement(new Label(), 1, 1, hpLabel);
+        hpLabel.rendering = new GUIElement(hpLabel, new Label(), 1, 1);
         ((Label) ((GUIElement) hpLabel.rendering).getComponent()).setFocusable(false);
         ((Label) ((GUIElement) hpLabel.rendering).getComponent()).getTextState().setFontSize(30);
 
@@ -77,7 +77,7 @@ public class Player extends Tank {
             statsLabel[i] = new Obj(1, 30+i*15, 0);
             statsLabel[i].position.absolute = false;
             Global.location.objAdd(statsLabel[i]);
-            statsLabel[i].rendering = new GUIElement(new Label(), 1, 1, statsLabel[i]);
+            statsLabel[i].rendering = new GUIElement(statsLabel[i], new Label(), 1, 1);
             ((Label) ((GUIElement) statsLabel[i].rendering).getComponent()).setFocusable(false);
             ((Label) ((GUIElement) statsLabel[i].rendering).getComponent()).getTextState().setFontSize(17);
         }

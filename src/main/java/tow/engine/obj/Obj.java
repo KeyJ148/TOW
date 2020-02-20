@@ -3,6 +3,7 @@ package tow.engine.obj;
 import tow.engine.Global;
 import tow.engine.image.TextureHandler;
 import tow.engine.obj.components.Collision;
+import tow.engine.obj.components.Follower;
 import tow.engine.obj.components.Movement;
 import tow.engine.obj.components.Position;
 import tow.engine.obj.components.particles.Particles;
@@ -16,9 +17,9 @@ public class Obj {
 	public Rendering rendering;
 	public Collision collision;
 	public Particles particles;
+	public Follower follower;
 
 	public boolean destroy = false;
-	public Obj follow;
 
 	public Obj(){}
 
@@ -56,17 +57,9 @@ public class Obj {
 		if (rendering != null) rendering.update(delta);
 		if (collision != null) collision.update(delta);
 		if (particles != null) particles.update(delta);
+		if (follower != null) follower.update(delta);
 
 		if (destroy) position.location.objDel(position.id);
-	}
-
-	public void updateFollow(){
-		if (follow != null && follow.position != null){
-			position.x = follow.position.x;
-			position.y = follow.position.y;
-			position.setDirectionDraw(follow.position.getDirectionDraw());
-			Global.location.mapControl.update(this);
-		}
 	}
 
 	public void draw(){
@@ -75,6 +68,7 @@ public class Obj {
 		if (rendering != null) rendering.draw();
 		if (collision != null) collision.draw();
 		if (particles != null) particles.draw();
+		if (follower != null) follower.draw();
 	}
 
 	public void destroy(){

@@ -89,7 +89,7 @@ public class Loader {
 		TextureManager.init();//Загрузка текстур и анимаций
 		//TODO: FontManager.init();//Загрузка шрифтов
 
-		new Location(640, 480, false).activate();
+		new Location(640, 480).activate(false);
 
 		Global.logger.println("Inicialization end", Logger.Type.DEBUG);
 

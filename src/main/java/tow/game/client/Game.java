@@ -4,7 +4,6 @@ import tow.engine.Global;
 import tow.engine.image.Color;
 import tow.engine.image.TextureManager;
 import tow.engine.implementation.GameInterface;
-import tow.engine.map.Location;
 import tow.game.client.menu.MainMenuLocation;
 
 import java.util.Random;

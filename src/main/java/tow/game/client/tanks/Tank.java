@@ -43,7 +43,7 @@ public abstract class Tank extends Obj{
 
         nickname = new Obj(0, 0, 0);
         Global.location.objAdd(nickname);
-        nickname.rendering = new GUIElement(new Label(), 500, 30, nickname);
+        nickname.rendering = new GUIElement(nickname, new Label(), 500, 30);
     }
 
     @Override
