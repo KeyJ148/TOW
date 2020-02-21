@@ -33,13 +33,13 @@ public class Gun extends Obj {
 
 		loadData();
 
-		position = new Position(this, x, y, texture.depth, direction);
-		rendering = new Sprite(this, texture);
+		setComponent(new Position(x, y, texture.depth, direction));
+		setComponent(new Sprite(texture));
 
-		movement = new Movement(this);
-		movement.directionDrawEquals = false;
+		setComponent(new Movement());
+		getComponent(Movement.class).directionDrawEquals = false;
 
-		follower = new Follower(this, player.armor, false);
+		setComponent(new Follower(player.armor, false));
 	}
 
 	@Override
@@ -69,17 +69,17 @@ public class Gun extends Obj {
 	}
 
 	private void attackFromTrunk(int trunkX, int trunkY, double direction){
-		double trunkXdx = trunkX*Math.cos(Math.toRadians(position.getDirectionDraw())-Math.PI/2);//первый отступ "вперед"
-		double trunkXdy = trunkX*Math.sin(Math.toRadians(position.getDirectionDraw())-Math.PI/2);//в отличие от маски мы отнимаем от каждого по PI/2
-		double trunkYdx = trunkY*Math.cos(Math.toRadians(position.getDirectionDraw())-Math.PI);//потому что изначально у теустуры измененное направление
-		double trunkYdy = trunkY*Math.sin(Math.toRadians(position.getDirectionDraw())-Math.PI);//второй отступ "вбок"
+		double trunkXdx = trunkX*Math.cos(Math.toRadians(getComponent(Position.class).getDirectionDraw())-Math.PI/2);//первый отступ "вперед"
+		double trunkXdy = trunkX*Math.sin(Math.toRadians(getComponent(Position.class).getDirectionDraw())-Math.PI/2);//в отличие от маски мы отнимаем от каждого по PI/2
+		double trunkYdx = trunkY*Math.cos(Math.toRadians(getComponent(Position.class).getDirectionDraw())-Math.PI);//потому что изначально у теустуры измененное направление
+		double trunkYdy = trunkY*Math.sin(Math.toRadians(getComponent(Position.class).getDirectionDraw())-Math.PI);//второй отступ "вбок"
 
 		Bullet newBullet = player.bullet.create();
 		newBullet.init(
 				player,
-				position.x+trunkXdx+trunkYdx,
-				position.y-trunkXdy-trunkYdy,
-				position.getDirectionDraw()+direction,
+				getComponent(Position.class).x+trunkXdx+trunkYdx,
+				getComponent(Position.class).y-trunkXdy-trunkYdy,
+				getComponent(Position.class).getDirectionDraw()+direction,
 				player.stats.damage,
 				player.stats.range,
 				player.bullet.name

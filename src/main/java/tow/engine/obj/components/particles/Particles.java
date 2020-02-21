@@ -1,7 +1,8 @@
 package tow.engine.obj.components.particles;
 
 import tow.engine.obj.Obj;
-import tow.engine.obj.components.Component;
+import tow.engine.obj.Component;
+import tow.engine.obj.components.Movement;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -12,10 +13,6 @@ public abstract class Particles extends Component {
     public Set<Part> parts = new HashSet<>();
     public boolean rotate = false;
     public boolean destroyObject = false;//Удалить объект использующий эту систему частиц после окончания системы частиц
-
-    public Particles(Obj obj) {
-        super(obj);
-    }
 
     @Override
     public void update(long delta){
@@ -34,4 +31,9 @@ public abstract class Particles extends Component {
 
     //Метод переопределяется в наследниках для обработки каждый степ
     public void updateChild(long delta, Part part){}
+
+    @Override
+    public Class getComponentClass() {
+        return Particles.class;
+    }
 }

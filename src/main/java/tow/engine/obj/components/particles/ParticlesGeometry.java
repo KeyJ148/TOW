@@ -7,10 +7,6 @@ import org.lwjgl.opengl.GL11;
 
 public class ParticlesGeometry extends Particles {
 
-    public ParticlesGeometry(Obj obj){
-        super(obj);
-    }
-
     @Override
     public void draw(){
         GL11.glLoadIdentity();

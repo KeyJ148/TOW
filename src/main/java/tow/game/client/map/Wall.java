@@ -12,11 +12,11 @@ public class Wall extends MapObject {
     public Wall(double x, double y, double direction, TextureHandler textureHandler, int mid){
         super(x, y, direction, textureHandler, mid);
 
-        collision = new Collision(this, textureHandler.mask);
-        stabillity = getStabillityByType(textureHandler.type);
+        setComponent(new Collision(textureHandler.mask));
+        stabillity = getStabilityByType(textureHandler.type);
     }
 
-    private int getStabillityByType(String type){
+    private int getStabilityByType(String type){
         switch (type){
             case "home": return 100;
             case "tree": return 30;

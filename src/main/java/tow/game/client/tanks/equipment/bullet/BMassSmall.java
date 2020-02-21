@@ -1,6 +1,8 @@
 package tow.game.client.tanks.equipment.bullet;
 
 import tow.engine.obj.Obj;
+import tow.engine.obj.components.Collision;
+import tow.engine.obj.components.Movement;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.tanks.equipment.armor.ADefault;
 import tow.game.client.tanks.equipment.armor.AFury;
@@ -15,12 +17,12 @@ public class BMassSmall extends Bullet{
     public void init(Player player, double x, double y, double dir, double damage, int range, String name){
         super.init(player, x, y, dir, damage, range, name);
 
-        this.collision.addCollisionObjects(new Class[] {ADefault.class, AFury.class, AVampire.class});
+        getComponent(Collision.class).addCollisionObjects(new Class[] {ADefault.class, AFury.class, AVampire.class});
     }
 
     @Override
     public void collision(Obj obj){
-        if (destroy) return;
+        if (isDestroy()) return;
 
         if (obj instanceof Armor){
             ((Armor) obj).player.hp -= damage;
@@ -38,6 +40,6 @@ public class BMassSmall extends Bullet{
         super.loadData();
 
         ConfigReader cr = new ConfigReader(getConfigFileName());
-        movement.speed = cr.findDouble("SPEED");
+        getComponent(Movement.class).speed = cr.findDouble("SPEED");
     }
 }

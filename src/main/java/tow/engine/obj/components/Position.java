@@ -3,6 +3,7 @@ package tow.engine.obj.components;
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.map.Location;
+import tow.engine.obj.Component;
 import tow.engine.obj.Obj;
 
 public class Position extends Component {
@@ -16,16 +17,20 @@ public class Position extends Component {
     public Location location;//Комната в которой находится объект
     public int id;//Уникальный номер объекта в комнате
 
-    public Position(Obj obj, double x, double y, int depth){
-        this(obj, x, y, depth, 90);
+    public Position(double x, double y, int depth){
+        this(x, y, depth, 90);
     }
 
-    public Position(Obj obj, double x, double y, int depth, double directionDraw) {
-        super(obj);
+    public Position(double x, double y, int depth, double directionDraw) {
         this.x = x;
         this.y = y;
         this.depth = depth;
         setDirectionDraw(directionDraw);
+    }
+
+    @Override
+    public void destroy() {
+        location.objDel(id);
     }
 
     public double getDirectionDraw(){
@@ -51,4 +56,8 @@ public class Position extends Component {
         }
     }
 
+    @Override
+    public Class getComponentClass() {
+        return Position.class;
+    }
 }

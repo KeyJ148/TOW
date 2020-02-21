@@ -6,6 +6,7 @@ import tow.engine.Vector2;
 import tow.engine.image.TextureHandler;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.Position;
+import tow.engine.obj.components.render.Rendering;
 import tow.engine.obj.components.render.Sprite;
 
 import java.nio.DoubleBuffer;
@@ -21,14 +22,14 @@ public class MouseCursor {
     public MouseCursor(){
         //Создание объекта курсора (используется компонент Position и Sprite)
         cursor = new Obj();
-        cursor.position = new Position(cursor, 0, 0, -1000);
-        cursor.position.absolute = false;
+        cursor.setComponent(new Position(0, 0, -1000));
+        cursor.getComponent(Position.class).absolute = false;
     }
 
     public void update(){
         Vector2<Integer> mousePos = getPositionFromGLFW();
-        cursor.position.x = mousePos.x;
-        cursor.position.y = mousePos.y;
+        cursor.getComponent(Position.class).x = mousePos.x;
+        cursor.getComponent(Position.class).y = mousePos.y;
     }
 
     public void draw(){
@@ -36,21 +37,21 @@ public class MouseCursor {
     }
 
     public Vector2<Integer> getPosition(){
-        return new Vector2<>((int) cursor.position.x, (int) cursor.position.y);
+        return new Vector2<>((int) cursor.getComponent(Position.class).x, (int) cursor.getComponent(Position.class).y);
     }
 
     public void setTexture(TextureHandler texture){
         //Отключение стнадартного курсора
         glfwSetInputMode(Global.engine.render.getWindowID(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         //Присвоение текстуры объекту курсора
-        cursor.rendering = new Sprite(cursor, texture);
+        cursor.setComponent(new Sprite(texture));
     }
 
     public void setDefaultTexture(){
         //Включение стнадартного курсора
         glfwSetInputMode(Global.engine.render.getWindowID(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         //Отключение текстуры у объекта курсора
-        cursor.rendering = null;
+        cursor.removeComponent(Rendering.class);
     }
 
     public void setCapture(boolean captureCursor){

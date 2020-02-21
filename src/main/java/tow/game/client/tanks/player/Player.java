@@ -3,10 +3,13 @@ package tow.game.client.tanks.player;
 import org.liquidengine.legui.component.Label;
 import tow.engine.Global;
 import tow.engine.obj.Obj;
+import tow.engine.obj.ObjFactory;
 import tow.engine.obj.components.Follower;
+import tow.engine.obj.components.Movement;
 import tow.engine.obj.components.Position;
 import tow.engine.obj.components.render.Animation;
 import tow.engine.obj.components.render.GUIElement;
+import tow.engine.obj.components.render.Rendering;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
 import tow.game.client.tanks.Effect;
@@ -42,7 +45,7 @@ public class Player extends Tank {
     public Obj[] statsLabel;
 
     public Player(double x, double y, double direction){
-        position = new Position(this, x, y, 0);
+        setComponent(new Position(x, y, 0));
 
         controller = new PlayerController(this);
         Global.location.objAdd(controller);
@@ -66,25 +69,25 @@ public class Player extends Tank {
         name = ClientData.name;
         setColor(color);
 
-        follower = new Follower(this, armor);
-        gun.follower = new Follower(gun, armor, false); //TODO: gun.follower дублируется в 3-х местах
-        camera.follower = new Follower(camera, armor);
+        setComponent(new Follower(armor));
+        gun.setComponent(new Follower(armor, false)); //TODO: gun.follower дублируется в 3-х местах
+        camera.setComponent(new Follower(armor));
 
-        hpLabel = new Obj(1, 10, 0);
-        hpLabel.position.absolute = false;
+        hpLabel = ObjFactory.create(1, 10, 0);
+        hpLabel.getComponent(Position.class).absolute = false;
         Global.location.objAdd(hpLabel);
-        hpLabel.rendering = new GUIElement(hpLabel, new Label(), 1, 1);
-        ((Label) ((GUIElement) hpLabel.rendering).getComponent()).setFocusable(false);
-        ((Label) ((GUIElement) hpLabel.rendering).getComponent()).getTextState().setFontSize(30);
+        hpLabel.setComponent(new GUIElement(new Label(), 1, 1));
+        ((Label) ((GUIElement) hpLabel.getComponent(Rendering.class)).getComponent()).setFocusable(false);
+        ((Label) ((GUIElement) hpLabel.getComponent(Rendering.class)).getComponent()).getTextState().setFontSize(30);
 
         statsLabel = new Obj[stats.toString().split("\n").length + 4];
         for (int i = 0; i < statsLabel.length; i++) {
-            statsLabel[i] = new Obj(1, 30+i*15, 0);
-            statsLabel[i].position.absolute = false;
+            statsLabel[i] = ObjFactory.create(1, 30+i*15, 0);
+            statsLabel[i].getComponent(Position.class).absolute = false;
             Global.location.objAdd(statsLabel[i]);
-            statsLabel[i].rendering = new GUIElement(statsLabel[i], new Label(), 1, 1);
-            ((Label) ((GUIElement) statsLabel[i].rendering).getComponent()).setFocusable(false);
-            ((Label) ((GUIElement) statsLabel[i].rendering).getComponent()).getTextState().setFontSize(17);
+            statsLabel[i].setComponent(new GUIElement(new Label(), 1, 1));
+            ((Label) ((GUIElement) statsLabel[i].getComponent(Rendering.class)).getComponent()).setFocusable(false);
+            ((Label) ((GUIElement) statsLabel[i].getComponent(Rendering.class)).getComponent()).getTextState().setFontSize(17);
         }
     }
 
@@ -102,21 +105,21 @@ public class Player extends Tank {
         if (vampire < 0.0) vampire = 0.0;
 
         //Отрисовка HP
-        ((Label) ((GUIElement) hpLabel.rendering).getComponent()).getTextState().setText("HP: " +  Math.round(hp) + "/" + Math.round(stats.hpMax));
+        ((Label) ((GUIElement) hpLabel.getComponent(Rendering.class)).getComponent()).getTextState().setText("HP: " +  Math.round(hp) + "/" + Math.round(stats.hpMax));
 
         //Отрисовка статов
         if (ClientData.printStats){
             String[] array = stats.toString().split("\n");
             for (int i = 0; i < array.length; i++) {
-                ((Label) ((GUIElement) statsLabel[i].rendering).getComponent()).getTextState().setText(array[i]);
+                ((Label) ((GUIElement) statsLabel[i].getComponent(Rendering.class)).getComponent()).getTextState().setText(array[i]);
             }
-            ((Label) ((GUIElement) statsLabel[array.length].rendering).getComponent()).getTextState().setText("Armor: " + ((Armor) armor).title);
-            ((Label) ((GUIElement) statsLabel[array.length+1].rendering).getComponent()).getTextState().setText("Gun: " + ((Gun) gun).title);
-            ((Label) ((GUIElement) statsLabel[array.length+2].rendering).getComponent()).getTextState().setText("Bullet: " + bullet.title);
-            ((Label) ((GUIElement) statsLabel[array.length+3].rendering).getComponent()).getTextState().setText("Vampire: " + Math.round(vampire*100) + "%");
+            ((Label) ((GUIElement) statsLabel[array.length].getComponent(Rendering.class)).getComponent()).getTextState().setText("Armor: " + ((Armor) armor).title);
+            ((Label) ((GUIElement) statsLabel[array.length+1].getComponent(Rendering.class)).getComponent()).getTextState().setText("Gun: " + ((Gun) gun).title);
+            ((Label) ((GUIElement) statsLabel[array.length+2].getComponent(Rendering.class)).getComponent()).getTextState().setText("Bullet: " + bullet.title);
+            ((Label) ((GUIElement) statsLabel[array.length+3].getComponent(Rendering.class)).getComponent()).getTextState().setText("Vampire: " + Math.round(vampire*100) + "%");
        } else {
             for (int i = 0; i < statsLabel.length; i++) {
-                ((Label) ((GUIElement) statsLabel[i].rendering).getComponent()).getTextState().setText("");
+                ((Label) ((GUIElement) statsLabel[i].getComponent(Rendering.class)).getComponent()).getTextState().setText("");
             }
         }
 
@@ -166,8 +169,8 @@ public class Player extends Tank {
 
         //Устанавливаем новой броне параметры как у текущий брони игрока
         hp = (hp/lastMaxHp) * stats.hpMax; //Устанавливаем эквивалетное здоровье в процентах
-        if (controller.runUp) newArmor.movement.speed = stats.speedTankUp;
-        if (controller.runDown) newArmor.movement.speed = stats.speedTankDown;
+        if (controller.runUp) newArmor.getComponent(Movement.class).speed = stats.speedTankUp;
+        if (controller.runDown) newArmor.getComponent(Movement.class).speed = stats.speedTankDown;
 
         //Отправляем сообщение о том, что мы сменили броню
         String newName = ((Armor) armor).textureHandlers[0].name;
@@ -198,13 +201,13 @@ public class Player extends Tank {
 
     public String getData(){
 
-        return  Math.round(armor.position.x)
-                + " " + Math.round(armor.position.y)
-                + " " + Math.round(armor.position.getDirectionDraw())
-                + " " + Math.round(gun.position.getDirectionDraw())
-                + " " + Math.round(armor.movement.speed)
-                + " " + armor.movement.getDirection()
-                + " " + ((Animation) armor.rendering).getFrameSpeed()
+        return  Math.round(armor.getComponent(Position.class).x)
+                + " " + Math.round(armor.getComponent(Position.class).y)
+                + " " + Math.round(armor.getComponent(Position.class).getDirectionDraw())
+                + " " + Math.round(gun.getComponent(Position.class).getDirectionDraw())
+                + " " + Math.round(armor.getComponent(Movement.class).speed)
+                + " " + armor.getComponent(Movement.class).getDirection()
+                + " " + ((Animation) armor.getComponent(Rendering.class)).getFrameSpeed()
                 + " " + Player.numberPackage++;
     }
     

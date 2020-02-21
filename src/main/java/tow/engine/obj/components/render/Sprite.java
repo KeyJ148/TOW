@@ -1,6 +1,7 @@
 package tow.engine.obj.components.render;
 
 import tow.engine.Vector2;
+import tow.engine.obj.components.Position;
 import tow.engine.resources.textures.Texture;
 import tow.engine.image.TextureHandler;
 import tow.engine.obj.Obj;
@@ -10,17 +11,16 @@ public class Sprite extends Rendering {
 	
     private TextureHandler textureHandler;
 
-    public Sprite(Obj obj, TextureHandler textureHandler) {
-        super(obj);
+    public Sprite(TextureHandler textureHandler) {
 		this.textureHandler = textureHandler;
     }
 
     @Override
     public void draw() {
-        Vector2<Integer> relativePosition = getObj().position.getRelativePosition();
+        Vector2<Integer> relativePosition = getObj().getComponent(Position.class).getRelativePosition();
         double xView = relativePosition.x;
         double yView = relativePosition.y;
-        double directionDraw = getObj().position.getDirectionDraw();
+        double directionDraw = getObj().getComponent(Position.class).getDirectionDraw();
 
         directionDraw -= 90; //смещена начального угла с Востока на Север
     	

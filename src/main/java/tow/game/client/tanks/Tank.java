@@ -3,15 +3,21 @@ package tow.game.client.tanks;
 import org.liquidengine.legui.component.Label;
 import tow.engine.Global;
 import tow.engine.obj.Obj;
+import tow.engine.obj.ObjFactory;
 import tow.engine.obj.components.Follower;
+import tow.engine.obj.components.Movement;
+import tow.engine.obj.components.Position;
+import tow.engine.obj.components.particles.Particles;
 import tow.engine.obj.components.render.Animation;
 import tow.engine.obj.components.render.GUIElement;
+import tow.engine.obj.components.render.Rendering;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
 import tow.game.client.particles.Explosion;
 import tow.game.client.tanks.enemy.Enemy;
 import tow.engine.image.Color;
 
+import java.util.Arrays;
 import java.util.Map;
 
 public abstract class Tank extends Obj{
@@ -32,19 +38,19 @@ public abstract class Tank extends Obj{
     public int win = 0;
 
     public Tank(){
-        super(0, 0, 0);
+        super(Arrays.asList(new Position(0, 0, 0)));
 
         initCamera();
     }
 
     public void initCamera(){
         //Инициализация камеры
-        camera = new Obj(0, 0, 0);
+        camera = ObjFactory.create(0, 0, 0);
         Global.location.objAdd(camera);
 
-        nickname = new Obj(0, 0, 0);
+        nickname = ObjFactory.create(0, 0, 0);
         Global.location.objAdd(nickname);
-        nickname.rendering = new GUIElement(nickname, new Label(), 500, 30);
+        nickname.setComponent(new GUIElement(new Label(), 500, 30));
     }
 
     @Override
@@ -53,13 +59,13 @@ public abstract class Tank extends Obj{
 
         if (!alive) return;
 
-        if (armor != null && armor.position != null) {
-            Label label = ((Label) ((GUIElement) nickname.rendering).getComponent());
+        if (armor != null && armor.hasComponent(Position.class)) {
+            Label label = ((Label) ((GUIElement) nickname.getComponent(Rendering.class)).getComponent());
             label.setFocusable(false); //Иначе событие мыши перехватывает надпись, и оно не поступает в игру
             label.getTextState().setText(name); //TODO: присваивать только один раз
 
-            nickname.position.x = armor.position.x - name.length() * 3.45 + label.getSize().x/2;
-            nickname.position.y = armor.position.y - 50;
+            nickname.getComponent(Position.class).x = armor.getComponent(Position.class).x - name.length() * 3.45 + label.getSize().x/2;
+            nickname.getComponent(Position.class).y = armor.getComponent(Position.class).y - 50;
         }
     }
 
@@ -67,14 +73,14 @@ public abstract class Tank extends Obj{
         alive = false;
         death++;
 
-        armor.movement.speed = 0;
-        ((Animation) armor.rendering).setFrameSpeed(0);
+        armor.getComponent(Movement.class).speed = 0;
+        ((Animation) armor.getComponent(Rendering.class)).setFrameSpeed(0);
 
         setColor(explodedTankColor);
 
-        Obj explosion = new Obj(armor.position.x, armor.position.y, -100);
-        explosion.particles = new Explosion(explosion, 100);
-        explosion.particles.destroyObject = true;
+        Obj explosion = ObjFactory.create(armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, -100);
+        explosion.setComponent(new Explosion(100));
+        explosion.getComponent(Particles.class).destroyObject = true;
         Global.location.objAdd(explosion);
 
         //Если в данный момент камера установлена на этот объект
@@ -88,12 +94,12 @@ public abstract class Tank extends Obj{
             }
         }
 
-        Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio("explosion"), (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
+        Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio("explosion"), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
     }
 
     public void replaceArmor(Obj newArmor){
         //Устанавливаем новой броне параметры как у текущий брони танка
-        newArmor.movement.setDirection(armor.movement.getDirection());
+        newArmor.getComponent(Movement.class).setDirection(armor.getComponent(Movement.class).getDirection());
 
         armor.destroy();
         armor = newArmor;
@@ -102,7 +108,7 @@ public abstract class Tank extends Obj{
     }
 
     public void replaceGun(Obj newGun){
-        newGun.position.setDirectionDraw(gun.position.getDirectionDraw());
+        newGun.getComponent(Position.class).setDirectionDraw(gun.getComponent(Position.class).getDirectionDraw());
 
         gun.destroy();
         gun = newGun;
@@ -116,12 +122,12 @@ public abstract class Tank extends Obj{
     }
 
     public void setColorArmor(Color c){
-        if (armor == null || armor.rendering == null) return;
-        armor.rendering.color = c;
+        if (armor == null || !armor.hasComponent(Rendering.class)) return;
+        armor.getComponent(Rendering.class).color = c;
     }
 
     public void setColorGun(Color c){
-        if (gun == null || gun.rendering == null) return;
-        gun.rendering.color = c;
+        if (gun == null || !gun.hasComponent(Rendering.class)) return;
+        gun.getComponent(Rendering.class).color = c;
     }
 }

@@ -50,10 +50,10 @@ public class Border extends Obj {
 			break;
 		}
 		
-		this.position = new Position(this, x, y, 0, 0);
+		setComponent(new Position(x, y, 0, 0));
 
 		//Путь должен быть, иначе mask выкинет ошибку при парсе; height и width наоборот -- магия
-		this.collision = new Collision(this, new Mask("mask.png", h, w));
+		setComponent(new Collision(new Mask("mask.png", h, w)));
 	}
 	
 	public static void createAll(Location location){

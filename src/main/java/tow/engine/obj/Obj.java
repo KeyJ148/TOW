@@ -1,57 +1,70 @@
 package tow.engine.obj;
 
-import tow.engine.Global;
-import tow.engine.image.TextureHandler;
-import tow.engine.obj.components.Collision;
-import tow.engine.obj.components.Follower;
-import tow.engine.obj.components.Movement;
-import tow.engine.obj.components.Position;
-import tow.engine.obj.components.particles.Particles;
-import tow.engine.obj.components.render.Animation;
-import tow.engine.obj.components.render.Rendering;
-import tow.engine.obj.components.render.Sprite;
+import java.util.*;
 
 public class Obj {
-	public Position position;
-	public Movement movement;
-	public Rendering rendering;
-	public Collision collision;
-	public Particles particles;
-	public Follower follower;
 
-	public boolean destroy = false;
+	private Map<Class<? extends Component>, Component> components = new HashMap<>();
+	private boolean destroy = false;
 
-	public Obj(){}
-
-	public Obj(double x, double y, int depth){
-		this();
-		position = new Position(this, x, y, depth);
+	public Obj(){
+		this(new ArrayList<>());
 	}
 
-	public Obj(double x, double y, int depth, double directionDraw){
-		this(x, y, depth);
-		position.setDirectionDraw(directionDraw);
+	public Obj(Collection<Component> initComponents){
+		for (Component component : initComponents){
+			setComponent(component);
+		}
 	}
 
-	public Obj(double x, double y, int depth, double directionDraw, TextureHandler textureHandler){
-		this(x, y, depth, directionDraw);
-		this.rendering = new Sprite(this, textureHandler);
+
+	public void setComponent(Component component){
+		component.addToObj(this);
+		components.put(component.getComponentClass(), component);
 	}
 
-	public Obj(double x, double y, double directionDraw, TextureHandler textureHandler){
-		this(x, y, textureHandler.depth, directionDraw, textureHandler);
-	}
-	
-	public Obj(double x, double y, int depth, double directionDraw, TextureHandler[] textureHandler){
-		this(x, y, depth, directionDraw);
-		rendering = new Animation(this, textureHandler);
+	public <T extends Component> T getComponent(Class<T> classComponent){
+		return (T) components.get(classComponent);
 	}
 
-	public Obj(double x, double y, double directionDraw, TextureHandler[] textureHandler){
-		this(x, y, textureHandler[0].depth, directionDraw, textureHandler);
+	public boolean hasComponent(Class<? extends Component> classComponent){
+		return getComponent(classComponent) != null;
 	}
 
-	public void update(long delta) {
+	public void removeComponent(Class<? extends Component> classComponent){
+		components.remove(classComponent);
+	}
+
+	public void update(long delta){
+		for (Component component : components.values()){
+			if (!isDestroy()) component.update(delta);
+			else component.destroy();
+		}
+	}
+
+	public void draw(){
+		for (Component component : components.values()){
+			component.draw();
+		}
+	}
+
+	public void destroy(){
+		destroy = true;
+	}
+
+	public boolean isDestroy(){
+		return destroy;
+	}
+
+	//TODO: del
+	public Component getComponentOLD(Class<? extends Component> classComponent){
+		return components.get(classComponent);
+	}
+
+	//TODO: приотизация и требования других компонент
+
+	/*
+	public void update2(long delta) {
 		if (position != null) position.update(delta);
 		if (movement != null) movement.update(delta);
 		if (rendering != null) rendering.update(delta);
@@ -62,16 +75,14 @@ public class Obj {
 		if (destroy) position.location.objDel(position.id);
 	}
 
-	public void draw(){
+	public void draw2(){
 		if (position != null) position.draw();
 		if (movement != null) movement.draw();
 		if (rendering != null) rendering.draw();
 		if (collision != null) collision.draw();
 		if (particles != null) particles.draw();
 		if (follower != null) follower.draw();
-	}
+	}*/
 
-	public void destroy(){
-		destroy = true;
-	}
+
 }

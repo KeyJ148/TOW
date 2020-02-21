@@ -6,10 +6,13 @@ import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
 import tow.engine.map.Border;
 import tow.engine.obj.Obj;
+import tow.engine.obj.ObjFactory;
 import tow.engine.obj.components.Collision;
 import tow.engine.obj.components.CollisionDirect;
 import tow.engine.obj.components.Movement;
 import tow.engine.obj.components.Position;
+import tow.engine.obj.components.particles.Particles;
+import tow.engine.obj.components.render.Rendering;
 import tow.engine.obj.components.render.Sprite;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.ClientData;
@@ -46,17 +49,17 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 		this.startX = x;
 		this.startY = y;
 
-		this.movement = new Movement(this);
-		this.movement.setDirection(dir);
+		setComponent(new Movement());
+		this.getComponent(Movement.class).setDirection(dir);
 		loadData();
 
-		this.position = new Position(this, x, y, texture.depth, dir);
-		this.rendering = new Sprite(this, texture);
+		setComponent(new Position(x, y, texture.depth, dir));
+		setComponent(new Sprite(texture));
 
-		this.collision = new CollisionDirect(this, texture.mask, range);
-		this.collision.addCollisionObjects(new Class[] {Wall.class, EnemyArmor.class, Border.class});
-		this.collision.addListener(this);
-		((CollisionDirect) collision).init();
+		setComponent(new CollisionDirect(texture.mask, range));
+		getComponent(Collision.class).addCollisionObjects(new Class[] {Wall.class, EnemyArmor.class, Border.class});
+		getComponent(Collision.class).addListener(this);
+		((CollisionDirect) getComponent(Collision.class)).init();
 
 		Global.tcpControl.send(13, getData());
 		ClientData.idNet++;
@@ -66,7 +69,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 
 	@Override
 	public void collision(Obj obj) {
-		if (destroy) return;
+		if (isDestroy()) return;
 
 		if (obj.getClass().equals(Border.class)){
 			destroy(0);
@@ -75,8 +78,8 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 		if (obj.getClass().equals(Wall.class)){
 			destroy(explosionSize);
 
-			Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio(sound_hit), (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
-			Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + sound_hit);
+			Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio(sound_hit), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
+			Global.tcpControl.send(25, (int) getComponent(Position.class).x + " " + (int) getComponent(Position.class).y + " " + sound_hit);
 		}
 
 		if (obj.getClass().equals(EnemyArmor.class)){
@@ -85,8 +88,8 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 			Global.tcpControl.send(14, damage + " " + ea.enemy.id);
 			destroy(explosionSize);
 
-			Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio(sound_hit), (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
-			Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + sound_hit);
+			Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio(sound_hit), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
+			Global.tcpControl.send(25, (int) getComponent(Position.class).x + " " + (int) getComponent(Position.class).y + " " + sound_hit);
 
 			//Для вампирского сета
 			if (ea.enemy.alive) player.hitting(damage);
@@ -98,17 +101,17 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 		Global.tcpControl.send(15, idNet + " " + expSize);
 
 		if (explosionSize > 0) {
-			Obj explosion = new Obj(position.x, position.y, -100);
-			explosion.particles = new Explosion(explosion, expSize);
-			explosion.particles.destroyObject = true;
+			Obj explosion = ObjFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, -100);
+			explosion.setComponent(new Explosion(expSize));
+			explosion.getComponent(Particles.class).destroyObject = true;
 			Global.location.objAdd(explosion);
 		}
 	}
 
 	@Override
 	public void update(long delta) {
-		if (!destroy) {
-			if (Math.sqrt(Math.pow(startX - position.x, 2) + Math.pow(startY - position.y, 2)) >= range) {
+		if (!isDestroy()) {
+			if (Math.sqrt(Math.pow(startX - getComponent(Position.class).x, 2) + Math.pow(startY - getComponent(Position.class).y, 2)) >= range) {
 				destroy(0);
 			}
 		}
@@ -117,15 +120,15 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 	}
 
 	public void playSoundShot(){
-		Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio(sound_shot), (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
-		Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + sound_shot);
+		Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio(sound_shot), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
+		Global.tcpControl.send(25, (int) getComponent(Position.class).x + " " + (int) getComponent(Position.class).y + " " + sound_shot);
 	}
 
 	public String getData(){
-		return  Math.round(position.x)
-		+ " " +	Math.round(position.y)
-		+ " " +	movement.getDirection()
-		+ " " +	movement.speed
+		return  Math.round(getComponent(Position.class).x)
+		+ " " +	Math.round(getComponent(Position.class).y)
+		+ " " +	getComponent(Movement.class).getDirection()
+		+ " " +	getComponent(Movement.class).speed
 		+ " " +	texture.name
 		+ " " +	idNet;
 	}
@@ -136,9 +139,9 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 	
 	public void loadData(){
 		ConfigReader cr = new ConfigReader(getConfigFileName());
-		
-		movement.speed = cr.findDouble("SPEED") + player.stats.speedTankUp/2;
-		movement.speed = Math.max(movement.speed, player.stats.speedTankUp*GameSetting.MIN_BULLET_SPEED_KOEF);
+
+		getComponent(Movement.class).speed = cr.findDouble("SPEED") + player.stats.speedTankUp/2;
+		getComponent(Movement.class).speed = Math.max(getComponent(Movement.class).speed, player.stats.speedTankUp*GameSetting.MIN_BULLET_SPEED_KOEF);
 
 		damage += cr.findDouble("DAMAGE");//К дамагу пушки прибавляем дамаг патрона
 		range += cr.findInteger("RANGE");//К дальности пушки прибавляем дальность патрона

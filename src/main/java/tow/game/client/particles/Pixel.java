@@ -7,13 +7,11 @@ import tow.engine.image.Color;
 
 public class Pixel extends ParticlesGeometry {
 
-    public Pixel(Obj obj, double x, double y, double dir, double speed){
-        this(obj, x, y, dir, speed, Color.BLACK);
+    public Pixel(double x, double y, double dir, double speed){
+        this(x, y, dir, speed, Color.BLACK);
     }
 
-    public Pixel(Obj obj, double x, double y, double dir, double speed, Color color) {
-        super(obj);
-
+    public Pixel(double x, double y, double dir, double speed, Color color) {
         Part part = new Part();
 
         part.x = x;

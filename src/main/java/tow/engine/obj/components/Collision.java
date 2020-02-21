@@ -3,6 +3,7 @@ package tow.engine.obj.components;
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.Mask;
+import tow.engine.obj.Component;
 import tow.engine.obj.Obj;
 import org.lwjgl.opengl.GL11;
 import tow.engine.image.Color;
@@ -21,9 +22,13 @@ public class Collision extends Component {
 	private ArrayList<CollisionListener> listeners = new ArrayList();//Список объектов которых нужно оповещать при коллизии
 	protected boolean calcInThisStep = false;//Расчитывалась ли маска уже в этом степе?
 
-	public Collision(Obj obj, Mask mask) {
-		super(obj);
+	public Collision(Mask mask) {
 		this.mask = mask;
+	}
+
+	@Override
+	public void addToObj(Obj obj){
+		super.addToObj(obj);
 
 		calc();
 	}
@@ -31,7 +36,7 @@ public class Collision extends Component {
 	@Override
 	public void update(long delta){
 		calcInThisStep = false;
-		if (getObj().movement != null) calc();
+		if (getObj().hasComponent(Movement.class)) calc();
 		checkCollisionFromRoom();
 	}
 
@@ -59,7 +64,7 @@ public class Collision extends Component {
 
 		for(int i = 0; i< Global.location.objects.size(); i++){//Цикл перебора всех объектов в комнате
 			Obj objectFromRoom = Global.location.objects.get(i);
-			if (objectFromRoom != null && objectFromRoom.collision != null){//Если объект не был уничтожен и у него есть маска
+			if (objectFromRoom != null && objectFromRoom.hasComponent(Collision.class)){//Если объект не был уничтожен и у него есть маска
 				for (Class collisionObject : collisionObjects){ //Цикл перебора объектов, с которыми надо проверять столкновение
 					if ((objectFromRoom.getClass().equals(collisionObject)) //Если с эти объектом надо проверять столкновени
 						&& (checkCollision(objectFromRoom))){ //И с этим объектом происходит столкновение
@@ -74,11 +79,11 @@ public class Collision extends Component {
 	public boolean checkCollision(Obj obj2){
 		Obj obj1 = getObj();
 
-		if (obj1.position == null || obj1.collision == null || obj2.position == null || obj2.collision == null) return false;
-		Position pos1 = obj1.position;
-		Position pos2 = obj2.position;
-		Collision coll1 = obj1.collision;
-		Collision coll2 = obj2.collision;
+		if (obj1.getComponent(Position.class) == null || !obj1.hasComponent(Collision.class) || obj2.getComponent(Position.class) == null || !obj2.hasComponent(Collision.class)) return false;
+		Position pos1 = obj1.getComponent(Position.class);
+		Position pos2 = obj2.getComponent(Position.class);
+		Collision coll1 = obj1.getComponent(Collision.class);
+		Collision coll2 = obj2.getComponent(Collision.class);
 
 		//Проверка расстояния до объекта столкновения
 		double gip1 = Math.sqrt(sqr(coll1.mask.getWidth()) + sqr(coll1.mask.getHeight())); //Гипотенуза объекта
@@ -93,8 +98,8 @@ public class Collision extends Component {
 		}
 
 		//Если объекты движимы и в этом степе ещё не спросчитывали маску
-		if (obj1.movement != null && !coll1.calcInThisStep) coll1.calc();
-		if (obj2.movement != null && !coll2.calcInThisStep) coll2.calc();
+		if (obj1.hasComponent(Movement.class) && !coll1.calcInThisStep) coll1.calc();
+		if (obj2.hasComponent(Movement.class) && !coll2.calcInThisStep) coll2.calc();
 		
 		//Просчёт столкновения
 		//Создание полигонов
@@ -124,10 +129,10 @@ public class Collision extends Component {
 
 	//Перерасчёт маски относительно начала координат карты
 	public void calc(){
-		if (getObj().position == null) return;
+		if (!getObj().hasComponent(Position.class)) return;
 
 		//Смещена начального угла с Востока на Север
-		double direction = getObj().position.getDirectionDraw();
+		double direction = getObj().getComponent(Position.class).getDirectionDraw();
 		direction = Math.toRadians(direction)-Math.PI/2;
 
 		//Просчёт маски
@@ -141,8 +146,8 @@ public class Collision extends Component {
 			double YDouble2 = -cos * mask.getMaskCenter()[i].y;//"В бок" //Math.sin(direction-Math.PI/2) * ...
 
 			this.maskAbsolute[i] = new Vector2<>();
-			this.maskAbsolute[i].x = (int) (getObj().position.x + XDouble + XDouble2);
-			this.maskAbsolute[i].y = (int) (getObj().position.y - YDouble - YDouble2);
+			this.maskAbsolute[i].x = (int) (getObj().getComponent(Position.class).x + XDouble + XDouble2);
+			this.maskAbsolute[i].y = (int) (getObj().getComponent(Position.class).y - YDouble - YDouble2);
 		}
 
 		calcInThisStep = true;
@@ -192,4 +197,8 @@ public class Collision extends Component {
 			if (listener != null) listener.collision(obj);
 	}
 
+	@Override
+	public Class getComponentClass() {
+		return Collision.class;
+	}
 }

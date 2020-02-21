@@ -4,21 +4,26 @@ import org.joml.Vector2f;
 import org.liquidengine.legui.component.Component;
 import tow.engine.Vector2;
 import tow.engine.obj.Obj;
+import tow.engine.obj.components.Position;
 
 public class GUIElement extends Rendering {
 
     private Component component;
 
-    public GUIElement(Obj obj, Component component) {
-        super(obj);
+    public GUIElement(Component component) {
         this.component = component;
-        getObj().position.location.addGUIComponent(component);
     }
 
-    public GUIElement(Obj obj, Component component, int width, int height) {
-        this(obj, component);
+    public GUIElement(Component component, int width, int height) {
+        this(component);
         setWidth(width);
         setHeight(height);
+    }
+
+    @Override
+    public void addToObj(Obj obj){
+        super.addToObj(obj);
+        getObj().getComponent(Position.class).location.addGUIComponent(component);
     }
 
     public Component getComponent(){
@@ -27,13 +32,13 @@ public class GUIElement extends Rendering {
 
     @Override
     public void update(long delta) {
-        Vector2<Integer> relativePosition = getObj().position.getRelativePosition();
+        Vector2<Integer> relativePosition = getObj().getComponent(Position.class).getRelativePosition();
         float xView = relativePosition.x - getWidth()/2;
         float yView = relativePosition.y - getHeight()/2;
 
         component.setPosition(xView, yView);
 
-        if (getObj().destroy) getObj().position.location.removeGUIComponent(component);
+        if (getObj().isDestroy()) getObj().getComponent(Position.class).location.removeGUIComponent(component);
     }
 
     @Override

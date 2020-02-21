@@ -3,6 +3,7 @@ package tow.engine.map;
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.obj.Obj;
+import tow.engine.obj.components.Position;
 
 public class Camera {
 
@@ -26,7 +27,7 @@ public class Camera {
     }
 
     public void setFollowObject(Obj obj){
-        if (obj.position == null) return;
+        if (!obj.hasComponent(Position.class)) return;
         followObject = obj;
     }
 
@@ -41,8 +42,8 @@ public class Camera {
     //Расчёт текущей позиции
     public void update(){
         if (followObject != null){
-            x = followObject.position.x;
-            y = followObject.position.y;
+            x = followObject.getComponent(Position.class).x;
+            y = followObject.getComponent(Position.class).y;
         }
 
         int width = Global.engine.render.getWidth();

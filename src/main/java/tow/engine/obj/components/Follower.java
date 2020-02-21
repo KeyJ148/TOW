@@ -1,6 +1,7 @@
 package tow.engine.obj.components;
 
 import tow.engine.Global;
+import tow.engine.obj.Component;
 import tow.engine.obj.Obj;
 
 public class Follower extends Component {
@@ -8,23 +9,22 @@ public class Follower extends Component {
     public Obj followUpObj;
     public boolean followDirectionDraw;
 
-    public Follower(Obj obj, Obj followUpObj) {
-        this(obj, followUpObj, true);
+    public Follower(Obj followUpObj) {
+        this(followUpObj, true);
     }
 
-    public Follower(Obj obj, Obj followUpObj, boolean followDirectionDraw) {
-        super(obj);
+    public Follower(Obj followUpObj, boolean followDirectionDraw) {
         this.followUpObj = followUpObj;
         this.followDirectionDraw = followDirectionDraw;
     }
 
     @Override
     public void update(long delta){
-        if (followUpObj.follower != null && !followUpObj.follower.isUpdated()) followUpObj.follower.update(delta);
+        if (followUpObj.hasComponent(Follower.class) && !followUpObj.getComponent(Follower.class).isUpdated()) followUpObj.getComponent(Follower.class).update(delta);
 
-        getObj().position.x = followUpObj.position.x;
-        getObj().position.y = followUpObj.position.y;
-        if (followDirectionDraw) getObj().position.setDirectionDraw(followUpObj.position.getDirectionDraw());
+        getObj().getComponent(Position.class).x = followUpObj.getComponent(Position.class).x;
+        getObj().getComponent(Position.class).y = followUpObj.getComponent(Position.class).y;
+        if (followDirectionDraw) getObj().getComponent(Position.class).setDirectionDraw(followUpObj.getComponent(Position.class).getDirectionDraw());
         Global.location.mapControl.update(getObj());
     }
 
@@ -33,11 +33,16 @@ public class Follower extends Component {
     public boolean isUpdated() {
         boolean updated = true;
 
-        if (followUpObj.follower != null) updated &= followUpObj.follower.isUpdated();
-        updated &= (getObj().position.x == followUpObj.position.x);
-        updated &= (getObj().position.y == followUpObj.position.y);
-        updated &= (getObj().position.getDirectionDraw() == followUpObj.position.getDirectionDraw());
+        if (followUpObj.hasComponent(Follower.class)) updated &= followUpObj.getComponent(Follower.class).isUpdated();
+        updated &= (getObj().getComponent(Position.class).x == followUpObj.getComponent(Position.class).x);
+        updated &= (getObj().getComponent(Position.class).y == followUpObj.getComponent(Position.class).y);
+        updated &= (getObj().getComponent(Position.class).getDirectionDraw() == followUpObj.getComponent(Position.class).getDirectionDraw());
 
         return updated;
+    }
+
+    @Override
+    public Class getComponentClass() {
+        return Follower.class;
     }
 }

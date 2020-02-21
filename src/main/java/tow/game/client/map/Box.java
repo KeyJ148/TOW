@@ -2,11 +2,13 @@ package tow.game.client.map;
 
 
 import tow.engine.Global;
+import tow.engine.cycle.Render;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.Collision;
 import tow.engine.obj.components.Position;
+import tow.engine.obj.components.render.Rendering;
 import tow.engine.obj.components.render.Sprite;
 import tow.game.client.GameSetting;
 import tow.game.client.tanks.equipment.EquipManager;
@@ -32,9 +34,9 @@ public class Box extends Obj {
 		}
 
 		TextureHandler texture = TextureManager.getTexture(nameBox);
-		position = new Position(this, x, y, texture.depth);
-		rendering = new Sprite(this, texture);
-		collision = new Collision(this, texture.mask);
+		setComponent(new Position(x, y, texture.depth));
+		setComponent(new Sprite(texture));
+		setComponent(new Collision(texture.mask));
 	}
 
 	public void collisionPlayer(Player player){
@@ -51,7 +53,7 @@ public class Box extends Obj {
 
 		Global.tcpControl.send(21, String.valueOf(idBox));
 
-		Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio(soundName), (int) position.x, (int) position.y, GameSetting.SOUND_RANGE);
-		Global.tcpControl.send(25, (int) position.x + " " + (int) position.y + " " + soundName);
+		Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio(soundName), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
+		Global.tcpControl.send(25, (int) getComponent(Position.class).x + " " + (int) getComponent(Position.class).y + " " + soundName);
 	}
 }

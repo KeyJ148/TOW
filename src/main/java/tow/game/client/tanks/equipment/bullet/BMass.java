@@ -4,6 +4,7 @@ import tow.engine.Global;
 import tow.engine.logger.Logger;
 import tow.engine.Loader;
 import tow.engine.obj.Obj;
+import tow.engine.obj.components.Movement;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.map.Wall;
 import tow.game.client.tanks.enemy.EnemyArmor;
@@ -19,7 +20,7 @@ public class BMass extends Bullet {
 
     @Override
     public void collision(Obj obj){
-        if (destroy) return;
+        if (isDestroy()) return;
 
         if (obj.getClass().equals(Wall.class) || obj.getClass().equals(EnemyArmor.class)) {
             Random random = new Random();
@@ -33,8 +34,8 @@ public class BMass extends Bullet {
                     Bullet newBullet = (Bullet) Class.forName(newBulletFullName).newInstance();
                     newBullet.init(
                             player,
-                            movement.getXPrevious(),
-                            movement.getYPrevious(),
+                            getComponent(Movement.class).getXPrevious(),
+                            getComponent(Movement.class).getYPrevious(),
                             random.nextInt(360),
                             0,
                             0,

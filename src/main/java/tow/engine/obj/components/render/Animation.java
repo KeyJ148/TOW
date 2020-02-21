@@ -2,6 +2,7 @@ package tow.engine.obj.components.render;
 
 import tow.engine.Global;
 import tow.engine.Vector2;
+import tow.engine.obj.components.Position;
 import tow.engine.resources.textures.Texture;
 import tow.engine.logger.Logger;
 import tow.engine.image.TextureHandler;
@@ -17,8 +18,7 @@ public class Animation extends Rendering {
     
     private long update = 0; //Сколько прошло наносекунд с последней смены кадра
     
-    public Animation(Obj obj, TextureHandler[] textureHandler) {
-    	super(obj);
+    public Animation(TextureHandler[] textureHandler) {
 		this.textureHandler = textureHandler;
     }
 
@@ -37,10 +37,10 @@ public class Animation extends Rendering {
 
 	@Override
     public void draw() {
-		Vector2<Integer> relativePosition = getObj().position.getRelativePosition();
+		Vector2<Integer> relativePosition = getObj().getComponent(Position.class).getRelativePosition();
 		double xView = relativePosition.x;
 		double yView = relativePosition.y;
-		double directionDraw = getObj().position.getDirectionDraw();
+		double directionDraw = getObj().getComponent(Position.class).getDirectionDraw();
 
 		directionDraw -= 90; //смещена начального угла с Востока на Север
     	

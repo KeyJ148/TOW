@@ -1,5 +1,6 @@
 package tow.game.client.tanks.equipment.bullet;
 
+import tow.engine.obj.components.Movement;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.tanks.player.Bullet;
 
@@ -16,7 +17,7 @@ public class BFury extends Bullet {
         double maxDamage = cr.findDouble("MAX_DAMAGE");
 
         damage += maxDamage - ((player.hp/player.stats.hpMax) * (maxDamage-minDamage));
-        movement.speed += maxSpeed - ((player.hp/player.stats.hpMax) * (maxSpeed-minSpeed));
+        getComponent(Movement.class).speed += maxSpeed - ((player.hp/player.stats.hpMax) * (maxSpeed-minSpeed));
     }
 }
 

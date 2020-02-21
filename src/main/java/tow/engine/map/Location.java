@@ -6,6 +6,7 @@ import tow.engine.Global;
 import tow.engine.input.keyboard.KeyboardHandler;
 import tow.engine.input.mouse.MouseHandler;
 import tow.engine.obj.Obj;
+import tow.engine.obj.components.Position;
 
 import java.util.Vector;
 
@@ -62,9 +63,10 @@ public class Location {
 
 	//Добавление объекта в комнату
 	public void objAdd(Obj obj){
-		obj.position.id = objects.size();
-		obj.position.location = this;
-		obj.destroy = false;
+		if (obj.isDestroy()) throw new IllegalArgumentException("Obj was destroy");
+
+		obj.getComponent(Position.class).id = objects.size();
+		obj.getComponent(Position.class).location = this;
 
 		objects.add(obj);
 		mapControl.add(obj);

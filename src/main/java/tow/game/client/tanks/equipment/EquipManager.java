@@ -3,6 +3,7 @@ package tow.game.client.tanks.equipment;
 import tow.engine.Global;
 import tow.engine.logger.Logger;
 import tow.engine.Loader;
+import tow.engine.obj.components.Position;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.tanks.player.Armor;
 import tow.game.client.tanks.player.Bullet;
@@ -50,7 +51,7 @@ public class EquipManager {
         try {
             String newArmorFullPath = getClassPackage(player.armor) + "." + newArmorClass;
             newArmor = (Armor) Class.forName(newArmorFullPath).newInstance();
-            newArmor.init(player, player.armor.position.x, player.armor.position.y, player.armor.position.getDirectionDraw(), newArmorName);
+            newArmor.init(player, player.armor.getComponent(Position.class).x, player.armor.getComponent(Position.class).y, player.armor.getComponent(Position.class).getDirectionDraw(), newArmorName);
             player.replaceArmor(newArmor);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e){
             Global.logger.println("Armor not found: " + newArmorClass, Logger.Type.ERROR);
@@ -86,7 +87,7 @@ public class EquipManager {
             String newGunClassName = new ConfigReader(Gun.PATH_SETTING + newGunName + ".properties").findString("CLASS");
             String newGunFullPath = getClassPackage(player.gun) + "." + newGunClassName;
             newGun = (Gun) Class.forName(newGunFullPath).newInstance();
-            newGun.init(player, player.gun.position.x, player.gun.position.y, player.gun.position.getDirectionDraw(), newGunName);
+            newGun.init(player, player.gun.getComponent(Position.class).x, player.gun.getComponent(Position.class).y, player.gun.getComponent(Position.class).getDirectionDraw(), newGunName);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e){
             Global.logger.println("Gun not found: " + newGunName, Logger.Type.ERROR);
             Loader.exit();

@@ -20,9 +20,9 @@ public class Sample extends ParticlesGeometry {
         Random rand = new Random();
         for (int i=0; i<partcount; i++){
             Part part = new Part();
-            Vector2<Integer> relativePosition = getObj().position.getRelativePosition();
+            Vector2<Integer> relativePosition = getObj().getComponent(Position.class).getRelativePosition();
 
-            part.direction = getObj().position.getDirectionDraw() + (i/16)*360/(partcount/16);
+            part.direction = getObj().getComponent(Position.class).getDirectionDraw() + (i/16)*360/(partcount/16);
             part.width = 5;
             part.height = 5;
             part.directionDraw = part.direction-90;

@@ -18,8 +18,8 @@ public class CollisionDirect extends Collision {
 	private int start = 0;//В комнате была проверена коллизия со всеми статическими объектами у которых id<start
 	private boolean nearCollision = false;//Находимся близко к позиции столкновения
 
-	public CollisionDirect(Obj obj, Mask mask, int range) {
-		super(obj, mask);
+	public CollisionDirect(Mask mask, int range) {
+		super(mask);
 		this.range = range;
 	}
 
@@ -36,15 +36,15 @@ public class CollisionDirect extends Collision {
 		separationCollisions();
 		for (Integer id : dynamicId){ //Проверяем столкновения со всеми перемещающимися объектами
 			Obj objectFromRoom = Global.location.objects.get(id);
-			if (objectFromRoom != null && objectFromRoom.collision != null && checkCollision(objectFromRoom)){
+			if (objectFromRoom != null && objectFromRoom.hasComponent(Collision.class) && checkCollision(objectFromRoom)){
 				informListeners(objectFromRoom); //Информируем об этом всех слушателей
 			}
 		}
 
 		//Если есть точка столкновения и она близко
 		if (positionCollision != null) {
-			double distantionToCollision = Math.sqrt(sqr(getObj().position.x - positionCollision.x) + sqr(getObj().position.y - positionCollision.y));
-			if (distantionToCollision <= getObj().movement.speed * 3) nearCollision = true;
+			double distantionToCollision = Math.sqrt(sqr(getObj().getComponent(Position.class).x - positionCollision.x) + sqr(getObj().getComponent(Position.class).y - positionCollision.y));
+			if (distantionToCollision <= getObj().getComponent(Movement.class).speed * 3) nearCollision = true;
 		}
 
 		//Если максимальная близость к точке столкновения, то действуем как обычный объект
@@ -81,10 +81,10 @@ public class CollisionDirect extends Collision {
 	private void separationCollisions(){
 		for(int i = start; i< Global.location.objects.size(); i++){//Цикл перебора объектов в комнате
 			Obj objFromRoom = Global.location.objects.get(i);
-			if (objFromRoom != null && objFromRoom.collision != null){//Если объект не был уничтожен и у него есть маска
+			if (objFromRoom != null && objFromRoom.hasComponent(Collision.class)){//Если объект не был уничтожен и у него есть маска
 				for (Class collisionObject : collisionObjects) {//Цикл перебора объектов с которыми надо проверять столкновения
 					if (objFromRoom.getClass().equals(collisionObject)) {//Если с объектом из комнаты надо проверять столкновения
-						if (objFromRoom.movement != null) dynamicId.add(i);//Если объект из комнаты динамичен
+						if (objFromRoom.hasComponent(Movement.class)) dynamicId.add(i);//Если объект из комнаты динамичен
 						else checkCollisionDirect(objFromRoom);//Если объект из комнаты статичен
 					}
 				}
@@ -96,13 +96,13 @@ public class CollisionDirect extends Collision {
 
 	//Расчёт столкновения прямолинейно перемещающегося объекта с статичным объектом obj
 	private void checkCollisionDirect(Obj obj){
-		double startX = getObj().position.x;
-		double startY = getObj().position.y;
-		double directionDraw = getObj().position.getDirectionDraw();
+		double startX = getObj().getComponent(Position.class).x;
+		double startY = getObj().getComponent(Position.class).y;
+		double directionDraw = getObj().getComponent(Position.class).getDirectionDraw();
 
 		double gipMe = Math.sqrt(sqr(getMask().getWidth()) + sqr(getMask().getHeight())); //Гипотенуза объекта
-		double gipOther = Math.sqrt(sqr(obj.collision.getMask().getWidth()) + sqr(obj.collision.getMask().getHeight())); //Гипотинуза объекта, с которым сравниваем
-		double disMeToOther = Math.sqrt(sqr(startX-obj.position.x) + sqr(startY-obj.position.y)); //Расстояние от центра до центра
+		double gipOther = Math.sqrt(sqr(obj.getComponent(Collision.class).getMask().getWidth()) + sqr(obj.getComponent(Collision.class).getMask().getHeight())); //Гипотинуза объекта, с которым сравниваем
+		double disMeToOther = Math.sqrt(sqr(startX-obj.getComponent(Position.class).x) + sqr(startY-obj.getComponent(Position.class).y)); //Расстояние от центра до центра
 		
 		if (disMeToOther < gipOther/2+gipMe/2+30){//Если объект находится близко к другому объекту
 			nearCollision = true ;//В дальнейшем обрабатываем как обычный объект
@@ -113,8 +113,8 @@ public class CollisionDirect extends Collision {
 			}
 			k = Math.tan(Math.toRadians(directionDraw));
 			b = -(startY+k*startX);
-			x0 = obj.position.x;
-			y0 = -obj.position.y;
+			x0 = obj.getComponent(Position.class).x;
+			y0 = -obj.getComponent(Position.class).y;
 			r = gipOther/2;
 			
 			double aSqr, bSqr, cSqr, D;//Дискрименант и члены квадратного уровнения

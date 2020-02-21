@@ -2,6 +2,8 @@ package tow.engine.map;
 
 import tow.engine.Vector2;
 import tow.engine.obj.Obj;
+import tow.engine.obj.components.Movement;
+import tow.engine.obj.components.Position;
 
 import java.util.ArrayList;
 
@@ -22,11 +24,11 @@ public class DepthVector {
 	}
 
 	public void add(Obj obj){
-		getChunk((int) obj.position.x, (int) obj.position.y).add(obj.position.id);
+		getChunk((int) obj.getComponent(Position.class).x, (int) obj.getComponent(Position.class).y).add(obj.getComponent(Position.class).id);
 	}
 
 	public void del(Obj obj){
-		getChunk((int) obj.position.x, (int) obj.position.y).del(obj.position.id);
+		getChunk((int) obj.getComponent(Position.class).x, (int) obj.getComponent(Position.class).y).del(obj.getComponent(Position.class).id);
 	}
 
 	public int getDepth(){
@@ -35,14 +37,14 @@ public class DepthVector {
 
 	//Обновление объекта при перемещение из чанка в чанк
 	public void update(Obj obj){
-		if (obj.movement == null) return;
+		if (!obj.hasComponent(Movement.class)) return;
 
-		Chunk chunkNow = getChunk((int) obj.position.x,(int) obj.position.y);
-		Chunk chunkLast = getChunk((int) obj.movement.getXPrevious(),(int) obj.movement.getYPrevious());
+		Chunk chunkNow = getChunk((int) obj.getComponent(Position.class).x,(int) obj.getComponent(Position.class).y);
+		Chunk chunkLast = getChunk((int) obj.getComponent(Movement.class).getXPrevious(),(int) obj.getComponent(Movement.class).getYPrevious());
 
 		if (!chunkLast.equals(chunkNow)){
-			chunkLast.del(obj.position.id);
-			chunkNow.add(obj.position.id);
+			chunkLast.del(obj.getComponent(Position.class).id);
+			chunkNow.add(obj.getComponent(Position.class).id);
 		}
 	}
 

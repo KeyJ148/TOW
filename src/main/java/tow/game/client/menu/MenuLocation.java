@@ -6,7 +6,9 @@ import tow.engine.image.Color;
 import tow.engine.map.Background;
 import tow.engine.map.Location;
 import tow.engine.obj.Obj;
+import tow.engine.obj.ObjFactory;
 import tow.engine.obj.components.render.GUIElement;
+import tow.engine.obj.components.render.Rendering;
 
 public class MenuLocation extends Location {
 
@@ -21,14 +23,14 @@ public class MenuLocation extends Location {
     }
 
     public void createComponent(Component component){
-        Obj obj = new Obj(component.getPosition().x, component.getPosition().y, 0);
+        Obj obj = ObjFactory.create(component.getPosition().x, component.getPosition().y, 0);
         objAdd(obj);
-        obj.rendering = new GUIElement(obj, component, (int) component.getSize().x, (int) component.getSize().y);
+        obj.setComponent(new GUIElement(component, (int) component.getSize().x, (int) component.getSize().y));
     }
 
     public void createComponent(Component component, int x, int y, int width, int height){
-        Obj obj = new Obj(x, y, 0);
+        Obj obj = ObjFactory.create(x, y, 0);
         objAdd(obj);
-        obj.rendering = new GUIElement(obj, component, width, height);
+        obj.setComponent(new GUIElement(component, width, height));
     }
 }

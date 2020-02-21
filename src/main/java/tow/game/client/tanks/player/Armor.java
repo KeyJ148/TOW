@@ -9,6 +9,7 @@ import tow.engine.obj.components.Follower;
 import tow.engine.obj.components.Movement;
 import tow.engine.obj.components.Position;
 import tow.engine.obj.components.render.Animation;
+import tow.engine.obj.components.render.Rendering;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.map.Box;
 import tow.game.client.map.Wall;
@@ -36,17 +37,17 @@ public class Armor extends Obj{
 
 		loadData();
 
-		position = new Position(this, x, y, textureHandlers[0].depth, direction);
-		rendering = new Animation(this, textureHandlers);
-		movement = new Movement(this);
-		movement.setDirection(direction);
-		movement.update(0);
+		setComponent(new Position(x, y, textureHandlers[0].depth, direction));
+		setComponent(new Animation(textureHandlers));
+		setComponent(new Movement());
+		getComponent(Movement.class).setDirection(direction);
+		getComponent(Movement.class).update(0);
 
-		collision = new Collision(this, textureHandlers[0].mask);
-		collision.addCollisionObjects(new Class[] {Wall.class, EnemyArmor.class, Box.class, Border.class});
-		collision.addListener(player.controller);
+		setComponent(new Collision(textureHandlers[0].mask));
+		getComponent(Collision.class).addCollisionObjects(new Class[] {Wall.class, EnemyArmor.class, Box.class, Border.class});
+		getComponent(Collision.class).addListener(player.controller);
 
-		if (player.gun != null) player.gun.follower = new Follower(player.gun, this, false);
+		if (player.gun != null) player.gun.setComponent(new Follower(this, false));
 	}
 
 	@Override
@@ -57,11 +58,11 @@ public class Armor extends Obj{
 		if (!player.alive) return;
 		
 		//Для анимации гусениц
-		Animation animation = (Animation) rendering;
-		if (movement.speed != 0 && animation.getFrameSpeed() == 0){
+		Animation animation = (Animation) getComponent(Rendering.class);
+		if (getComponent(Movement.class).speed != 0 && animation.getFrameSpeed() == 0){
 			animation.setFrameSpeed(animSpeed);
 		}
-		if (movement.speed == 0 && animation.getFrameSpeed() != 0){
+		if (getComponent(Movement.class).speed == 0 && animation.getFrameSpeed() != 0){
 			animation.setFrameSpeed(0);
 		}
 	}

@@ -131,6 +131,11 @@ public class NetGameRead implements NetGameReadInterface {
 		Global.location.objAdd(ClientData.player);
 		Global.location.camera.setFollowObject(ClientData.player.camera);
 
+		//Заполнение таблицы врагов (в соответствтие с id)
+		for (int id = 0; id < ClientData.peopleMax; id++) {
+			if (id != ClientData.myIdFromServer) ClientData.enemy.put(id, new Enemy(ClientData.enemy.get(id)));
+		}
+
 		//Добавляем на карту врагов
 		for (Map.Entry<Integer, Enemy> entry : ClientData.enemy.entrySet()){
 			Global.location.objAdd(entry.getValue());

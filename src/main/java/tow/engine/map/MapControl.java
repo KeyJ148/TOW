@@ -2,6 +2,7 @@ package tow.engine.map;
 
 import tow.engine.Global;
 import tow.engine.obj.Obj;
+import tow.engine.obj.components.Position;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class MapControl {
 	}
 
 	public void add(Obj obj){
-		int depth = obj.position.depth;
+		int depth = obj.getComponent(Position.class).depth;
 
 		boolean find = false;
 		for (int i=0; i<depthVectors.size(); i++){
@@ -51,7 +52,7 @@ public class MapControl {
 
 	public void del(int id){
 		Obj obj = Global.location.objects.get(id);
-		int depth = obj.position.depth;
+		int depth = obj.getComponent(Position.class).depth;
 
 		DepthVector dv;
 		for (int i=0; i<depthVectors.size(); i++){
@@ -69,7 +70,7 @@ public class MapControl {
 
 	public void update(Obj obj){
 		for (int i=0; i<depthVectors.size(); i++){
-			if (depthVectors.get(i).getDepth() == obj.position.depth){
+			if (depthVectors.get(i).getDepth() == obj.getComponent(Position.class).depth){
 				depthVectors.get(i).update(obj);
 				break;
 			}

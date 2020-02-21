@@ -1,6 +1,7 @@
 package tow.engine.obj.components;
 
 import tow.engine.Global;
+import tow.engine.obj.Component;
 import tow.engine.obj.Obj;
 
 public class Movement extends Component {
@@ -13,27 +14,26 @@ public class Movement extends Component {
 
     public boolean directionDrawEquals = true;//Угол обзора объекта равен углу поворота
 
-    public Movement(Obj obj){
-        this(obj, 0, 90);
+    public Movement(){
+        this(0, 90);
     }
 
-    public Movement(Obj obj, double speed, double direction) {
-        super(obj);
+    public Movement(double speed, double direction) {
         this.speed = speed;
         setDirection(direction);
     }
 
     @Override
     public void update(long delta){
-        xPrevious = getObj().position.x;
-        yPrevious = getObj().position.y;
+        xPrevious = getObj().getComponent(Position.class).x;
+        yPrevious = getObj().getComponent(Position.class).y;
         directionPrevious = direction;
 
-        getObj().position.x = getObj().position.x + speed * Math.cos(Math.toRadians(direction)) * ((double) delta/1000000000);
-        getObj().position.y = getObj().position.y - speed * Math.sin(Math.toRadians(direction)) * ((double) delta/1000000000);
+        getObj().getComponent(Position.class).x = getObj().getComponent(Position.class).x + speed * Math.cos(Math.toRadians(direction)) * ((double) delta/1000000000);
+        getObj().getComponent(Position.class).y = getObj().getComponent(Position.class).y - speed * Math.sin(Math.toRadians(direction)) * ((double) delta/1000000000);
         Global.location.mapControl.update(getObj());
 
-        if (directionDrawEquals) getObj().position.setDirectionDraw(direction);
+        if (directionDrawEquals) getObj().getComponent(Position.class).setDirectionDraw(direction);
     }
 
     public double getDirection(){
@@ -62,5 +62,10 @@ public class Movement extends Component {
 
     public double getYPrevious() {
         return yPrevious;
+    }
+
+    @Override
+    public Class getComponentClass() {
+        return Movement.class;
     }
 }
