@@ -5,6 +5,7 @@ import tow.engine.image.TextureManager;
 import tow.engine.map.Border;
 import tow.engine.obj.Obj;
 import tow.engine.obj.components.Collision;
+import tow.engine.obj.components.Follower;
 import tow.engine.obj.components.Movement;
 import tow.engine.obj.components.Position;
 import tow.engine.obj.components.render.Animation;
@@ -44,6 +45,8 @@ public class Armor extends Obj{
 		collision = new Collision(this, textureHandlers[0].mask);
 		collision.addCollisionObjects(new Class[] {Wall.class, EnemyArmor.class, Box.class, Border.class});
 		collision.addListener(player.controller);
+
+		if (player.gun != null) player.gun.follower = new Follower(player.gun, this, false);
 	}
 
 	@Override
@@ -52,10 +55,6 @@ public class Armor extends Obj{
 
 		//Если мы мертвы, то ничего не делать
 		if (!player.alive) return;
-
-		//Чтобы остальные чатси не отставали
-		player.followToArmor(player.gun);
-		player.followToArmor(player.camera);
 		
 		//Для анимации гусениц
 		Animation animation = (Animation) rendering;

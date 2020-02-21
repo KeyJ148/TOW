@@ -3,6 +3,7 @@ package tow.game.client.tanks.player;
 import org.liquidengine.legui.component.Label;
 import tow.engine.Global;
 import tow.engine.obj.Obj;
+import tow.engine.obj.components.Follower;
 import tow.engine.obj.components.Position;
 import tow.engine.obj.components.render.Animation;
 import tow.engine.obj.components.render.GUIElement;
@@ -65,6 +66,10 @@ public class Player extends Tank {
         name = ClientData.name;
         setColor(color);
 
+        follower = new Follower(this, armor);
+        gun.follower = new Follower(gun, armor, false); //TODO: gun.follower дублируется в 3-х местах
+        camera.follower = new Follower(camera, armor);
+
         hpLabel = new Obj(1, 10, 0);
         hpLabel.position.absolute = false;
         Global.location.objAdd(hpLabel);
@@ -91,7 +96,6 @@ public class Player extends Tank {
 
         //Обновление параметров
         updateStats();
-        followToArmor(this);
 
         //Обновление вампирского сета
         vampire -= GameSetting.VAMPIRE_DOWN_FROM_SEC * ((double) delta/1000000000);

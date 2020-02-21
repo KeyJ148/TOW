@@ -17,13 +17,4 @@ public class EnemyArmor extends Obj {
 		movement.directionDrawEquals = false;
 		collision = new Collision(this, textureHandler[0].mask);
 	}
-
-	@Override
-	public void update(long delta){
-		super.update(delta);
-
-		enemy.followToArmor(enemy.gun);
-		enemy.followToArmor(enemy.camera);
-	}
-	
 }

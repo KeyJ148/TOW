@@ -4,6 +4,7 @@ import tow.engine.Global;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
 import tow.engine.obj.Obj;
+import tow.engine.obj.components.Follower;
 import tow.engine.obj.components.Movement;
 import tow.engine.obj.components.Position;
 import tow.engine.obj.components.render.Animation;
@@ -51,6 +52,8 @@ public class Enemy extends Tank {
             armor = new EnemyArmor(x, y, direction, armorAnimation, this);
             Global.location.objAdd(armor);
             setColorArmor(color);
+
+            follower = new Follower(this, armor);
         }
 
         //Инициализация пушки
@@ -59,6 +62,7 @@ public class Enemy extends Tank {
             gun = new Obj(x, y, directionGun, gunTexture);
             gun.movement = new Movement(gun);
             gun.movement.directionDrawEquals = false;
+            gun.follower = new Follower(gun, armor, false);
             Global.location.objAdd(gun);
             setColorGun(color);
         }
@@ -66,17 +70,14 @@ public class Enemy extends Tank {
         //Инициализация камеры
         if (camera == null){
             initCamera();
+            camera.follower = new Follower(camera, armor);
         }
 
         armor.position.x = x;
         armor.position.y = y;
         armor.position.setDirectionDraw(direction);
 
-        followToArmor(gun);
         gun.position.setDirectionDraw(directionGun);
-
-        //Для верных координат источника звука при взрыве
-        followToArmor(this);
 
         //Для интерполяции (предсказания) движения врага
         armor.movement.speed = speed;

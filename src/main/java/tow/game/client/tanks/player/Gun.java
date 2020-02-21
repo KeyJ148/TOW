@@ -5,6 +5,7 @@ import tow.engine.Vector2;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
 import tow.engine.obj.Obj;
+import tow.engine.obj.components.Follower;
 import tow.engine.obj.components.Movement;
 import tow.engine.obj.components.Position;
 import tow.engine.obj.components.render.Sprite;
@@ -37,6 +38,8 @@ public class Gun extends Obj {
 
 		movement = new Movement(this);
 		movement.directionDrawEquals = false;
+
+		follower = new Follower(this, player.armor, false);
 	}
 
 	@Override

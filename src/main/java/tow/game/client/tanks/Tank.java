@@ -3,6 +3,7 @@ package tow.game.client.tanks;
 import org.liquidengine.legui.component.Label;
 import tow.engine.Global;
 import tow.engine.obj.Obj;
+import tow.engine.obj.components.Follower;
 import tow.engine.obj.components.render.Animation;
 import tow.engine.obj.components.render.GUIElement;
 import tow.game.client.ClientData;
@@ -122,14 +123,5 @@ public abstract class Tank extends Obj{
     public void setColorGun(Color c){
         if (gun == null || gun.rendering == null) return;
         gun.rendering.color = c;
-    }
-
-    public void followToArmor(Obj obj){
-        if (armor == null || armor.position == null || obj == null || obj.position == null) return;
-
-        obj.position.x = armor.position.x;
-        obj.position.y = armor.position.y;
-
-        Global.location.mapControl.update(obj);
     }
 }
