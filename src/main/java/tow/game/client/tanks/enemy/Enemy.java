@@ -69,6 +69,7 @@ public class Enemy extends Tank {
             setColorArmor(color);
 
             setComponent(new Follower(armor));
+            camera.setComponent(new Follower(armor));
         }
 
         //Инициализация пушки
