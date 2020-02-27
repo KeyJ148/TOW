@@ -6,6 +6,7 @@ import tow.engine.image.TextureManager;
 import tow.engine.implementation.GameInterface;
 import tow.game.client.menu.MainMenuLocation;
 
+import java.util.Map;
 import java.util.Random;
 
 public class Game implements GameInterface {
@@ -16,7 +17,7 @@ public class Game implements GameInterface {
 
         //new LoginWindow();
 
-		ClientData.name = "Key_J";
+		ClientData.name = "Nick";
 		Random rand = new Random();
 		ClientData.color = new Color(rand.nextInt(150)+100, rand.nextInt(150)+100, rand.nextInt(150)+100);
 		//ServerLoader.mapPath = "maps/town100k.maptest";
@@ -29,7 +30,7 @@ public class Game implements GameInterface {
 	}
 
 	@Override
-	public void update(long delta){}
+	public void update(long delta){ }
 
 	@Override
 	public void render(){ }
