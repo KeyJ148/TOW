@@ -29,7 +29,7 @@ public abstract class Tank extends Obj{
     public Obj camera;
     public Obj nickname;
 
-    public String name = "";
+    public String name;
     public Color color = Color.WHITE;
     public boolean alive = true;
 
@@ -40,6 +40,7 @@ public abstract class Tank extends Obj{
     public Tank(){
         super(Arrays.asList(new Position(0, 0, 0)));
 
+        name = "";
         initCamera();
     }
 
@@ -104,7 +105,9 @@ public abstract class Tank extends Obj{
         armor.destroy();
         armor = newArmor;
         Global.location.objAdd(newArmor);
+
         setColorArmor(color);
+        camera.setComponent(new Follower(armor));
     }
 
     public void replaceGun(Obj newGun){
