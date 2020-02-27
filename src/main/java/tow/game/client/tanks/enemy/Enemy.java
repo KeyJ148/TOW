@@ -36,7 +36,7 @@ public class Enemy extends Tank {
         this.timeLastRequestDelta = enemy.timeLastRequestDelta;
         this.lastNumberPackage = enemy.lastNumberPackage;
         this.color = enemy.color;
-        this.nickname = enemy.nickname;
+        this.name = enemy.name;
         this.kill = enemy.kill;
         this.death = enemy.death;
         this.win = enemy.win;
