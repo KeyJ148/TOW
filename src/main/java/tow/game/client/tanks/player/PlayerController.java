@@ -49,7 +49,6 @@ public class PlayerController extends Obj implements Collision.CollisionListener
          * Смотрим на все зажатые клавиши
          */
 
-        //TODO: не всегда срабатывает
         if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_ESCAPE)) Loader.exit();
 
         //TODO:

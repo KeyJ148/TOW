@@ -45,10 +45,7 @@ public class Collision extends QueueComponent {
 	}
 
 	@Override
-	protected void drawComponent() { }
-
-	@Override
-	public void draw(){
+	protected void drawComponent() {
 		if (!SettingsStorage.LOGGER.MASK_DRAW) return;
 
 		Vector2<Integer>[] maskDrawView = new Vector2[maskAbsolute.length];
@@ -60,8 +57,8 @@ public class Collision extends QueueComponent {
 
 		GL11.glBegin(GL11.GL_LINE_LOOP);
 		for (int i=0; i<maskDrawView.length;i++) {
-            GL11.glVertex2f(maskDrawView[i].x, maskDrawView[i].y);
-        }
+			GL11.glVertex2f(maskDrawView[i].x, maskDrawView[i].y);
+		}
 		GL11.glEnd();
 	}
 
@@ -219,7 +216,7 @@ public class Collision extends QueueComponent {
 
 	@Override
 	public List<Class<? extends QueueComponent>> getComponentsDrawPreviously() {
-		return Arrays.asList();
+		return Arrays.asList(Rendering.class);
 	}
 
 }
