@@ -1,13 +1,13 @@
-package tow.engine.obj.components;
+package tow.engine.gameobject.components;
 
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.Mask;
-import tow.engine.obj.GameObject;
+import tow.engine.gameobject.GameObject;
 import org.lwjgl.opengl.GL11;
 import tow.engine.image.Color;
-import tow.engine.obj.QueueComponent;
-import tow.engine.obj.components.render.Rendering;
+import tow.engine.gameobject.QueueComponent;
+import tow.engine.gameobject.components.render.Rendering;
 import tow.engine.resources.settings.SettingsStorage;
 
 import java.awt.Polygon;

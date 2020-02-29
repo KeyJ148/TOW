@@ -1,10 +1,10 @@
-package tow.engine.obj.components;
+package tow.engine.gameobject.components;
 
 import org.lwjgl.opengl.GL11;
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.Mask;
-import tow.engine.obj.GameObject;
+import tow.engine.gameobject.GameObject;
 import tow.engine.image.Color;
 import tow.engine.resources.settings.SettingsStorage;
 

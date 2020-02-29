@@ -1,7 +1,7 @@
 package tow.engine.map;
 
 import tow.engine.Global;
-import tow.engine.obj.GameObject;
+import tow.engine.gameobject.GameObject;
 
 import java.util.ArrayList;
 

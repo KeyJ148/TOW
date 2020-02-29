@@ -1,4 +1,4 @@
-package tow.engine.obj;
+package tow.engine.gameobject;
 
 import java.util.List;
 

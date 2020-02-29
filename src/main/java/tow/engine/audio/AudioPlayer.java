@@ -5,7 +5,7 @@ import org.lwjgl.openal.ALC;
 import org.lwjgl.openal.ALCCapabilities;
 import org.lwjgl.openal.ALCapabilities;
 import tow.engine.Global;
-import tow.engine.obj.components.Position;
+import tow.engine.gameobject.components.Position;
 import tow.engine.resources.audios.Audio;
 import tow.engine.resources.settings.SettingsStorage;
 import tow.engine.map.Camera;

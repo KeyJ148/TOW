@@ -3,12 +3,12 @@ package tow.game.client.tanks.enemy;
 import tow.engine.Global;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
-import tow.engine.obj.GameObject;
-import tow.engine.obj.ObjFactory;
-import tow.engine.obj.components.Movement;
-import tow.engine.obj.components.Position;
-import tow.engine.obj.components.particles.Particles;
-import tow.engine.obj.components.render.Sprite;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.ObjFactory;
+import tow.engine.gameobject.components.Movement;
+import tow.engine.gameobject.components.Position;
+import tow.engine.gameobject.components.particles.Particles;
+import tow.engine.gameobject.components.render.Sprite;
 import tow.game.client.particles.Explosion;
 
 import java.util.Arrays;

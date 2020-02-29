@@ -1,9 +1,9 @@
 package tow.engine.map;
 
 import tow.engine.image.Mask;
-import tow.engine.obj.GameObject;
-import tow.engine.obj.components.Collision;
-import tow.engine.obj.components.Position;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.components.Collision;
+import tow.engine.gameobject.components.Position;
 
 public class Border extends GameObject {
 	

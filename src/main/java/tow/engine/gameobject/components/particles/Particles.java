@@ -1,7 +1,7 @@
-package tow.engine.obj.components.particles;
+package tow.engine.gameobject.components.particles;
 
-import tow.engine.obj.QueueComponent;
-import tow.engine.obj.components.render.Rendering;
+import tow.engine.gameobject.QueueComponent;
+import tow.engine.gameobject.components.render.Rendering;
 
 import java.util.*;
 

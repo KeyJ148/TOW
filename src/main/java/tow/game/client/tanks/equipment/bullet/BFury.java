@@ -1,6 +1,6 @@
 package tow.game.client.tanks.equipment.bullet;
 
-import tow.engine.obj.components.Movement;
+import tow.engine.gameobject.components.Movement;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.tanks.player.Bullet;
 

@@ -1,4 +1,4 @@
-package tow.engine.obj.components.particles;
+package tow.engine.gameobject.components.particles;
 
 import tow.engine.image.TextureHandler;
 import tow.engine.image.Color;

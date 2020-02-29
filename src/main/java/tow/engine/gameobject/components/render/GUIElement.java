@@ -1,10 +1,10 @@
-package tow.engine.obj.components.render;
+package tow.engine.gameobject.components.render;
 
 import org.joml.Vector2f;
 import org.liquidengine.legui.component.Component;
 import tow.engine.Vector2;
-import tow.engine.obj.GameObject;
-import tow.engine.obj.components.Position;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.components.Position;
 
 public class GUIElement extends Rendering {
 

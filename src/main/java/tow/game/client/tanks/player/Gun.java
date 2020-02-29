@@ -4,11 +4,11 @@ import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
-import tow.engine.obj.GameObject;
-import tow.engine.obj.components.Follower;
-import tow.engine.obj.components.Movement;
-import tow.engine.obj.components.Position;
-import tow.engine.obj.components.render.Sprite;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.components.Follower;
+import tow.engine.gameobject.components.Movement;
+import tow.engine.gameobject.components.Position;
+import tow.engine.gameobject.components.render.Sprite;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.tanks.Effect;
 

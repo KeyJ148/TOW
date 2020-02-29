@@ -1,9 +1,9 @@
-package tow.engine.obj;
+package tow.engine.gameobject;
 
 import tow.engine.image.TextureHandler;
-import tow.engine.obj.components.Position;
-import tow.engine.obj.components.render.Animation;
-import tow.engine.obj.components.render.Sprite;
+import tow.engine.gameobject.components.Position;
+import tow.engine.gameobject.components.render.Animation;
+import tow.engine.gameobject.components.render.Sprite;
 
 import java.util.Arrays;
 

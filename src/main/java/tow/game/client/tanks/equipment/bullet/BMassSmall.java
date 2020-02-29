@@ -1,8 +1,8 @@
 package tow.game.client.tanks.equipment.bullet;
 
-import tow.engine.obj.GameObject;
-import tow.engine.obj.components.Collision;
-import tow.engine.obj.components.Movement;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.components.Collision;
+import tow.engine.gameobject.components.Movement;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.tanks.equipment.armor.ADefault;
 import tow.game.client.tanks.equipment.armor.AFury;

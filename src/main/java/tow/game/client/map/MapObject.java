@@ -1,9 +1,9 @@
 package tow.game.client.map;
 
 import tow.engine.image.TextureHandler;
-import tow.engine.obj.GameObject;
-import tow.engine.obj.components.Position;
-import tow.engine.obj.components.render.Sprite;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.components.Position;
+import tow.engine.gameobject.components.render.Sprite;
 
 import java.util.Arrays;
 

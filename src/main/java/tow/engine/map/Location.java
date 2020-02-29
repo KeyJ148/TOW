@@ -5,8 +5,8 @@ import org.liquidengine.legui.component.Frame;
 import tow.engine.Global;
 import tow.engine.input.keyboard.KeyboardHandler;
 import tow.engine.input.mouse.MouseHandler;
-import tow.engine.obj.GameObject;
-import tow.engine.obj.components.Position;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.components.Position;
 
 import java.util.Vector;
 

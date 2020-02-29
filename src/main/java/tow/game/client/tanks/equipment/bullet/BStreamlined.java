@@ -1,7 +1,7 @@
 package tow.game.client.tanks.equipment.bullet;
 
-import tow.engine.obj.components.Movement;
-import tow.engine.obj.components.Position;
+import tow.engine.gameobject.components.Movement;
+import tow.engine.gameobject.components.Position;
 import tow.game.client.tanks.player.Bullet;
 import tow.game.client.tanks.player.Player;
 

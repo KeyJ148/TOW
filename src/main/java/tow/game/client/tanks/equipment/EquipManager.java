@@ -3,7 +3,7 @@ package tow.game.client.tanks.equipment;
 import tow.engine.Global;
 import tow.engine.logger.Logger;
 import tow.engine.Loader;
-import tow.engine.obj.components.Position;
+import tow.engine.gameobject.components.Position;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.tanks.player.Armor;
 import tow.game.client.tanks.player.Bullet;

@@ -1,8 +1,8 @@
-package tow.engine.obj.components;
+package tow.engine.gameobject.components;
 
 import tow.engine.Global;
-import tow.engine.obj.GameObject;
-import tow.engine.obj.QueueComponent;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.QueueComponent;
 
 import java.util.Arrays;
 import java.util.List;

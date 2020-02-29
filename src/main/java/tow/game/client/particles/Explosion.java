@@ -1,10 +1,10 @@
 package tow.game.client.particles;
 
 import tow.engine.image.TextureManager;
-import tow.engine.obj.GameObject;
-import tow.engine.obj.components.Position;
-import tow.engine.obj.components.particles.Part;
-import tow.engine.obj.components.particles.ParticlesTexture;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.components.Position;
+import tow.engine.gameobject.components.particles.Part;
+import tow.engine.gameobject.components.particles.ParticlesTexture;
 
 import tow.engine.image.Color;
 

@@ -1,8 +1,8 @@
 package tow.engine.map;
 
 import tow.engine.Global;
-import tow.engine.obj.GameObject;
-import tow.engine.obj.components.Position;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.components.Position;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
-package tow.engine.obj.components.render;
+package tow.engine.gameobject.components.render;
 
 import tow.engine.image.Color;
-import tow.engine.obj.QueueComponent;
+import tow.engine.gameobject.QueueComponent;
 
 import java.util.Arrays;
 import java.util.List;

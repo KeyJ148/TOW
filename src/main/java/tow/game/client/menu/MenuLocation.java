@@ -5,9 +5,9 @@ import tow.engine.Global;
 import tow.engine.image.Color;
 import tow.engine.map.Background;
 import tow.engine.map.Location;
-import tow.engine.obj.GameObject;
-import tow.engine.obj.ObjFactory;
-import tow.engine.obj.components.render.GUIElement;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.ObjFactory;
+import tow.engine.gameobject.components.render.GUIElement;
 
 public class MenuLocation extends Location {
 

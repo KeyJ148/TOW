@@ -1,7 +1,7 @@
-package tow.engine.obj.components.render;
+package tow.engine.gameobject.components.render;
 
 import tow.engine.Vector2;
-import tow.engine.obj.components.Position;
+import tow.engine.gameobject.components.Position;
 import tow.engine.resources.textures.Texture;
 import tow.engine.image.TextureHandler;
 import org.lwjgl.opengl.GL11;

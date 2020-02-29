@@ -1,11 +1,11 @@
 package tow.game.client.tanks.enemy;
 
 import tow.engine.image.TextureHandler;
-import tow.engine.obj.GameObject;
-import tow.engine.obj.components.Collision;
-import tow.engine.obj.components.Movement;
-import tow.engine.obj.components.Position;
-import tow.engine.obj.components.render.Animation;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.components.Collision;
+import tow.engine.gameobject.components.Movement;
+import tow.engine.gameobject.components.Position;
+import tow.engine.gameobject.components.render.Animation;
 
 import java.util.Arrays;
 
