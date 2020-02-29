@@ -18,9 +18,7 @@ public abstract class Particles extends Component {
     public boolean destroyObject = false;//Удалить объект использующий эту систему частиц после окончания системы частиц
 
     @Override
-    public void update(long delta){
-        super.update(delta);
-
+    public void updateComponent(long delta){
         Iterator<Part> iterator = parts.iterator();
         while(iterator.hasNext()){
             Part part = iterator.next();

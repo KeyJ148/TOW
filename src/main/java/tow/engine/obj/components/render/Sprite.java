@@ -16,6 +16,9 @@ public class Sprite extends Rendering {
     }
 
     @Override
+    public void updateComponent(long delta){ }
+
+    @Override
     public void draw() {
         Vector2<Integer> relativePosition = getObj().getComponent(Position.class).getRelativePosition();
         double xView = relativePosition.x;

@@ -22,9 +22,7 @@ public class Follower extends Component {
     }
 
     @Override
-    public void update(long delta){
-        super.update(delta);
-
+    public void updateComponent(long delta){
         if (followUpObj.hasComponent(Follower.class) && !followUpObj.getComponent(Follower.class).isUpdated()) followUpObj.getComponent(Follower.class).update(delta);
 
         getObj().getComponent(Position.class).x = followUpObj.getComponent(Position.class).x;

@@ -37,6 +37,10 @@ public class Obj {
 
 	public void update(long delta){
 		for (Component component : components.values()){
+			component.setNoUpdated();
+		}
+
+		for (Component component : components.values()){
 			if (!isDestroy()) component.update(delta);
 			else component.destroy();
 		}

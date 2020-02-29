@@ -20,16 +20,17 @@ public abstract class Component {
         updatedInThisStep = false;
     }
 
-    public void update(long time){
+    public void update(long delta){
         if (updatedInThisStep) return;
 
         for(Class<? extends Component> componentClass : getComponentsExecutePreviously()){
             if (getObj().hasComponent(componentClass)){
                 Component needUpdateComponent = getObj().getComponent(componentClass);
-                needUpdateComponent.update(time);
+                needUpdateComponent.update(delta);
             }
         }
 
+        updateComponent(delta);
         updatedInThisStep = true;
     }
 
@@ -41,6 +42,7 @@ public abstract class Component {
 
     }
 
+    protected abstract void updateComponent(long delta);
 
     public abstract Class getComponentClass();
     public abstract List<Class<? extends Component>> getComponentsExecutePreviously();

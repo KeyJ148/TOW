@@ -32,6 +32,9 @@ public class Position extends Component {
     }
 
     @Override
+    public void updateComponent(long delta){ }
+
+    @Override
     public void destroy() {
         location.objDel(id);
     }

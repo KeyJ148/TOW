@@ -27,9 +27,7 @@ public class Movement extends Component {
     }
 
     @Override
-    public void update(long delta){
-        super.update(delta);
-
+    public void updateComponent(long delta){
         xPrevious = getObj().getComponent(Position.class).x;
         yPrevious = getObj().getComponent(Position.class).y;
         directionPrevious = direction;

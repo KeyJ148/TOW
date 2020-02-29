@@ -37,9 +37,7 @@ public class Collision extends Component {
 	}
 
 	@Override
-	public void update(long delta){
-		super.update(delta);
-
+	public void updateComponent(long delta){
 		calcInThisStep = false;
 		if (getObj().hasComponent(Movement.class)) calc();
 		checkCollisionFromRoom();

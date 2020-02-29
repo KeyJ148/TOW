@@ -31,9 +31,7 @@ public class GUIElement extends Rendering {
     }
 
     @Override
-    public void update(long delta) {
-        super.update(delta);
-
+    public void updateComponent(long delta) {
         Vector2<Integer> relativePosition = getObj().getComponent(Position.class).getRelativePosition();
         float xView = relativePosition.x - getWidth()/2;
         float yView = relativePosition.y - getHeight()/2;
