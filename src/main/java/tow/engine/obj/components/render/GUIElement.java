@@ -3,7 +3,7 @@ package tow.engine.obj.components.render;
 import org.joml.Vector2f;
 import org.liquidengine.legui.component.Component;
 import tow.engine.Vector2;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.components.Position;
 
 public class GUIElement extends Rendering {
@@ -21,9 +21,9 @@ public class GUIElement extends Rendering {
     }
 
     @Override
-    public void addToObj(Obj obj){
-        super.addToObj(obj);
-        getObj().getComponent(Position.class).location.addGUIComponent(component);
+    public void addToGameObject(GameObject gameObject){
+        super.addToGameObject(gameObject);
+        getGameObject().getComponent(Position.class).location.addGUIComponent(component);
     }
 
     @Override
@@ -35,13 +35,13 @@ public class GUIElement extends Rendering {
 
     @Override
     public void updateComponent(long delta) {
-        Vector2<Integer> relativePosition = getObj().getComponent(Position.class).getRelativePosition();
+        Vector2<Integer> relativePosition = getGameObject().getComponent(Position.class).getRelativePosition();
         float xView = relativePosition.x - getWidth()/2;
         float yView = relativePosition.y - getHeight()/2;
 
         component.setPosition(xView, yView);
 
-        if (getObj().isDestroy()) getObj().getComponent(Position.class).location.removeGUIComponent(component);
+        if (getGameObject().isDestroy()) getGameObject().getComponent(Position.class).location.removeGUIComponent(component);
     }
 
     @Override

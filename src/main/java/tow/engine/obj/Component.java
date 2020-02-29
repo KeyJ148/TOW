@@ -2,15 +2,15 @@ package tow.engine.obj;
 
 public abstract class Component {
 
-    private Obj obj;
+    private GameObject gameObject;
 
-    protected void addToObj(Obj obj){
-        if (this.obj == null) this.obj = obj;
-        else throw new IllegalArgumentException("Component already have Obj");
+    protected void addToGameObject(GameObject gameObject){
+        if (this.gameObject == null) this.gameObject = gameObject;
+        else throw new IllegalArgumentException("Component already added to GameObject");
     }
 
-    public Obj getObj(){
-        return obj;
+    public GameObject getGameObject(){
+        return gameObject;
     }
 
     public abstract void update(long delta);

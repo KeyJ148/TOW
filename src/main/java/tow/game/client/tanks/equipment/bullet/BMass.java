@@ -3,7 +3,7 @@ package tow.game.client.tanks.equipment.bullet;
 import tow.engine.Global;
 import tow.engine.logger.Logger;
 import tow.engine.Loader;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.components.Movement;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.map.Wall;
@@ -19,10 +19,10 @@ public class BMass extends Bullet {
     public String configName;
 
     @Override
-    public void collision(Obj obj){
+    public void collision(GameObject gameObject){
         if (isDestroy()) return;
 
-        if (obj.getClass().equals(Wall.class) || obj.getClass().equals(EnemyArmor.class)) {
+        if (gameObject.getClass().equals(Wall.class) || gameObject.getClass().equals(EnemyArmor.class)) {
             Random random = new Random();
             int count = minFragmentNumber + random.nextInt(maxFragmentNumber - minFragmentNumber + 1);
 
@@ -52,7 +52,7 @@ public class BMass extends Bullet {
 
         //Обработка столкновения родителя
         //Обязательно в конце, иначе сразу выйдет из метода, т.к. destroy = true
-        super.collision(obj);
+        super.collision(gameObject);
     }
 
     @Override

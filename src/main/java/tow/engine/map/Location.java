@@ -5,7 +5,7 @@ import org.liquidengine.legui.component.Frame;
 import tow.engine.Global;
 import tow.engine.input.keyboard.KeyboardHandler;
 import tow.engine.input.mouse.MouseHandler;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.components.Position;
 
 import java.util.Vector;
@@ -17,7 +17,7 @@ public class Location {
 	public Camera camera = new Camera(); //Положение камеры в этой локации
 
 	//TODO: Сделать приватными и immutable getter / iterator
-	public Vector<Obj> objects = new Vector<>(); //Массив со всеми объектами
+	public Vector<GameObject> objects = new Vector<>(); //Массив со всеми объектами
 	public MapControl mapControl; //Массив со всеми чанками и объектами
 
 	private Frame guiFrame; //Объект хранящий все элементы gui в данной комнате
@@ -36,8 +36,8 @@ public class Location {
 		camera.update();//Расчёт положения камеры
 
 		for (int i=0; i<objects.size(); i++){
-			Obj obj = objects.get(i);
-			if (obj != null) obj.update(delta);
+			GameObject gameObject = objects.get(i);
+			if (gameObject != null) gameObject.update(delta);
 		}
 	}
 
@@ -54,22 +54,22 @@ public class Location {
 
 	public int objCount(){
 		int count = 0;
-		for (Obj obj : objects)
-			if (obj != null)
+		for (GameObject gameObject : objects)
+			if (gameObject != null)
 				count++;
 
 		return count;
 	}
 
 	//Добавление объекта в комнату
-	public void objAdd(Obj obj){
-		if (obj.isDestroy()) throw new IllegalArgumentException("Obj was destroy");
+	public void objAdd(GameObject gameObject){
+		if (gameObject.isDestroy()) throw new IllegalArgumentException("Obj was destroy");
 
-		obj.getComponent(Position.class).id = objects.size();
-		obj.getComponent(Position.class).location = this;
+		gameObject.getComponent(Position.class).id = objects.size();
+		gameObject.getComponent(Position.class).location = this;
 
-		objects.add(obj);
-		mapControl.add(obj);
+		objects.add(gameObject);
+		mapControl.add(gameObject);
 	}
 
 	//Удаление объекта из комнаты по id

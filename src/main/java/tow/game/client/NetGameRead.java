@@ -9,7 +9,7 @@ import tow.engine.map.Background;
 import tow.engine.map.Border;
 import tow.engine.map.Location;
 import tow.engine.net.client.Message;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.game.client.map.Box;
 import tow.game.client.map.MapObject;
 import tow.game.client.map.Wall;
@@ -291,9 +291,9 @@ public class NetGameRead implements NetGameReadInterface {
 	//я подобрал ящик - (int idBox)
 	public void take21(String str){
 		int idBox = Integer.parseInt(str.split(" ")[0]);
-		for(Obj obj : Global.location.objects){
-			if (obj != null && obj instanceof Box && ((Box) obj).idBox == idBox){
-				obj.destroy();
+		for(GameObject gameObject : Global.location.objects){
+			if (gameObject != null && gameObject instanceof Box && ((Box) gameObject).idBox == idBox){
+				gameObject.destroy();
 			}
 		}
 	}

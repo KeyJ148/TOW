@@ -2,16 +2,16 @@ package tow.engine.obj;
 
 import java.util.*;
 
-public class Obj {
+public class GameObject {
 
 	private Map<Class<? extends QueueComponent>, QueueComponent> components = new HashMap<>();
 	private boolean destroy = false;
 
-	public Obj(){
+	public GameObject(){
 		this(new ArrayList<>());
 	}
 
-	public Obj(Collection<QueueComponent> initComponents){
+	public GameObject(Collection<QueueComponent> initComponents){
 		for (QueueComponent component : initComponents){
 			setComponent(component);
 		}
@@ -19,7 +19,7 @@ public class Obj {
 
 
 	public void setComponent(QueueComponent component){
-		component.addToObj(this);
+		component.addToGameObject(this);
 		components.put(component.getComponentClass(), component);
 	}
 

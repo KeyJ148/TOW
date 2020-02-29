@@ -2,19 +2,17 @@ package tow.game.client.map;
 
 
 import tow.engine.Global;
-import tow.engine.cycle.Render;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.components.Collision;
 import tow.engine.obj.components.Position;
-import tow.engine.obj.components.render.Rendering;
 import tow.engine.obj.components.render.Sprite;
 import tow.game.client.GameSetting;
 import tow.game.client.tanks.equipment.EquipManager;
 import tow.game.client.tanks.player.Player;
 
-public class Box extends Obj {
+public class Box extends GameObject {
 	
 	public int idBox;
 	public int typeBox;

@@ -1,6 +1,6 @@
 package tow.game.client.tanks.equipment.bullet;
 
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.components.Collision;
 import tow.engine.obj.components.Movement;
 import tow.engine.setting.ConfigReader;
@@ -21,15 +21,15 @@ public class BMassSmall extends Bullet{
     }
 
     @Override
-    public void collision(Obj obj){
+    public void collision(GameObject gameObject){
         if (isDestroy()) return;
 
-        if (obj instanceof Armor){
-            ((Armor) obj).player.hp -= damage;
+        if (gameObject instanceof Armor){
+            ((Armor) gameObject).player.hp -= damage;
             destroy();
         }
 
-        super.collision(obj);
+        super.collision(gameObject);
     }
 
     @Override

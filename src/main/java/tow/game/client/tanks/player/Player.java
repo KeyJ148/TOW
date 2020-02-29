@@ -2,7 +2,7 @@ package tow.game.client.tanks.player;
 
 import org.liquidengine.legui.component.Label;
 import tow.engine.Global;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.ObjFactory;
 import tow.engine.obj.components.Follower;
 import tow.engine.obj.components.Movement;
@@ -41,8 +41,8 @@ public class Player extends Tank {
     private int sendDataLast = 0;//Как давно отправляли данные
     private static long numberPackage = 0; //Номер пакета UDP
 
-    public Obj hpLabel;
-    public Obj[] statsLabel;
+    public GameObject hpLabel;
+    public GameObject[] statsLabel;
 
     public Player(double x, double y, double direction){
         setComponent(new Position(x, y, 0));
@@ -80,7 +80,7 @@ public class Player extends Tank {
         ((Label) ((GUIElement) hpLabel.getComponent(Rendering.class)).getComponent()).setFocusable(false);
         ((Label) ((GUIElement) hpLabel.getComponent(Rendering.class)).getComponent()).getTextState().setFontSize(30);
 
-        statsLabel = new Obj[stats.toString().split("\n").length + 4];
+        statsLabel = new GameObject[stats.toString().split("\n").length + 4];
         for (int i = 0; i < statsLabel.length; i++) {
             statsLabel[i] = ObjFactory.create(1, 30+i*15, 0);
             statsLabel[i].getComponent(Position.class).absolute = false;
@@ -159,7 +159,7 @@ public class Player extends Tank {
     }
 
     @Override
-    public void replaceArmor(Obj newArmor){
+    public void replaceArmor(GameObject newArmor){
         double lastMaxHp = stats.hpMax;
         effects.remove(((Armor) armor).effect);
 
@@ -178,7 +178,7 @@ public class Player extends Tank {
     }
 
     @Override
-    public void replaceGun(Obj newGun){
+    public void replaceGun(GameObject newGun){
         effects.remove(((Gun) gun).effect);
 
         super.replaceGun(newGun);

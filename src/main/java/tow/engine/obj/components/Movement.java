@@ -1,8 +1,6 @@
 package tow.engine.obj.components;
 
 import tow.engine.Global;
-import tow.engine.obj.Component;
-import tow.engine.obj.Obj;
 import tow.engine.obj.QueueComponent;
 
 import java.util.Arrays;
@@ -29,15 +27,15 @@ public class Movement extends QueueComponent {
 
     @Override
     public void updateComponent(long delta){
-        xPrevious = getObj().getComponent(Position.class).x;
-        yPrevious = getObj().getComponent(Position.class).y;
+        xPrevious = getGameObject().getComponent(Position.class).x;
+        yPrevious = getGameObject().getComponent(Position.class).y;
         directionPrevious = direction;
 
-        getObj().getComponent(Position.class).x = getObj().getComponent(Position.class).x + speed * Math.cos(Math.toRadians(direction)) * ((double) delta/1000000000);
-        getObj().getComponent(Position.class).y = getObj().getComponent(Position.class).y - speed * Math.sin(Math.toRadians(direction)) * ((double) delta/1000000000);
-        Global.location.mapControl.update(getObj());
+        getGameObject().getComponent(Position.class).x = getGameObject().getComponent(Position.class).x + speed * Math.cos(Math.toRadians(direction)) * ((double) delta/1000000000);
+        getGameObject().getComponent(Position.class).y = getGameObject().getComponent(Position.class).y - speed * Math.sin(Math.toRadians(direction)) * ((double) delta/1000000000);
+        Global.location.mapControl.update(getGameObject());
 
-        if (directionDrawEquals) getObj().getComponent(Position.class).setDirectionDraw(direction);
+        if (directionDrawEquals) getGameObject().getComponent(Position.class).setDirectionDraw(direction);
     }
 
     @Override

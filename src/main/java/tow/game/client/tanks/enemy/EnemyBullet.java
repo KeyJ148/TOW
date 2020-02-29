@@ -3,7 +3,7 @@ package tow.game.client.tanks.enemy;
 import tow.engine.Global;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.ObjFactory;
 import tow.engine.obj.components.Movement;
 import tow.engine.obj.components.Position;
@@ -13,7 +13,7 @@ import tow.game.client.particles.Explosion;
 
 import java.util.Arrays;
 
-public class EnemyBullet extends Obj {
+public class EnemyBullet extends GameObject {
 
 	public int idEnemy;
 	public long idNet;
@@ -36,7 +36,7 @@ public class EnemyBullet extends Obj {
 		destroy();
 
 		if (explosionSize > 0) {
-			Obj explosion = ObjFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, -100);
+			GameObject explosion = ObjFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, -100);
 			explosion.setComponent(new Explosion(explosionSize));
 			explosion.getComponent(Particles.class).destroyObject = true;
 			Global.location.objAdd(explosion);

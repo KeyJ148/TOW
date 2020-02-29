@@ -3,8 +3,6 @@ package tow.engine.obj.components;
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.map.Location;
-import tow.engine.obj.Component;
-import tow.engine.obj.Obj;
 import tow.engine.obj.QueueComponent;
 
 import java.util.Arrays;
@@ -62,7 +60,7 @@ public class Position extends QueueComponent {
             relativePosition.y = (int) y;
             return relativePosition;
         } else {
-            return Global.location.camera.toRelativePosition(new Vector2(x, y));
+            return Global.location.camera.toRelativePosition(new Vector2<>(x, y));
         }
     }
 

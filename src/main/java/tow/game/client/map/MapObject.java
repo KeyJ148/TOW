@@ -1,13 +1,13 @@
 package tow.game.client.map;
 
 import tow.engine.image.TextureHandler;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.components.Position;
 import tow.engine.obj.components.render.Sprite;
 
 import java.util.Arrays;
 
-public class MapObject extends Obj {
+public class MapObject extends GameObject {
 
 	public int mid;
 	

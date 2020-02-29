@@ -1,11 +1,11 @@
 package tow.engine.map;
 
 import tow.engine.image.Mask;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.components.Collision;
 import tow.engine.obj.components.Position;
 
-public class Border extends Obj {
+public class Border extends GameObject {
 	
 	public static final int NORTH = 0;
 	public static final int EAST = 1;

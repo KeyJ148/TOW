@@ -5,14 +5,13 @@ import tow.engine.Global;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
 import tow.engine.map.Border;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.ObjFactory;
 import tow.engine.obj.components.Collision;
 import tow.engine.obj.components.CollisionDirect;
 import tow.engine.obj.components.Movement;
 import tow.engine.obj.components.Position;
 import tow.engine.obj.components.particles.Particles;
-import tow.engine.obj.components.render.Rendering;
 import tow.engine.obj.components.render.Sprite;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.ClientData;
@@ -21,7 +20,7 @@ import tow.game.client.map.Wall;
 import tow.game.client.particles.Explosion;
 import tow.game.client.tanks.enemy.EnemyArmor;
 
-public class Bullet extends Obj implements Collision.CollisionListener{
+public class Bullet extends GameObject implements Collision.CollisionListener{
 
 	public static final String PATH_SETTING = "game/bullet/";
 	public String name, title; //name - техническое название, title - игровое
@@ -68,22 +67,22 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 	}
 
 	@Override
-	public void collision(Obj obj) {
+	public void collision(GameObject gameObject) {
 		if (isDestroy()) return;
 
-		if (obj.getClass().equals(Border.class)){
+		if (gameObject.getClass().equals(Border.class)){
 			destroy(0);
 		}
 
-		if (obj.getClass().equals(Wall.class)){
+		if (gameObject.getClass().equals(Wall.class)){
 			destroy(explosionSize);
 
 			Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio(sound_hit), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
 			Global.tcpControl.send(25, (int) getComponent(Position.class).x + " " + (int) getComponent(Position.class).y + " " + sound_hit);
 		}
 
-		if (obj.getClass().equals(EnemyArmor.class)){
-			EnemyArmor ea = (EnemyArmor) obj;
+		if (gameObject.getClass().equals(EnemyArmor.class)){
+			EnemyArmor ea = (EnemyArmor) gameObject;
 
 			Global.tcpControl.send(14, damage + " " + ea.enemy.id);
 			destroy(explosionSize);
@@ -101,7 +100,7 @@ public class Bullet extends Obj implements Collision.CollisionListener{
 		Global.tcpControl.send(15, idNet + " " + expSize);
 
 		if (explosionSize > 0) {
-			Obj explosion = ObjFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, -100);
+			GameObject explosion = ObjFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, -100);
 			explosion.setComponent(new Explosion(expSize));
 			explosion.getComponent(Particles.class).destroyObject = true;
 			Global.location.objAdd(explosion);

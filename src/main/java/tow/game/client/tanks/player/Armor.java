@@ -3,7 +3,7 @@ package tow.game.client.tanks.player;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
 import tow.engine.map.Border;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.components.Collision;
 import tow.engine.obj.components.Follower;
 import tow.engine.obj.components.Movement;
@@ -20,7 +20,7 @@ import tow.game.client.tanks.enemy.EnemyArmor;
 ПРИ ДОБАВЛЕНИЕ НОВОГО КЛАССА БРОНИ ОБНОВИТЬ BMassSmall.java
  */
 
-public class Armor extends Obj{
+public class Armor extends GameObject {
 
 	public static final String PATH_SETTING = "game/armor/";
 	public String name, title; //name - техническое название, title - игровое

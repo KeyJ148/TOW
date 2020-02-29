@@ -6,7 +6,6 @@ import tow.engine.obj.components.Position;
 import tow.engine.resources.textures.Texture;
 import tow.engine.logger.Logger;
 import tow.engine.image.TextureHandler;
-import tow.engine.obj.Obj;
 import org.lwjgl.opengl.GL11;
 
 public class Animation extends Rendering {
@@ -37,10 +36,10 @@ public class Animation extends Rendering {
 
 	@Override
 	protected void drawComponent() {
-		Vector2<Integer> relativePosition = getObj().getComponent(Position.class).getRelativePosition();
+		Vector2<Integer> relativePosition = getGameObject().getComponent(Position.class).getRelativePosition();
 		double xView = relativePosition.x;
 		double yView = relativePosition.y;
-		double directionDraw = getObj().getComponent(Position.class).getDirectionDraw();
+		double directionDraw = getGameObject().getComponent(Position.class).getDirectionDraw();
 
 		directionDraw -= 90; //смещена начального угла с Востока на Север
 

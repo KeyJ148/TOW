@@ -1,6 +1,5 @@
 package tow.game.client.particles;
 
-import tow.engine.obj.Obj;
 import tow.engine.obj.components.particles.Part;
 import tow.engine.obj.components.particles.ParticlesGeometry;
 import tow.engine.image.Color;

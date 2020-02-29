@@ -4,7 +4,7 @@ import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.components.Follower;
 import tow.engine.obj.components.Movement;
 import tow.engine.obj.components.Position;
@@ -12,7 +12,7 @@ import tow.engine.obj.components.render.Sprite;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.tanks.Effect;
 
-public class Gun extends Obj {
+public class Gun extends GameObject {
 
 	public static final String PATH_SETTING = "game/gun/";
 	public String name, title; //name - техническое название, title - игровое

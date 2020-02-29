@@ -1,7 +1,7 @@
 package tow.game.client.particles;
 
 import tow.engine.image.TextureManager;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.components.Position;
 import tow.engine.obj.components.particles.Part;
 import tow.engine.obj.components.particles.ParticlesTexture;
@@ -19,8 +19,8 @@ public class Explosion extends ParticlesTexture {
     }
 
     @Override
-    public void addToObj(Obj obj){
-        super.addToObj(obj);
+    public void addToGameObject(GameObject gameObject){
+        super.addToGameObject(gameObject);
 
         double count = size*2;
         Random rand = new Random();
@@ -28,9 +28,9 @@ public class Explosion extends ParticlesTexture {
         for (int i=0; i<count; i++){
             Part part = new Part();
             part.textureHandler = TextureManager.getTexture("part_ball");
-            part.x = getObj().getComponent(Position.class).x;
-            part.y = getObj().getComponent(Position.class).y;
-            part.direction = getObj().getComponent(Position.class).getDirectionDraw() + rand.nextInt(360);
+            part.x = getGameObject().getComponent(Position.class).x;
+            part.y = getGameObject().getComponent(Position.class).y;
+            part.direction = getGameObject().getComponent(Position.class).getDirectionDraw() + rand.nextInt(360);
             part.speed = (size/5 + rand.nextInt((int) (2*size/5)));
             if(size<70){
                 part.width = size/2 + rand.nextInt( (int) size/5);

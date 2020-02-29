@@ -1,7 +1,7 @@
 package tow.engine.map;
 
 import tow.engine.Vector2;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.components.Movement;
 import tow.engine.obj.components.Position;
 
@@ -16,19 +16,19 @@ public class DepthVector {
 	//Внешний массив хранит сортировку массивов по координате y
 	//Внутренний массив имеет чанки с одинаковой y, но разными x
 
-	public DepthVector(MapControl mc, int depth, Obj obj){
+	public DepthVector(MapControl mc, int depth, GameObject gameObject){
 		this.mc = mc;
 		this.depth = depth;
 
-		add(obj);
+		add(gameObject);
 	}
 
-	public void add(Obj obj){
-		getChunk((int) obj.getComponent(Position.class).x, (int) obj.getComponent(Position.class).y).add(obj.getComponent(Position.class).id);
+	public void add(GameObject gameObject){
+		getChunk((int) gameObject.getComponent(Position.class).x, (int) gameObject.getComponent(Position.class).y).add(gameObject.getComponent(Position.class).id);
 	}
 
-	public void del(Obj obj){
-		getChunk((int) obj.getComponent(Position.class).x, (int) obj.getComponent(Position.class).y).del(obj.getComponent(Position.class).id);
+	public void del(GameObject gameObject){
+		getChunk((int) gameObject.getComponent(Position.class).x, (int) gameObject.getComponent(Position.class).y).del(gameObject.getComponent(Position.class).id);
 	}
 
 	public int getDepth(){
@@ -36,15 +36,15 @@ public class DepthVector {
 	}
 
 	//Обновление объекта при перемещение из чанка в чанк
-	public void update(Obj obj){
-		if (!obj.hasComponent(Movement.class)) return;
+	public void update(GameObject gameObject){
+		if (!gameObject.hasComponent(Movement.class)) return;
 
-		Chunk chunkNow = getChunk((int) obj.getComponent(Position.class).x,(int) obj.getComponent(Position.class).y);
-		Chunk chunkLast = getChunk((int) obj.getComponent(Movement.class).getXPrevious(),(int) obj.getComponent(Movement.class).getYPrevious());
+		Chunk chunkNow = getChunk((int) gameObject.getComponent(Position.class).x,(int) gameObject.getComponent(Position.class).y);
+		Chunk chunkLast = getChunk((int) gameObject.getComponent(Movement.class).getXPrevious(),(int) gameObject.getComponent(Movement.class).getYPrevious());
 
 		if (!chunkLast.equals(chunkNow)){
-			chunkLast.del(obj.getComponent(Position.class).id);
-			chunkNow.add(obj.getComponent(Position.class).id);
+			chunkLast.del(gameObject.getComponent(Position.class).id);
+			chunkNow.add(gameObject.getComponent(Position.class).id);
 		}
 	}
 

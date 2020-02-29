@@ -1,24 +1,11 @@
 package tow.engine.input.mouse;
 
 import org.liquidengine.legui.component.Frame;
-import org.liquidengine.legui.event.KeyEvent;
 import org.liquidengine.legui.event.MouseClickEvent;
-import org.lwjgl.BufferUtils;
-import tow.engine.Vector2;
-import tow.engine.image.TextureHandler;
-import tow.engine.input.keyboard.KeyboardEventHistory;
-import tow.engine.input.keyboard.KeyboardHandler;
-import tow.engine.obj.Obj;
-import tow.engine.obj.components.Position;
-import tow.engine.obj.components.render.Sprite;
-import tow.engine.Global;
 
-import java.nio.DoubleBuffer;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static org.lwjgl.glfw.GLFW.*;
 
 public class MouseHandler {
 	

@@ -1,15 +1,8 @@
 package tow.engine.obj.components.particles;
 
-import tow.engine.obj.Obj;
-import tow.engine.obj.Component;
 import tow.engine.obj.QueueComponent;
-import tow.engine.obj.components.Collision;
-import tow.engine.obj.components.Follower;
-import tow.engine.obj.components.Movement;
-import tow.engine.obj.components.Position;
 import tow.engine.obj.components.render.Rendering;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public abstract class Particles extends QueueComponent {
@@ -30,7 +23,7 @@ public abstract class Particles extends QueueComponent {
             else updateChild(delta, part);
         }
 
-        if (parts.size() == 0 && destroyObject) getObj().destroy();
+        if (parts.size() == 0 && destroyObject) getGameObject().destroy();
     }
 
     //Метод переопределяется в наследниках для обработки каждый степ

@@ -1,12 +1,7 @@
 package tow.engine.obj.components.render;
 
-import tow.engine.obj.Obj;
-import tow.engine.obj.Component;
 import tow.engine.image.Color;
 import tow.engine.obj.QueueComponent;
-import tow.engine.obj.components.Collision;
-import tow.engine.obj.components.Follower;
-import tow.engine.obj.components.Movement;
 
 import java.util.Arrays;
 import java.util.List;

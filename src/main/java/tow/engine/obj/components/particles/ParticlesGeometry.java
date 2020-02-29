@@ -2,7 +2,6 @@ package tow.engine.obj.components.particles;
 
 import tow.engine.Global;
 import tow.engine.Vector2;
-import tow.engine.obj.Obj;
 import org.lwjgl.opengl.GL11;
 
 public class ParticlesGeometry extends Particles {

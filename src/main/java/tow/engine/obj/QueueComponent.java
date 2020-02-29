@@ -8,8 +8,8 @@ public abstract class QueueComponent extends Component {
     private boolean drawInThisStep;
 
     @Override
-    protected void addToObj(Obj obj){
-        super.addToObj(obj);
+    protected void addToGameObject(GameObject gameObject){
+        super.addToGameObject(gameObject);
         startNewStep();
     }
 
@@ -23,8 +23,8 @@ public abstract class QueueComponent extends Component {
         if (updatedInThisStep) return;
 
         for(Class<? extends QueueComponent> componentClass : getComponentsUpdatePreviously()){
-            if (getObj().hasComponent(componentClass)){
-                Component needUpdateComponent = getObj().getComponent(componentClass);
+            if (getGameObject().hasComponent(componentClass)){
+                Component needUpdateComponent = getGameObject().getComponent(componentClass);
                 needUpdateComponent.update(delta);
             }
         }
@@ -38,8 +38,8 @@ public abstract class QueueComponent extends Component {
         if (drawInThisStep) return;
 
         for(Class<? extends QueueComponent> componentClass : getComponentsDrawPreviously()){
-            if (getObj().hasComponent(componentClass)){
-                Component needDrawComponent = getObj().getComponent(componentClass);
+            if (getGameObject().hasComponent(componentClass)){
+                Component needDrawComponent = getGameObject().getComponent(componentClass);
                 needDrawComponent.draw();
             }
         }

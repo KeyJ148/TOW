@@ -4,7 +4,7 @@ import tow.engine.Global;
 import tow.engine.Loader;
 import tow.engine.Vector2;
 import tow.engine.map.Border;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.components.Collision;
 import tow.engine.obj.components.Movement;
 import tow.engine.obj.components.Position;
@@ -20,7 +20,7 @@ import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class PlayerController extends Obj implements Collision.CollisionListener{
+public class PlayerController extends GameObject implements Collision.CollisionListener{
 
     //Какие действия выполняеются в текущий степ
     public boolean runUp = false;
@@ -31,7 +31,7 @@ public class PlayerController extends Obj implements Collision.CollisionListener
     //Для столкновений
     private boolean recoil = false;// в данынй момент танк отлетает от противника в рез. столкновения
     private long timer = 0; //таймер для отсёчта пройденного времени при столкновение
-    private Obj coll_obj = null; //Объекта с которым происходит столкновение
+    private GameObject coll_gameObject = null; //Объекта с которым происходит столкновение
 
     //Т.к. поворот осуществляется не в классе Armor, то приходится дублировать функционал компонента Movement
     private double directionPrevious = 0;
@@ -164,7 +164,7 @@ public class PlayerController extends Obj implements Collision.CollisionListener
                 runUp = false;
                 runDown = false;
                 player.armor.getComponent(Movement.class).speed = 0.0;
-                coll_obj = null;
+                coll_gameObject = null;
             }
         }
 
@@ -226,42 +226,42 @@ public class PlayerController extends Obj implements Collision.CollisionListener
     }
 
     @Override
-    public void collision(Obj obj) {
-        if (obj.getClass().equals(Box.class)){
-            Box box = (Box) obj;
+    public void collision(GameObject gameObject) {
+        if (gameObject.getClass().equals(Box.class)){
+            Box box = (Box) gameObject;
             if (!box.isDestroy()){
                 box.collisionPlayer(player);
             }
         }
 
-        if (obj.getClass().equals(Border.class)){
+        if (gameObject.getClass().equals(Border.class)){
             player.armor.getComponent(Position.class).x = player.armor.getComponent(Movement.class).getXPrevious();
             player.armor.getComponent(Position.class).y = player.armor.getComponent(Movement.class).getYPrevious();
             player.armor.getComponent(Movement.class).setDirection(directionPrevious);
         }
 
-        if (obj.getClass().equals(Wall.class)){
+        if (gameObject.getClass().equals(Wall.class)){
             player.armor.getComponent(Position.class).x = player.armor.getComponent(Movement.class).getXPrevious();
             player.armor.getComponent(Position.class).y = player.armor.getComponent(Movement.class).getYPrevious();
             player.armor.getComponent(Movement.class).setDirection(directionPrevious);
 
-            Wall wall = (Wall) obj;
+            Wall wall = (Wall) gameObject;
             if (wall.stabillity < player.stats.stability){
                 Global.tcpControl.send(22, String.valueOf(wall.mid));
                 wall.destroyByArmor();
             }
         }
 
-        if (obj.getClass().equals(EnemyArmor.class)){
-            EnemyArmor enemyArmor = (EnemyArmor) obj;
+        if (gameObject.getClass().equals(EnemyArmor.class)){
+            EnemyArmor enemyArmor = (EnemyArmor) gameObject;
 
-            if ((!player.controller.recoil) || (!enemyArmor.equals(coll_obj))){
+            if ((!player.controller.recoil) || (!enemyArmor.equals(coll_gameObject))){
                 player.armor.getComponent(Position.class).x = player.armor.getComponent(Movement.class).getXPrevious();
                 player.armor.getComponent(Position.class).y = player.armor.getComponent(Movement.class).getYPrevious();
                 player.armor.getComponent(Movement.class).setDirection(player.armor.getComponent(Movement.class).getDirectionPrevious());
                 recoil = true;
                 timer = 0;
-                coll_obj = enemyArmor;
+                coll_gameObject = enemyArmor;
 
                 if (runUp){
                     player.armor.getComponent(Movement.class).speed = -player.armor.getComponent(Movement.class).speed/3;

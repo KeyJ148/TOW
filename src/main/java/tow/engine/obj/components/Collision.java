@@ -3,8 +3,7 @@ package tow.engine.obj.components;
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.Mask;
-import tow.engine.obj.Component;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import org.lwjgl.opengl.GL11;
 import tow.engine.image.Color;
 import tow.engine.obj.QueueComponent;
@@ -31,8 +30,8 @@ public class Collision extends QueueComponent {
 	}
 
 	@Override
-	public void addToObj(Obj obj){
-		super.addToObj(obj);
+	public void addToGameObject(GameObject gameObject){
+		super.addToGameObject(gameObject);
 
 		calc();
 	}
@@ -40,7 +39,7 @@ public class Collision extends QueueComponent {
 	@Override
 	public void updateComponent(long delta){
 		calcInThisStep = false;
-		if (getObj().hasComponent(Movement.class)) calc();
+		if (getGameObject().hasComponent(Movement.class)) calc();
 		checkCollisionFromRoom();
 	}
 
@@ -70,7 +69,7 @@ public class Collision extends QueueComponent {
 		if (collisionObjects.size() == 0) return;
 
 		for(int i = 0; i< Global.location.objects.size(); i++){//Цикл перебора всех объектов в комнате
-			Obj objectFromRoom = Global.location.objects.get(i);
+			GameObject objectFromRoom = Global.location.objects.get(i);
 			if (objectFromRoom != null && objectFromRoom.hasComponent(Collision.class)){//Если объект не был уничтожен и у него есть маска
 				for (Class collisionObject : collisionObjects){ //Цикл перебора объектов, с которыми надо проверять столкновение
 					if ((objectFromRoom.getClass().equals(collisionObject)) //Если с эти объектом надо проверять столкновени
@@ -83,14 +82,14 @@ public class Collision extends QueueComponent {
 	}
 
 	//Проверка столкновения с объектом obj2
-	public boolean checkCollision(Obj obj2){
-		Obj obj1 = getObj();
+	public boolean checkCollision(GameObject gameObject2){
+		GameObject gameObject1 = getGameObject();
 
-		if (obj1.getComponent(Position.class) == null || !obj1.hasComponent(Collision.class) || obj2.getComponent(Position.class) == null || !obj2.hasComponent(Collision.class)) return false;
-		Position pos1 = obj1.getComponent(Position.class);
-		Position pos2 = obj2.getComponent(Position.class);
-		Collision coll1 = obj1.getComponent(Collision.class);
-		Collision coll2 = obj2.getComponent(Collision.class);
+		if (gameObject1.getComponent(Position.class) == null || !gameObject1.hasComponent(Collision.class) || gameObject2.getComponent(Position.class) == null || !gameObject2.hasComponent(Collision.class)) return false;
+		Position pos1 = gameObject1.getComponent(Position.class);
+		Position pos2 = gameObject2.getComponent(Position.class);
+		Collision coll1 = gameObject1.getComponent(Collision.class);
+		Collision coll2 = gameObject2.getComponent(Collision.class);
 
 		//Проверка расстояния до объекта столкновения
 		double gip1 = Math.sqrt(sqr(coll1.mask.getWidth()) + sqr(coll1.mask.getHeight())); //Гипотенуза объекта
@@ -105,8 +104,8 @@ public class Collision extends QueueComponent {
 		}
 
 		//Если объекты движимы и в этом степе ещё не спросчитывали маску
-		if (obj1.hasComponent(Movement.class) && !coll1.calcInThisStep) coll1.calc();
-		if (obj2.hasComponent(Movement.class) && !coll2.calcInThisStep) coll2.calc();
+		if (gameObject1.hasComponent(Movement.class) && !coll1.calcInThisStep) coll1.calc();
+		if (gameObject2.hasComponent(Movement.class) && !coll2.calcInThisStep) coll2.calc();
 		
 		//Просчёт столкновения
 		//Создание полигонов
@@ -136,10 +135,10 @@ public class Collision extends QueueComponent {
 
 	//Перерасчёт маски относительно начала координат карты
 	public void calc(){
-		if (!getObj().hasComponent(Position.class)) return;
+		if (!getGameObject().hasComponent(Position.class)) return;
 
 		//Смещена начального угла с Востока на Север
-		double direction = getObj().getComponent(Position.class).getDirectionDraw();
+		double direction = getGameObject().getComponent(Position.class).getDirectionDraw();
 		direction = Math.toRadians(direction)-Math.PI/2;
 
 		//Просчёт маски
@@ -153,8 +152,8 @@ public class Collision extends QueueComponent {
 			double YDouble2 = -cos * mask.getMaskCenter()[i].y;//"В бок" //Math.sin(direction-Math.PI/2) * ...
 
 			this.maskAbsolute[i] = new Vector2<>();
-			this.maskAbsolute[i].x = (int) (getObj().getComponent(Position.class).x + XDouble + XDouble2);
-			this.maskAbsolute[i].y = (int) (getObj().getComponent(Position.class).y - YDouble - YDouble2);
+			this.maskAbsolute[i].x = (int) (getGameObject().getComponent(Position.class).x + XDouble + XDouble2);
+			this.maskAbsolute[i].y = (int) (getGameObject().getComponent(Position.class).y - YDouble - YDouble2);
 		}
 
 		calcInThisStep = true;
@@ -188,7 +187,7 @@ public class Collision extends QueueComponent {
 	//Интерфейс реализуют все слушатели
 	//При коллизи с объектом из списка коллизий вызывается метод collision
 	public interface CollisionListener{
-		void collision(Obj obj);
+		void collision(GameObject gameObject);
 	}
 
 	public void addListener(CollisionListener listener){
@@ -199,9 +198,9 @@ public class Collision extends QueueComponent {
 		this.listeners.remove(listener);
 	}
 
-	protected void informListeners(Obj obj){
+	protected void informListeners(GameObject gameObject){
 		for (CollisionListener listener : listeners)
-			if (listener != null) listener.collision(obj);
+			if (listener != null) listener.collision(gameObject);
 	}
 
 	@Override

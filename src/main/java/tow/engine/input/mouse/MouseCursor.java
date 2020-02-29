@@ -4,7 +4,7 @@ import org.lwjgl.BufferUtils;
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.TextureHandler;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.components.Position;
 import tow.engine.obj.components.render.Rendering;
 import tow.engine.obj.components.render.Sprite;
@@ -16,12 +16,12 @@ import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_NORMAL;
 
 public class MouseCursor {
 
-    private Obj cursor;
+    private GameObject cursor;
     private boolean captureCursor = false;
 
     public MouseCursor(){
         //Создание объекта курсора (используется компонент Position и Sprite)
-        cursor = new Obj();
+        cursor = new GameObject();
         cursor.setComponent(new Position(0, 0, -1000));
         cursor.getComponent(Position.class).absolute = false;
     }

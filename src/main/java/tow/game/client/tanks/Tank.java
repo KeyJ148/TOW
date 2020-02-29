@@ -2,7 +2,7 @@ package tow.game.client.tanks;
 
 import org.liquidengine.legui.component.Label;
 import tow.engine.Global;
-import tow.engine.obj.Obj;
+import tow.engine.obj.GameObject;
 import tow.engine.obj.ObjFactory;
 import tow.engine.obj.components.Follower;
 import tow.engine.obj.components.Movement;
@@ -20,14 +20,14 @@ import tow.engine.image.Color;
 import java.util.Arrays;
 import java.util.Map;
 
-public abstract class Tank extends Obj{
+public abstract class Tank extends GameObject {
 
     public static final Color explodedTankColor = new Color(110, 15, 0);
 
-    public Obj armor;
-    public Obj gun;
-    public Obj camera;
-    public Obj nickname;
+    public GameObject armor;
+    public GameObject gun;
+    public GameObject camera;
+    public GameObject nickname;
 
     public String name;
     public Color color = Color.WHITE;
@@ -79,7 +79,7 @@ public abstract class Tank extends Obj{
 
         setColor(explodedTankColor);
 
-        Obj explosion = ObjFactory.create(armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, -100);
+        GameObject explosion = ObjFactory.create(armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, -100);
         explosion.setComponent(new Explosion(100));
         explosion.getComponent(Particles.class).destroyObject = true;
         Global.location.objAdd(explosion);
@@ -98,7 +98,7 @@ public abstract class Tank extends Obj{
         Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio("explosion"), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
     }
 
-    public void replaceArmor(Obj newArmor){
+    public void replaceArmor(GameObject newArmor){
         //Устанавливаем новой броне параметры как у текущий брони танка
         newArmor.getComponent(Movement.class).setDirection(armor.getComponent(Movement.class).getDirection());
 
@@ -110,7 +110,7 @@ public abstract class Tank extends Obj{
         camera.setComponent(new Follower(armor));
     }
 
-    public void replaceGun(Obj newGun){
+    public void replaceGun(GameObject newGun){
         newGun.getComponent(Position.class).setDirectionDraw(gun.getComponent(Position.class).getDirectionDraw());
 
         gun.destroy();

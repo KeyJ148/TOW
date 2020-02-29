@@ -9,36 +9,36 @@ import java.util.Arrays;
 
 public class ObjFactory {
 
-    public static Obj create(double x, double y, int depth){
-        return new Obj(Arrays.asList(new Position(x, y, depth)));
+    public static GameObject create(double x, double y, int depth){
+        return new GameObject(Arrays.asList(new Position(x, y, depth)));
     }
 
-    public static Obj create(double x, double y, int depth, double directionDraw){
-        Obj obj = create(x, y, depth);
-        obj.getComponent(Position.class).setDirectionDraw(directionDraw);
+    public static GameObject create(double x, double y, int depth, double directionDraw){
+        GameObject gameObject = create(x, y, depth);
+        gameObject.getComponent(Position.class).setDirectionDraw(directionDraw);
 
-        return obj;
+        return gameObject;
     }
 
-    public static Obj create(double x, double y, int depth, double directionDraw, TextureHandler textureHandler){
-        Obj obj = create(x, y, depth, directionDraw);
-        obj.setComponent(new Sprite(textureHandler));
+    public static GameObject create(double x, double y, int depth, double directionDraw, TextureHandler textureHandler){
+        GameObject gameObject = create(x, y, depth, directionDraw);
+        gameObject.setComponent(new Sprite(textureHandler));
 
-        return obj;
+        return gameObject;
     }
 
-    public static Obj create(double x, double y, double directionDraw, TextureHandler textureHandler){
+    public static GameObject create(double x, double y, double directionDraw, TextureHandler textureHandler){
         return create(x, y, textureHandler.depth, directionDraw, textureHandler);
     }
 
-    public static Obj create(double x, double y, int depth, double directionDraw, TextureHandler[] textureHandler){
-        Obj obj = create(x, y, depth, directionDraw);
-        obj.setComponent(new Animation(textureHandler));
+    public static GameObject create(double x, double y, int depth, double directionDraw, TextureHandler[] textureHandler){
+        GameObject gameObject = create(x, y, depth, directionDraw);
+        gameObject.setComponent(new Animation(textureHandler));
 
-        return obj;
+        return gameObject;
     }
 
-    public static Obj create(double x, double y, double directionDraw, TextureHandler[] textureHandler){
+    public static GameObject create(double x, double y, double directionDraw, TextureHandler[] textureHandler){
         return create(x, y, textureHandler[0].depth, directionDraw, textureHandler);
     }
 }
