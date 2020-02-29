@@ -3,11 +3,12 @@ package tow.engine.obj.components;
 import tow.engine.Global;
 import tow.engine.obj.Component;
 import tow.engine.obj.Obj;
+import tow.engine.obj.QueueComponent;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Follower extends Component {
+public class Follower extends QueueComponent {
 
     public Obj followUpObj;
     public boolean followDirectionDraw;
@@ -31,6 +32,9 @@ public class Follower extends Component {
         Global.location.mapControl.update(getObj());
     }
 
+    @Override
+    protected void drawComponent() { }
+
     //Квадратичная ассимптотика вместо линейной из-за отсутствия кеширования updated у родителей
     //и повторных запросов к ним при вызове update() для себя и каждого родителя (во время общего update())
     public boolean isUpdated() {
@@ -45,12 +49,22 @@ public class Follower extends Component {
     }
 
     @Override
+    public void destroy() {
+
+    }
+
+    @Override
     public Class getComponentClass() {
         return Follower.class;
     }
 
     @Override
-    public List<Class<? extends Component>> getComponentsExecutePreviously() {
+    public List<Class<? extends QueueComponent>> getComponentsUpdatePreviously() {
         return Arrays.asList(Movement.class);
+    }
+
+    @Override
+    public List<Class<? extends QueueComponent>> getComponentsDrawPreviously() {
+        return Arrays.asList();
     }
 }

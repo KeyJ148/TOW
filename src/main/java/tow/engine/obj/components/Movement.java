@@ -3,11 +3,12 @@ package tow.engine.obj.components;
 import tow.engine.Global;
 import tow.engine.obj.Component;
 import tow.engine.obj.Obj;
+import tow.engine.obj.QueueComponent;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Movement extends Component {
+public class Movement extends QueueComponent {
     public double speed; //На сколько пикселей объект смещается за 1 секунду
     private double direction; //0, 360 - в право, против часовой - движение
 
@@ -39,6 +40,9 @@ public class Movement extends Component {
         if (directionDrawEquals) getObj().getComponent(Position.class).setDirectionDraw(direction);
     }
 
+    @Override
+    protected void drawComponent() { }
+
     public double getDirection(){
         if (direction%360 >= 0){
             return direction%360;
@@ -68,12 +72,20 @@ public class Movement extends Component {
     }
 
     @Override
+    public void destroy() { }
+
+    @Override
     public Class getComponentClass() {
         return Movement.class;
     }
 
     @Override
-    public List<Class<? extends Component>> getComponentsExecutePreviously() {
+    public List<Class<? extends QueueComponent>> getComponentsUpdatePreviously() {
+        return Arrays.asList();
+    }
+
+    @Override
+    public List<Class<? extends QueueComponent>> getComponentsDrawPreviously() {
         return Arrays.asList();
     }
 }

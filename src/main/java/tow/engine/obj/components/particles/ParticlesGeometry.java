@@ -8,7 +8,10 @@ import org.lwjgl.opengl.GL11;
 public class ParticlesGeometry extends Particles {
 
     @Override
-    public void draw(){
+    public void destroy() { }
+
+    @Override
+    protected void drawComponent() {
         GL11.glLoadIdentity();
 
         for (Part part : parts){
@@ -32,10 +35,10 @@ public class ParticlesGeometry extends Particles {
             if (part.type.equals(Part.Type.HOLLOW)) glBeginType = GL11.GL_LINE_LOOP;
 
             GL11.glBegin(glBeginType);
-                GL11.glVertex2f((float) (defaultX-part.width/2), (float) (defaultY-part.height/2));
-                GL11.glVertex2f((float) (defaultX+part.width/2), (float) (defaultY-part.height/2));
-                GL11.glVertex2f((float) (defaultX+part.width/2), (float) (defaultY+part.height/2));
-                GL11.glVertex2f((float) (defaultX-part.width/2), (float) (defaultY+part.height/2));
+            GL11.glVertex2f((float) (defaultX-part.width/2), (float) (defaultY-part.height/2));
+            GL11.glVertex2f((float) (defaultX+part.width/2), (float) (defaultY-part.height/2));
+            GL11.glVertex2f((float) (defaultX+part.width/2), (float) (defaultY+part.height/2));
+            GL11.glVertex2f((float) (defaultX-part.width/2), (float) (defaultY+part.height/2));
             GL11.glEnd();
         }
     }

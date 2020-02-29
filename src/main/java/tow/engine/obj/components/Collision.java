@@ -7,6 +7,7 @@ import tow.engine.obj.Component;
 import tow.engine.obj.Obj;
 import org.lwjgl.opengl.GL11;
 import tow.engine.image.Color;
+import tow.engine.obj.QueueComponent;
 import tow.engine.obj.components.render.Rendering;
 import tow.engine.resources.settings.SettingsStorage;
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Collision extends Component {
+public class Collision extends QueueComponent {
 
 	private Mask mask;//Маска для текстуры этого объекта
 	private Vector2<Integer>[] maskAbsolute; //Абсолютные координаты маски от левого верхнего угла карты
@@ -44,6 +45,9 @@ public class Collision extends Component {
 	}
 
 	@Override
+	protected void drawComponent() { }
+
+	@Override
 	public void draw(){
 		if (!SettingsStorage.LOGGER.MASK_DRAW) return;
 
@@ -60,6 +64,9 @@ public class Collision extends Component {
         }
 		GL11.glEnd();
 	}
+
+	@Override
+	public void destroy() { }
 
 	//Вызывает проверку столкновения с каждым объектом в комнате
 	public void checkCollisionFromRoom(){
@@ -206,7 +213,13 @@ public class Collision extends Component {
 	}
 
 	@Override
-	public List<Class<? extends Component>> getComponentsExecutePreviously() {
+	public List<Class<? extends QueueComponent>> getComponentsUpdatePreviously() {
 		return Arrays.asList(Movement.class, Follower.class);
 	}
+
+	@Override
+	public List<Class<? extends QueueComponent>> getComponentsDrawPreviously() {
+		return Arrays.asList();
+	}
+
 }

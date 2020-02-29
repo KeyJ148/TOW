@@ -2,6 +2,7 @@ package tow.engine.obj.components.particles;
 
 import tow.engine.obj.Obj;
 import tow.engine.obj.Component;
+import tow.engine.obj.QueueComponent;
 import tow.engine.obj.components.Collision;
 import tow.engine.obj.components.Follower;
 import tow.engine.obj.components.Movement;
@@ -11,7 +12,7 @@ import tow.engine.obj.components.render.Rendering;
 import java.lang.reflect.Array;
 import java.util.*;
 
-public abstract class Particles extends Component {
+public abstract class Particles extends QueueComponent {
 
     public Set<Part> parts = new HashSet<>();
     public boolean rotate = false;
@@ -41,7 +42,12 @@ public abstract class Particles extends Component {
     }
 
     @Override
-    public List<Class<? extends Component>> getComponentsExecutePreviously() {
-        return Arrays.asList(Movement.class, Collision.class, Follower.class, Rendering.class);
+    public List<Class<? extends QueueComponent>> getComponentsUpdatePreviously() {
+        return Arrays.asList();
+    }
+
+    @Override
+    public List<Class<? extends QueueComponent>> getComponentsDrawPreviously() {
+        return Arrays.asList(Rendering.class);
     }
 }

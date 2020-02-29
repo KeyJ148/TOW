@@ -26,6 +26,9 @@ public class GUIElement extends Rendering {
         getObj().getComponent(Position.class).location.addGUIComponent(component);
     }
 
+    @Override
+    public void destroy() { }
+
     public Component getComponent(){
         return component;
     }
@@ -40,6 +43,9 @@ public class GUIElement extends Rendering {
 
         if (getObj().isDestroy()) getObj().getComponent(Position.class).location.removeGUIComponent(component);
     }
+
+    @Override
+    protected void drawComponent() { }
 
     @Override
     public int getWidthTexture() {

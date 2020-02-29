@@ -3,6 +3,7 @@ package tow.engine.obj.components.render;
 import tow.engine.obj.Obj;
 import tow.engine.obj.Component;
 import tow.engine.image.Color;
+import tow.engine.obj.QueueComponent;
 import tow.engine.obj.components.Collision;
 import tow.engine.obj.components.Follower;
 import tow.engine.obj.components.Movement;
@@ -10,7 +11,7 @@ import tow.engine.obj.components.Movement;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Rendering extends Component {
+public abstract class Rendering extends QueueComponent {
 
     public double scale_x = 1;
     public double scale_y = 1;
@@ -30,7 +31,12 @@ public abstract class Rendering extends Component {
     }
 
     @Override
-    public List<Class<? extends Component>> getComponentsExecutePreviously() {
-        return Arrays.asList(Movement.class, Collision.class, Follower.class);
+    public List<Class<? extends QueueComponent>> getComponentsUpdatePreviously() {
+        return Arrays.asList();
+    }
+
+    @Override
+    public List<Class<? extends QueueComponent>> getComponentsDrawPreviously() {
+        return Arrays.asList();
     }
 }

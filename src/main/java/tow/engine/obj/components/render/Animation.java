@@ -36,36 +36,39 @@ public class Animation extends Rendering {
 	}
 
 	@Override
-    public void draw() {
+	protected void drawComponent() {
 		Vector2<Integer> relativePosition = getObj().getComponent(Position.class).getRelativePosition();
 		double xView = relativePosition.x;
 		double yView = relativePosition.y;
 		double directionDraw = getObj().getComponent(Position.class).getDirectionDraw();
 
 		directionDraw -= 90; //смещена начального угла с Востока на Север
-    	
-    	int width = getWidth();
-        int height = getHeight();
 
-        GL11.glLoadIdentity();
-	    GL11.glTranslatef((float) xView, (float) yView, 0);
-	    GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
+		int width = getWidth();
+		int height = getHeight();
 
-	    color.bind();
-	    textureHandler[frameNow].texture.bind();
-	    
-	    GL11.glBegin(GL11.GL_QUADS);
-		    GL11.glTexCoord2f(0,0);
-		    GL11.glVertex2f(-width/2, -height/2);
-		    GL11.glTexCoord2f(1,0);
-		    GL11.glVertex2f(width/2, -height/2);
-		    GL11.glTexCoord2f(1,1);
-		    GL11.glVertex2f(width/2, height/2);
-		    GL11.glTexCoord2f(0,1);
-		    GL11.glVertex2f(-width/2, height/2);
-	    GL11.glEnd();
+		GL11.glLoadIdentity();
+		GL11.glTranslatef((float) xView, (float) yView, 0);
+		GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
+
+		color.bind();
+		textureHandler[frameNow].texture.bind();
+
+		GL11.glBegin(GL11.GL_QUADS);
+		GL11.glTexCoord2f(0,0);
+		GL11.glVertex2f(-width/2, -height/2);
+		GL11.glTexCoord2f(1,0);
+		GL11.glVertex2f(width/2, -height/2);
+		GL11.glTexCoord2f(1,1);
+		GL11.glVertex2f(width/2, height/2);
+		GL11.glTexCoord2f(0,1);
+		GL11.glVertex2f(-width/2, height/2);
+		GL11.glEnd();
 		Texture.unbind();
-    }
+	}
+
+	@Override
+	public void destroy() { }
 
 	public void setFrameSpeed(int frameSpeed) {
 		if (frameSpeed < 0){

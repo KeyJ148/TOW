@@ -5,11 +5,12 @@ import tow.engine.Vector2;
 import tow.engine.map.Location;
 import tow.engine.obj.Component;
 import tow.engine.obj.Obj;
+import tow.engine.obj.QueueComponent;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Position extends Component {
+public class Position extends QueueComponent {
 
     public double x;
     public double y;
@@ -33,6 +34,9 @@ public class Position extends Component {
 
     @Override
     public void updateComponent(long delta){ }
+
+    @Override
+    protected void drawComponent() { }
 
     @Override
     public void destroy() {
@@ -68,7 +72,12 @@ public class Position extends Component {
     }
 
     @Override
-    public List<Class<? extends Component>> getComponentsExecutePreviously() {
+    public List<Class<? extends QueueComponent>> getComponentsUpdatePreviously() {
+        return Arrays.asList();
+    }
+
+    @Override
+    public List<Class<? extends QueueComponent>> getComponentsDrawPreviously() {
         return Arrays.asList();
     }
 }
