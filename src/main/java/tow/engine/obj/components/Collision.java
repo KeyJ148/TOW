@@ -7,11 +7,14 @@ import tow.engine.obj.Component;
 import tow.engine.obj.Obj;
 import org.lwjgl.opengl.GL11;
 import tow.engine.image.Color;
+import tow.engine.obj.components.render.Rendering;
 import tow.engine.resources.settings.SettingsStorage;
 
 import java.awt.Polygon;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Collision extends Component {
 
@@ -35,6 +38,8 @@ public class Collision extends Component {
 
 	@Override
 	public void update(long delta){
+		super.update(delta);
+
 		calcInThisStep = false;
 		if (getObj().hasComponent(Movement.class)) calc();
 		checkCollisionFromRoom();
@@ -200,5 +205,10 @@ public class Collision extends Component {
 	@Override
 	public Class getComponentClass() {
 		return Collision.class;
+	}
+
+	@Override
+	public List<Class<? extends Component>> getComponentsExecutePreviously() {
+		return Arrays.asList(Movement.class, Follower.class);
 	}
 }

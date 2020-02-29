@@ -24,6 +24,8 @@ public class Animation extends Rendering {
 
 	@Override
     public void update(long delta) {
+		super.update(delta);
+
 		update += delta;
 		if ((frameSpeed != 0) && (update > 1000000000/frameSpeed)) {
 			update = 0;

@@ -6,6 +6,9 @@ import tow.engine.map.Location;
 import tow.engine.obj.Component;
 import tow.engine.obj.Obj;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Position extends Component {
 
     public double x;
@@ -59,5 +62,10 @@ public class Position extends Component {
     @Override
     public Class getComponentClass() {
         return Position.class;
+    }
+
+    @Override
+    public List<Class<? extends Component>> getComponentsExecutePreviously() {
+        return Arrays.asList();
     }
 }

@@ -4,6 +4,9 @@ import tow.engine.Global;
 import tow.engine.obj.Component;
 import tow.engine.obj.Obj;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Follower extends Component {
 
     public Obj followUpObj;
@@ -20,6 +23,8 @@ public class Follower extends Component {
 
     @Override
     public void update(long delta){
+        super.update(delta);
+
         if (followUpObj.hasComponent(Follower.class) && !followUpObj.getComponent(Follower.class).isUpdated()) followUpObj.getComponent(Follower.class).update(delta);
 
         getObj().getComponent(Position.class).x = followUpObj.getComponent(Position.class).x;
@@ -44,5 +49,10 @@ public class Follower extends Component {
     @Override
     public Class getComponentClass() {
         return Follower.class;
+    }
+
+    @Override
+    public List<Class<? extends Component>> getComponentsExecutePreviously() {
+        return Arrays.asList(Movement.class);
     }
 }

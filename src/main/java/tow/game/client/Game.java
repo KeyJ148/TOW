@@ -6,7 +6,6 @@ import tow.engine.image.TextureManager;
 import tow.engine.implementation.GameInterface;
 import tow.game.client.menu.MainMenuLocation;
 
-import java.util.Map;
 import java.util.Random;
 
 public class Game implements GameInterface {

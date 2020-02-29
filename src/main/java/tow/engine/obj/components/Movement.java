@@ -4,6 +4,9 @@ import tow.engine.Global;
 import tow.engine.obj.Component;
 import tow.engine.obj.Obj;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Movement extends Component {
     public double speed; //На сколько пикселей объект смещается за 1 секунду
     private double direction; //0, 360 - в право, против часовой - движение
@@ -25,6 +28,8 @@ public class Movement extends Component {
 
     @Override
     public void update(long delta){
+        super.update(delta);
+
         xPrevious = getObj().getComponent(Position.class).x;
         yPrevious = getObj().getComponent(Position.class).y;
         directionPrevious = direction;
@@ -67,5 +72,10 @@ public class Movement extends Component {
     @Override
     public Class getComponentClass() {
         return Movement.class;
+    }
+
+    @Override
+    public List<Class<? extends Component>> getComponentsExecutePreviously() {
+        return Arrays.asList();
     }
 }

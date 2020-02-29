@@ -31,6 +31,8 @@ public class CollisionDirect extends Collision {
 
 	@Override
 	public void update(long delta){
+		super.update(delta);
+
 		calcInThisStep = false;
 
 		separationCollisions();
