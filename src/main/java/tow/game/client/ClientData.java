@@ -12,7 +12,7 @@ import java.util.Vector;
 
 public class ClientData {
 
-    public static String name = "";
+    public static String name = "Player";
     public static Color color = Color.WHITE;
     public static Player player;
 

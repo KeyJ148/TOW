@@ -9,7 +9,9 @@ import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.style.Background;
 import org.liquidengine.legui.style.border.SimpleLineBorder;
 import org.liquidengine.legui.style.color.ColorConstants;
+import tow.engine.image.Color;
 import tow.engine.net.client.Connector;
+import tow.game.client.ClientData;
 import tow.game.server.ServerLoader;
 
 public class PlayMenuLocation extends MenuLocation implements StartServerListener {
@@ -17,6 +19,8 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
     private int portHosted;
 
     public PlayMenuLocation(){
+        final TextAreaField textAreaFieldNick = new TextAreaField();
+
         createComponent(new Panel(), width/2, height/2-1*MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
 
         createComponent(new Label("IP:"), width/2-50, height/2-1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
@@ -43,6 +47,7 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
             if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE){
                 String ip = (!textAreaFieldIP.getTextState().getText().isEmpty())? textAreaFieldIP.getTextState().getText() : "127.0.0.1";
                 int port = Integer.parseInt(textAreaFieldPort.getTextState().getText());
+                ClientData.name = textAreaFieldNick.getTextState().getText();
                 new Connector().connect(ip, port);
             }
         });
@@ -81,10 +86,67 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
 
                 ServerLoader.startServerListener = this;
                 portHosted = port;
+                ClientData.name = textAreaFieldNick.getTextState().getText();
                 new ServerLoader(port, people, false);
             }
         });
         createComponent(buttonHost, width/2, height/2+15, MENU_ELEMENT_WIDTH-10, MENU_ELEMENT_HEIGHT-50);
+
+
+
+
+
+        createComponent(new Panel(), width/2, height/2+1*MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
+
+        createComponent(new Label("Nick:"), width/2-50, height/2+1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
+
+        //Создание в самом верху, потмоу что надо обращатсья из лямбды в кнопках Host и Connect
+        Background textAreaFieldNickBackground = new Background();
+        textAreaFieldNickBackground.setColor(new Vector4f((float) 0.8, (float) 0.8, (float) 0.8, 1));
+        textAreaFieldNick.getStyle().setBackground(textAreaFieldNickBackground);
+        createComponent(textAreaFieldNick, width/2-20, height/2+1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
+
+        Panel panelColor = new Panel();
+        Background panelColorBackground = new Background();
+        panelColorBackground.setColor(new Vector4f((float) 1, (float) 1, (float) 1, 1));
+        panelColor.getStyle().setBackground(panelColorBackground);
+        createComponent(panelColor, width/2+90, height/2+1*MENU_ELEMENT_HEIGHT-20, 60, MENU_TEXT_FIELD_HEIGHT);
+
+        createComponent(new Label("Color:"), width/2-50, height/2+1*MENU_ELEMENT_HEIGHT+15, 150, MENU_TEXT_FIELD_HEIGHT);
+
+        Color[] colors = {
+                new Color(255, 255, 255),
+                new Color(255, 0, 0),
+                new Color(0, 255, 0),
+                new Color(0, 0, 255),
+                new Color(255, 255, 0),
+                new Color(255, 0, 255),
+                new Color(0, 255, 255),
+                new Color(0, 125, 255),
+                new Color(255, 125, 0),
+                new Color(125, 0, 255),
+                new Color(125, 125, 0),
+                new Color(125, 125, 125, 125)
+        };
+        for (int i = 0; i < 12; i++) {
+            Button buttonColor = new Button("");
+            SimpleLineBorder buttonColorBorder = new SimpleLineBorder(ColorConstants.black(), 1);
+            buttonColor.getStyle().setBorder(buttonColorBorder);
+            Background buttonColorBackground = new Background();
+            buttonColorBackground.setColor(new Vector4f(colors[i].getFloatRed(), colors[i].getFloatGreen(),
+                    colors[i].getFloatBlue(), colors[i].getFloatAlpha()));
+            buttonColor.getStyle().setBackground(buttonColorBackground);
+
+            final int finalI = i;
+            buttonColor.getListenerMap().addListener(MouseClickEvent.class, event -> {
+                if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE){
+                    ClientData.color = colors[finalI];
+                    panelColorBackground.setColor(new Vector4f(colors[finalI].getFloatRed(), colors[finalI].getFloatGreen(),
+                            colors[finalI].getFloatBlue(), colors[finalI].getFloatAlpha()));
+                }
+            });
+            createComponent(buttonColor, width/2-80 + 17*i, height/2+1*MENU_ELEMENT_HEIGHT+15, 15, 15);
+        }
     }
 
 

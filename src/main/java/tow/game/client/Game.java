@@ -14,17 +14,10 @@ public class Game implements GameInterface {
 	public void init() {
 		GameSetting.init();
 
-        //new LoginWindow();
-
-		ClientData.name = "Nick";
-		Random rand = new Random();
-		ClientData.color = new Color(rand.nextInt(150)+100, rand.nextInt(150)+100, rand.nextInt(150)+100);
-		//ServerLoader.mapPath = "maps/town100k.maptest";
-
-
 		Global.location.getMouse().getCursor().setCapture(true);
 		Global.location.getMouse().getCursor().setTexture(TextureManager.getTexture("cursor_aim_1"));
 
+		//ServerLoader.mapPath = "maps/town100k.maptest";
         new MainMenuLocation();
 	}
 
