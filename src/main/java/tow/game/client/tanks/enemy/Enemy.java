@@ -3,7 +3,7 @@ package tow.game.client.tanks.enemy;
 import tow.engine.Global;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
-import tow.engine.gameobject.ObjFactory;
+import tow.engine.gameobject.GameObjectFactory;
 import tow.engine.gameobject.components.Follower;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
@@ -74,7 +74,7 @@ public class Enemy extends Tank {
         //Инициализация пушки
         if (gun == null){
             TextureHandler gunTexture = TextureManager.getTexture("g_default");
-            gun = ObjFactory.create(x, y, directionGun, gunTexture);
+            gun = GameObjectFactory.create(x, y, directionGun, gunTexture);
             gun.setComponent(new Movement());
             gun.getComponent(Movement.class).directionDrawEquals = false;
             gun.setComponent(new Follower(armor, false));

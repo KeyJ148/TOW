@@ -4,7 +4,7 @@ import tow.engine.Global;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
 import tow.engine.gameobject.GameObject;
-import tow.engine.gameobject.ObjFactory;
+import tow.engine.gameobject.GameObjectFactory;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.particles.Particles;
@@ -36,7 +36,7 @@ public class EnemyBullet extends GameObject {
 		destroy();
 
 		if (explosionSize > 0) {
-			GameObject explosion = ObjFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, -100);
+			GameObject explosion = GameObjectFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, -100);
 			explosion.setComponent(new Explosion(explosionSize));
 			explosion.getComponent(Particles.class).destroyObject = true;
 			Global.location.objAdd(explosion);

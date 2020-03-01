@@ -3,7 +3,7 @@ package tow.game.client.tanks;
 import org.liquidengine.legui.component.Label;
 import tow.engine.Global;
 import tow.engine.gameobject.GameObject;
-import tow.engine.gameobject.ObjFactory;
+import tow.engine.gameobject.GameObjectFactory;
 import tow.engine.gameobject.components.Follower;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
@@ -46,10 +46,10 @@ public abstract class Tank extends GameObject {
 
     public void initCamera(){
         //Инициализация камеры
-        camera = ObjFactory.create(0, 0, 0);
+        camera = GameObjectFactory.create(0, 0, 0);
         Global.location.objAdd(camera);
 
-        nickname = ObjFactory.create(0, 0, 0);
+        nickname = GameObjectFactory.create(0, 0, 0);
         Global.location.objAdd(nickname);
         nickname.setComponent(new GUIElement(new Label(), 500, 30));
     }
@@ -79,7 +79,7 @@ public abstract class Tank extends GameObject {
 
         setColor(explodedTankColor);
 
-        GameObject explosion = ObjFactory.create(armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, -100);
+        GameObject explosion = GameObjectFactory.create(armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, -100);
         explosion.setComponent(new Explosion(100));
         explosion.getComponent(Particles.class).destroyObject = true;
         Global.location.objAdd(explosion);

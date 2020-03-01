@@ -6,7 +6,7 @@ import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
 import tow.engine.map.Border;
 import tow.engine.gameobject.GameObject;
-import tow.engine.gameobject.ObjFactory;
+import tow.engine.gameobject.GameObjectFactory;
 import tow.engine.gameobject.components.Collision;
 import tow.engine.gameobject.components.CollisionDirect;
 import tow.engine.gameobject.components.Movement;
@@ -100,7 +100,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener{
 		Global.tcpControl.send(15, idNet + " " + expSize);
 
 		if (explosionSize > 0) {
-			GameObject explosion = ObjFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, -100);
+			GameObject explosion = GameObjectFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, -100);
 			explosion.setComponent(new Explosion(expSize));
 			explosion.getComponent(Particles.class).destroyObject = true;
 			Global.location.objAdd(explosion);

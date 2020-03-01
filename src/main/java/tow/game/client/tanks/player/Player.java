@@ -3,13 +3,12 @@ package tow.game.client.tanks.player;
 import org.joml.Vector4f;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.Label;
-import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.style.Background;
 import org.liquidengine.legui.style.border.SimpleLineBorder;
 import org.liquidengine.legui.style.color.ColorConstants;
 import tow.engine.Global;
 import tow.engine.gameobject.GameObject;
-import tow.engine.gameobject.ObjFactory;
+import tow.engine.gameobject.GameObjectFactory;
 import tow.engine.gameobject.components.Follower;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
@@ -80,7 +79,7 @@ public class Player extends Tank {
         gun.setComponent(new Follower(armor, false)); //TODO: gun.follower дублируется в 3-х местах
         camera.setComponent(new Follower(armor));
 
-        hpLabel = ObjFactory.create(1, 10, 0);
+        hpLabel = GameObjectFactory.create(1, 10, 0);
         hpLabel.getComponent(Position.class).absolute = false;
         Global.location.objAdd(hpLabel);
         hpLabel.setComponent(new GUIElement(new Label(), 1, 1));
@@ -89,7 +88,7 @@ public class Player extends Tank {
 
         statsLabel = new GameObject[stats.toString().split("\n").length + 4];
         for (int i = 0; i < statsLabel.length; i++) {
-            statsLabel[i] = ObjFactory.create(1, 30+i*15, 0);
+            statsLabel[i] = GameObjectFactory.create(1, 30+i*15, 0);
             statsLabel[i].getComponent(Position.class).absolute = false;
             Global.location.objAdd(statsLabel[i]);
             statsLabel[i].setComponent(new GUIElement(new Label(), 1, 1));
@@ -112,7 +111,7 @@ public class Player extends Tank {
             buttons[i].getStyle().setBorder(buttonTakeBorder);
             buttons[i].getStyle().setBackground(buttonsBackground[i]);
 
-            buttonsTake[i] = ObjFactory.create(10+17*i, Global.engine.render.getHeight()-15, 0);
+            buttonsTake[i] = GameObjectFactory.create(10+17*i, Global.engine.render.getHeight()-15, 0);
             buttonsTake[i].getComponent(Position.class).absolute = false;
             Global.location.objAdd(buttonsTake[i]);
             buttonsTake[i].setComponent(new GUIElement(buttons[i], 15, 15));

@@ -7,7 +7,7 @@ import tow.engine.gameobject.components.render.Sprite;
 
 import java.util.Arrays;
 
-public class ObjFactory {
+public class GameObjectFactory {
 
     public static GameObject create(double x, double y, int depth){
         return new GameObject(Arrays.asList(new Position(x, y, depth)));
