@@ -47,7 +47,7 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
             if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE){
                 String ip = (!textAreaFieldIP.getTextState().getText().isEmpty())? textAreaFieldIP.getTextState().getText() : "127.0.0.1";
                 int port = Integer.parseInt(textAreaFieldPort.getTextState().getText());
-                ClientData.name = textAreaFieldNick.getTextState().getText();
+                if (textAreaFieldNick.getTextState().getText().length() != 0) ClientData.name = textAreaFieldNick.getTextState().getText();
                 new Connector().connect(ip, port);
             }
         });
@@ -86,7 +86,7 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
 
                 ServerLoader.startServerListener = this;
                 portHosted = port;
-                ClientData.name = textAreaFieldNick.getTextState().getText();
+                if (textAreaFieldNick.getTextState().getText().length() != 0) ClientData.name = textAreaFieldNick.getTextState().getText();
                 new ServerLoader(port, people, false);
             }
         });
