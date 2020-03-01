@@ -1,6 +1,12 @@
 package tow.game.client.tanks.player;
 
+import org.joml.Vector4f;
+import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.Label;
+import org.liquidengine.legui.event.MouseClickEvent;
+import org.liquidengine.legui.style.Background;
+import org.liquidengine.legui.style.border.SimpleLineBorder;
+import org.liquidengine.legui.style.color.ColorConstants;
 import tow.engine.Global;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.ObjFactory;
@@ -43,6 +49,7 @@ public class Player extends Tank {
 
     public GameObject hpLabel;
     public GameObject[] statsLabel;
+    public GameObject[] buttonsTake = new GameObject[4];
 
     public Player(double x, double y, double direction){
         setComponent(new Position(x, y, 0));
@@ -89,6 +96,27 @@ public class Player extends Tank {
             ((Label) ((GUIElement) statsLabel[i].getComponent(Rendering.class)).getComponent()).setFocusable(false);
             ((Label) ((GUIElement) statsLabel[i].getComponent(Rendering.class)).getComponent()).getTextState().setFontSize(17);
         }
+
+        //Создание кнопок для отключения подбора снаряжения
+        Button[] buttons = new Button[4];
+        Background[] buttonsBackground = new Background[4];
+        for (int i = 0; i < buttonsBackground.length; i++) buttonsBackground[i] = new Background();
+        buttonsBackground[0].setColor(new Vector4f(0, 1, 0, 1));
+        buttonsBackground[1].setColor(new Vector4f(1, 0, 0, 1));
+        buttonsBackground[2].setColor(new Vector4f(0, 0, 1, 1));
+        buttonsBackground[3].setColor(new Vector4f(1, 1, 1, 1));
+
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i] = new Button("");
+            SimpleLineBorder buttonTakeBorder = new SimpleLineBorder(ColorConstants.black(), 1);
+            buttons[i].getStyle().setBorder(buttonTakeBorder);
+            buttons[i].getStyle().setBackground(buttonsBackground[i]);
+
+            buttonsTake[i] = ObjFactory.create(10+17*i, Global.engine.render.getHeight()-15, 0);
+            buttonsTake[i].getComponent(Position.class).absolute = false;
+            Global.location.objAdd(buttonsTake[i]);
+            buttonsTake[i].setComponent(new GUIElement(buttons[i], 15, 15));
+        }
     }
 
 
@@ -122,6 +150,9 @@ public class Player extends Tank {
                 ((Label) ((GUIElement) statsLabel[i].getComponent(Rendering.class)).getComponent()).getTextState().setText("");
             }
         }
+
+        //Отрисовка возможностей подбора
+
 
         //Проверка HP
         if(hp <= 0){

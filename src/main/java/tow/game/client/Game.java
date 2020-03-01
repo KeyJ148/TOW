@@ -1,12 +1,9 @@
 package tow.game.client;
 
 import tow.engine.Global;
-import tow.engine.image.Color;
 import tow.engine.image.TextureManager;
 import tow.engine.implementation.GameInterface;
 import tow.game.client.menu.MainMenuLocation;
-
-import java.util.Random;
 
 public class Game implements GameInterface {
 
