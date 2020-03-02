@@ -25,7 +25,29 @@ Storage, tow.player.equipment.bullet/, res/settings/bullet
 
 public class EquipManager {
 
-    public static Random random = new Random();
+    private static Random random = new Random();
+
+    private static final String[] ARMOR_PROPS = {
+            "ADefault.properties",
+            "ALight.properties",
+            "AFortified.properties",
+            "AVampire.properties",
+            "AFury.properties",
+            "AElephant.properties",
+            "ARenegat.properties",
+            "AMite.properties"
+    };
+
+    private static final String[] BULLET_PROPS = {
+            "BDefault.properties",
+            "BStreamlined.properties",
+            "BFury.properties",
+            "BMass.properties",
+            "BSteel.properties",
+            "BVampire.properties",
+            "BMassSmall.properties",
+            "BSquaremass.properties"
+    };
 
     public static void newArmor(Player player){
         //Получение валидного имени экипировки (Которое не равно текущему и соответствует пушке)
@@ -34,14 +56,13 @@ public class EquipManager {
         do{
             exit = false;
 
-            File[] dir = new File(ConfigReader.PATH_SETTING_DIR + Armor.PATH_SETTING).listFiles();
-            File config = dir[random.nextInt(dir.length)];
-            if (!config.getName().contains(".properties")) continue;
+            String config = ARMOR_PROPS[random.nextInt(ARMOR_PROPS.length)];
+            if (!config.contains(".properties")) continue;
 
-            ConfigReader cr = new ConfigReader(Armor.PATH_SETTING + config.getName());
+            ConfigReader cr = new ConfigReader(Armor.PATH_SETTING + config);
             if (!contain(cr.findString("ALLOW_GUN").split(" "), ((Gun) player.gun).name)) continue;
 
-            newArmorName = config.getName().substring(0, config.getName().lastIndexOf("."));
+            newArmorName = config.substring(0, config.lastIndexOf("."));
             if (!newArmorName.equals(((Armor) player.armor).name)) exit = true;
         } while (!exit);
 
@@ -104,14 +125,13 @@ public class EquipManager {
         do{
             exit = false;
 
-            File[] dir = new File(ConfigReader.PATH_SETTING_DIR + Bullet.PATH_SETTING).listFiles();
-            File config = dir[random.nextInt(dir.length)];
-            if (!config.getName().contains(".properties")) continue;
+            String config = BULLET_PROPS[random.nextInt(BULLET_PROPS.length)];
+            if (!config.contains(".properties")) continue;
 
-            ConfigReader cr = new ConfigReader(Bullet.PATH_SETTING + config.getName());
+            ConfigReader cr = new ConfigReader(Bullet.PATH_SETTING + config);
             if (!contain(cr.findString("ALLOW_GUN").split(" "), ((Gun) player.gun).name)) continue;
 
-            newBulletName = config.getName().substring(0, config.getName().lastIndexOf("."));
+            newBulletName = config.substring(0, config.lastIndexOf("."));
             if (!newBulletName.equals(player.bullet.name)) exit = true;
         } while (!exit);
 
