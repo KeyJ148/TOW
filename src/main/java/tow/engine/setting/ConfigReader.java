@@ -2,6 +2,7 @@ package tow.engine.setting;
 
 import tow.engine.Global;
 import tow.engine.logger.Logger;
+import tow.engine.resources.ResourceLoader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,7 +10,7 @@ import java.io.IOException;
 
 public class ConfigReader {
 
-	public static final String PATH_SETTING_DIR = "settings/";
+	public static final String PATH_SETTING_DIR = "res/game-settings/";
 	private String path;
 
 	public ConfigReader(String fileName){
@@ -18,7 +19,7 @@ public class ConfigReader {
 
 	public String findString(String findName){
 		try {
-			BufferedReader fileReader = new BufferedReader(new FileReader(path));
+			BufferedReader fileReader = ResourceLoader.getResourceAsBufferedReader(path);
 			String s, varName;
 			while (true){
 				s = fileReader.readLine();
