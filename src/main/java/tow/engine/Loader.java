@@ -91,7 +91,7 @@ public class Loader {
 
 		new Location(640, 480).activate(false);
 
-		Global.logger.println("Inicialization end", Logger.Type.DEBUG);
+		Global.logger.println("Initialization end", Logger.Type.DEBUG);
 
 		//Инициализация игры
 		Global.game.init();
