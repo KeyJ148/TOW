@@ -2,6 +2,7 @@ package tow.engine.resources.settings;
 
 import tow.engine.resources.JsonContainerLoader;
 
+import java.io.File;
 import java.io.IOException;
 
 public class SettingsLoader {
@@ -15,6 +16,9 @@ public class SettingsLoader {
     }
 
     public static <T> void saveExternalSettings(T settingsContainerObject) throws IOException {
+        File externalFolder = new File(PATH_EXTERNAL);
+        if (!externalFolder.exists()) externalFolder.mkdir();
+
         String path = PATH_EXTERNAL + getSettingsFileName(settingsContainerObject.getClass());
         JsonContainerLoader.saveExternalFile(settingsContainerObject, path);
     }
