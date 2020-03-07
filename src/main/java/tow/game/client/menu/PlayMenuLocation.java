@@ -17,6 +17,7 @@ import tow.game.server.ServerLoader;
 public class PlayMenuLocation extends MenuLocation implements StartServerListener {
 
     private int portHosted;
+    private boolean wasConnect = false;
 
     public PlayMenuLocation(){
         final TextAreaField textAreaFieldNick = new TextAreaField();
@@ -45,6 +46,9 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
         buttonConnect.getStyle().setBorder(buttonConnectBorder);
         buttonConnect.getListenerMap().addListener(MouseClickEvent.class, event -> {
             if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE){
+                if (wasConnect) return;
+                wasConnect = true;
+
                 String ip = (!textAreaFieldIP.getTextState().getText().isEmpty())? textAreaFieldIP.getTextState().getText() : "127.0.0.1";
                 int port = Integer.parseInt(textAreaFieldPort.getTextState().getText());
                 if (textAreaFieldNick.getTextState().getText().length() != 0) ClientData.name = textAreaFieldNick.getTextState().getText();
