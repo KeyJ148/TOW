@@ -88,7 +88,7 @@ public class Analyzer {
 		loadPackageUDP = Global.udpControl.countPackageRead;
 		Global.udpControl.analyzeClear();
 
-		chunkInDepthVector = (Global.room.mapControl.getCountDepthVectors() == 0)? 0: Global.room.mapControl.chunkRender / Global.room.mapControl.getCountDepthVectors();
+		chunkInDepthVector = (Global.location.mapControl.getCountDepthVectors() == 0)? 0: Global.location.mapControl.chunkRender / Global.location.mapControl.getCountDepthVectors();
 
 		//Для строк отладки, иначе делние на 0
 		if (loopsRender == 0) loopsRender = 1;

@@ -3,11 +3,13 @@ package tow.game.client.tanks.enemy;
 import tow.engine.Global;
 import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
-import tow.engine.obj.Obj;
-import tow.engine.obj.components.Movement;
-import tow.engine.obj.components.Position;
-import tow.engine.obj.components.render.Animation;
-import tow.engine.obj.components.render.Sprite;
+import tow.engine.gameobject.GameObjectFactory;
+import tow.engine.gameobject.components.Follower;
+import tow.engine.gameobject.components.Movement;
+import tow.engine.gameobject.components.Position;
+import tow.engine.gameobject.components.render.Animation;
+import tow.engine.gameobject.components.render.Rendering;
+import tow.engine.gameobject.components.render.Sprite;
 import tow.game.client.ClientData;
 import tow.game.client.tanks.Tank;
 
@@ -23,8 +25,20 @@ public class Enemy extends Tank {
     public Enemy(int id){
         this.id = id;
 
-        position = new Position(this, 0, 0, 0);
-        movement = new Movement(this);
+        setComponent(new Position(0, 0, 0));
+        setComponent(new Movement());
+    }
+
+    public Enemy(Enemy enemy){
+        this(enemy.id);
+        this.valid = enemy.valid;
+        this.timeLastRequestDelta = enemy.timeLastRequestDelta;
+        this.lastNumberPackage = enemy.lastNumberPackage;
+        this.color = enemy.color;
+        this.name = enemy.name;
+        this.kill = enemy.kill;
+        this.death = enemy.death;
+        this.win = enemy.win;
     }
 
     @Override
@@ -42,6 +56,7 @@ public class Enemy extends Tank {
 
     public void setData(int x, int y, int direction, int directionGun, int speed, double moveDirection, int animSpeed, long numberPackage){
         if (!ClientData.battle) return;
+        if (!alive) return;
         if (numberPackage < lastNumberPackage) return;
         lastNumberPackage = numberPackage;
 
@@ -49,57 +64,58 @@ public class Enemy extends Tank {
         if (armor == null){
             TextureHandler[] armorAnimation = TextureManager.getAnimation("a_default");
             armor = new EnemyArmor(x, y, direction, armorAnimation, this);
-            Global.room.objAdd(armor);
+            Global.location.objAdd(armor);
             setColorArmor(color);
+
+            setComponent(new Follower(armor));
+            camera.setComponent(new Follower(armor));
         }
 
         //Инициализация пушки
         if (gun == null){
             TextureHandler gunTexture = TextureManager.getTexture("g_default");
-            gun = new Obj(x, y, directionGun, gunTexture);
-            gun.movement = new Movement(gun);
-            gun.movement.directionDrawEquals = false;
-            Global.room.objAdd(gun);
+            gun = GameObjectFactory.create(x, y, directionGun, gunTexture);
+            gun.setComponent(new Movement());
+            gun.getComponent(Movement.class).directionDrawEquals = false;
+            gun.setComponent(new Follower(armor, false));
+            Global.location.objAdd(gun);
             setColorGun(color);
         }
 
         //Инициализация камеры
         if (camera == null){
             initCamera();
+            camera.setComponent(new Follower(armor));
         }
 
-        armor.position.x = x;
-        armor.position.y = y;
-        armor.position.setDirectionDraw(direction);
+        armor.getComponent(Position.class).x = x;
+        armor.getComponent(Position.class).y = y;
+        armor.getComponent(Position.class).setDirectionDraw(direction);
 
-        followToArmor(gun);
-        gun.position.setDirectionDraw(directionGun);
-
-        //Для верных координат источника звука при взрыве
-        followToArmor(this);
+        gun.getComponent(Position.class).setDirectionDraw(directionGun);
 
         //Для интерполяции (предсказания) движения врага
-        armor.movement.speed = speed;
-        armor.movement.setDirection(moveDirection);
+        armor.getComponent(Movement.class).speed = speed;
+        armor.getComponent(Movement.class).setDirection(moveDirection);
 
         //Анимация гусениц
         if (alive) {
-            Animation animation = (Animation) armor.rendering;
+            Animation animation = (Animation) armor.getComponent(Rendering.class);
             if (animation.getFrameSpeed() != animSpeed) animation.setFrameSpeed(animSpeed);
         }
     }
 
     public void newArmor(String nameArmor){
-        armor.rendering = new Animation(armor, TextureManager.getAnimation(nameArmor));
+        armor.setComponent(new Animation(TextureManager.getAnimation(nameArmor)));
         setColorArmor(color);
 
-        Global.room.mapControl.update(armor);
+        Global.location.mapControl.update(armor);
     }
 
     public void newGun(String nameGun){
-        gun.rendering = new Sprite(gun, TextureManager.getTexture(nameGun));
+        gun.setComponent(new Sprite(TextureManager.getTexture(nameGun)));
         setColorGun(color);
 
-        Global.room.mapControl.update(gun);
+        Global.location.mapControl.update(gun);
     }
 }

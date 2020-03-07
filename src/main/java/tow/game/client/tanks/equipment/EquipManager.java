@@ -3,6 +3,7 @@ package tow.game.client.tanks.equipment;
 import tow.engine.Global;
 import tow.engine.logger.Logger;
 import tow.engine.Loader;
+import tow.engine.gameobject.components.Position;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.tanks.player.Armor;
 import tow.game.client.tanks.player.Bullet;
@@ -24,7 +25,29 @@ Storage, tow.player.equipment.bullet/, res/settings/bullet
 
 public class EquipManager {
 
-    public static Random random = new Random();
+    private static Random random = new Random();
+
+    private static final String[] ARMOR_PROPS = {
+            "ADefault.properties",
+            "ALight.properties",
+            "AFortified.properties",
+            "AVampire.properties",
+            "AFury.properties",
+            "AElephant.properties",
+            "ARenegat.properties",
+            "AMite.properties"
+    };
+
+    private static final String[] BULLET_PROPS = {
+            "BDefault.properties",
+            "BStreamlined.properties",
+            "BFury.properties",
+            "BMass.properties",
+            "BSteel.properties",
+            "BVampire.properties",
+            "BMassSmall.properties",
+            "BSquaremass.properties"
+    };
 
     public static void newArmor(Player player){
         //Получение валидного имени экипировки (Которое не равно текущему и соответствует пушке)
@@ -33,14 +56,13 @@ public class EquipManager {
         do{
             exit = false;
 
-            File[] dir = new File(ConfigReader.PATH_SETTING_DIR + Armor.PATH_SETTING).listFiles();
-            File config = dir[random.nextInt(dir.length)];
-            if (!config.getName().contains(".properties")) continue;
+            String config = ARMOR_PROPS[random.nextInt(ARMOR_PROPS.length)];
+            if (!config.contains(".properties")) continue;
 
-            ConfigReader cr = new ConfigReader(Armor.PATH_SETTING + config.getName());
+            ConfigReader cr = new ConfigReader(Armor.PATH_SETTING + config);
             if (!contain(cr.findString("ALLOW_GUN").split(" "), ((Gun) player.gun).name)) continue;
 
-            newArmorName = config.getName().substring(0, config.getName().lastIndexOf("."));
+            newArmorName = config.substring(0, config.lastIndexOf("."));
             if (!newArmorName.equals(((Armor) player.armor).name)) exit = true;
         } while (!exit);
 
@@ -50,7 +72,7 @@ public class EquipManager {
         try {
             String newArmorFullPath = getClassPackage(player.armor) + "." + newArmorClass;
             newArmor = (Armor) Class.forName(newArmorFullPath).newInstance();
-            newArmor.init(player, player.armor.position.x, player.armor.position.y, player.armor.position.getDirectionDraw(), newArmorName);
+            newArmor.init(player, player.armor.getComponent(Position.class).x, player.armor.getComponent(Position.class).y, player.armor.getComponent(Position.class).getDirectionDraw(), newArmorName);
             player.replaceArmor(newArmor);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e){
             Global.logger.println("Armor not found: " + newArmorClass, Logger.Type.ERROR);
@@ -86,7 +108,7 @@ public class EquipManager {
             String newGunClassName = new ConfigReader(Gun.PATH_SETTING + newGunName + ".properties").findString("CLASS");
             String newGunFullPath = getClassPackage(player.gun) + "." + newGunClassName;
             newGun = (Gun) Class.forName(newGunFullPath).newInstance();
-            newGun.init(player, player.gun.position.x, player.gun.position.y, player.gun.position.getDirectionDraw(), newGunName);
+            newGun.init(player, player.gun.getComponent(Position.class).x, player.gun.getComponent(Position.class).y, player.gun.getComponent(Position.class).getDirectionDraw(), newGunName);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e){
             Global.logger.println("Gun not found: " + newGunName, Logger.Type.ERROR);
             Loader.exit();
@@ -103,14 +125,13 @@ public class EquipManager {
         do{
             exit = false;
 
-            File[] dir = new File(ConfigReader.PATH_SETTING_DIR + Bullet.PATH_SETTING).listFiles();
-            File config = dir[random.nextInt(dir.length)];
-            if (!config.getName().contains(".properties")) continue;
+            String config = BULLET_PROPS[random.nextInt(BULLET_PROPS.length)];
+            if (!config.contains(".properties")) continue;
 
-            ConfigReader cr = new ConfigReader(Bullet.PATH_SETTING + config.getName());
+            ConfigReader cr = new ConfigReader(Bullet.PATH_SETTING + config);
             if (!contain(cr.findString("ALLOW_GUN").split(" "), ((Gun) player.gun).name)) continue;
 
-            newBulletName = config.getName().substring(0, config.getName().lastIndexOf("."));
+            newBulletName = config.substring(0, config.lastIndexOf("."));
             if (!newBulletName.equals(player.bullet.name)) exit = true;
         } while (!exit);
 

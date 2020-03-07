@@ -1,7 +1,7 @@
 package tow.game.server;
 
 import tow.game.ServerStart;
-import tow.game.client.lobby.StartServerListener;
+import tow.game.client.menu.StartServerListener;
 
 public class ServerLoader extends Thread{
 

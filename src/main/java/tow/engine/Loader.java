@@ -3,6 +3,7 @@ package tow.engine;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import tow.engine.audio.AudioPlayer;
 import tow.engine.cycle.Engine;
+import tow.engine.map.Location;
 import tow.engine.resources.audios.AudioStorage;
 import tow.engine.image.TextureManager;
 import tow.engine.implementation.*;
@@ -72,7 +73,8 @@ public class Loader {
 	//Инициализация движка перед запуском
 	private static void init() {
 		Global.engine = new Engine();//Создание класса для главного цикла
-		Global.engine.render.initGL();//Инициализация OpenGL
+		Global.engine.init();
+		//Global.engine.render.initGL();//Инициализация OpenGL
 
 		Global.tcpControl = new TCPControl();
 		Global.tcpRead = new TCPRead();
@@ -87,8 +89,7 @@ public class Loader {
 		TextureManager.init();//Загрузка текстур и анимаций
 		//TODO: FontManager.init();//Загрузка шрифтов
 
-		Global.mouse = new MouseHandler();
-		Global.keyboard = new KeyboardHandler();
+		new Location(640, 480).activate(false);
 
 		Global.logger.println("Inicialization end", Logger.Type.DEBUG);
 

@@ -2,11 +2,12 @@ package tow.engine.map;
 
 import tow.engine.Global;
 import tow.engine.Vector2;
-import tow.engine.obj.Obj;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.components.Position;
 
 public class Camera {
 
-    private Obj followObject;//Объект, за которым следует камера (Если followObject != null, то x и y не учитываются)
+    private GameObject followObject;//Объект, за которым следует камера (Если followObject != null, то x и y не учитываются)
     private double x = 0, y = 0;//Абсолютная позиция камеры в комнате, отрисовка происходит вокруг этой позиции
 
     public double getX(){
@@ -25,12 +26,12 @@ public class Camera {
         this.y = y;
     }
 
-    public void setFollowObject(Obj obj){
-        if (obj.position == null) return;
-        followObject = obj;
+    public void setFollowObject(GameObject gameObject){
+        if (!gameObject.hasComponent(Position.class)) return;
+        followObject = gameObject;
     }
 
-    public Obj getFollowObject(){
+    public GameObject getFollowObject(){
         return followObject;
     }
 
@@ -41,14 +42,14 @@ public class Camera {
     //Расчёт текущей позиции
     public void update(){
         if (followObject != null){
-            x = followObject.position.x;
-            y = followObject.position.y;
+            x = followObject.getComponent(Position.class).x;
+            y = followObject.getComponent(Position.class).y;
         }
 
         int width = Global.engine.render.getWidth();
         int height = Global.engine.render.getHeight();
-        int widthMap = Global.room.width;
-        int heightMap = Global.room.height;
+        int widthMap = Global.location.width;
+        int heightMap = Global.location.height;
 
         if (x < width/2) x = width/2;
         if (y < height/2) y = height/2;

@@ -5,6 +5,7 @@ import org.lwjgl.openal.ALC;
 import org.lwjgl.openal.ALCCapabilities;
 import org.lwjgl.openal.ALCapabilities;
 import tow.engine.Global;
+import tow.engine.gameobject.components.Position;
 import tow.engine.resources.audios.Audio;
 import tow.engine.resources.settings.SettingsStorage;
 import tow.engine.map.Camera;
@@ -38,13 +39,13 @@ public class AudioPlayer {
         звука находится на таком же расстояние от объекта танка (игрока) как и раньше
         Условие (Camera.getFollowObject() != null) исправляет этот баг
         */
-        Camera camera = Global.room.camera;
+        Camera camera = Global.location.camera;
         double listenerX = camera.getX();
         double listenerY = camera.getY();
 
         if (camera.getFollowObject() != null){
-            listenerX = camera.getFollowObject().position.x;
-            listenerY = camera.getFollowObject().position.y;
+            listenerX = camera.getFollowObject().getComponent(Position.class).x;
+            listenerY = camera.getFollowObject().getComponent(Position.class).y;
         }
 
         double dis = Math.sqrt(Math.pow(x-listenerX, 2) + Math.pow(y-listenerY, 2));

@@ -1,9 +1,20 @@
 package tow.game.client.tanks.player;
 
+import org.joml.Vector4f;
+import org.liquidengine.legui.component.Button;
+import org.liquidengine.legui.component.Label;
+import org.liquidengine.legui.style.Background;
+import org.liquidengine.legui.style.border.SimpleLineBorder;
+import org.liquidengine.legui.style.color.ColorConstants;
 import tow.engine.Global;
-import tow.engine.obj.Obj;
-import tow.engine.obj.components.Position;
-import tow.engine.obj.components.render.Animation;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.GameObjectFactory;
+import tow.engine.gameobject.components.Follower;
+import tow.engine.gameobject.components.Movement;
+import tow.engine.gameobject.components.Position;
+import tow.engine.gameobject.components.render.Animation;
+import tow.engine.gameobject.components.render.GUIElement;
+import tow.engine.gameobject.components.render.Rendering;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
 import tow.game.client.tanks.Effect;
@@ -35,21 +46,25 @@ public class Player extends Tank {
     private int sendDataLast = 0;//Как давно отправляли данные
     private static long numberPackage = 0; //Номер пакета UDP
 
+    public GameObject hpLabel;
+    public GameObject[] statsLabel;
+    public GameObject[] buttonsTake = new GameObject[4];
+
     public Player(double x, double y, double direction){
-        position = new Position(this, x, y, 0);
+        setComponent(new Position(x, y, 0));
 
         controller = new PlayerController(this);
-        Global.room.objAdd(controller);
+        Global.location.objAdd(controller);
 
         armor = new ADefault();
         ((Armor) armor).init(this, x, y, direction, "ADefault");
         effects.add(((Armor) armor).effect);
-        Global.room.objAdd(armor);
+        Global.location.objAdd(armor);
 
         gun = new GDefault();
         ((Gun) gun).init(this, x, y, direction, "GDefault");
         effects.add(((Gun) gun).effect);
-        Global.room.objAdd(gun);
+        Global.location.objAdd(gun);
 
         bullet = new BulletFactory("BDefault", this);
 
@@ -59,6 +74,48 @@ public class Player extends Tank {
         color = ClientData.color;
         name = ClientData.name;
         setColor(color);
+
+        setComponent(new Follower(armor));
+        gun.setComponent(new Follower(armor, false)); //TODO: gun.follower дублируется в 3-х местах
+        camera.setComponent(new Follower(armor));
+
+        hpLabel = GameObjectFactory.create(1, 10, 0);
+        hpLabel.getComponent(Position.class).absolute = false;
+        Global.location.objAdd(hpLabel);
+        hpLabel.setComponent(new GUIElement(new Label(), 1, 1));
+        ((Label) ((GUIElement) hpLabel.getComponent(Rendering.class)).getComponent()).setFocusable(false);
+        ((Label) ((GUIElement) hpLabel.getComponent(Rendering.class)).getComponent()).getTextState().setFontSize(30);
+
+        statsLabel = new GameObject[stats.toString().split("\n").length + 4];
+        for (int i = 0; i < statsLabel.length; i++) {
+            statsLabel[i] = GameObjectFactory.create(1, 30+i*15, 0);
+            statsLabel[i].getComponent(Position.class).absolute = false;
+            Global.location.objAdd(statsLabel[i]);
+            statsLabel[i].setComponent(new GUIElement(new Label(), 1, 1));
+            ((Label) ((GUIElement) statsLabel[i].getComponent(Rendering.class)).getComponent()).setFocusable(false);
+            ((Label) ((GUIElement) statsLabel[i].getComponent(Rendering.class)).getComponent()).getTextState().setFontSize(17);
+        }
+
+        //Создание кнопок для отключения подбора снаряжения
+        Button[] buttons = new Button[4];
+        Background[] buttonsBackground = new Background[4];
+        for (int i = 0; i < buttonsBackground.length; i++) buttonsBackground[i] = new Background();
+        buttonsBackground[0].setColor(new Vector4f(0, 1, 0, 1));
+        buttonsBackground[1].setColor(new Vector4f(1, 0, 0, 1));
+        buttonsBackground[2].setColor(new Vector4f(0, 0, 1, 1));
+        buttonsBackground[3].setColor(new Vector4f(1, 1, 1, 1));
+
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i] = new Button("");
+            SimpleLineBorder buttonTakeBorder = new SimpleLineBorder(ColorConstants.black(), 1);
+            buttons[i].getStyle().setBorder(buttonTakeBorder);
+            buttons[i].getStyle().setBackground(buttonsBackground[i]);
+
+            buttonsTake[i] = GameObjectFactory.create(10+17*i, Global.engine.render.getHeight()-15, 0);
+            buttonsTake[i].getComponent(Position.class).absolute = false;
+            Global.location.objAdd(buttonsTake[i]);
+            buttonsTake[i].setComponent(new GUIElement(buttons[i], 15, 15));
+        }
     }
 
 
@@ -69,26 +126,32 @@ public class Player extends Tank {
 
         //Обновление параметров
         updateStats();
-        followToArmor(this);
 
         //Обновление вампирского сета
         vampire -= GameSetting.VAMPIRE_DOWN_FROM_SEC * ((double) delta/1000000000);
         if (vampire < 0.0) vampire = 0.0;
 
         //Отрисовка HP
-        //TODO: Global.engine.render.addTitle(new Title(1, -3, "HP: " +  Math.round(hp) + "/" + Math.round(stats.hpMax), Color.black, 20, Font.BOLD));
+        ((Label) ((GUIElement) hpLabel.getComponent(Rendering.class)).getComponent()).getTextState().setText("HP: " +  Math.round(hp) + "/" + Math.round(stats.hpMax));
 
         //Отрисовка статов
         if (ClientData.printStats){
             String[] array = stats.toString().split("\n");
             for (int i = 0; i < array.length; i++) {
-                //TODO: Global.engine.render.addTitle(new Title(1, 22+i*15, array[i], Color.black, 14, Font.PLAIN));
+                ((Label) ((GUIElement) statsLabel[i].getComponent(Rendering.class)).getComponent()).getTextState().setText(array[i]);
             }
-            //TODO: Global.engine.render.addTitle(new Title(1, 22+array.length*15+7, "Armor: " + ((Armor) armor).title, Color.black, 14, Font.PLAIN));
-            //TODO: Global.engine.render.addTitle(new Title(1, 22+array.length*15+7+15, "Gun: " + ((Gun) gun).title, Color.black, 14, Font.PLAIN));
-            //TODO: Global.engine.render.addTitle(new Title(1, 22+array.length*15+7+30, "Bullet: " + bullet.title, Color.black, 14, Font.PLAIN));
-            //TODO: Global.engine.render.addTitle(new Title(1, 22+array.length*15+7+55, "Vampire: " + Math.round(vampire*100) + "%", Color.black, 14, Font.PLAIN));
+            ((Label) ((GUIElement) statsLabel[array.length].getComponent(Rendering.class)).getComponent()).getTextState().setText("Armor: " + ((Armor) armor).title);
+            ((Label) ((GUIElement) statsLabel[array.length+1].getComponent(Rendering.class)).getComponent()).getTextState().setText("Gun: " + ((Gun) gun).title);
+            ((Label) ((GUIElement) statsLabel[array.length+2].getComponent(Rendering.class)).getComponent()).getTextState().setText("Bullet: " + bullet.title);
+            ((Label) ((GUIElement) statsLabel[array.length+3].getComponent(Rendering.class)).getComponent()).getTextState().setText("Vampire: " + Math.round(vampire*100) + "%");
+       } else {
+            for (int i = 0; i < statsLabel.length; i++) {
+                ((Label) ((GUIElement) statsLabel[i].getComponent(Rendering.class)).getComponent()).getTextState().setText("");
+            }
         }
+
+        //Отрисовка возможностей подбора
+
 
         //Проверка HP
         if(hp <= 0){
@@ -126,7 +189,7 @@ public class Player extends Tank {
     }
 
     @Override
-    public void replaceArmor(Obj newArmor){
+    public void replaceArmor(GameObject newArmor){
         double lastMaxHp = stats.hpMax;
         effects.remove(((Armor) armor).effect);
 
@@ -136,8 +199,8 @@ public class Player extends Tank {
 
         //Устанавливаем новой броне параметры как у текущий брони игрока
         hp = (hp/lastMaxHp) * stats.hpMax; //Устанавливаем эквивалетное здоровье в процентах
-        if (controller.runUp) newArmor.movement.speed = stats.speedTankUp;
-        if (controller.runDown) newArmor.movement.speed = stats.speedTankDown;
+        if (controller.runUp) newArmor.getComponent(Movement.class).speed = stats.speedTankUp;
+        if (controller.runDown) newArmor.getComponent(Movement.class).speed = stats.speedTankDown;
 
         //Отправляем сообщение о том, что мы сменили броню
         String newName = ((Armor) armor).textureHandlers[0].name;
@@ -145,7 +208,7 @@ public class Player extends Tank {
     }
 
     @Override
-    public void replaceGun(Obj newGun){
+    public void replaceGun(GameObject newGun){
         effects.remove(((Gun) gun).effect);
 
         super.replaceGun(newGun);
@@ -168,13 +231,13 @@ public class Player extends Tank {
 
     public String getData(){
 
-        return  Math.round(armor.position.x)
-                + " " + Math.round(armor.position.y)
-                + " " + Math.round(armor.position.getDirectionDraw())
-                + " " + Math.round(gun.position.getDirectionDraw())
-                + " " + Math.round(armor.movement.speed)
-                + " " + armor.movement.getDirection()
-                + " " + ((Animation) armor.rendering).getFrameSpeed()
+        return  Math.round(armor.getComponent(Position.class).x)
+                + " " + Math.round(armor.getComponent(Position.class).y)
+                + " " + Math.round(armor.getComponent(Position.class).getDirectionDraw())
+                + " " + Math.round(gun.getComponent(Position.class).getDirectionDraw())
+                + " " + Math.round(armor.getComponent(Movement.class).speed)
+                + " " + armor.getComponent(Movement.class).getDirection()
+                + " " + ((Animation) armor.getComponent(Rendering.class)).getFrameSpeed()
                 + " " + Player.numberPackage++;
     }
     

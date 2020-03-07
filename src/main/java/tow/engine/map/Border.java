@@ -1,11 +1,11 @@
 package tow.engine.map;
 
 import tow.engine.image.Mask;
-import tow.engine.obj.Obj;
-import tow.engine.obj.components.Collision;
-import tow.engine.obj.components.Position;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.components.Collision;
+import tow.engine.gameobject.components.Position;
 
-public class Border extends Obj {
+public class Border extends GameObject {
 	
 	public static final int NORTH = 0;
 	public static final int EAST = 1;
@@ -50,17 +50,17 @@ public class Border extends Obj {
 			break;
 		}
 		
-		this.position = new Position(this, x, y, 0, 0);
+		setComponent(new Position(x, y, 0, 0));
 
 		//Путь должен быть, иначе mask выкинет ошибку при парсе; height и width наоборот -- магия
-		this.collision = new Collision(this, new Mask("mask.png", h, w));
+		setComponent(new Collision(new Mask("mask.png", h, w)));
 	}
 	
-	public static void createAll(Room room){
-		room.objAdd(new Border(room.width, room.height, Border.NORTH));
-		room.objAdd(new Border(room.width, room.height, Border.EAST));
-		room.objAdd(new Border(room.width, room.height, Border.SOUTH));
-		room.objAdd(new Border(room.width, room.height, Border.WEST));
+	public static void createAll(Location location){
+		location.objAdd(new Border(location.width, location.height, Border.NORTH));
+		location.objAdd(new Border(location.width, location.height, Border.EAST));
+		location.objAdd(new Border(location.width, location.height, Border.SOUTH));
+		location.objAdd(new Border(location.width, location.height, Border.WEST));
 	}
 
 }

@@ -1,22 +1,30 @@
 package tow.game.client.tanks.player;
 
+import org.liquidengine.legui.component.Button;
 import tow.engine.Global;
 import tow.engine.Loader;
 import tow.engine.Vector2;
-import tow.engine.input.keyboard.KeyboardEventHistory;
+import tow.engine.cycle.Render;
+import tow.engine.gameobject.components.render.GUIElement;
+import tow.engine.gameobject.components.render.Rendering;
 import tow.engine.map.Border;
-import tow.engine.obj.Obj;
-import tow.engine.obj.components.Collision;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.components.Collision;
+import tow.engine.gameobject.components.Movement;
+import tow.engine.gameobject.components.Position;
 import tow.game.client.ClientData;
 import tow.game.client.map.Box;
 import tow.game.client.map.Wall;
 import tow.game.client.tanks.enemy.EnemyArmor;
 
+import org.liquidengine.legui.event.KeyEvent;
+
+import java.util.Arrays;
 import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class PlayerController extends Obj implements Collision.CollisionListener{
+public class PlayerController extends GameObject implements Collision.CollisionListener{
 
     //Какие действия выполняеются в текущий степ
     public boolean runUp = false;
@@ -27,7 +35,7 @@ public class PlayerController extends Obj implements Collision.CollisionListener
     //Для столкновений
     private boolean recoil = false;// в данынй момент танк отлетает от противника в рез. столкновения
     private long timer = 0; //таймер для отсёчта пройденного времени при столкновение
-    private Obj coll_obj = null; //Объекта с которым происходит столкновение
+    private GameObject coll_gameObject = null; //Объекта с которым происходит столкновение
 
     //Т.к. поворот осуществляется не в классе Armor, то приходится дублировать функционал компонента Movement
     private double directionPrevious = 0;
@@ -35,7 +43,7 @@ public class PlayerController extends Obj implements Collision.CollisionListener
     private Player player;
 
     public PlayerController(Player player){
-        super(0, 0, 0);
+        super(Arrays.asList(new Position(0,0,0)));
         this.player = player;
     }
 
@@ -45,35 +53,37 @@ public class PlayerController extends Obj implements Collision.CollisionListener
          * Смотрим на все зажатые клавиши
          */
 
-        //TODO: не всегда срабатывает
-        if (Global.keyboard.isKeyDown(GLFW_KEY_ESCAPE)) Loader.exit();
+        if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_ESCAPE)) Loader.exit();
 
         //TODO:
-        //if (Global.keyboard.isKeyDown(GLFW_KEY_TAB) && !PlayerTable.enable) PlayerTable.enable();
-        //if (!Global.keyboard.isKeyDown(GLFW_KEY_TAB) && PlayerTable.enable) PlayerTable.disable();
+        //if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_TAB) && !PlayerTable.enable) PlayerTable.enable();
+        //if (!Global.location.getKeyboard().isKeyDown(GLFW_KEY_TAB) && PlayerTable.enable) PlayerTable.disable();
 
         /*
          * Перебираем все события нажатия клавиш
          */
-        //TODO: возможно обновляется после очистки, ибо size() всегда 0
-        List<KeyboardEventHistory.Event> keyboardEvents = Global.keyboard.getEventHistory().getList();
-        for (KeyboardEventHistory.Event event : keyboardEvents) {
-            if (event.action == GLFW_PRESS) {// Клавиша нажата
+        List<KeyEvent> keyboardEvents = Global.location.getKeyboard().getEventHistory().getList();
+        for (KeyEvent event : keyboardEvents) {
+            if (event.getAction() == GLFW_PRESS) {// Клавиша нажата
 
-                switch (event.key) {
+                switch (event.getKey()) {
 
                     //Клавиши запрета и разрешения на подбор ящиков
                     case GLFW_KEY_1:
                         player.takeArmor = !player.takeArmor;
+                        ((Button) ((GUIElement) player.buttonsTake[0].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeArmor)? "" : "x");
                         break;
                     case GLFW_KEY_2:
                         player.takeGun = !player.takeGun;
+                        ((Button) ((GUIElement) player.buttonsTake[1].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeGun)? "" : "x");
                         break;
                     case GLFW_KEY_3:
                         player.takeBullet = !player.takeBullet;
+                        ((Button) ((GUIElement) player.buttonsTake[2].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeBullet)? "" : "x");
                         break;
                     case GLFW_KEY_4:
                         player.takeHealth = !player.takeHealth;
+                        ((Button) ((GUIElement) player.buttonsTake[3].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeHealth)? "" : "x");
                         break;
 
                     //Вывод характеристик танка
@@ -94,19 +104,19 @@ public class PlayerController extends Obj implements Collision.CollisionListener
 
                     //Имитация подбора ящика
                     case GLFW_KEY_T:
-                        if (ClientData.peopleMax == 1) new Box(player.position.x, player.position.y, 0, -1).collisionPlayer(player);
+                        if (ClientData.peopleMax == 1) new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 0, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_G:
-                        if (ClientData.peopleMax == 1) new Box(player.position.x, player.position.y, 1, -1).collisionPlayer(player);
+                        if (ClientData.peopleMax == 1) new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 1, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_B:
-                        if (ClientData.peopleMax == 1) new Box(player.position.x, player.position.y, 2, -1).collisionPlayer(player);
+                        if (ClientData.peopleMax == 1) new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 2, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_H:
-                        if (ClientData.peopleMax == 1) new Box(player.position.x, player.position.y, 3, -1).collisionPlayer(player);
+                        if (ClientData.peopleMax == 1) new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 3, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_F:
-                        if (ClientData.peopleMax == 1) new Box(player.position.x, player.position.y, 4, -1).collisionPlayer(player);
+                        if (ClientData.peopleMax == 1) new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 4, -1).collisionPlayer(player);
                         break;
                 }
             }
@@ -120,7 +130,7 @@ public class PlayerController extends Obj implements Collision.CollisionListener
          * Выстрел
          */
         //Если нажата мышь и перезарядилась пушка и игрок вообще может стрелять
-        if (Global.mouse.isButtonDown(GLFW_MOUSE_BUTTON_1) && ((Gun) player.gun).nanoSecFromAttack <= 0 && player.stats.attackSpeed > 0){
+        if (Global.location.getMouse().isButtonDown(GLFW_MOUSE_BUTTON_1) && ((Gun) player.gun).nanoSecFromAttack <= 0 && player.stats.attackSpeed > 0){
             ((Gun) player.gun).attack(); //Стреляем
         }
 
@@ -129,10 +139,10 @@ public class PlayerController extends Obj implements Collision.CollisionListener
          */
         if (!recoil) {
             int vectorUp = 0, vectorRight = 0;
-            if (Global.keyboard.isKeyDown(GLFW_KEY_W)) vectorUp++;
-            if (Global.keyboard.isKeyDown(GLFW_KEY_S)) vectorUp--;
-            if (Global.keyboard.isKeyDown(GLFW_KEY_D)) vectorRight++;
-            if (Global.keyboard.isKeyDown(GLFW_KEY_A)) vectorRight--;
+            if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_W)) vectorUp++;
+            if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_S)) vectorUp--;
+            if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_D)) vectorRight++;
+            if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_A)) vectorRight--;
 
             runUp = false;
             runDown = false;
@@ -144,9 +154,9 @@ public class PlayerController extends Obj implements Collision.CollisionListener
             if (vectorRight == -1) turnLeft = true;
 
             //Движение корпуса танка
-            player.armor.movement.speed = 0;
-            if (runUp) player.armor.movement.speed = player.stats.speedTankUp;
-            if (runDown) player.armor.movement.speed = -player.stats.speedTankDown;
+            player.armor.getComponent(Movement.class).speed = 0;
+            if (runUp) player.armor.getComponent(Movement.class).speed = player.stats.speedTankUp;
+            if (runDown) player.armor.getComponent(Movement.class).speed = -player.stats.speedTankDown;
         }
 
 
@@ -161,8 +171,8 @@ public class PlayerController extends Obj implements Collision.CollisionListener
                 turnLeft = false;
                 runUp = false;
                 runDown = false;
-                player.armor.movement.speed = 0.0;
-                coll_obj = null;
+                player.armor.getComponent(Movement.class).speed = 0.0;
+                coll_gameObject = null;
             }
         }
 
@@ -170,7 +180,7 @@ public class PlayerController extends Obj implements Collision.CollisionListener
         /*
          * Поворот корпуса танка
          */
-        directionPrevious = player.armor.movement.getDirection();
+        directionPrevious = player.armor.getComponent(Movement.class).getDirection();
         if (turnLeft || turnRight) {
             //Скорость поворота
             double deltaDirection = ((double) delta) / Math.pow(10, 9) * player.stats.directionTankUp;
@@ -183,90 +193,90 @@ public class PlayerController extends Obj implements Collision.CollisionListener
             if (turnRight) deltaDirection = -deltaDirection;
 
             //Текущий угол + delta (скорость поворота)
-            player.armor.movement.setDirection(player.armor.movement.getDirection() + deltaDirection);
+            player.armor.getComponent(Movement.class).setDirection(player.armor.getComponent(Movement.class).getDirection() + deltaDirection);
         }
 
 
         /*
          * Поворот дула пушки (много костылей)
          */
-        Vector2<Integer> relativePosition = player.gun.position.getRelativePosition();
+        Vector2<Integer> relativePosition = player.gun.getComponent(Position.class).getRelativePosition();
         double relativeX = relativePosition.x+0.1;
         double relativeY = relativePosition.y+0.1;
 
-        double pointDir = -Math.toDegrees(Math.atan((relativeY-Global.mouse.getMousePos().y)/(relativeX-Global.mouse.getMousePos().x)));
+        double pointDir = -Math.toDegrees(Math.atan((relativeY-Global.location.getMouse().getCursor().getPosition().y)/(relativeX-Global.location.getMouse().getCursor().getPosition().x)));
 
         double trunkUp = ((double) delta/1000000000)*(player.stats.directionGunUp);
-        if ((relativeX-Global.mouse.getMousePos().x)>0){
+        if ((relativeX-Global.location.getMouse().getCursor().getPosition().x)>0){
             pointDir+=180;
-        } else if ((relativeY-Global.mouse.getMousePos().y)<0){
+        } else if ((relativeY-Global.location.getMouse().getCursor().getPosition().y)<0){
             pointDir+=360;
         }
 
-        if ((pointDir - player.gun.position.getDirectionDraw()) > 0){
-            if ((pointDir - player.gun.position.getDirectionDraw()) > 180){
-                player.gun.position.setDirectionDraw(player.gun.position.getDirectionDraw() - trunkUp);
+        if ((pointDir - player.gun.getComponent(Position.class).getDirectionDraw()) > 0){
+            if ((pointDir - player.gun.getComponent(Position.class).getDirectionDraw()) > 180){
+                player.gun.getComponent(Position.class).setDirectionDraw(player.gun.getComponent(Position.class).getDirectionDraw() - trunkUp);
             } else {
-                player.gun.position.setDirectionDraw(player.gun.position.getDirectionDraw() + trunkUp);
+                player.gun.getComponent(Position.class).setDirectionDraw(player.gun.getComponent(Position.class).getDirectionDraw() + trunkUp);
             }
         } else {
-            if ((pointDir - player.gun.position.getDirectionDraw()) < -180){
-                player.gun.position.setDirectionDraw(player.gun.position.getDirectionDraw() + trunkUp);
+            if ((pointDir - player.gun.getComponent(Position.class).getDirectionDraw()) < -180){
+                player.gun.getComponent(Position.class).setDirectionDraw(player.gun.getComponent(Position.class).getDirectionDraw() + trunkUp);
             } else {
-                player.gun.position.setDirectionDraw(player.gun.position.getDirectionDraw() - trunkUp);
+                player.gun.getComponent(Position.class).setDirectionDraw(player.gun.getComponent(Position.class).getDirectionDraw() - trunkUp);
             }
         }
 
-        if (    (Math.abs(pointDir - player.gun.position.getDirectionDraw()) < trunkUp*1.5) ||
-                (Math.abs(pointDir - player.gun.position.getDirectionDraw()) > 360-trunkUp*1.5)){
-            player.gun.position.setDirectionDraw(pointDir);
+        if (    (Math.abs(pointDir - player.gun.getComponent(Position.class).getDirectionDraw()) < trunkUp*1.5) ||
+                (Math.abs(pointDir - player.gun.getComponent(Position.class).getDirectionDraw()) > 360-trunkUp*1.5)){
+            player.gun.getComponent(Position.class).setDirectionDraw(pointDir);
         }
     }
 
     @Override
-    public void collision(Obj obj) {
-        if (obj.getClass().equals(Box.class)){
-            Box box = (Box) obj;
-            if (!box.destroy){
+    public void collision(GameObject gameObject) {
+        if (gameObject.getClass().equals(Box.class)){
+            Box box = (Box) gameObject;
+            if (!box.isDestroy()){
                 box.collisionPlayer(player);
             }
         }
 
-        if (obj.getClass().equals(Border.class)){
-            player.armor.position.x = player.armor.movement.getXPrevious();
-            player.armor.position.y = player.armor.movement.getYPrevious();
-            player.armor.movement.setDirection(directionPrevious);
+        if (gameObject.getClass().equals(Border.class)){
+            player.armor.getComponent(Position.class).x = player.armor.getComponent(Movement.class).getXPrevious();
+            player.armor.getComponent(Position.class).y = player.armor.getComponent(Movement.class).getYPrevious();
+            player.armor.getComponent(Movement.class).setDirection(directionPrevious);
         }
 
-        if (obj.getClass().equals(Wall.class)){
-            player.armor.position.x = player.armor.movement.getXPrevious();
-            player.armor.position.y = player.armor.movement.getYPrevious();
-            player.armor.movement.setDirection(directionPrevious);
+        if (gameObject.getClass().equals(Wall.class)){
+            player.armor.getComponent(Position.class).x = player.armor.getComponent(Movement.class).getXPrevious();
+            player.armor.getComponent(Position.class).y = player.armor.getComponent(Movement.class).getYPrevious();
+            player.armor.getComponent(Movement.class).setDirection(directionPrevious);
 
-            Wall wall = (Wall) obj;
+            Wall wall = (Wall) gameObject;
             if (wall.stabillity < player.stats.stability){
                 Global.tcpControl.send(22, String.valueOf(wall.mid));
                 wall.destroyByArmor();
             }
         }
 
-        if (obj.getClass().equals(EnemyArmor.class)){
-            EnemyArmor enemyArmor = (EnemyArmor) obj;
+        if (gameObject.getClass().equals(EnemyArmor.class)){
+            EnemyArmor enemyArmor = (EnemyArmor) gameObject;
 
-            if ((!player.controller.recoil) || (!enemyArmor.equals(coll_obj))){
-                player.armor.position.x = player.armor.movement.getXPrevious();
-                player.armor.position.y = player.armor.movement.getYPrevious();
-                player.armor.movement.setDirection(player.armor.movement.getDirectionPrevious());
+            if ((!player.controller.recoil) || (!enemyArmor.equals(coll_gameObject))){
+                player.armor.getComponent(Position.class).x = player.armor.getComponent(Movement.class).getXPrevious();
+                player.armor.getComponent(Position.class).y = player.armor.getComponent(Movement.class).getYPrevious();
+                player.armor.getComponent(Movement.class).setDirection(player.armor.getComponent(Movement.class).getDirectionPrevious());
                 recoil = true;
                 timer = 0;
-                coll_obj = enemyArmor;
+                coll_gameObject = enemyArmor;
 
                 if (runUp){
-                    player.armor.movement.speed = -player.armor.movement.speed/3;
+                    player.armor.getComponent(Movement.class).speed = -player.armor.getComponent(Movement.class).speed/3;
                     runUp = false;
                     runDown = true;
                 } else if (runDown){
-                    player.armor.movement.speed = -player.armor.movement.speed/3;
+                    player.armor.getComponent(Movement.class).speed = -player.armor.getComponent(Movement.class).speed/3;
                     runDown = false;
                     runUp = true;
                 }

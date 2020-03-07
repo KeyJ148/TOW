@@ -3,19 +3,19 @@ package tow.game.client;
 import tow.engine.Global;
 import tow.engine.image.TextureManager;
 import tow.engine.implementation.GameInterface;
-import tow.engine.map.Room;
-import tow.game.client.login.gui.LoginWindow;
+import tow.game.client.menu.MainMenuLocation;
 
 public class Game implements GameInterface {
 
 	@Override
 	public void init() {
-        Global.room = new Room(700, 500);
-        new LoginWindow();
+		GameSetting.init();
 
-        GameSetting.init();
-		Global.mouse.setCaptureCursor(true);
-        Global.mouse.setCursorTexture(TextureManager.getTexture("cursor_aim_1"));
+		Global.location.getMouse().getCursor().setCapture(true);
+		Global.location.getMouse().getCursor().setTexture(TextureManager.getTexture("cursor_aim_1"));
+
+		//ServerLoader.mapPath = "maps/town100k.maptest";
+        new MainMenuLocation();
 	}
 
 	@Override

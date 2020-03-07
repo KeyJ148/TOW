@@ -1,29 +1,24 @@
 package tow.game.client.tanks.enemy;
 
 import tow.engine.image.TextureHandler;
-import tow.engine.obj.Obj;
-import tow.engine.obj.components.Collision;
-import tow.engine.obj.components.Movement;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.components.Collision;
+import tow.engine.gameobject.components.Movement;
+import tow.engine.gameobject.components.Position;
+import tow.engine.gameobject.components.render.Animation;
 
-public class EnemyArmor extends Obj {
+import java.util.Arrays;
+
+public class EnemyArmor extends GameObject {
 	
 	public Enemy enemy;
 	
 	public EnemyArmor(int x, int y, double direction, TextureHandler[] textureHandler, Enemy enemy){
-		super(x, y, direction, textureHandler);
+		super(Arrays.asList(new Position(x, y, textureHandler[0].depth, (int) direction), new Animation(textureHandler)));
 		this.enemy = enemy;
 
-		movement = new Movement(this);
-		movement.directionDrawEquals = false;
-		collision = new Collision(this, textureHandler[0].mask);
+		setComponent(new Movement());
+		getComponent(Movement.class).directionDrawEquals = false;
+		setComponent(new Collision(textureHandler[0].mask));
 	}
-
-	@Override
-	public void update(long delta){
-		super.update(delta);
-
-		enemy.followToArmor(enemy.gun);
-		enemy.followToArmor(enemy.camera);
-	}
-	
 }

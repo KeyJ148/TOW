@@ -1,19 +1,16 @@
 package tow.game.client.particles;
 
-import tow.engine.obj.Obj;
-import tow.engine.obj.components.particles.Part;
-import tow.engine.obj.components.particles.ParticlesGeometry;
+import tow.engine.gameobject.components.particles.Part;
+import tow.engine.gameobject.components.particles.ParticlesGeometry;
 import tow.engine.image.Color;
 
 public class Pixel extends ParticlesGeometry {
 
-    public Pixel(Obj obj, double x, double y, double dir, double speed){
-        this(obj, x, y, dir, speed, Color.BLACK);
+    public Pixel(double x, double y, double dir, double speed){
+        this(x, y, dir, speed, Color.BLACK);
     }
 
-    public Pixel(Obj obj, double x, double y, double dir, double speed, Color color) {
-        super(obj);
-
+    public Pixel(double x, double y, double dir, double speed, Color color) {
         Part part = new Part();
 
         part.x = x;

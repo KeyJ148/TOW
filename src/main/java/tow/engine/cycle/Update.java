@@ -4,8 +4,6 @@ import tow.engine.Global;
 import tow.engine.logger.Logger;
 import tow.engine.Loader;
 
-import static org.lwjgl.glfw.GLFW.glfwPollEvents;
-
 public class Update {
 
 	private long startUpdateTime, lastUpdateTime = 0;//Для вычисления delta
@@ -21,22 +19,24 @@ public class Update {
 
 	//Обновляем игру в соответствие с временем прошедшим с последнего обновления
 	private void loop(long delta){
-		glfwPollEvents();//Получение событий ввода и других callbacks
+		Global.engine.gui.pollEvents();//Получение событий и Callbacks
 
 		Global.game.update(delta);//Обновить главный игровой класс при необходимости
 
 		Global.tcpRead.update();//Обработать все полученные сообщения по TCP
 		Global.udpRead.update();//Обработать все полученные сообщения по UDP
 
-		if (Global.room != null) {
-			Global.room.update(delta);//Обновить все объекты в комнате
+		if (Global.location != null) {
+			Global.location.update(delta);//Обновить все объекты в комнате
 		} else {
 			Global.logger.println("No create room! (Global.room)", Logger.Type.ERROR);
 			Loader.exit();
 		}
 
-		Global.mouse.update(); //Очистка истории событий мыши
-		Global.keyboard.update(); //Очистка истории событий клавиатуры
+		Global.location.getMouse().update(); //Очистка истории событий мыши
+		Global.location.getKeyboard().update(); //Очистка истории событий клавиатуры
+
+		Global.engine.analyzer.update(); //Обновление состояния анализатора
 	}
 
 }

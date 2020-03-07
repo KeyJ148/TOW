@@ -1,7 +1,8 @@
 package tow.engine.map;
 
 import tow.engine.Global;
-import tow.engine.obj.Obj;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.components.Position;
 
 import java.util.ArrayList;
 
@@ -20,14 +21,14 @@ public class MapControl {
 		numberHeight = (int) (Math.ceil((double) height/chunkSize)+addCell);//Желательно по 100-200 px на каждую сторону (Иначе на большой скорости можно пролететь границу)
 	}
 
-	public void add(Obj obj){
-		int depth = obj.position.depth;
+	public void add(GameObject gameObject){
+		int depth = gameObject.getComponent(Position.class).depth;
 
 		boolean find = false;
 		for (int i=0; i<depthVectors.size(); i++){
 			DepthVector dv = depthVectors.get(i);
 			if (dv.getDepth() == depth){
-				dv.add(obj);
+				dv.add(gameObject);
 				find = true;
 				break;
 			}
@@ -37,27 +38,27 @@ public class MapControl {
 			boolean create = false;
 			for (int i=0; i<depthVectors.size(); i++){
 				if (depthVectors.get(i).getDepth() < depth){
-					depthVectors.add(i, new DepthVector(this, depth, obj));
+					depthVectors.add(i, new DepthVector(this, depth, gameObject));
 					create = true;
 					break;
 				}
 			}
 
 			if (!create){
-				depthVectors.add(new DepthVector(this, depth, obj));
+				depthVectors.add(new DepthVector(this, depth, gameObject));
 			}
 		}
 	}
 
 	public void del(int id){
-		Obj obj = Global.room.objects.get(id);
-		int depth = obj.position.depth;
+		GameObject gameObject = Global.location.objects.get(id);
+		int depth = gameObject.getComponent(Position.class).depth;
 
 		DepthVector dv;
 		for (int i=0; i<depthVectors.size(); i++){
 			dv =  depthVectors.get(i);
 			if (dv.getDepth() == depth){
-				dv.del(obj);
+				dv.del(gameObject);
 			}
 		}
 	}
@@ -67,10 +68,10 @@ public class MapControl {
 		depthVectors.trimToSize();
 	}
 
-	public void update(Obj obj){
+	public void update(GameObject gameObject){
 		for (int i=0; i<depthVectors.size(); i++){
-			if (depthVectors.get(i).getDepth() == obj.position.depth){
-				depthVectors.get(i).update(obj);
+			if (depthVectors.get(i).getDepth() == gameObject.getComponent(Position.class).depth){
+				depthVectors.get(i).update(gameObject);
 				break;
 			}
 		}

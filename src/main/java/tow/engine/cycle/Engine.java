@@ -10,12 +10,14 @@ public class Engine{
 
 	public Update update;
 	public Render render;
+	public GUI gui;
 	public Analyzer analyzer;
 	private FPSLimit fpsLimit;
-	
-	public Engine(){
+
+	public void init(){
 		update = new Update();
 		render = new Render();
+		gui = new GUI();
 		analyzer = new Analyzer();
 		fpsLimit = new FPSLimit(SettingsStorage.DISPLAY.FPS_LIMIT);
 	}
@@ -24,13 +26,12 @@ public class Engine{
 		while(!GLFW.glfwWindowShouldClose(render.getWindowID())){
 			//Цикл Update
 			analyzer.startUpdate();
-			update.loop();
-			analyzer.update();
+			update.loop(); //Обновление состояния у всех объектов в активной локации
 			analyzer.endUpdate();
 
 			//Цикл Render
 			analyzer.startRender();
-			render.loop();
+			render.loop(); //Отрисовка всех объектов в активной локациии
 			analyzer.endRender();
 
 			//Пауза для синхронизации кадров

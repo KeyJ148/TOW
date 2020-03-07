@@ -1,7 +1,7 @@
 package tow.engine.map;
 
 import tow.engine.Global;
-import tow.engine.obj.Obj;
+import tow.engine.gameobject.GameObject;
 
 import java.util.ArrayList;
 
@@ -39,9 +39,9 @@ public class Chunk {
 
 	public void render(){
 		for (int id : number){
-			if (Global.room.objects.size() > id && Global.room.objects.get(id) != null){
-				Obj obj = Global.room.objects.get(id);
-				obj.draw();
+			if (Global.location.objects.size() > id && Global.location.objects.get(id) != null){
+				GameObject gameObject = Global.location.objects.get(id);
+				gameObject.draw();
 			}
 		}
 	}

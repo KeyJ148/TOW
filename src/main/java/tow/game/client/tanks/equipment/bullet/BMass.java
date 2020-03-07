@@ -3,7 +3,8 @@ package tow.game.client.tanks.equipment.bullet;
 import tow.engine.Global;
 import tow.engine.logger.Logger;
 import tow.engine.Loader;
-import tow.engine.obj.Obj;
+import tow.engine.gameobject.GameObject;
+import tow.engine.gameobject.components.Movement;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.map.Wall;
 import tow.game.client.tanks.enemy.EnemyArmor;
@@ -18,10 +19,10 @@ public class BMass extends Bullet {
     public String configName;
 
     @Override
-    public void collision(Obj obj){
-        if (destroy) return;
+    public void collision(GameObject gameObject){
+        if (isDestroy()) return;
 
-        if (obj.getClass().equals(Wall.class) || obj.getClass().equals(EnemyArmor.class)) {
+        if (gameObject.getClass().equals(Wall.class) || gameObject.getClass().equals(EnemyArmor.class)) {
             Random random = new Random();
             int count = minFragmentNumber + random.nextInt(maxFragmentNumber - minFragmentNumber + 1);
 
@@ -33,15 +34,15 @@ public class BMass extends Bullet {
                     Bullet newBullet = (Bullet) Class.forName(newBulletFullName).newInstance();
                     newBullet.init(
                             player,
-                            movement.getXPrevious(),
-                            movement.getYPrevious(),
+                            getComponent(Movement.class).getXPrevious(),
+                            getComponent(Movement.class).getYPrevious(),
                             random.nextInt(360),
                             0,
                             0,
                             configName
                     );
 
-                    Global.room.objAdd(newBullet);
+                    Global.location.objAdd(newBullet);
                 }
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 Global.logger.println("Bullet create error: " + configName, Logger.Type.ERROR);
@@ -51,7 +52,7 @@ public class BMass extends Bullet {
 
         //Обработка столкновения родителя
         //Обязательно в конце, иначе сразу выйдет из метода, т.к. destroy = true
-        super.collision(obj);
+        super.collision(gameObject);
     }
 
     @Override
