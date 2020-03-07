@@ -10,7 +10,6 @@ import tow.engine.Loader;
 public class MainMenuLocation extends MenuLocation {
 
     public MainMenuLocation(){
-
         createButton("Play", -2, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new PlayMenuLocation();});
         createButton("Profile", -1, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) return;});
         createButton("Settings", 0, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) return;});
@@ -23,6 +22,6 @@ public class MainMenuLocation extends MenuLocation {
         button.getStyle().setBorder(border);
         button.getListenerMap().addListener(MouseClickEvent.class, event);
 
-        createComponent(button, width/2, height/2+pos*MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
+        addComponent(button, width/2, height/2+pos*MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
     }
 }

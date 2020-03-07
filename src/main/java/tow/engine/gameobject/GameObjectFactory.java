@@ -9,6 +9,10 @@ import java.util.Arrays;
 
 public class GameObjectFactory {
 
+    public static GameObject create(double x, double y){
+        return create(x, y, 0);
+    }
+
     public static GameObject create(double x, double y, int depth){
         return new GameObject(Arrays.asList(new Position(x, y, depth)));
     }

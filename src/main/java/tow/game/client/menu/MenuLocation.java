@@ -9,7 +9,7 @@ import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.GameObjectFactory;
 import tow.engine.gameobject.components.render.GUIElement;
 
-public class MenuLocation extends Location {
+public abstract class MenuLocation extends Location {
 
     protected final static int MENU_ELEMENT_WIDTH = 250;
     protected final static int MENU_ELEMENT_HEIGHT = 70;
@@ -17,18 +17,18 @@ public class MenuLocation extends Location {
 
     public MenuLocation(){
         super(Global.engine.render.getWidth(), Global.engine.render.getHeight());
-        background = new Background(tow.engine.image.Color.GRAY, Color.GRAY);
+        background = new Background(Color.GRAY, Color.GRAY);
         activate();
     }
 
-    public void createComponent(Component component){
-        GameObject gameObject = GameObjectFactory.create(component.getPosition().x, component.getPosition().y, 0);
+    public void addComponent(Component component){
+        GameObject gameObject = GameObjectFactory.create(component.getPosition().x, component.getPosition().y);
         objAdd(gameObject);
         gameObject.setComponent(new GUIElement(component, (int) component.getSize().x, (int) component.getSize().y));
     }
 
-    public void createComponent(Component component, int x, int y, int width, int height){
-        GameObject gameObject = GameObjectFactory.create(x, y, 0);
+    public void addComponent(Component component, int x, int y, int width, int height){
+        GameObject gameObject = GameObjectFactory.create(x, y);
         objAdd(gameObject);
         gameObject.setComponent(new GUIElement(component, width, height));
     }
