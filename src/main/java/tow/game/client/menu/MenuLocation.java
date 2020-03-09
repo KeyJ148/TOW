@@ -7,7 +7,7 @@ import tow.engine.map.Background;
 import tow.engine.map.Location;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.GameObjectFactory;
-import tow.engine.gameobject.components.render.GUIElement;
+import tow.engine.gameobject.components.render.GuiComponent;
 
 public abstract class MenuLocation extends Location {
 
@@ -24,12 +24,12 @@ public abstract class MenuLocation extends Location {
     public void addComponent(Component component){
         GameObject gameObject = GameObjectFactory.create(component.getPosition().x, component.getPosition().y);
         objAdd(gameObject);
-        gameObject.setComponent(new GUIElement(component, (int) component.getSize().x, (int) component.getSize().y));
+        gameObject.setComponent(new GuiComponent(component, (int) component.getSize().x, (int) component.getSize().y));
     }
 
     public void addComponent(Component component, int x, int y, int width, int height){
         GameObject gameObject = GameObjectFactory.create(x, y);
         objAdd(gameObject);
-        gameObject.setComponent(new GUIElement(component, width, height));
+        gameObject.setComponent(new GuiComponent(component, width, height));
     }
 }

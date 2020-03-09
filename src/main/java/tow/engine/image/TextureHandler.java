@@ -11,7 +11,6 @@ public class TextureHandler {
     public String name;
 	public String type; //TODO: type - разные наследники для MapObject
 	public int depth; //TODO: depth - свойство для наследника MapObject
-	//TODO: карта в JSON, для объекта указана текстура, тип объекта (наследник MapObject) и специфичные свойства (color для машин)
 
 	public TextureHandler(String path, String type, int depth) {
 		this.texture = TextureLoader.getTexture(path);

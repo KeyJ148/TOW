@@ -57,7 +57,7 @@ public class GUI {
         //Нормализация параметров OpenGL после отрисовки интерфейса
         glDisable(GL_DEPTH_TEST);
         glEnable(GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
     }
 
     public void pollEvents(){
