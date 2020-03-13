@@ -15,10 +15,6 @@ public class Mask {
     private Vector2<Integer>[] maskDefault;//Позиции точек в полигоне маски (относительно верхнего левого угла)
 
     public Mask(String path, int width, int height) {
-        StringBuffer pathBuffer = new StringBuffer(path);
-        pathBuffer.delete(path.lastIndexOf('.'), path.length());
-        path = new String(pathBuffer) + ".txt";
-
         Vector2<Integer>[] mask;
         if (ResourceLoader.existResource(path)) mask = loadFromResources(path, width, height);
         else mask = createDefault(width, height);

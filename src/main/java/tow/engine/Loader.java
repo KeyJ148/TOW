@@ -4,6 +4,7 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import tow.engine.audio.AudioPlayer;
 import tow.engine.cycle.Engine;
 import tow.engine.map.Location;
+import tow.engine.resources.animations.AnimationStorage;
 import tow.engine.resources.audios.AudioStorage;
 import tow.engine.image.TextureManager;
 import tow.engine.implementation.*;
@@ -18,6 +19,7 @@ import tow.engine.net.client.udp.UDPRead;
 import tow.engine.resources.settings.SettingsStorage;
 import tow.engine.resources.settings.SettingsStorageHandler;
 import tow.engine.logger.Logger;
+import tow.engine.resources.sprites.SpriteStorage;
 
 import java.io.IOException;
 
@@ -85,6 +87,9 @@ public class Loader {
 
 		Global.audioPlayer = new AudioPlayer();
 		Global.audioStorage = new AudioStorage();
+
+		Global.spriteStorage = new SpriteStorage();
+		Global.animationStorage = new AnimationStorage();
 
 		TextureManager.init();//Загрузка текстур и анимаций
 		//TODO: FontManager.init();//Загрузка шрифтов
