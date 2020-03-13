@@ -1,0 +1,42 @@
+[
+  {
+    "name": "a_default",
+    "texturesPackPath": "graphic/sprite_packs/textures_packs/corps/a_default",
+    "maskPath": "graphic/sprite_packs/masks/corps/a_default.json"
+  },
+  {
+    "name": "a_fortified",
+    "texturesPackPath": "graphic/sprite_packs/textures_packs/corps/a_fortified",
+    "maskPath": "graphic/sprite_packs/masks/corps/a_fortified.json"
+  },
+  {
+    "name": "a_elephant",
+    "texturesPackPath": "graphic/sprite_packs/textures_packs/corps/a_elephant",
+    "maskPath": "graphic/sprite_packs/masks/corps/a_elephant.json"
+  },
+  {
+    "name": "a_fury",
+    "texturesPackPath": "graphic/sprite_packs/textures_packs/corps/a_fury",
+    "maskPath": "graphic/sprite_packs/masks/corps/a_fury.json"
+  },
+  {
+    "name": "a_mite",
+    "texturesPackPath": "graphic/sprite_packs/textures_packs/corps/a_mite",
+    "maskPath": null
+  },
+  {
+    "name": "a_vampire",
+    "texturesPackPath": "graphic/sprite_packs/textures_packs/corps/a_vampire",
+    "maskPath": "graphic/sprite_packs/masks/corps/a_vampire.json"
+  },
+  {
+    "name": "a_light",
+    "texturesPackPath": "graphic/sprite_packs/textures_packs/corps/a_light",
+    "maskPath": "graphic/sprite_packs/masks/corps/a_light.json"
+  },
+  {
+    "name": "a_renegat",
+    "texturesPackPath": "graphic/sprite_packs/textures_packs/corps/a_renegat",
+    "maskPath": "graphic/sprite_packs/masks/corps/a_renegat.json"
+  }
+]
