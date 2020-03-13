@@ -22,24 +22,24 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
     public PlayMenuLocation(){
         final TextAreaField textAreaFieldNick = new TextAreaField();
 
-        createComponent(new Panel(), width/2, height/2-1*MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
+        addComponent(new Panel(), width/2, height/2-1*MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
 
-        createComponent(new Label("IP:"), width/2-50, height/2-1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
+        addComponent(new Label("IP:"), width/2-50, height/2-1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
 
         TextAreaField textAreaFieldIP = new TextAreaField();
         Background textAreaFieldIPBackground = new Background();
         textAreaFieldIPBackground.setColor(new Vector4f((float) 0.8, (float) 0.8, (float) 0.8, 1));
         textAreaFieldIP.getStyle().setBackground(textAreaFieldIPBackground);
-        createComponent(textAreaFieldIP, width/2-30, height/2-1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
+        addComponent(textAreaFieldIP, width/2-30, height/2-1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
 
-        createComponent(new Label(":"), width/2+127, height/2-1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
+        addComponent(new Label(":"), width/2+127, height/2-1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
 
         TextAreaField textAreaFieldPort = new TextAreaField();
         Background textAreaFieldPortBackground = new Background();
         textAreaFieldPortBackground.setColor(new Vector4f((float) 0.8, (float) 0.8, (float) 0.8, 1));
         textAreaFieldPort.getStyle().setBackground(textAreaFieldPortBackground);
         textAreaFieldPort.getTextState().setText("25566");
-        createComponent(textAreaFieldPort, width/2+90, height/2-1*MENU_ELEMENT_HEIGHT-20, 60, MENU_TEXT_FIELD_HEIGHT);
+        addComponent(textAreaFieldPort, width/2+90, height/2-1*MENU_ELEMENT_HEIGHT-20, 60, MENU_TEXT_FIELD_HEIGHT);
 
         Button buttonConnect = new Button("Connect");
         SimpleLineBorder buttonConnectBorder = new SimpleLineBorder(ColorConstants.black(), 1);
@@ -55,29 +55,29 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
                 new Connector().connect(ip, port);
             }
         });
-        createComponent(buttonConnect, width/2, height/2-1*MENU_ELEMENT_HEIGHT+15, MENU_ELEMENT_WIDTH-10, MENU_ELEMENT_HEIGHT-50);
+        addComponent(buttonConnect, width/2, height/2-1*MENU_ELEMENT_HEIGHT+15, MENU_ELEMENT_WIDTH-10, MENU_ELEMENT_HEIGHT-50);
 
 
 
 
-        createComponent(new Panel(), width/2, height/2, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
+        addComponent(new Panel(), width/2, height/2, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
 
-        createComponent(new Label("Count players:"), width/2-50, height/2-20, 150, MENU_TEXT_FIELD_HEIGHT);
+        addComponent(new Label("Count players:"), width/2-50, height/2-20, 150, MENU_TEXT_FIELD_HEIGHT);
 
         TextAreaField textAreaFieldPlayers = new TextAreaField();
         Background textAreaFieldPlayersBackground = new Background();
         textAreaFieldPlayersBackground.setColor(new Vector4f((float) 0.8, (float) 0.8, (float) 0.8, 1));
         textAreaFieldPlayers.getStyle().setBackground(textAreaFieldPlayersBackground);
-        createComponent(textAreaFieldPlayers, width/2-25, height/2-20, 40, MENU_TEXT_FIELD_HEIGHT);
+        addComponent(textAreaFieldPlayers, width/2-25, height/2-20, 40, MENU_TEXT_FIELD_HEIGHT);
 
-        createComponent(new Label("Port:"), width/2+105, height/2-20, 150, MENU_TEXT_FIELD_HEIGHT);
+        addComponent(new Label("Port:"), width/2+105, height/2-20, 150, MENU_TEXT_FIELD_HEIGHT);
 
         TextAreaField textAreaFieldHostPort = new TextAreaField();
         Background textAreaFieldHostPortBackground = new Background();
         textAreaFieldHostPortBackground.setColor(new Vector4f((float) 0.8, (float) 0.8, (float) 0.8, 1));
         textAreaFieldHostPort.getStyle().setBackground(textAreaFieldHostPortBackground);
         textAreaFieldHostPort.getTextState().setText("25566");
-        createComponent(textAreaFieldHostPort, width/2+90, height/2-20, 60, MENU_TEXT_FIELD_HEIGHT);
+        addComponent(textAreaFieldHostPort, width/2+90, height/2-20, 60, MENU_TEXT_FIELD_HEIGHT);
 
         Button buttonHost = new Button("Host");
         SimpleLineBorder buttonHostBorder = new SimpleLineBorder(ColorConstants.black(), 1);
@@ -94,29 +94,29 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
                 new ServerLoader(port, people, false);
             }
         });
-        createComponent(buttonHost, width/2, height/2+15, MENU_ELEMENT_WIDTH-10, MENU_ELEMENT_HEIGHT-50);
+        addComponent(buttonHost, width/2, height/2+15, MENU_ELEMENT_WIDTH-10, MENU_ELEMENT_HEIGHT-50);
 
 
 
 
 
-        createComponent(new Panel(), width/2, height/2+1*MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
+        addComponent(new Panel(), width/2, height/2+1*MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
 
-        createComponent(new Label("Nick:"), width/2-50, height/2+1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
+        addComponent(new Label("Nick:"), width/2-50, height/2+1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
 
         //Создание в самом верху, потмоу что надо обращатсья из лямбды в кнопках Host и Connect
         Background textAreaFieldNickBackground = new Background();
         textAreaFieldNickBackground.setColor(new Vector4f((float) 0.8, (float) 0.8, (float) 0.8, 1));
         textAreaFieldNick.getStyle().setBackground(textAreaFieldNickBackground);
-        createComponent(textAreaFieldNick, width/2-20, height/2+1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
+        addComponent(textAreaFieldNick, width/2-20, height/2+1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
 
         Panel panelColor = new Panel();
         Background panelColorBackground = new Background();
         panelColorBackground.setColor(new Vector4f((float) 1, (float) 1, (float) 1, 1));
         panelColor.getStyle().setBackground(panelColorBackground);
-        createComponent(panelColor, width/2+90, height/2+1*MENU_ELEMENT_HEIGHT-20, 60, MENU_TEXT_FIELD_HEIGHT);
+        addComponent(panelColor, width/2+90, height/2+1*MENU_ELEMENT_HEIGHT-20, 60, MENU_TEXT_FIELD_HEIGHT);
 
-        createComponent(new Label("Color:"), width/2-50, height/2+1*MENU_ELEMENT_HEIGHT+15, 150, MENU_TEXT_FIELD_HEIGHT);
+        addComponent(new Label("Color:"), width/2-50, height/2+1*MENU_ELEMENT_HEIGHT+15, 150, MENU_TEXT_FIELD_HEIGHT);
 
         Color[] colors = {
                 new Color(255, 255, 255),
@@ -149,7 +149,7 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
                             colors[finalI].getFloatBlue(), colors[finalI].getFloatAlpha()));
                 }
             });
-            createComponent(buttonColor, width/2-80 + 17*i, height/2+1*MENU_ELEMENT_HEIGHT+15, 15, 15);
+            addComponent(buttonColor, width/2-80 + 17*i, height/2+1*MENU_ELEMENT_HEIGHT+15, 15, 15);
         }
     }
 
