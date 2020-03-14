@@ -8,7 +8,7 @@ import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.components.Follower;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
-import tow.engine.gameobject.components.render.Sprite;
+import tow.engine.gameobject.components.render.SpriteRender;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.tanks.Effect;
 
@@ -34,7 +34,7 @@ public class Gun extends GameObject {
 		loadData();
 
 		setComponent(new Position(x, y, texture.depth, direction));
-		setComponent(new Sprite(texture));
+		setComponent(new SpriteRender(texture));
 
 		setComponent(new Movement());
 		getComponent(Movement.class).directionDrawEquals = false;

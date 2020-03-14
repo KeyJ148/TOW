@@ -6,15 +6,15 @@ import tow.engine.Vector2;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.components.Position;
 
-public class GuiComponent extends Rendering {
+public class GuiRender extends Rendering {
 
     private Component component;
 
-    public GuiComponent(Component component) {
+    public GuiRender(Component component) {
         this.component = component;
     }
 
-    public GuiComponent(Component component, int width, int height) {
+    public GuiRender(Component component, int width, int height) {
         this(component);
         setWidth(width);
         setHeight(height);

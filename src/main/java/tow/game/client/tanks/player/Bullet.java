@@ -12,7 +12,7 @@ import tow.engine.gameobject.components.CollisionDirect;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.particles.Particles;
-import tow.engine.gameobject.components.render.Sprite;
+import tow.engine.gameobject.components.render.SpriteRender;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
@@ -53,7 +53,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener{
 		loadData();
 
 		setComponent(new Position(x, y, texture.depth, dir));
-		setComponent(new Sprite(texture));
+		setComponent(new SpriteRender(texture));
 
 		setComponent(new CollisionDirect(texture.mask, range));
 		getComponent(Collision.class).addCollisionObjects(new Class[] {Wall.class, EnemyArmor.class, Border.class});

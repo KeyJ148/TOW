@@ -4,7 +4,7 @@ import org.liquidengine.legui.component.Button;
 import tow.engine.Global;
 import tow.engine.Loader;
 import tow.engine.Vector2;
-import tow.engine.gameobject.components.render.GuiComponent;
+import tow.engine.gameobject.components.render.GuiRender;
 import tow.engine.gameobject.components.render.Rendering;
 import tow.engine.map.Border;
 import tow.engine.gameobject.GameObject;
@@ -70,19 +70,19 @@ public class PlayerController extends GameObject implements Collision.CollisionL
                     //Клавиши запрета и разрешения на подбор ящиков
                     case GLFW_KEY_1:
                         player.takeArmor = !player.takeArmor;
-                        ((Button) ((GuiComponent) player.buttonsTake[0].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeArmor)? "" : "x");
+                        ((Button) ((GuiRender) player.buttonsTake[0].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeArmor)? "" : "x");
                         break;
                     case GLFW_KEY_2:
                         player.takeGun = !player.takeGun;
-                        ((Button) ((GuiComponent) player.buttonsTake[1].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeGun)? "" : "x");
+                        ((Button) ((GuiRender) player.buttonsTake[1].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeGun)? "" : "x");
                         break;
                     case GLFW_KEY_3:
                         player.takeBullet = !player.takeBullet;
-                        ((Button) ((GuiComponent) player.buttonsTake[2].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeBullet)? "" : "x");
+                        ((Button) ((GuiRender) player.buttonsTake[2].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeBullet)? "" : "x");
                         break;
                     case GLFW_KEY_4:
                         player.takeHealth = !player.takeHealth;
-                        ((Button) ((GuiComponent) player.buttonsTake[3].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeHealth)? "" : "x");
+                        ((Button) ((GuiRender) player.buttonsTake[3].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeHealth)? "" : "x");
                         break;
 
                     //Вывод характеристик танка

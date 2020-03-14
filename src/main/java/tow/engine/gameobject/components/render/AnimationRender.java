@@ -8,7 +8,7 @@ import tow.engine.logger.Logger;
 import tow.engine.image.TextureHandler;
 import org.lwjgl.opengl.GL11;
 
-public class Animation extends Rendering {
+public class AnimationRender extends Rendering {
 	
     private TextureHandler[] textureHandler;
 
@@ -17,7 +17,7 @@ public class Animation extends Rendering {
     
     private long update = 0; //Сколько прошло наносекунд с последней смены кадра
     
-    public Animation(TextureHandler[] textureHandler) {
+    public AnimationRender(TextureHandler[] textureHandler) {
 		this.textureHandler = textureHandler;
     }
 

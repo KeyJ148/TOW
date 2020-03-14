@@ -8,7 +8,7 @@ import tow.engine.gameobject.GameObjectFactory;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.particles.Particles;
-import tow.engine.gameobject.components.render.Sprite;
+import tow.engine.gameobject.components.render.SpriteRender;
 import tow.game.client.particles.Explosion;
 
 import java.util.Arrays;
@@ -19,7 +19,7 @@ public class EnemyBullet extends GameObject {
 	public long idNet;
 	
 	public EnemyBullet(double x, double y, double speed, double direction, TextureHandler texture, int idEnemy, long idNet){
-		super(Arrays.asList(new Position(x, y, texture.depth, (int) direction), new Movement(speed, direction), new Sprite(texture)));
+		super(Arrays.asList(new Position(x, y, texture.depth, (int) direction), new Movement(speed, direction), new SpriteRender(texture)));
 
 		this.idEnemy = idEnemy;
 		this.idNet = idNet;

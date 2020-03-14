@@ -7,9 +7,9 @@ import tow.engine.gameobject.GameObjectFactory;
 import tow.engine.gameobject.components.Follower;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
-import tow.engine.gameobject.components.render.Animation;
+import tow.engine.gameobject.components.render.AnimationRender;
 import tow.engine.gameobject.components.render.Rendering;
-import tow.engine.gameobject.components.render.Sprite;
+import tow.engine.gameobject.components.render.SpriteRender;
 import tow.game.client.ClientData;
 import tow.game.client.tanks.Tank;
 
@@ -100,20 +100,20 @@ public class Enemy extends Tank {
 
         //Анимация гусениц
         if (alive) {
-            Animation animation = (Animation) armor.getComponent(Rendering.class);
-            if (animation.getFrameSpeed() != animSpeed) animation.setFrameSpeed(animSpeed);
+            AnimationRender animationRender = (AnimationRender) armor.getComponent(Rendering.class);
+            if (animationRender.getFrameSpeed() != animSpeed) animationRender.setFrameSpeed(animSpeed);
         }
     }
 
     public void newArmor(String nameArmor){
-        armor.setComponent(new Animation(TextureManager.getAnimation(nameArmor)));
+        armor.setComponent(new AnimationRender(TextureManager.getAnimation(nameArmor)));
         setColorArmor(color);
 
         Global.location.mapControl.update(armor);
     }
 
     public void newGun(String nameGun){
-        gun.setComponent(new Sprite(TextureManager.getTexture(nameGun)));
+        gun.setComponent(new SpriteRender(TextureManager.getTexture(nameGun)));
         setColorGun(color);
 
         Global.location.mapControl.update(gun);

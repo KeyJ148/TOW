@@ -7,7 +7,7 @@ import tow.engine.image.TextureHandler;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.render.Rendering;
-import tow.engine.gameobject.components.render.Sprite;
+import tow.engine.gameobject.components.render.SpriteRender;
 
 import java.nio.DoubleBuffer;
 
@@ -47,7 +47,7 @@ public class MouseCursor {
         //Отключение стнадартного курсора
         glfwSetInputMode(Global.engine.render.getWindowID(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         //Присвоение текстуры объекту курсора
-        cursor.setComponent(new Sprite(texture));
+        cursor.setComponent(new SpriteRender(texture));
     }
 
     public void setDefaultTexture(){

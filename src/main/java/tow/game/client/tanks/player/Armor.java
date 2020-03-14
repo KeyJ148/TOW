@@ -8,7 +8,7 @@ import tow.engine.gameobject.components.Collision;
 import tow.engine.gameobject.components.Follower;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
-import tow.engine.gameobject.components.render.Animation;
+import tow.engine.gameobject.components.render.AnimationRender;
 import tow.engine.gameobject.components.render.Rendering;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.map.Box;
@@ -38,7 +38,7 @@ public class Armor extends GameObject {
 		loadData();
 
 		setComponent(new Position(x, y, textureHandlers[0].depth, direction));
-		setComponent(new Animation(textureHandlers));
+		setComponent(new AnimationRender(textureHandlers));
 		setComponent(new Movement());
 		getComponent(Movement.class).setDirection(direction);
 		getComponent(Movement.class).update(0);
@@ -58,12 +58,12 @@ public class Armor extends GameObject {
 		if (!player.alive) return;
 		
 		//Для анимации гусениц
-		Animation animation = (Animation) getComponent(Rendering.class);
-		if (getComponent(Movement.class).speed != 0 && animation.getFrameSpeed() == 0){
-			animation.setFrameSpeed(animSpeed);
+		AnimationRender animationRender = (AnimationRender) getComponent(Rendering.class);
+		if (getComponent(Movement.class).speed != 0 && animationRender.getFrameSpeed() == 0){
+			animationRender.setFrameSpeed(animSpeed);
 		}
-		if (getComponent(Movement.class).speed == 0 && animation.getFrameSpeed() != 0){
-			animation.setFrameSpeed(0);
+		if (getComponent(Movement.class).speed == 0 && animationRender.getFrameSpeed() != 0){
+			animationRender.setFrameSpeed(0);
 		}
 	}
 

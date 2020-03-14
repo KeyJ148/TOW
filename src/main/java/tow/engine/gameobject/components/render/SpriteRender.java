@@ -6,11 +6,11 @@ import tow.engine.resources.textures.Texture;
 import tow.engine.image.TextureHandler;
 import org.lwjgl.opengl.GL11;
 
-public class Sprite extends Rendering {
+public class SpriteRender extends Rendering {
 	
     private TextureHandler textureHandler;
 
-    public Sprite(TextureHandler textureHandler) {
+    public SpriteRender(TextureHandler textureHandler) {
 		this.textureHandler = textureHandler;
     }
 
