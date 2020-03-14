@@ -42,7 +42,7 @@ public class AudioLoader {
             alBufferData(audio.getID(), format, audioFileRawBuffer, sampleRate);
             free(audioFileRawBuffer);
 
-            Global.logger.println("Load audio \"" + path + "\" complited", Logger.Type.DEBUG_AUDIO);
+            Global.logger.println("Load audio \"" + path + "\" completed", Logger.Type.DEBUG_AUDIO);
             return audio;
         } catch (Exception e){
             Global.logger.println("Audio \"" + path + "\" not loading", Logger.Type.ERROR);

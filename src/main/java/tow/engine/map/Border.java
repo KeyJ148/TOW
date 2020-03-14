@@ -1,9 +1,10 @@
 package tow.engine.map;
 
-import tow.engine.image.Mask;
+import tow.engine.resources.masks.Mask;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.components.Collision;
 import tow.engine.gameobject.components.Position;
+import tow.engine.resources.masks.MaskLoader;
 
 public class Border extends GameObject {
 	
@@ -53,7 +54,7 @@ public class Border extends GameObject {
 		setComponent(new Position(x, y, 0, 0));
 
 		//Путь должен быть, иначе mask выкинет ошибку при парсе; height и width наоборот -- магия
-		setComponent(new Collision(new Mask("mask.png", h, w)));
+		setComponent(new Collision(MaskLoader.createDefaultMask(h, w)));
 	}
 	
 	public static void createAll(Location location){

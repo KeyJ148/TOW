@@ -1,6 +1,7 @@
 package tow.engine.resources.animations;
 
-import tow.engine.image.Mask;
+import tow.engine.resources.masks.Mask;
+import tow.engine.resources.masks.MaskLoader;
 import tow.engine.resources.textures.Texture;
 import tow.engine.resources.textures.TextureLoader;
 
@@ -15,7 +16,9 @@ public class AnimationLoader {
             textures.add(TextureLoader.getTexture(texturePath));
         }
 
-        Mask mask = new Mask(maskPath, textures.get(0).getWidth(), textures.get(0).getHeight());
+        Mask mask = (maskPath != null)?
+                MaskLoader.getMask(maskPath) :
+                MaskLoader.createDefaultMask(textures.get(0).getWidth(), textures.get(0).getHeight());
 
         return new Animation(textures, mask);
     }

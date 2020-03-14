@@ -1,12 +1,14 @@
-package tow.engine.image;
+package tow.engine.resources.masks;
 
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.logger.Logger;
+import tow.engine.resources.JsonContainerLoader;
 import tow.engine.resources.ResourceLoader;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Mask {
 
@@ -14,20 +16,24 @@ public class Mask {
     private Vector2<Integer>[] maskCenter;//Позиции точек в полигоне маски (относительно центра)
     private Vector2<Integer>[] maskDefault;//Позиции точек в полигоне маски (относительно верхнего левого угла)
 
-    public Mask(String path, int width, int height) {
-        Vector2<Integer>[] mask;
-        if (ResourceLoader.existResource(path)) mask = loadFromResources(path, width, height);
-        else mask = createDefault(width, height);
+    public Mask(List<Vector2<Integer>> mask){
+        Vector2<Integer>[] maskArray = mask.toArray(new Vector2[0]);
+        for (Vector2<Integer> maskPoint : maskArray){
+            width = Math.max(width, maskPoint.x);
+            height = Math.max(height, maskPoint.y);
+        }
+        //TODO: переделать все на List
+        //TODO: избавиться от высоты и ширины
 
-        this.maskDefault = mask;
-        this.maskCenter = center(mask, width, height);
-        this.width = width;
-        this.height = height;
+        this.maskDefault = maskArray;
+        this.maskCenter = center(maskArray, width, height);
     }
 
     //Загрузка маски из файла
     public Vector2<Integer>[] loadFromResources(String path, int width, int height){
         try (BufferedReader reader = ResourceLoader.getResourceAsBufferedReader(path)){
+
+
             ArrayList<Vector2<Integer>> maskArr = new ArrayList<>();
             String s;
 
@@ -37,7 +43,7 @@ public class Mask {
                 maskArr.add(new Vector2(x, y));
             }
 
-            Global.logger.println("Load mask \"" + path + "\" complited", Logger.Type.DEBUG_MASK);
+            Global.logger.println("Load mask \"" + path + "\" completed", Logger.Type.DEBUG_MASK);
             Vector2<Integer>[] result = new Vector2[maskArr.size()];
 
             return maskArr.toArray(result);

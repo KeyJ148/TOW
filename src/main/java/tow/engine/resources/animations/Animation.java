@@ -1,6 +1,6 @@
 package tow.engine.resources.animations;
 
-import tow.engine.image.Mask;
+import tow.engine.resources.masks.Mask;
 import tow.engine.resources.textures.Texture;
 
 import java.util.List;

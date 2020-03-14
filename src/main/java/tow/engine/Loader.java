@@ -9,8 +9,6 @@ import tow.engine.resources.audios.AudioStorage;
 import tow.engine.image.TextureManager;
 import tow.engine.implementation.*;
 import tow.engine.logger.AggregateLogger;
-import tow.engine.input.keyboard.KeyboardHandler;
-import tow.engine.input.mouse.MouseHandler;
 import tow.engine.net.client.Ping;
 import tow.engine.net.client.tcp.TCPControl;
 import tow.engine.net.client.tcp.TCPRead;

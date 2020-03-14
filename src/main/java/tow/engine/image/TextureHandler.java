@@ -1,5 +1,7 @@
 package tow.engine.image;
 
+import tow.engine.resources.masks.Mask;
+import tow.engine.resources.masks.MaskLoader;
 import tow.engine.resources.textures.Texture;
 import tow.engine.resources.textures.TextureLoader;
 
@@ -14,7 +16,7 @@ public class TextureHandler {
 
 	public TextureHandler(String path, String type, int depth) {
 		this.texture = TextureLoader.getTexture(path);
-		this.mask = new Mask(path, getWidth(), getHeight());
+		this.mask = MaskLoader.getMask(path);
 
         this.name = path.substring(path.lastIndexOf("/")+1, path.lastIndexOf("."));
         this.type = type;
