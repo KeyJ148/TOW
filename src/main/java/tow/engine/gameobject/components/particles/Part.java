@@ -1,14 +1,14 @@
 package tow.engine.gameobject.components.particles;
 
-import tow.engine.image.TextureHandler;
 import tow.engine.image.Color;
+import tow.engine.resources.textures.Texture;
 
 public class Part{
 
     public enum Type{FILL, HOLLOW}
     public Type type;
 
-    public TextureHandler textureHandler;
+    public Texture texture;
 
     public Color color;
     public double x, y;
@@ -23,14 +23,14 @@ public class Part{
         this(0, 0, 0, 0, 0, 0, 0, 0);
     }
 
-    public Part(int x, int y, double life, double speed, double direction, int width, int height, TextureHandler textureHandler){
+    public Part(int x, int y, double life, double speed, double direction, int width, int height, Texture texture){
         this(x, y, life, speed, direction, direction, width, height);
-        this.textureHandler = textureHandler;
+        this.texture = texture;
     }
 
-    public Part(int x, int y, double life, double speed, double direction, double directionDraw, int width, int height, TextureHandler textureHandler){
+    public Part(int x, int y, double life, double speed, double direction, double directionDraw, int width, int height, Texture texture){
         this(x, y, life, speed, direction, directionDraw, width, height);
-        this.textureHandler = textureHandler;
+        this.texture = texture;
     }
 
     public Part(int x, int y, double life, double speed, double direction, double directionDraw, int width, int height){

@@ -16,7 +16,7 @@ public class ParticlesTexture extends Particles {
 
         for (Part part : parts){
             part.color.bind();
-            part.textureHandler.texture.bind();
+            part.texture.bind();
             Vector2<Integer> relativePosition = Global.location.camera.toRelativePosition(new Vector2((int) part.x, (int) part.y));
 
             double defaultX, defaultY;

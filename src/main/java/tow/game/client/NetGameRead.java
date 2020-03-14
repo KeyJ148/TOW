@@ -2,14 +2,13 @@ package tow.game.client;
 
 import tow.engine.logger.Logger;
 import tow.engine.Global;
-import tow.engine.image.TextureHandler;
-import tow.engine.image.TextureManager;
 import tow.engine.implementation.NetGameReadInterface;
 import tow.engine.map.Background;
 import tow.engine.map.Border;
 import tow.engine.map.Location;
 import tow.engine.net.client.Message;
 import tow.engine.gameobject.GameObject;
+import tow.engine.resources.sprites.Sprite;
 import tow.game.client.map.Box;
 import tow.game.client.map.MapObject;
 import tow.game.client.map.Wall;
@@ -84,7 +83,7 @@ public class NetGameRead implements NetGameReadInterface {
 		String background = str.split(" ")[2];
 
 		Location location = new Location(width, height);
-		location.background = new Background(TextureManager.getTexture(background));
+		location.background = new Background(Global.spriteStorage.getSprite(background).getTexture());
 		Border.createAll(location);
 		location.activate();
 	}
@@ -181,7 +180,7 @@ public class NetGameRead implements NetGameReadInterface {
 		String texture = str.split(" ")[3];
 		int mid = Integer.parseInt(str.split(" ")[4]);
 
-		TextureHandler textureHandler = TextureManager.getTexture(texture);
+		Sprite sprite = Global.spriteStorage.getSprite(texture);
 
 		MapObject newObject;
 		switch (textureHandler.type){

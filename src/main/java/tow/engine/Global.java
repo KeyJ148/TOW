@@ -41,6 +41,5 @@ public class Global {
 	public static ServerInterface server; //Главный объект сервера
 	public static NetGameReadInterface netGameRead; //Объект для обработки сетевых сообщений на клиенте
 	public static NetServerReadInterface netServerRead; //Объект для обработки сетевых сообщений на сервере
-	public static StorageInterface storage; //Объект для хранения описания картинок, анимаций и звуков
 }
 

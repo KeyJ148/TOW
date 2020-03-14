@@ -1,6 +1,6 @@
 package tow.game.client.particles;
 
-import tow.engine.image.TextureManager;
+import tow.engine.Global;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.particles.Part;
@@ -27,7 +27,7 @@ public class Explosion extends ParticlesTexture {
         if(size>70) count = size*3;
         for (int i=0; i<count; i++){
             Part part = new Part();
-            part.textureHandler = TextureManager.getTexture("part_ball");
+            part.texture = Global.spriteStorage.getSprite("part_ball").getTexture();
             part.x = getGameObject().getComponent(Position.class).x;
             part.y = getGameObject().getComponent(Position.class).y;
             part.direction = getGameObject().getComponent(Position.class).getDirectionDraw() + rand.nextInt(360);

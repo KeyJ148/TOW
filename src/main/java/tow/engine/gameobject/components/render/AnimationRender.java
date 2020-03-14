@@ -5,20 +5,21 @@ import tow.engine.Vector2;
 import tow.engine.gameobject.components.Position;
 import tow.engine.resources.textures.Texture;
 import tow.engine.logger.Logger;
-import tow.engine.image.TextureHandler;
 import org.lwjgl.opengl.GL11;
+
+import java.util.List;
 
 public class AnimationRender extends Rendering {
 	
-    private TextureHandler[] textureHandler;
+    private List<Texture> textures;
 
     private int frameSpeed = 0; //Кол-во кадров в секнду
     private int frameNow; //Номер текущего кадра [0;inf)
     
     private long update = 0; //Сколько прошло наносекунд с последней смены кадра
     
-    public AnimationRender(TextureHandler[] textureHandler) {
-		this.textureHandler = textureHandler;
+    public AnimationRender(List<Texture> textures) {
+		this.textures = textures;
     }
 
 	@Override
@@ -26,7 +27,7 @@ public class AnimationRender extends Rendering {
 		update += delta;
 		if ((frameSpeed != 0) && (update > 1000000000/frameSpeed)) {
 			update = 0;
-			if (frameNow == textureHandler.length - 1) {
+			if (frameNow == textures.size() - 1) {
 				frameNow = 0;
 			} else {
 				frameNow++;
@@ -51,7 +52,7 @@ public class AnimationRender extends Rendering {
 		GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
 
 		color.bind();
-		textureHandler[frameNow].texture.bind();
+		textures.get(frameNow).bind();
 
 		GL11.glBegin(GL11.GL_QUADS);
 		GL11.glTexCoord2f(0,0);
@@ -92,15 +93,15 @@ public class AnimationRender extends Rendering {
 	}
 
 	public int getFrameNumber() {
-		return textureHandler.length;
+		return textures.size();
 	}
 
 	public int getWidth(int frame) {
-		return textureHandler[frame].getWidth();
+		return textures.get(frame).getWidth();
 	}
 
 	public int getHeight(int frame) {
-		return textureHandler[frame].getHeight();
+		return textures.get(frame).getHeight();
 	}
 
 	@Override

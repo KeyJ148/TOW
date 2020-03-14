@@ -1,13 +1,14 @@
 package tow.engine.input.mouse;
 
+import org.liquidengine.legui.component.TextAreaField;
 import org.lwjgl.BufferUtils;
 import tow.engine.Global;
 import tow.engine.Vector2;
-import tow.engine.image.TextureHandler;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.render.Rendering;
 import tow.engine.gameobject.components.render.SpriteRender;
+import tow.engine.resources.textures.Texture;
 
 import java.nio.DoubleBuffer;
 
@@ -43,7 +44,7 @@ public class MouseCursor {
         return new Vector2<>((int) cursor.getComponent(Position.class).x, (int) cursor.getComponent(Position.class).y);
     }
 
-    public void setTexture(TextureHandler texture){
+    public void setTexture(Texture texture){
         //Отключение стнадартного курсора
         glfwSetInputMode(Global.engine.render.getWindowID(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         //Присвоение текстуры объекту курсора

@@ -5,11 +5,10 @@ import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.image.Color;
 import tow.engine.resources.textures.Texture;
-import tow.engine.image.TextureHandler;
 
 public class Background {
 
-    private TextureHandler backgroundTexture;
+    private Texture backgroundTexture;
     private Color backgroundColor;
     private Color outsideMapColor;
 
@@ -17,7 +16,7 @@ public class Background {
         this(Color.WHITE, Color.GRAY);
     }
 
-    public Background(TextureHandler backgroundTexture){
+    public Background(Texture backgroundTexture){
         this(backgroundTexture, Color.WHITE, Color.GRAY);
     }
 
@@ -25,7 +24,7 @@ public class Background {
         this(null, backgroundColor, outsideMapColor);
     }
 
-    public Background(TextureHandler backgroundTexture, Color backgroundColor, Color outsideMapColor) {
+    public Background(Texture backgroundTexture, Color backgroundColor, Color outsideMapColor) {
         this.backgroundTexture = backgroundTexture;
         this.backgroundColor = backgroundColor;
         this.outsideMapColor = outsideMapColor;
@@ -46,7 +45,7 @@ public class Background {
             int allTexturesHeight = countTexturesInHeight*backgroundTexture.getHeight();
 
             Color.WHITE.bind();
-            backgroundTexture.texture.bind();
+            backgroundTexture.bind();
 
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);

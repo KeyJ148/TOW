@@ -1,11 +1,12 @@
 package tow.engine.gameobject;
 
-import tow.engine.image.TextureHandler;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.render.AnimationRender;
 import tow.engine.gameobject.components.render.SpriteRender;
+import tow.engine.resources.textures.Texture;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class GameObjectFactory {
 
@@ -24,25 +25,17 @@ public class GameObjectFactory {
         return gameObject;
     }
 
-    public static GameObject create(double x, double y, int depth, double directionDraw, TextureHandler textureHandler){
+    public static GameObject create(double x, double y, int depth, double directionDraw, Texture texture){
         GameObject gameObject = create(x, y, depth, directionDraw);
-        gameObject.setComponent(new SpriteRender(textureHandler));
+        gameObject.setComponent(new SpriteRender(texture));
 
         return gameObject;
     }
 
-    public static GameObject create(double x, double y, double directionDraw, TextureHandler textureHandler){
-        return create(x, y, textureHandler.depth, directionDraw, textureHandler);
-    }
-
-    public static GameObject create(double x, double y, int depth, double directionDraw, TextureHandler[] textureHandler){
+    public static GameObject create(double x, double y, int depth, double directionDraw, List<Texture> textures){
         GameObject gameObject = create(x, y, depth, directionDraw);
-        gameObject.setComponent(new AnimationRender(textureHandler));
+        gameObject.setComponent(new AnimationRender(textures));
 
         return gameObject;
-    }
-
-    public static GameObject create(double x, double y, double directionDraw, TextureHandler[] textureHandler){
-        return create(x, y, textureHandler[0].depth, directionDraw, textureHandler);
     }
 }

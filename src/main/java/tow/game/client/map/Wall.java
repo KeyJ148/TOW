@@ -2,17 +2,17 @@ package tow.game.client.map;
 
 import tow.engine.Global;
 import tow.engine.logger.Logger;
-import tow.engine.image.TextureHandler;
 import tow.engine.gameobject.components.Collision;
+import tow.engine.resources.sprites.Sprite;
 
 public class Wall extends MapObject {
 
     public int stabillity;
 
-    public Wall(double x, double y, double direction, TextureHandler textureHandler, int mid){
-        super(x, y, direction, textureHandler, mid);
+    public Wall(double x, double y, double direction, Sprite sprite, int mid){
+        super(x, y, direction, sprite.getTexture(), mid);
 
-        setComponent(new Collision(textureHandler.mask));
+        setComponent(new Collision(sprite.getMask()));
         stabillity = getStabilityByType(textureHandler.type);
     }
 

@@ -6,7 +6,6 @@ import tow.engine.cycle.Engine;
 import tow.engine.map.Location;
 import tow.engine.resources.animations.AnimationStorage;
 import tow.engine.resources.audios.AudioStorage;
-import tow.engine.image.TextureManager;
 import tow.engine.implementation.*;
 import tow.engine.logger.AggregateLogger;
 import tow.engine.net.client.Ping;
@@ -26,13 +25,12 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class Loader {
 
-	public static void start(GameInterface game, NetGameReadInterface netGameRead, StorageInterface storage,
+	public static void start(GameInterface game, NetGameReadInterface netGameRead,
 							 ServerInterface server, NetServerReadInterface netServerRead) {
 		Global.game = game;
 		Global.server = server;
 		Global.netGameRead = netGameRead;
 		Global.netServerRead = netServerRead;
-		Global.storage = storage;
 
 		try {
 			loggerInit();//Загрузка логгера для вывода ошибок
@@ -74,7 +72,6 @@ public class Loader {
 	private static void init() {
 		Global.engine = new Engine();//Создание класса для главного цикла
 		Global.engine.init();
-		//Global.engine.render.initGL();//Инициализация OpenGL
 
 		Global.tcpControl = new TCPControl();
 		Global.tcpRead = new TCPRead();
@@ -88,9 +85,6 @@ public class Loader {
 
 		Global.spriteStorage = new SpriteStorage();
 		Global.animationStorage = new AnimationStorage();
-
-		TextureManager.init();//Загрузка текстур и анимаций
-		//TODO: FontManager.init();//Загрузка шрифтов
 
 		new Location(640, 480).activate(false);
 

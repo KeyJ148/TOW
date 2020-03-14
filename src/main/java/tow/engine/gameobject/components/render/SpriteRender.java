@@ -3,15 +3,14 @@ package tow.engine.gameobject.components.render;
 import tow.engine.Vector2;
 import tow.engine.gameobject.components.Position;
 import tow.engine.resources.textures.Texture;
-import tow.engine.image.TextureHandler;
 import org.lwjgl.opengl.GL11;
 
 public class SpriteRender extends Rendering {
 	
-    private TextureHandler textureHandler;
+    private Texture texture;
 
-    public SpriteRender(TextureHandler textureHandler) {
-		this.textureHandler = textureHandler;
+    public SpriteRender(Texture texture) {
+		this.texture = texture;
     }
 
     @Override
@@ -34,7 +33,7 @@ public class SpriteRender extends Rendering {
         GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
 
         color.bind();
-        textureHandler.texture.bind();
+        texture.bind();
 
         GL11.glBegin(GL11.GL_QUADS);
         GL11.glTexCoord2f(0,0);
@@ -55,12 +54,12 @@ public class SpriteRender extends Rendering {
 
     @Override
     public int getWidthTexture(){
-        return textureHandler.getWidth();
+        return texture.getWidth();
     }
 
     @Override
     public int getHeightTexture(){
-        return textureHandler.getHeight();
+        return texture.getHeight();
     }
 
     @Override

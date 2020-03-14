@@ -2,12 +2,12 @@ package tow.game.client.map;
 
 
 import tow.engine.Global;
-import tow.engine.image.TextureHandler;
-import tow.engine.image.TextureManager;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.components.Collision;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.render.SpriteRender;
+import tow.engine.resources.sprites.Sprite;
+import tow.engine.resources.textures.Texture;
 import tow.game.client.GameSetting;
 import tow.game.client.tanks.equipment.EquipManager;
 import tow.game.client.tanks.player.Player;
@@ -31,10 +31,10 @@ public class Box extends GameObject {
 			default: nameBox = "error"; break;
 		}
 
-		TextureHandler texture = TextureManager.getTexture(nameBox);
+		Sprite sprite = Global.spriteStorage.getSprite(nameBox);
 		setComponent(new Position(x, y, texture.depth));
-		setComponent(new SpriteRender(texture));
-		setComponent(new Collision(texture.mask));
+		setComponent(new SpriteRender(sprite.getTexture()));
+		setComponent(new Collision(sprite.getMask()));
 	}
 
 	public void collisionPlayer(Player player){

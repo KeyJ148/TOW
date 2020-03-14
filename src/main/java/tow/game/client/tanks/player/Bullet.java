@@ -2,8 +2,6 @@ package tow.game.client.tanks.player;
 
 
 import tow.engine.Global;
-import tow.engine.image.TextureHandler;
-import tow.engine.image.TextureManager;
 import tow.engine.map.Border;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.GameObjectFactory;
@@ -13,6 +11,7 @@ import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.particles.Particles;
 import tow.engine.gameobject.components.render.SpriteRender;
+import tow.engine.resources.textures.Texture;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
@@ -37,7 +36,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener{
 	public String sound_hit;
 
 	public Player player;
-	public TextureHandler texture;
+	public Texture texture;
 
 	public void init(Player player, double x, double y, double dir, double damage, int range, String name){
 		this.player = player;
