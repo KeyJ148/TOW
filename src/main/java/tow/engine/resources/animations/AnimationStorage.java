@@ -17,9 +17,14 @@ public class AnimationStorage {
 
     public AnimationStorage(){
         try {
-            AnimationContainer[] animationContainers = JsonContainerLoader.loadExternalFile(AnimationContainer[].class, CONFIG_PATH);
+            AnimationContainer[] animationContainers = JsonContainerLoader.loadInternalFile(AnimationContainer[].class, CONFIG_PATH);
 
             for (AnimationContainer animationContainer : animationContainers) {
+                if (animationByName.containsKey(animationContainer.name)){
+                    Global.logger.println("Animation \"" + animationContainer.name + "\" already exists", Logger.Type.ERROR);
+                    Loader.exit();
+                }
+
                 animationByName.put(animationContainer.name, AnimationLoader.getAnimation(animationContainer.texturePaths, animationContainer.maskPath));
             }
         } catch (IOException e){

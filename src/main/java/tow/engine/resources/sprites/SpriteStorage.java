@@ -19,9 +19,14 @@ public class SpriteStorage {
 
     public SpriteStorage(){
         try {
-            SpriteContainer[] spriteContainers = JsonContainerLoader.loadExternalFile(SpriteContainer[].class, CONFIG_PATH);
+            SpriteContainer[] spriteContainers = JsonContainerLoader.loadInternalFile(SpriteContainer[].class, CONFIG_PATH);
 
             for (SpriteContainer spriteContainer : spriteContainers) {
+                if (spriteByName.containsKey(spriteContainer.name)){
+                    Global.logger.println("Sprite \"" + spriteContainer.name + "\" already exists", Logger.Type.ERROR);
+                    Loader.exit();
+                }
+
                 spriteByName.put(spriteContainer.name, SpriteLoader.getSprite(spriteContainer.texturePath, spriteContainer.maskPath));
             }
         } catch (IOException e){

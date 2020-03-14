@@ -22,6 +22,11 @@ public class AudioStorage {
             for (Map.Entry<String, String> entry : audioNameToPath.entrySet()) {
                 String name = entry.getKey();
                 String path = entry.getValue();
+                if (audioByName.containsKey(name)){
+                    Global.logger.println("Audio \"" + name + "\" already exists", Logger.Type.ERROR);
+                    Loader.exit();
+                }
+
                 audioByName.put(name, AudioLoader.getAudio(path));
             }
         } catch (IOException e){
