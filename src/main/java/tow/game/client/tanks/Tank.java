@@ -9,13 +9,13 @@ import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.particles.Particles;
 import tow.engine.gameobject.components.render.Animation;
-import tow.engine.gameobject.components.render.GuiComponent;
+import tow.engine.gameobject.components.render.GuiRender;
 import tow.engine.gameobject.components.render.Rendering;
+import tow.engine.image.Color;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
 import tow.game.client.particles.Explosion;
 import tow.game.client.tanks.enemy.Enemy;
-import tow.engine.image.Color;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -51,7 +51,7 @@ public abstract class Tank extends GameObject {
 
         nickname = GameObjectFactory.create(0, 0, 0);
         Global.location.objAdd(nickname);
-        nickname.setComponent(new GuiComponent(new Label(), 500, 30));
+        nickname.setComponent(new GuiRender(new Label(), 500, 30));
     }
 
     @Override
@@ -61,7 +61,7 @@ public abstract class Tank extends GameObject {
         if (!alive) return;
 
         if (armor != null && armor.hasComponent(Position.class)) {
-            Label label = ((Label) ((GuiComponent) nickname.getComponent(Rendering.class)).getComponent());
+            Label label = ((Label) ((GuiRender) nickname.getComponent(Rendering.class)).getComponent());
             label.setFocusable(false); //Иначе событие мыши перехватывает надпись, и оно не поступает в игру
             label.getTextState().setText(name); //TODO: присваивать только один раз
 

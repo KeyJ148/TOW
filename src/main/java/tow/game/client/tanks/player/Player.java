@@ -13,7 +13,7 @@ import tow.engine.gameobject.components.Follower;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.render.Animation;
-import tow.engine.gameobject.components.render.GuiComponent;
+import tow.engine.gameobject.components.render.GuiRender;
 import tow.engine.gameobject.components.render.Rendering;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
@@ -82,18 +82,18 @@ public class Player extends Tank {
         hpLabel = GameObjectFactory.create(1, 10, 0);
         hpLabel.getComponent(Position.class).absolute = false;
         Global.location.objAdd(hpLabel);
-        hpLabel.setComponent(new GuiComponent(new Label(), 1, 1));
-        ((Label) ((GuiComponent) hpLabel.getComponent(Rendering.class)).getComponent()).setFocusable(false);
-        ((Label) ((GuiComponent) hpLabel.getComponent(Rendering.class)).getComponent()).getTextState().setFontSize(30);
+        hpLabel.setComponent(new GuiRender(new Label(), 1, 1));
+        ((Label) ((GuiRender) hpLabel.getComponent(Rendering.class)).getComponent()).setFocusable(false);
+        ((Label) ((GuiRender) hpLabel.getComponent(Rendering.class)).getComponent()).getTextState().setFontSize(30);
 
         statsLabel = new GameObject[stats.toString().split("\n").length + 4];
         for (int i = 0; i < statsLabel.length; i++) {
             statsLabel[i] = GameObjectFactory.create(1, 30+i*15, 0);
             statsLabel[i].getComponent(Position.class).absolute = false;
             Global.location.objAdd(statsLabel[i]);
-            statsLabel[i].setComponent(new GuiComponent(new Label(), 1, 1));
-            ((Label) ((GuiComponent) statsLabel[i].getComponent(Rendering.class)).getComponent()).setFocusable(false);
-            ((Label) ((GuiComponent) statsLabel[i].getComponent(Rendering.class)).getComponent()).getTextState().setFontSize(17);
+            statsLabel[i].setComponent(new GuiRender(new Label(), 1, 1));
+            ((Label) ((GuiRender) statsLabel[i].getComponent(Rendering.class)).getComponent()).setFocusable(false);
+            ((Label) ((GuiRender) statsLabel[i].getComponent(Rendering.class)).getComponent()).getTextState().setFontSize(17);
         }
 
         //Создание кнопок для отключения подбора снаряжения
@@ -114,7 +114,7 @@ public class Player extends Tank {
             buttonsTake[i] = GameObjectFactory.create(10+17*i, Global.engine.render.getHeight()-15, 0);
             buttonsTake[i].getComponent(Position.class).absolute = false;
             Global.location.objAdd(buttonsTake[i]);
-            buttonsTake[i].setComponent(new GuiComponent(buttons[i], 15, 15));
+            buttonsTake[i].setComponent(new GuiRender(buttons[i], 15, 15));
         }
     }
 
@@ -132,21 +132,21 @@ public class Player extends Tank {
         if (vampire < 0.0) vampire = 0.0;
 
         //Отрисовка HP
-        ((Label) ((GuiComponent) hpLabel.getComponent(Rendering.class)).getComponent()).getTextState().setText("HP: " +  Math.round(hp) + "/" + Math.round(stats.hpMax));
+        ((Label) ((GuiRender) hpLabel.getComponent(Rendering.class)).getComponent()).getTextState().setText("HP: " +  Math.round(hp) + "/" + Math.round(stats.hpMax));
 
         //Отрисовка статов
         if (ClientData.printStats){
             String[] array = stats.toString().split("\n");
             for (int i = 0; i < array.length; i++) {
-                ((Label) ((GuiComponent) statsLabel[i].getComponent(Rendering.class)).getComponent()).getTextState().setText(array[i]);
+                ((Label) ((GuiRender) statsLabel[i].getComponent(Rendering.class)).getComponent()).getTextState().setText(array[i]);
             }
-            ((Label) ((GuiComponent) statsLabel[array.length].getComponent(Rendering.class)).getComponent()).getTextState().setText("Armor: " + ((Armor) armor).title);
-            ((Label) ((GuiComponent) statsLabel[array.length+1].getComponent(Rendering.class)).getComponent()).getTextState().setText("Gun: " + ((Gun) gun).title);
-            ((Label) ((GuiComponent) statsLabel[array.length+2].getComponent(Rendering.class)).getComponent()).getTextState().setText("Bullet: " + bullet.title);
-            ((Label) ((GuiComponent) statsLabel[array.length+3].getComponent(Rendering.class)).getComponent()).getTextState().setText("Vampire: " + Math.round(vampire*100) + "%");
+            ((Label) ((GuiRender) statsLabel[array.length].getComponent(Rendering.class)).getComponent()).getTextState().setText("Armor: " + ((Armor) armor).title);
+            ((Label) ((GuiRender) statsLabel[array.length+1].getComponent(Rendering.class)).getComponent()).getTextState().setText("Gun: " + ((Gun) gun).title);
+            ((Label) ((GuiRender) statsLabel[array.length+2].getComponent(Rendering.class)).getComponent()).getTextState().setText("Bullet: " + bullet.title);
+            ((Label) ((GuiRender) statsLabel[array.length+3].getComponent(Rendering.class)).getComponent()).getTextState().setText("Vampire: " + Math.round(vampire*100) + "%");
        } else {
             for (int i = 0; i < statsLabel.length; i++) {
-                ((Label) ((GuiComponent) statsLabel[i].getComponent(Rendering.class)).getComponent()).getTextState().setText("");
+                ((Label) ((GuiRender) statsLabel[i].getComponent(Rendering.class)).getComponent()).getTextState().setText("");
             }
         }
 
