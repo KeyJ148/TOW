@@ -31,7 +31,6 @@ application {
 
 distributions.main.contents {
     into ('maps') { from 'maps' }
-    into ('settings') { from 'settings' }
 }
 
 test {
