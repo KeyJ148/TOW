@@ -43,7 +43,7 @@ public class TextureLoader {
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
             Texture.unbind();
 
-            Global.logger.println("Load image \"" + path + "\" completed", Logger.Type.DEBUG_IMAGE);
+            Global.logger.println("Load image \"" + path + "\" completed", Logger.Type.DEBUG_TEXTURE);
             return texture;
         } catch (Exception e){
             Global.logger.println("Image \"" + path + "\" not loading", Logger.Type.ERROR);

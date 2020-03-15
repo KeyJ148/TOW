@@ -4,14 +4,20 @@ import java.util.*;
 
 public class MapSpecification {
 
-    private int width, height;
-    private Map<Integer, MapObject> mapObjectById = new HashMap<>();
+    private final int width, height;
+    private final Map<Integer, MapObjectSpecification> mapObjectById;
 
-    public Collection<MapObject> getMapObjects(){
+    public MapSpecification(int width, int height, Map<Integer, MapObjectSpecification> mapObjectById) {
+        this.width = width;
+        this.height = height;
+        this.mapObjectById = mapObjectById;
+    }
+
+    public Collection<MapObjectSpecification> getMapObjectSpecifications(){
         return mapObjectById.values();
     }
     
-    public MapObject getMapObject(int id){
+    public MapObjectSpecification getMapObjectSpecification(int id){
         return mapObjectById.get(id);
     }
 

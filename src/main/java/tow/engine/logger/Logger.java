@@ -7,7 +7,7 @@ import java.util.Set;
 
 public abstract class Logger {
 
-    public enum Type {INFO, ERROR, DEBUG, DEBUG_OBJECT, DEBUG_IMAGE, DEBUG_MASK, DEBUG_AUDIO, CONSOLE_FPS,
+    public enum Type {INFO, ERROR, DEBUG, DEBUG_TEXTURE, DEBUG_MASK, DEBUG_AUDIO, CONSOLE_FPS,
         SERVER_INFO, SERVER_DEBUG, SERVER_ERROR, MPS};
 
     private Set<Type> typeEnabled = new HashSet<>();
@@ -40,8 +40,7 @@ public abstract class Logger {
         if (type.equals(Type.ERROR)) s = "[ERROR] " + s;
         if (type.equals(Type.INFO)) s = "[INFO] " + s;
         if (    type.equals(Type.DEBUG) ||
-                type.equals(Type.DEBUG_OBJECT) ||
-                type.equals(Type.DEBUG_IMAGE) ||
+                type.equals(Type.DEBUG_TEXTURE) ||
                 type.equals(Type.DEBUG_MASK) ||
                 type.equals(Type.DEBUG_AUDIO) ||
                 type.equals(Type.CONSOLE_FPS)) s = "[DEBUG] " + s;

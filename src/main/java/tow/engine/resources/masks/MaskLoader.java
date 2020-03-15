@@ -16,7 +16,7 @@ public class MaskLoader {
         try{
             Mask mask = new Mask(loadMaskPointsFromFile(path));
 
-            Global.logger.println("Load mask \"" + path + "\" completed", Logger.Type.DEBUG_IMAGE);
+            Global.logger.println("Load mask \"" + path + "\" completed", Logger.Type.DEBUG_MASK);
             return mask;
         } catch (Exception e){
             Global.logger.println("Mask \"" + path + "\" not loading", Logger.Type.ERROR);
