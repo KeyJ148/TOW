@@ -17,7 +17,7 @@ public class MapObject extends GameObject {
 		this.id = id;
 	}
 
-	public MapObject(int id, double x, double y, double direction, String type, Map<String, Object> parameters) {
+	public MapObject(int id, int x, int y, int z, String type, Map<String, Object> parameters) {
 
 	}
 }

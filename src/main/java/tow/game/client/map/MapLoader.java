@@ -13,14 +13,14 @@ public class MapLoader {
         try {
             MapContainer mapContainer = JsonContainerLoader.loadExternalFile(MapContainer.class, path);
 
-            Map<Integer, MapObject> mapObjectById = new HashMap<>();
+            Map<Integer, MapObjectSpecification> mapObjectSpecificationById = new HashMap<>();
             for (int i = 0; i < mapContainer.mapObjectContainers.length; i++) {
                 MapObjectContainer mapObjectContainer = mapContainer.mapObjectContainers[i];
-                mapObjectById.put(i, new MapObject(i, mapObjectContainer.x, mapObjectContainer.y,
-                        mapObjectContainer.direction, mapObjectContainer.type, mapObjectContainer.parameters));
+                mapObjectSpecificationById.put(i, new MapObjectSpecification(i, mapObjectContainer.x, mapObjectContainer.y,
+                        mapObjectContainer.z, mapObjectContainer.type, mapObjectContainer.parameters));
             }
 
-            MapSpecification mapSpecification = new MapSpecification(mapContainer.width, mapContainer.height, mapObjectById);
+            MapSpecification mapSpecification = new MapSpecification(mapContainer.width, mapContainer.height, mapObjectSpecificationById);
             Global.logger.println("Load map \"" + path + "\" completed", Logger.Type.DEBUG);
             return mapSpecification;
         } catch (Exception e){
@@ -35,7 +35,7 @@ public class MapLoader {
     }
 
     private static class MapObjectContainer{
-        public double x, y, direction;
+        public int x, y, z;
         public String type;
         public Map<String, Object> parameters;
     }
