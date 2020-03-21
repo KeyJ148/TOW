@@ -1,15 +1,16 @@
 package tow.game.server;
 
-import java.io.File;
-
 import tow.engine.Vector2;
 import tow.engine.implementation.ServerInterface;
 import tow.engine.net.server.GameServer;
 import tow.engine.net.server.senders.ServerSendTCP;
+import tow.game.client.map.MapObjectSpecification;
 import tow.game.server.assistants.BoxCreator;
 import tow.game.server.assistants.MapLoader;
 import tow.game.server.data.PlayerData;
 import tow.game.server.data.ServerData;
+
+import java.io.File;
 
 public class Server implements ServerInterface {
 
@@ -74,15 +75,15 @@ public class Server implements ServerInterface {
         //Цикл генерации позиции
         do{
             collision = false;
-            dxRand = Math.random()*(ServerData.widthMap-200)+100; //Предполагаемая позиция объекта
-            dyRand = Math.random()*(ServerData.heightMap-200)+100; //Если генерить сразу в инт - ошибка
+            dxRand = Math.random()*(ServerData.map.getWidth()-200)+100; //Предполагаемая позиция объекта
+            dyRand = Math.random()*(ServerData.map.getHeight()-200)+100; //Если генерить сразу в инт - ошибка
             xRand = (int) dxRand;
             yRand = (int) dyRand;
 
             //Перебираем все имеющиеся объекты
             //Если ни с одним не столкнулись - генерация успешна
-            for(ServerData.MapObject mapObject : ServerData.map){
-                if ( TextureManager.getTexture(mapObject.textureName).type != "road"){
+            for(MapObjectSpecification mapObjectSpecification : ServerData.map.getMapObjectSpecifications()){
+                if (mapObjectSpecification.getType() != "road"){
 
                     x = mapObject.x;//Коры объекта
                     y = mapObject.y;
