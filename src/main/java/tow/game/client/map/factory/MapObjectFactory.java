@@ -13,13 +13,13 @@ public class MapObjectFactory {
 
     private Map<String, MapObjectCreator> mapObjectCreatorByType = new HashMap<>();
 
-    public void registryNewType(String type, MapObjectCreator mapObjectCreator){
-        if (mapObjectCreatorByType.containsKey(type)){
-            Global.logger.println("MapObjectCreator \"" + type + "\" already exists", Logger.Type.ERROR);
+    public void registryNewCreator(MapObjectCreator mapObjectCreator){
+        if (mapObjectCreatorByType.containsKey(mapObjectCreator.getType())){
+            Global.logger.println("MapObjectCreator \"" + mapObjectCreator.getType() + "\" already exists", Logger.Type.ERROR);
             Loader.exit();
         }
 
-        mapObjectCreatorByType.put(type, mapObjectCreator);
+        mapObjectCreatorByType.put(mapObjectCreator.getType(), mapObjectCreator);
     }
 
     public MapObject createMapObject(MapObjectSpecification mapObjectSpecification){

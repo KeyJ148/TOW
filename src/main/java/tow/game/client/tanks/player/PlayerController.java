@@ -13,8 +13,8 @@ import tow.engine.gameobject.components.render.GuiRender;
 import tow.engine.gameobject.components.render.Rendering;
 import tow.engine.map.Border;
 import tow.game.client.ClientData;
-import tow.game.client.map.types.Box;
-import tow.game.client.map.types.Wall;
+import tow.game.client.map.objects.Box;
+import tow.game.client.map.objects.Wall;
 import tow.game.client.tanks.enemy.EnemyArmor;
 
 import java.util.Arrays;

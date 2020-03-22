@@ -6,7 +6,7 @@ import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.logger.Logger;
 import tow.engine.setting.ConfigReader;
-import tow.game.client.map.types.Wall;
+import tow.game.client.map.objects.Wall;
 import tow.game.client.tanks.enemy.EnemyArmor;
 import tow.game.client.tanks.player.Bullet;
 

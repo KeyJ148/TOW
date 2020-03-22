@@ -1,4 +1,4 @@
-package tow.game.client.map.types;
+package tow.game.client.map.objects;
 
 import tow.engine.Global;
 import tow.engine.gameobject.components.Collision;

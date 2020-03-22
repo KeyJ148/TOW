@@ -5,5 +5,6 @@ import tow.game.client.map.specification.MapObjectSpecification;
 
 public interface MapObjectCreator {
 
+    String getType();
     MapObject createMapObject(MapObjectSpecification mapObjectSpecification);
 }

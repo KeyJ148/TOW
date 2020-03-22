@@ -7,9 +7,9 @@ import tow.engine.resources.JsonContainerLoader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapLoader {
+public class MapSpecificationLoader {
 
-    public static MapSpecification getMap(String path){
+    public static MapSpecification getMapSpecification(String path){
         try {
             MapContainer mapContainer = JsonContainerLoader.loadExternalFile(MapContainer.class, path);
 
@@ -24,7 +24,7 @@ public class MapLoader {
             Global.logger.println("Load map \"" + path + "\" completed", Logger.Type.DEBUG);
             return mapSpecification;
         } catch (Exception e){
-            Global.logger.println("Audio \"" + path + "\" not loading", Logger.Type.ERROR);
+            Global.logger.println("Map \"" + path + "\" not loading", Logger.Type.ERROR);
             return null;
         }
     }

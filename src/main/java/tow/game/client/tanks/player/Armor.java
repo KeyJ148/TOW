@@ -11,8 +11,8 @@ import tow.engine.image.TextureHandler;
 import tow.engine.image.TextureManager;
 import tow.engine.map.Border;
 import tow.engine.setting.ConfigReader;
-import tow.game.client.map.types.Box;
-import tow.game.client.map.types.Wall;
+import tow.game.client.map.objects.Box;
+import tow.game.client.map.objects.Wall;
 import tow.game.client.tanks.Effect;
 import tow.game.client.tanks.enemy.EnemyArmor;
 

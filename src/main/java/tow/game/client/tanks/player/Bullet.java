@@ -15,7 +15,7 @@ import tow.engine.resources.textures.Texture;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
-import tow.game.client.map.types.Wall;
+import tow.game.client.map.objects.Wall;
 import tow.game.client.particles.Explosion;
 import tow.game.client.tanks.enemy.EnemyArmor;
 
