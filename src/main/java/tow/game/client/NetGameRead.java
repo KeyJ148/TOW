@@ -1,21 +1,21 @@
 package tow.game.client;
 
-import tow.engine.logger.Logger;
 import tow.engine.Global;
+import tow.engine.gameobject.GameObject;
+import tow.engine.image.Color;
 import tow.engine.implementation.NetGameReadInterface;
+import tow.engine.logger.Logger;
 import tow.engine.map.Background;
 import tow.engine.map.Border;
 import tow.engine.map.Location;
 import tow.engine.net.client.Message;
-import tow.engine.gameobject.GameObject;
 import tow.engine.resources.sprites.Sprite;
-import tow.game.client.map.Box;
 import tow.game.client.map.MapObject;
-import tow.game.client.map.Wall;
+import tow.game.client.map.types.Box;
+import tow.game.client.map.types.Wall;
 import tow.game.client.tanks.enemy.Enemy;
 import tow.game.client.tanks.enemy.EnemyBullet;
 import tow.game.client.tanks.player.Player;
-import tow.engine.image.Color;
 
 import java.util.ArrayList;
 import java.util.Map;

@@ -1,19 +1,20 @@
-package tow.game.client.map;
+package tow.game.client.map.types;
 
 import tow.engine.Global;
-import tow.engine.logger.Logger;
 import tow.engine.gameobject.components.Collision;
+import tow.engine.logger.Logger;
 import tow.engine.resources.sprites.Sprite;
+import tow.game.client.map.MapObject;
 
 public class Wall extends MapObject {
 
-    public int stabillity;
+    public int stability;
 
     public Wall(double x, double y, double direction, Sprite sprite, int mid){
         super(x, y, direction, sprite.getTexture(), mid);
 
         setComponent(new Collision(sprite.getMask()));
-        stabillity = getStabilityByType(textureHandler.type);
+        stability = getStabilityByType(textureHandler.type);
     }
 
     private int getStabilityByType(String type){

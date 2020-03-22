@@ -4,7 +4,7 @@ import tow.engine.Vector2;
 import tow.engine.implementation.ServerInterface;
 import tow.engine.net.server.GameServer;
 import tow.engine.net.server.senders.ServerSendTCP;
-import tow.game.client.map.MapObjectSpecification;
+import tow.game.client.map.specification.MapObjectSpecification;
 import tow.game.server.assistants.BoxCreator;
 import tow.game.server.assistants.MapLoader;
 import tow.game.server.data.PlayerData;

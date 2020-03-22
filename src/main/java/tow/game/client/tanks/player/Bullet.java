@@ -2,7 +2,6 @@ package tow.game.client.tanks.player;
 
 
 import tow.engine.Global;
-import tow.engine.map.Border;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.GameObjectFactory;
 import tow.engine.gameobject.components.Collision;
@@ -11,11 +10,12 @@ import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.particles.Particles;
 import tow.engine.gameobject.components.render.SpriteRender;
+import tow.engine.map.Border;
 import tow.engine.resources.textures.Texture;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
-import tow.game.client.map.Wall;
+import tow.game.client.map.types.Wall;
 import tow.game.client.particles.Explosion;
 import tow.game.client.tanks.enemy.EnemyArmor;
 

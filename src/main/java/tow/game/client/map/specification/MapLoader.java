@@ -1,4 +1,4 @@
-package tow.game.client.map;
+package tow.game.client.map.specification;
 
 import tow.engine.Global;
 import tow.engine.logger.Logger;

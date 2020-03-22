@@ -2,7 +2,7 @@ package tow.game.client;
 
 import tow.engine.image.Color;
 import tow.game.client.map.MapObject;
-import tow.game.client.map.MapObjectFactory;
+import tow.game.client.map.factory.MapObjectFactory;
 import tow.game.client.tanks.enemy.Enemy;
 import tow.game.client.tanks.enemy.EnemyBullet;
 import tow.game.client.tanks.player.Player;

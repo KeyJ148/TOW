@@ -1,6 +1,7 @@
-package tow.game.client.map;
+package tow.game.client.map.specification;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Map;
 
 public class MapSpecification {
 

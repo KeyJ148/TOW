@@ -1,22 +1,21 @@
 package tow.game.client.tanks.player;
 
 import org.liquidengine.legui.component.Button;
+import org.liquidengine.legui.event.KeyEvent;
 import tow.engine.Global;
 import tow.engine.Loader;
 import tow.engine.Vector2;
-import tow.engine.gameobject.components.render.GuiRender;
-import tow.engine.gameobject.components.render.Rendering;
-import tow.engine.map.Border;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.components.Collision;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
+import tow.engine.gameobject.components.render.GuiRender;
+import tow.engine.gameobject.components.render.Rendering;
+import tow.engine.map.Border;
 import tow.game.client.ClientData;
-import tow.game.client.map.Box;
-import tow.game.client.map.Wall;
+import tow.game.client.map.types.Box;
+import tow.game.client.map.types.Wall;
 import tow.game.client.tanks.enemy.EnemyArmor;
-
-import org.liquidengine.legui.event.KeyEvent;
 
 import java.util.Arrays;
 import java.util.List;

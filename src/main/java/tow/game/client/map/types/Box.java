@@ -1,4 +1,4 @@
-package tow.game.client.map;
+package tow.game.client.map.types;
 
 
 import tow.engine.Global;
@@ -7,7 +7,6 @@ import tow.engine.gameobject.components.Collision;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.render.SpriteRender;
 import tow.engine.resources.sprites.Sprite;
-import tow.engine.resources.textures.Texture;
 import tow.game.client.GameSetting;
 import tow.game.client.tanks.equipment.EquipManager;
 import tow.game.client.tanks.player.Player;

@@ -1,8 +1,10 @@
-package tow.game.client.map;
+package tow.game.client.map.factory;
 
 import tow.engine.Global;
 import tow.engine.Loader;
 import tow.engine.logger.Logger;
+import tow.game.client.map.MapObject;
+import tow.game.client.map.specification.MapObjectSpecification;
 
 import java.util.HashMap;
 import java.util.Map;
