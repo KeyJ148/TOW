@@ -1,6 +1,5 @@
 package tow.engine.input.mouse;
 
-import org.liquidengine.legui.component.TextAreaField;
 import org.lwjgl.BufferUtils;
 import tow.engine.Global;
 import tow.engine.Vector2;
@@ -13,7 +12,6 @@ import tow.engine.resources.textures.Texture;
 import java.nio.DoubleBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_NORMAL;
 
 public class MouseCursor {
 
@@ -34,6 +32,8 @@ public class MouseCursor {
     }
 
     public void draw(){
+        if (!cursor.hasComponent(Rendering.class)) return;
+
         //Необходимо убрать флаг drawInThisStep, т.к. курсор отрисовывается и во время общей отрисовки комнаты
         //Потом отрисовывает интерфейс, и потом снова необходимо отрисовать курсор
         cursor.getComponent(Rendering.class).startNewStep();
