@@ -1,5 +1,58 @@
-1280 720 grass
-350 350 0 home2
-17 33 90 home1
-100 100 90 home1
-1263 687 90 home1
+{
+  "width": 1280,
+  "height": 720,
+  "mapObjectContainers": [
+    {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "type": "scalable_texture",
+      "parameters": {
+        "direction": 0,
+        "height": 720,
+        "texture": "grass",
+        "width": 1280
+      }
+    },
+    {
+      "x": 350,
+      "y": 350,
+      "z": 1500,
+      "type": "home",
+      "parameters": {
+        "direction": 0,
+        "texture": "home2"
+      }
+    },
+    {
+      "x": 17,
+      "y": 33,
+      "z": 1500,
+      "type": "home",
+      "parameters": {
+        "direction": 90,
+        "texture": "home1"
+      }
+    },
+    {
+      "x": 100,
+      "y": 100,
+      "z": 1500,
+      "type": "home",
+      "parameters": {
+        "direction": 90,
+        "texture": "home1"
+      }
+    },
+    {
+      "x": 1263,
+      "y": 687,
+      "z": 1500,
+      "type": "home",
+      "parameters": {
+        "direction": 90,
+        "texture": "home1"
+      }
+    }
+  ]
+}

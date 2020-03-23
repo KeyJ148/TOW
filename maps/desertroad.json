@@ -1,0 +1,1348 @@
+{
+  "width": 1900,
+  "height": 1000,
+  "mapObjectContainers": [
+    {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "type": "scalable_texture",
+      "parameters": {
+        "direction": 0,
+        "height": 1000,
+        "texture": "sand",
+        "width": 1900
+      }
+    },
+    {
+      "x": 340,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 420,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 500,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 580,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 660,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 740,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 260,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 180,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 100,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 20,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 820,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 900,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 980,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 1060,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 1140,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 1220,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 1300,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 1380,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 1460,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 1540,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 1620,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 1700,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 1780,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 1860,
+      "y": 380,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_a_d_big"
+      }
+    },
+    {
+      "x": 460,
+      "y": 500,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 90,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 460,
+      "y": 540,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 90,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 460,
+      "y": 460,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 90,
+        "texture": "road_d_end"
+      }
+    },
+    {
+      "x": 460,
+      "y": 580,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 90,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 460,
+      "y": 620,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 90,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 460,
+      "y": 660,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 90,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 460,
+      "y": 700,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 90,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 460,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 90,
+        "texture": "road_d_turn"
+      }
+    },
+    {
+      "x": 500,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 540,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 580,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 620,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 660,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 740,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 700,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 780,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 820,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d_turn"
+      }
+    },
+    {
+      "x": 820,
+      "y": 780,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 820,
+      "y": 820,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 820,
+      "y": 860,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 820,
+      "y": 900,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 820,
+      "y": 940,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 820,
+      "y": 980,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 900,
+      "y": 980,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 900,
+      "y": 940,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 900,
+      "y": 900,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 900,
+      "y": 860,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 900,
+      "y": 820,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 900,
+      "y": 780,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 900,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d_turn"
+      }
+    },
+    {
+      "x": 940,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1020,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 980,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1060,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1100,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1140,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1180,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1220,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1300,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1260,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1340,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1380,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1420,
+      "y": 740,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 180,
+        "texture": "road_d_turn"
+      }
+    },
+    {
+      "x": 1420,
+      "y": 700,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1420,
+      "y": 660,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1420,
+      "y": 620,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1420,
+      "y": 580,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1420,
+      "y": 540,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1420,
+      "y": 500,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1420,
+      "y": 460,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 90,
+        "texture": "road_d_end"
+      }
+    },
+    {
+      "x": 1420,
+      "y": 300,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d_end"
+      }
+    },
+    {
+      "x": 1420,
+      "y": 260,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1420,
+      "y": 220,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1420,
+      "y": 180,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1420,
+      "y": 140,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1420,
+      "y": 100,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1420,
+      "y": 60,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d_turn"
+      }
+    },
+    {
+      "x": 1380,
+      "y": 60,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 180,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1340,
+      "y": 60,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 180,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1300,
+      "y": 60,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 180,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1260,
+      "y": 60,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 180,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 1220,
+      "y": 60,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 90,
+        "texture": "road_d_turn"
+      }
+    },
+    {
+      "x": 1220,
+      "y": 20,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 90,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 460,
+      "y": 300,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d_end"
+      }
+    },
+    {
+      "x": 460,
+      "y": 260,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 460,
+      "y": 220,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 460,
+      "y": 180,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 460,
+      "y": 140,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d_fork"
+      }
+    },
+    {
+      "x": 460,
+      "y": 100,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 460,
+      "y": 60,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 460,
+      "y": 20,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 270,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 420,
+      "y": 140,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 380,
+      "y": 140,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 340,
+      "y": 140,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 300,
+      "y": 140,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 260,
+      "y": 140,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 220,
+      "y": 140,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 180,
+      "y": 140,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 140,
+      "y": 140,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 100,
+      "y": 140,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 60,
+      "y": 140,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 20,
+      "y": 140,
+      "z": 500,
+      "type": "road",
+      "parameters": {
+        "direction": 0,
+        "texture": "road_d"
+      }
+    },
+    {
+      "x": 540,
+      "y": 660,
+      "z": 1500,
+      "type": "home",
+      "parameters": {
+        "direction": 0,
+        "texture": "home4"
+      }
+    },
+    {
+      "x": 980,
+      "y": 820,
+      "z": 1500,
+      "type": "home",
+      "parameters": {
+        "direction": 0,
+        "texture": "home4"
+      }
+    },
+    {
+      "x": 740,
+      "y": 820,
+      "z": 1500,
+      "type": "home",
+      "parameters": {
+        "direction": 180,
+        "texture": "home8"
+      }
+    },
+    {
+      "x": 1060,
+      "y": 820,
+      "z": 1500,
+      "type": "home",
+      "parameters": {
+        "direction": 270,
+        "texture": "home9"
+      }
+    },
+    {
+      "x": 1340,
+      "y": 140,
+      "z": 1500,
+      "type": "home",
+      "parameters": {
+        "direction": 180,
+        "texture": "home4"
+      }
+    },
+    {
+      "x": 380,
+      "y": 60,
+      "z": 1500,
+      "type": "home",
+      "parameters": {
+        "direction": 0,
+        "texture": "home10"
+      }
+    },
+    {
+      "x": 380,
+      "y": 220,
+      "z": 1500,
+      "type": "home",
+      "parameters": {
+        "direction": 180,
+        "texture": "home10"
+      }
+    },
+    {
+      "x": 260,
+      "y": 220,
+      "z": 1500,
+      "type": "home",
+      "parameters": {
+        "direction": 180,
+        "texture": "home4"
+      }
+    },
+    {
+      "x": 527,
+      "y": 57,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 157,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 1070,
+      "y": 128,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 67,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 748,
+      "y": 133,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 22,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 299,
+      "y": 77,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 22,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 112,
+      "y": 259,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 22,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 395,
+      "y": 593,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 270,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 63,
+      "y": 781,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 158,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 552,
+      "y": 887,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 45,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 724,
+      "y": 542,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 338,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 1237,
+      "y": 592,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 248,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 1627,
+      "y": 115,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 248,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 1879,
+      "y": 271,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 135,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 1891,
+      "y": 592,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 135,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 1642,
+      "y": 729,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 0,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 1891,
+      "y": 856,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 293,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 1325,
+      "y": 833,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 293,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 859,
+      "y": 785,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 203,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 1514,
+      "y": 537,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 135,
+        "texture": "tree_wither_1"
+      }
+    },
+    {
+      "x": 76,
+      "y": 544,
+      "z": 2500,
+      "type": "tree",
+      "parameters": {
+        "direction": 135,
+        "texture": "tree_wither_1"
+      }
+    }
+  ]
+}
