@@ -4,15 +4,15 @@ import tow.engine.Global;
 import tow.engine.gameobject.GameObject;
 import tow.engine.image.Color;
 import tow.engine.implementation.NetGameReadInterface;
-import tow.engine.logger.Logger;
 import tow.engine.map.Background;
 import tow.engine.map.Border;
 import tow.engine.map.Location;
 import tow.engine.net.client.Message;
-import tow.engine.resources.sprites.Sprite;
 import tow.game.client.map.MapObject;
 import tow.game.client.map.objects.Box;
-import tow.game.client.map.objects.Wall;
+import tow.game.client.map.specification.MapObjectSpecification;
+import tow.game.client.map.specification.MapSpecification;
+import tow.game.client.map.specification.MapSpecificationLoader;
 import tow.game.client.tanks.enemy.Enemy;
 import tow.game.client.tanks.enemy.EnemyBullet;
 import tow.game.client.tanks.player.Player;
@@ -32,7 +32,6 @@ public class NetGameRead implements NetGameReadInterface {
 			case 5: take5(message.data); break;
 			case 7: take7(message.data); break;
 			case 8: take8(message.data); break;
-			case 9: take9(message.data); break;
 			case 10: take10(message.data); break;
 			case 11: take11(message.data); break;
 			case 12: take12(message.data); break;
@@ -78,13 +77,23 @@ public class NetGameRead implements NetGameReadInterface {
 
 	//данные о карте - (int width, int height, String background)
 	public void take3(String str){
-		int width = Integer.parseInt(str.split(" ")[0]);
-		int height = Integer.parseInt(str.split(" ")[1]);
-		String background = str.split(" ")[2];
+		String mapPath = str.split(" ")[0];
+		MapSpecification mapSpecification = MapSpecificationLoader.getMapSpecification(mapPath);
 
-		Location location = new Location(width, height);
-		location.background = new Background(Global.spriteStorage.getSprite(background).getTexture());
+		Location location = new Location(mapSpecification.getWidth(), mapSpecification.getHeight());
+		location.background = new Background(Global.spriteStorage.getSprite("grass").getTexture());
+		//TODO поменять на растягиваемые текстуры
 		Border.createAll(location);
+
+		for(MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()){
+			if (mapObjectSpecification.getType().equals("scalable_texture")) continue;
+
+			MapObject mapObject = ClientData.mapObjectFactory.createMapObject(mapObjectSpecification);
+			System.out.println(mapObject);
+			Global.location.objAdd(mapObject);
+			ClientData.mapObjects.add(mapObjectSpecification.getId(), mapObject); //TODO: убрать это дублирвоание
+		}
+
 		location.activate();
 	}
 
@@ -172,31 +181,6 @@ public class NetGameRead implements NetGameReadInterface {
 		}
 	}
 
-	//объект карты - (int x, int y, int directiorn, String texture)
-	public void take9(String str){
-		int x = Integer.parseInt(str.split(" ")[0]);
-		int y = Integer.parseInt(str.split(" ")[1]);
-		int direction = Integer.parseInt(str.split(" ")[2]);
-		String texture = str.split(" ")[3];
-		int mid = Integer.parseInt(str.split(" ")[4]);
-
-		Sprite sprite = Global.spriteStorage.getSprite(texture);
-
-		MapObject newObject;
-		switch (textureHandler.type){
-			case "home": newObject = new Wall(x, y, direction, textureHandler, mid); break;
-			case "tree": newObject = new Wall(x, y, direction, textureHandler, mid); break;
-			case "road": newObject = new MapObject(x, y, direction, textureHandler, mid); break;
-			default:
-				newObject = new MapObject(x, y, direction, textureHandler, mid);
-				Global.logger.println("Not valid type for generate map: " + textureHandler.type, Logger.Type.ERROR);
-				break;
-		}
-
-		Global.location.objAdd(newObject);
-		ClientData.mapObjects.add(mid, newObject);
-	}
-
 	//конец отправки карты
 	public void take10(String str){
 		Global.tcpControl.send(6, "");
@@ -224,7 +208,7 @@ public class NetGameRead implements NetGameReadInterface {
 		long idNet = Long.parseLong(str.split(" ")[5]);
 		int idEmeny = Integer.parseInt(str.split(" ")[6]);
 
-		EnemyBullet enemyBullet = new EnemyBullet(x, y, speed, direction, TextureManager.getTexture(texture), idEmeny, idNet);
+		EnemyBullet enemyBullet = new EnemyBullet(x, y, speed, direction, Global.spriteStorage.getSprite(texture).getTexture(), idEmeny, idNet);
 		ClientData.enemyBullet.add(enemyBullet);
 		Global.location.objAdd(enemyBullet);
 	}
@@ -299,11 +283,12 @@ public class NetGameRead implements NetGameReadInterface {
 
 	//объект карты уничтожен бронёй - (int mid)
 	public void take22(String str){
+		/*
 		int mid = Integer.parseInt(str.split(" ")[0]);
 		if (mid < ClientData.mapObjects.size()){
-			((Wall) ClientData.mapObjects.get(mid)).destroyByArmor();
+			((TexturedMapObject) ClientData.mapObjects.get(mid)).destroyByArmor();
 			ClientData.mapObjects.set(mid, null);
-		}
+		}*/
 	}
 
 	//прибавить этому игроку одно убийство, он меня убил - (int id)

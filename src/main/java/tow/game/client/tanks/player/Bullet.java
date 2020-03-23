@@ -11,11 +11,11 @@ import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.particles.Particles;
 import tow.engine.gameobject.components.render.SpriteRender;
 import tow.engine.map.Border;
-import tow.engine.resources.textures.Texture;
+import tow.engine.resources.sprites.Sprite;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
-import tow.game.client.map.objects.Wall;
+import tow.game.client.map.objects.textured.TexturedMapObject;
 import tow.game.client.particles.Explosion;
 import tow.game.client.tanks.enemy.EnemyArmor;
 
@@ -36,7 +36,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener{
 	public String sound_hit;
 
 	public Player player;
-	public Texture texture;
+	public Sprite texture;
 
 	public void init(Player player, double x, double y, double dir, double damage, int range, String name){
 		this.player = player;
@@ -51,11 +51,11 @@ public class Bullet extends GameObject implements Collision.CollisionListener{
 		this.getComponent(Movement.class).setDirection(dir);
 		loadData();
 
-		setComponent(new Position(x, y, texture.depth, dir));
-		setComponent(new SpriteRender(texture));
+		setComponent(new Position(x, y, 1500, dir));
+		setComponent(new SpriteRender(texture.getTexture()));
 
-		setComponent(new CollisionDirect(texture.mask, range));
-		getComponent(Collision.class).addCollisionObjects(new Class[] {Wall.class, EnemyArmor.class, Border.class});
+		setComponent(new CollisionDirect(texture.getMask(), range));
+		getComponent(Collision.class).addCollisionObjects(new Class[] {TexturedMapObject.class, EnemyArmor.class, Border.class});
 		getComponent(Collision.class).addListener(this);
 		((CollisionDirect) getComponent(Collision.class)).init();
 
@@ -73,7 +73,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener{
 			destroy(0);
 		}
 
-		if (gameObject.getClass().equals(Wall.class)){
+		if (gameObject.getClass().equals(TexturedMapObject.class)){
 			destroy(explosionSize);
 
 			Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio(sound_hit), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
@@ -127,7 +127,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener{
 		+ " " +	Math.round(getComponent(Position.class).y)
 		+ " " +	getComponent(Movement.class).getDirection()
 		+ " " +	getComponent(Movement.class).speed
-		+ " " +	texture.name
+		+ " " +	"b_default"
 		+ " " +	idNet;
 	}
 
@@ -143,7 +143,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener{
 
 		damage += cr.findDouble("DAMAGE");//К дамагу пушки прибавляем дамаг патрона
 		range += cr.findInteger("RANGE");//К дальности пушки прибавляем дальность патрона
-		texture = TextureManager.getTexture(cr.findString("IMAGE_NAME"));
+		texture = Global.spriteStorage.getSprite(cr.findString("IMAGE_NAME"));
 		title = cr.findString("TITLE");
 		sound_shot = cr.findString("SOUND_SHOT");
 		sound_hit = cr.findString("SOUND_HIT");

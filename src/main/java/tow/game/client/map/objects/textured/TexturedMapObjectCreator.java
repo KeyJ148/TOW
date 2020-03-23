@@ -10,7 +10,7 @@ public class TexturedMapObjectCreator implements MapObjectCreator {
 
     @Override
     public String getType() {
-        return "texture";
+        return "textured";
     }
 
     @Override

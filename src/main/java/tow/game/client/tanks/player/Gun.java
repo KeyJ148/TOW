@@ -2,13 +2,12 @@ package tow.game.client.tanks.player;
 
 import tow.engine.Global;
 import tow.engine.Vector2;
-import tow.engine.image.TextureHandler;
-import tow.engine.image.TextureManager;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.components.Follower;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.render.SpriteRender;
+import tow.engine.resources.textures.Texture;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.tanks.Effect;
 
@@ -25,7 +24,7 @@ public class Gun extends GameObject {
 	public long nanoSecFromAttack = 0;//Кол-во времени до конца перезарядки в наносекундах
 
 	public Player player;
-	public TextureHandler texture;
+	public Texture texture;
 
 	public void init(Player player, double x, double y, double direction, String name){
 		this.player = player;
@@ -33,7 +32,7 @@ public class Gun extends GameObject {
 
 		loadData();
 
-		setComponent(new Position(x, y, texture.depth, direction));
+		setComponent(new Position(x, y, 2000, direction));
 		setComponent(new SpriteRender(texture));
 
 		setComponent(new Movement());
@@ -113,7 +112,7 @@ public class Gun extends GameObject {
 		effect.addition.damage  = cr.findDouble("DAMAGE");
 		effect.addition.range = cr.findInteger("RANGE");
 
-		texture = TextureManager.getTexture(cr.findString("IMAGE_NAME"));
+		texture = Global.spriteStorage.getSprite(cr.findString("IMAGE_NAME")).getTexture();
 		title = cr.findString("TITLE");
 	}
 }

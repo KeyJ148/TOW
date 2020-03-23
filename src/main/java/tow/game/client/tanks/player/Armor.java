@@ -1,5 +1,6 @@
 package tow.game.client.tanks.player;
 
+import tow.engine.Global;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.components.Collision;
 import tow.engine.gameobject.components.Follower;
@@ -7,12 +8,11 @@ import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.render.AnimationRender;
 import tow.engine.gameobject.components.render.Rendering;
-import tow.engine.image.TextureHandler;
-import tow.engine.image.TextureManager;
 import tow.engine.map.Border;
+import tow.engine.resources.animations.Animation;
 import tow.engine.setting.ConfigReader;
 import tow.game.client.map.objects.Box;
-import tow.game.client.map.objects.Wall;
+import tow.game.client.map.objects.textured.TexturedMapObject;
 import tow.game.client.tanks.Effect;
 import tow.game.client.tanks.enemy.EnemyArmor;
 
@@ -29,7 +29,7 @@ public class Armor extends GameObject {
 	public Effect effect = new Effect();
 
 	public int animSpeed;
-	public TextureHandler[] textureHandlers;
+	public Animation textureHandlers;
 
 	public void init(Player player, double x, double y, double direction, String name){
 		this.player = player;
@@ -37,14 +37,14 @@ public class Armor extends GameObject {
 
 		loadData();
 
-		setComponent(new Position(x, y, textureHandlers[0].depth, direction));
-		setComponent(new AnimationRender(textureHandlers));
+		setComponent(new Position(x, y, 1000, direction));
+		setComponent(new AnimationRender(textureHandlers.getTextures()));
 		setComponent(new Movement());
 		getComponent(Movement.class).setDirection(direction);
 		getComponent(Movement.class).update(0);
 
-		setComponent(new Collision(textureHandlers[0].mask));
-		getComponent(Collision.class).addCollisionObjects(new Class[] {Wall.class, EnemyArmor.class, Box.class, Border.class});
+		setComponent(new Collision(textureHandlers.getMask()));
+		getComponent(Collision.class).addCollisionObjects(new Class[] {TexturedMapObject.class, EnemyArmor.class, Box.class, Border.class});
 		getComponent(Collision.class).addListener(player.controller);
 
 		if (player.gun != null) player.gun.setComponent(new Follower(this, false));
@@ -89,7 +89,7 @@ public class Armor extends GameObject {
 		effect.addition.stability = cr.findInteger("STABILITY");
 
 		animSpeed = cr.findInteger("ANIMATION_SPEED");
-		textureHandlers = TextureManager.getAnimation(cr.findString("IMAGE_NAME"));
+		textureHandlers = Global.animationStorage.getAnimation(cr.findString("IMAGE_NAME"));
 		title = cr.findString("TITLE");
 	}
 }

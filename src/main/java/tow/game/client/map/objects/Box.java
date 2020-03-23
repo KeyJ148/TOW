@@ -31,7 +31,7 @@ public class Box extends GameObject {
 		}
 
 		Sprite sprite = Global.spriteStorage.getSprite(nameBox);
-		setComponent(new Position(x, y, texture.depth));
+		setComponent(new Position(x, y, 1000));
 		setComponent(new SpriteRender(sprite.getTexture()));
 		setComponent(new Collision(sprite.getMask()));
 	}

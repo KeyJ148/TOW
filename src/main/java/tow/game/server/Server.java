@@ -83,12 +83,11 @@ public class Server implements ServerInterface {
             //Перебираем все имеющиеся объекты
             //Если ни с одним не столкнулись - генерация успешна
             for(MapObjectSpecification mapObjectSpecification : ServerData.map.getMapObjectSpecifications()){
-                if (mapObjectSpecification.getType() != "road"){
-
-                    x = mapObject.x;//Коры объекта
-                    y = mapObject.y;
-                    w = mapObject.textureHandler.getWidth();//Размеры объекта
-                    h = mapObject.textureHandler.getHeight();
+                if (!mapObjectSpecification.getType().equals("road")){
+                    x = mapObjectSpecification.getX();//Коры объекта
+                    y = mapObjectSpecification.getY();
+                    w = 100;//Размеры объекта
+                    h = 100;
                     disHome = Math.sqrt(w*w + h*h)/2;
                     disPointToHome = Math.sqrt((x-xRand)*(x-xRand)+(y-yRand)*(y-yRand));
 

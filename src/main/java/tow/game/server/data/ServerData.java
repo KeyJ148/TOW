@@ -10,6 +10,7 @@ public class ServerData {
     public static PlayerData[] playerData;
 
     public static MapSpecification map;
+    public static String mapPath;
     public static BoxCreator boxCreator;
 
 }

@@ -1,8 +1,7 @@
 package tow.game.client;
 
-import tow.engine.Global;
-import tow.engine.image.TextureManager;
 import tow.engine.implementation.GameInterface;
+import tow.game.client.map.factory.MapObjectCreatorsLoader;
 import tow.game.client.menu.MainMenuLocation;
 
 public class Game implements GameInterface {
@@ -11,10 +10,12 @@ public class Game implements GameInterface {
 	public void init() {
 		GameSetting.init();
 
-		Global.location.getMouse().getCursor().setCapture(true);
-		Global.location.getMouse().getCursor().setTexture(TextureManager.getTexture("cursor_aim_1"));
+		//TODO в конфиг или параметр (для дебага на линуксе)
+		//Global.location.getMouse().getCursor().setCapture(true);
+		//Global.location.getMouse().getCursor().setTexture(Global.spriteStorage.getSprite("cursor_aim_1").getTexture());
 
 		//ServerLoader.mapPath = "maps/town100k.maptest";
+		MapObjectCreatorsLoader.load();
         new MainMenuLocation();
 	}
 

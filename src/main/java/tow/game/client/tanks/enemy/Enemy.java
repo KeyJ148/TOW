@@ -1,8 +1,6 @@
 package tow.game.client.tanks.enemy;
 
 import tow.engine.Global;
-import tow.engine.image.TextureHandler;
-import tow.engine.image.TextureManager;
 import tow.engine.gameobject.GameObjectFactory;
 import tow.engine.gameobject.components.Follower;
 import tow.engine.gameobject.components.Movement;
@@ -10,6 +8,8 @@ import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.render.AnimationRender;
 import tow.engine.gameobject.components.render.Rendering;
 import tow.engine.gameobject.components.render.SpriteRender;
+import tow.engine.resources.animations.Animation;
+import tow.engine.resources.textures.Texture;
 import tow.game.client.ClientData;
 import tow.game.client.tanks.Tank;
 
@@ -62,8 +62,8 @@ public class Enemy extends Tank {
 
         //Инициализация брони
         if (armor == null){
-            TextureHandler[] armorAnimation = TextureManager.getAnimation("a_default");
-            armor = new EnemyArmor(x, y, direction, armorAnimation, this);
+            Animation armorAnimation = Global.animationStorage.getAnimation("a_default");
+            armor = new EnemyArmor(x, y, direction, 1000, armorAnimation, this);
             Global.location.objAdd(armor);
             setColorArmor(color);
 
@@ -73,8 +73,8 @@ public class Enemy extends Tank {
 
         //Инициализация пушки
         if (gun == null){
-            TextureHandler gunTexture = TextureManager.getTexture("g_default");
-            gun = GameObjectFactory.create(x, y, directionGun, gunTexture);
+            Texture gunTexture = Global.spriteStorage.getSprite("g_default").getTexture();
+            gun = GameObjectFactory.create(x, y, directionGun, 0, gunTexture);
             gun.setComponent(new Movement());
             gun.getComponent(Movement.class).directionDrawEquals = false;
             gun.setComponent(new Follower(armor, false));
@@ -106,14 +106,14 @@ public class Enemy extends Tank {
     }
 
     public void newArmor(String nameArmor){
-        armor.setComponent(new AnimationRender(TextureManager.getAnimation(nameArmor)));
+        armor.setComponent(new AnimationRender(Global.animationStorage.getAnimation(nameArmor).getTextures()));
         setColorArmor(color);
 
         Global.location.mapControl.update(armor);
     }
 
     public void newGun(String nameGun){
-        gun.setComponent(new SpriteRender(TextureManager.getTexture(nameGun)));
+        gun.setComponent(new SpriteRender(Global.spriteStorage.getSprite(nameGun).getTexture()));
         setColorGun(color);
 
         Global.location.mapControl.update(gun);

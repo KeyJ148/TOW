@@ -6,7 +6,7 @@ import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.logger.Logger;
 import tow.engine.setting.ConfigReader;
-import tow.game.client.map.objects.Wall;
+import tow.game.client.map.objects.textured.TexturedMapObject;
 import tow.game.client.tanks.enemy.EnemyArmor;
 import tow.game.client.tanks.player.Bullet;
 
@@ -22,7 +22,7 @@ public class BMass extends Bullet {
     public void collision(GameObject gameObject){
         if (isDestroy()) return;
 
-        if (gameObject.getClass().equals(Wall.class) || gameObject.getClass().equals(EnemyArmor.class)) {
+        if (gameObject.getClass().equals(TexturedMapObject.class) || gameObject.getClass().equals(EnemyArmor.class)) {
             Random random = new Random();
             int count = minFragmentNumber + random.nextInt(maxFragmentNumber - minFragmentNumber + 1);
 

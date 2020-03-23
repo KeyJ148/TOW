@@ -14,7 +14,7 @@ import tow.engine.gameobject.components.render.Rendering;
 import tow.engine.map.Border;
 import tow.game.client.ClientData;
 import tow.game.client.map.objects.Box;
-import tow.game.client.map.objects.Wall;
+import tow.game.client.map.objects.textured.TexturedMapObject;
 import tow.game.client.tanks.enemy.EnemyArmor;
 
 import java.util.Arrays;
@@ -246,16 +246,17 @@ public class PlayerController extends GameObject implements Collision.CollisionL
             player.armor.getComponent(Movement.class).setDirection(directionPrevious);
         }
 
-        if (gameObject.getClass().equals(Wall.class)){
+        if (gameObject.getClass().equals(TexturedMapObject.class)){
             player.armor.getComponent(Position.class).x = player.armor.getComponent(Movement.class).getXPrevious();
             player.armor.getComponent(Position.class).y = player.armor.getComponent(Movement.class).getYPrevious();
             player.armor.getComponent(Movement.class).setDirection(directionPrevious);
 
+            /*
             Wall wall = (Wall) gameObject;
             if (wall.stabillity < player.stats.stability){
                 Global.tcpControl.send(22, String.valueOf(wall.mid));
                 wall.destroyByArmor();
-            }
+            }*/
         }
 
         if (gameObject.getClass().equals(EnemyArmor.class)){
