@@ -14,7 +14,6 @@ import tow.engine.image.Color;
 import tow.engine.map.Location;
 
 import static tow.game.client.menu.InterfaceStyles.*;
-import static tow.game.client.menu.InterfaceStyles.MENU_ELEMENT_HEIGHT;
 
 public abstract class MenuLocation extends Location {
 
@@ -79,6 +78,7 @@ public abstract class MenuLocation extends Location {
         Button button = new Button(text);
         button.setStyle(MENU_BUTTON_STYLE);
         button.getListenerMap().addListener(MouseClickEvent.class, event);
+        button.getTextState().setFontSize(30);
 
         addComponent(button, width/2, height/2+pos*MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
     }
