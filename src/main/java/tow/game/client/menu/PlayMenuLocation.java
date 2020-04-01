@@ -7,55 +7,24 @@ import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.style.Background;
-import org.liquidengine.legui.style.border.SimpleLineBorder;
-import org.liquidengine.legui.style.color.ColorConstants;
 import tow.engine.image.Color;
 import tow.engine.net.client.Connector;
 import tow.game.client.ClientData;
 import tow.game.server.ServerLoader;
 
+import static tow.game.client.menu.InterfaceStyles.*;
+
 public class PlayMenuLocation extends MenuLocation implements StartServerListener {
 
     private int portHosted;
-    private boolean wasConnect = false;
+
 
     public PlayMenuLocation(){
         final TextAreaField textAreaFieldNick = new TextAreaField();
 
         addComponent(new Panel(), width/2, height/2-1*MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
 
-        addComponent(new Label("IP:"), width/2-50, height/2-1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
 
-        TextAreaField textAreaFieldIP = new TextAreaField();
-        Background textAreaFieldIPBackground = new Background();
-        textAreaFieldIPBackground.setColor(new Vector4f((float) 0.8, (float) 0.8, (float) 0.8, 1));
-        textAreaFieldIP.getStyle().setBackground(textAreaFieldIPBackground);
-        addComponent(textAreaFieldIP, width/2-30, height/2-1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
-
-        addComponent(new Label(":"), width/2+127, height/2-1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
-
-        TextAreaField textAreaFieldPort = new TextAreaField();
-        Background textAreaFieldPortBackground = new Background();
-        textAreaFieldPortBackground.setColor(new Vector4f((float) 0.8, (float) 0.8, (float) 0.8, 1));
-        textAreaFieldPort.getStyle().setBackground(textAreaFieldPortBackground);
-        textAreaFieldPort.getTextState().setText("25566");
-        addComponent(textAreaFieldPort, width/2+90, height/2-1*MENU_ELEMENT_HEIGHT-20, 60, MENU_TEXT_FIELD_HEIGHT);
-
-        Button buttonConnect = new Button("Connect");
-        SimpleLineBorder buttonConnectBorder = new SimpleLineBorder(ColorConstants.black(), 1);
-        buttonConnect.getStyle().setBorder(buttonConnectBorder);
-        buttonConnect.getListenerMap().addListener(MouseClickEvent.class, event -> {
-            if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE){
-                if (wasConnect) return;
-                wasConnect = true;
-
-                String ip = (!textAreaFieldIP.getTextState().getText().isEmpty())? textAreaFieldIP.getTextState().getText() : "127.0.0.1";
-                int port = Integer.parseInt(textAreaFieldPort.getTextState().getText());
-                if (textAreaFieldNick.getTextState().getText().length() != 0) ClientData.name = textAreaFieldNick.getTextState().getText();
-                new Connector().connect(ip, port);
-            }
-        });
-        addComponent(buttonConnect, width/2, height/2-1*MENU_ELEMENT_HEIGHT+15, MENU_ELEMENT_WIDTH-10, MENU_ELEMENT_HEIGHT-50);
 
 
 
@@ -65,23 +34,18 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
         addComponent(new Label("Count players:"), width/2-50, height/2-20, 150, MENU_TEXT_FIELD_HEIGHT);
 
         TextAreaField textAreaFieldPlayers = new TextAreaField();
-        Background textAreaFieldPlayersBackground = new Background();
-        textAreaFieldPlayersBackground.setColor(new Vector4f((float) 0.8, (float) 0.8, (float) 0.8, 1));
-        textAreaFieldPlayers.getStyle().setBackground(textAreaFieldPlayersBackground);
+        textAreaFieldPlayers.getStyle().setBackground(TEXT_AREA_FIELD_BACKGROUND);
         addComponent(textAreaFieldPlayers, width/2-25, height/2-20, 40, MENU_TEXT_FIELD_HEIGHT);
 
         addComponent(new Label("Port:"), width/2+105, height/2-20, 150, MENU_TEXT_FIELD_HEIGHT);
 
         TextAreaField textAreaFieldHostPort = new TextAreaField();
-        Background textAreaFieldHostPortBackground = new Background();
-        textAreaFieldHostPortBackground.setColor(new Vector4f((float) 0.8, (float) 0.8, (float) 0.8, 1));
-        textAreaFieldHostPort.getStyle().setBackground(textAreaFieldHostPortBackground);
+        textAreaFieldHostPort.getStyle().setBackground(TEXT_AREA_FIELD_BACKGROUND);
         textAreaFieldHostPort.getTextState().setText("25566");
         addComponent(textAreaFieldHostPort, width/2+90, height/2-20, 60, MENU_TEXT_FIELD_HEIGHT);
 
         Button buttonHost = new Button("Host");
-        SimpleLineBorder buttonHostBorder = new SimpleLineBorder(ColorConstants.black(), 1);
-        buttonHost.getStyle().setBorder(buttonHostBorder);
+        buttonHost.setStyle(BUTTON_STYLE);
         buttonHost.getListenerMap().addListener(MouseClickEvent.class, event -> {
             if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE){
                 int port = Integer.parseInt(textAreaFieldHostPort.getTextState().getText());
@@ -105,9 +69,7 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
         addComponent(new Label("Nick:"), width/2-50, height/2+1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
 
         //Создание в самом верху, потмоу что надо обращатсья из лямбды в кнопках Host и Connect
-        Background textAreaFieldNickBackground = new Background();
-        textAreaFieldNickBackground.setColor(new Vector4f((float) 0.8, (float) 0.8, (float) 0.8, 1));
-        textAreaFieldNick.getStyle().setBackground(textAreaFieldNickBackground);
+        textAreaFieldNick.getStyle().setBackground(TEXT_AREA_FIELD_BACKGROUND);
         addComponent(textAreaFieldNick, width/2-20, height/2+1*MENU_ELEMENT_HEIGHT-20, 150, MENU_TEXT_FIELD_HEIGHT);
 
         Panel panelColor = new Panel();
@@ -134,8 +96,7 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
         };
         for (int i = 0; i < 12; i++) {
             Button buttonColor = new Button("");
-            SimpleLineBorder buttonColorBorder = new SimpleLineBorder(ColorConstants.black(), 1);
-            buttonColor.getStyle().setBorder(buttonColorBorder);
+            buttonColor.getStyle().setBorder(BUTTON_BORDER);
             Background buttonColorBackground = new Background();
             buttonColorBackground.setColor(new Vector4f(colors[i].getFloatRed(), colors[i].getFloatGreen(),
                     colors[i].getFloatBlue(), colors[i].getFloatAlpha()));
@@ -151,6 +112,18 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
             });
             addComponent(buttonColor, width/2-80 + 17*i, height/2+1*MENU_ELEMENT_HEIGHT+15, 15, 15);
         }
+
+
+
+
+        addComponent(new Panel(), width/2, height/2+7*MENU_ELEMENT_HEIGHT/4, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT/2);
+
+        Button buttonBack = new Button("Back to menu");
+        buttonBack.setStyle(BUTTON_STYLE);
+        buttonBack.getListenerMap().addListener(MouseClickEvent.class, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new MainMenuLocation();});
+
+        addComponent(buttonBack, width/2, height/2+7*MENU_ELEMENT_HEIGHT/4, 6*MENU_ELEMENT_WIDTH/13, MENU_ELEMENT_HEIGHT/3);
+
     }
 
 
