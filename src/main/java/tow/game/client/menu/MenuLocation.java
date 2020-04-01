@@ -6,6 +6,7 @@ import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.listener.MouseClickEventListener;
+import org.liquidengine.legui.style.font.FontRegistry;
 import tow.engine.Global;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.GameObjectFactory;
@@ -78,6 +79,7 @@ public abstract class MenuLocation extends Location {
         Button button = new Button(text);
         button.setStyle(MENU_BUTTON_STYLE);
         button.getListenerMap().addListener(MouseClickEvent.class, event);
+        button.getTextState().setFont(FontRegistry.ROBOTO_BOLD);
         button.getTextState().setFontSize(30);
 
         addComponent(button, width/2, height/2+pos*MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
