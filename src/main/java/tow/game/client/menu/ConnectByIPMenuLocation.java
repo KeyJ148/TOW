@@ -1,6 +1,5 @@
 package tow.game.client.menu;
 
-import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.Label;
 import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.TextAreaField;
@@ -36,7 +35,10 @@ public class ConnectByIPMenuLocation extends MenuLocation{
 
         textAreaFieldPort.getTextState().setText("25566");
 
-        createButton("Back to menu", INDENT_X, INDENT_Y_BELOW, BUTTON_WIDTH, BUTTON_HEIGHT, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new MainMenuLocation();}, mainPanel);
+        createButton("Back to menu", INDENT_X, INDENT_Y_BELOW, BUTTON_WIDTH, BUTTON_HEIGHT,
+                event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE){
+                    ClientData.menuLocationStorage.getMenuLocation(MainMenuLocation.class).activate();
+                }}, mainPanel);
         createButton("Connect", MIDDLE_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, INDENT_Y_BELOW, BUTTON_WIDTH, BUTTON_HEIGHT, event -> {
             if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE){
                 if (wasConnect) return;

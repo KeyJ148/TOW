@@ -31,7 +31,6 @@ public abstract class MenuLocation extends Location {
     public MenuLocation(){
         super(Global.engine.render.getWidth(), Global.engine.render.getHeight());
         background = new tow.engine.map.Background(Color.GRAY, Color.GRAY);
-        activate();
     }
 
     public void addComponent(Component component){

@@ -120,7 +120,10 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
 
         Button buttonBack = new Button("Back to menu");
         buttonBack.setStyle(createButtonStyle());
-        buttonBack.getListenerMap().addListener(MouseClickEvent.class, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new MainMenuLocation();});
+        buttonBack.getListenerMap().addListener(MouseClickEvent.class,
+                event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE){
+                    ClientData.menuLocationStorage.getMenuLocation(MainMenuLocation.class).activate();
+                }});
 
         addComponent(buttonBack, width/2, height/2+7*MENU_ELEMENT_HEIGHT/4, 6*MENU_ELEMENT_WIDTH/13, MENU_ELEMENT_HEIGHT/3);
 
