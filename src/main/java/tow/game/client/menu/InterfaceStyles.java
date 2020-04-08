@@ -1,10 +1,14 @@
 package tow.game.client.menu;
 
 import org.joml.Vector4f;
+import org.liquidengine.legui.component.optional.TextState;
 import org.liquidengine.legui.style.Background;
 import org.liquidengine.legui.style.Style;
 import org.liquidengine.legui.style.border.SimpleLineBorder;
 import org.liquidengine.legui.style.color.ColorConstants;
+import org.liquidengine.legui.style.font.FontRegistry;
+
+//переписать на функции, которые возвращают уникалные экземпляры объектов
 
 public final class InterfaceStyles {
 

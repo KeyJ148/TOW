@@ -5,15 +5,19 @@ import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import tow.engine.Loader;
 
+import java.util.List;
+
 import static tow.game.client.menu.InterfaceStyles.*;
 
 public class MainMenuLocation extends MenuLocation {
 
     public MainMenuLocation(){
-        createMenuButton("Connect to the game", -2, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new ConnectMenuLocation();});
-        createMenuButton("Play", -1, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new PlayMenuLocation();});
-        createMenuButton("Settings", 0, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new SettingsMenuLocation();});
-        createMenuButton("Exit", 1, event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) Loader.exit();});
+        createMenuButtons(List.of(
+                new ButtonConfiguration("Connect to the game", event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new ConnectMenuLocation();}),
+                new ButtonConfiguration("Play", event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new PlayMenuLocation();}),
+                new ButtonConfiguration("Settings", event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new SettingsMenuLocation();}),
+                new ButtonConfiguration("Exit", event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) Loader.exit();})
+                ));
     }
 
 }

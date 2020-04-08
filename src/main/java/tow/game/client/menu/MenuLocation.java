@@ -14,9 +14,22 @@ import tow.engine.gameobject.components.render.GuiRender;
 import tow.engine.image.Color;
 import tow.engine.map.Location;
 
+import java.util.List;
+
 import static tow.game.client.menu.InterfaceStyles.*;
 
 public abstract class MenuLocation extends Location {
+
+    protected static class ButtonConfiguration {
+
+        public String text;
+        public MouseClickEventListener event;
+
+        public ButtonConfiguration(String text, MouseClickEventListener event) {
+            this.text = text;
+            this.event = event;
+        }
+    }
 
     public MenuLocation(){
         super(Global.engine.render.getWidth(), Global.engine.render.getHeight());
@@ -75,14 +88,19 @@ public abstract class MenuLocation extends Location {
         addComponentToParentLU(button, x, y, width, height, parent);
     }
 
-    public void createMenuButton(String text, int pos, MouseClickEventListener event){
-        Button button = new Button(text);
+    protected void createMenuButtons(List<ButtonConfiguration> buttonConfigurations){
+        for(int i = 0; i < buttonConfigurations.size(); i++) {
+            addComponent(createMenuButton(buttonConfigurations.get(i)), width/2, height/2 + (i * MENU_ELEMENT_HEIGHT) - (buttonConfigurations.size() * MENU_ELEMENT_HEIGHT)/2 + MENU_ELEMENT_HEIGHT/2, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
+        }
+    }
+
+    protected Button createMenuButton(ButtonConfiguration buttonConfiguration){
+        Button button = new Button(buttonConfiguration.text);
         button.setStyle(MENU_BUTTON_STYLE);
-        button.getListenerMap().addListener(MouseClickEvent.class, event);
+        button.getListenerMap().addListener(MouseClickEvent.class, buttonConfiguration.event);
         button.getTextState().setFont(FontRegistry.ROBOTO_BOLD);
         button.getTextState().setFontSize(30);
-
-        addComponent(button, width/2, height/2+pos*MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
+        return button;
     }
 
     public TextAreaField createTextAreaField(int x, int y, int width, int height, Component parent) {
