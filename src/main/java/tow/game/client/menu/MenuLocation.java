@@ -1,9 +1,6 @@
 package tow.game.client.menu;
 
-import org.liquidengine.legui.component.Button;
-import org.liquidengine.legui.component.Component;
-import org.liquidengine.legui.component.Panel;
-import org.liquidengine.legui.component.TextAreaField;
+import org.liquidengine.legui.component.*;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.font.FontRegistry;
@@ -72,7 +69,7 @@ public abstract class MenuLocation extends Location {
 
     public Panel createPanel(int x, int y, int width, int height) {
         Panel panel = new Panel();
-        panel.setStyle(PANEL_STYLE);
+        panel.setStyle(createPanelStyle());
         panel.setFocusable(false);
 
         addComponent(panel, x, y, width, height);
@@ -80,12 +77,13 @@ public abstract class MenuLocation extends Location {
         return panel;
     }
 
-    public void createButton(String text, int x, int y, int width, int height, MouseClickEventListener event, Component parent){
+    public Button createButton(String text, int x, int y, int width, int height, MouseClickEventListener event, Component parent){
         Button button = new Button(text);
-        button.setStyle(BUTTON_STYLE);
+        button.setStyle(createButtonStyle());
         button.getListenerMap().addListener(MouseClickEvent.class, event);
 
         addComponentToParentLU(button, x, y, width, height, parent);
+        return button;
     }
 
     protected void createMenuButtons(List<ButtonConfiguration> buttonConfigurations){
@@ -96,7 +94,7 @@ public abstract class MenuLocation extends Location {
 
     protected Button createMenuButton(ButtonConfiguration buttonConfiguration){
         Button button = new Button(buttonConfiguration.text);
-        button.setStyle(MENU_BUTTON_STYLE);
+        button.setStyle(createMenuButtonStyle());
         button.getListenerMap().addListener(MouseClickEvent.class, buttonConfiguration.event);
         button.getTextState().setFont(FontRegistry.ROBOTO_BOLD);
         button.getTextState().setFontSize(30);
@@ -105,9 +103,15 @@ public abstract class MenuLocation extends Location {
 
     public TextAreaField createTextAreaField(int x, int y, int width, int height, Component parent) {
         TextAreaField textAreaField = new TextAreaField();
-        textAreaField.setStyle(TEXT_AREA_FIELD_STYLE);
+        textAreaField.setStyle(createTextAreaFieldStyle());
 
         addComponentToParentLU(textAreaField, x, y, width, height, parent);
         return textAreaField;
+    }
+
+    public void createToggleButton(int x, int y, int width, int height, Component parent) {
+        ToggleButton toggleButton = new ToggleButton();
+
+        addComponentToParentLU(toggleButton, x, y, width, height, parent);
     }
 }

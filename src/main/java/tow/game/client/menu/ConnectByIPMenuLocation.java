@@ -16,7 +16,6 @@ public class ConnectByIPMenuLocation extends MenuLocation{
 
     protected final static int MIDDLE_PANEL_WIDTH = 4*MENU_ELEMENT_WIDTH/3;
     protected final static int MIDDLE_PANEL_HEIGHT = 5*MENU_ELEMENT_HEIGHT/3;
-    protected final static int INDENT_X = MIDDLE_PANEL_WIDTH/13;
     protected final static int INDENT_Y_BELOW = 3*MIDDLE_PANEL_HEIGHT/5;
     protected final static int INDENT_Y_ABOVE = MIDDLE_PANEL_HEIGHT/5;
     protected final static int LENGTH_TEXT_AREA_IP = 95;

@@ -7,6 +7,7 @@ import org.liquidengine.legui.style.Style;
 import org.liquidengine.legui.style.border.SimpleLineBorder;
 import org.liquidengine.legui.style.color.ColorConstants;
 import org.liquidengine.legui.style.font.FontRegistry;
+import org.lwjgl.system.CallbackI;
 
 //переписать на функции, которые возвращают уникалные экземпляры объектов
 
@@ -18,36 +19,61 @@ public final class InterfaceStyles {
     protected final static int BUTTON_HEIGHT = MENU_ELEMENT_HEIGHT/3;
     protected final static int MENU_TEXT_FIELD_HEIGHT = BUTTON_HEIGHT;
 
+    protected final static int INDENT_X = 4*MENU_ELEMENT_WIDTH/36;
 
     protected final static int BUTTON_RADIUS = 0;
 
-    protected final static Background TEXT_AREA_FIELD_BACKGROUND = new Background();
-    protected final static Background PANEL_BACKGROUND = new Background();
-    protected final static Background BUTTON_BACKGROUND = new Background();
+    protected static Background createTextAreaFieldBackground() {
+        Background background = new Background();
+        background.setColor(new Vector4f((float) 0.8, (float) 0.8, (float) 0.8, 1));
+        return background;
+    }
 
-    protected final static SimpleLineBorder BUTTON_BORDER = new SimpleLineBorder(ColorConstants.black(), 1.5f);
-    protected final static SimpleLineBorder PANEL_BORDER = new SimpleLineBorder(ColorConstants.black(), 1);
+    protected static Background createPanelBackground() {
+        Background background = new Background();
+        background.setColor(new Vector4f((float) 0.6, (float) 0.6, (float) 0.6, 1));
+        return background;
+    }
 
-    protected final static Style BUTTON_STYLE = new Style();
-    protected final static Style MENU_BUTTON_STYLE = new Style();
-    protected final static Style PANEL_STYLE = new Style();
-    protected final static Style TEXT_AREA_FIELD_STYLE = new Style();
+    protected static Background createButtonBackground() {
+        Background background = new Background();
+        background.setColor(new Vector4f((float) 0.4, (float) 0.4, (float) 0.4, 1));
+        return background;
+    }
 
-    static {
-        TEXT_AREA_FIELD_BACKGROUND.setColor(new Vector4f((float) 0.8, (float) 0.8, (float) 0.8, 1));
-        PANEL_BACKGROUND.setColor(new Vector4f((float) 0.6, (float) 0.6, (float) 0.6, 1));
-        BUTTON_BACKGROUND.setColor(new Vector4f((float) 0.4, (float) 0.4, (float) 0.4, 1));
+    protected static SimpleLineBorder createButtonBorder() {
+        return new SimpleLineBorder(ColorConstants.black(), 1.5f);
+    }
 
-        BUTTON_STYLE.setBorder(BUTTON_BORDER);
-        BUTTON_STYLE.setBackground(BUTTON_BACKGROUND);
-        BUTTON_STYLE.setBorderRadius(BUTTON_RADIUS);
+    protected static SimpleLineBorder createPanelBorder() {
+        return new SimpleLineBorder(ColorConstants.black(), 1);
+    }
 
-        MENU_BUTTON_STYLE.setBorder(BUTTON_BORDER);
-        MENU_BUTTON_STYLE.setBackground(PANEL_BACKGROUND);
+    protected static Style createButtonStyle() {
+        Style style = new Style();
+        style.setBorder(createButtonBorder());
+        style.setBackground(createButtonBackground());
+        style.setBorderRadius(BUTTON_RADIUS);
+        return style;
+    }
 
-        PANEL_STYLE.setBorder(PANEL_BORDER);
-        PANEL_STYLE.setBackground(PANEL_BACKGROUND);
+    protected static Style createMenuButtonStyle() {
+        Style style = new Style();
+        style.setBorder(createButtonBorder());
+        style.setBackground(createPanelBackground());
+        return style;
+    }
 
-        TEXT_AREA_FIELD_STYLE.setBackground(TEXT_AREA_FIELD_BACKGROUND);
+    protected static Style createPanelStyle() {
+        Style style = new Style();
+        style.setBorder(createPanelBorder());
+        style.setBackground(createPanelBackground());
+        return style;
+    }
+
+    protected static Style createTextAreaFieldStyle() {
+        Style style = new Style();
+        style.setBackground(createTextAreaFieldBackground());
+        return style;
     }
 }

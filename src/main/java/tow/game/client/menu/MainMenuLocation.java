@@ -14,7 +14,7 @@ public class MainMenuLocation extends MenuLocation {
     public MainMenuLocation(){
         createMenuButtons(List.of(
                 new ButtonConfiguration("Connect to the game", event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new ConnectMenuLocation();}),
-                new ButtonConfiguration("Play", event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new PlayMenuLocation();}),
+                new ButtonConfiguration("Create a game", event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new PlayMenuLocation();}),
                 new ButtonConfiguration("Settings", event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) new SettingsMenuLocation();}),
                 new ButtonConfiguration("Exit", event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) Loader.exit();})
                 ));
