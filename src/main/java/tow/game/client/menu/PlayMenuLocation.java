@@ -46,18 +46,17 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
 
         Button buttonHost = new Button("Host");
         buttonHost.setStyle(createButtonStyle());
-        buttonHost.getListenerMap().addListener(MouseClickEvent.class, event -> {
-            if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE){
-                int port = Integer.parseInt(textAreaFieldHostPort.getTextState().getText());
-                int people = !textAreaFieldPlayers.getTextState().getText().isEmpty()?
-                        Integer.parseInt(textAreaFieldPlayers.getTextState().getText()) : 1;
+        buttonHost.getListenerMap().addListener(MouseClickEvent.class,
+                getMouseReleaseListener(event -> {
+                    int port = Integer.parseInt(textAreaFieldHostPort.getTextState().getText());
+                    int people = !textAreaFieldPlayers.getTextState().getText().isEmpty()?
+                            Integer.parseInt(textAreaFieldPlayers.getTextState().getText()) : 1;
 
-                ServerLoader.startServerListener = this;
-                portHosted = port;
-                if (textAreaFieldNick.getTextState().getText().length() != 0) ClientData.name = textAreaFieldNick.getTextState().getText();
-                new ServerLoader(port, people, false);
-            }
-        });
+                    ServerLoader.startServerListener = this;
+                    portHosted = port;
+                    if (textAreaFieldNick.getTextState().getText().length() != 0) ClientData.name = textAreaFieldNick.getTextState().getText();
+                    new ServerLoader(port, people, false);
+                }));
         addComponent(buttonHost, width/2, height/2+15, MENU_ELEMENT_WIDTH-10, MENU_ELEMENT_HEIGHT-50);
 
 
@@ -103,13 +102,12 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
             buttonColor.getStyle().setBackground(buttonColorBackground);
 
             final int finalI = i;
-            buttonColor.getListenerMap().addListener(MouseClickEvent.class, event -> {
-                if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE){
-                    ClientData.color = colors[finalI];
-                    panelColorBackground.setColor(new Vector4f(colors[finalI].getFloatRed(), colors[finalI].getFloatGreen(),
-                            colors[finalI].getFloatBlue(), colors[finalI].getFloatAlpha()));
-                }
-            });
+            buttonColor.getListenerMap().addListener(MouseClickEvent.class,
+                    getMouseReleaseListener(event -> {
+                        ClientData.color = colors[finalI];
+                        panelColorBackground.setColor(new Vector4f(colors[finalI].getFloatRed(), colors[finalI].getFloatGreen(),
+                                colors[finalI].getFloatBlue(), colors[finalI].getFloatAlpha()));
+                    }));
             addComponent(buttonColor, width/2-80 + 17*i, height/2+1*MENU_ELEMENT_HEIGHT+15, 15, 15);
         }
 

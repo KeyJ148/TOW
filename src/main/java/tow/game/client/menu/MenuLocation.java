@@ -13,6 +13,7 @@ import tow.engine.map.Location;
 import tow.game.client.ClientData;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import static tow.game.client.menu.InterfaceStyles.*;
 
@@ -116,9 +117,13 @@ public abstract class MenuLocation extends Location {
     }
 
     public MouseClickEventListener getActivateLocationMouseReleaseListener(Class<? extends MenuLocation> menuLocationClass){
+        return getMouseReleaseListener(event -> ClientData.menuLocationStorage.getMenuLocation(menuLocationClass).activate());
+    }
+
+    public MouseClickEventListener getMouseReleaseListener(Consumer<MouseClickEvent> mouseReleaseAction){
         return event -> {
             if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) {
-                ClientData.menuLocationStorage.getMenuLocation(menuLocationClass).activate();
+                mouseReleaseAction.accept(event);
             }
         };
     }

@@ -3,7 +3,6 @@ package tow.game.client.menu;
 import org.liquidengine.legui.component.Label;
 import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.TextAreaField;
-import org.liquidengine.legui.event.MouseClickEvent;
 import tow.engine.net.client.Connector;
 
 import static tow.game.client.menu.InterfaceStyles.*;
@@ -36,17 +35,16 @@ public class ConnectByIPMenuLocation extends MenuLocation{
 
         createButton("Back to menu", INDENT_X, INDENT_Y_BELOW, BUTTON_WIDTH, BUTTON_HEIGHT,
                 getActivateLocationMouseReleaseListener(MainMenuLocation.class), mainPanel);
-        createButton("Connect", MIDDLE_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, INDENT_Y_BELOW, BUTTON_WIDTH, BUTTON_HEIGHT, event -> {
-            if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE){
-                if (wasConnect) return;
-                wasConnect = true;
+        createButton("Connect", MIDDLE_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, INDENT_Y_BELOW, BUTTON_WIDTH, BUTTON_HEIGHT,
+                getMouseReleaseListener(event -> {
+                    if (wasConnect) return;
+                    wasConnect = true;
 
-                String ip = (!textAreaFieldIP.getTextState().getText().isEmpty())? textAreaFieldIP.getTextState().getText() : "127.0.0.1";
-                int port = Integer.parseInt(textAreaFieldPort.getTextState().getText());
-                
-                new Connector().connect(ip, port);
-            }
-        }, mainPanel);
+                    String ip = (!textAreaFieldIP.getTextState().getText().isEmpty())? textAreaFieldIP.getTextState().getText() : "127.0.0.1";
+                    int port = Integer.parseInt(textAreaFieldPort.getTextState().getText());
+
+                    new Connector().connect(ip, port);
+                }), mainPanel);
     }
 
 }
