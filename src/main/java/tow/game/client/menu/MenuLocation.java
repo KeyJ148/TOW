@@ -10,6 +10,7 @@ import tow.engine.gameobject.GameObjectFactory;
 import tow.engine.gameobject.components.render.GuiRender;
 import tow.engine.image.Color;
 import tow.engine.map.Location;
+import tow.game.client.ClientData;
 
 import java.util.List;
 
@@ -112,5 +113,13 @@ public abstract class MenuLocation extends Location {
         ToggleButton toggleButton = new ToggleButton();
 
         addComponentToParentLU(toggleButton, x, y, width, height, parent);
+    }
+
+    public MouseClickEventListener getActivateLocationMouseReleaseListener(Class<? extends MenuLocation> menuLocationClass){
+        return event -> {
+            if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) {
+                ClientData.menuLocationStorage.getMenuLocation(menuLocationClass).activate();
+            }
+        };
     }
 }

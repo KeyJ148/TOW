@@ -5,7 +5,6 @@ import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.event.MouseClickEvent;
 import tow.engine.net.client.Connector;
-import tow.game.client.ClientData;
 
 import static tow.game.client.menu.InterfaceStyles.*;
 
@@ -36,9 +35,7 @@ public class ConnectByIPMenuLocation extends MenuLocation{
         textAreaFieldPort.getTextState().setText("25566");
 
         createButton("Back to menu", INDENT_X, INDENT_Y_BELOW, BUTTON_WIDTH, BUTTON_HEIGHT,
-                event -> { if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE){
-                    ClientData.menuLocationStorage.getMenuLocation(MainMenuLocation.class).activate();
-                }}, mainPanel);
+                getActivateLocationMouseReleaseListener(MainMenuLocation.class), mainPanel);
         createButton("Connect", MIDDLE_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, INDENT_Y_BELOW, BUTTON_WIDTH, BUTTON_HEIGHT, event -> {
             if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE){
                 if (wasConnect) return;
