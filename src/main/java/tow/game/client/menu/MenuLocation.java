@@ -96,7 +96,7 @@ public abstract class MenuLocation extends Location {
         Button button = new Button(buttonConfiguration.text);
         button.setStyle(createMenuButtonStyle());
         button.getListenerMap().addListener(MouseClickEvent.class, buttonConfiguration.event);
-        button.getTextState().setFont(FontRegistry.ROBOTO_BOLD);
+        button.getTextState().setFont(FUNNY);
         button.getTextState().setFontSize(30);
         return button;
     }
