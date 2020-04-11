@@ -6,7 +6,7 @@
       "x": 0,
       "y": 0,
       "z": 0,
-      "type": "scalable_texture",
+      "type": "scaled",
       "parameters": {
         "direction": 0,
         "height": 700,
@@ -288,9 +288,10 @@
       "x": 620,
       "y": 100,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home1"
       }
     },
@@ -298,9 +299,10 @@
       "x": 620,
       "y": 260,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home10"
       }
     },
@@ -308,9 +310,10 @@
       "x": 100,
       "y": 340,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home11"
       }
     },
@@ -318,9 +321,10 @@
       "x": 100,
       "y": 500,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home12"
       }
     },
@@ -328,9 +332,10 @@
       "x": 220,
       "y": 340,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home13"
       }
     },
@@ -338,9 +343,10 @@
       "x": 260,
       "y": 500,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home14"
       }
     },
@@ -348,9 +354,10 @@
       "x": 420,
       "y": 500,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home2"
       }
     },
@@ -358,9 +365,10 @@
       "x": 580,
       "y": 500,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home3"
       }
     },
@@ -368,9 +376,10 @@
       "x": 620,
       "y": 380,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home4"
       }
     },
@@ -378,9 +387,10 @@
       "x": 740,
       "y": 500,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home5"
       }
     },
@@ -388,9 +398,10 @@
       "x": 780,
       "y": 380,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home6"
       }
     },
@@ -398,9 +409,10 @@
       "x": 780,
       "y": 260,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home7"
       }
     },
@@ -408,9 +420,10 @@
       "x": 780,
       "y": 100,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home8"
       }
     },
@@ -418,9 +431,10 @@
       "x": 940,
       "y": 100,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home9"
       }
     },
@@ -428,9 +442,10 @@
       "x": 940,
       "y": 220,
       "z": 2500,
-      "type": "tree",
+      "type": "destroyed",
       "parameters": {
         "direction": 23,
+        "stability": 30,
         "texture": "tree_1"
       }
     },
@@ -438,9 +453,10 @@
       "x": 940,
       "y": 300,
       "z": 2500,
-      "type": "tree",
+      "type": "destroyed",
       "parameters": {
         "direction": 23,
+        "stability": 30,
         "texture": "tree_snowpart_1"
       }
     },
@@ -448,9 +464,10 @@
       "x": 940,
       "y": 380,
       "z": 2500,
-      "type": "tree",
+      "type": "destroyed",
       "parameters": {
         "direction": 23,
+        "stability": 30,
         "texture": "tree_wither_1"
       }
     },
@@ -458,9 +475,10 @@
       "x": 940,
       "y": 460,
       "z": 2500,
-      "type": "tree",
+      "type": "destroyed",
       "parameters": {
         "direction": 23,
+        "stability": 30,
         "texture": "tree_wither_snow_1"
       }
     }

@@ -6,7 +6,7 @@
       "x": 0,
       "y": 0,
       "z": 0,
-      "type": "scalable_texture",
+      "type": "scaled",
       "parameters": {
         "direction": 0,
         "height": 720,
@@ -18,9 +18,10 @@
       "x": 350,
       "y": 350,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 0,
+        "stability": 100,
         "texture": "home2"
       }
     },
@@ -28,9 +29,10 @@
       "x": 17,
       "y": 33,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home1"
       }
     },
@@ -38,9 +40,10 @@
       "x": 100,
       "y": 100,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home1"
       }
     },
@@ -48,9 +51,10 @@
       "x": 1263,
       "y": 687,
       "z": 1500,
-      "type": "home",
+      "type": "destroyed",
       "parameters": {
         "direction": 90,
+        "stability": 100,
         "texture": "home1"
       }
     }
