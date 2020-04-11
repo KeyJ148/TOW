@@ -86,8 +86,6 @@ public class NetGameRead implements NetGameReadInterface {
 		Border.createAll(location);
 
 		for(MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()){
-			if (mapObjectSpecification.getType().equals("scalable_texture")) continue;
-
 			MapObject mapObject = ClientData.mapObjectFactory.createMapObject(mapObjectSpecification);
 			System.out.println(mapObject);
 			Global.location.objAdd(mapObject);

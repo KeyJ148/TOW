@@ -21,8 +21,9 @@ public class RoadMapObjectCreator extends ScaledMapObjectCreator {
                 mapObjectSpecification.getType(),
                 getTexture(mapObjectSpecification),
                 getDirection(mapObjectSpecification),
-                getWidth(mapObjectSpecification),
-                getHeight(mapObjectSpecification));
+                0,
+                0);
+        //TODO: пока что не считывает размеры дорог, т.к. их нет в конфиге
     }
 
     //TODO: пока что полная копия scaled, потом добавить влияние на скорость
