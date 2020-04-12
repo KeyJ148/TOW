@@ -3,10 +3,10 @@
   "height": 1000,
   "mapObjectContainers": [
     {
-      "x": 0,
-      "y": 0,
+      "x": 1000,
+      "y": 500,
       "z": 0,
-      "type": "scaled",
+      "type": "repeated",
       "parameters": {
         "direction": 0,
         "height": 1000,
@@ -21,7 +21,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -31,7 +33,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -41,7 +45,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -51,7 +57,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -61,7 +69,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -71,7 +81,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -81,7 +93,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -91,7 +105,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -101,7 +117,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -111,7 +129,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -121,7 +141,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -131,7 +153,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -141,7 +165,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -151,7 +177,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -161,7 +189,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -171,7 +201,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -181,7 +213,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -191,7 +225,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -201,7 +237,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -211,7 +249,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -221,7 +261,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -231,7 +273,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_g_turn"
+        "height": 64,
+        "texture": "road_g_turn",
+        "width": 64
       }
     },
     {
@@ -241,7 +285,9 @@
       "type": "road",
       "parameters": {
         "direction": 90,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -251,7 +297,9 @@
       "type": "road",
       "parameters": {
         "direction": 90,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -261,7 +309,9 @@
       "type": "road",
       "parameters": {
         "direction": 90,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -271,7 +321,9 @@
       "type": "road",
       "parameters": {
         "direction": 90,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -1337,7 +1389,9 @@
       "type": "road",
       "parameters": {
         "direction": 158,
-        "texture": "road_g_end"
+        "height": 64,
+        "texture": "road_g_end",
+        "width": 64
       }
     },
     {
@@ -1347,7 +1401,9 @@
       "type": "road",
       "parameters": {
         "direction": 338,
-        "texture": "road_g"
+        "height": 64,
+        "texture": "road_g",
+        "width": 64
       }
     },
     {
@@ -1357,7 +1413,9 @@
       "type": "road",
       "parameters": {
         "direction": 338,
-        "texture": "road_g_end"
+        "height": 64,
+        "texture": "road_g_end",
+        "width": 64
       }
     },
     {

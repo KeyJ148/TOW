@@ -3,10 +3,10 @@
   "height": 2000,
   "mapObjectContainers": [
     {
-      "x": 0,
-      "y": 0,
+      "x": 1000,
+      "y": 1000,
       "z": 0,
-      "type": "scaled",
+      "type": "repeated",
       "parameters": {
         "direction": 0,
         "height": 2000,
@@ -21,7 +21,9 @@
       "type": "road",
       "parameters": {
         "direction": 90,
-        "texture": "road_d"
+        "height": 64,
+        "texture": "road_d",
+        "width": 64
       }
     },
     {
@@ -31,7 +33,9 @@
       "type": "road",
       "parameters": {
         "direction": 90,
-        "texture": "road_d"
+        "height": 64,
+        "texture": "road_d",
+        "width": 64
       }
     },
     {
@@ -41,7 +45,9 @@
       "type": "road",
       "parameters": {
         "direction": 90,
-        "texture": "road_d"
+        "height": 64,
+        "texture": "road_d",
+        "width": 64
       }
     },
     {
@@ -51,7 +57,9 @@
       "type": "road",
       "parameters": {
         "direction": 90,
-        "texture": "road_d"
+        "height": 64,
+        "texture": "road_d",
+        "width": 64
       }
     },
     {
@@ -61,7 +69,9 @@
       "type": "road",
       "parameters": {
         "direction": 90,
-        "texture": "road_d"
+        "height": 64,
+        "texture": "road_d",
+        "width": 64
       }
     },
     {
@@ -71,7 +81,9 @@
       "type": "road",
       "parameters": {
         "direction": 90,
-        "texture": "road_d"
+        "height": 64,
+        "texture": "road_d",
+        "width": 64
       }
     },
     {
@@ -81,7 +93,9 @@
       "type": "road",
       "parameters": {
         "direction": 90,
-        "texture": "road_d"
+        "height": 64,
+        "texture": "road_d",
+        "width": 64
       }
     },
     {
@@ -91,7 +105,9 @@
       "type": "road",
       "parameters": {
         "direction": 270,
-        "texture": "road_d_end"
+        "height": 64,
+        "texture": "road_d_end",
+        "width": 64
       }
     },
     {
@@ -101,7 +117,9 @@
       "type": "road",
       "parameters": {
         "direction": 270,
-        "texture": "road_d_turn"
+        "height": 64,
+        "texture": "road_d_turn",
+        "width": 64
       }
     },
     {
@@ -111,7 +129,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_d"
+        "height": 64,
+        "texture": "road_d",
+        "width": 64
       }
     },
     {
@@ -121,7 +141,9 @@
       "type": "road",
       "parameters": {
         "direction": 180,
-        "texture": "road_d"
+        "height": 64,
+        "texture": "road_d",
+        "width": 64
       }
     },
     {
@@ -131,7 +153,9 @@
       "type": "road",
       "parameters": {
         "direction": 90,
-        "texture": "road_d_turn"
+        "height": 64,
+        "texture": "road_d_turn",
+        "width": 64
       }
     },
     {
@@ -141,7 +165,9 @@
       "type": "road",
       "parameters": {
         "direction": 90,
-        "texture": "road_d"
+        "height": 64,
+        "texture": "road_d",
+        "width": 64
       }
     },
     {
@@ -151,7 +177,9 @@
       "type": "road",
       "parameters": {
         "direction": 90,
-        "texture": "road_d"
+        "height": 64,
+        "texture": "road_d",
+        "width": 64
       }
     },
     {
@@ -161,7 +189,9 @@
       "type": "road",
       "parameters": {
         "direction": 90,
-        "texture": "road_d_end"
+        "height": 64,
+        "texture": "road_d_end",
+        "width": 64
       }
     },
     {

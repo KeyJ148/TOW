@@ -3,10 +3,10 @@
   "height": 720,
   "mapObjectContainers": [
     {
-      "x": 0,
-      "y": 0,
+      "x": 640,
+      "y": 360,
       "z": 0,
-      "type": "scaled",
+      "type": "repeated",
       "parameters": {
         "direction": 0,
         "height": 720,
