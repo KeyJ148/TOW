@@ -88,7 +88,7 @@ public class NetGameRead implements NetGameReadInterface {
 		for(MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()){
 			MapObject mapObject = ClientData.mapObjectFactory.createMapObject(mapObjectSpecification);
 			System.out.println(mapObject);
-			Global.location.objAdd(mapObject);
+			location.objAdd(mapObject);
 			ClientData.mapObjects.add(mapObjectSpecification.getId(), mapObject); //TODO: убрать это дублирвоание
 		}
 

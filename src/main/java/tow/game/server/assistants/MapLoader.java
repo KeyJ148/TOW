@@ -80,6 +80,13 @@ public class MapLoader implements Runnable{
         //Говорим всем, что отправка карты завершена
         ServerSendTCP.sendAll(10, "");
 
+        //Отправляем всем игркоам их позиции
+        for (int i = 0; i<ServerData.playerData.length; i++){
+            ServerSendTCP.send(i, 5, ServerData.playerData[i].x
+                    + " " + ServerData.playerData[i].y
+                    + " " + ServerData.playerData[i].direction);
+        }
+
         //Ждем, пока всем игроки будут готовы (в отдельном потоке)
         new Thread(this).start();
     }
