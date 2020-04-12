@@ -2,8 +2,8 @@ package tow.engine.gameobject.components;
 
 import tow.engine.Global;
 import tow.engine.Vector2;
-import tow.engine.map.Location;
 import tow.engine.gameobject.QueueComponent;
+import tow.engine.map.Location;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +26,8 @@ public class Position extends QueueComponent {
     public Position(double x, double y, int depth, double directionDraw) {
         this.x = x;
         this.y = y;
-        this.depth = depth;
+        //TODO: поменять -depth на depth после замены в position и далее depth на z
+        this.depth = -depth;
         setDirectionDraw(directionDraw);
     }
 

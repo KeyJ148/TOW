@@ -4,7 +4,6 @@ import tow.engine.Global;
 import tow.engine.gameobject.GameObject;
 import tow.engine.image.Color;
 import tow.engine.implementation.NetGameReadInterface;
-import tow.engine.map.Background;
 import tow.engine.map.Border;
 import tow.engine.map.Location;
 import tow.engine.net.client.Message;
@@ -81,13 +80,11 @@ public class NetGameRead implements NetGameReadInterface {
 		MapSpecification mapSpecification = MapSpecificationLoader.getMapSpecification(mapPath);
 
 		Location location = new Location(mapSpecification.getWidth(), mapSpecification.getHeight());
-		location.background = new Background(Global.spriteStorage.getSprite("grass").getTexture());
 		//TODO поменять на растягиваемые текстуры
 		Border.createAll(location);
 
 		for(MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()){
 			MapObject mapObject = ClientData.mapObjectFactory.createMapObject(mapObjectSpecification);
-			System.out.println(mapObject);
 			location.objAdd(mapObject);
 			ClientData.mapObjects.add(mapObjectSpecification.getId(), mapObject); //TODO: убрать это дублирвоание
 		}

@@ -21,8 +21,8 @@ public class RoadMapObjectCreator extends RepeatedMapObjectCreator {
                 mapObjectSpecification.getType(),
                 getTexture(mapObjectSpecification),
                 getDirection(mapObjectSpecification),
-                0,
-                0);
+                getWidth(mapObjectSpecification),
+                getHeight(mapObjectSpecification));
         //TODO: пока что не считывает размеры дорог, т.к. их нет в конфиге
     }
 
