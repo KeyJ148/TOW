@@ -3,7 +3,7 @@ package tow.game.client;
 import tow.engine.Global;
 import tow.engine.image.TextureManager;
 import tow.engine.implementation.GameInterface;
-import tow.game.client.menu.*;
+import tow.game.client.menu.locations.*;
 
 public class Game implements GameInterface {
 
