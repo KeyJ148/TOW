@@ -12,7 +12,6 @@ import tow.engine.image.Color;
 import tow.engine.map.Location;
 import tow.game.client.ClientData;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 import static tow.game.client.menu.InterfaceStyles.*;
@@ -87,9 +86,9 @@ public abstract class MenuLocation extends Location {
         return button;
     }
 
-    protected void createMenuButtons(List<ButtonConfiguration> buttonConfigurations){
-        for(int i = 0; i < buttonConfigurations.size(); i++) {
-            addComponent(createMenuButton(buttonConfigurations.get(i)), width/2, height/2 + (i * MENU_ELEMENT_HEIGHT) - (buttonConfigurations.size() * MENU_ELEMENT_HEIGHT)/2 + MENU_ELEMENT_HEIGHT/2, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
+    protected void createMenuButtons(ButtonConfiguration... buttonConfigurations){
+        for(int i = 0; i < buttonConfigurations.length; i++) {
+            addComponent(createMenuButton(buttonConfigurations[i]), width/2, height/2 + (i * MENU_ELEMENT_HEIGHT) - (buttonConfigurations.length * MENU_ELEMENT_HEIGHT)/2 + MENU_ELEMENT_HEIGHT/2, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
         }
     }
 
