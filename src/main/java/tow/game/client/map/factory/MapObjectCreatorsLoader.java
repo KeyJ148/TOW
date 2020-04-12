@@ -4,7 +4,7 @@ import tow.game.client.ClientData;
 import tow.game.client.map.objects.box.BoxMapObjectCreator;
 import tow.game.client.map.objects.destroyed.DestroyedMapObjectCreator;
 import tow.game.client.map.objects.road.RoadMapObjectCreator;
-import tow.game.client.map.objects.scaled.ScaledMapObjectCreator;
+import tow.game.client.map.objects.scaled.RepeatedMapObjectCreator;
 import tow.game.client.map.objects.textured.TexturedMapObjectCreator;
 
 public class MapObjectCreatorsLoader {
@@ -14,7 +14,7 @@ public class MapObjectCreatorsLoader {
         ClientData.mapObjectFactory.registryNewCreator(new TexturedMapObjectCreator());
         ClientData.mapObjectFactory.registryNewCreator(new DestroyedMapObjectCreator());
         ClientData.mapObjectFactory.registryNewCreator(new BoxMapObjectCreator());
-        ClientData.mapObjectFactory.registryNewCreator(new ScaledMapObjectCreator());
+        ClientData.mapObjectFactory.registryNewCreator(new RepeatedMapObjectCreator());
         ClientData.mapObjectFactory.registryNewCreator(new RoadMapObjectCreator());
     }
 }

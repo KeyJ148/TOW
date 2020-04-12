@@ -1,10 +1,10 @@
 package tow.game.client.map.objects.road;
 
 import tow.game.client.map.MapObject;
-import tow.game.client.map.objects.scaled.ScaledMapObjectCreator;
+import tow.game.client.map.objects.scaled.RepeatedMapObjectCreator;
 import tow.game.client.map.specification.MapObjectSpecification;
 
-public class RoadMapObjectCreator extends ScaledMapObjectCreator {
+public class RoadMapObjectCreator extends RepeatedMapObjectCreator {
 
     @Override
     public String getType() {

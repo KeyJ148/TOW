@@ -4,16 +4,16 @@ import tow.game.client.map.MapObject;
 import tow.game.client.map.objects.textured.TexturedMapObjectCreator;
 import tow.game.client.map.specification.MapObjectSpecification;
 
-public class ScaledMapObjectCreator extends TexturedMapObjectCreator {
+public class RepeatedMapObjectCreator extends TexturedMapObjectCreator {
 
     @Override
     public String getType() {
-        return "scaled";
+        return "repeated";
     }
 
     @Override
     public MapObject createMapObject(MapObjectSpecification mapObjectSpecification) {
-        return new ScaledMapObject(
+        return new RepeatedMapObject(
                 mapObjectSpecification.getId(),
                 mapObjectSpecification.getX(),
                 mapObjectSpecification.getY(),

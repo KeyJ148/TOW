@@ -47,9 +47,6 @@ public class Background {
             Color.WHITE.bind();
             backgroundTexture.bind();
 
-            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
-            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
-
             GL11.glLoadIdentity();
             GL11.glTranslatef(startRelativePosition.x, startRelativePosition.y, 0);
 

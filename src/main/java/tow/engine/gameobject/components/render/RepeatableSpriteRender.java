@@ -5,16 +5,11 @@ import tow.engine.Vector2;
 import tow.engine.gameobject.components.Position;
 import tow.engine.resources.textures.Texture;
 
-public class SpriteRender extends Rendering {
-	
-    protected Texture texture;
+public class RepeatableSpriteRender extends SpriteRender {
 
-    public SpriteRender(Texture texture) {
-		this.texture = texture;
+    public RepeatableSpriteRender(Texture texture) {
+		super(texture);
     }
-
-    @Override
-    public void updateComponent(long delta){ }
 
     @Override
     protected void drawComponent() {
@@ -27,6 +22,8 @@ public class SpriteRender extends Rendering {
 
         int width = getWidth();
         int height = getHeight();
+        int countTexturesInWidth = getWidth()/getWidthTexture();
+        int countTexturesInHeight = getHeight()/getHeightTexture();
 
         GL11.glLoadIdentity();
         GL11.glTranslatef((float) xView, (float) yView, 0);
@@ -38,53 +35,14 @@ public class SpriteRender extends Rendering {
         GL11.glBegin(GL11.GL_QUADS);
         GL11.glTexCoord2f(0,0);
         GL11.glVertex2f(-width/2, -height/2);
-        GL11.glTexCoord2f(1,0);
+        GL11.glTexCoord2f(countTexturesInWidth,0);
         GL11.glVertex2f(width/2, -height/2);
-        GL11.glTexCoord2f(1,1);
+        GL11.glTexCoord2f(countTexturesInWidth,countTexturesInHeight);
         GL11.glVertex2f(width/2, height/2);
-        GL11.glTexCoord2f(0,1);
+        GL11.glTexCoord2f(0,countTexturesInHeight);
         GL11.glVertex2f(-width/2, height/2);
         GL11.glEnd();
 
         Texture.unbind();
-    }
-
-    @Override
-    public void destroy() { }
-
-    @Override
-    public int getWidthTexture(){
-        return texture.getWidth();
-    }
-
-    @Override
-    public int getHeightTexture(){
-        return texture.getHeight();
-    }
-
-    @Override
-    public int getWidth() {
-        return (int) (getWidthTexture()*scale_x);
-    }
-
-    @Override
-    public int getHeight() {
-        return (int) (getHeightTexture()*scale_y);
-    }
-
-    @Override
-    public void setWidth(int width) {
-        scale_x = (double) width/getWidthTexture();
-    }
-
-    @Override
-    public void setHeight(int height) {
-        scale_y = (double) height/getHeightTexture();
-    }
-
-    @Override
-    public void setDefaultSize(){
-        scale_x = 1;
-        scale_y = 1;
     }
 }

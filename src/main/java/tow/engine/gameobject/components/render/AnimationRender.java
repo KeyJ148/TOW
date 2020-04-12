@@ -1,11 +1,11 @@
 package tow.engine.gameobject.components.render;
 
+import org.lwjgl.opengl.GL11;
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.gameobject.components.Position;
-import tow.engine.resources.textures.Texture;
 import tow.engine.logger.Logger;
-import org.lwjgl.opengl.GL11;
+import tow.engine.resources.textures.Texture;
 
 import java.util.List;
 
@@ -126,12 +126,12 @@ public class AnimationRender extends Rendering {
 
 	@Override
 	public void setWidth(int width) {
-		scale_x = width/getWidth();
+		scale_x = (double) width/getWidthTexture();
 	}
 
 	@Override
 	public void setHeight(int height) {
-		scale_y = height/getHeight();
+		scale_y = (double) height/getHeightTexture();
 	}
 
 	@Override
