@@ -9,21 +9,32 @@ import tow.engine.gameobject.components.Position;
 public class GuiRender extends Rendering {
 
     private Component component;
+    private boolean addToLocationFrame; //Добавлять ли компонент на Frame (false, если он уже добавлен на другой компонент)
+
+    public GuiRender(Component component, boolean addToLocationFrame) {
+        this.component = component;
+        this.addToLocationFrame = addToLocationFrame;
+    }
+
+    public GuiRender(Component component, int width, int height, boolean addToLocationFrame) {
+        this(component, addToLocationFrame);
+        setWidth(width);
+        setHeight(height);
+    }
+
 
     public GuiRender(Component component) {
-        this.component = component;
+        this(component, true);
     }
 
     public GuiRender(Component component, int width, int height) {
-        this(component);
-        setWidth(width);
-        setHeight(height);
+        this(component, width, height, true);
     }
 
     @Override
     public void addToGameObject(GameObject gameObject){
         super.addToGameObject(gameObject);
-        getGameObject().getComponent(Position.class).location.addGUIComponent(component);
+        if (addToLocationFrame) getGameObject().getComponent(Position.class).location.addGUIComponent(component);
     }
 
     @Override

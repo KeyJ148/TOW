@@ -2,6 +2,7 @@ package tow.game.client;
 
 import tow.engine.image.Color;
 import tow.game.client.map.MapObject;
+import tow.game.client.menu.MenuLocationStorage;
 import tow.game.client.map.factory.MapObjectFactory;
 import tow.game.client.tanks.enemy.Enemy;
 import tow.game.client.tanks.enemy.EnemyBullet;
@@ -25,6 +26,7 @@ public class ClientData {
     public static MapObjectFactory mapObjectFactory = new MapObjectFactory();
 
     //TODO: в наследника Location
+    public static MenuLocationStorage menuLocationStorage = new MenuLocationStorage();
     public static Vector<MapObject> mapObjects = new Vector<>();//Список всех объектов на карте
     public static TreeMap<Integer, Enemy> enemy = new TreeMap<>(); //список всех противников
     public static ArrayList<EnemyBullet> enemyBullet; //Список всех патронов противников (EnemyBullet)
