@@ -84,6 +84,12 @@ public class PlayerController extends GameObject implements Collision.CollisionL
                         ((Button) ((GuiRender) player.buttonsTake[3].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeHealth)? "" : "x");
                         break;
 
+                    /*TODO
+                    case GLFW_KEY_ESCAPE:
+                        player.getComponent(Position.class).location.objAdd();
+                        break;
+                    */
+
                     //Вывод характеристик танка
                     case GLFW_KEY_F3:
                         ClientData.printStats = !ClientData.printStats;
@@ -251,7 +257,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
             player.armor.getComponent(Position.class).y = player.armor.getComponent(Movement.class).getYPrevious();
             player.armor.getComponent(Movement.class).setDirection(directionPrevious);
 
-            /*
+            /* TODO
             Wall wall = (Wall) gameObject;
             if (wall.stabillity < player.stats.stability){
                 Global.tcpControl.send(22, String.valueOf(wall.mid));
