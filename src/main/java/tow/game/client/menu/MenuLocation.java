@@ -1,8 +1,11 @@
 package tow.game.client.menu;
 
+import org.joml.Vector4f;
 import org.liquidengine.legui.component.*;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.listener.MouseClickEventListener;
+import org.liquidengine.legui.style.Background;
+import org.liquidengine.legui.style.font.Font;
 import org.liquidengine.legui.style.font.FontRegistry;
 import tow.engine.Global;
 import tow.engine.gameobject.GameObject;
@@ -87,8 +90,9 @@ public abstract class MenuLocation extends Location {
     }
 
     protected void createMenuButtons(ButtonConfiguration... buttonConfigurations){
+        Panel menuPanel = createPanel(width/2, height/2, MENU_ELEMENT_WIDTH, buttonConfigurations.length*MENU_ELEMENT_HEIGHT);
         for(int i = 0; i < buttonConfigurations.length; i++) {
-            addComponent(createMenuButton(buttonConfigurations[i]), width/2, height/2 + (i * MENU_ELEMENT_HEIGHT) - (buttonConfigurations.length * MENU_ELEMENT_HEIGHT)/2 + MENU_ELEMENT_HEIGHT/2, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
+            addComponentToParentLU(createMenuButton(buttonConfigurations[i]), 0, i * MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT, menuPanel);
         }
     }
 
@@ -96,7 +100,7 @@ public abstract class MenuLocation extends Location {
         Button button = new Button(buttonConfiguration.text);
         button.setStyle(createMenuButtonStyle());
         button.getListenerMap().addListener(MouseClickEvent.class, buttonConfiguration.event);
-        button.getTextState().setFont(FUNNY);
+        button.getTextState().setFont(FontRegistry.ROBOTO_BOLD);
         button.getTextState().setFontSize(30);
         return button;
     }
@@ -121,6 +125,7 @@ public abstract class MenuLocation extends Location {
 
     public MouseClickEventListener getMouseReleaseListener(Consumer<MouseClickEvent> mouseReleaseAction){
         return event -> {
+            event.getTargetComponent().setFocused(false);
             if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) {
                 mouseReleaseAction.accept(event);
             }

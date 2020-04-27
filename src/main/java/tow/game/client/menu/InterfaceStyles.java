@@ -6,8 +6,6 @@ import org.liquidengine.legui.style.Style;
 import org.liquidengine.legui.style.border.SimpleLineBorder;
 import org.liquidengine.legui.style.color.ColorConstants;
 
-//переписать на функции, которые возвращают уникалные экземпляры объектов
-
 public final class InterfaceStyles {
 
     public final static int MENU_ELEMENT_WIDTH = 250;
