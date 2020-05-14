@@ -18,8 +18,6 @@ public class SettingsMenuLocation extends MenuLocation {
         Button backButton = createButton("Buck to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_X,
                 BUTTON_WIDTH, BUTTON_HEIGHT, getActivateLocationMouseReleaseListener(MainMenuLocation.class), mainPanel);
         createButton("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_X, BUTTON_WIDTH, BUTTON_HEIGHT, event -> { }, mainPanel);
-        backButton.getStyle().getBackground().setColor(new Vector4f(1.0f, 0.0f, 0.0f, 1));
-        createToggleButton(INDENT_X, INDENT_X, 30, 30, mainPanel);
     }
 
 }

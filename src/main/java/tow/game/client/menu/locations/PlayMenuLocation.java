@@ -24,13 +24,6 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
     public PlayMenuLocation(){
         final TextAreaField textAreaFieldNick = new TextAreaField();
 
-        addComponent(new Panel(), width/2, height/2-1*MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
-
-
-
-
-
-
         addComponent(new Panel(), width/2, height/2, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
 
         addComponent(new Label("Count players:"), width/2-50, height/2-20, 150, MENU_TEXT_FIELD_HEIGHT);
@@ -60,8 +53,6 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
                     new ServerLoader(port, people, false);
                 }));
         addComponent(buttonHost, width/2, height/2+15, MENU_ELEMENT_WIDTH-10, MENU_ELEMENT_HEIGHT-50);
-
-
 
 
 
