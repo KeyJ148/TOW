@@ -16,6 +16,8 @@ public class Game implements GameInterface {
 		ClientData.menuLocationStorage.registry(new ConnectMenuLocation());
 		ClientData.menuLocationStorage.registry(new ConnectByIPMenuLocation());
 		ClientData.menuLocationStorage.registry(new ListOfServersMenuLocation());
+		ClientData.menuLocationStorage.registry(new CreateGameMenuLocation());
+
 
 		MapObjectCreatorsLoader.load();
 

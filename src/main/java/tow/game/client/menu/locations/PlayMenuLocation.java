@@ -24,10 +24,6 @@ public class PlayMenuLocation extends MenuLocation implements StartServerListene
     public PlayMenuLocation(){
         final TextAreaField textAreaFieldNick = new TextAreaField();
 
-        addComponent(new Panel(), width/2, height/2, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
-
-        addComponent(new Label("Count players:"), width/2-50, height/2-20, 150, MENU_TEXT_FIELD_HEIGHT);
-
         TextAreaField textAreaFieldPlayers = new TextAreaField();
         textAreaFieldPlayers.getStyle().setBackground(createTextAreaFieldBackground());
         addComponent(textAreaFieldPlayers, width/2-25, height/2-20, 40, MENU_TEXT_FIELD_HEIGHT);
