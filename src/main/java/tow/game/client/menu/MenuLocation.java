@@ -84,11 +84,20 @@ public abstract class MenuLocation extends Location {
         return panel;
     }
 
+    public Panel createPanelToParent(int x, int y, int width, int height, Component parent) {
+        Panel panel = new Panel();
+        panel.setStyle(createPanelStyle());
+        panel.setFocusable(false);
+
+        addComponentToParent(panel, x, y, width, height, parent);
+        panel.setPosition(x, y);
+        return panel;
+    }
+
     public Button createButton(String text, int x, int y, int width, int height, MouseClickEventListener event, Component parent){
         Button button = new Button(text);
         button.setStyle(createButtonStyle());
         button.getListenerMap().addListener(MouseClickEvent.class, event);
-
         addComponentToParentLU(button, x, y, width, height, parent);
         return button;
     }

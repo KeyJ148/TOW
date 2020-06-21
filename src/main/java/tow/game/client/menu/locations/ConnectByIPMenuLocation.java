@@ -32,8 +32,8 @@ public class ConnectByIPMenuLocation extends MenuLocation {
 
         textAreaFieldPort.getTextState().setText("25566");
 
-        createButton("Back to menu", INDENT_X, INDENT_Y_BELOW, BUTTON_WIDTH, BUTTON_HEIGHT,
-                getActivateLocationMouseReleaseListener(MainMenuLocation.class), mainPanel);
+        createButton("Back", INDENT_X, INDENT_Y_BELOW, BUTTON_WIDTH, BUTTON_HEIGHT,
+                getActivateLocationMouseReleaseListener(ConnectMenuLocation.class), mainPanel);
         createButton("Connect", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, INDENT_Y_BELOW, BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
                     if (wasConnect) return;

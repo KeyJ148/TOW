@@ -14,7 +14,7 @@ public class ListOfServersMenuLocation extends MenuLocation {
     public ListOfServersMenuLocation() {
         Panel mainPanel = createPanel(width/2, height/2, MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
 
-        createButton("Back to menu", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_X, BUTTON_WIDTH, BUTTON_HEIGHT,
+        createButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_X, BUTTON_WIDTH, BUTTON_HEIGHT,
                 getActivateLocationMouseReleaseListener(ConnectMenuLocation.class), mainPanel);
     }
 }

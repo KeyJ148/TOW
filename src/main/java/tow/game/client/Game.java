@@ -11,7 +11,6 @@ public class Game implements GameInterface {
 		GameSetting.init();
 
 		ClientData.menuLocationStorage.registry(new MainMenuLocation());
-		ClientData.menuLocationStorage.registry(new PlayMenuLocation());
 		ClientData.menuLocationStorage.registry(new SettingsMenuLocation());
 		ClientData.menuLocationStorage.registry(new ConnectMenuLocation());
 		ClientData.menuLocationStorage.registry(new ConnectByIPMenuLocation());

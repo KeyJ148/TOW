@@ -1,5 +1,6 @@
 package tow.engine.image;
 
+import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11;
 
 public class Color extends java.awt.Color {
@@ -17,6 +18,10 @@ public class Color extends java.awt.Color {
 
     public Color(int r, int g, int b, int a) {
         super(r, g, b, a);
+    }
+
+    public Color(float r, float g, float b) {
+        this((int) (255*r), (int) (255*g), (int) (255*b));
     }
 
     public Color(float r, float g, float b, float a) {
@@ -41,6 +46,10 @@ public class Color extends java.awt.Color {
 
     public float getFloatAlpha(){
         return ((float) getAlpha())/255;
+    }
+
+    public Vector4f getVector4f(){
+        return new Vector4f(getFloatRed(), getFloatGreen(), getFloatBlue(), getFloatAlpha());
     }
 
     public void bind(){

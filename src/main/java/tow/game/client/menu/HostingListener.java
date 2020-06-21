@@ -4,16 +4,15 @@ import tow.engine.net.client.Connector;
 import tow.game.client.ClientData;
 import tow.game.server.ServerLoader;
 
-import java.util.List;
 import java.util.function.Consumer;
 
-public class HostButtonListener extends MenuLocation implements StartServerListener{
+public class HostingListener extends MenuLocation implements StartServerListener{
 
     private int port;
     private Consumer<Error> errorConsumer;
     private boolean serverLaunching = false;
 
-    public HostButtonListener(Consumer<Error> errorConsumer) {
+    public HostingListener(Consumer<Error> errorConsumer) {
         this.errorConsumer = errorConsumer;
     }
 
@@ -24,17 +23,17 @@ public class HostButtonListener extends MenuLocation implements StartServerListe
         else {
             try {
                 port = Integer.parseInt(portString);
-                ClientData.name = "Vaster";
+                if(port < 1024 || port > 65535)
+                    throw new NumberFormatException();
                 ServerLoader.startServerListener = this;
                 serverLaunching = true;
                 new ServerLoader(port, 1, false);
             } catch (NumberFormatException e) {
-                errorConsumer.accept(Error.WRONG_LETTERS_IN_PORT);
+                errorConsumer.accept(Error.WRONG_PORT);
             } catch (RuntimeException e) {
                 errorConsumer.accept(Error.UNKNOWN);
             }
         }
-
     }
 
     @Override
@@ -43,8 +42,24 @@ public class HostButtonListener extends MenuLocation implements StartServerListe
     }
 
     public enum Error {
-        WRONG_LETTERS_IN_PORT,
-        UNKNOWN,
-        SERVER_LAUNCHING
+        WRONG_PORT {
+            @Override
+            public String getText() {
+                return "ERROR: Port must be integer 1024-65535";
+            }
+        },
+        UNKNOWN{
+            @Override
+            public String getText() {
+                return "ERROR: Server is launching";
+            }
+        },
+        SERVER_LAUNCHING{
+            @Override
+            public String getText() {
+                return "ERROR: Something went wrong";
+            }
+        };
+        public abstract String getText();
     }
 }

@@ -1,16 +1,12 @@
 package tow.game.client.menu.locations;
 
-import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.Label;
 import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.TextAreaField;
-import tow.engine.net.client.Connector;
-import tow.game.client.menu.HostButtonListener;
+import tow.game.client.menu.HostingListener;
 import tow.game.client.menu.MenuLocation;
-import tow.game.client.menu.StartServerListener;
 
 import static tow.game.client.menu.InterfaceStyles.*;
-import static tow.game.client.menu.InterfaceStyles.INDENT_X;
 
 public class CreateGameMenuLocation extends MenuLocation {
 
@@ -30,32 +26,17 @@ public class CreateGameMenuLocation extends MenuLocation {
         TextAreaField textAreaFieldPort = createTextAreaField(INDENT_X + 30, INDENT_Y,
                 LENGTH_TEXT_AREA_PORT, MENU_TEXT_FIELD_HEIGHT, mainPanel);
         textAreaFieldPort.getTextState().setText("25566");
-        HostButtonListener hostButtonListener = new HostButtonListener(this::showHostErrorMessage);
-        Button backButton = createButton("Back to menu", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_X,
+        HostingListener hostingListener = new HostingListener(error -> printErrorMessage(error.getText()));
+        createButton("Back to menu", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_X,
                 BUTTON_WIDTH, BUTTON_HEIGHT, getActivateLocationMouseReleaseListener(MainMenuLocation.class), mainPanel);
         createButton("Create the game", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_X,
-                BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListener(event -> hostButtonListener.host(textAreaFieldPort.getTextState().getText())), mainPanel);
-    }
-
-    private void showHostErrorMessage(HostButtonListener.Error error) {
-        switch (error) {
-            case WRONG_LETTERS_IN_PORT:
-                printErrorMessage("ERROR: Port have invalid letters");
-                break;
-            case SERVER_LAUNCHING:
-                printErrorMessage("ERROR: Server is launching");
-                break;
-            case UNKNOWN:
-                printErrorMessage("ERROR: Something went wrong");
-                break;
-            default:
-                printErrorMessage("ERROR: Something went REALLY wrong");
-                break;
-        }
+                BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListener(event -> hostingListener.host(textAreaFieldPort.getTextState().getText())), mainPanel);
     }
 
     private void printErrorMessage(String message) {
-        addComponentToParentLU(new Label(message), INDENT_X, MAIN_PANEL_HEIGHT - INDENT_Y*2 - BUTTON_HEIGHT,
+        /*addComponentToParentLU(new Label(message), INDENT_X, MAIN_PANEL_HEIGHT - INDENT_Y*2 - BUTTON_HEIGHT,
+                30, 30, mainPanel);*/
+        addComponentToParentLU(new Label(message), INDENT_X, INDENT_Y,
                 30, 30, mainPanel);
     }
 }
