@@ -209,12 +209,12 @@ public class Collision extends QueueComponent {
 	}
 
 	@Override
-	public List<Class<? extends QueueComponent>> getComponentsUpdatePreviously() {
+	public List<Class<? extends QueueComponent>> getPreliminaryUpdateComponents() {
 		return Arrays.asList(Movement.class, Follower.class);
 	}
 
 	@Override
-	public List<Class<? extends QueueComponent>> getComponentsDrawPreviously() {
+	public List<Class<? extends QueueComponent>> getPreliminaryDrawComponents() {
 		return Arrays.asList(Rendering.class);
 	}
 

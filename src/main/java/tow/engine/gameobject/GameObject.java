@@ -41,8 +41,11 @@ public class GameObject {
 		}
 
 		for (QueueComponent component : components.values()){
-			if (!isDestroy()) component.update(delta);
-			else component.destroy();
+			if (!isDestroy()){
+				component.update(delta);
+			} else {
+				component.destroy();
+			}
 		}
 	}
 

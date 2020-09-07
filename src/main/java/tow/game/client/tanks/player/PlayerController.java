@@ -9,7 +9,7 @@ import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.components.Collision;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
-import tow.engine.gameobject.components.render.GuiRender;
+import tow.engine.gameobject.components.render.GuiElement;
 import tow.engine.gameobject.components.render.Rendering;
 import tow.engine.map.Border;
 import tow.game.client.ClientData;
@@ -69,19 +69,19 @@ public class PlayerController extends GameObject implements Collision.CollisionL
                     //Клавиши запрета и разрешения на подбор ящиков
                     case GLFW_KEY_1:
                         player.takeArmor = !player.takeArmor;
-                        ((Button) ((GuiRender) player.buttonsTake[0].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeArmor)? "" : "x");
+                        ((Button) ((GuiElement) player.buttonsTake[0].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeArmor)? "" : "x");
                         break;
                     case GLFW_KEY_2:
                         player.takeGun = !player.takeGun;
-                        ((Button) ((GuiRender) player.buttonsTake[1].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeGun)? "" : "x");
+                        ((Button) ((GuiElement) player.buttonsTake[1].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeGun)? "" : "x");
                         break;
                     case GLFW_KEY_3:
                         player.takeBullet = !player.takeBullet;
-                        ((Button) ((GuiRender) player.buttonsTake[2].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeBullet)? "" : "x");
+                        ((Button) ((GuiElement) player.buttonsTake[2].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeBullet)? "" : "x");
                         break;
                     case GLFW_KEY_4:
                         player.takeHealth = !player.takeHealth;
-                        ((Button) ((GuiRender) player.buttonsTake[3].getComponent(Rendering.class)).getComponent()).getTextState().setText((player.takeHealth)? "" : "x");
+                        ((Button) ((GuiElement) player.buttonsTake[3].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeHealth)? "" : "x");
                         break;
 
                     /*TODO

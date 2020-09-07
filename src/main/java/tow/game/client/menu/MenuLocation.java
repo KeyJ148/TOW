@@ -1,21 +1,15 @@
 package tow.game.client.menu;
 
-import org.joml.Vector4f;
 import org.liquidengine.legui.component.*;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.listener.MouseClickEventListener;
-import org.liquidengine.legui.style.Background;
-import org.liquidengine.legui.style.font.Font;
 import org.liquidengine.legui.style.font.FontRegistry;
 import tow.engine.Global;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.GameObjectFactory;
-import tow.engine.gameobject.components.render.GuiRender;
+import tow.engine.gameobject.components.render.GuiElement;
 import tow.engine.image.Color;
 import tow.engine.map.Location;
-import tow.engine.gameobject.GameObject;
-import tow.engine.gameobject.GameObjectFactory;
-import tow.engine.gameobject.components.render.GuiRender;
 import tow.game.client.ClientData;
 
 import java.util.function.Consumer;
@@ -43,22 +37,21 @@ public abstract class MenuLocation extends Location {
     public void addComponent(Component component){
         GameObject gameObject = GameObjectFactory.create(component.getPosition().x, component.getPosition().y);
         objAdd(gameObject);
-        gameObject.setComponent(new GuiRender(component, (int) component.getSize().x, (int) component.getSize().y));
+        gameObject.setComponent(new GuiElement(component, (int) component.getSize().x, (int) component.getSize().y));
     }
 
     public void addComponent(Component component, int x, int y, int width, int height){
         GameObject gameObject = GameObjectFactory.create(x, y);
         objAdd(gameObject);
-        gameObject.setComponent(new GuiRender(component, width, height));
-        gameObject.setComponent(new GuiRender(component, width, height));
-        component.setPosition(x, y);
+        gameObject.setComponent(new GuiElement(component));
+        component.setSize(width, height);
     }
 
     //Координаты (x;y) задают левый верхний угол компоненты
     public void addComponentLU(Component component, int x, int y, int width, int height){
         GameObject gameObject = GameObjectFactory.create(x+width/2, y+height/2);
         objAdd(gameObject);
-        gameObject.setComponent(new GuiRender(component, width, height));
+        gameObject.setComponent(new GuiElement(component, width, height));
         component.setPosition(x, y);
     }
 
@@ -69,9 +62,9 @@ public abstract class MenuLocation extends Location {
     }
 
     public void addComponentToParentLU(Component component, int x, int y, int width, int height, Component parent){
-        x += parent.getPosition().x - parent.getSize().x/2;
-        y += parent.getPosition().y - parent.getSize().y/2;
-        addComponentLU(component, x, y, width, height);
+        component.setPosition(x, y);
+        component.setSize(width, height);
+        parent.add(component);
     }
 
     public Panel createPanel(int x, int y, int width, int height) {
@@ -80,7 +73,6 @@ public abstract class MenuLocation extends Location {
         panel.setFocusable(false);
 
         addComponent(panel, x, y, width, height);
-        panel.setPosition(x, y);
         return panel;
     }
 
