@@ -26,7 +26,7 @@ dependencies {
 }
 
 application {
-    mainClassName = 'tow.game.GameStart'
+    mainClassName = 'tech.abro.tow.GameStart'
 }
 
 distributions.main.contents {
