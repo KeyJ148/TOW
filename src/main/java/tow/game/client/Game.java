@@ -1,8 +1,15 @@
 package tow.game.client;
 
+import tow.engine.Global;
+import tow.engine.gui.CachedGuiPanel;
+import tow.engine.image.Color;
 import tow.engine.implementation.GameInterface;
+import tow.engine.map.Background;
+import tow.engine.map.Location;
+import tow.engine.services.CachedGuiElementService;
 import tow.game.client.map.factory.MapObjectCreatorsLoader;
-import tow.game.client.menu.locations.*;
+import tow.game.client.menu.locations.ConnectMenuGuiPanel;
+import tow.game.client.menu.locations.MainMenuGuiPanel;
 
 public class Game implements GameInterface {
 
@@ -10,12 +17,13 @@ public class Game implements GameInterface {
 	public void init() {
 		GameSetting.init();
 
-		ClientData.menuLocationStorage.registry(new MainMenuLocation());
-		ClientData.menuLocationStorage.registry(new SettingsMenuLocation());
-		ClientData.menuLocationStorage.registry(new ConnectMenuLocation());
-		ClientData.menuLocationStorage.registry(new ConnectByIPMenuLocation());
-		ClientData.menuLocationStorage.registry(new ListOfServersMenuLocation());
-		ClientData.menuLocationStorage.registry(new CreateGameMenuLocation());
+		Global.cachedGuiPanelStorage.registry(new MainMenuGuiPanel());
+		Global.cachedGuiPanelStorage.registry(new ConnectMenuGuiPanel());
+		/*Global.guiPanelStorage.registry(new SettingsMenuLocation());
+		Global.guiPanelStorage.registry(new ConnectMenuLocation());
+		Global.guiPanelStorage.registry(new ConnectByIPMenuLocation());
+		Global.guiPanelStorage.registry(new ListOfServersMenuLocation());
+		Global.guiPanelStorage.registry(new CreateGameMenuLocation());*/
 
 
 		MapObjectCreatorsLoader.load();
@@ -26,7 +34,15 @@ public class Game implements GameInterface {
 
 		//ServerLoader.mapPath = "maps/town100k.maptest";
 
-		ClientData.menuLocationStorage.getMenuLocation(MainMenuLocation.class).activate();
+		Location location = new Location(Global.engine.render.getWidth(), Global.engine.render.getHeight());
+		location.background = new Background(Color.GRAY, Color.GRAY);
+		location.activate();
+
+		CachedGuiPanel cachedGuiPanel = Global.cachedGuiPanelStorage.getPanel(MainMenuGuiPanel.class);
+		new CachedGuiElementService().addCachedComponentToLocation(cachedGuiPanel,
+				Global.engine.render.getWidth() / 2,
+				Global.engine.render.getHeight() / 2,
+				location);
 	}
 
 	@Override

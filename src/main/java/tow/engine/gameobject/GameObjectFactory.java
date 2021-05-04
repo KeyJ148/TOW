@@ -10,15 +10,19 @@ import java.util.List;
 
 public class GameObjectFactory {
 
-    public static GameObject create(double x, double y){
+    public static GameObject create() {
+        return create(0, 0);
+    }
+
+    public static GameObject create(double x, double y) {
         return create(x, y, 0);
     }
 
-    public static GameObject create(double x, double y, int depth){
+    public static GameObject create(double x, double y, int depth) {
         return new GameObject(Arrays.asList(new Position(x, y, depth)));
     }
 
-    public static GameObject create(double x, double y, int depth, double directionDraw){
+    public static GameObject create(double x, double y, int depth, double directionDraw) {
         GameObject gameObject = create(x, y, depth);
         gameObject.getComponent(Position.class).setDirectionDraw(directionDraw);
 

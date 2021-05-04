@@ -48,11 +48,6 @@ public class Follower extends QueueComponent {
     }
 
     @Override
-    public void destroy() {
-
-    }
-
-    @Override
     public Class getComponentClass() {
         return Follower.class;
     }

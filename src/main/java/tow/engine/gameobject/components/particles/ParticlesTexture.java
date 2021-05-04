@@ -1,14 +1,11 @@
 package tow.engine.gameobject.components.particles;
 
+import org.lwjgl.opengl.GL11;
 import tow.engine.Global;
 import tow.engine.Vector2;
 import tow.engine.resources.textures.Texture;
-import org.lwjgl.opengl.GL11;
 
 public class ParticlesTexture extends Particles {
-
-    @Override
-    public void destroy() { }
 
     @Override
     protected void drawComponent() {

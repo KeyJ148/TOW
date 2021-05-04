@@ -1,6 +1,9 @@
 package tow.engine.gameobject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameObject {
 
@@ -40,8 +43,8 @@ public class GameObject {
 			component.startNewStep();
 		}
 
-		for (QueueComponent component : components.values()){
-			if (!isDestroy()){
+		for (QueueComponent component : components.values()) {
+			if (!isDestroy()) {
 				component.update(delta);
 			} else {
 				component.destroy();
@@ -49,17 +52,29 @@ public class GameObject {
 		}
 	}
 
-	public void draw(){
-		for (QueueComponent component : components.values()){
+	public void draw() {
+		for (QueueComponent component : components.values()) {
 			component.draw();
 		}
 	}
 
-	public void destroy(){
+	public void freeze() {
+		for (QueueComponent component : components.values()) {
+			component.freeze();
+		}
+	}
+
+	public void unfreeze() {
+		for (QueueComponent component : components.values()) {
+			component.unfreeze();
+		}
+	}
+
+	public void destroy() {
 		destroy = true;
 	}
 
-	public boolean isDestroy(){
+	public boolean isDestroy() {
 		return destroy;
 	}
 }

@@ -1,17 +1,16 @@
 package tow.engine.gameobject.components;
 
+import org.lwjgl.opengl.GL11;
 import tow.engine.Global;
 import tow.engine.Vector2;
-import tow.engine.resources.masks.Mask;
 import tow.engine.gameobject.GameObject;
-import org.lwjgl.opengl.GL11;
-import tow.engine.image.Color;
 import tow.engine.gameobject.QueueComponent;
 import tow.engine.gameobject.components.render.Rendering;
+import tow.engine.image.Color;
+import tow.engine.resources.masks.Mask;
 import tow.engine.resources.settings.SettingsStorage;
 
-import java.awt.Polygon;
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -60,9 +59,6 @@ public class Collision extends QueueComponent {
 		}
 		GL11.glEnd();
 	}
-
-	@Override
-	public void destroy() { }
 
 	//Вызывает проверку столкновения с каждым объектом в комнате
 	public void checkCollisionFromRoom(){

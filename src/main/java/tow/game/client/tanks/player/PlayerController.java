@@ -10,7 +10,6 @@ import tow.engine.gameobject.components.Collision;
 import tow.engine.gameobject.components.Movement;
 import tow.engine.gameobject.components.Position;
 import tow.engine.gameobject.components.render.GuiElement;
-import tow.engine.gameobject.components.render.Rendering;
 import tow.engine.map.Border;
 import tow.game.client.ClientData;
 import tow.game.client.map.objects.Box;

@@ -1,12 +1,9 @@
 package tow.game.client.menu.locations;
 
-import org.liquidengine.legui.component.Label;
-import org.liquidengine.legui.component.Panel;
-import org.liquidengine.legui.component.TextAreaField;
-import tow.engine.net.client.Connector;
 import tow.game.client.menu.MenuLocation;
 
-import static tow.game.client.menu.InterfaceStyles.*;
+import static tow.game.client.menu.InterfaceStyles.MENU_ELEMENT_HEIGHT;
+import static tow.game.client.menu.InterfaceStyles.MENU_ELEMENT_WIDTH;
 
 public class ConnectByIPMenuLocation extends MenuLocation {
 
@@ -19,6 +16,7 @@ public class ConnectByIPMenuLocation extends MenuLocation {
     protected final static int LENGTH_TEXT_AREA_IP = 95;
     protected final static int LENGTH_TEXT_AREA_PORT = 38;
 
+    /*
     public ConnectByIPMenuLocation() {
         Panel mainPanel = createPanel(width/2, height/2, MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
 
@@ -44,6 +42,6 @@ public class ConnectByIPMenuLocation extends MenuLocation {
 
                     new Connector().connect(ip, port);
                 }), mainPanel);
-    }
+    }*/
 
 }

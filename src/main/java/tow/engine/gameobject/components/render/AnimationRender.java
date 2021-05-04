@@ -67,9 +67,6 @@ public class AnimationRender extends Rendering {
 		Texture.unbind();
 	}
 
-	@Override
-	public void destroy() { }
-
 	public void setFrameSpeed(int frameSpeed) {
 		if (frameSpeed < 0){
 			Global.logger.println("Frame speed must be >= 0", Logger.Type.ERROR);

@@ -1,4 +1,4 @@
-package tow.engine.input.mouse;
+package tow.engine.gui.input.mouse;
 
 import org.liquidengine.legui.component.Frame;
 import org.liquidengine.legui.event.MouseClickEvent;

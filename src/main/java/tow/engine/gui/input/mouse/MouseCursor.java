@@ -1,4 +1,4 @@
-package tow.engine.input.mouse;
+package tow.engine.gui.input.mouse;
 
 import org.lwjgl.BufferUtils;
 import tow.engine.Global;

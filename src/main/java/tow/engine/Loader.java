@@ -3,19 +3,23 @@ package tow.engine;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import tow.engine.audio.AudioPlayer;
 import tow.engine.cycle.Engine;
-import tow.engine.map.Location;
-import tow.engine.resources.animations.AnimationStorage;
-import tow.engine.resources.audios.AudioStorage;
-import tow.engine.implementation.*;
+import tow.engine.gui.CachedGuiPanelStorage;
+import tow.engine.implementation.GameInterface;
+import tow.engine.implementation.NetGameReadInterface;
+import tow.engine.implementation.NetServerReadInterface;
+import tow.engine.implementation.ServerInterface;
 import tow.engine.logger.AggregateLogger;
+import tow.engine.logger.Logger;
+import tow.engine.map.Location;
 import tow.engine.net.client.Ping;
 import tow.engine.net.client.tcp.TCPControl;
 import tow.engine.net.client.tcp.TCPRead;
 import tow.engine.net.client.udp.UDPControl;
 import tow.engine.net.client.udp.UDPRead;
+import tow.engine.resources.animations.AnimationStorage;
+import tow.engine.resources.audios.AudioStorage;
 import tow.engine.resources.settings.SettingsStorage;
 import tow.engine.resources.settings.SettingsStorageHandler;
-import tow.engine.logger.Logger;
 import tow.engine.resources.sprites.SpriteStorage;
 
 import java.io.IOException;
@@ -84,6 +88,7 @@ public class Loader {
 
 		Global.spriteStorage = new SpriteStorage();
 		Global.animationStorage = new AnimationStorage();
+		Global.cachedGuiPanelStorage = new CachedGuiPanelStorage();
 
 		new Location(640, 480).activate(false);
 

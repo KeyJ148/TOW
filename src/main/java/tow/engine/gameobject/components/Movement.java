@@ -70,9 +70,6 @@ public class Movement extends QueueComponent {
     }
 
     @Override
-    public void destroy() { }
-
-    @Override
     public Class getComponentClass() {
         return Movement.class;
     }

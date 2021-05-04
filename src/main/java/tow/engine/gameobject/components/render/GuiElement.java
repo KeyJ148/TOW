@@ -1,8 +1,6 @@
 package tow.engine.gameobject.components.render;
 
-import org.joml.Vector2f;
 import org.liquidengine.legui.component.Component;
-import org.liquidengine.legui.component.Panel;
 import tow.engine.Vector2;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.QueueComponent;
@@ -14,23 +12,32 @@ import java.util.List;
 
 public class GuiElement<T extends Component> extends QueueComponent {
 
-    private Panel dummyPanel = new Panel();
-    private T component;
+    private final T component;
+    private boolean moveComponentToGameObjectPosition;
 
     public GuiElement(T component) {
-        this.component = component;
-        dummyPanel.add(component);
+        this(component, false);
     }
 
+    public GuiElement(T component, boolean moveComponentToGameObjectPosition) {
+        this.component = component;
+        this.moveComponentToGameObjectPosition = moveComponentToGameObjectPosition;
+    }
+
+
     public GuiElement(T component, int weight, int height) {
-        this(component);
+        this(component, false, weight, height);
+    }
+
+    public GuiElement(T component, boolean moveComponentToGameObjectPosition, int weight, int height) {
+        this(component, moveComponentToGameObjectPosition);
         component.setSize(weight, height);
     }
 
     @Override
-    public void addToGameObject(GameObject gameObject){
+    public void addToGameObject(GameObject gameObject) {
         super.addToGameObject(gameObject);
-        getGameObject().getComponent(Position.class).location.addGUIComponent(dummyPanel);
+        getGameObject().getComponent(Position.class).location.addGUIComponent(component);
     }
 
     @Override
@@ -38,14 +45,12 @@ public class GuiElement<T extends Component> extends QueueComponent {
         getGameObject().getComponent(Position.class).location.removeGUIComponent(component);
     }
 
-    public Component getComponent(){
-        return component;
-    }
-
     @Override
     public void updateComponent(long delta) {
-        Vector2<Integer> relativePosition = getGameObject().getComponent(Position.class).getRelativePosition();
-        component.setPosition(relativePosition.x, relativePosition.y);
+        if (moveComponentToGameObjectPosition) {
+            Vector2<Integer> relativePosition = getGameObject().getComponent(Position.class).getRelativePosition();
+            component.setPosition(relativePosition.x, relativePosition.y);
+        }
     }
 
     @Override
@@ -64,5 +69,17 @@ public class GuiElement<T extends Component> extends QueueComponent {
     @Override
     public Class getComponentClass() {
         return GuiElement.class;
+    }
+
+    public Component getComponent() {
+        return component;
+    }
+
+    public boolean isMoveComponentToGameObjectPosition() {
+        return moveComponentToGameObjectPosition;
+    }
+
+    public void setMoveComponentToGameObjectPosition(boolean moveComponentToGameObjectPosition) {
+        this.moveComponentToGameObjectPosition = moveComponentToGameObjectPosition;
     }
 }

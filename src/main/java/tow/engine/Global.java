@@ -2,18 +2,20 @@ package tow.engine;
 
 import tow.engine.audio.AudioPlayer;
 import tow.engine.cycle.Engine;
+import tow.engine.gui.CachedGuiPanelStorage;
+import tow.engine.implementation.GameInterface;
+import tow.engine.implementation.NetGameReadInterface;
+import tow.engine.implementation.NetServerReadInterface;
+import tow.engine.implementation.ServerInterface;
 import tow.engine.logger.AggregateLogger;
 import tow.engine.map.Location;
-import tow.engine.resources.animations.AnimationStorage;
-import tow.engine.resources.audios.AudioStorage;
-import tow.engine.implementation.*;
-import tow.engine.input.mouse.MouseHandler;
-import tow.engine.input.keyboard.KeyboardHandler;
 import tow.engine.net.client.Ping;
 import tow.engine.net.client.tcp.TCPControl;
 import tow.engine.net.client.tcp.TCPRead;
 import tow.engine.net.client.udp.UDPControl;
 import tow.engine.net.client.udp.UDPRead;
+import tow.engine.resources.animations.AnimationStorage;
+import tow.engine.resources.audios.AudioStorage;
 import tow.engine.resources.sprites.SpriteStorage;
 
 public class Global {
@@ -28,6 +30,7 @@ public class Global {
 	public static AudioStorage audioStorage; //Объект хранящий звуки (буфферы OpenAL)
 	public static SpriteStorage spriteStorage; //Объект хранящий спрайты
 	public static AnimationStorage animationStorage; //Объект хранящий анимации
+	public static CachedGuiPanelStorage cachedGuiPanelStorage;
 
 	//TODO: убрать в главный класс Network при рефакторинге сети
 	public static TCPControl tcpControl; //Хранит настройки и работает с сетью по TCP протоколу

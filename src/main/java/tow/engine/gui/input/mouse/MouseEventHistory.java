@@ -1,9 +1,7 @@
-package tow.engine.input.mouse;
+package tow.engine.gui.input.mouse;
 
 import org.liquidengine.legui.component.Frame;
-import org.liquidengine.legui.event.KeyEvent;
 import org.liquidengine.legui.event.MouseClickEvent;
-import tow.engine.Global;
 
 import java.util.LinkedList;
 import java.util.List;

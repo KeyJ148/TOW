@@ -1,4 +1,4 @@
-package tow.engine.input.keyboard;
+package tow.engine.gui.input.keyboard;
 
 import org.liquidengine.legui.component.Frame;
 import org.liquidengine.legui.event.KeyEvent;
@@ -7,7 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
+import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
 public class KeyboardHandler {
 

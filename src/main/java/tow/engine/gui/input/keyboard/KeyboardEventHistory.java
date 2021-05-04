@@ -1,8 +1,7 @@
-package tow.engine.input.keyboard;
+package tow.engine.gui.input.keyboard;
 
 import org.liquidengine.legui.component.Frame;
 import org.liquidengine.legui.event.KeyEvent;
-import tow.engine.Global;
 
 import java.util.LinkedList;
 import java.util.List;

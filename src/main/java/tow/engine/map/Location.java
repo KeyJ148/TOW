@@ -3,10 +3,10 @@ package tow.engine.map;
 import org.liquidengine.legui.component.Component;
 import org.liquidengine.legui.component.Frame;
 import tow.engine.Global;
-import tow.engine.input.keyboard.KeyboardHandler;
-import tow.engine.input.mouse.MouseHandler;
 import tow.engine.gameobject.GameObject;
 import tow.engine.gameobject.components.Position;
+import tow.engine.gui.input.keyboard.KeyboardHandler;
+import tow.engine.gui.input.mouse.MouseHandler;
 
 import java.util.Vector;
 
@@ -73,19 +73,19 @@ public class Location {
 	}
 
 	//Удаление объекта из комнаты по id
-	public void objDel(int id){
+	public void objDel(int id) {
 		mapControl.del(id);//Используется objects, так что должно быть раньше
 		objects.set(id, null);
 	}
 
-	public void activate(){
+	public void activate() {
 		activate(true);
 	}
 
-	//Сделать комнату активной (update и render), одновременно может быть максимум одна активная комната
-	public void activate(boolean saveInput){
+	//TODO вынести вызов в отдельный менеджер с activate, который бы делал freeze и unfreeze, он жн меняет Global.location
+	public void activate(boolean saveInput) {
 		//Перенести нажатые клавиши и настройки мыши/курсора или нет
-		if (saveInput){
+		if (saveInput) {
 			keyboard = new KeyboardHandler(guiFrame, Global.location.getKeyboard());
 			mouse = new MouseHandler(guiFrame, Global.location.getMouse());
 		} else {
@@ -93,8 +93,27 @@ public class Location {
 			mouse = new MouseHandler(guiFrame);
 		}
 
+		if (Global.location != null) Global.location.freeze();
 		Global.location = this;
+		Global.location.unfreeze();
 		Global.engine.gui.setFrameFocused(guiFrame);
+	}
+
+	private void freeze() {
+		for (GameObject gameObject : objects) {
+			if (gameObject != null) {
+				gameObject.freeze();
+			}
+		}
+	}
+
+	//Сделать комнату активной (update и render), одновременно может быть максимум одна активная комната
+	private void unfreeze() {
+		for (GameObject gameObject : objects) {
+			if (gameObject != null) {
+				gameObject.unfreeze();
+			}
+		}
 	}
 
 	//Удаление всех объектов в комнате
