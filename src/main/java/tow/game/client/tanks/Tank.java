@@ -11,11 +11,12 @@ import tow.engine.gameobject.components.particles.Particles;
 import tow.engine.gameobject.components.render.AnimationRender;
 import tow.engine.gameobject.components.render.GuiElement;
 import tow.engine.gameobject.components.render.Rendering;
+import tow.engine.image.Color;
+import tow.engine.services.GuiElementService;
 import tow.game.client.ClientData;
 import tow.game.client.GameSetting;
 import tow.game.client.particles.Explosion;
 import tow.game.client.tanks.enemy.Enemy;
-import tow.engine.image.Color;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -44,14 +45,13 @@ public abstract class Tank extends GameObject {
         initCamera();
     }
 
-    public void initCamera(){
+    public void initCamera() {
         //Инициализация камеры
         camera = GameObjectFactory.create(0, 0, 0);
         Global.location.objAdd(camera);
 
-        nickname = GameObjectFactory.create(0, 0, 0);
-        Global.location.objAdd(nickname);
-        nickname.setComponent(new GuiElement(new Label(), 500, 30));
+        nickname = new GuiElementService().addComponentToLocationShiftedToCenter(new Label(), 500, 30, Global.location);//TODO Position.location
+        nickname.getComponent(GuiElement.class).setMoveComponentToGameObjectPosition(true);
     }
 
     @Override

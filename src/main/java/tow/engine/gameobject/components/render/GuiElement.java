@@ -24,7 +24,6 @@ public class GuiElement<T extends Component> extends QueueComponent {
         this.moveComponentToGameObjectPosition = moveComponentToGameObjectPosition;
     }
 
-
     public GuiElement(T component, int weight, int height) {
         this(component, false, weight, height);
     }
