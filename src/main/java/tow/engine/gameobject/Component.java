@@ -9,13 +9,22 @@ public abstract class Component {
         else throw new IllegalArgumentException("Component already added to GameObject");
     }
 
-    public GameObject getGameObject(){
+    public GameObject getGameObject() {
         return gameObject;
     }
 
     public abstract void update(long delta);
+
     public abstract void draw();
-    public abstract void destroy();
+
+    public void destroy() {
+    }
+
+    public void freeze() {
+    }
+
+    public void unfreeze() {
+    }
 
     public abstract Class getComponentClass();
 }

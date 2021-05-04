@@ -1,5 +1,6 @@
 package tow.engine.gameobject;
 
+import java.io.BufferedReader;
 import java.util.List;
 
 public abstract class QueueComponent extends Component {
@@ -18,11 +19,17 @@ public abstract class QueueComponent extends Component {
         drawInThisStep = false;
     }
 
+    /**
+     * Method will call when game world will updating. All components from {@link #getPreliminaryUpdateComponents} will
+     * update, and after that this component will be updated in {@link #updateComponent}.
+     * @param delta The count of nanoseconds passed since last update
+     */
+
     @Override
     public void update(long delta){
         if (updatedInThisStep) return;
 
-        for(Class<? extends QueueComponent> componentClass : getComponentsUpdatePreviously()){
+        for(Class<? extends QueueComponent> componentClass : getPreliminaryUpdateComponents()){
             if (getGameObject().hasComponent(componentClass)){
                 Component needUpdateComponent = getGameObject().getComponent(componentClass);
                 needUpdateComponent.update(delta);
@@ -33,11 +40,15 @@ public abstract class QueueComponent extends Component {
         updatedInThisStep = true;
     }
 
+    /**
+     * Method will call when game world will drawing. All components from {@link #getPreliminaryDrawComponents} will
+     * draw, and after that this component will be draw in {@link #drawComponent}.
+     */
     @Override
     public void draw(){
         if (drawInThisStep) return;
 
-        for(Class<? extends QueueComponent> componentClass : getComponentsDrawPreviously()){
+        for(Class<? extends QueueComponent> componentClass : getPreliminaryDrawComponents()){
             if (getGameObject().hasComponent(componentClass)){
                 Component needDrawComponent = getGameObject().getComponent(componentClass);
                 needDrawComponent.draw();
@@ -51,6 +62,13 @@ public abstract class QueueComponent extends Component {
     protected abstract void updateComponent(long delta);
     protected abstract void drawComponent();
 
-    public abstract List<Class<? extends QueueComponent>> getComponentsUpdatePreviously();
-    public abstract List<Class<? extends QueueComponent>> getComponentsDrawPreviously();
+    /**
+     * @return List of components that needed to {@link #update} before {@link #update} this component.
+     */
+    public abstract List<Class<? extends QueueComponent>> getPreliminaryUpdateComponents();
+
+    /**
+     * @return List of components that needed to {@link #draw} before {@link #draw} this component.
+     */
+    public abstract List<Class<? extends QueueComponent>> getPreliminaryDrawComponents();
 }

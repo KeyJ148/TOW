@@ -7,9 +7,6 @@ import tow.engine.Vector2;
 public class ParticlesGeometry extends Particles {
 
     @Override
-    public void destroy() { }
-
-    @Override
     protected void drawComponent() {
         GL11.glLoadIdentity();
 

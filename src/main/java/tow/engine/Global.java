@@ -29,6 +29,7 @@ public class Global {
 	public static AudioStorage audioStorage; //Объект хранящий звуки (буфферы OpenAL)
 	public static SpriteStorage spriteStorage; //Объект хранящий спрайты
 	public static AnimationStorage animationStorage; //Объект хранящий анимации
+	public static CachedGuiPanelStorage cachedGuiPanelStorage;
 
 	//TODO: убрать в главный класс Network при рефакторинге сети
 	public static TCPControl tcpControl; //Хранит настройки и работает с сетью по TCP протоколу

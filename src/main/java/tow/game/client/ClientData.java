@@ -26,7 +26,6 @@ public class ClientData {
     public static MapObjectFactory mapObjectFactory = new MapObjectFactory();
 
     //TODO: в наследника Location
-    public static MenuLocationStorage menuLocationStorage = new MenuLocationStorage();
     public static Vector<MapObject> mapObjects = new Vector<>();//Список всех объектов на карте
     public static TreeMap<Integer, Enemy> enemy = new TreeMap<>(); //список всех противников
     public static ArrayList<EnemyBullet> enemyBullet; //Список всех патронов противников (EnemyBullet)

@@ -6,14 +6,13 @@ import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.Background;
 import tow.engine.image.Color;
-import tow.game.client.ClientData;
 import tow.game.client.menu.MenuLocation;
-import tow.game.client.menu.SettingsConfirmationListener;
 
-import static tow.game.client.menu.InterfaceStyles.*;
+import static tow.game.client.menu.InterfaceStyles.MENU_ELEMENT_HEIGHT;
+import static tow.game.client.menu.InterfaceStyles.MENU_ELEMENT_WIDTH;
 
 public class SettingsMenuLocation extends MenuLocation {
-
+    /*
     protected final static int SETTINGS_PANEL_WIDTH = 2*MENU_ELEMENT_WIDTH;
     protected final static int SETTINGS_PANEL_HEIGHT = 3*MENU_ELEMENT_HEIGHT;
     protected final static int INDENT_X = 10;
@@ -41,7 +40,7 @@ public class SettingsMenuLocation extends MenuLocation {
     private Color tankColor;
 
     private Panel mainPanel;
-
+/*
     public SettingsMenuLocation() {
         mainPanel = createPanel(width/2, height/2, SETTINGS_PANEL_WIDTH, SETTINGS_PANEL_HEIGHT);
         addComponentToParentLU(new Label("Nickname:"), INDENT_X, INDENT_Y,
@@ -67,15 +66,15 @@ public class SettingsMenuLocation extends MenuLocation {
                 BUTTON_WIDTH, BUTTON_HEIGHT, getActivateLocationMouseReleaseListener(MainMenuLocation.class), mainPanel);
         createButton("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> settingsConfirmationListener.confirm(textAreaFieldNickname.getTextState().getText(), tankColor)), mainPanel);
-    }
+    }*/
 
     private void printErrorMessage(String message) {
         /*addComponentToParentLU(new Label(message), INDENT_X, MAIN_PANEL_HEIGHT - INDENT_Y*2 - BUTTON_HEIGHT,
-                30, 30, mainPanel);*/
+                30, 30, mainPanel);*//*
         addComponentToParentLU(new Label(message), INDENT_X, INDENT_Y,
-                30, 30, mainPanel);
+                30, 30, mainPanel);*/
     }
-
+/*
     private Button createColorButton(int x, int y, Color color, MouseClickEventListener event, Component parent){
         Button button = new Button("");
         Background background = new Background();
@@ -85,5 +84,5 @@ public class SettingsMenuLocation extends MenuLocation {
         button.getListenerMap().addListener(MouseClickEvent.class, event);
         addComponentToParentLU(button, x, y, BUTTON_COLOR_SIZE, BUTTON_COLOR_SIZE, parent);
         return button;
-    }
+    }*/
 }

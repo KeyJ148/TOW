@@ -60,9 +60,6 @@ public class Collision extends QueueComponent {
 		GL11.glEnd();
 	}
 
-	@Override
-	public void destroy() { }
-
 	//Вызывает проверку столкновения с каждым объектом в комнате
 	public void checkCollisionFromRoom(){
 		if (collisionObjects.size() == 0) return;
@@ -208,12 +205,12 @@ public class Collision extends QueueComponent {
 	}
 
 	@Override
-	public List<Class<? extends QueueComponent>> getComponentsUpdatePreviously() {
+	public List<Class<? extends QueueComponent>> getPreliminaryUpdateComponents() {
 		return Arrays.asList(Movement.class, Follower.class);
 	}
 
 	@Override
-	public List<Class<? extends QueueComponent>> getComponentsDrawPreviously() {
+	public List<Class<? extends QueueComponent>> getPreliminaryDrawComponents() {
 		return Arrays.asList(Rendering.class);
 	}
 

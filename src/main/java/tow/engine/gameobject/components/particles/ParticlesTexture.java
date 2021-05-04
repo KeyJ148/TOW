@@ -8,9 +8,6 @@ import tow.engine.resources.textures.Texture;
 public class ParticlesTexture extends Particles {
 
     @Override
-    public void destroy() { }
-
-    @Override
     protected void drawComponent() {
         GL11.glLoadIdentity();
 

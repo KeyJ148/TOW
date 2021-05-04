@@ -1,12 +1,10 @@
 package tow.game.client.menu.locations;
 
-import org.liquidengine.legui.component.Label;
 import org.liquidengine.legui.component.Panel;
-import org.liquidengine.legui.component.TextAreaField;
-import tow.game.client.menu.HostingListener;
 import tow.game.client.menu.MenuLocation;
 
-import static tow.game.client.menu.InterfaceStyles.*;
+import static tow.game.client.menu.InterfaceStyles.MENU_ELEMENT_HEIGHT;
+import static tow.game.client.menu.InterfaceStyles.MENU_ELEMENT_WIDTH;
 
 public class CreateGameMenuLocation extends MenuLocation {
 
@@ -17,7 +15,7 @@ public class CreateGameMenuLocation extends MenuLocation {
     protected final static int LENGTH_TEXT_AREA_PORT = 40;
 
     private Panel mainPanel;
-
+/*
     public CreateGameMenuLocation() {
 
         mainPanel = createPanel(width/2,height/2, MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
@@ -33,10 +31,10 @@ public class CreateGameMenuLocation extends MenuLocation {
                 BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListener(event -> hostingListener.host(textAreaFieldPort.getTextState().getText())), mainPanel);
     }
 
-    private void printErrorMessage(String message) {
+    private void printErrorMessage(String message) {/*
         /*addComponentToParentLU(new Label(message), INDENT_X, MAIN_PANEL_HEIGHT - INDENT_Y*2 - BUTTON_HEIGHT,
-                30, 30, mainPanel);*/
+                30, 30, mainPanel);*//*
         addComponentToParentLU(new Label(message), INDENT_X, INDENT_Y,
                 30, 30, mainPanel);
-    }
+    }*/
 }

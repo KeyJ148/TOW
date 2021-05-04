@@ -70,20 +70,17 @@ public class Movement extends QueueComponent {
     }
 
     @Override
-    public void destroy() { }
-
-    @Override
     public Class getComponentClass() {
         return Movement.class;
     }
 
     @Override
-    public List<Class<? extends QueueComponent>> getComponentsUpdatePreviously() {
+    public List<Class<? extends QueueComponent>> getPreliminaryUpdateComponents() {
         return Arrays.asList();
     }
 
     @Override
-    public List<Class<? extends QueueComponent>> getComponentsDrawPreviously() {
+    public List<Class<? extends QueueComponent>> getPreliminaryDrawComponents() {
         return Arrays.asList();
     }
 }

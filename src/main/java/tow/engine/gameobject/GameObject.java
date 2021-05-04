@@ -43,23 +43,38 @@ public class GameObject {
 			component.startNewStep();
 		}
 
-		for (QueueComponent component : components.values()){
-			if (!isDestroy()) component.update(delta);
-			else component.destroy();
+		for (QueueComponent component : components.values()) {
+			if (!isDestroy()) {
+				component.update(delta);
+			} else {
+				component.destroy();
+			}
 		}
 	}
 
-	public void draw(){
-		for (QueueComponent component : components.values()){
+	public void draw() {
+		for (QueueComponent component : components.values()) {
 			component.draw();
 		}
 	}
 
-	public void destroy(){
+	public void freeze() {
+		for (QueueComponent component : components.values()) {
+			component.freeze();
+		}
+	}
+
+	public void unfreeze() {
+		for (QueueComponent component : components.values()) {
+			component.unfreeze();
+		}
+	}
+
+	public void destroy() {
 		destroy = true;
 	}
 
-	public boolean isDestroy(){
+	public boolean isDestroy() {
 		return destroy;
 	}
 }

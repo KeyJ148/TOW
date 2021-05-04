@@ -50,9 +50,6 @@ public class SpriteRender extends Rendering {
     }
 
     @Override
-    public void destroy() { }
-
-    @Override
     public int getWidthTexture(){
         return texture.getWidth();
     }

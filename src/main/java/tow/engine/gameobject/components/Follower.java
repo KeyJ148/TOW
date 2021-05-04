@@ -48,22 +48,17 @@ public class Follower extends QueueComponent {
     }
 
     @Override
-    public void destroy() {
-
-    }
-
-    @Override
     public Class getComponentClass() {
         return Follower.class;
     }
 
     @Override
-    public List<Class<? extends QueueComponent>> getComponentsUpdatePreviously() {
+    public List<Class<? extends QueueComponent>> getPreliminaryUpdateComponents() {
         return Arrays.asList(Movement.class);
     }
 
     @Override
-    public List<Class<? extends QueueComponent>> getComponentsDrawPreviously() {
+    public List<Class<? extends QueueComponent>> getPreliminaryDrawComponents() {
         return Arrays.asList();
     }
 }

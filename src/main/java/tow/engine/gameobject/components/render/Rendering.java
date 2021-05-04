@@ -26,12 +26,12 @@ public abstract class Rendering extends QueueComponent {
     }
 
     @Override
-    public List<Class<? extends QueueComponent>> getComponentsUpdatePreviously() {
+    public List<Class<? extends QueueComponent>> getPreliminaryUpdateComponents() {
         return Arrays.asList();
     }
 
     @Override
-    public List<Class<? extends QueueComponent>> getComponentsDrawPreviously() {
+    public List<Class<? extends QueueComponent>> getPreliminaryDrawComponents() {
         return Arrays.asList();
     }
 }

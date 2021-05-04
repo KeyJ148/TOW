@@ -87,6 +87,7 @@ public class Loader {
 
 		Global.spriteStorage = new SpriteStorage();
 		Global.animationStorage = new AnimationStorage();
+		Global.cachedGuiPanelStorage = new CachedGuiPanelStorage();
 
 		new Location(640, 480).activate(false);
 
