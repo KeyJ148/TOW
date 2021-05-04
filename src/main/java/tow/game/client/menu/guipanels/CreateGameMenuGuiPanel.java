@@ -18,7 +18,8 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
     public CreateGameMenuGuiPanel() {
         init();
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
-        addComponentLU(new Label("Port"), INDENT_X, INDENT_Y,30, 30);
+
+        add(new Label("Port:", INDENT_X, INDENT_Y,30, 30));
         TextAreaField textAreaFieldPort = createTextAreaField(INDENT_X + 30, INDENT_Y,
                 LENGTH_TEXT_AREA_PORT, MENU_TEXT_FIELD_HEIGHT);
         textAreaFieldPort.getTextState().setText("25566");
@@ -30,9 +31,9 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
     }
 
     private void printErrorMessage(String message) {
-        addComponentLU(new Label(message), INDENT_X, MAIN_PANEL_HEIGHT - INDENT_Y*2 - BUTTON_HEIGHT,
-                30, 30);
-        addComponentLU(new Label(message), INDENT_X, INDENT_Y,
-                30, 30);
+        add(new Label(message, INDENT_X, MAIN_PANEL_HEIGHT - INDENT_Y*2 - BUTTON_HEIGHT,
+                30, 30));
+        add(new Label(message, INDENT_X, INDENT_Y,
+                30, 30));
     }
 }

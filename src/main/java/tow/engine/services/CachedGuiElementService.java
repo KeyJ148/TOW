@@ -9,13 +9,13 @@ import tow.engine.map.Location;
 
 public class CachedGuiElementService {
 
-    public void addCachedComponentToLocation(CachedComponent<? extends Component> cachedComponent, Location location) {
+    public void addCachedComponentToLocationShiftedToCenter(CachedComponent<? extends Component> cachedComponent, Location location) {
         GameObject gameObject = GameObjectFactory.create();
         location.objAdd(gameObject);
         gameObject.setComponent(new CachedGuiElement<>(cachedComponent));
     }
 
-    public <T extends Component> void addCachedComponentToLocation(CachedComponent<T> cachedComponent, int x, int y, Location location) {
+    public <T extends Component> void addCachedComponentToLocationShiftedToCenter(CachedComponent<T> cachedComponent, int x, int y, Location location) {
         cachedComponent.getComponent().setPosition(x - cachedComponent.getComponent().getSize().x / 2,
                 y - cachedComponent.getComponent().getSize().y / 2);
         GameObject gameObject = GameObjectFactory.create();
@@ -24,7 +24,7 @@ public class CachedGuiElementService {
     }
 
     //Координаты (x;y) задают левый верхний угол компоненты
-    public void addCachedComponentToLocationLU(CachedComponent<? extends Component> cachedComponent, int x, int y, Location location) {
+    public void addCachedComponentToLocation(CachedComponent<? extends Component> cachedComponent, int x, int y, Location location) {
         cachedComponent.getComponent().setPosition(x, y);
         GameObject gameObject = GameObjectFactory.create();
         location.objAdd(gameObject);

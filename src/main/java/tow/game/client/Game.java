@@ -40,7 +40,7 @@ public class Game implements GameInterface {
 		location.activate();
 
 		CachedGuiPanel cachedGuiPanel = Global.cachedGuiPanelStorage.getPanel(MainMenuGuiPanel.class);
-		new CachedGuiElementService().addCachedComponentToLocation(cachedGuiPanel,
+		new CachedGuiElementService().addCachedComponentToLocationShiftedToCenter(cachedGuiPanel,
 				Global.engine.render.getWidth() / 2,
 				Global.engine.render.getHeight() / 2,
 				location);

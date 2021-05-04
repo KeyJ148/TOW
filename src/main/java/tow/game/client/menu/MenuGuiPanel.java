@@ -50,7 +50,7 @@ public class MenuGuiPanel extends CachedGuiPanel {
     public TextAreaField createTextAreaField(int x, int y, int width, int height) {
         TextAreaField textAreaField = new TextAreaField();
         textAreaField.setStyle(createTextAreaFieldStyle());
-        addComponent(textAreaField, x, y, width, height);
+        addComponentLU(textAreaField, x, y, width, height);
         return textAreaField;
     }
 
@@ -72,7 +72,7 @@ public class MenuGuiPanel extends CachedGuiPanel {
     //TODO Убрать зависимости от cachedGuiPanelStorage и Global.engine.render, мб от CachedGuiElementService
     public void createCachedPanel(Class<? extends CachedGuiPanel> newGuiPanelClass){
         CachedGuiPanel cachedGuiPanel = Global.cachedGuiPanelStorage.getPanel(newGuiPanelClass);
-        new CachedGuiElementService().addCachedComponentToLocation(cachedGuiPanel,
+        new CachedGuiElementService().addCachedComponentToLocationShiftedToCenter(cachedGuiPanel,
                 Global.engine.render.getWidth() / 2,
                 Global.engine.render.getHeight() / 2,
                 getCachedGuiElementOnActiveLocation().getGameObject().getComponent(Position.class).location);
