@@ -31,9 +31,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
     }
 
     private void printErrorMessage(String message) {
-        add(new Label(message, INDENT_X, MAIN_PANEL_HEIGHT - INDENT_Y*2 - BUTTON_HEIGHT,
-                30, 30));
-        add(new Label(message, INDENT_X, INDENT_Y,
-                30, 30));
+        add(new Label(message, INDENT_X, MAIN_PANEL_HEIGHT - INDENT_Y*2 - BUTTON_HEIGHT,30, 30));
+        add(new Label(message, INDENT_X, INDENT_Y,30, 30));
     }
 }

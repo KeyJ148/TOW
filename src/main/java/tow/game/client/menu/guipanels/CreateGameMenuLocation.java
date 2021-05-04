@@ -8,12 +8,11 @@ import static tow.game.client.menu.InterfaceStyles.MENU_ELEMENT_WIDTH;
 
 public class CreateGameMenuLocation extends MenuLocation {
 
-/*
+
     public CreateGameMenuLocation() {
 
 
 
     }
 
-    */
 }
