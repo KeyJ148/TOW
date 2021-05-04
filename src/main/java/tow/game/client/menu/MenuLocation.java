@@ -1,20 +1,6 @@
 package tow.game.client.menu;
 
-import org.liquidengine.legui.component.*;
-import org.liquidengine.legui.event.MouseClickEvent;
-import org.liquidengine.legui.listener.MouseClickEventListener;
-import org.liquidengine.legui.style.font.FontRegistry;
-import tow.engine.Global;
-import tow.engine.gameobject.GameObject;
-import tow.engine.gameobject.GameObjectFactory;
-import tow.engine.gameobject.components.render.GuiRender;
-import tow.engine.image.Color;
 import tow.engine.map.Location;
-import tow.game.client.ClientData;
-
-import java.util.function.Consumer;
-
-import static tow.game.client.menu.InterfaceStyles.*;
 
 public abstract class MenuLocation extends Location {
     public MenuLocation() {

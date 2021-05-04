@@ -3,6 +3,7 @@ package tow.engine;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import tow.engine.audio.AudioPlayer;
 import tow.engine.cycle.Engine;
+import tow.engine.gui.CachedGuiPanelStorage;
 import tow.engine.implementation.GameInterface;
 import tow.engine.implementation.NetGameReadInterface;
 import tow.engine.implementation.NetServerReadInterface;
