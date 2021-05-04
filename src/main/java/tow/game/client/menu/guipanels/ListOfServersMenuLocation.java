@@ -1,4 +1,4 @@
-package tow.game.client.menu.locations;
+package tow.game.client.menu.guipanels;
 
 import tow.game.client.menu.MenuLocation;
 

@@ -1,4 +1,4 @@
-package tow.game.client.menu.locations;
+package tow.game.client.menu.guipanels;
 
 
 import org.liquidengine.legui.component.Panel;

@@ -2,6 +2,7 @@ package tow.game.client.menu;
 
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.Component;
+import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.font.FontRegistry;
@@ -26,8 +27,15 @@ public class MenuGuiPanel extends CachedGuiPanel {
         setSize(MENU_ELEMENT_WIDTH, buttonConfigurations.length * MENU_ELEMENT_HEIGHT);
 
         for (int i = 0; i < buttonConfigurations.length; i++) {
-            addComponentToParentLU(createMenuButton(buttonConfigurations[i]), 0, i * MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT, this);
+            addComponentLU(createMenuButton(buttonConfigurations[i]), 0, i * MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
         }
+    }
+
+    public void addButton(String text, int x, int y, int width, int height, MouseClickEventListener event){
+        Button button = new Button(text);
+        button.setStyle(createButtonStyle());
+        button.getListenerMap().addListener(MouseClickEvent.class, event);
+        addComponentLU(button, x, y, width, height);
     }
 
     protected Button createMenuButton(ButtonConfiguration buttonConfiguration) {
@@ -37,6 +45,13 @@ public class MenuGuiPanel extends CachedGuiPanel {
         button.getTextState().setFont(FontRegistry.ROBOTO_BOLD);
         button.getTextState().setFontSize(30);
         return button;
+    }
+
+    public TextAreaField createTextAreaField(int x, int y, int width, int height) {
+        TextAreaField textAreaField = new TextAreaField();
+        textAreaField.setStyle(createTextAreaFieldStyle());
+        addComponent(textAreaField, x, y, width, height);
+        return textAreaField;
     }
 
     protected static class ButtonConfiguration {
@@ -50,24 +65,31 @@ public class MenuGuiPanel extends CachedGuiPanel {
         }
     }
 
+    public void destroy(){
+        getCachedGuiElementOnActiveLocation().destroy();
+    }
+
+    //TODO Убрать зависимости от cachedGuiPanelStorage и Global.engine.render, мб от CachedGuiElementService
+    public void createCachedPanel(Class<? extends CachedGuiPanel> newGuiPanelClass){
+        CachedGuiPanel cachedGuiPanel = Global.cachedGuiPanelStorage.getPanel(newGuiPanelClass);
+        new CachedGuiElementService().addCachedComponentToLocation(cachedGuiPanel,
+                Global.engine.render.getWidth() / 2,
+                Global.engine.render.getHeight() / 2,
+                getCachedGuiElementOnActiveLocation().getGameObject().getComponent(Position.class).location);
+    }
+
     public MouseClickEventListener getDestroyThisPanelMouseReleaseListener() {
-        return getMouseReleaseListener(event -> getCachedGuiElementOnActiveLocation().destroy());
+        return getMouseReleaseListener(event -> destroy());
     }
 
     public MouseClickEventListener getCreateCachedPanelMouseReleaseListener(Class<? extends CachedGuiPanel> newGuiPanelClass) {
-        return getMouseReleaseListener(event -> {
-            CachedGuiPanel cachedGuiPanel = Global.cachedGuiPanelStorage.getPanel(newGuiPanelClass);
-            new CachedGuiElementService().addCachedComponentToLocation(cachedGuiPanel,
-                    Global.engine.render.getWidth() / 2,
-                    Global.engine.render.getHeight() / 2,
-                    getCachedGuiElementOnActiveLocation().getGameObject().getComponent(Position.class).location);
-        });
+        return getMouseReleaseListener(event -> createCachedPanel(newGuiPanelClass));
     }
 
     public MouseClickEventListener getChangeCachedPanelMouseReleaseListener(Class<? extends CachedGuiPanel> newGuiPanelClass) {
         return getMouseReleaseListener(event -> {
-            getDestroyThisPanelMouseReleaseListener().process(event);
-            getCreateCachedPanelMouseReleaseListener(newGuiPanelClass).process(event);
+            destroy();
+            createCachedPanel(newGuiPanelClass);
         });
     }
 

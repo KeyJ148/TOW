@@ -29,21 +29,7 @@ public abstract class MenuLocation extends Location {
         addComponent(location, component, x, y, width, height);
     }
 
-    public Button createButton(String text, int x, int y, int width, int height, MouseClickEventListener event, Component parent){
-        Button button = new Button(text);
-        button.setStyle(createButtonStyle());
-        button.getListenerMap().addListener(MouseClickEvent.class, event);
-        addComponentToParent(button, x, y, width, height, parent);
-        return button;
-    }
 
-    public TextAreaField createTextAreaField(int x, int y, int width, int height, Component parent) {
-        TextAreaField textAreaField = new TextAreaField();
-        textAreaField.setStyle(createTextAreaFieldStyle());
-
-        addComponentToParent(textAreaField, x, y, width, height, parent);
-        return textAreaField;
-    }
 
     public Panel createPanelToParent(int x, int y, int width, int height, Component parent) {
         Panel panel = new Panel();
