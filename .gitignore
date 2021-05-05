@@ -11,3 +11,6 @@ TOW.iml
 #Ignore game created files
 logs
 settings
+
+#Ignore OrchEngine subproject
+/OrchEngine
