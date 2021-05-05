@@ -127,21 +127,21 @@ public class Player extends Tank {
         if (vampire < 0.0) vampire = 0.0;
 
         //Отрисовка HP
-        ((Label) ((GuiElement) hpLabel.getComponent(GuiElement.class)).getComponent()).getTextState().setText("HP: " +  Math.round(hp) + "/" + Math.round(stats.hpMax));
+        ((Label) (hpLabel.getComponent(GuiElement.class)).getComponent()).getTextState().setText("HP: " + Math.round(hp) + "/" + Math.round(stats.hpMax));
 
         //Отрисовка статов
-        if (ClientData.printStats){
+        if (ClientData.printStats) {
             String[] array = stats.toString().split("\n");
             for (int i = 0; i < array.length; i++) {
-                ((Label) ((GuiElement) statsLabel[i].getComponent(GuiElement.class)).getComponent()).getTextState().setText(array[i]);
+                ((Label) (statsLabel[i].getComponent(GuiElement.class)).getComponent()).getTextState().setText(array[i]);
             }
-            ((Label) ((GuiElement) statsLabel[array.length].getComponent(GuiElement.class)).getComponent()).getTextState().setText("Armor: " + ((Armor) armor).title);
-            ((Label) ((GuiElement) statsLabel[array.length+1].getComponent(GuiElement.class)).getComponent()).getTextState().setText("Gun: " + ((Gun) gun).title);
-            ((Label) ((GuiElement) statsLabel[array.length+2].getComponent(GuiElement.class)).getComponent()).getTextState().setText("Bullet: " + bullet.title);
-            ((Label) ((GuiElement) statsLabel[array.length+3].getComponent(GuiElement.class)).getComponent()).getTextState().setText("Vampire: " + Math.round(vampire*100) + "%");
-       } else {
+            ((Label) (statsLabel[array.length].getComponent(GuiElement.class)).getComponent()).getTextState().setText("Armor: " + ((Armor) armor).title);
+            ((Label) (statsLabel[array.length + 1].getComponent(GuiElement.class)).getComponent()).getTextState().setText("Gun: " + ((Gun) gun).title);
+            ((Label) (statsLabel[array.length + 2].getComponent(GuiElement.class)).getComponent()).getTextState().setText("Bullet: " + bullet.title);
+            ((Label) (statsLabel[array.length + 3].getComponent(GuiElement.class)).getComponent()).getTextState().setText("Vampire: " + Math.round(vampire * 100) + "%");
+        } else {
             for (int i = 0; i < statsLabel.length; i++) {
-                ((Label) ((GuiElement) statsLabel[i].getComponent(GuiElement.class)).getComponent()).getTextState().setText("");
+                ((Label) (statsLabel[i].getComponent(GuiElement.class)).getComponent()).getTextState().setText("");
             }
         }
 

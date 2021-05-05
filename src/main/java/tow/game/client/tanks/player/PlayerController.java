@@ -68,19 +68,19 @@ public class PlayerController extends GameObject implements Collision.CollisionL
                     //Клавиши запрета и разрешения на подбор ящиков
                     case GLFW_KEY_1:
                         player.takeArmor = !player.takeArmor;
-                        ((Button) ((GuiElement) player.buttonsTake[0].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeArmor)? "" : "x");
+                        ((Button) (player.buttonsTake[0].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeArmor) ? "" : "x");
                         break;
                     case GLFW_KEY_2:
                         player.takeGun = !player.takeGun;
-                        ((Button) ((GuiElement) player.buttonsTake[1].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeGun)? "" : "x");
+                        ((Button) (player.buttonsTake[1].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeGun) ? "" : "x");
                         break;
                     case GLFW_KEY_3:
                         player.takeBullet = !player.takeBullet;
-                        ((Button) ((GuiElement) player.buttonsTake[2].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeBullet)? "" : "x");
+                        ((Button) (player.buttonsTake[2].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeBullet) ? "" : "x");
                         break;
                     case GLFW_KEY_4:
                         player.takeHealth = !player.takeHealth;
-                        ((Button) ((GuiElement) player.buttonsTake[3].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeHealth)? "" : "x");
+                        ((Button) (player.buttonsTake[3].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeHealth) ? "" : "x");
                         break;
 
                     /*TODO
