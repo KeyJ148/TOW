@@ -13,10 +13,19 @@ public final class InterfaceStyles {
     public final static int BUTTON_WIDTH = 5 * MENU_ELEMENT_WIDTH / 13;
     public final static int BUTTON_HEIGHT = MENU_ELEMENT_HEIGHT / 3;
     public final static int MENU_TEXT_FIELD_HEIGHT = BUTTON_HEIGHT;
+    public final static int ERROR_ELEMENT_WIDTH = 400;
+    public final static int ERROR_ELEMENT_HEIGHT = 120;
+
+    public final static int LENGTH_TEXT_AREA_PORT = 50;
+    public final static int LENGTH_TEXT_AREA_IP = 125;
 
     public final static int INDENT_X = 4 * MENU_ELEMENT_WIDTH / 36;
 
     public final static int BUTTON_RADIUS = 0;
+
+    public final static int LABEL_LENGTH_PORT = 37;
+    public final static int LABEL_LENGTH_NICKNAME = 78;
+    public final static int LABEL_LENGTH_ID = 20;
 
     public static Background createTextAreaFieldBackground() {
         Background background = new Background();
@@ -36,13 +45,44 @@ public final class InterfaceStyles {
         return background;
     }
 
+    public static Background createHoveredButtonBackground() {
+        Background background = new Background();
+        background.setColor(GRAY_COLOR);
+        return background;
+    }
+
+    public static Background createPressedButtonBackground() {
+        Background background = new Background();
+        background.setColor(SLIGHTLY_LIGHT_GRAY_COLOR);
+        return background;
+    }
+
+    public static Background createMenuButtonBackground() {
+        Background background = new Background();
+        background.setColor(SLIGHTLY_DARK_GRAY_COLOR);
+        return background;
+    }
+
+    public static Background createHoveredMenuButtonBackground() {
+        Background background = new Background();
+        background.setColor(GRAY_COLOR);
+        return background;
+    }
+
+    public static Background createPressedMenuButtonBackground() {
+        Background background = new Background();
+        background.setColor(SLIGHTLY_LIGHT_GRAY_COLOR);
+        return background;
+    }
+
     public static SimpleLineBorder createButtonBorder() {
-        return new SimpleLineBorder(ColorConstants.black(), 1.5f);
+        return new SimpleLineBorder(ColorConstants.black(), 2f);
     }
 
     public static SimpleLineBorder createPanelBorder() {
         return new SimpleLineBorder(ColorConstants.black(), 1);
     }
+
 
     public static Style createButtonStyle() {
         Style style = new Style();
@@ -55,7 +95,7 @@ public final class InterfaceStyles {
     public static Style createMenuButtonStyle() {
         Style style = new Style();
         style.setBorder(createButtonBorder());
-        style.setBackground(createPanelBackground());
+        style.setBackground(createMenuButtonBackground());
         return style;
     }
 

@@ -51,7 +51,15 @@ public class MenuGuiPanel extends CachedGuiPanel {
     public TextAreaField createTextAreaField(int x, int y, int width, int height) {
         TextAreaField textAreaField = new TextAreaField();
         textAreaField.setStyle(createTextAreaFieldStyle());
-        addComponentLU(textAreaField, x, y, width, height);
+        textAreaField.getTextState().setFont(FontRegistry.ROBOTO_REGULAR);
+        textAreaField.getTextState().setFontSize(LABEL_FONT_SIZE);
+        addComponent(textAreaField, x, y, width, height);
+        return textAreaField;
+    }
+
+    public TextAreaField createTextAreaField(int x, int y, int width, int height, String text) {
+        TextAreaField textAreaField = createTextAreaField(x, y, width, height);
+        textAreaField.getTextState().setText(text);
         return textAreaField;
     }
 

@@ -18,8 +18,6 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
 
     protected final static int SETTINGS_PANEL_WIDTH = 2 * MENU_ELEMENT_WIDTH;
     protected final static int SETTINGS_PANEL_HEIGHT = 3 * MENU_ELEMENT_HEIGHT;
-    protected final static int INDENT_X = 10;
-    protected final static int INDENT_Y = 10;
     protected final static int LENGTH_TEXT_AREA_NICK = 100;
     protected final static int BUTTON_COLOR_SIZE = 15;
     protected final static int PANEL_COLOR_WIDTH = 45;
@@ -46,10 +44,10 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
         init();
         setSize(SETTINGS_PANEL_WIDTH, SETTINGS_PANEL_HEIGHT);
 
-        add(new Label("Nickname:", INDENT_X, INDENT_Y, 30, 30));
+        addLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT);
         TextAreaField textAreaFieldNickname =
-                createTextAreaField(INDENT_X + 60, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT);
-        SettingsConfirmationListener settingsConfirmationListener = new SettingsConfirmationListener(error -> printErrorMessage(error.getText()));
+                createTextAreaField(INDENT_X + LABEL_LENGTH_NICKNAME, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT);
+        SettingsConfirmationListener settingsConfirmationListener = new SettingsConfirmationListener(error -> new PrintErrorGuiPanel(error.getText(), this));
 
         Panel panelColor =
                 createPanel(SETTINGS_PANEL_WIDTH - PANEL_COLOR_WIDTH, 0, PANEL_COLOR_WIDTH, PANEL_COLOR_HEIGHT);
