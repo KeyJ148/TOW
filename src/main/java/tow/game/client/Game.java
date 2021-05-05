@@ -8,9 +8,7 @@ import tow.engine.map.Background;
 import tow.engine.map.Location;
 import tow.engine.services.CachedGuiElementService;
 import tow.game.client.map.factory.MapObjectCreatorsLoader;
-import tow.game.client.menu.guipanels.ConnectMenuGuiPanel;
-import tow.game.client.menu.guipanels.CreateGameMenuGuiPanel;
-import tow.game.client.menu.guipanels.MainMenuGuiPanel;
+import tow.game.client.menu.guipanels.*;
 
 public class Game implements GameInterface {
 
@@ -19,11 +17,10 @@ public class Game implements GameInterface {
 		GameSetting.init();
 
 		Global.cachedGuiPanelStorage.registry(new MainMenuGuiPanel());
+		Global.cachedGuiPanelStorage.registry(new SettingsMenuGuiPanel());
 		Global.cachedGuiPanelStorage.registry(new ConnectMenuGuiPanel());
-		/*Global.guiPanelStorage.registry(new SettingsMenuLocation());
-		Global.guiPanelStorage.registry(new ConnectMenuLocation());
-		Global.guiPanelStorage.registry(new ConnectByIPMenuLocation());
-		Global.guiPanelStorage.registry(new ListOfServersMenuLocation());*/
+		Global.cachedGuiPanelStorage.registry(new ConnectByIPMenuGuiPanel());
+		Global.cachedGuiPanelStorage.registry(new ListOfServersMenuGuiPanel());
 		Global.cachedGuiPanelStorage.registry(new CreateGameMenuGuiPanel());
 
 
