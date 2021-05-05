@@ -2,6 +2,7 @@ package tow.game.client.menu;
 
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.Component;
+import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.listener.MouseClickEventListener;
@@ -52,6 +53,16 @@ public class MenuGuiPanel extends CachedGuiPanel {
         textAreaField.setStyle(createTextAreaFieldStyle());
         addComponentLU(textAreaField, x, y, width, height);
         return textAreaField;
+    }
+
+    public Panel createPanel(int x, int y, int width, int height) {
+        Panel panel = new Panel();
+        panel.setStyle(createPanelStyle());
+        panel.setFocusable(false);
+        panel.setPosition(x, y);
+        panel.setSize(width, height);
+        add(panel);
+        return panel;
     }
 
     protected static class ButtonConfiguration {
