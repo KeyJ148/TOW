@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'TOW'
-include 'orchengine'
+include 'OrchEngine'

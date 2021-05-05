@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    implementation project('orchengine')
+    implementation project('OrchEngine')
 
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.liquidengine:legui:2.1.0'
