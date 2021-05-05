@@ -1,7 +1,7 @@
 package cc.abro.tow.client.tanks.equipment.bullet;
 
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.setting.ConfigReader;
+import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.tanks.player.Bullet;
 
 public class BFury extends Bullet {

@@ -12,7 +12,7 @@ import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.map.Border;
 import cc.abro.orchengine.resources.sprites.Sprite;
-import cc.abro.orchengine.setting.ConfigReader;
+import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.GameSetting;
 import cc.abro.tow.client.map.objects.textured.TexturedMapObject;

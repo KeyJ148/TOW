@@ -1,13 +1,17 @@
 package cc.abro.tow.client.map.specification;
 
 import cc.abro.orchengine.Global;
-import cc.abro.orchengine.logger.Logger;
+import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.resources.JsonContainerLoader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MapSpecificationLoader {
+
+    private static final Logger log = LogManager.getLogger(AnimationRender.class);
 
     public static MapSpecification getMapSpecification(String path) {
         try {
@@ -21,10 +25,10 @@ public class MapSpecificationLoader {
             }
 
             MapSpecification mapSpecification = new MapSpecification(mapContainer.width, mapContainer.height, mapObjectSpecificationById);
-            Global.logger.println("Load map \"" + path + "\" completed", Logger.Type.DEBUG);
+            log.debug("Load map \"" + path + "\" completed");
             return mapSpecification;
         } catch (Exception e) {
-            Global.logger.println("Map \"" + path + "\" not loading", Logger.Type.ERROR);
+            log.error("Map \"" + path + "\" not loading");
             return null;
         }
     }

@@ -2,20 +2,24 @@ package cc.abro.tow.client.map.factory;
 
 import cc.abro.orchengine.Global;
 import cc.abro.orchengine.Loader;
-import cc.abro.orchengine.logger.Logger;
+import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.tow.client.map.MapObject;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MapObjectFactory {
 
+    private static final Logger log = LogManager.getLogger(MapObjectFactory.class);
+
     private Map<String, MapObjectCreator> mapObjectCreatorByType = new HashMap<>();
 
     public void registryNewCreator(MapObjectCreator mapObjectCreator) {
         if (mapObjectCreatorByType.containsKey(mapObjectCreator.getType())) {
-            Global.logger.println("MapObjectCreator \"" + mapObjectCreator.getType() + "\" already exists", Logger.Type.ERROR);
+            log.fatal("MapObjectCreator \"" + mapObjectCreator.getType() + "\" already exists");
             Loader.exit();
         }
 
@@ -24,7 +28,7 @@ public class MapObjectFactory {
 
     public MapObject createMapObject(MapObjectSpecification mapObjectSpecification) {
         if (!mapObjectCreatorByType.containsKey(mapObjectSpecification.getType())) {
-            Global.logger.print("MapObjectCreator \"" + mapObjectSpecification.getType() + "\" not found", Logger.Type.ERROR);
+            log.error("MapObjectCreator \"" + mapObjectSpecification.getType() + "\" not found");
             return null;
         }
 

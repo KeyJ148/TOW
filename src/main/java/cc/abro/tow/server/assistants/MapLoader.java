@@ -2,23 +2,27 @@ package cc.abro.tow.server.assistants;
 
 import cc.abro.orchengine.Global;
 import cc.abro.orchengine.Vector2;
-import cc.abro.orchengine.logger.Logger;
+import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.net.server.senders.ServerSendTCP;
 import cc.abro.tow.client.map.specification.MapSpecificationLoader;
 import cc.abro.tow.server.Server;
 import cc.abro.tow.server.data.ServerData;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.Random;
 
 public class MapLoader implements Runnable {
 
+    private static final Logger log = LogManager.getLogger(MapLoader.class);
+
     public void loadRandomMap(String allMapsPath) {
         loadMap(chooseRandomMap(allMapsPath));
     }
 
     public void loadMap(File map) {
-        Global.logger.println("Loading map: " + map.getName(), Logger.Type.SERVER_INFO);
+        log.info("Loading map: " + map.getName());
 
         disableBattle();
         loadMapToMemory(map);

@@ -8,7 +8,7 @@ import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.resources.textures.Texture;
-import cc.abro.orchengine.setting.ConfigReader;
+import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.tanks.Effect;
 
 public class Gun extends GameObject {
