@@ -8,8 +8,9 @@ import tow.engine.map.Background;
 import tow.engine.map.Location;
 import tow.engine.services.CachedGuiElementService;
 import tow.game.client.map.factory.MapObjectCreatorsLoader;
-import tow.game.client.menu.locations.ConnectMenuGuiPanel;
-import tow.game.client.menu.locations.MainMenuGuiPanel;
+import tow.game.client.menu.guipanels.ConnectMenuGuiPanel;
+import tow.game.client.menu.guipanels.CreateGameMenuGuiPanel;
+import tow.game.client.menu.guipanels.MainMenuGuiPanel;
 
 public class Game implements GameInterface {
 
@@ -22,8 +23,8 @@ public class Game implements GameInterface {
 		/*Global.guiPanelStorage.registry(new SettingsMenuLocation());
 		Global.guiPanelStorage.registry(new ConnectMenuLocation());
 		Global.guiPanelStorage.registry(new ConnectByIPMenuLocation());
-		Global.guiPanelStorage.registry(new ListOfServersMenuLocation());
-		Global.guiPanelStorage.registry(new CreateGameMenuLocation());*/
+		Global.guiPanelStorage.registry(new ListOfServersMenuLocation());*/
+		Global.cachedGuiPanelStorage.registry(new CreateGameMenuGuiPanel());
 
 
 		MapObjectCreatorsLoader.load();
@@ -39,7 +40,7 @@ public class Game implements GameInterface {
 		location.activate();
 
 		CachedGuiPanel cachedGuiPanel = Global.cachedGuiPanelStorage.getPanel(MainMenuGuiPanel.class);
-		new CachedGuiElementService().addCachedComponentToLocation(cachedGuiPanel,
+		new CachedGuiElementService().addCachedComponentToLocationShiftedToCenter(cachedGuiPanel,
 				Global.engine.render.getWidth() / 2,
 				Global.engine.render.getHeight() / 2,
 				location);

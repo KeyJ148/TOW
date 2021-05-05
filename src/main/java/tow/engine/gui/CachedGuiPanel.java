@@ -33,20 +33,20 @@ public abstract class CachedGuiPanel extends Panel implements CachedComponent<Pa
      */
     public abstract void init();
 
-    public void addComponentToParent(Component component, int x, int y, int width, int height, Component parent) {
+    public void addComponent(Component component, int x, int y, int width, int height) {
         component.setPosition(x - width / 2, y - height / 2);
         component.setSize(width, height);
-        parent.add(component);
+        add(component);
     }
 
-    public void addComponentToParentLU(Component component, int x, int y, int width, int height, Component parent) {
+    public void addComponentLU(Component component, int x, int y, int width, int height) {
         component.setPosition(x, y);
         component.setSize(width, height);
-        parent.add(component);
+        add(component);
     }
 
-    public void createToggleButton(int x, int y, int width, int height, Component parent) {
+    public void addToggleButton(int x, int y, int width, int height) {
         ToggleButton toggleButton = new ToggleButton();
-        addComponentToParent(toggleButton, x, y, width, height, parent);
+        addComponent(toggleButton, x, y, width, height);
     }
 }

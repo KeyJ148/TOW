@@ -8,24 +8,27 @@ import tow.engine.map.Location;
 
 public class GuiElementService {
 
-    public void addComponentToLocation(Component component, Location location) {
+    public GameObject addComponentToLocationShiftedToCenter(Component component, Location location) {
         GameObject gameObject = GameObjectFactory.create();
         location.objAdd(gameObject);
         gameObject.setComponent(new GuiElement<>(component));
+        return gameObject;
     }
 
-    public void addComponentToLocation(Component component, int x, int y, Location location) {
+    public GameObject addComponentToLocationShiftedToCenter(Component component, int x, int y, Location location) {
         component.setPosition(x - component.getSize().x / 2, y - component.getSize().y / 2);
         GameObject gameObject = GameObjectFactory.create();
         location.objAdd(gameObject);
         gameObject.setComponent(new GuiElement<>(component));
+        return gameObject;
     }
 
     //Координаты (x;y) задают левый верхний угол компоненты
-    public void addComponentToLocationLU(Component component, int x, int y, Location location) {
+    public GameObject addComponentToLocation(Component component, int x, int y, Location location) {
         component.setPosition(x, y);
         GameObject gameObject = GameObjectFactory.create();
         location.objAdd(gameObject);
         gameObject.setComponent(new GuiElement<>(component));
+        return gameObject;
     }
 }
