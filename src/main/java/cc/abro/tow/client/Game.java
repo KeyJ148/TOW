@@ -33,7 +33,7 @@ public class Game implements GameInterface {
         //ServerLoader.mapPath = "maps/town100k.maptest";
 
         Location location = new Location(Global.engine.render.getWidth(), Global.engine.render.getHeight());
-        location.background = new Background(Color.GRAY, Color.GRAY);
+        location.background = new Background(new Color(0, 150, 14), Color.GREEN);
         location.activate();
 
         CachedGuiPanel cachedGuiPanel = Global.cachedGuiPanelStorage.getPanel(MainMenuGuiPanel.class);

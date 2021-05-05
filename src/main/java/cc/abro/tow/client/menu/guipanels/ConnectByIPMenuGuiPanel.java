@@ -18,11 +18,11 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
         init();
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
 
-        add(new Label("IP:", INDENT_X, INDENT_Y_ABOVE, 150, MENU_TEXT_FIELD_HEIGHT));
+        addLabel("IP:", INDENT_X, INDENT_Y, LABEL_LENGTH_ID, MENU_TEXT_FIELD_HEIGHT);
         TextAreaField textAreaFieldIP =
                 createTextAreaField(INDENT_X + LABEL_LENGTH_ID, INDENT_Y, LENGTH_TEXT_AREA_IP, MENU_TEXT_FIELD_HEIGHT);
 
-        add(new Label("Port:", MAIN_PANEL_WIDTH - LENGTH_TEXT_AREA_PORT - INDENT_X - 30, INDENT_Y_ABOVE, 150, MENU_TEXT_FIELD_HEIGHT));
+        addLabel("Port:", MAIN_PANEL_WIDTH - LABEL_LENGTH_PORT - LENGTH_TEXT_AREA_PORT - INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT);
         TextAreaField textAreaFieldPort =
                 createTextAreaField(MAIN_PANEL_WIDTH - LENGTH_TEXT_AREA_PORT - INDENT_X, INDENT_Y, LENGTH_TEXT_AREA_PORT, MENU_TEXT_FIELD_HEIGHT, "25566");
 

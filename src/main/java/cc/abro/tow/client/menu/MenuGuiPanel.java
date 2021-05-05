@@ -4,10 +4,7 @@ import cc.abro.orchengine.Global;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gui.CachedGuiPanel;
 import cc.abro.orchengine.services.CachedGuiElementService;
-import org.liquidengine.legui.component.Button;
-import org.liquidengine.legui.component.Component;
-import org.liquidengine.legui.component.Panel;
-import org.liquidengine.legui.component.TextAreaField;
+import org.liquidengine.legui.component.*;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.font.FontRegistry;
@@ -24,11 +21,17 @@ public class MenuGuiPanel extends CachedGuiPanel {
         setFocusable(false);
     }
 
+    public void addLabel(String text, int x, int y, int width, int height) {
+        Label label = new Label(text, x, y, width, height);
+        label.getTextState().setFont(FontRegistry.ROBOTO_REGULAR);
+        label.getTextState().setFontSize(LABEL_FONT_SIZE);
+        add(label);
+    }
+
     public void addMenuButtons(ButtonConfiguration... buttonConfigurations) {
         setSize(MENU_ELEMENT_WIDTH, buttonConfigurations.length * MENU_ELEMENT_HEIGHT);
-
         for (int i = 0; i < buttonConfigurations.length; i++) {
-            addComponentLU(createMenuButton(buttonConfigurations[i]), 0, i * MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
+            addComponent(createMenuButton(buttonConfigurations[i]), 0, i * MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
         }
     }
 
@@ -36,7 +39,11 @@ public class MenuGuiPanel extends CachedGuiPanel {
         Button button = new Button(text);
         button.setStyle(createButtonStyle());
         button.getListenerMap().addListener(MouseClickEvent.class, event);
-        addComponentLU(button, x, y, width, height);
+        button.getTextState().setFont(FontRegistry.ROBOTO_REGULAR);
+        button.getTextState().setFontSize(BUTTON_FONT_SIZE);
+        button.getHoveredStyle().setBackground(createHoveredButtonBackground());
+        button.getPressedStyle().setBackground(createPressedButtonBackground());
+        addComponent(button, x, y, width, height);
     }
 
     protected Button createMenuButton(ButtonConfiguration buttonConfiguration) {
@@ -44,7 +51,11 @@ public class MenuGuiPanel extends CachedGuiPanel {
         button.setStyle(createMenuButtonStyle());
         button.getListenerMap().addListener(MouseClickEvent.class, buttonConfiguration.event);
         button.getTextState().setFont(FontRegistry.ROBOTO_BOLD);
-        button.getTextState().setFontSize(30);
+        button.getTextState().setFontSize(MENU_BUTTON_FONT_SIZE);
+        button.getHoveredStyle().setBackground(createHoveredMenuButtonBackground());
+        button.getPressedStyle().setBackground(createPressedMenuButtonBackground());
+        button.getHoveredStyle().setBorder(createButtonBorder());
+        button.getPressedStyle().setBorder(createButtonBorder());
         return button;
     }
 
@@ -67,9 +78,7 @@ public class MenuGuiPanel extends CachedGuiPanel {
         Panel panel = new Panel();
         panel.setStyle(createPanelStyle());
         panel.setFocusable(false);
-        panel.setPosition(x, y);
-        panel.setSize(width, height);
-        add(panel);
+        addComponent(panel, x, y, width, height);
         return panel;
     }
 
