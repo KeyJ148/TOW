@@ -7,8 +7,8 @@ public class ConnectMenuGuiPanel extends MenuGuiPanel {
     public ConnectMenuGuiPanel() {
         init();
         addMenuButtons(
-                //new ButtonConfiguration("Connect via IP", getChangePanelMouseReleaseListener(ConnectByIPMenuLocation.class)),
-                //new ButtonConfiguration("List of servers", getChangePanelMouseReleaseListener(ListOfServersMenuLocation.class)),
+                new ButtonConfiguration("Connect via IP", getChangeCachedPanelMouseReleaseListener(ConnectByIPMenuGuiPanel.class)),
+                new ButtonConfiguration("List of servers", getChangeCachedPanelMouseReleaseListener(ListOfServersMenuGuiPanel.class)),
                 new ButtonConfiguration("Back to menu", getChangeCachedPanelMouseReleaseListener(MainMenuGuiPanel.class))
         );
 

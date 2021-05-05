@@ -5,7 +5,7 @@ import tow.game.server.ServerLoader;
 
 import java.util.function.Consumer;
 
-public class HostingListener extends MenuLocation implements StartServerListener{
+public class HostingListener implements StartServerListener{
 
     private int port;
     private Consumer<Error> errorConsumer;
