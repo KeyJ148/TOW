@@ -12,3 +12,5 @@
 #Ignore game created files
 /logs
 /settings
+
+/OrchEngine
