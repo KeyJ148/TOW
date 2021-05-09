@@ -9,14 +9,14 @@ import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.map.objects.textured.TexturedMapObject;
 import cc.abro.tow.client.tanks.enemy.EnemyArmor;
 import cc.abro.tow.client.tanks.player.Bullet;
+import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
+@Log4j2
 public class BMass extends Bullet {
-
-    private static final Logger log = LogManager.getLogger(BMass.class);
 
     public int minFragmentNumber;
     public int maxFragmentNumber;

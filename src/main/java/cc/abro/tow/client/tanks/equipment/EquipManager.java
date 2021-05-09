@@ -9,6 +9,7 @@ import cc.abro.tow.client.tanks.player.Armor;
 import cc.abro.tow.client.tanks.player.Bullet;
 import cc.abro.tow.client.tanks.player.Gun;
 import cc.abro.tow.client.tanks.player.Player;
+import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,9 +25,8 @@ Storage, tow.player.equipment.gun/, res/settings/gun, res/settings/armor, res/se
 Storage, tow.player.equipment.bullet/, res/settings/bullet
 */
 
+@Log4j2
 public class EquipManager {
-
-    private static final Logger log = LogManager.getLogger(EquipManager.class);
 
     private static Random random = new Random();
 

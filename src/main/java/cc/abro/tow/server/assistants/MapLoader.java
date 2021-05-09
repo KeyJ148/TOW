@@ -7,15 +7,15 @@ import cc.abro.orchengine.net.server.senders.ServerSendTCP;
 import cc.abro.tow.client.map.specification.MapSpecificationLoader;
 import cc.abro.tow.server.Server;
 import cc.abro.tow.server.data.ServerData;
+import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.Random;
 
+@Log4j2
 public class MapLoader implements Runnable {
-
-    private static final Logger log = LogManager.getLogger(MapLoader.class);
 
     public void loadRandomMap(String allMapsPath) {
         loadMap(chooseRandomMap(allMapsPath));

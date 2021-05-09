@@ -5,12 +5,12 @@ import cc.abro.orchengine.Loader;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.tanks.equipment.bullet.BDefault;
+import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+@Log4j2
 public class BulletFactory {
-
-    private static final Logger log = LogManager.getLogger(BulletFactory.class);
 
     public String name, title; //name - техническое название, title - игровое
     public Player player;

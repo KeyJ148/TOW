@@ -3,15 +3,15 @@ package cc.abro.tow.client.map.specification;
 import cc.abro.orchengine.Global;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.resources.JsonContainerLoader;
+import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Log4j2
 public class MapSpecificationLoader {
-
-    private static final Logger log = LogManager.getLogger(AnimationRender.class);
 
     public static MapSpecification getMapSpecification(String path) {
         try {

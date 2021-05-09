@@ -5,15 +5,15 @@ import cc.abro.orchengine.Loader;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.tow.client.map.MapObject;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;
+import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Log4j2
 public class MapObjectFactory {
-
-    private static final Logger log = LogManager.getLogger(MapObjectFactory.class);
 
     private Map<String, MapObjectCreator> mapObjectCreatorByType = new HashMap<>();
 
