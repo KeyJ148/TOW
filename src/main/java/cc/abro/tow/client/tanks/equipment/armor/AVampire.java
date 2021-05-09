@@ -1,6 +1,6 @@
 package cc.abro.tow.client.tanks.equipment.armor;
 
-import cc.abro.orchengine.setting.ConfigReader;
+import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.tanks.player.Armor;
 
 public class AVampire extends Armor {

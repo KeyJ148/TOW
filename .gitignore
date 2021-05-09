@@ -13,4 +13,5 @@
 /logs
 /settings
 
+#Ignore OrchEngine subproject
 /OrchEngine

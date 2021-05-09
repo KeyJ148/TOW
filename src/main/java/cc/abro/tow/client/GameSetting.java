@@ -1,7 +1,5 @@
 package cc.abro.tow.client;
 
-import cc.abro.orchengine.setting.ConfigReader;
-
 public class GameSetting {
 
     public static int MPS;

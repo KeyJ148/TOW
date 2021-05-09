@@ -1,6 +1,6 @@
 package cc.abro.tow.client.tanks.equipment.gun;
 
-import cc.abro.orchengine.setting.ConfigReader;
+import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.tanks.player.Gun;
 
 public class GVampire extends Gun {

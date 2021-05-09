@@ -3,12 +3,15 @@ package cc.abro.tow.client.tanks.equipment;
 import cc.abro.orchengine.Global;
 import cc.abro.orchengine.Loader;
 import cc.abro.orchengine.gameobject.components.Position;
-import cc.abro.orchengine.logger.Logger;
-import cc.abro.orchengine.setting.ConfigReader;
+import cc.abro.orchengine.gameobject.components.render.AnimationRender;
+import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.tanks.player.Armor;
 import cc.abro.tow.client.tanks.player.Bullet;
 import cc.abro.tow.client.tanks.player.Gun;
 import cc.abro.tow.client.tanks.player.Player;
+import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
@@ -22,6 +25,7 @@ Storage, tow.player.equipment.gun/, res/settings/gun, res/settings/armor, res/se
 Storage, tow.player.equipment.bullet/, res/settings/bullet
 */
 
+@Log4j2
 public class EquipManager {
 
     private static Random random = new Random();
@@ -74,7 +78,7 @@ public class EquipManager {
             newArmor.init(player, player.armor.getComponent(Position.class).x, player.armor.getComponent(Position.class).y, player.armor.getComponent(Position.class).getDirectionDraw(), newArmorName);
             player.replaceArmor(newArmor);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            Global.logger.println("Armor not found: " + newArmorClass, Logger.Type.ERROR);
+            log.fatal("Armor not found: " + newArmorClass);
             Loader.exit();
         }
     }
@@ -109,7 +113,7 @@ public class EquipManager {
             newGun = (Gun) Class.forName(newGunFullPath).newInstance();
             newGun.init(player, player.gun.getComponent(Position.class).x, player.gun.getComponent(Position.class).y, player.gun.getComponent(Position.class).getDirectionDraw(), newGunName);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            Global.logger.println("Gun not found: " + newGunName, Logger.Type.ERROR);
+            log.fatal("Gun not found: " + newGunName);
             Loader.exit();
         }
 

@@ -10,7 +10,7 @@ import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.map.Border;
 import cc.abro.orchengine.resources.animations.Animation;
-import cc.abro.orchengine.setting.ConfigReader;
+import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.map.objects.Box;
 import cc.abro.tow.client.map.objects.textured.TexturedMapObject;
 import cc.abro.tow.client.tanks.Effect;

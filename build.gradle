@@ -18,10 +18,17 @@ repositories {
 }
 
 dependencies {
-    implementation project('orchengine')
+    implementation project('OrchEngine')
 
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.liquidengine:legui:2.1.0'
+    implementation 'io.cucumber:cucumber-picocontainer:2.4.0'
+
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.20'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.1'

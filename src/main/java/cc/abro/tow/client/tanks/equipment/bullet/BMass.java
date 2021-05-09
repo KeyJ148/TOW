@@ -4,14 +4,18 @@ import cc.abro.orchengine.Global;
 import cc.abro.orchengine.Loader;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.logger.Logger;
-import cc.abro.orchengine.setting.ConfigReader;
+import cc.abro.orchengine.gameobject.components.render.AnimationRender;
+import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.map.objects.textured.TexturedMapObject;
 import cc.abro.tow.client.tanks.enemy.EnemyArmor;
 import cc.abro.tow.client.tanks.player.Bullet;
+import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
+@Log4j2
 public class BMass extends Bullet {
 
     public int minFragmentNumber;
@@ -45,7 +49,7 @@ public class BMass extends Bullet {
                     Global.location.objAdd(newBullet);
                 }
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-                Global.logger.println("Bullet create error: " + configName, Logger.Type.ERROR);
+                log.fatal("Bullet create error: " + configName);
                 Loader.exit();
             }
         }
