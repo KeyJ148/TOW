@@ -15,7 +15,7 @@ public class HostingListener implements StartServerListener {
         this.errorConsumer = errorConsumer;
     }
 
-    public void host(String portString) {
+    public void host(String portString, int peopleMax) {
         if (serverLaunching) {
             errorConsumer.accept(Error.SERVER_LAUNCHING);
         } else {
@@ -25,7 +25,7 @@ public class HostingListener implements StartServerListener {
                     throw new NumberFormatException();
                 ServerLoader.startServerListener = this;
                 serverLaunching = true;
-                new ServerLoader(port, 1, false);
+                new ServerLoader(port, peopleMax, false);
             } catch (NumberFormatException e) {
                 errorConsumer.accept(Error.WRONG_PORT);
             } catch (RuntimeException e) {

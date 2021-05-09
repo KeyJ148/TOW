@@ -8,6 +8,7 @@ import org.liquidengine.legui.component.*;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.font.FontRegistry;
+import org.liquidengine.legui.style.shadow.Shadow;
 
 import java.util.function.Consumer;
 
@@ -62,6 +63,8 @@ public class MenuGuiPanel extends CachedGuiPanel {
     public TextAreaField createTextAreaField(int x, int y, int width, int height) {
         TextAreaField textAreaField = new TextAreaField();
         textAreaField.setStyle(createTextAreaFieldStyle());
+        textAreaField.getFocusedStyle().setBackground(createFocusedTextAreaFieldBackground());
+        textAreaField.getFocusedStyle().setBorder(createTextAreaFieldBorder());
         textAreaField.getTextState().setFont(FontRegistry.ROBOTO_REGULAR);
         textAreaField.getTextState().setFontSize(LABEL_FONT_SIZE);
         addComponent(textAreaField, x, y, width, height);
