@@ -8,7 +8,8 @@ import cc.abro.orchengine.map.Background;
 import cc.abro.orchengine.map.Location;
 import cc.abro.orchengine.services.CachedGuiElementService;
 import cc.abro.tow.client.map.factory.MapObjectCreatorsLoader;
-import cc.abro.tow.client.menu.guipanels.*;
+import cc.abro.tow.client.menu.MenuLocation;
+import cc.abro.tow.client.menu.panels.gui.*;
 
 public class Game implements GameInterface {
 
@@ -32,15 +33,7 @@ public class Game implements GameInterface {
 
         //ServerLoader.mapPath = "maps/town100k.maptest";
 
-        Location location = new Location(Global.engine.render.getWidth(), Global.engine.render.getHeight());
-        location.background = new Background(new Color(0, 150, 14), Color.GREEN);
-        location.activate();
-
-        CachedGuiPanel cachedGuiPanel = Global.cachedGuiPanelStorage.getPanel(MainMenuGuiPanel.class);
-        new CachedGuiElementService().addCachedComponentToLocationShiftedToCenter(cachedGuiPanel,
-                Global.engine.render.getWidth() / 2,
-                Global.engine.render.getHeight() / 2,
-                location);
+        new MenuLocation().activate();
     }
 
     @Override
