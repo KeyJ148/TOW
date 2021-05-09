@@ -13,27 +13,22 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
 
     protected final static int MAIN_PANEL_WIDTH = 4 * MENU_ELEMENT_WIDTH / 3;
     protected final static int MAIN_PANEL_HEIGHT = 5 * MENU_ELEMENT_HEIGHT / 3;
-    protected final static int INDENT_Y_BELOW = 3 * MAIN_PANEL_HEIGHT / 5;
-    protected final static int INDENT_Y_ABOVE = MAIN_PANEL_HEIGHT / 5;
-    protected final static int LENGTH_TEXT_AREA_IP = 95;
-    protected final static int LENGTH_TEXT_AREA_PORT = 38;
 
     public ConnectByIPMenuGuiPanel() {
         init();
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
 
-        add(new Label("IP:", INDENT_X, INDENT_Y_ABOVE, 150, MENU_TEXT_FIELD_HEIGHT));
+        addLabel("IP:", INDENT_X, INDENT_Y, LABEL_LENGTH_ID, MENU_TEXT_FIELD_HEIGHT);
         TextAreaField textAreaFieldIP =
-                createTextAreaField(INDENT_X + 20, INDENT_Y_ABOVE, LENGTH_TEXT_AREA_IP, MENU_TEXT_FIELD_HEIGHT);
+                createTextAreaField(INDENT_X + LABEL_LENGTH_ID, INDENT_Y, LENGTH_TEXT_AREA_IP, MENU_TEXT_FIELD_HEIGHT);
 
-        add(new Label("Port:", MAIN_PANEL_WIDTH - LENGTH_TEXT_AREA_PORT - INDENT_X - 30, INDENT_Y_ABOVE, 150, MENU_TEXT_FIELD_HEIGHT));
+        addLabel("Port:", MAIN_PANEL_WIDTH - LABEL_LENGTH_PORT - LENGTH_TEXT_AREA_PORT - INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT);
         TextAreaField textAreaFieldPort =
-                createTextAreaField(MAIN_PANEL_WIDTH - LENGTH_TEXT_AREA_PORT - INDENT_X, INDENT_Y_ABOVE, LENGTH_TEXT_AREA_PORT, MENU_TEXT_FIELD_HEIGHT);
-        textAreaFieldPort.getTextState().setText("25566");
+                createTextAreaField(MAIN_PANEL_WIDTH - LENGTH_TEXT_AREA_PORT - INDENT_X, INDENT_Y, LENGTH_TEXT_AREA_PORT, MENU_TEXT_FIELD_HEIGHT, "25566");
 
-        addButton("Back", INDENT_X, INDENT_Y_BELOW, BUTTON_WIDTH, BUTTON_HEIGHT,
+        addButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                 getChangeCachedPanelMouseReleaseListener(ConnectMenuGuiPanel.class));
-        addButton("Connect", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, INDENT_Y_BELOW, BUTTON_WIDTH, BUTTON_HEIGHT,
+        addButton("Connect", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
                     if (wasConnect) return;
                     wasConnect = true;
