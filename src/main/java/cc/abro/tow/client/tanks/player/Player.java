@@ -6,9 +6,10 @@ import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
-import cc.abro.orchengine.gameobject.components.render.GuiElement;
+import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.services.GuiElementService;
+import cc.abro.orchengine.services.LeguiComponentService;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.GameSetting;
 import cc.abro.tow.client.tanks.Effect;
@@ -82,14 +83,14 @@ public class Player extends Tank {
         Label hpLabelComponent = new Label();
         hpLabelComponent.setFocusable(false);
         hpLabelComponent.getTextState().setFontSize(30);
-        hpLabel = new GuiElementService().addComponentToLocation(hpLabelComponent, 1, 10, Global.location);//TODO getComponent(Position.class)
+        hpLabel = new LeguiComponentService(new GuiElementService()).addComponentToLocation(hpLabelComponent, 1, 10, Global.location);//TODO getComponent(Position.class)
 
         statsLabel = new GameObject[stats.toString().split("\n").length + 4];
         for (int i = 0; i < statsLabel.length; i++) {
             Label statsLabelComponent = new Label();
             statsLabelComponent.setFocusable(false);
             statsLabelComponent.getTextState().setFontSize(17);
-            statsLabel[i] = new GuiElementService().addComponentToLocation(statsLabelComponent, 1, 30 + i * 15, Global.location);//TODO getComponent(Position.class)
+            statsLabel[i] = new LeguiComponentService(new GuiElementService()).addComponentToLocation(statsLabelComponent, 1, 30 + i * 15, Global.location);//TODO getComponent(Position.class)
         }
 
         //Создание кнопок для отключения подбора снаряжения
@@ -108,8 +109,9 @@ public class Player extends Tank {
             buttons[i].getStyle().setBackground(buttonsBackground[i]);
             buttons[i].setSize(15, 15);
 
-            buttonsTake[i] = new GuiElementService().addComponentToLocation(buttons[i],
-                    17 * i, Global.engine.render.getHeight() - 15, Global.location);//TODO getComponent(Position.class)
+            buttonsTake[i] = new LeguiComponentService(new GuiElementService()).addComponentToLocation(buttons[i],
+                    17 * i, Global.engine.render.getHeight() - 15, Global.location);
+            //TODO getComponent(Position.class) вместо Global.location, но это конструктор
         }
     }
 

@@ -1,8 +1,7 @@
-package cc.abro.tow.client.menu.guipanels;
+package cc.abro.tow.client.menu.panels.gui;
 
 import cc.abro.orchengine.image.Color;
 import cc.abro.tow.client.ClientData;
-import cc.abro.tow.client.menu.MenuGuiPanel;
 import cc.abro.tow.client.menu.SettingsConfirmationListener;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.Label;
@@ -62,10 +61,10 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
                     }));
         }
 
-        addButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
+        /*TODO addButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
                 BUTTON_WIDTH, BUTTON_HEIGHT, getChangeCachedPanelMouseReleaseListener(MainMenuGuiPanel.class));
         addButton("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                getMouseReleaseListener(event -> settingsConfirmationListener.confirm(textAreaFieldNickname.getTextState().getText(), tankColor)));
+                getMouseReleaseListener(event -> settingsConfirmationListener.confirm(textAreaFieldNickname.getTextState().getText(), tankColor)));*/
     }
 
     private void printErrorMessage(String message) {

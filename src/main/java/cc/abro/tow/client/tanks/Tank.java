@@ -8,10 +8,11 @@ import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
-import cc.abro.orchengine.gameobject.components.render.GuiElement;
+import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.services.GuiElementService;
+import cc.abro.orchengine.services.LeguiComponentService;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.GameSetting;
 import cc.abro.tow.client.particles.Explosion;
@@ -50,7 +51,7 @@ public abstract class Tank extends GameObject {
         camera = GameObjectFactory.create(0, 0, 0);
         Global.location.objAdd(camera);
 
-        nickname = new GuiElementService().addComponentToLocationShiftedToCenter(new Label(), 500, 30, Global.location);//TODO Position.location
+        nickname = new LeguiComponentService(new GuiElementService()).addComponentToLocationShiftedToCenter(new Label(), 500, 30, Global.location);//TODO Position.location
         nickname.getComponent(GuiElement.class).setMoveComponentToGameObjectPosition(true);
     }
 
@@ -61,7 +62,7 @@ public abstract class Tank extends GameObject {
         if (!alive) return;
 
         if (armor != null && armor.hasComponent(Position.class)) {
-            Label label = ((Label) ((GuiElement) nickname.getComponent(GuiElement.class)).getComponent());
+            Label label = ((Label) (nickname.getComponent(GuiElement.class)).getComponent());
             label.setFocusable(false); //Иначе событие мыши перехватывает надпись, и оно не поступает в игру
             label.getTextState().setText(name); //TODO: присваивать только один раз
 

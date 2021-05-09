@@ -1,16 +1,6 @@
-package cc.abro.tow.client.menu.guipanels;
+package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.orchengine.Global;
-import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.gameobject.components.Position;
-import cc.abro.orchengine.gui.CachedGuiPanel;
-import cc.abro.orchengine.services.CachedGuiElementService;
-import cc.abro.orchengine.services.GuiElementService;
 import cc.abro.tow.client.menu.HostingListener;
-import cc.abro.tow.client.menu.MenuGuiPanel;
-import org.liquidengine.legui.component.Button;
-import org.liquidengine.legui.component.Label;
-import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.component.optional.align.HorizontalAlign;
 import org.liquidengine.legui.component.optional.align.VerticalAlign;
@@ -39,9 +29,11 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
         textAreaFieldMaxPeople.getTextState().setHorizontalAlign(HorizontalAlign.CENTER);
 
 
-        addButton("Back to menu", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
+        /*TODO addButton("Back to menu", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
                 BUTTON_WIDTH, BUTTON_HEIGHT, getChangeCachedPanelMouseReleaseListener(MainMenuGuiPanel.class));
         addButton("Create a game", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListener(event -> hostingListener.host(textAreaFieldPort.getTextState().getText(), Integer.parseInt(textAreaFieldMaxPeople.getTextState().getText()))));
+                BUTTON_WIDTH, BUTTON_HEIGHT,
+                getMouseReleaseListener(event -> hostingListener.host(textAreaFieldPort.getTextState().getText(), Integer.parseInt(textAreaFieldMaxPeople.getTextState().getText()))));
+         */
     }
 }

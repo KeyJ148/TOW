@@ -7,7 +7,7 @@ import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
-import cc.abro.orchengine.gameobject.components.render.GuiElement;
+import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.map.Border;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.map.objects.Box;

@@ -1,6 +1,4 @@
-package cc.abro.tow.client.menu.guipanels;
-
-import cc.abro.tow.client.menu.MenuGuiPanel;
+package cc.abro.tow.client.menu.panels.gui;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
@@ -13,8 +11,8 @@ public class ListOfServersMenuGuiPanel extends MenuGuiPanel {
         init();
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
 
-        addButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_X, BUTTON_WIDTH, BUTTON_HEIGHT,
-                getChangeCachedPanelMouseReleaseListener(ConnectMenuGuiPanel.class));
+        /*TODO addButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_X, BUTTON_WIDTH, BUTTON_HEIGHT,
+                getChangeCachedPanelMouseReleaseListener(ConnectMenuGuiPanel.class));*/
 
     }
 }

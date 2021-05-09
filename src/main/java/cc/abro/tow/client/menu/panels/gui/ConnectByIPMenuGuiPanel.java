@@ -1,8 +1,6 @@
-package cc.abro.tow.client.menu.guipanels;
+package cc.abro.tow.client.menu.panels.gui;
 
 import cc.abro.orchengine.net.client.Connector;
-import cc.abro.tow.client.menu.MenuGuiPanel;
-import org.liquidengine.legui.component.Label;
 import org.liquidengine.legui.component.TextAreaField;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
@@ -26,7 +24,7 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
         TextAreaField textAreaFieldPort =
                 createTextAreaField(MAIN_PANEL_WIDTH - LENGTH_TEXT_AREA_PORT - INDENT_X, INDENT_Y, LENGTH_TEXT_AREA_PORT, MENU_TEXT_FIELD_HEIGHT, "25566");
 
-        addButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
+        /*TODO addButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                 getChangeCachedPanelMouseReleaseListener(ConnectMenuGuiPanel.class));
         addButton("Connect", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
@@ -37,7 +35,7 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
                     int port = Integer.parseInt(textAreaFieldPort.getTextState().getText());
 
                     new Connector().connect(ip, port);
-                }));
+                }));*/
 
     }
 }

@@ -1,20 +1,20 @@
-package cc.abro.tow.client.menu;
+package cc.abro.tow.client.menu.panels.gui;
 
 import cc.abro.orchengine.Global;
 import cc.abro.orchengine.gameobject.components.Position;
-import cc.abro.orchengine.gui.CachedGuiPanel;
-import cc.abro.orchengine.services.CachedGuiElementService;
+import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
+import cc.abro.orchengine.gui.EventableGuiPanel;
+import cc.abro.orchengine.gui.GuiPanel;
 import org.liquidengine.legui.component.*;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.font.FontRegistry;
-import org.liquidengine.legui.style.shadow.Shadow;
 
 import java.util.function.Consumer;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
-public class MenuGuiPanel extends CachedGuiPanel {
+public class MenuGuiPanel extends EventableGuiPanel {
 
     @Override
     public void init() {
@@ -36,10 +36,10 @@ public class MenuGuiPanel extends CachedGuiPanel {
         }
     }
 
-    public void addButton(String text, int x, int y, int width, int height, MouseClickEventListener event) {
+    public void addButton(String text, int x, int y, int width, int height, GuiElementEvent event) {
         Button button = new Button(text);
         button.setStyle(createButtonStyle());
-        button.getListenerMap().addListener(MouseClickEvent.class, event);
+        button.getListenerMap().addListener(MouseClickEvent.class, getMouseReleaseListenerToNotify(event));
         button.getTextState().setFont(FontRegistry.ROBOTO_REGULAR);
         button.getTextState().setFontSize(BUTTON_FONT_SIZE);
         button.getHoveredStyle().setBackground(createHoveredButtonBackground());
@@ -50,7 +50,7 @@ public class MenuGuiPanel extends CachedGuiPanel {
     protected Button createMenuButton(ButtonConfiguration buttonConfiguration) {
         Button button = new Button(buttonConfiguration.text);
         button.setStyle(createMenuButtonStyle());
-        button.getListenerMap().addListener(MouseClickEvent.class, buttonConfiguration.event);
+        button.getListenerMap().addListener(MouseClickEvent.class, getMouseReleaseListenerToNotify(buttonConfiguration.event));
         button.getTextState().setFont(FontRegistry.ROBOTO_BOLD);
         button.getTextState().setFontSize(MENU_BUTTON_FONT_SIZE);
         button.getHoveredStyle().setBackground(createHoveredMenuButtonBackground());
@@ -88,53 +88,11 @@ public class MenuGuiPanel extends CachedGuiPanel {
     protected static class ButtonConfiguration {
 
         public String text;
-        public MouseClickEventListener event;
+        public GuiElementEvent event;
 
-        public ButtonConfiguration(String text, MouseClickEventListener event) {
+        public ButtonConfiguration(String text, GuiElementEvent event) {
             this.text = text;
             this.event = event;
         }
-    }
-
-    public void destroy() {
-        getCachedGuiElementOnActiveLocation().destroy();
-    }
-
-    /* TODO
-    * 1) Мб вынести в отдельный сервис или в CachedGuiPanel? Или в Storage?
-    * 2) ыравнивание по центру
-    * 3) Создание на той же локации
-    * */
-    public void createCachedPanel(Class<? extends CachedGuiPanel> newGuiPanelClass) {
-        CachedGuiPanel cachedGuiPanel = Global.cachedGuiPanelStorage.getPanel(newGuiPanelClass);
-        new CachedGuiElementService().addCachedComponentToLocationShiftedToCenter(cachedGuiPanel,
-                Global.engine.render.getWidth() / 2,
-                Global.engine.render.getHeight() / 2,
-                getCachedGuiElementOnActiveLocation().getGameObject().getComponent(Position.class).location);
-    }
-
-    public MouseClickEventListener getDestroyThisPanelMouseReleaseListener() {
-        return getMouseReleaseListener(event -> destroy());
-    }
-
-    public MouseClickEventListener getCreateCachedPanelMouseReleaseListener(Class<? extends CachedGuiPanel> newGuiPanelClass) {
-        return getMouseReleaseListener(event -> createCachedPanel(newGuiPanelClass));
-    }
-
-    public MouseClickEventListener getChangeCachedPanelMouseReleaseListener(Class<? extends CachedGuiPanel> newGuiPanelClass) {
-        return getMouseReleaseListener(event -> {
-            destroy();
-            createCachedPanel(newGuiPanelClass);
-        });
-    }
-
-    @SuppressWarnings("unchecked")
-    public MouseClickEventListener getMouseReleaseListener(Consumer<MouseClickEvent<Component>> mouseReleaseAction) {
-        return event -> {
-            event.getTargetComponent().setFocused(false);
-            if (event.getAction() == MouseClickEvent.MouseClickAction.RELEASE) {
-                mouseReleaseAction.accept(event);
-            }
-        };
     }
 }

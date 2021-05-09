@@ -1,12 +1,7 @@
 package cc.abro.tow.client;
 
 import cc.abro.orchengine.Global;
-import cc.abro.orchengine.gui.CachedGuiPanel;
-import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.implementation.GameInterface;
-import cc.abro.orchengine.map.Background;
-import cc.abro.orchengine.map.Location;
-import cc.abro.orchengine.services.CachedGuiElementService;
 import cc.abro.tow.client.map.factory.MapObjectCreatorsLoader;
 import cc.abro.tow.client.menu.MenuLocation;
 import cc.abro.tow.client.menu.panels.gui.*;
@@ -17,12 +12,12 @@ public class Game implements GameInterface {
     public void init() {
         GameSetting.init();
 
-        Global.cachedGuiPanelStorage.registry(new MainMenuGuiPanel());
-        Global.cachedGuiPanelStorage.registry(new SettingsMenuGuiPanel());
-        Global.cachedGuiPanelStorage.registry(new ConnectMenuGuiPanel());
-        Global.cachedGuiPanelStorage.registry(new ConnectByIPMenuGuiPanel());
-        Global.cachedGuiPanelStorage.registry(new ListOfServersMenuGuiPanel());
-        Global.cachedGuiPanelStorage.registry(new CreateGameMenuGuiPanel());
+        Global.guiPanelStorage.registry(new MainMenuGuiPanel());
+        Global.guiPanelStorage.registry(new SettingsMenuGuiPanel());
+        Global.guiPanelStorage.registry(new ConnectMenuGuiPanel());
+        Global.guiPanelStorage.registry(new ConnectByIPMenuGuiPanel());
+        Global.guiPanelStorage.registry(new ListOfServersMenuGuiPanel());
+        Global.guiPanelStorage.registry(new CreateGameMenuGuiPanel());
 
 
         MapObjectCreatorsLoader.load();
