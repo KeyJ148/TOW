@@ -18,6 +18,7 @@ public final class InterfaceStyles {
     public final static int ERROR_ELEMENT_WIDTH = 400;
     public final static int ERROR_ELEMENT_HEIGHT = 120;
 
+    public final static int LENGTH_TEXT_AREA_MAX_PEOPLE = 20;
     public final static int LENGTH_TEXT_AREA_PORT = 50;
     public final static int LENGTH_TEXT_AREA_IP = 125;
 
@@ -29,6 +30,8 @@ public final class InterfaceStyles {
     public final static int LABEL_LENGTH_PORT = 37;
     public final static int LABEL_LENGTH_NICKNAME = 78;
     public final static int LABEL_LENGTH_ID = 20;
+    public final static int LABEL_LENGTH_MAX_PEOPLE = 130;
+
 
     public final static int MENU_BUTTON_FONT_SIZE = 30;
     public final static int BUTTON_FONT_SIZE = 20;
@@ -37,7 +40,7 @@ public final class InterfaceStyles {
 
     public final static Vector4f WHITE_COLOR = new Vector4f(1.0f, 1.0f, 1.0f, 1);
     public final static Vector4f DARK_WHITE_COLOR = new Vector4f(0.9f, 0.9f, 0.9f, 1);
-    public final static Vector4f DARK_LIGHT_GRAY_COLOR = new Vector4f(0.8f, 0.8f, 0.8f, 1);
+    public final static Vector4f VERY_LIGHT_GRAY_COLOR = new Vector4f(0.8f, 0.8f, 0.8f, 1);
     public final static Vector4f LIGHT_GRAY_COLOR = new Vector4f(0.7f, 0.7f, 0.7f, 1);
     public final static Vector4f SLIGHTLY_LIGHT_GRAY_COLOR = new Vector4f(0.6f, 0.6f, 0.6f, 1);
     public final static Vector4f GRAY_COLOR = new Vector4f(0.5f, 0.5f, 0.5f, 1);
@@ -47,18 +50,27 @@ public final class InterfaceStyles {
     public final static Vector4f LIGHT_BLACK_COLOR = new Vector4f(0.1f, 0.1f, 0.1f, 1);
     public final static Vector4f BLACK_COLOR = new Vector4f(0.0f, 0.0f, 0.0f, 1);
 
-    public final static Vector4f RED = new Vector4f(1.0f, 0.0f, 0.0f, 1);
+    public final static Vector4f INVISIBLE_COLOR = new Vector4f(0.0f, 0.0f, 0.0f, 0.0f);
 
-    public final static Vector4f GREEN = new Vector4f(0.0f, 1.0f, 0.0f, 1);
+    public final static Vector4f RED_COLOR = new Vector4f(1.0f, 0.0f, 0.0f, 1);
 
-    public final static Vector4f BLUE = new Vector4f(0.0f, 0.0f, 1.0f, 1);
+    public final static Vector4f GREEN_COLOR = new Vector4f(0.0f, 1.0f, 0.0f, 1);
+    public final static Vector4f BLIND_GREEN_COLOR = new Vector4f(0.4f, 0.9f, 0.4f, 1);
 
-    public final static Vector4f YELLOW = new Vector4f(1.0f, 1.0f, 0.0f, 1);
+    public final static Vector4f BLUE_COLOR = new Vector4f(0.0f, 0.0f, 1.0f, 1);
+
+    public final static Vector4f YELLOW_COLOR = new Vector4f(1.0f, 1.0f, 0.0f, 1);
 
 
     public static Background createTextAreaFieldBackground() {
         Background background = new Background();
         background.setColor(DARK_WHITE_COLOR);
+        return background;
+    }
+
+    public static Background createFocusedTextAreaFieldBackground() {
+        Background background = new Background();
+        background.setColor(BLIND_GREEN_COLOR);
         return background;
     }
 
@@ -105,11 +117,15 @@ public final class InterfaceStyles {
     }
 
     public static SimpleLineBorder createButtonBorder() {
-        return new SimpleLineBorder(ColorConstants.black(), 2f);
+        return new SimpleLineBorder(BLACK_COLOR, 2f);
     }
 
     public static SimpleLineBorder createPanelBorder() {
-        return new SimpleLineBorder(ColorConstants.black(), 3f);
+        return new SimpleLineBorder(BLACK_COLOR, 3f);
+    }
+
+    public static SimpleLineBorder createTextAreaFieldBorder() {
+        return new SimpleLineBorder(BLACK_COLOR, 1.5f);
     }
 
 
@@ -138,6 +154,8 @@ public final class InterfaceStyles {
     public static Style createTextAreaFieldStyle() {
         Style style = new Style();
         style.setBackground(createTextAreaFieldBackground());
+        style.setBorder(createTextAreaFieldBorder());
+        style.setFocusedStrokeColor(INVISIBLE_COLOR);
         return style;
     }
 }
