@@ -97,7 +97,11 @@ public class MenuGuiPanel extends CachedGuiPanel {
         getCachedGuiElementOnActiveLocation().destroy();
     }
 
-    //TODO Убрать зависимости от cachedGuiPanelStorage и Global.engine.render, мб от CachedGuiElementService
+    /* TODO
+    * 1) Мб вынести в отдельный сервис или в CachedGuiPanel? Или в Storage?
+    * 2) ыравнивание по центру
+    * 3) Создание на той же локации
+    * */
     public void createCachedPanel(Class<? extends CachedGuiPanel> newGuiPanelClass) {
         CachedGuiPanel cachedGuiPanel = Global.cachedGuiPanelStorage.getPanel(newGuiPanelClass);
         new CachedGuiElementService().addCachedComponentToLocationShiftedToCenter(cachedGuiPanel,
