@@ -28,7 +28,7 @@ public class MenuGuiPanel extends CachedGuiPanel {
         setSize(MENU_ELEMENT_WIDTH, buttonConfigurations.length * MENU_ELEMENT_HEIGHT);
 
         for (int i = 0; i < buttonConfigurations.length; i++) {
-            addComponentLU(createMenuButton(buttonConfigurations[i]), 0, i * MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
+            addComponent(createMenuButton(buttonConfigurations[i]), 0, i * MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
         }
     }
 
@@ -36,7 +36,7 @@ public class MenuGuiPanel extends CachedGuiPanel {
         Button button = new Button(text);
         button.setStyle(createButtonStyle());
         button.getListenerMap().addListener(MouseClickEvent.class, event);
-        addComponentLU(button, x, y, width, height);
+        addComponent(button, x, y, width, height);
     }
 
     protected Button createMenuButton(ButtonConfiguration buttonConfiguration) {
@@ -51,7 +51,7 @@ public class MenuGuiPanel extends CachedGuiPanel {
     public TextAreaField createTextAreaField(int x, int y, int width, int height) {
         TextAreaField textAreaField = new TextAreaField();
         textAreaField.setStyle(createTextAreaFieldStyle());
-        addComponentLU(textAreaField, x, y, width, height);
+        addComponent(textAreaField, x, y, width, height);
         return textAreaField;
     }
 
