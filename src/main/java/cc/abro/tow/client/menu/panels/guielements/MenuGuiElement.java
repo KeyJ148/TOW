@@ -2,19 +2,14 @@ package cc.abro.tow.client.menu.panels.guielements;
 
 import cc.abro.orchengine.Global;
 import cc.abro.orchengine.Loader;
-import cc.abro.orchengine.gameobject.components.Position;
-import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
-import cc.abro.orchengine.gameobject.components.gui.GuiPanelElement;
-import cc.abro.orchengine.services.GuiElementService;
-import cc.abro.tow.client.menu.panels.events.MainMenuGuiEvent;
+import cc.abro.orchengine.gameobject.components.gui.EventableGuiElement;
 import cc.abro.tow.client.menu.panels.gui.ConnectMenuGuiPanel;
-import cc.abro.tow.client.menu.panels.gui.MainMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.gui.MenuGuiPanel;
 
 import static cc.abro.tow.client.menu.panels.events.MainMenuGuiEvent.MainMenuGuiEventType.*;
 
-public class MenuGuiElement extends GuiPanelElement<MenuGuiPanel> {
+public class MenuGuiElement extends EventableGuiElement<MenuGuiPanel> {
 
     public MenuGuiElement(MenuGuiPanel component) {
         super(component);
