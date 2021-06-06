@@ -4,6 +4,8 @@ import cc.abro.orchengine.Global;
 import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementController;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
+import cc.abro.tow.client.menu.panels.controllers.settings.ClickBackController;
+import cc.abro.tow.client.menu.panels.controllers.settings.ClickConfirmController;
 import cc.abro.tow.client.menu.panels.gui.ConnectMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.gui.SettingsMenuGuiPanel;
 
@@ -14,7 +16,8 @@ public class ClickSettingsController extends GuiElementController<GuiElementEven
     @Override
     public void processEvent(GuiElementEvent event) {
         SettingsMenuGuiPanel guiPanel = Global.guiPanelStorage.getPanel(SettingsMenuGuiPanel.class);
-        EventableGuiPanelElement<SettingsMenuGuiPanel> guiElement = new EventableGuiPanelElement<>(guiPanel, Set.of());
+        EventableGuiPanelElement<SettingsMenuGuiPanel> guiElement = new EventableGuiPanelElement<>(guiPanel,
+                Set.of(new ClickConfirmController(), new ClickBackController()));
         getGuiElement().destroyAndCreateGuiElement(guiElement);
     }
 }

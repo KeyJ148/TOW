@@ -11,6 +11,7 @@ import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.font.FontRegistry;
 
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
@@ -37,9 +38,13 @@ public class MenuGuiPanel extends EventableGuiPanel {
     }
 
     public void addButton(String text, int x, int y, int width, int height, GuiElementEvent event) {
+        addButton(text, x, y, width, height, () -> event);
+    }
+
+    public void addButton(String text, int x, int y, int width, int height, Supplier<GuiElementEvent> eventSupplier) {
         Button button = new Button(text);
         button.setStyle(createButtonStyle());
-        button.getListenerMap().addListener(MouseClickEvent.class, getMouseReleaseListenerToNotify(event));
+        button.getListenerMap().addListener(MouseClickEvent.class, getMouseReleaseListenerToNotify(eventSupplier));
         button.getTextState().setFont(FontRegistry.ROBOTO_REGULAR);
         button.getTextState().setFontSize(BUTTON_FONT_SIZE);
         button.getHoveredStyle().setBackground(createHoveredButtonBackground());

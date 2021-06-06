@@ -4,6 +4,7 @@ import cc.abro.orchengine.Global;
 import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementController;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
+import cc.abro.tow.client.menu.panels.controllers.listofservers.ClickBackController;
 import cc.abro.tow.client.menu.panels.gui.ConnectMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.gui.ListOfServersMenuGuiPanel;
 
@@ -15,7 +16,7 @@ public class ClickListOfServersController extends GuiElementController<GuiElemen
     public void processEvent(GuiElementEvent event) {
         ListOfServersMenuGuiPanel guiPanel = Global.guiPanelStorage.getPanel(ListOfServersMenuGuiPanel.class);
         EventableGuiPanelElement<ListOfServersMenuGuiPanel> guiElement = new EventableGuiPanelElement<>(guiPanel,
-                Set.of());
+                Set.of(new ClickBackController()));
         getGuiElement().destroyAndCreateGuiElement(guiElement);
     }
 }

@@ -2,7 +2,8 @@ package cc.abro.tow.client.menu.panels.gui;
 
 import cc.abro.orchengine.image.Color;
 import cc.abro.tow.client.ClientData;
-import cc.abro.tow.client.menu.SettingsConfirmationListener;
+import cc.abro.tow.client.menu.panels.controllers.settings.ClickBackController;
+import cc.abro.tow.client.menu.panels.events.settings.ClickConfirmGuiEvent;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.Label;
 import org.liquidengine.legui.component.Panel;
@@ -46,7 +47,6 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
         addLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT);
         TextAreaField textAreaFieldNickname =
                 createTextAreaField(INDENT_X + LABEL_LENGTH_NICKNAME, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT);
-        SettingsConfirmationListener settingsConfirmationListener = new SettingsConfirmationListener(error -> new PrintErrorGuiPanel(error.getText(), this));
 
         Panel panelColor =
                 createPanel(SETTINGS_PANEL_WIDTH - PANEL_COLOR_WIDTH, 0, PANEL_COLOR_WIDTH, PANEL_COLOR_HEIGHT);
@@ -61,10 +61,11 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
                     }));
         }
 
-        /*TODO addButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, getChangeCachedPanelMouseReleaseListener(MainMenuGuiPanel.class));
-        addButton("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                getMouseReleaseListener(event -> settingsConfirmationListener.confirm(textAreaFieldNickname.getTextState().getText(), tankColor)));*/
+        addButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> ClickBackController.class);
+        addButton("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
+                SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
+                () -> new ClickConfirmGuiEvent(textAreaFieldNickname.getTextState().getText(), tankColor));
     }
 
     private void printErrorMessage(String message) {
