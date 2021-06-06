@@ -9,6 +9,7 @@ import cc.abro.tow.client.menu.panels.gui.ConnectMenuGuiPanel;
 import org.liquidengine.legui.component.Component;
 
 import java.util.List;
+import java.util.Set;
 
 public class ClickConnectController extends GuiElementController {
 
@@ -16,7 +17,7 @@ public class ClickConnectController extends GuiElementController {
     public void processEvent(GuiElementEvent event) {
         ConnectMenuGuiPanel guiPanel = Global.guiPanelStorage.getPanel(ConnectMenuGuiPanel.class);
         EventableGuiPanelElement<ConnectMenuGuiPanel> guiElement = new EventableGuiPanelElement<>(guiPanel,
-                List.of());
+                Set.of());
         getGuiElement().destroyAndCreateGuiElement(guiElement);
     }
 }

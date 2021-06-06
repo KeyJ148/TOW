@@ -7,9 +7,13 @@ import cc.abro.orchengine.map.Background;
 import cc.abro.orchengine.map.Location;
 import cc.abro.orchengine.services.GuiElementService;
 import cc.abro.tow.client.menu.panels.controllers.main.ClickConnectController;
+import cc.abro.tow.client.menu.panels.controllers.main.ClickExitController;
+import cc.abro.tow.client.menu.panels.controllers.main.ClickHostController;
+import cc.abro.tow.client.menu.panels.controllers.main.ClickSettingsController;
 import cc.abro.tow.client.menu.panels.gui.MainMenuGuiPanel;
 
 import java.util.List;
+import java.util.Set;
 
 public class MenuLocation extends Location {
 
@@ -19,7 +23,8 @@ public class MenuLocation extends Location {
 
         MainMenuGuiPanel guiPanel = Global.guiPanelStorage.getPanel(MainMenuGuiPanel.class);
         EventableGuiPanelElement<MainMenuGuiPanel> guiElement = new EventableGuiPanelElement<>(guiPanel,
-                List.of(new ClickConnectController()));
+                Set.of(new ClickConnectController(), new ClickHostController(), new ClickSettingsController(),
+                        new ClickExitController()));
         new GuiElementService().addGuiElementOnLocationCenter(guiElement, this);
     }
 }
