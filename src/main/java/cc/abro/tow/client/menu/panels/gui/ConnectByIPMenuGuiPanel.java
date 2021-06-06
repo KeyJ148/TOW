@@ -1,13 +1,14 @@
 package cc.abro.tow.client.menu.panels.gui;
 
 import cc.abro.orchengine.net.client.Connector;
+import cc.abro.tow.client.menu.panels.events.ConnectByIPMenuGuiEvent;
 import org.liquidengine.legui.component.TextAreaField;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
+import static cc.abro.tow.client.menu.panels.events.ConnectByIPMenuGuiEvent.ConnectByIPMenuGuiEventType.CLICK_BUTTON_BACK;
+import static cc.abro.tow.client.menu.panels.events.ConnectByIPMenuGuiEvent.ConnectByIPMenuGuiEventType.CLICK_BUTTON_CONNECT;
 
 public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
-
-    private boolean wasConnect = false;
 
     protected final static int MAIN_PANEL_WIDTH = 4 * MENU_ELEMENT_WIDTH / 3;
     protected final static int MAIN_PANEL_HEIGHT = 5 * MENU_ELEMENT_HEIGHT / 3;
@@ -24,18 +25,13 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
         TextAreaField textAreaFieldPort =
                 createTextAreaField(MAIN_PANEL_WIDTH - LENGTH_TEXT_AREA_PORT - INDENT_X, INDENT_Y, LENGTH_TEXT_AREA_PORT, MENU_TEXT_FIELD_HEIGHT, "25566");
 
-        /*TODO addButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                getChangeCachedPanelMouseReleaseListener(ConnectMenuGuiPanel.class));
+        addButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
+                new ConnectByIPMenuGuiEvent(CLICK_BUTTON_BACK));
         addButton("Connect", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                getMouseReleaseListener(event -> {
-                    if (wasConnect) return;
-                    wasConnect = true;
-
-                    String ip = (!textAreaFieldIP.getTextState().getText().isEmpty()) ? textAreaFieldIP.getTextState().getText() : "127.0.0.1";
-                    int port = Integer.parseInt(textAreaFieldPort.getTextState().getText());
-
-                    new Connector().connect(ip, port);
-                }));*/
-
+                new ConnectByIPMenuGuiEvent(
+                        CLICK_BUTTON_CONNECT,
+                        (!textAreaFieldIP.getTextState().getText().isEmpty()) ? textAreaFieldIP.getTextState().getText() : null,
+                        Integer.parseInt(textAreaFieldPort.getTextState().getText())
+                ));
     }
 }

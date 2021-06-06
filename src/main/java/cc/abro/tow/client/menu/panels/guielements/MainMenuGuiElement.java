@@ -4,14 +4,13 @@ import cc.abro.orchengine.Global;
 import cc.abro.orchengine.Loader;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
 import cc.abro.orchengine.gameobject.components.gui.EventableGuiElement;
-import cc.abro.tow.client.menu.panels.gui.ConnectMenuGuiPanel;
-import cc.abro.tow.client.menu.panels.gui.MenuGuiPanel;
+import cc.abro.tow.client.menu.panels.gui.*;
 
 import static cc.abro.tow.client.menu.panels.events.MainMenuGuiEvent.MainMenuGuiEventType.*;
 
-public class MenuGuiElement extends EventableGuiElement<MenuGuiPanel> {
+public class MainMenuGuiElement extends EventableGuiElement<MainMenuGuiPanel> {
 
-    public MenuGuiElement(MenuGuiPanel component) {
+    public MainMenuGuiElement(MainMenuGuiPanel component) {
         super(component);
         component.addListener(this); //TODO поменять весь класс на лямбду? Или анонимный класс.
         // TODO Запихать MainMenuGuiEvent как внутренний класс?
@@ -24,6 +23,16 @@ public class MenuGuiElement extends EventableGuiElement<MenuGuiPanel> {
         if (event.getType() == CLICK_CONNECT){
             ConnectMenuGuiPanel guiPanel = Global.guiPanelStorage.getPanel(ConnectMenuGuiPanel.class);
             ConnectMenuGuiElement guiElement = new ConnectMenuGuiElement(guiPanel);
+            destroyAndCreateGuiElement(guiElement);
+        }
+        if(event.getType() == CLICK_CREATE_GAME) {
+            CreateGameMenuGuiPanel guiPanel = Global.guiPanelStorage.getPanel(CreateGameMenuGuiPanel.class);
+            CreateGameMenuGuiElement guiElement = new CreateGameMenuGuiElement(guiPanel);
+            destroyAndCreateGuiElement(guiElement);
+        }
+        if(event.getType() == CLICK_SETTINGS) {
+            SettingsMenuGuiPanel guiPanel = Global.guiPanelStorage.getPanel(SettingsMenuGuiPanel.class);
+            SettingsMenuGuiElement guiElement = new SettingsMenuGuiElement(guiPanel);
             destroyAndCreateGuiElement(guiElement);
         }
         if (event.getType() == CLICK_EXIT){

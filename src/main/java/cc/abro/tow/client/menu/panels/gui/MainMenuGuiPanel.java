@@ -9,7 +9,7 @@ public class MainMenuGuiPanel extends MenuGuiPanel {
     public MainMenuGuiPanel() {
         init();
         addMenuButtons(new ButtonConfiguration("Connect to the game", new MainMenuGuiEvent(CLICK_CONNECT)),
-                new ButtonConfiguration("Create a game", new MainMenuGuiEvent(CLICK_HOST)),
+                new ButtonConfiguration("Create a game", new MainMenuGuiEvent(CLICK_CREATE_GAME)),
                 new ButtonConfiguration("Settings", new MainMenuGuiEvent(CLICK_SETTINGS)),
                 new ButtonConfiguration("Exit", new MainMenuGuiEvent(CLICK_EXIT)));
     }

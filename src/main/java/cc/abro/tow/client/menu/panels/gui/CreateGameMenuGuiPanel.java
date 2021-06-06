@@ -1,12 +1,16 @@
 package cc.abro.tow.client.menu.panels.gui;
 
 import cc.abro.tow.client.menu.HostingListener;
+import cc.abro.tow.client.menu.panels.events.CreateGameMenuGuiEvent;
+import cc.abro.tow.client.menu.panels.guielements.CreateGameMenuGuiElement;
 import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.component.optional.align.HorizontalAlign;
 import org.liquidengine.legui.component.optional.align.VerticalAlign;
 import org.liquidengine.legui.event.MouseClickEvent;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
+import static cc.abro.tow.client.menu.panels.events.CreateGameMenuGuiEvent.CreateGameMenuGuiEventType.CLICK_BUTTON_BACK;
+import static cc.abro.tow.client.menu.panels.events.CreateGameMenuGuiEvent.CreateGameMenuGuiEventType.CLICK_BUTTON_CREATE;
 
 public class CreateGameMenuGuiPanel extends MenuGuiPanel {
 
@@ -16,8 +20,6 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
     public CreateGameMenuGuiPanel() {
         init();
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
-
-        HostingListener hostingListener = new HostingListener(error -> new PrintErrorGuiPanel(error.getText(), this));
 
         addLabel("Port:", INDENT_X, INDENT_Y, LABEL_LENGTH_PORT, MENU_TEXT_FIELD_HEIGHT);
         TextAreaField textAreaFieldPort = createTextAreaField(INDENT_X + LABEL_LENGTH_PORT, INDENT_Y,
@@ -29,11 +31,13 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
         textAreaFieldMaxPeople.getTextState().setHorizontalAlign(HorizontalAlign.CENTER);
 
 
-        /*TODO addButton("Back to menu", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, getChangeCachedPanelMouseReleaseListener(MainMenuGuiPanel.class));
+        addButton("Back to menu", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
+                BUTTON_WIDTH, BUTTON_HEIGHT, new CreateGameMenuGuiEvent(CLICK_BUTTON_BACK));
         addButton("Create a game", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT,
-                getMouseReleaseListener(event -> hostingListener.host(textAreaFieldPort.getTextState().getText(), Integer.parseInt(textAreaFieldMaxPeople.getTextState().getText()))));
-         */
+                BUTTON_WIDTH, BUTTON_HEIGHT, new CreateGameMenuGuiEvent(
+                        CLICK_BUTTON_CREATE,
+                        textAreaFieldPort.getTextState().getText(),
+                        Integer.parseInt(textAreaFieldMaxPeople.getTextState().getText())
+                ));
     }
 }

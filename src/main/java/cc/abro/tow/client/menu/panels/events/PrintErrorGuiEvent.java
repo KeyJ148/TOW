@@ -3,11 +3,11 @@ package cc.abro.tow.client.menu.panels.events;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementEventType;
 
-public class MainMenuGuiEvent implements GuiElementEvent {
+public class PrintErrorGuiEvent implements GuiElementEvent {
 
     private final GuiElementEventType guiElementEventType;
 
-    public MainMenuGuiEvent(GuiElementEventType guiElementEventType){
+    public PrintErrorGuiEvent(GuiElementEventType guiElementEventType){
         this.guiElementEventType = guiElementEventType;
     }
 
@@ -17,6 +17,6 @@ public class MainMenuGuiEvent implements GuiElementEvent {
     }
 
     public enum MainMenuGuiEventType implements GuiElementEventType{
-        CLICK_CONNECT, CLICK_CREATE_GAME, CLICK_SETTINGS, CLICK_EXIT
+        CLICK_BUTTON_OK
     }
 }

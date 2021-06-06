@@ -1,13 +1,12 @@
 package cc.abro.tow.client.menu;
 
 import cc.abro.orchengine.Global;
-import cc.abro.orchengine.gui.GuiPanel;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.map.Background;
 import cc.abro.orchengine.map.Location;
 import cc.abro.orchengine.services.GuiElementService;
 import cc.abro.tow.client.menu.panels.gui.MainMenuGuiPanel;
-import cc.abro.tow.client.menu.panels.guielements.MenuGuiElement;
+import cc.abro.tow.client.menu.panels.guielements.MainMenuGuiElement;
 
 public class MenuLocation extends Location {
 
@@ -16,7 +15,7 @@ public class MenuLocation extends Location {
         background = new Background(new Color(0, 150, 14), Color.GREEN);
 
         MainMenuGuiPanel guiPanel = Global.guiPanelStorage.getPanel(MainMenuGuiPanel.class);
-        MenuGuiElement guiElement = new MenuGuiElement(guiPanel);
+        MainMenuGuiElement guiElement = new MainMenuGuiElement(guiPanel);
         new GuiElementService().addGuiElementOnLocationCenter(guiElement, this);
     }
 }
