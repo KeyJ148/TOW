@@ -7,9 +7,9 @@ import cc.abro.tow.client.menu.panels.controllers.connectbyip.ClickConnectContro
 public class ClickConnectGuiEvent implements GuiElementEvent {
 
     private final String ip;
-    private final int port;
+    private final String port;
 
-    public ClickConnectGuiEvent(String ip, int port) {
+    public ClickConnectGuiEvent(String ip, String port) {
         this.ip = ip;
         this.port = port;
     }
@@ -18,12 +18,12 @@ public class ClickConnectGuiEvent implements GuiElementEvent {
         return ip;
     }
 
-    public int getPort() {
+    public String getPort() {
         return port;
     }
 
     @Override
-    public Class<? extends GuiElementController> getControllerClass() {
+    public Class<? extends GuiElementController<ClickConnectGuiEvent>> getControllerClass() {
         return ClickConnectController.class;
     }
 }

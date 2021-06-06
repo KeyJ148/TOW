@@ -1,12 +1,10 @@
 package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.orchengine.net.client.Connector;
-import cc.abro.tow.client.menu.panels.events.ConnectByIPMenuGuiEvent;
+import cc.abro.tow.client.menu.panels.controllers.connectbyip.ClickBackController;
+import cc.abro.tow.client.menu.panels.events.connectbyip.ClickConnectGuiEvent;
 import org.liquidengine.legui.component.TextAreaField;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
-import static cc.abro.tow.client.menu.panels.events.ConnectByIPMenuGuiEvent.ConnectByIPMenuGuiEventType.CLICK_BUTTON_BACK;
-import static cc.abro.tow.client.menu.panels.events.ConnectByIPMenuGuiEvent.ConnectByIPMenuGuiEventType.CLICK_BUTTON_CONNECT;
 
 public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
 
@@ -26,12 +24,11 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
                 createTextAreaField(MAIN_PANEL_WIDTH - LENGTH_TEXT_AREA_PORT - INDENT_X, INDENT_Y, LENGTH_TEXT_AREA_PORT, MENU_TEXT_FIELD_HEIGHT, "25566");
 
         addButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                new ConnectByIPMenuGuiEvent(CLICK_BUTTON_BACK));
+                () -> ClickBackController.class);
         addButton("Connect", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                new ConnectByIPMenuGuiEvent(
-                        CLICK_BUTTON_CONNECT,
+                new ClickConnectGuiEvent(
                         (!textAreaFieldIP.getTextState().getText().isEmpty()) ? textAreaFieldIP.getTextState().getText() : null,
-                        Integer.parseInt(textAreaFieldPort.getTextState().getText())
+                        textAreaFieldPort.getTextState().getText()
                 ));
     }
 }

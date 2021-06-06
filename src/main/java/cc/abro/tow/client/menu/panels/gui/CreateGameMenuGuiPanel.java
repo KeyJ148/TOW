@@ -1,16 +1,11 @@
 package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.tow.client.menu.HostingListener;
-import cc.abro.tow.client.menu.panels.events.CreateGameMenuGuiEvent;
-import cc.abro.tow.client.menu.panels.guielements.CreateGameMenuGuiElement;
+import cc.abro.tow.client.menu.panels.controllers.creategame.ClickBackController;
+import cc.abro.tow.client.menu.panels.events.creategame.ClickCreateGuiEvent;
 import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.component.optional.align.HorizontalAlign;
-import org.liquidengine.legui.component.optional.align.VerticalAlign;
-import org.liquidengine.legui.event.MouseClickEvent;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
-import static cc.abro.tow.client.menu.panels.events.CreateGameMenuGuiEvent.CreateGameMenuGuiEventType.CLICK_BUTTON_BACK;
-import static cc.abro.tow.client.menu.panels.events.CreateGameMenuGuiEvent.CreateGameMenuGuiEventType.CLICK_BUTTON_CREATE;
 
 public class CreateGameMenuGuiPanel extends MenuGuiPanel {
 
@@ -32,10 +27,9 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
 
 
         addButton("Back to menu", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, new CreateGameMenuGuiEvent(CLICK_BUTTON_BACK));
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> ClickBackController.class);
         addButton("Create a game", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, new CreateGameMenuGuiEvent(
-                        CLICK_BUTTON_CREATE,
+                BUTTON_WIDTH, BUTTON_HEIGHT, new ClickCreateGuiEvent(
                         textAreaFieldPort.getTextState().getText(),
                         Integer.parseInt(textAreaFieldMaxPeople.getTextState().getText())
                 ));

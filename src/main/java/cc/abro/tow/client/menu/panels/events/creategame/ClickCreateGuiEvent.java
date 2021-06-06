@@ -7,15 +7,15 @@ import cc.abro.tow.client.menu.panels.controllers.main.ClickConnectController;
 
 public class ClickCreateGuiEvent implements GuiElementEvent {
 
-    private final int port;
+    private final String port;
     private final int peopleMax;
 
-    public ClickCreateGuiEvent(int port, int peopleMax) {
+    public ClickCreateGuiEvent(String port, int peopleMax) {
         this.port = port;
         this.peopleMax = peopleMax;
     }
 
-    public int getPort() {
+    public String getPort() {
         return port;
     }
 
@@ -24,7 +24,7 @@ public class ClickCreateGuiEvent implements GuiElementEvent {
     }
 
     @Override
-    public Class<? extends GuiElementController> getControllerClass() {
+    public Class<? extends GuiElementController<ClickCreateGuiEvent>> getControllerClass() {
         return ClickCreateController.class;
     }
 }

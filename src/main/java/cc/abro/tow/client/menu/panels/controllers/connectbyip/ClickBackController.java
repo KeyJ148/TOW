@@ -1,4 +1,4 @@
-package cc.abro.tow.client.menu.panels.controllers.connect;
+package cc.abro.tow.client.menu.panels.controllers.connectbyip;
 
 import cc.abro.orchengine.Global;
 import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
@@ -17,8 +17,8 @@ public class ClickBackController extends GuiElementController<GuiElementEvent> {
 
     @Override
     public void processEvent(GuiElementEvent event) {
-        MainMenuGuiPanel guiPanel = Global.guiPanelStorage.getPanel(MainMenuGuiPanel.class);
-        EventableGuiPanelElement<MainMenuGuiPanel> guiElement = new EventableGuiPanelElement<>(guiPanel,
+        ConnectMenuGuiPanel guiPanel = Global.guiPanelStorage.getPanel(ConnectMenuGuiPanel.class);
+        EventableGuiPanelElement<ConnectMenuGuiPanel> guiElement = new EventableGuiPanelElement<>(guiPanel,
                 Set.of(new ClickConnectController(), new ClickCreateGameController(), new ClickSettingsController(),
                         new ClickExitController()));
         getGuiElement().destroyAndCreateGuiElement(guiElement);
