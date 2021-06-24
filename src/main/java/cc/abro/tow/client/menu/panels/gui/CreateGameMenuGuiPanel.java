@@ -19,14 +19,14 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
 
         addLabel("Server name:", INDENT_X, INDENT_Y, LABEL_LENGTH_SERVER_NAME, MENU_TEXT_FIELD_HEIGHT);
         TextAreaField textAreaFieldServerName = createTextAreaField(INDENT_X + LABEL_LENGTH_SERVER_NAME, INDENT_Y,
-                LENGTH_TEXT_AREA_SERVER_NAME, MENU_TEXT_FIELD_HEIGHT, "Server");
+                TEXT_AREA_LENGTH_SERVER_NAME, MENU_TEXT_FIELD_HEIGHT, "Server");
         addLabel("Port:", INDENT_X, INDENT_Y_LAYER2, LABEL_LENGTH_PORT, MENU_TEXT_FIELD_HEIGHT);
         TextAreaField textAreaFieldPort = createTextAreaField(INDENT_X + LABEL_LENGTH_PORT, INDENT_Y_LAYER2,
-                LENGTH_TEXT_AREA_PORT, MENU_TEXT_FIELD_HEIGHT, "25566");
-        addLabel("Maximum people:", INDENT_X + LABEL_LENGTH_PORT + LENGTH_TEXT_AREA_PORT + 10, INDENT_Y_LAYER2,
+                TEXT_AREA_LENGTH_PORT, MENU_TEXT_FIELD_HEIGHT, "25566");
+        addLabel("Maximum people:", INDENT_X + LABEL_LENGTH_PORT + TEXT_AREA_LENGTH_PORT + 10, INDENT_Y_LAYER2,
                 LABEL_LENGTH_MAX_PEOPLE, MENU_TEXT_FIELD_HEIGHT);
-        TextAreaField textAreaFieldMaxPeople = createTextAreaField(INDENT_X + LABEL_LENGTH_PORT + LENGTH_TEXT_AREA_PORT + LABEL_LENGTH_MAX_PEOPLE + 10, INDENT_Y_LAYER2,
-                LENGTH_TEXT_AREA_MAX_PEOPLE, MENU_TEXT_FIELD_HEIGHT, "1");
+        TextAreaField textAreaFieldMaxPeople = createTextAreaField(INDENT_X + LABEL_LENGTH_PORT + TEXT_AREA_LENGTH_PORT + LABEL_LENGTH_MAX_PEOPLE + 10, INDENT_Y_LAYER2,
+                TEXT_AREA_LENGTH_MAX_PEOPLE, MENU_TEXT_FIELD_HEIGHT, "1");
         textAreaFieldMaxPeople.getTextState().setHorizontalAlign(HorizontalAlign.CENTER);
 
 

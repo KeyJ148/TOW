@@ -18,10 +18,10 @@ public final class InterfaceStyles {
     public final static int ERROR_ELEMENT_WIDTH = 400;
     public final static int ERROR_ELEMENT_HEIGHT = 120;
 
-    public final static int LENGTH_TEXT_AREA_MAX_PEOPLE = 20;
-    public final static int LENGTH_TEXT_AREA_PORT = 50;
-    public final static int LENGTH_TEXT_AREA_IP = 125;
-    public final static int LENGTH_TEXT_AREA_SERVER_NAME = 200;
+    public final static int TEXT_AREA_LENGTH_MAX_PEOPLE = 20;
+    public final static int TEXT_AREA_LENGTH_PORT = 50;
+    public final static int TEXT_AREA_LENGTH_IP = 125;
+    public final static int TEXT_AREA_LENGTH_SERVER_NAME = 200;
 
     public final static int INDENT_X = 18;
     public final static int INDENT_Y = INDENT_X + 4;

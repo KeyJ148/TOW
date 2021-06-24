@@ -17,11 +17,11 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
 
         addLabel("IP:", INDENT_X, INDENT_Y, LABEL_LENGTH_ID, MENU_TEXT_FIELD_HEIGHT);
         TextAreaField textAreaFieldIP =
-                createTextAreaField(INDENT_X + LABEL_LENGTH_ID, INDENT_Y, LENGTH_TEXT_AREA_IP, MENU_TEXT_FIELD_HEIGHT);
+                createTextAreaField(INDENT_X + LABEL_LENGTH_ID, INDENT_Y, TEXT_AREA_LENGTH_IP, MENU_TEXT_FIELD_HEIGHT);
 
-        addLabel("Port:", MAIN_PANEL_WIDTH - LABEL_LENGTH_PORT - LENGTH_TEXT_AREA_PORT - INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT);
+        addLabel("Port:", MAIN_PANEL_WIDTH - LABEL_LENGTH_PORT - TEXT_AREA_LENGTH_PORT - INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT);
         TextAreaField textAreaFieldPort =
-                createTextAreaField(MAIN_PANEL_WIDTH - LENGTH_TEXT_AREA_PORT - INDENT_X, INDENT_Y, LENGTH_TEXT_AREA_PORT, MENU_TEXT_FIELD_HEIGHT, "25566");
+                createTextAreaField(MAIN_PANEL_WIDTH - TEXT_AREA_LENGTH_PORT - INDENT_X, INDENT_Y, TEXT_AREA_LENGTH_PORT, MENU_TEXT_FIELD_HEIGHT, "25566");
 
         addButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                 () -> () -> ClickBackController.class);
