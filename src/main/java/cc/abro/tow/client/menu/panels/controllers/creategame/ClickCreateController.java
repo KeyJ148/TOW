@@ -38,25 +38,18 @@ public class ClickCreateController extends GuiElementController<ClickCreateGuiEv
     }
 
     public enum Error {
-        WRONG_PORT {
-            @Override
-            public String getText() {
-                return "ERROR: Port must be integer 1024-65535";
-            }
-        },
-        UNKNOWN {
-            @Override
-            public String getText() {
-                return "ERROR: Server is launching";
-            }
-        },
-        SERVER_LAUNCHING {
-            @Override
-            public String getText() {
-                return "ERROR: Something went wrong";
-            }
-        };
+        WRONG_PORT("ERROR: Port must be integer 1024-65535"),
+        UNKNOWN("ERROR: Server is launching"),
+        SERVER_LAUNCHING("ERROR: Something went wrong");
 
-        public abstract String getText();
+        private final String text;
+
+        Error(String text) {
+            this.text = text;
+        }
+
+        public String getText(){
+            return text;
+        }
     }
 }

@@ -24,9 +24,9 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
                 createTextAreaField(MAIN_PANEL_WIDTH - LENGTH_TEXT_AREA_PORT - INDENT_X, INDENT_Y, LENGTH_TEXT_AREA_PORT, MENU_TEXT_FIELD_HEIGHT, "25566");
 
         addButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                () -> ClickBackController.class);
+                () -> () -> ClickBackController.class);
         addButton("Connect", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                new ClickConnectGuiEvent(
+                () -> new ClickConnectGuiEvent(
                         (!textAreaFieldIP.getTextState().getText().isEmpty()) ? textAreaFieldIP.getTextState().getText() : null,
                         textAreaFieldPort.getTextState().getText()
                 ));

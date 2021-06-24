@@ -27,9 +27,9 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
 
 
         addButton("Back to menu", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> ClickBackController.class);
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> () -> ClickBackController.class);
         addButton("Create a game", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, new ClickCreateGuiEvent(
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickCreateGuiEvent(
                         textAreaFieldPort.getTextState().getText(),
                         Integer.parseInt(textAreaFieldMaxPeople.getTextState().getText())
                 ));

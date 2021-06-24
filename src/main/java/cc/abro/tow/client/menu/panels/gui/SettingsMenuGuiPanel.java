@@ -62,7 +62,7 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
         }
 
         addButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> ClickBackController.class);
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> () -> ClickBackController.class);
         addButton("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                 () -> new ClickConfirmGuiEvent(textAreaFieldNickname.getTextState().getText(), tankColor));
