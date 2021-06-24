@@ -21,6 +21,7 @@ public final class InterfaceStyles {
     public final static int LENGTH_TEXT_AREA_MAX_PEOPLE = 20;
     public final static int LENGTH_TEXT_AREA_PORT = 50;
     public final static int LENGTH_TEXT_AREA_IP = 125;
+    public final static int LENGTH_TEXT_AREA_SERVER_NAME = 200;
 
     public final static int INDENT_X = 18;
     public final static int INDENT_Y = INDENT_X + 4;
@@ -31,6 +32,7 @@ public final class InterfaceStyles {
     public final static int LABEL_LENGTH_NICKNAME = 78;
     public final static int LABEL_LENGTH_ID = 20;
     public final static int LABEL_LENGTH_MAX_PEOPLE = 130;
+    public final static int LABEL_LENGTH_SERVER_NAME = 96;
 
 
     public final static int MENU_BUTTON_FONT_SIZE = 30;
