@@ -86,6 +86,14 @@ public class MenuGuiPanel extends EventableGuiPanel {
         return panel;
     }
 
+    public ScrollablePanel createScrollablePanel(int x, int y, int width, int height) {
+        ScrollablePanel panel = new ScrollablePanel();
+        panel.setStyle(createScrollablePanelStyle());
+        panel.setFocusable(false);
+        addComponent(panel, x, y, width, height);
+        return panel;
+    }
+
     protected static class ButtonConfiguration {
 
         public String text;

@@ -82,6 +82,12 @@ public final class InterfaceStyles {
         return background;
     }
 
+    public static Background createScrollablePanelBackground() {
+        Background background = new Background();
+        background.setColor(LIGHT_GRAY_COLOR);
+        return background;
+    }
+
     public static Background createButtonBackground() {
         Background background = new Background();
         background.setColor(SLIGHTLY_DARK_GRAY_COLOR);
@@ -150,6 +156,13 @@ public final class InterfaceStyles {
         Style style = new Style();
         style.setBorder(createPanelBorder());
         style.setBackground(createPanelBackground());
+        return style;
+    }
+
+    public static Style createScrollablePanelStyle() {
+        Style style = new Style();
+        style.setBorder(createPanelBorder());
+        style.setBackground(createScrollablePanelBackground());
         return style;
     }
 
