@@ -23,9 +23,4 @@ public class ClickConfirmGuiEvent implements GuiElementEvent {
     public Color getTankColor() {
         return tankColor;
     }
-
-    @Override
-    public Class<? extends GuiElementController<ClickConfirmGuiEvent>> getControllerClass() {
-        return ClickConfirmController.class;
-    }
 }

@@ -1,6 +1,6 @@
 package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.tow.client.menu.panels.controllers.connectbyip.ClickBackController;
+import cc.abro.tow.client.menu.panels.events.ClickChangePanelGuiEvent;
 import cc.abro.tow.client.menu.panels.events.connectbyip.ClickConnectGuiEvent;
 import org.liquidengine.legui.component.TextAreaField;
 
@@ -24,7 +24,7 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
                 createTextAreaField(MAIN_PANEL_WIDTH - LENGTH_TEXT_AREA_PORT - INDENT_X, INDENT_Y, LENGTH_TEXT_AREA_PORT, MENU_TEXT_FIELD_HEIGHT, "25566");
 
         addButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                () -> () -> ClickBackController.class);
+                () -> new ClickChangePanelGuiEvent(ConnectMenuGuiPanel.class));
         addButton("Connect", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                 () -> new ClickConnectGuiEvent(
                         (!textAreaFieldIP.getTextState().getText().isEmpty()) ? textAreaFieldIP.getTextState().getText() : null,

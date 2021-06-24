@@ -21,9 +21,4 @@ public class ClickConnectGuiEvent implements GuiElementEvent {
     public String getPort() {
         return port;
     }
-
-    @Override
-    public Class<? extends GuiElementController<ClickConnectGuiEvent>> getControllerClass() {
-        return ClickConnectController.class;
-    }
 }

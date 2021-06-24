@@ -1,6 +1,6 @@
 package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.tow.client.menu.panels.controllers.listofservers.ClickBackController;
+import cc.abro.tow.client.menu.panels.events.ClickChangePanelGuiEvent;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
@@ -14,7 +14,7 @@ public class ListOfServersMenuGuiPanel extends MenuGuiPanel {
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
 
         addButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_X, BUTTON_WIDTH, BUTTON_HEIGHT,
-                () -> () -> ClickBackController.class);
+                () -> new ClickChangePanelGuiEvent(ConnectMenuGuiPanel.class));
 
     }
 }

@@ -1,6 +1,6 @@
 package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.tow.client.menu.panels.controllers.creategame.ClickBackController;
+import cc.abro.tow.client.menu.panels.events.ClickChangePanelGuiEvent;
 import cc.abro.tow.client.menu.panels.events.creategame.ClickCreateGuiEvent;
 import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.component.optional.align.HorizontalAlign;
@@ -27,7 +27,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
 
 
         addButton("Back to menu", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> () -> ClickBackController.class);
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangePanelGuiEvent(MainMenuGuiPanel.class));
         addButton("Create a game", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
                 BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickCreateGuiEvent(
                         textAreaFieldPort.getTextState().getText(),

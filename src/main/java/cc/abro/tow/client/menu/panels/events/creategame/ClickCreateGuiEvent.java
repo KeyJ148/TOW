@@ -1,9 +1,6 @@
 package cc.abro.tow.client.menu.panels.events.creategame;
 
-import cc.abro.orchengine.gameobject.components.gui.GuiElementController;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
-import cc.abro.tow.client.menu.panels.controllers.creategame.ClickCreateController;
-import cc.abro.tow.client.menu.panels.controllers.main.ClickConnectController;
 
 public class ClickCreateGuiEvent implements GuiElementEvent {
 
@@ -21,10 +18,5 @@ public class ClickCreateGuiEvent implements GuiElementEvent {
 
     public int getPeopleMax() {
         return peopleMax;
-    }
-
-    @Override
-    public Class<? extends GuiElementController<ClickCreateGuiEvent>> getControllerClass() {
-        return ClickCreateController.class;
     }
 }

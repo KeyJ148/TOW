@@ -13,6 +13,11 @@ public class ClickCreateController extends GuiElementController<ClickCreateGuiEv
     private boolean serverLaunching = false;
 
     @Override
+    protected Class<ClickCreateGuiEvent> getProcessedEventClass() {
+        return ClickCreateGuiEvent.class;
+    }
+
+    @Override
     public void processEvent(ClickCreateGuiEvent event) {
         if (serverLaunching) {
             new PrintErrorGuiPanel(Error.SERVER_LAUNCHING.getText(), getGuiElement().getComponent());

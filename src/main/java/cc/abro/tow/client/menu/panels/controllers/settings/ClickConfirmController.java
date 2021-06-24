@@ -5,6 +5,7 @@ import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementController;
 import cc.abro.orchengine.image.Color;
 import cc.abro.tow.client.ClientData;
+import cc.abro.tow.client.menu.panels.events.connectbyip.ClickConnectGuiEvent;
 import cc.abro.tow.client.menu.panels.events.settings.ClickConfirmGuiEvent;
 import cc.abro.tow.client.menu.panels.gui.PrintErrorGuiPanel;
 import cc.abro.tow.client.menu.panels.gui.SettingsMenuGuiPanel;
@@ -12,6 +13,11 @@ import cc.abro.tow.client.menu.panels.gui.SettingsMenuGuiPanel;
 import java.util.Set;
 
 public class ClickConfirmController extends GuiElementController<ClickConfirmGuiEvent> {
+
+    @Override
+    protected Class<ClickConfirmGuiEvent> getProcessedEventClass() {
+        return ClickConfirmGuiEvent.class;
+    }
 
     @Override
     public void processEvent(ClickConfirmGuiEvent event) {

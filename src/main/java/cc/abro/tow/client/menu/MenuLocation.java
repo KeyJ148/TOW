@@ -6,10 +6,9 @@ import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.map.Background;
 import cc.abro.orchengine.map.Location;
 import cc.abro.orchengine.services.GuiElementService;
-import cc.abro.tow.client.menu.panels.controllers.main.ClickConnectController;
+import cc.abro.tow.client.menu.panels.controllers.ClickChangePanelController;
 import cc.abro.tow.client.menu.panels.controllers.main.ClickExitController;
-import cc.abro.tow.client.menu.panels.controllers.main.ClickCreateGameController;
-import cc.abro.tow.client.menu.panels.controllers.main.ClickSettingsController;
+import cc.abro.tow.client.menu.panels.events.ClickChangePanelGuiEvent;
 import cc.abro.tow.client.menu.panels.gui.MainMenuGuiPanel;
 
 import java.util.Set;
@@ -22,8 +21,7 @@ public class MenuLocation extends Location {
 
         MainMenuGuiPanel guiPanel = Global.guiPanelStorage.getPanel(MainMenuGuiPanel.class);
         EventableGuiPanelElement<MainMenuGuiPanel> guiElement = new EventableGuiPanelElement<>(guiPanel,
-                Set.of(new ClickConnectController(), new ClickCreateGameController(), new ClickSettingsController(),
-                        new ClickExitController()));
+                ClickChangePanelController.CONTROLLERS.get(MainMenuGuiPanel.class).get());
         new GuiElementService().addGuiElementOnLocationCenter(guiElement, this);
     }
 }

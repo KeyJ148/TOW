@@ -12,6 +12,11 @@ public class ClickConnectController extends GuiElementController<ClickConnectGui
     private boolean wasConnect = false;
 
     @Override
+    protected Class<ClickConnectGuiEvent> getProcessedEventClass() {
+        return ClickConnectGuiEvent.class;
+    }
+
+    @Override
     public void processEvent(ClickConnectGuiEvent event) {
         if (wasConnect){
             return;
