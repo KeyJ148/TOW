@@ -18,9 +18,10 @@ public final class InterfaceStyles {
     public final static int ERROR_ELEMENT_WIDTH = 400;
     public final static int ERROR_ELEMENT_HEIGHT = 120;
 
-    public final static int LENGTH_TEXT_AREA_MAX_PEOPLE = 20;
-    public final static int LENGTH_TEXT_AREA_PORT = 50;
-    public final static int LENGTH_TEXT_AREA_IP = 125;
+    public final static int TEXT_AREA_LENGTH_MAX_PEOPLE = 20;
+    public final static int TEXT_AREA_LENGTH_PORT = 50;
+    public final static int TEXT_AREA_LENGTH_IP = 125;
+    public final static int TEXT_AREA_LENGTH_SERVER_NAME = 200;
 
     public final static int INDENT_X = 18;
     public final static int INDENT_Y = INDENT_X + 4;
@@ -31,6 +32,7 @@ public final class InterfaceStyles {
     public final static int LABEL_LENGTH_NICKNAME = 78;
     public final static int LABEL_LENGTH_ID = 20;
     public final static int LABEL_LENGTH_MAX_PEOPLE = 130;
+    public final static int LABEL_LENGTH_SERVER_NAME = 96;
 
 
     public final static int MENU_BUTTON_FONT_SIZE = 30;
@@ -77,6 +79,12 @@ public final class InterfaceStyles {
     public static Background createPanelBackground() {
         Background background = new Background();
         background.setColor(GRAY_COLOR);
+        return background;
+    }
+
+    public static Background createScrollablePanelBackground() {
+        Background background = new Background();
+        background.setColor(LIGHT_GRAY_COLOR);
         return background;
     }
 
@@ -148,6 +156,13 @@ public final class InterfaceStyles {
         Style style = new Style();
         style.setBorder(createPanelBorder());
         style.setBackground(createPanelBackground());
+        return style;
+    }
+
+    public static Style createScrollablePanelStyle() {
+        Style style = new Style();
+        style.setBorder(createPanelBorder());
+        style.setBackground(createScrollablePanelBackground());
         return style;
     }
 
