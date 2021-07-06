@@ -1,13 +1,15 @@
 package cc.abro.tow.client.tanks.player;
 
 import cc.abro.orchengine.Global;
-import cc.abro.orchengine.Vector2;
+import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
+import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.tanks.Effect;
 
@@ -112,7 +114,7 @@ public class Gun extends GameObject {
         effect.addition.damage = cr.findDouble("DAMAGE");
         effect.addition.range = cr.findInteger("RANGE");
 
-        texture = Global.spriteStorage.getSprite(cr.findString("IMAGE_NAME")).getTexture();
+        texture = Manager.getService(SpriteStorage.class).getSprite(cr.findString("IMAGE_NAME")).getTexture();
         title = cr.findString("TITLE");
     }
 }

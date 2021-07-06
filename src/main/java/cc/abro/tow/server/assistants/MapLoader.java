@@ -1,15 +1,11 @@
 package cc.abro.tow.server.assistants;
 
-import cc.abro.orchengine.Global;
-import cc.abro.orchengine.Vector2;
-import cc.abro.orchengine.gameobject.components.render.AnimationRender;
+import cc.abro.orchengine.util.Vector2;
 import cc.abro.orchengine.net.server.senders.ServerSendTCP;
 import cc.abro.tow.client.map.specification.MapSpecificationLoader;
 import cc.abro.tow.server.Server;
 import cc.abro.tow.server.data.ServerData;
 import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.Random;

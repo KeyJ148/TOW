@@ -1,6 +1,6 @@
 package cc.abro.tow.server;
 
-import cc.abro.orchengine.Vector2;
+import cc.abro.orchengine.util.Vector2;
 import cc.abro.orchengine.implementation.ServerInterface;
 import cc.abro.orchengine.net.server.GameServer;
 import cc.abro.orchengine.net.server.senders.ServerSendTCP;

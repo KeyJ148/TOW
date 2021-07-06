@@ -1,23 +1,18 @@
 package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.orchengine.Global;
+import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementController;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
 import cc.abro.orchengine.gui.EventableGuiPanel;
+import cc.abro.orchengine.gui.PanelControllersStorage;
 import org.liquidengine.legui.component.*;
-import org.liquidengine.legui.component.optional.Orientation;
 import org.liquidengine.legui.event.MouseClickEvent;
-import org.liquidengine.legui.listener.MouseClickEventListener;
-import org.liquidengine.legui.style.Style;
-import org.liquidengine.legui.style.border.SimpleLineBorder;
-import org.liquidengine.legui.style.color.ColorConstants;
 import org.liquidengine.legui.style.font.FontRegistry;
 
 import java.util.Set;
 import java.util.function.Supplier;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
-import static cc.abro.tow.client.menu.InterfaceStyles.createScrollablePanelStyle;
 
 public class MenuGuiPanel extends EventableGuiPanel {
 
@@ -29,7 +24,7 @@ public class MenuGuiPanel extends EventableGuiPanel {
 
     public void init(Supplier<Set<GuiElementController>> controllersSupplier){
         init();
-        Global.panelControllersStorage.registry(getClass(), controllersSupplier);
+        Manager.getService(PanelControllersStorage.class).registry(getClass(), controllersSupplier);
     }
 
     public void addLabel(String text, int x, int y, int width, int height) {

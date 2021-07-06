@@ -1,12 +1,17 @@
 package cc.abro.tow.client;
 
 import cc.abro.orchengine.Global;
+import cc.abro.orchengine.audio.AudioPlayer;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.implementation.NetGameReadInterface;
 import cc.abro.orchengine.map.Border;
 import cc.abro.orchengine.map.Location;
 import cc.abro.orchengine.net.client.Message;
+import cc.abro.orchengine.net.client.PingChecker;
+import cc.abro.orchengine.net.client.tcp.TCPControl;
+import cc.abro.orchengine.resources.audios.AudioStorage;
+import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.tow.client.map.MapObject;
 import cc.abro.tow.client.map.objects.Box;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;
@@ -21,6 +26,20 @@ import java.util.Map;
 import java.util.Vector;
 
 public class NetGameRead implements NetGameReadInterface {
+
+	private final AudioPlayer audioPlayer;
+	private final AudioStorage audioStorage;
+	private final PingChecker pingChecker;
+	private final TCPControl tcpControl;
+	private final SpriteStorage spriteStorage;
+
+	public NetGameRead(AudioPlayer audioPlayer, AudioStorage audioStorage, PingChecker pingChecker, TCPControl tcpControl, SpriteStorage spriteStorage){
+		this.audioPlayer = audioPlayer;
+		this.audioStorage = audioStorage;
+		this.pingChecker = pingChecker;
+		this.tcpControl = tcpControl;
+		this.spriteStorage = spriteStorage;
+	}
 
 	@Override
 	public void readTCP(Message message) {
@@ -98,7 +117,7 @@ public class NetGameRead implements NetGameReadInterface {
 	}
 
 	public void take1(String str) {
-		Global.pingCheck.takePing();
+		pingChecker.takePing();
 	}
 
 	//координаты игрока - (int x, int y, int direction, int speed, int directionDraw, int id)
@@ -149,10 +168,10 @@ public class NetGameRead implements NetGameReadInterface {
 				+ " " + ClientData.color.getGreen()
 				+ " " + ClientData.color.getBlue()
 				+ " " + ClientData.name;
-		Global.tcpControl.send(17, message);
+		tcpControl.send(17, message);
 
 		//Запускаем пингатор
-		Global.pingCheck.start();
+		pingChecker.start();
 	}
 
 	//позиция танка игрока при генерации карты (int x, int y, int direction)
@@ -200,7 +219,7 @@ public class NetGameRead implements NetGameReadInterface {
 	//начало рестарта
 	public void take8(String str) {
 		if (ClientData.player != null && ClientData.player.alive) {
-			Global.tcpControl.send(24, "");
+			tcpControl.send(24, "");
 			ClientData.player.win++;
 		}
 
@@ -220,7 +239,7 @@ public class NetGameRead implements NetGameReadInterface {
 
 	//конец отправки карты
 	public void take10(String str) {
-		Global.tcpControl.send(6, "");
+		tcpControl.send(6, "");
 	}
 
 	//старт игры (рестарт полностью завершен)
@@ -245,7 +264,7 @@ public class NetGameRead implements NetGameReadInterface {
 		long idNet = Long.parseLong(str.split(" ")[5]);
 		int idEmeny = Integer.parseInt(str.split(" ")[6]);
 
-		EnemyBullet enemyBullet = new EnemyBullet(x, y, speed, direction, Global.spriteStorage.getSprite(texture).getTexture(), idEmeny, idNet);
+		EnemyBullet enemyBullet = new EnemyBullet(x, y, speed, direction, spriteStorage.getSprite(texture).getTexture(), idEmeny, idNet);
 		ClientData.enemyBullet.add(enemyBullet);
 		Global.location.objAdd(enemyBullet);
 	}
@@ -352,7 +371,7 @@ public class NetGameRead implements NetGameReadInterface {
 		int y = Integer.parseInt(str.split(" ")[1]);
 		String sound = str.split(" ")[2];
 
-		Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio(sound), x, y, GameSetting.SOUND_RANGE);
+		audioPlayer.playSoundEffect(audioStorage.getAudio(sound), x, y, GameSetting.SOUND_RANGE);
 	}
 
 }

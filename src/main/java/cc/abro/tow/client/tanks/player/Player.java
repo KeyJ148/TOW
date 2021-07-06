@@ -1,13 +1,16 @@
 package cc.abro.tow.client.tanks.player;
 
 import cc.abro.orchengine.Global;
+import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
-import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.gui.GuiElement;
+import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
+import cc.abro.orchengine.net.client.tcp.TCPControl;
+import cc.abro.orchengine.net.client.udp.UDPControl;
 import cc.abro.orchengine.services.GuiElementService;
 import cc.abro.orchengine.services.LeguiComponentService;
 import cc.abro.tow.client.ClientData;
@@ -153,11 +156,11 @@ public class Player extends Tank {
         //Проверка HP
         if (hp <= 0) {
             if (lastDamagerEnemyId != -1) {
-                Global.tcpControl.send(23, String.valueOf(lastDamagerEnemyId));
+                Manager.getService(TCPControl.class).send(23, String.valueOf(lastDamagerEnemyId));
                 ClientData.enemy.get(lastDamagerEnemyId).kill++;
             }
 
-            Global.tcpControl.send(12, "");
+            Manager.getService(TCPControl.class).send(12, "");
             exploded();
         } else {
             if ((hp + delta / Math.pow(10, 9) * stats.hpRegen) > stats.hpMax) {
@@ -171,7 +174,7 @@ public class Player extends Tank {
         sendDataLast += delta;
         if (ClientData.battle && sendDataLast >= Math.pow(10, 9) / GameSetting.MPS) {
             sendDataLast -= Math.pow(10, 9) / GameSetting.MPS;
-            Global.udpControl.send(2, getData());
+            Manager.getService(UDPControl.class).send(2, getData());
         }
     }
 
@@ -201,7 +204,7 @@ public class Player extends Tank {
 
         //Отправляем сообщение о том, что мы сменили броню
         //String newName = ((Armor) armor).textureHandlers;
-        //Global.tcpControl.send(19, newName.substring(0, newName.lastIndexOf("_")));
+        //Manager.getService(TCPControl.class).send(19, newName.substring(0, newName.lastIndexOf("_")));
     }
 
     @Override
@@ -213,7 +216,7 @@ public class Player extends Tank {
         updateStats();
 
         //Отправляем сообщение о том, что мы сменили оружие
-        //Global.tcpControl.send(20, ((Gun) newGun).texture.name);
+        //Manager.getService(TCPControl.class).send(20, ((Gun) newGun).texture.name);
     }
 
     //Игрок попал по врагу и нанес damage урона

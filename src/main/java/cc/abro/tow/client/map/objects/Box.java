@@ -1,12 +1,16 @@
 package cc.abro.tow.client.map.objects;
 
 
-import cc.abro.orchengine.Global;
+import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.audio.AudioPlayer;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
+import cc.abro.orchengine.net.client.tcp.TCPControl;
+import cc.abro.orchengine.resources.audios.AudioStorage;
 import cc.abro.orchengine.resources.sprites.Sprite;
+import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.tow.client.GameSetting;
 import cc.abro.tow.client.tanks.equipment.EquipManager;
 import cc.abro.tow.client.tanks.player.Player;
@@ -42,7 +46,7 @@ public class Box extends GameObject {
 				break;
 		}
 
-		Sprite sprite = Global.spriteStorage.getSprite(nameBox);
+		Sprite sprite = Manager.getService(SpriteStorage.class).getSprite(nameBox);
 		setComponent(new Position(x, y, 1000));
 		setComponent(new SpriteRender(sprite.getTexture()));
 		setComponent(new Collision(sprite.getMask()));
@@ -75,9 +79,9 @@ public class Box extends GameObject {
 				break;
 		}
 
-		Global.tcpControl.send(21, String.valueOf(idBox));
+		Manager.getService(TCPControl.class).send(21, String.valueOf(idBox));
 
-		Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio(soundName), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
-		Global.tcpControl.send(25, (int) getComponent(Position.class).x + " " + (int) getComponent(Position.class).y + " " + soundName);
+		Manager.getService(AudioPlayer.class).playSoundEffect(Manager.getService(AudioStorage.class).getAudio(soundName), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
+		Manager.getService(TCPControl.class).send(25, (int) getComponent(Position.class).x + " " + (int) getComponent(Position.class).y + " " + soundName);
 	}
 }

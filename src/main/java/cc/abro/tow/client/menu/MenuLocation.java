@@ -1,9 +1,13 @@
 package cc.abro.tow.client.menu;
 
 import cc.abro.orchengine.Global;
+import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
+import cc.abro.orchengine.gui.GuiPanelStorage;
+import cc.abro.orchengine.gui.PanelControllersStorage;
 import cc.abro.orchengine.map.Background;
 import cc.abro.orchengine.map.Location;
+import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.services.GuiElementService;
 import cc.abro.tow.client.menu.panels.gui.MainMenuGuiPanel;
 
@@ -13,11 +17,11 @@ public class MenuLocation extends Location {
 
     public MenuLocation() {
         super(Global.engine.render.getWidth(), Global.engine.render.getHeight());
-        background = new Background(Global.spriteStorage.getSprite(BACKGROUND_SPRITE_NAME).getTexture());
+        background = new Background(Manager.getService(SpriteStorage.class).getSprite(BACKGROUND_SPRITE_NAME).getTexture());
 
-        MainMenuGuiPanel guiPanel = Global.guiPanelStorage.getPanel(MainMenuGuiPanel.class);
+        MainMenuGuiPanel guiPanel = Manager.getService(GuiPanelStorage.class).getPanel(MainMenuGuiPanel.class);
         EventableGuiPanelElement<MainMenuGuiPanel> guiElement = new EventableGuiPanelElement<>(guiPanel,
-                Global.panelControllersStorage.getControllers((MainMenuGuiPanel.class)));
+                Manager.getService(PanelControllersStorage.class).getControllers((MainMenuGuiPanel.class)));
         new GuiElementService().addGuiElementOnLocationCenter(guiElement, this);
     }
 }
