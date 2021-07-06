@@ -1,8 +1,8 @@
 package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.tow.client.menu.panels.controllers.ClickChangePanelController;
+import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelController;
+import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelGuiEvent;
 import cc.abro.tow.client.menu.panels.controllers.main.ClickExitController;
-import cc.abro.tow.client.menu.panels.events.ClickChangePanelGuiEvent;
 import cc.abro.tow.client.menu.panels.events.main.ClickExitGuiEvent;
 
 import java.util.Set;

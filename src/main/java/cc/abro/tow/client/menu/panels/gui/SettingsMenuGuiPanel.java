@@ -1,10 +1,10 @@
 package cc.abro.tow.client.menu.panels.gui;
 
+import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelController;
+import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelGuiEvent;
 import cc.abro.orchengine.image.Color;
 import cc.abro.tow.client.ClientData;
-import cc.abro.tow.client.menu.panels.controllers.ClickChangePanelController;
 import cc.abro.tow.client.menu.panels.controllers.settings.ClickConfirmController;
-import cc.abro.tow.client.menu.panels.events.ClickChangePanelGuiEvent;
 import cc.abro.tow.client.menu.panels.events.settings.ClickConfirmGuiEvent;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.Label;

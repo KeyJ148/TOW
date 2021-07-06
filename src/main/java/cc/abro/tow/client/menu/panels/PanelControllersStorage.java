@@ -3,13 +3,6 @@ package cc.abro.tow.client.menu.panels;
 import cc.abro.orchengine.Loader;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementController;
 import cc.abro.orchengine.gui.EventableGuiPanel;
-import cc.abro.orchengine.gui.GuiPanel;
-import cc.abro.tow.client.menu.panels.controllers.ClickChangePanelController;
-import cc.abro.tow.client.menu.panels.controllers.connectbyip.ClickConnectController;
-import cc.abro.tow.client.menu.panels.controllers.creategame.ClickCreateController;
-import cc.abro.tow.client.menu.panels.controllers.main.ClickExitController;
-import cc.abro.tow.client.menu.panels.controllers.settings.ClickConfirmController;
-import cc.abro.tow.client.menu.panels.gui.*;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.HashMap;

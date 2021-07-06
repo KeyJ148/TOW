@@ -3,7 +3,6 @@ package cc.abro.tow.client;
 import cc.abro.orchengine.image.Color;
 import cc.abro.tow.client.map.MapObject;
 import cc.abro.tow.client.map.factory.MapObjectFactory;
-import cc.abro.tow.client.menu.panels.PanelControllersStorage;
 import cc.abro.tow.client.tanks.enemy.Enemy;
 import cc.abro.tow.client.tanks.enemy.EnemyBullet;
 import cc.abro.tow.client.tanks.player.Player;
@@ -24,7 +23,6 @@ public class ClientData {
     public static long idNet = 1; //id объекта создаваемого у противника из-за действий игрока
 
     public static MapObjectFactory mapObjectFactory = new MapObjectFactory();
-    public static PanelControllersStorage panelControllersStorage = new PanelControllersStorage();
 
     //TODO: в наследника Location
     public static Vector<MapObject> mapObjects = new Vector<>();//Список всех объектов на карте

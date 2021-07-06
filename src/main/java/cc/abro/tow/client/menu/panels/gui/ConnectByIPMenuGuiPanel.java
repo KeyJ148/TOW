@@ -1,8 +1,8 @@
 package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.tow.client.menu.panels.controllers.ClickChangePanelController;
+import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelController;
+import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelGuiEvent;
 import cc.abro.tow.client.menu.panels.controllers.connectbyip.ClickConnectController;
-import cc.abro.tow.client.menu.panels.events.ClickChangePanelGuiEvent;
 import cc.abro.tow.client.menu.panels.events.connectbyip.ClickConnectGuiEvent;
 import org.liquidengine.legui.component.TextAreaField;
 
