@@ -5,6 +5,7 @@ import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementController;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
 import cc.abro.orchengine.gui.EventableGuiPanel;
+import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.menu.panels.controllers.connectbyip.ClickConnectController;
 import cc.abro.tow.client.menu.panels.controllers.creategame.ClickCreateController;
 import cc.abro.tow.client.menu.panels.controllers.main.ClickExitController;
@@ -19,16 +20,6 @@ import java.util.function.Supplier;
 
 public class ClickChangePanelController extends GuiElementController<ClickChangePanelGuiEvent> {
 
-    //TODO move to cache
-    public static final Map<Class<? extends EventableGuiPanel>, Supplier<Set<GuiElementController>>> CONTROLLERS = Map.ofEntries(
-            Map.entry(SettingsMenuGuiPanel.class, () -> Set.of(new ClickChangePanelController(), new ClickConfirmController())),
-            Map.entry(CreateGameMenuGuiPanel.class, () -> Set.of(new ClickChangePanelController(), new ClickCreateController())),
-            Map.entry(ConnectMenuGuiPanel.class, () -> Set.of(new ClickChangePanelController())),
-            Map.entry(MainMenuGuiPanel.class, () -> Set.of(new ClickChangePanelController(), new ClickExitController())),
-            Map.entry(ListOfServersMenuGuiPanel.class, () -> Set.of(new ClickChangePanelController())),
-            Map.entry(ConnectByIPMenuGuiPanel.class, () -> Set.of(new ClickChangePanelController(), new ClickConnectController()))
-    );
-
     @Override
     protected Class<ClickChangePanelGuiEvent> getProcessedEventClass() {
         return ClickChangePanelGuiEvent.class;
@@ -37,8 +28,8 @@ public class ClickChangePanelController extends GuiElementController<ClickChange
     @Override
     public void processEvent(ClickChangePanelGuiEvent event) {
         EventableGuiPanel guiPanel = Global.guiPanelStorage.getPanel(event.getNextPanelClass());
-        EventableGuiPanelElement<EventableGuiPanel> guiElement =
-                new EventableGuiPanelElement<>(guiPanel, CONTROLLERS.get(event.getNextPanelClass()).get());
+        EventableGuiPanelElement<EventableGuiPanel> guiElement = new EventableGuiPanelElement<>(
+                guiPanel, ClientData.panelControllersStorage.getControllers(event.getNextPanelClass()));
         getGuiElement().destroyAndCreateGuiElement(guiElement);
     }
 }

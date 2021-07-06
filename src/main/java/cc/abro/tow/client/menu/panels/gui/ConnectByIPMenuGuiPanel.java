@@ -1,8 +1,12 @@
 package cc.abro.tow.client.menu.panels.gui;
 
+import cc.abro.tow.client.menu.panels.controllers.ClickChangePanelController;
+import cc.abro.tow.client.menu.panels.controllers.connectbyip.ClickConnectController;
 import cc.abro.tow.client.menu.panels.events.ClickChangePanelGuiEvent;
 import cc.abro.tow.client.menu.panels.events.connectbyip.ClickConnectGuiEvent;
 import org.liquidengine.legui.component.TextAreaField;
+
+import java.util.Set;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
@@ -12,7 +16,7 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
     protected final static int MAIN_PANEL_HEIGHT = 5 * MENU_ELEMENT_HEIGHT / 3;
 
     public ConnectByIPMenuGuiPanel() {
-        init();
+        init(() -> Set.of(new ClickChangePanelController(), new ClickConnectController()));
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
 
         addLabel("IP:", INDENT_X, INDENT_Y, LABEL_LENGTH_ID, MENU_TEXT_FIELD_HEIGHT);

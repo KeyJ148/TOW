@@ -2,14 +2,17 @@ package cc.abro.tow.client.menu.panels.gui;
 
 import cc.abro.orchengine.Global;
 import cc.abro.orchengine.gameobject.components.Position;
+import cc.abro.orchengine.gameobject.components.gui.GuiElementController;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
 import cc.abro.orchengine.gui.EventableGuiPanel;
 import cc.abro.orchengine.gui.GuiPanel;
+import cc.abro.tow.client.ClientData;
 import org.liquidengine.legui.component.*;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.font.FontRegistry;
 
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -21,6 +24,11 @@ public class MenuGuiPanel extends EventableGuiPanel {
     public void init() {
         setStyle(createPanelStyle());
         setFocusable(false);
+    }
+
+    public void init(Supplier<Set<GuiElementController>> controllersSupplier){
+        init();
+        ClientData.panelControllersStorage.registry(getClass(), controllersSupplier);
     }
 
     public void addLabel(String text, int x, int y, int width, int height) {

@@ -2,6 +2,8 @@ package cc.abro.tow.client.menu.panels.gui;
 
 import cc.abro.orchengine.image.Color;
 import cc.abro.tow.client.ClientData;
+import cc.abro.tow.client.menu.panels.controllers.ClickChangePanelController;
+import cc.abro.tow.client.menu.panels.controllers.settings.ClickConfirmController;
 import cc.abro.tow.client.menu.panels.events.ClickChangePanelGuiEvent;
 import cc.abro.tow.client.menu.panels.events.settings.ClickConfirmGuiEvent;
 import org.liquidengine.legui.component.Button;
@@ -11,6 +13,8 @@ import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.Background;
+
+import java.util.Set;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
@@ -41,7 +45,7 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
     private Color tankColor;
 
     public SettingsMenuGuiPanel() {
-        init();
+        init(() -> Set.of(new ClickChangePanelController(), new ClickConfirmController()));
         setSize(SETTINGS_PANEL_WIDTH, SETTINGS_PANEL_HEIGHT);
 
         addLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT);

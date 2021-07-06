@@ -1,9 +1,13 @@
 package cc.abro.tow.client.menu.panels.gui;
 
+import cc.abro.tow.client.menu.panels.controllers.ClickChangePanelController;
+import cc.abro.tow.client.menu.panels.controllers.creategame.ClickCreateController;
 import cc.abro.tow.client.menu.panels.events.ClickChangePanelGuiEvent;
 import cc.abro.tow.client.menu.panels.events.creategame.ClickCreateGuiEvent;
 import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.component.optional.align.HorizontalAlign;
+
+import java.util.Set;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
@@ -14,7 +18,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
     protected final static int INDENT_Y_LAYER2 = + INDENT_Y + MENU_TEXT_FIELD_HEIGHT + 20;
 
     public CreateGameMenuGuiPanel() {
-        init();
+        init(() -> Set.of(new ClickChangePanelController(), new ClickCreateController()));
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
 
         addLabel("Server name:", INDENT_X, INDENT_Y, LABEL_LENGTH_SERVER_NAME, MENU_TEXT_FIELD_HEIGHT);
