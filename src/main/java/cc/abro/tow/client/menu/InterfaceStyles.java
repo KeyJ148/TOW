@@ -161,6 +161,7 @@ public final class InterfaceStyles {
 
     public static Style createScrollablePanelStyle() {
         Style style = new Style();
+        style.setDisplay(Style.DisplayType.FLEX);
         style.setBorder(createPanelBorder());
         style.setBackground(createScrollablePanelBackground());
         return style;

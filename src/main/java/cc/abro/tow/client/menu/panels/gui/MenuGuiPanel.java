@@ -5,13 +5,19 @@ import cc.abro.orchengine.gameobject.components.gui.GuiElementController;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
 import cc.abro.orchengine.gui.EventableGuiPanel;
 import org.liquidengine.legui.component.*;
+import org.liquidengine.legui.component.optional.Orientation;
 import org.liquidengine.legui.event.MouseClickEvent;
+import org.liquidengine.legui.listener.MouseClickEventListener;
+import org.liquidengine.legui.style.Style;
+import org.liquidengine.legui.style.border.SimpleLineBorder;
+import org.liquidengine.legui.style.color.ColorConstants;
 import org.liquidengine.legui.style.font.FontRegistry;
 
 import java.util.Set;
 import java.util.function.Supplier;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
+import static cc.abro.tow.client.menu.InterfaceStyles.createScrollablePanelStyle;
 
 public class MenuGuiPanel extends EventableGuiPanel {
 
@@ -85,14 +91,34 @@ public class MenuGuiPanel extends EventableGuiPanel {
         Panel panel = new Panel();
         panel.setStyle(createPanelStyle());
         panel.setFocusable(false);
-        addComponent(panel, x, y, width, height);
+        add(panel);
         return panel;
     }
 
     public ScrollablePanel createScrollablePanel(int x, int y, int width, int height) {
-        ScrollablePanel panel = new ScrollablePanel();
+        ScrollablePanel panel = new ScrollablePanel(x, y, width, height);
+        /*Style style = createScrollablePanelStyle();
+        panel.getStyle().setBackground(style.getBackground());
+        panel.getStyle().setBorder(style.getBorder());*/
         panel.setStyle(createScrollablePanelStyle());
+        panel.setHorizontalScrollBarVisible(false);
         panel.setFocusable(false);
+        panel.getContainer().setSize(panel.getSize().x, 10000);
+        panel.getContainer().add(new Button(0, 0, 200, 200));
+        panel.getContainer().add(new Button(000, 200, 200, 200));
+        panel.getContainer().add(new Button(000, 400, 200, 200));
+        panel.getContainer().add(new Button(000, 600, 200, 200));
+        panel.getContainer().add(new Button(000, 800, 200, 200));
+
+        /*ScrollBar scrollBar1 = new ScrollBar(360, 170, 20, 100, 20);
+        scrollBar1.setOrientation(Orientation.VERTICAL);
+        scrollBar1.setVisibleAmount(20);
+        scrollBar1.setArrowsEnabled(true);
+        scrollBar1.getStyle().getBackground().setColor(ColorConstants.white());
+        scrollBar1.setScrollColor(ColorConstants.darkGray());
+        scrollBar1.setArrowColor(ColorConstants.darkGray());
+        scrollBar1.getStyle().setBorder(new SimpleLineBorder(ColorConstants.red(), 1));
+        add(scrollBar1);*/
         addComponent(panel, x, y, width, height);
         return panel;
     }
