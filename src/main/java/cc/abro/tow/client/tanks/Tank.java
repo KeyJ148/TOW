@@ -14,7 +14,6 @@ import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.audios.AudioStorage;
-import cc.abro.orchengine.services.GuiElementService;
 import cc.abro.orchengine.services.LeguiComponentService;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.GameSetting;
@@ -54,7 +53,7 @@ public abstract class Tank extends GameObject {
         camera = GameObjectFactory.create(0, 0, 0);
         Global.location.objAdd(camera);
 
-        nickname = new LeguiComponentService(new GuiElementService()).addComponentToLocationShiftedToCenter(new Label(), 500, 30, Global.location);//TODO Position.location
+        nickname = Manager.getService(LeguiComponentService.class).addComponentToLocationShiftedToCenter(new Label(), 500, 30, Global.location);//TODO Position.location
         nickname.getComponent(GuiElement.class).setMoveComponentToGameObjectPosition(true);
     }
 

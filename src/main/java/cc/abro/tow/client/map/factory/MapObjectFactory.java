@@ -1,13 +1,8 @@
 package cc.abro.tow.client.map.factory;
 
-import cc.abro.orchengine.Global;
-import cc.abro.orchengine.Loader;
-import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.tow.client.map.MapObject;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;
 import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +15,7 @@ public class MapObjectFactory {
     public void registryNewCreator(MapObjectCreator mapObjectCreator) {
         if (mapObjectCreatorByType.containsKey(mapObjectCreator.getType())) {
             log.fatal("MapObjectCreator \"" + mapObjectCreator.getType() + "\" already exists");
-            Loader.exit();
+            throw new IllegalStateException("MapObjectCreator \"" + mapObjectCreator.getType() + "\" already exists");
         }
 
         mapObjectCreatorByType.put(mapObjectCreator.getType(), mapObjectCreator);

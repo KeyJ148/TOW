@@ -1,17 +1,12 @@
 package cc.abro.tow.client.tanks.equipment;
 
-import cc.abro.orchengine.Global;
-import cc.abro.orchengine.Loader;
 import cc.abro.orchengine.gameobject.components.Position;
-import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.tanks.player.Armor;
 import cc.abro.tow.client.tanks.player.Bullet;
 import cc.abro.tow.client.tanks.player.Gun;
 import cc.abro.tow.client.tanks.player.Player;
 import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
@@ -79,7 +74,7 @@ public class EquipManager {
             player.replaceArmor(newArmor);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             log.fatal("Armor not found: " + newArmorClass);
-            Loader.exit();
+            throw new RuntimeException(e);
         }
     }
 
@@ -114,7 +109,7 @@ public class EquipManager {
             newGun.init(player, player.gun.getComponent(Position.class).x, player.gun.getComponent(Position.class).y, player.gun.getComponent(Position.class).getDirectionDraw(), newGunName);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             log.fatal("Gun not found: " + newGunName);
-            Loader.exit();
+            throw new RuntimeException(e);
         }
 
         //Установление новой пушке параметров как у старой

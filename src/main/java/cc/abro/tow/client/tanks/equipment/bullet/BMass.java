@@ -1,17 +1,13 @@
 package cc.abro.tow.client.tanks.equipment.bullet;
 
 import cc.abro.orchengine.Global;
-import cc.abro.orchengine.Loader;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.map.objects.textured.TexturedMapObject;
 import cc.abro.tow.client.tanks.enemy.EnemyArmor;
 import cc.abro.tow.client.tanks.player.Bullet;
 import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
@@ -50,7 +46,7 @@ public class BMass extends Bullet {
                 }
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 log.fatal("Bullet create error: " + configName);
-                Loader.exit();
+                throw new RuntimeException(e);
             }
         }
 
