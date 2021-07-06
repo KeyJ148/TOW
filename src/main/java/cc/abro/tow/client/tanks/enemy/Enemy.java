@@ -1,6 +1,7 @@
 package cc.abro.tow.client.tanks.enemy;
 
 import cc.abro.orchengine.Global;
+import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.gameobject.GameObjectFactory;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
@@ -8,7 +9,10 @@ import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
+import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.animations.Animation;
+import cc.abro.orchengine.resources.animations.AnimationStorage;
+import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.tanks.Tank;
@@ -49,7 +53,7 @@ public class Enemy extends Tank {
             timeLastRequestDelta -= delta;
             if (timeLastRequestDelta <= 0) {
                 timeLastRequestDelta = REQUEST_DATA_EVERY_TIME;
-                Global.tcpControl.send(16, String.valueOf(id));
+                Manager.getService(TCPControl.class).send(16, String.valueOf(id));
             }
         }
     }
@@ -62,7 +66,7 @@ public class Enemy extends Tank {
 
         //Инициализация брони
         if (armor == null) {
-            Animation armorAnimation = Global.animationStorage.getAnimation("a_default");
+            Animation armorAnimation = Manager.getService(AnimationStorage.class).getAnimation("a_default");
             armor = new EnemyArmor(x, y, direction, 1000, armorAnimation, this);
             Global.location.objAdd(armor);
             setColorArmor(color);
@@ -73,7 +77,7 @@ public class Enemy extends Tank {
 
         //Инициализация пушки
         if (gun == null) {
-            Texture gunTexture = Global.spriteStorage.getSprite("g_default").getTexture();
+            Texture gunTexture = Manager.getService(SpriteStorage.class).getSprite("g_default").getTexture();
             gun = GameObjectFactory.create(x, y, directionGun, 0, gunTexture);
             gun.setComponent(new Movement());
             gun.getComponent(Movement.class).directionDrawEquals = false;
@@ -106,14 +110,14 @@ public class Enemy extends Tank {
     }
 
     public void newArmor(String nameArmor) {
-        armor.setComponent(new AnimationRender(Global.animationStorage.getAnimation(nameArmor).getTextures()));
+        armor.setComponent(new AnimationRender(Manager.getService(AnimationStorage.class).getAnimation(nameArmor).getTextures()));
         setColorArmor(color);
 
         Global.location.mapControl.update(armor);
     }
 
     public void newGun(String nameGun) {
-        gun.setComponent(new SpriteRender(Global.spriteStorage.getSprite(nameGun).getTexture()));
+        gun.setComponent(new SpriteRender(Manager.getService(SpriteStorage.class).getSprite(nameGun).getTexture()));
         setColorGun(color);
 
         Global.location.mapControl.update(gun);

@@ -2,7 +2,7 @@ package cc.abro.tow.client.tanks.player;
 
 import cc.abro.orchengine.Global;
 import cc.abro.orchengine.Loader;
-import cc.abro.orchengine.Vector2;
+import cc.abro.orchengine.util.Vector2;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Movement;
@@ -264,7 +264,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
             /* TODO
             Wall wall = (Wall) gameObject;
             if (wall.stabillity < player.stats.stability){
-                Global.tcpControl.send(22, String.valueOf(wall.mid));
+                Manager.getService(TCPControl.class).send(22, String.valueOf(wall.mid));
                 wall.destroyByArmor();
             }*/
         }

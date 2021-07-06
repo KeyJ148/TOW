@@ -9,6 +9,6 @@ import cc.abro.tow.server.Server;
 public class GameStart {
 
     public static void main(String[] args) {
-        Loader.start(new Game(), new NetGameRead(), new Server(), new NetServerRead());
+        Loader.start(Game.class, NetGameRead.class, Server.class, NetServerRead.class);
     }
 }

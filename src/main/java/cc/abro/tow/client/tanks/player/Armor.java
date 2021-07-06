@@ -1,6 +1,6 @@
 package cc.abro.tow.client.tanks.player;
 
-import cc.abro.orchengine.Global;
+import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Follower;
@@ -10,6 +10,7 @@ import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.map.Border;
 import cc.abro.orchengine.resources.animations.Animation;
+import cc.abro.orchengine.resources.animations.AnimationStorage;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.map.objects.Box;
 import cc.abro.tow.client.map.objects.textured.TexturedMapObject;
@@ -89,7 +90,7 @@ public class Armor extends GameObject {
         effect.addition.stability = cr.findInteger("STABILITY");
 
         animSpeed = cr.findInteger("ANIMATION_SPEED");
-        textureHandlers = Global.animationStorage.getAnimation(cr.findString("IMAGE_NAME"));
+        textureHandlers = Manager.getService(AnimationStorage.class).getAnimation(cr.findString("IMAGE_NAME"));
         title = cr.findString("TITLE");
     }
 }

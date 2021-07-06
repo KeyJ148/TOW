@@ -1,16 +1,19 @@
 package cc.abro.tow.client.tanks;
 
 import cc.abro.orchengine.Global;
+import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.audio.AudioPlayer;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.GameObjectFactory;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
+import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
-import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.image.Color;
+import cc.abro.orchengine.resources.audios.AudioStorage;
 import cc.abro.orchengine.services.GuiElementService;
 import cc.abro.orchengine.services.LeguiComponentService;
 import cc.abro.tow.client.ClientData;
@@ -96,7 +99,7 @@ public abstract class Tank extends GameObject {
             }
         }
 
-        Global.audioPlayer.playSoundEffect(Global.audioStorage.getAudio("explosion"), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
+        Manager.getService(AudioPlayer.class).playSoundEffect(Manager.getService(AudioStorage.class).getAudio("explosion"), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
     }
 
     public void replaceArmor(GameObject newArmor) {

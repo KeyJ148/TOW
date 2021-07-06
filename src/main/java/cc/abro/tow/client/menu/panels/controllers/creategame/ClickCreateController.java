@@ -1,5 +1,6 @@
 package cc.abro.tow.client.menu.panels.controllers.creategame;
 
+import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementController;
 import cc.abro.orchengine.net.client.Connector;
 import cc.abro.tow.client.menu.StartServerListener;
@@ -39,7 +40,7 @@ public class ClickCreateController extends GuiElementController<ClickCreateGuiEv
 
     @Override
     public void serverStart() {
-        new Connector().connect("127.0.0.1", port);
+        Manager.createBean(Connector.class).connect("127.0.0.1", port);
     }
 
     public enum Error {
