@@ -41,6 +41,13 @@ public class MenuGuiPanel extends EventableGuiPanel {
         add(label);
     }
 
+    public Label createLabel(String text, int x, int y, int width, int height) {
+        Label label = new Label(text, x, y, width, height);
+        label.getTextState().setFont(FontRegistry.ROBOTO_BOLD);
+        label.getTextState().setFontSize(BIG_LABEL_FONT_SIZE);
+        return label;
+    }
+
     public void addMenuButtons(ButtonConfiguration... buttonConfigurations) {
         setSize(MENU_ELEMENT_WIDTH, buttonConfigurations.length * MENU_ELEMENT_HEIGHT);
         for (int i = 0; i < buttonConfigurations.length; i++) {
