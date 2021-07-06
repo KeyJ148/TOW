@@ -39,6 +39,13 @@ public class MenuGuiPanel extends EventableGuiPanel {
         add(label);
     }
 
+    public void addBigLabel(String text, int x, int y, int width, int height) {
+        Label label = new Label(text, x, y, width, height);
+        label.getTextState().setFont(FontRegistry.ROBOTO_BOLD);
+        label.getTextState().setFontSize(BIG_LABEL_FONT_SIZE);
+        add(label);
+    }
+
     public void addMenuButtons(ButtonConfiguration... buttonConfigurations) {
         setSize(MENU_ELEMENT_WIDTH, buttonConfigurations.length * MENU_ELEMENT_HEIGHT);
         for (int i = 0; i < buttonConfigurations.length; i++) {
@@ -91,35 +98,21 @@ public class MenuGuiPanel extends EventableGuiPanel {
         Panel panel = new Panel();
         panel.setStyle(createPanelStyle());
         panel.setFocusable(false);
-        add(panel);
+        addComponent(panel, x, y, width, height);
         return panel;
     }
 
     public ScrollablePanel createScrollablePanel(int x, int y, int width, int height) {
         ScrollablePanel panel = new ScrollablePanel(x, y, width, height);
-        /*Style style = createScrollablePanelStyle();
-        panel.getStyle().setBackground(style.getBackground());
-        panel.getStyle().setBorder(style.getBorder());*/
         panel.setStyle(createScrollablePanelStyle());
+        ScrollBar scrollBar = panel.getVerticalScrollBar();
+        scrollBar.setStyle(createScrollBarStyle());
+        scrollBar.setScrollColor(DARK_GRAY_COLOR);
+        panel.getContainer().setStyle(createScrollablePanelContainerStyle());
+        panel.getContainer().setSize(panel.getSize());
         panel.setHorizontalScrollBarVisible(false);
         panel.setFocusable(false);
-        panel.getContainer().setSize(panel.getSize().x, 10000);
-        panel.getContainer().add(new Button(0, 0, 200, 200));
-        panel.getContainer().add(new Button(000, 200, 200, 200));
-        panel.getContainer().add(new Button(000, 400, 200, 200));
-        panel.getContainer().add(new Button(000, 600, 200, 200));
-        panel.getContainer().add(new Button(000, 800, 200, 200));
-
-        /*ScrollBar scrollBar1 = new ScrollBar(360, 170, 20, 100, 20);
-        scrollBar1.setOrientation(Orientation.VERTICAL);
-        scrollBar1.setVisibleAmount(20);
-        scrollBar1.setArrowsEnabled(true);
-        scrollBar1.getStyle().getBackground().setColor(ColorConstants.white());
-        scrollBar1.setScrollColor(ColorConstants.darkGray());
-        scrollBar1.setArrowColor(ColorConstants.darkGray());
-        scrollBar1.getStyle().setBorder(new SimpleLineBorder(ColorConstants.red(), 1));
-        add(scrollBar1);*/
-        addComponent(panel, x, y, width, height);
+        add(panel);
         return panel;
     }
 

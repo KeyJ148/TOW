@@ -33,11 +33,13 @@ public final class InterfaceStyles {
     public final static int LABEL_LENGTH_ID = 20;
     public final static int LABEL_LENGTH_MAX_PEOPLE = 130;
     public final static int LABEL_LENGTH_SERVER_NAME = 96;
+    public final static int LABEL_LENGTH_LIST_OF_SERVERS = 180;
 
 
     public final static int MENU_BUTTON_FONT_SIZE = 30;
     public final static int BUTTON_FONT_SIZE = 20;
     public final static int LABEL_FONT_SIZE = BUTTON_FONT_SIZE;
+    public final static int BIG_LABEL_FONT_SIZE = 35;
     public final static int LABEL_ERROR_FONT_SIZE = 18;
 
     public final static Vector4f WHITE_COLOR = new Vector4f(1.0f, 1.0f, 1.0f, 1);
@@ -88,6 +90,12 @@ public final class InterfaceStyles {
         return background;
     }
 
+    public static Background createScrollBarBackground() {
+        Background background = new Background();
+        background.setColor(LIGHT_GRAY_COLOR);
+        return background;
+    }
+
     public static Background createButtonBackground() {
         Background background = new Background();
         background.setColor(SLIGHTLY_DARK_GRAY_COLOR);
@@ -124,18 +132,39 @@ public final class InterfaceStyles {
         return background;
     }
 
+    public static Background createScrollablePanelContainerBackground() {
+        Background background = new Background();
+        background.setColor(LIGHT_GRAY_COLOR);
+        return background;
+    }
+
     public static SimpleLineBorder createButtonBorder() {
         return new SimpleLineBorder(BLACK_COLOR, 2f);
     }
 
     public static SimpleLineBorder createPanelBorder() {
-        return new SimpleLineBorder(BLACK_COLOR, 3f);
+        return new SimpleLineBorder(BLACK_COLOR, 2f);
     }
 
     public static SimpleLineBorder createTextAreaFieldBorder() {
         return new SimpleLineBorder(BLACK_COLOR, 1.5f);
     }
 
+    public static SimpleLineBorder createScrollBarBorder() {
+        return new SimpleLineBorder(BLACK_COLOR, 1.5f);
+    }
+
+    public static Style createScrollBarStyle() {
+        Style style = new Style();
+        style.setWidth(8.0F);
+        style.setTop(0.0F);
+        style.setRight(0.0F);
+        style.setBottom(8.0F);
+        style.setBorder(createScrollBarBorder());
+        style.setBackground(createScrollBarBackground());
+        style.setFocusedStrokeColor(LIGHT_GRAY_COLOR);
+        return style;
+    }
 
     public static Style createButtonStyle() {
         Style style = new Style();
@@ -164,6 +193,12 @@ public final class InterfaceStyles {
         style.setDisplay(Style.DisplayType.FLEX);
         style.setBorder(createPanelBorder());
         style.setBackground(createScrollablePanelBackground());
+        return style;
+    }
+
+    public static Style createScrollablePanelContainerStyle() {
+        Style style = new Style();
+        style.setBackground(createScrollablePanelContainerBackground());
         return style;
     }
 
