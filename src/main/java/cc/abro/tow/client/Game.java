@@ -20,7 +20,6 @@ public class Game implements GameInterface {
 
         guiPanelStorage.registry(new MainMenuGuiPanel());
         guiPanelStorage.registry(new SettingsMenuGuiPanel());
-        guiPanelStorage.registry(new ConnectMenuGuiPanel());
         guiPanelStorage.registry(new ConnectByIPMenuGuiPanel());
         guiPanelStorage.registry(new ListOfServersMenuGuiPanel());
         guiPanelStorage.registry(new CreateGameMenuGuiPanel());

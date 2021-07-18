@@ -11,7 +11,8 @@ import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
 public class ListOfServersMenuGuiPanel extends MenuGuiPanel {
 
-    protected final static int MAIN_PANEL_WIDTH = 6*INDENT_X + 5*BUTTON_WIDTH;
+    protected final static int MAIN_PANEL_WIDTH = (6*INDENT_X + 5*BUTTON_WIDTH) +
+            (MENU_ELEMENT_WIDTH > (6*INDENT_X + 5*BUTTON_WIDTH) ? MENU_ELEMENT_WIDTH - (6*INDENT_X + 5*BUTTON_WIDTH) : 0);
     protected final static int MAIN_PANEL_HEIGHT = 7 * MENU_ELEMENT_HEIGHT;
     protected final static int SERVER_NAME_PADDING_X = 5;
     protected final static int SERVER_IP_PADDING_X = 5;
@@ -19,6 +20,7 @@ public class ListOfServersMenuGuiPanel extends MenuGuiPanel {
     protected final static int SERVER_PING_PADDING_X = 5;
     protected final static int LIST_PADDING_Y = 10;
     protected final static int INDENT_Y = INDENT_X;
+    protected final static int INDENT_BUTTON_X = (MAIN_PANEL_WIDTH - 5*BUTTON_WIDTH)/6;
 
     public class Server {
         String name;
@@ -49,15 +51,15 @@ public class ListOfServersMenuGuiPanel extends MenuGuiPanel {
 
         }*/
 
-        addButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_X, BUTTON_WIDTH, BUTTON_HEIGHT,
-                () -> new ClickChangePanelGuiEvent(ConnectMenuGuiPanel.class));
-        addButton("Create server", 2*INDENT_X + BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_X,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangePanelGuiEvent(ConnectMenuGuiPanel.class));
-        addButton("Edit server", 3*INDENT_X + 2*BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_X,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangePanelGuiEvent(ConnectMenuGuiPanel.class));
-        addButton("Delete server", 4*INDENT_X + 3*BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_X,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangePanelGuiEvent(ConnectMenuGuiPanel.class));
-        addButton("Join the game", 5*INDENT_X + 4*BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_X,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangePanelGuiEvent(ConnectMenuGuiPanel.class));
+        addButton("Back", INDENT_BUTTON_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
+                () -> new ClickChangePanelGuiEvent(MainMenuGuiPanel.class));
+        addButton("Add server", 2*INDENT_BUTTON_X + BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangePanelGuiEvent(MainMenuGuiPanel.class));
+        addButton("Edit server", 3*INDENT_BUTTON_X + 2*BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangePanelGuiEvent(MainMenuGuiPanel.class));
+        addButton("Delete server", 4*INDENT_BUTTON_X + 3*BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangePanelGuiEvent(MainMenuGuiPanel.class));
+        addButton("Join the game", 5*INDENT_BUTTON_X + 4*BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangePanelGuiEvent(MainMenuGuiPanel.class));
     }
 }

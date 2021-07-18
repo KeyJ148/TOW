@@ -11,12 +11,13 @@ public final class InterfaceStyles {
 
     public final static int MENU_ELEMENT_WIDTH = 250;
     public final static int MENU_ELEMENT_HEIGHT = 70;
+    public final static int ERROR_ELEMENT_WIDTH = 400;
+    public final static int ERROR_ELEMENT_HEIGHT = 120;
+
     public final static int BUTTON_WIDTH = 106;
     public final static int SMALL_BUTTON_WIDTH = BUTTON_WIDTH/2;
     public final static int BUTTON_HEIGHT = 23;
     public final static int MENU_TEXT_FIELD_HEIGHT = BUTTON_HEIGHT;
-    public final static int ERROR_ELEMENT_WIDTH = 400;
-    public final static int ERROR_ELEMENT_HEIGHT = 120;
 
     public final static int TEXT_AREA_LENGTH_MAX_PEOPLE = 20;
     public final static int TEXT_AREA_LENGTH_PORT = 50;
@@ -34,7 +35,6 @@ public final class InterfaceStyles {
     public final static int LABEL_LENGTH_MAX_PEOPLE = 130;
     public final static int LABEL_LENGTH_SERVER_NAME = 96;
     public final static int LABEL_LENGTH_LIST_OF_SERVERS = 180;
-
 
     public final static int MENU_BUTTON_FONT_SIZE = 30;
     public final static int BUTTON_FONT_SIZE = 20;

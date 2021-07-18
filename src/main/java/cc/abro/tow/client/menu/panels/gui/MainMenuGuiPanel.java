@@ -11,8 +11,9 @@ public class MainMenuGuiPanel extends MenuGuiPanel {
 
     public MainMenuGuiPanel() {
         init(() -> Set.of(new ClickChangePanelController(), new ClickExitController()));
-        addMenuButtons(new ButtonConfiguration("Connect to the game", new ClickChangePanelGuiEvent(ConnectMenuGuiPanel.class)),
-                new ButtonConfiguration("Create a game", new ClickChangePanelGuiEvent(CreateGameMenuGuiPanel.class)),
+        addMenuButtons(new ButtonConfiguration("Create a game", new ClickChangePanelGuiEvent(CreateGameMenuGuiPanel.class)),
+                new ButtonConfiguration("List of servers", new ClickChangePanelGuiEvent(ListOfServersMenuGuiPanel.class)),
+                new ButtonConfiguration("Connect via IP", new ClickChangePanelGuiEvent(ConnectByIPMenuGuiPanel.class)),
                 new ButtonConfiguration("Settings", new ClickChangePanelGuiEvent(SettingsMenuGuiPanel.class)),
                 new ButtonConfiguration("Exit", new ClickExitGuiEvent()));
     }
