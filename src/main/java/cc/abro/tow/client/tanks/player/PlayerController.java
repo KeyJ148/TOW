@@ -1,14 +1,15 @@
 package cc.abro.tow.client.tanks.player;
 
 import cc.abro.orchengine.Global;
-import cc.abro.orchengine.Loader;
-import cc.abro.orchengine.util.Vector2;
+import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.cycle.Engine;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.map.Border;
+import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.map.objects.Box;
 import cc.abro.tow.client.map.objects.textured.TexturedMapObject;
@@ -50,7 +51,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
          * Смотрим на все зажатые клавиши
          */
 
-        if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_ESCAPE)) Loader.exit();
+        if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_ESCAPE)) Manager.getService(Engine.class).stop();
 
         //TODO:
         //if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_TAB) && !PlayerTable.enable) PlayerTable.enable();

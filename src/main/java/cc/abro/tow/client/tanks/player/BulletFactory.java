@@ -1,13 +1,8 @@
 package cc.abro.tow.client.tanks.player;
 
-import cc.abro.orchengine.Global;
-import cc.abro.orchengine.Loader;
-import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.tanks.equipment.bullet.BDefault;
 import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @Log4j2
 public class BulletFactory {
@@ -32,9 +27,7 @@ public class BulletFactory {
             return newBullet;
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             log.error("Bullet create error: " + player.bullet.name);
-            Loader.exit();
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 }
