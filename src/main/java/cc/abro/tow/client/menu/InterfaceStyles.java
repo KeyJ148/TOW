@@ -14,6 +14,8 @@ public final class InterfaceStyles {
     public final static int ERROR_ELEMENT_WIDTH = 400;
     public final static int ERROR_ELEMENT_HEIGHT = 120;
 
+    public final static int MENU_BUTTON_WIDTH = MENU_ELEMENT_WIDTH;
+    public final static int MENU_BUTTON_HEIGHT = 3*MENU_ELEMENT_HEIGHT/4;
     public final static int BUTTON_WIDTH = 106;
     public final static int SMALL_BUTTON_WIDTH = BUTTON_WIDTH/2;
     public final static int BUTTON_HEIGHT = 23;
@@ -152,6 +154,14 @@ public final class InterfaceStyles {
 
     public static SimpleLineBorder createScrollBarBorder() {
         return new SimpleLineBorder(BLACK_COLOR, 1.5f);
+    }
+
+
+    public static Style createInvisibleStyle() {
+        Style style = new Style();
+        style.getBackground().setColor(INVISIBLE_COLOR);
+        style.setBorder(new SimpleLineBorder(INVISIBLE_COLOR, 0));
+        return style;
     }
 
     public static Style createScrollBarStyle() {

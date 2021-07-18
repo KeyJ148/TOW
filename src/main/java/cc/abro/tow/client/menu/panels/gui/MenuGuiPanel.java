@@ -7,6 +7,7 @@ import cc.abro.orchengine.gui.EventableGuiPanel;
 import cc.abro.orchengine.gui.PanelControllersStorage;
 import org.liquidengine.legui.component.*;
 import org.liquidengine.legui.event.MouseClickEvent;
+import org.liquidengine.legui.style.Background;
 import org.liquidengine.legui.style.font.FontRegistry;
 
 import java.util.Set;
@@ -49,9 +50,16 @@ public class MenuGuiPanel extends EventableGuiPanel {
     }
 
     public void addMenuButtons(ButtonConfiguration... buttonConfigurations) {
-        setSize(MENU_ELEMENT_WIDTH, buttonConfigurations.length * MENU_ELEMENT_HEIGHT);
+        final int INDENT = 5;
+        final int MENU_PANEL_WIDTH = INDENT*2 + MENU_BUTTON_WIDTH;
+        final int MENU_PANEL_HEIGHT = INDENT + buttonConfigurations.length * (INDENT + MENU_BUTTON_HEIGHT);
+        setSize(MENU_PANEL_WIDTH, MENU_PANEL_HEIGHT);
+        setStyle(createInvisibleStyle());
         for (int i = 0; i < buttonConfigurations.length; i++) {
-            addComponent(createMenuButton(buttonConfigurations[i]), 0, i * MENU_ELEMENT_HEIGHT, MENU_ELEMENT_WIDTH, MENU_ELEMENT_HEIGHT);
+            addComponent(createMenuButton(buttonConfigurations[i]),
+                    (MENU_PANEL_WIDTH - MENU_BUTTON_WIDTH)/2,
+                    (MENU_PANEL_HEIGHT - (buttonConfigurations.length * (INDENT + MENU_BUTTON_HEIGHT) - INDENT))/2 + i * (INDENT + MENU_BUTTON_HEIGHT),
+                    MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
         }
     }
 
