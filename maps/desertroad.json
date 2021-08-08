@@ -1380,7 +1380,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 157,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1391,7 +1391,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 67,
+        "direction": 90,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1402,7 +1402,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 22,
+        "direction": 0,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1413,7 +1413,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 22,
+        "direction": 0,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1424,7 +1424,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 22,
+        "direction": 0,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1446,7 +1446,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 158,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1457,7 +1457,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 45,
+        "direction": 90,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1468,7 +1468,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 338,
+        "direction": 270,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1479,7 +1479,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 248,
+        "direction": 270,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1490,7 +1490,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 248,
+        "direction": 270,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1501,7 +1501,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 135,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1512,7 +1512,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 135,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1534,7 +1534,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 293,
+        "direction": 270,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1545,7 +1545,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 293,
+        "direction": 270,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1556,7 +1556,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 203,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1567,7 +1567,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 135,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -1578,7 +1578,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 135,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
