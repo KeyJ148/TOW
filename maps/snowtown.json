@@ -4592,9 +4592,9 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 158,
+        "direction": 180,
         "stability": 30,
-        "texture": "tree_wither_1"
+        "texture": "tree_snowfull_1"
       }
     },
     {
@@ -4603,9 +4603,9 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 158,
+        "direction": 180,
         "stability": 30,
-        "texture": "tree_wither_1"
+        "texture": "tree_snowfull_1"
       }
     },
     {
@@ -4614,9 +4614,9 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 158,
+        "direction": 180,
         "stability": 30,
-        "texture": "tree_wither_1"
+        "texture": "tree_snowfull_1"
       }
     },
     {
@@ -4625,9 +4625,9 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 158,
+        "direction": 180,
         "stability": 30,
-        "texture": "tree_wither_1"
+        "texture": "tree_snowfull_1"
       }
     },
     {
@@ -4636,9 +4636,9 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 158,
+        "direction": 180,
         "stability": 30,
-        "texture": "tree_wither_1"
+        "texture": "tree_snowfull_1"
       }
     },
     {
@@ -4647,9 +4647,9 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 158,
+        "direction": 180,
         "stability": 30,
-        "texture": "tree_wither_1"
+        "texture": "tree_snowfull_1"
       }
     },
     {
@@ -4658,9 +4658,9 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 158,
+        "direction": 180,
         "stability": 30,
-        "texture": "tree_wither_1"
+        "texture": "tree_snowfull_1"
       }
     },
     {
@@ -4669,9 +4669,9 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 158,
+        "direction": 180,
         "stability": 30,
-        "texture": "tree_wither_1"
+        "texture": "tree_snowfull_1"
       }
     }
   ]

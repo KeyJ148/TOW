@@ -376,7 +376,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 170,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }

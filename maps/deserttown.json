@@ -7196,7 +7196,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 68,
+        "direction": 90,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -12663,7 +12663,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 135,
+        "direction": 90,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -12674,7 +12674,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 135,
+        "direction": 90,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -12685,7 +12685,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 135,
+        "direction": 90,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -12696,7 +12696,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 135,
+        "direction": 90,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -12707,7 +12707,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 135,
+        "direction": 90,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -12718,7 +12718,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 135,
+        "direction": 90,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -12729,7 +12729,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 135,
+        "direction": 90,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -12740,7 +12740,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 135,
+        "direction": 90,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -12751,7 +12751,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 135,
+        "direction": 90,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -15776,7 +15776,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 45,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -17063,7 +17063,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 170,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -17074,7 +17074,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 170,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -17085,7 +17085,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 170,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -17096,7 +17096,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 170,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -17107,7 +17107,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 170,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -17118,7 +17118,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 170,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -17129,7 +17129,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 170,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
@@ -17140,7 +17140,7 @@
       "z": 2500,
       "type": "destroyed",
       "parameters": {
-        "direction": 170,
+        "direction": 180,
         "stability": 30,
         "texture": "tree_wither_1"
       }
