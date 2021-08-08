@@ -2,67 +2,67 @@
   {
     "name": "a_default",
     "texturePaths": [
-      "res/graphics/animations/textures_packs/corps/a_default/a_default_1.png",
-      "res/graphics/animations/textures_packs/corps/a_default/a_default_2.png"
+      "graphics/animations/textures_packs/corps/a_default/a_default_1.png",
+      "graphics/animations/textures_packs/corps/a_default/a_default_2.png"
     ],
-    "maskPath": "res/graphics/animations/masks/corps/a_default.json"
+    "maskPath": "graphics/animations/masks/corps/a_default.json"
   },
   {
     "name": "a_fortified",
     "texturePaths": [
-      "res/graphics/animations/textures_packs/corps/a_fortified/a_fortified_1.png",
-      "res/graphics/animations/textures_packs/corps/a_fortified/a_fortified_2.png"
+      "graphics/animations/textures_packs/corps/a_fortified/a_fortified_1.png",
+      "graphics/animations/textures_packs/corps/a_fortified/a_fortified_2.png"
     ],
-    "maskPath": "res/graphics/animations/masks/corps/a_fortified.json"
+    "maskPath": "graphics/animations/masks/corps/a_fortified.json"
   },
   {
     "name": "a_elephant",
     "texturePaths": [
-      "res/graphics/animations/textures_packs/corps/a_elephant/a_elephant_1.png",
-      "res/graphics/animations/textures_packs/corps/a_elephant/a_elephant_2.png",
-      "res/graphics/animations/textures_packs/corps/a_elephant/a_elephant_3.png",
-      "res/graphics/animations/textures_packs/corps/a_elephant/a_elephant_4.png"
+      "graphics/animations/textures_packs/corps/a_elephant/a_elephant_1.png",
+      "graphics/animations/textures_packs/corps/a_elephant/a_elephant_2.png",
+      "graphics/animations/textures_packs/corps/a_elephant/a_elephant_3.png",
+      "graphics/animations/textures_packs/corps/a_elephant/a_elephant_4.png"
     ],
-    "maskPath": "res/graphics/animations/masks/corps/a_elephant.json"
+    "maskPath": "graphics/animations/masks/corps/a_elephant.json"
   },
   {
     "name": "a_fury",
     "texturePaths": [
-      "res/graphics/animations/textures_packs/corps/a_fury/a_fury_1.png",
-      "res/graphics/animations/textures_packs/corps/a_fury/a_fury_2.png"
+      "graphics/animations/textures_packs/corps/a_fury/a_fury_1.png",
+      "graphics/animations/textures_packs/corps/a_fury/a_fury_2.png"
     ],
-    "maskPath": "res/graphics/animations/masks/corps/a_fury.json"
+    "maskPath": "graphics/animations/masks/corps/a_fury.json"
   },
   {
     "name": "a_mite",
     "texturePaths": [
-      "res/graphics/animations/textures_packs/corps/a_mite/a_mite_1.png",
-      "res/graphics/animations/textures_packs/corps/a_mite/a_mite_2.png"
+      "graphics/animations/textures_packs/corps/a_mite/a_mite_1.png",
+      "graphics/animations/textures_packs/corps/a_mite/a_mite_2.png"
     ],
     "maskPath": null
   },
   {
     "name": "a_vampire",
     "texturePaths": [
-      "res/graphics/animations/textures_packs/corps/a_vampire/a_vampire_1.png",
-      "res/graphics/animations/textures_packs/corps/a_vampire/a_vampire_2.png"
+      "graphics/animations/textures_packs/corps/a_vampire/a_vampire_1.png",
+      "graphics/animations/textures_packs/corps/a_vampire/a_vampire_2.png"
     ],
-    "maskPath": "res/graphics/animations/masks/corps/a_vampire.json"
+    "maskPath": "graphics/animations/masks/corps/a_vampire.json"
   },
   {
     "name": "a_light",
     "texturePaths": [
-      "res/graphics/animations/textures_packs/corps/a_light/a_light_1.png",
-      "res/graphics/animations/textures_packs/corps/a_light/a_light_2.png"
+      "graphics/animations/textures_packs/corps/a_light/a_light_1.png",
+      "graphics/animations/textures_packs/corps/a_light/a_light_2.png"
     ],
-    "maskPath": "res/graphics/animations/masks/corps/a_light.json"
+    "maskPath": "graphics/animations/masks/corps/a_light.json"
   },
   {
     "name": "a_renegat",
     "texturePaths": [
-      "res/graphics/animations/textures_packs/corps/a_renegat/a_renegat_1.png",
-      "res/graphics/animations/textures_packs/corps/a_renegat/a_renegat_2.png"
+      "graphics/animations/textures_packs/corps/a_renegat/a_renegat_1.png",
+      "graphics/animations/textures_packs/corps/a_renegat/a_renegat_2.png"
     ],
-    "maskPath": "res/graphics/animations/masks/corps/a_renegat.json"
+    "maskPath": "graphics/animations/masks/corps/a_renegat.json"
   }
 ]
