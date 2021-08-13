@@ -20,9 +20,12 @@ import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.GameSetting;
-import cc.abro.tow.client.map.objects.textured.TexturedMapObject;
+import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
+import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.particles.Explosion;
 import cc.abro.tow.client.tanks.enemy.EnemyArmor;
+
+import java.util.Set;
 
 public class Bullet extends GameObject implements Collision.CollisionListener {
 
@@ -60,7 +63,8 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
         setComponent(new SpriteRender(texture.getTexture()));
 
         setComponent(new CollisionDirect(texture.getMask(), range));
-        getComponent(Collision.class).addCollisionObjects(new Class[]{TexturedMapObject.class, EnemyArmor.class, Border.class});
+        getComponent(Collision.class).addCollisionObjects(new Class[]{
+                CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class, Border.class});
         getComponent(Collision.class).addListener(this);
         ((CollisionDirect) getComponent(Collision.class)).init();
 
@@ -78,7 +82,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
             destroy(0);
         }
 
-        if (gameObject.getClass().equals(TexturedMapObject.class)) {
+        if (Set.of(CollisedMapObject.class, DestroyedMapObject.class).contains(gameObject.getClass())) {
             destroy(explosionSize);
 
             Manager.getService(AudioPlayer.class).playSoundEffect(Manager.getService(AudioStorage.class).getAudio(sound_hit), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);

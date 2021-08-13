@@ -1,37 +1,34 @@
-package cc.abro.tow.client.map.objects.textured;
+package cc.abro.tow.client.map.objects.collised;
 
 import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.resources.masks.Mask;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
-import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.tow.client.map.MapObject;
-import cc.abro.tow.client.map.factory.MapObjectCreator;
+import cc.abro.tow.client.map.objects.textured.TexturedMapObjectCreator;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;
 
-public class TexturedMapObjectCreator implements MapObjectCreator {
+public class CollisedMapObjectCreator extends TexturedMapObjectCreator {
 
     @Override
     public String getType() {
-        return "textured";
+        return "collised";
     }
 
     @Override
     public MapObject createMapObject(MapObjectSpecification mapObjectSpecification) {
-        return new TexturedMapObject(
+        return new CollisedMapObject(
                 mapObjectSpecification.getId(),
                 mapObjectSpecification.getX(),
                 mapObjectSpecification.getY(),
                 mapObjectSpecification.getZ(),
                 mapObjectSpecification.getType(),
                 getTexture(mapObjectSpecification),
-                getDirection(mapObjectSpecification));
+                getDirection(mapObjectSpecification),
+                getMask(mapObjectSpecification));
     }
 
-    protected double getDirection(MapObjectSpecification mapObjectSpecification) {
-        return (double) mapObjectSpecification.getParameters().get("direction");
-    }
-
-    protected Texture getTexture(MapObjectSpecification mapObjectSpecification) {
+    protected Mask getMask(MapObjectSpecification mapObjectSpecification) {
         String textureName = (String) mapObjectSpecification.getParameters().get("texture");
-        return Manager.getService(SpriteStorage.class).getSprite(textureName).getTexture();
+        return Manager.getService(SpriteStorage.class).getSprite(textureName).getMask();
     }
 }

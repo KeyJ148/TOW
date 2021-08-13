@@ -13,14 +13,15 @@ import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.map.objects.Box;
+import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
-import cc.abro.tow.client.map.objects.textured.TexturedMapObject;
 import cc.abro.tow.client.tanks.enemy.EnemyArmor;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.event.KeyEvent;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -243,23 +244,13 @@ public class PlayerController extends GameObject implements Collision.CollisionL
             }
         }
 
-        if (gameObject.getClass().equals(Border.class)) {
-            player.armor.getComponent(Position.class).x = player.armor.getComponent(Movement.class).getXPrevious();
-            player.armor.getComponent(Position.class).y = player.armor.getComponent(Movement.class).getYPrevious();
-            player.armor.getComponent(Movement.class).setDirection(directionPrevious);
-        }
-
-        if (gameObject.getClass().equals(TexturedMapObject.class)) {
+        if (Set.of(Border.class, CollisedMapObject.class, DestroyedMapObject.class).contains(gameObject.getClass())) {
             player.armor.getComponent(Position.class).x = player.armor.getComponent(Movement.class).getXPrevious();
             player.armor.getComponent(Position.class).y = player.armor.getComponent(Movement.class).getYPrevious();
             player.armor.getComponent(Movement.class).setDirection(directionPrevious);
         }
 
         if (gameObject.getClass().equals(DestroyedMapObject.class)) {
-            player.armor.getComponent(Position.class).x = player.armor.getComponent(Movement.class).getXPrevious();
-            player.armor.getComponent(Position.class).y = player.armor.getComponent(Movement.class).getYPrevious();
-            player.armor.getComponent(Movement.class).setDirection(directionPrevious);
-
             DestroyedMapObject destroyedMapObject = (DestroyedMapObject) gameObject;
             if (destroyedMapObject.getStability() < player.stats.stability){
                 Manager.getService(TCPControl.class).send(22, String.valueOf(destroyedMapObject.getId()));
