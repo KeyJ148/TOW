@@ -10,7 +10,6 @@ import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.tow.client.map.factory.MapObjectCreatorsLoader;
 import cc.abro.tow.client.menu.MenuLocation;
 import cc.abro.tow.client.menu.panels.gui.*;
-import cc.abro.tow.server.ServerLoader;
 
 import java.io.IOException;
 
@@ -46,7 +45,6 @@ public class Game implements GameInterface {
         }
 
         //TODO ServerLoader.mapPath = "maps/town10k.maptest";
-        ServerLoader.mapPath = "maps/small.maptest";
 
         new MenuLocation().activate();
     }
