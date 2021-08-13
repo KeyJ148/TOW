@@ -9,7 +9,6 @@ import cc.abro.tow.client.map.objects.textured.TexturedMapObjectCreator;
 
 public class MapObjectCreatorsLoader {
 
-    //TODO: переделать на считывание из конфигов JSON (несколько конфигов, конфиг может быть встроен в архив карту)
     public static void load() {
         ClientData.mapObjectFactory.registryNewCreator(new TexturedMapObjectCreator());
         ClientData.mapObjectFactory.registryNewCreator(new DestroyedMapObjectCreator());

@@ -14,6 +14,5 @@ public class RepeatedMapObject extends MapObject {
         sprite.setWidth(width);
         sprite.setHeight(height);
         setComponent(sprite);
-        //TODO: переопределить создание рендера и позиции, возможно наследовать от MapObject
     }
 }

@@ -9,9 +9,11 @@ import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.map.Border;
+import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.map.objects.Box;
+import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.map.objects.textured.TexturedMapObject;
 import cc.abro.tow.client.tanks.enemy.EnemyArmor;
 import org.liquidengine.legui.component.Button;
@@ -53,10 +55,6 @@ public class PlayerController extends GameObject implements Collision.CollisionL
 
         if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_ESCAPE)) Manager.getService(Engine.class).stop();
 
-        //TODO:
-        //if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_TAB) && !PlayerTable.enable) PlayerTable.enable();
-        //if (!Global.location.getKeyboard().isKeyDown(GLFW_KEY_TAB) && PlayerTable.enable) PlayerTable.disable();
-
         /*
          * Перебираем все события нажатия клавиш
          */
@@ -83,12 +81,6 @@ public class PlayerController extends GameObject implements Collision.CollisionL
                         player.takeHealth = !player.takeHealth;
                         ((Button) (player.buttonsTake[3].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeHealth) ? "" : "x");
                         break;
-
-                    /*TODO
-                    case GLFW_KEY_ESCAPE:
-                        player.getComponent(Position.class).location.objAdd();
-                        break;
-                    */
 
                     //Вывод характеристик танка
                     case GLFW_KEY_F3:
@@ -261,13 +253,18 @@ public class PlayerController extends GameObject implements Collision.CollisionL
             player.armor.getComponent(Position.class).x = player.armor.getComponent(Movement.class).getXPrevious();
             player.armor.getComponent(Position.class).y = player.armor.getComponent(Movement.class).getYPrevious();
             player.armor.getComponent(Movement.class).setDirection(directionPrevious);
+        }
 
-            /* TODO
-            Wall wall = (Wall) gameObject;
-            if (wall.stabillity < player.stats.stability){
-                Manager.getService(TCPControl.class).send(22, String.valueOf(wall.mid));
-                wall.destroyByArmor();
-            }*/
+        if (gameObject.getClass().equals(DestroyedMapObject.class)) {
+            player.armor.getComponent(Position.class).x = player.armor.getComponent(Movement.class).getXPrevious();
+            player.armor.getComponent(Position.class).y = player.armor.getComponent(Movement.class).getYPrevious();
+            player.armor.getComponent(Movement.class).setDirection(directionPrevious);
+
+            DestroyedMapObject destroyedMapObject = (DestroyedMapObject) gameObject;
+            if (destroyedMapObject.getStability() < player.stats.stability){
+                Manager.getService(TCPControl.class).send(22, String.valueOf(destroyedMapObject.getId()));
+                destroyedMapObject.destroy();
+            }
         }
 
         if (gameObject.getClass().equals(EnemyArmor.class)) {

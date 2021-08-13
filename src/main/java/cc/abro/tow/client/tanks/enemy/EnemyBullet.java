@@ -21,7 +21,7 @@ public class EnemyBullet extends GameObject {
 
 	public EnemyBullet(double x, double y, double speed, double direction, Texture texture, int idEnemy, long idNet) {
 		super(Arrays.asList(
-				new Position(x, y, 1600, (int) direction), /*TODO: depth (z) передавать с сервера*/
+				new Position(x, y, 1600, (int) direction),
 				new Movement(speed, direction),
 				new SpriteRender(texture)));
 
