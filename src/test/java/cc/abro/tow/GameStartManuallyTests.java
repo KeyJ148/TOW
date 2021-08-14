@@ -1,7 +1,7 @@
 package cc.abro.tow;
 
-import cc.abro.orchengine.Loader;
 import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.OrchEngine;
 import cc.abro.orchengine.profiles.Profile;
 import cc.abro.orchengine.profiles.Profiles;
 import cc.abro.tow.client.NetGameRead;
@@ -15,10 +15,10 @@ import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class GameStartManuallyTests extends GameStartTests{
+public class GameStartManuallyTests extends GameStartTests {
 
     @BeforeAll
-    public static void setUp() {
+    public static void setUpAll() {
         Assumptions.assumeTrue(Profiles.getActiveProfile() == Profile.LOCAL);
     }
 
@@ -26,21 +26,21 @@ public class GameStartManuallyTests extends GameStartTests{
     public void gameStartAndCreateServerTestManually() {
         Runnable afterStart = () -> new ClickCreateController().processEvent(new ClickCreateGuiEvent("25566", 1));
         Manager.addService(new GameAfterStartService(afterStart));
-        Loader.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
+        OrchEngine.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
     }
 
     @Test
     public void gameStartAndCreateServer2PlayerTestManually() {
         Runnable afterStart = () -> new ClickCreateController().processEvent(new ClickCreateGuiEvent("25566", 2));
         Manager.addService(new GameAfterStartService(afterStart));
-        Loader.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
+        OrchEngine.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
     }
 
     @Test
     public void gameStartAndConnectToLocalhostTestManually() {
         Runnable afterStart = () -> new ClickConnectController().processEvent(new ClickConnectGuiEvent("127.0.0.1", "25566"));
         Manager.addService(new GameAfterStartService(afterStart));
-        Loader.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
+        OrchEngine.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
     }
 
 }

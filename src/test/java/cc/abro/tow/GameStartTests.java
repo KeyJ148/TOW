@@ -1,28 +1,57 @@
 package cc.abro.tow;
 
-import cc.abro.orchengine.Loader;
+import cc.abro.orchengine.Global;
 import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.cycle.Engine;
+import cc.abro.orchengine.OrchEngine;
 import cc.abro.orchengine.gui.GuiPanelStorage;
+import cc.abro.orchengine.profiles.Profile;
+import cc.abro.orchengine.profiles.Profiles;
 import cc.abro.tow.client.Game;
 import cc.abro.tow.client.NetGameRead;
 import cc.abro.tow.client.menu.panels.controllers.creategame.ClickCreateController;
 import cc.abro.tow.client.menu.panels.events.creategame.ClickCreateGuiEvent;
 import cc.abro.tow.server.NetServerRead;
 import cc.abro.tow.server.Server;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
+
+import java.util.concurrent.atomic.AtomicReference;
+
+import static cc.abro.tow.LogUtils.waitToLog;
+import static cc.abro.tow.LogUtils.waitToLogRegex;
 
 public class GameStartTests {
 
-    @Test
-    public void gameStartAndCreateServerTest() throws InterruptedException {
-        Runnable afterStart = () -> new ClickCreateController().processEvent(new ClickCreateGuiEvent("25566", 1));
-        Manager.addService(new GameAfterStartService(afterStart));
-        new Thread(() -> Loader.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class)).start();
-        Thread.sleep(5000);
-        Manager.getService(Engine.class).stop();
+    @BeforeAll
+    public static void setUpAll() {
+        Profiles.initProfile(Profile.TESTS);
     }
 
+    @Test
+    @Timeout(value = 10)
+    public void gameStartAndCreateServerTest(){
+        Runnable gameAfterStart = () -> new ClickCreateController().processEvent(new ClickCreateGuiEvent("25566", 1));
+        Manager.addService(new GameAfterStartService(gameAfterStart));
+        AtomicReference<Boolean> hasException = new AtomicReference<>(false);
+        new Thread(() -> {
+            try {
+                OrchEngine.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+                hasException.set(true);
+            }
+        }).start();
+        waitToLogRegex("(Load map)(.*)(completed)");
+        Global.engine.stop();
+        waitToLog("Shutting down logger");
+        Assertions.assertFalse(hasException.get(), "Has exception in game main thread");
+    }
+
+    /*
+     * Execute Runnable after the game started
+     */
     public static class GameAfterStartService {
 
         private final Runnable runAfterStart;
