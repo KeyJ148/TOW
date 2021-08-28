@@ -39,7 +39,6 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
             new Color(255, 125, 0),
             new Color(125, 0, 255),
             new Color(125, 125, 0),
-            new Color(125, 125, 125, 125)
     };
 
     private Color tankColor;
