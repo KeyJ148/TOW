@@ -13,7 +13,7 @@ import cc.abro.tow.client.menu.panels.gui.MainMenuGuiPanel;
 
 public class MenuLocation extends GameLocation {
 
-    private static final String BACKGROUND_SPRITE_NAME = "b_mass";
+    private static final String BACKGROUND_SPRITE_NAME = "main_menu_background";
 
     public MenuLocation() {
         super(Manager.getService(Render.class).getWidth(), Manager.getService(Render.class).getHeight());
