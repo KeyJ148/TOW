@@ -15,6 +15,16 @@
     "maskPath": null
   },
   {
+    "name": "main_menu_background",
+    "texturePath": "graphics/sprites/textures/sys/main_menu_background.png",
+    "maskPath": null
+  },
+  {
+    "name": "logo",
+    "texturePath": "graphics/sprites/textures/sys/logo.png",
+    "maskPath": null
+  },
+  {
     "name": "road_g",
     "texturePath": "graphics/sprites/textures/backwall/road_g.png",
     "maskPath": "graphics/sprites/masks/backwall/road_g.json"

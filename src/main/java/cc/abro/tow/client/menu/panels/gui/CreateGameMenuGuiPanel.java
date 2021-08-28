@@ -18,7 +18,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
     protected final static int INDENT_Y_LAYER2 = + INDENT_Y + MENU_TEXT_FIELD_HEIGHT + 20;
 
     public CreateGameMenuGuiPanel() {
-        init(() -> Set.of(new ClickChangePanelController(), new ClickCreateController()));
+        super(() -> Set.of(new ClickChangePanelController(), new ClickCreateController()));
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
 
         addLabel("Server name:", INDENT_X, INDENT_Y, LABEL_LENGTH_SERVER_NAME, MENU_TEXT_FIELD_HEIGHT);
