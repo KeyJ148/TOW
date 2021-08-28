@@ -44,7 +44,7 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
     private Color tankColor;
 
     public SettingsMenuGuiPanel() {
-        init(() -> Set.of(new ClickChangePanelController(), new ClickConfirmController()));
+        super(() -> Set.of(new ClickChangePanelController(), new ClickConfirmController()));
         setSize(SETTINGS_PANEL_WIDTH, SETTINGS_PANEL_HEIGHT);
 
         addLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT);

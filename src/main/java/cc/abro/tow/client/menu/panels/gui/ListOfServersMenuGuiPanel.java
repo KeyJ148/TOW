@@ -39,7 +39,7 @@ public class ListOfServersMenuGuiPanel extends MenuGuiPanel {
     }
 
     public ListOfServersMenuGuiPanel() {
-        init(() -> Set.of(new ClickChangePanelController()));
+        super(() -> Set.of(new ClickChangePanelController()));
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
         addBigLabel("List of servers", (MAIN_PANEL_WIDTH - LABEL_LENGTH_LIST_OF_SERVERS)/2, INDENT_Y, LABEL_LENGTH_LIST_OF_SERVERS, MENU_TEXT_FIELD_HEIGHT);
         ScrollablePanel scrollablePanel = createScrollablePanel(INDENT_X, 2*INDENT_Y + MENU_TEXT_FIELD_HEIGHT,
