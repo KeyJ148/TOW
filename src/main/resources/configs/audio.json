@@ -1,0 +1,12 @@
+{
+  "armor": "audio/sound/armor.ogg",
+  "bullet": "audio/sound/bullet.ogg",
+  "explosion": "audio/sound/explosion.ogg",
+  "explosion_powerful": "audio/sound/explosion_powerful.ogg",
+  "gun": "audio/sound/gun.ogg",
+  "heal": "audio/sound/heal.ogg",
+  "hitting": "audio/sound/hitting.ogg",
+  "shot_rocket": "audio/sound/shot_rocket.ogg",
+  "shot_tank": "audio/sound/shot_tank.ogg",
+  "shot_tank_powerful": "audio/sound/shot_tank_powerful.ogg"
+}

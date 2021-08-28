@@ -55,6 +55,10 @@ public abstract class Tank extends GameObject {
 
         nickname = Manager.getService(LeguiComponentService.class).addComponentToLocationShiftedToCenter(new Label(), 500, 30, Global.location);//TODO Position.location
         nickname.getComponent(GuiElement.class).setMoveComponentToGameObjectPosition(true);
+
+        Label label = ((Label) (nickname.getComponent(GuiElement.class)).getComponent());
+        label.setFocusable(false); //Иначе событие мыши перехватывает надпись, и оно не поступает в игру
+        label.getTextState().setText(name);
     }
 
     @Override
@@ -65,9 +69,6 @@ public abstract class Tank extends GameObject {
 
         if (armor != null && armor.hasComponent(Position.class)) {
             Label label = ((Label) (nickname.getComponent(GuiElement.class)).getComponent());
-            label.setFocusable(false); //Иначе событие мыши перехватывает надпись, и оно не поступает в игру
-            label.getTextState().setText(name); //TODO: присваивать только один раз
-
             nickname.getComponent(Position.class).x = armor.getComponent(Position.class).x - name.length() * 3.45 + label.getSize().x / 2;
             nickname.getComponent(Position.class).y = armor.getComponent(Position.class).y - 50;
         }

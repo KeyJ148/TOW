@@ -1,10 +1,10 @@
 package cc.abro.tow.client.map.objects.destroyed;
 
 import cc.abro.tow.client.map.MapObject;
-import cc.abro.tow.client.map.objects.textured.TexturedMapObjectCreator;
+import cc.abro.tow.client.map.objects.collised.CollisedMapObjectCreator;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;
 
-public class DestroyedMapObjectCreator extends TexturedMapObjectCreator {
+public class DestroyedMapObjectCreator extends CollisedMapObjectCreator {
 
     @Override
     public String getType() {
@@ -21,6 +21,7 @@ public class DestroyedMapObjectCreator extends TexturedMapObjectCreator {
                 mapObjectSpecification.getType(),
                 getTexture(mapObjectSpecification),
                 getDirection(mapObjectSpecification),
+                getMask(mapObjectSpecification),
                 getStability(mapObjectSpecification));
     }
 

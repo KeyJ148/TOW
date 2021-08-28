@@ -34,6 +34,4 @@ public class TexturedMapObjectCreator implements MapObjectCreator {
         String textureName = (String) mapObjectSpecification.getParameters().get("texture");
         return Manager.getService(SpriteStorage.class).getSprite(textureName).getTexture();
     }
-
-
 }

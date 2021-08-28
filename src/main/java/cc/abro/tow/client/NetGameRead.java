@@ -14,6 +14,7 @@ import cc.abro.orchengine.resources.audios.AudioStorage;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.tow.client.map.MapObject;
 import cc.abro.tow.client.map.objects.Box;
+import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;
 import cc.abro.tow.client.map.specification.MapSpecification;
 import cc.abro.tow.client.map.specification.MapSpecificationLoader;
@@ -141,13 +142,12 @@ public class NetGameRead implements NetGameReadInterface {
 		MapSpecification mapSpecification = MapSpecificationLoader.getMapSpecification(mapPath);
 
 		Location location = new Location(mapSpecification.getWidth(), mapSpecification.getHeight());
-		//TODO поменять на растягиваемые текстуры
 		Border.createAll(location);
 
 		for (MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()) {
 			MapObject mapObject = ClientData.mapObjectFactory.createMapObject(mapObjectSpecification);
 			location.objAdd(mapObject);
-			ClientData.mapObjects.add(mapObjectSpecification.getId(), mapObject); //TODO: убрать это дублирвоание
+			ClientData.mapObjects.add(mapObjectSpecification.getId(), mapObject);
 		}
 
 		location.activate();
@@ -330,8 +330,9 @@ public class NetGameRead implements NetGameReadInterface {
 	//я подобрал ящик - (int idBox)
 	public void take21(String str) {
 		int idBox = Integer.parseInt(str.split(" ")[0]);
-		for (GameObject gameObject : Global.location.objects) {
-			if (gameObject != null && gameObject instanceof Box && ((Box) gameObject).idBox == idBox) {
+		for (int i = 0; i < Global.location.getObjectsVectorSize(); i++) {
+			GameObject gameObject = Global.location.getObject(i);
+			if (gameObject instanceof Box && ((Box) gameObject).idBox == idBox) {
 				gameObject.destroy();
 			}
 		}
@@ -339,12 +340,11 @@ public class NetGameRead implements NetGameReadInterface {
 
 	//объект карты уничтожен бронёй - (int mid)
 	public void take22(String str) {
-		/*
 		int mid = Integer.parseInt(str.split(" ")[0]);
 		if (mid < ClientData.mapObjects.size()){
-			((TexturedMapObject) ClientData.mapObjects.get(mid)).destroyByArmor();
+			((DestroyedMapObject) ClientData.mapObjects.get(mid)).destroy();
 			ClientData.mapObjects.set(mid, null);
-		}*/
+		}
 	}
 
 	//прибавить этому игроку одно убийство, он меня убил - (int id)

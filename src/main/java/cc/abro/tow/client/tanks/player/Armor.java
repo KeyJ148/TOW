@@ -13,7 +13,8 @@ import cc.abro.orchengine.resources.animations.Animation;
 import cc.abro.orchengine.resources.animations.AnimationStorage;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.map.objects.Box;
-import cc.abro.tow.client.map.objects.textured.TexturedMapObject;
+import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
+import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.tanks.Effect;
 import cc.abro.tow.client.tanks.enemy.EnemyArmor;
 
@@ -45,7 +46,8 @@ public class Armor extends GameObject {
         getComponent(Movement.class).update(0);
 
         setComponent(new Collision(textureHandlers.getMask()));
-        getComponent(Collision.class).addCollisionObjects(new Class[]{TexturedMapObject.class, EnemyArmor.class, Box.class, Border.class});
+        getComponent(Collision.class).addCollisionObjects(new Class[]{
+                CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class, Box.class, Border.class});
         getComponent(Collision.class).addListener(player.controller);
 
         if (player.gun != null) player.gun.setComponent(new Follower(this, false));

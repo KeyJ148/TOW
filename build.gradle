@@ -6,6 +6,8 @@ plugins {
 version = '4.0a-SNAPSHOT'
 
 compileJava.options.encoding = "UTF-8"
+//applicationDefaultJvmArgs = ["-Xmx128M"]
+applicationDefaultJvmArgs += ["-Dlog4j.defaultInitOverride=true", "-Dlog4j.configurationFile=log4j2.yml"]
 
 compileTestJava.options.encoding = "UTF-8"
 compileTestJava.options.compilerArgs += ["-Xlint"]
@@ -20,9 +22,14 @@ repositories {
 dependencies {
     implementation project('OrchEngine')
 
-    implementation 'com.google.code.gson:gson:2.8.6'
+    //implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.liquidengine:legui:2.1.0'
     implementation 'io.cucumber:cucumber-picocontainer:2.4.0'
+
+    //implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
+    //implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
+    //implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.12.4'
+    //implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.4'
 
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
@@ -53,19 +60,24 @@ import org.gradle.internal.os.OperatingSystem
 
 project.ext.lwjglVersion = "3.2.3"
 
-switch (OperatingSystem.current()) {
-    case OperatingSystem.LINUX:
-        def osArch = System.getProperty("os.arch")
-        project.ext.lwjglNatives = osArch.startsWith("arm") || osArch.startsWith("aarch64")
-                ? "natives-linux-${osArch.contains("64") || osArch.startsWith("armv8") ? "arm64" : "arm32"}"
-                : "natives-linux"
-        break
-    case OperatingSystem.MAC_OS:
-        project.ext.lwjglNatives = "natives-macos"
-        break
-    case OperatingSystem.WINDOWS:
-        project.ext.lwjglNatives = System.getProperty("os.arch").contains("64") ? "natives-windows" : "natives-windows-x86"
-        break
+def buildLwjglNatives = System.getenv('BUILD_LWJGL_NATIVES')
+if (buildLwjglNatives != null) {
+    project.ext.lwjglNatives = buildLwjglNatives
+} else {
+    switch (OperatingSystem.current()) {
+        case OperatingSystem.LINUX:
+            def osArch = System.getProperty("os.arch")
+            project.ext.lwjglNatives = osArch.startsWith("arm") || osArch.startsWith("aarch64")
+                    ? "natives-linux-${osArch.contains("64") || osArch.startsWith("armv8") ? "arm64" : "arm32"}"
+                    : "natives-linux"
+            break
+        case OperatingSystem.MAC_OS:
+            project.ext.lwjglNatives = "natives-macos"
+            break
+        case OperatingSystem.WINDOWS:
+            project.ext.lwjglNatives = System.getProperty("os.arch").contains("64") ? "natives-windows" : "natives-windows-x86"
+            break
+    }
 }
 
 dependencies {
