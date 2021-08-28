@@ -6,12 +6,12 @@ import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.gui.PanelControllersStorage;
 import cc.abro.orchengine.map.Background;
-import cc.abro.orchengine.map.Location;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.services.GuiElementService;
+import cc.abro.tow.client.GameLocation;
 import cc.abro.tow.client.menu.panels.gui.MainMenuGuiPanel;
 
-public class MenuLocation extends Location {
+public class MenuLocation extends GameLocation {
 
     private static final String BACKGROUND_SPRITE_NAME = "b_mass";
 

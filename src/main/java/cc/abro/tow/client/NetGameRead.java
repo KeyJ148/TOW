@@ -5,17 +5,14 @@ import cc.abro.orchengine.audio.AudioPlayer;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.implementation.NetGameReadInterface;
-import cc.abro.orchengine.map.Border;
-import cc.abro.orchengine.map.Location;
 import cc.abro.orchengine.net.client.Message;
 import cc.abro.orchengine.net.client.PingChecker;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.audios.AudioStorage;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
-import cc.abro.tow.client.map.MapObject;
+import cc.abro.tow.client.map.BattleLocation;
 import cc.abro.tow.client.map.objects.Box;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
-import cc.abro.tow.client.map.specification.MapObjectSpecification;
 import cc.abro.tow.client.map.specification.MapSpecification;
 import cc.abro.tow.client.map.specification.MapSpecificationLoader;
 import cc.abro.tow.client.tanks.enemy.Enemy;
@@ -140,17 +137,7 @@ public class NetGameRead implements NetGameReadInterface {
 	public void take3(String str) {
 		String mapPath = str.split(" ")[0];
 		MapSpecification mapSpecification = MapSpecificationLoader.getMapSpecification(mapPath);
-
-		Location location = new Location(mapSpecification.getWidth(), mapSpecification.getHeight());
-		Border.createAll(location);
-
-		for (MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()) {
-			MapObject mapObject = ClientData.mapObjectFactory.createMapObject(mapObjectSpecification);
-			location.objAdd(mapObject);
-			ClientData.mapObjects.add(mapObjectSpecification.getId(), mapObject);
-		}
-
-		location.activate();
+		new BattleLocation(mapSpecification).activate();
 	}
 
 	//старт сервера - (int peopleMax, int myIdFromServer)
