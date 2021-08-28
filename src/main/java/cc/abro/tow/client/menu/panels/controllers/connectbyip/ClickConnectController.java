@@ -2,7 +2,6 @@ package cc.abro.tow.client.menu.panels.controllers.connectbyip;
 
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
-import cc.abro.orchengine.gui.EventableGuiPanel;
 import cc.abro.orchengine.net.client.ConnectException;
 import cc.abro.orchengine.net.client.Connector;
 import cc.abro.tow.client.menu.panels.controllers.MenuClickController;
@@ -37,7 +36,7 @@ public class ClickConnectController extends MenuClickController<ClickConnectGuiE
             InetAddress.getByName(ip);
         } catch (UnknownHostException e) {
             e.printStackTrace();
-            createBlockingPanelWithButton(Error.WRONG_IP.getText(), ERROR_ELEMENT_WIDTH, ERROR_ELEMENT_HEIGHT);
+            createBlockingPanelWithButton(Error.WRONG_IP.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
             wasConnect = false;
         }
 
@@ -50,7 +49,7 @@ public class ClickConnectController extends MenuClickController<ClickConnectGuiE
             } catch (ConnectException e) {
                 //На самом деле этот setFocusable бесполезен, т.к. следующая BlockingPanel зблокирует эти же компоненты
                 guiElement.getComponent().getUnfocusedComponents().iterator().forEachRemaining(c -> c.setFocusable(true));
-                createBlockingPanelWithButton(Error.SERVER_NOT_FOUND.getText(), ERROR_ELEMENT_WIDTH, ERROR_ELEMENT_HEIGHT);
+                createBlockingPanelWithButton(Error.SERVER_NOT_FOUND.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
                 wasConnect = false;
             } finally {
                 guiElement.destroy();

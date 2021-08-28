@@ -13,7 +13,7 @@ public class BlockingGuiPanelWithButton extends BlockingGuiPanel {
     public BlockingGuiPanelWithButton(String message, int sizeX, int sizeY, Component parent) {
         super(message, sizeX, sizeY, parent);
 
-        addButton("OK", (sizeX - SMALL_BUTTON_WIDTH)/2, sizeY - BUTTON_HEIGHT - INDENT_Y,
+        addButton("OK", (sizeX - SMALL_BUTTON_WIDTH)/2, sizeY - BUTTON_HEIGHT - BLOCKING_BUTTON_INDENT_Y,
                 SMALL_BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickCloseChildPanelGuiEvent(getUnfocusedComponents()));
     }
 }

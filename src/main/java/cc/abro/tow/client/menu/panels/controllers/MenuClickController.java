@@ -17,8 +17,8 @@ import java.util.Set;
 
 public abstract class MenuClickController<T extends GuiElementEvent> extends GuiElementController<T> {
 
-    protected EventableGuiPanelElement<EventableGuiPanel> createBlockingPanelWithButton(String error, int sizeX, int sizeY) {
-        BlockingGuiPanelWithButton guiPanel = new BlockingGuiPanelWithButton(error, sizeX, sizeY,
+    protected EventableGuiPanelElement<EventableGuiPanel> createBlockingPanelWithButton(String message, int sizeX, int sizeY) {
+        BlockingGuiPanelWithButton guiPanel = new BlockingGuiPanelWithButton(message, sizeX, sizeY,
                 getGuiElement().getComponent());
         EventableGuiPanelElement<EventableGuiPanel> guiElement = new EventableGuiPanelElement<>(
                 guiPanel, Set.of(new CloseChildPanelController()));

@@ -7,8 +7,8 @@ import cc.abro.tow.client.menu.panels.controllers.MenuClickController;
 import cc.abro.tow.client.menu.panels.events.creategame.ClickCreateGuiEvent;
 import cc.abro.tow.server.ServerLoader;
 
-import static cc.abro.tow.client.menu.InterfaceStyles.ERROR_ELEMENT_HEIGHT;
-import static cc.abro.tow.client.menu.InterfaceStyles.ERROR_ELEMENT_WIDTH;
+import static cc.abro.tow.client.menu.InterfaceStyles.BLOCKING_BUTTON_ELEMENT_HEIGHT;
+import static cc.abro.tow.client.menu.InterfaceStyles.BLOCKING_BUTTON_ELEMENT_WIDTH;
 
 public class ClickCreateController extends MenuClickController<ClickCreateGuiEvent> implements StartServerListener {
 
@@ -23,7 +23,7 @@ public class ClickCreateController extends MenuClickController<ClickCreateGuiEve
     @Override
     public void processEvent(ClickCreateGuiEvent event) {
         if (serverLaunching) {
-            createBlockingPanelWithButton(Error.SERVER_LAUNCHING.getText(), ERROR_ELEMENT_WIDTH, ERROR_ELEMENT_HEIGHT);
+            createBlockingPanelWithButton(Error.SERVER_LAUNCHING.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
         } else {
             try {
                 port = Integer.parseInt(event.getPort());
@@ -33,9 +33,9 @@ public class ClickCreateController extends MenuClickController<ClickCreateGuiEve
                 serverLaunching = true;
                 new ServerLoader(port, event.getPeopleMax(), false);
             } catch (NumberFormatException e) {
-                createBlockingPanelWithButton(Error.WRONG_PORT.getText(), ERROR_ELEMENT_WIDTH, ERROR_ELEMENT_HEIGHT);
+                createBlockingPanelWithButton(Error.WRONG_PORT.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
             } catch (RuntimeException e) {
-                createBlockingPanelWithButton(Error.UNKNOWN.getText(), ERROR_ELEMENT_WIDTH, ERROR_ELEMENT_HEIGHT);
+                createBlockingPanelWithButton(Error.UNKNOWN.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
             }
         }
     }

@@ -11,10 +11,10 @@ public final class InterfaceStyles {
 
     public final static int MENU_ELEMENT_WIDTH = 250;
     public final static int MENU_ELEMENT_HEIGHT = 70;
-    public final static int ERROR_ELEMENT_WIDTH = 400;
-    public final static int ERROR_ELEMENT_HEIGHT = 120;
+    public final static int BLOCKING_BUTTON_ELEMENT_WIDTH = 360;
+    public final static int BLOCKING_BUTTON_ELEMENT_HEIGHT = 90;
 
-    public final static int CONNECTING_ELEMENT_WIDTH = 200;
+    public final static int CONNECTING_ELEMENT_WIDTH = 160;
     public final static int CONNECTING_ELEMENT_HEIGHT = 70;
 
     public final static int MENU_BUTTON_WIDTH = MENU_ELEMENT_WIDTH;
@@ -31,6 +31,7 @@ public final class InterfaceStyles {
 
     public final static int INDENT_X = 18;
     public final static int INDENT_Y = INDENT_X + 4;
+    public final static int BLOCKING_BUTTON_INDENT_Y = 12;
 
     public final static int BUTTON_RADIUS = 0;
 

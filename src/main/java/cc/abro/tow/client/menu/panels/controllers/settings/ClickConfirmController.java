@@ -4,8 +4,8 @@ import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.menu.panels.controllers.MenuClickController;
 import cc.abro.tow.client.menu.panels.events.settings.ClickConfirmGuiEvent;
 
-import static cc.abro.tow.client.menu.InterfaceStyles.ERROR_ELEMENT_HEIGHT;
-import static cc.abro.tow.client.menu.InterfaceStyles.ERROR_ELEMENT_WIDTH;
+import static cc.abro.tow.client.menu.InterfaceStyles.BLOCKING_BUTTON_ELEMENT_HEIGHT;
+import static cc.abro.tow.client.menu.InterfaceStyles.BLOCKING_BUTTON_ELEMENT_WIDTH;
 
 public class ClickConfirmController extends MenuClickController<ClickConfirmGuiEvent> {
 
@@ -19,7 +19,7 @@ public class ClickConfirmController extends MenuClickController<ClickConfirmGuiE
         if (!event.getNickname().isEmpty()) {
             ClientData.name = event.getNickname();
         } else {
-            createBlockingPanelWithButton(Error.NICKNAME_IS_EMPTY.getText(), ERROR_ELEMENT_WIDTH, ERROR_ELEMENT_HEIGHT);
+            createBlockingPanelWithButton(Error.NICKNAME_IS_EMPTY.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
         }
         ClientData.color = event.getTankColor();
     }
