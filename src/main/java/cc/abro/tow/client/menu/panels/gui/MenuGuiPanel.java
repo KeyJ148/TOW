@@ -16,7 +16,6 @@ import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
 public class MenuGuiPanel extends EventableGuiPanel {
 
-    @Override
     public void init() {
         setStyle(createPanelStyle());
         setFocusable(false);
