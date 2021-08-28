@@ -21,6 +21,10 @@ public class MenuGuiPanel extends EventableGuiPanel {
         setFocusable(false);
     }
 
+    /**
+     * Used only for cached panels
+     * @param controllersSupplier List of controllers, which will cached
+     */
     public MenuGuiPanel(Supplier<Set<GuiElementController>> controllersSupplier) {
         this();
         Manager.getService(PanelControllersStorage.class).registry(getClass(), controllersSupplier);
