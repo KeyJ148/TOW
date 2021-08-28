@@ -1,9 +1,10 @@
 package cc.abro.tow.client.menu.panels.controllers.main;
 
 import cc.abro.orchengine.gameobject.components.gui.GuiElementController;
+import cc.abro.tow.client.menu.panels.controllers.MenuClickController;
 import cc.abro.tow.client.menu.panels.events.main.ClickCloseChildPanelGuiEvent;
 
-public class CloseChildPanelController extends GuiElementController<ClickCloseChildPanelGuiEvent>{
+public class CloseChildPanelController extends MenuClickController<ClickCloseChildPanelGuiEvent> {
 
     @Override
     protected Class<ClickCloseChildPanelGuiEvent> getProcessedEventClass() {

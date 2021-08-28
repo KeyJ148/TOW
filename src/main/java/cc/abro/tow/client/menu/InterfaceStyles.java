@@ -14,6 +14,9 @@ public final class InterfaceStyles {
     public final static int ERROR_ELEMENT_WIDTH = 400;
     public final static int ERROR_ELEMENT_HEIGHT = 120;
 
+    public final static int CONNECTING_ELEMENT_WIDTH = 200;
+    public final static int CONNECTING_ELEMENT_HEIGHT = 70;
+
     public final static int MENU_BUTTON_WIDTH = MENU_ELEMENT_WIDTH;
     public final static int MENU_BUTTON_HEIGHT = 3*MENU_ELEMENT_HEIGHT/4;
     public final static int BUTTON_WIDTH = 106;

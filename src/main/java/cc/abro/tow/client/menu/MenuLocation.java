@@ -53,6 +53,8 @@ public class MenuLocation extends GameLocation {
         Manager.getService(GuiElementService.class).addGuiElementToLocation(zeroGuiElement,
                 Manager.getService(Render.class).getWidth() - LABEL_LENGTH_ZERO_RULE - INDENT_X,
                 Manager.getService(Render.class).getHeight() - LABEL_HEIGHT_ZERO_RULE - INDENT_Y/2, this);
+                //(Manager.getService(Render.class).getWidth() + LABEL_LENGTH_ZERO_RULE)/2,
+                //INDENT_Y + logoTexture.getHeight(), this);
 
         MainMenuGuiPanel menuGuiPanel = Manager.getService(GuiPanelStorage.class).getPanel(MainMenuGuiPanel.class);
         EventableGuiPanelElement<MainMenuGuiPanel> menuGuiElement = new EventableGuiPanelElement<>(menuGuiPanel,
