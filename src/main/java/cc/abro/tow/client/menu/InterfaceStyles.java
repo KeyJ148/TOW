@@ -31,6 +31,7 @@ public final class InterfaceStyles {
 
     public final static int BUTTON_RADIUS = 0;
 
+    public final static int LABEL_LENGTH_ZERO_RULE = 360;
     public final static int LABEL_LENGTH_PORT = 37;
     public final static int LABEL_LENGTH_NICKNAME = 78;
     public final static int LABEL_LENGTH_ID = 20;
@@ -38,9 +39,13 @@ public final class InterfaceStyles {
     public final static int LABEL_LENGTH_SERVER_NAME = 96;
     public final static int LABEL_LENGTH_LIST_OF_SERVERS = 180;
 
+    public final static int LABEL_HEIGHT_DEBUG = 15;
+    public final static int LABEL_HEIGHT_ZERO_RULE = 18;
+
     public final static int MENU_BUTTON_FONT_SIZE = 30;
     public final static int BUTTON_FONT_SIZE = 20;
     public final static int LABEL_FONT_SIZE = BUTTON_FONT_SIZE;
+    public final static int SLIGHTLY_BIG_LABEL_FONT_SIZE = 27;
     public final static int BIG_LABEL_FONT_SIZE = 35;
     public final static int LABEL_ERROR_FONT_SIZE = 18;
 
