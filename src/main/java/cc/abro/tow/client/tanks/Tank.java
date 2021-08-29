@@ -44,7 +44,7 @@ public abstract class Tank extends GameObject {
     public Tank() {
         super(Arrays.asList(new Position(0, 0, 0)));
 
-        name = "";
+        name = ClientData.name;
         initCamera();
     }
 
@@ -83,7 +83,7 @@ public abstract class Tank extends GameObject {
 
         setColor(explodedTankColor);
 
-        GameObject explosion = GameObjectFactory.create(armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, -100);
+        GameObject explosion = GameObjectFactory.create(armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, 3000);
         explosion.setComponent(new Explosion(100));
         explosion.getComponent(Particles.class).destroyObject = true;
         Global.location.objAdd(explosion);

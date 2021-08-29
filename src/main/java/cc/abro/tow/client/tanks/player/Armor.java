@@ -26,6 +26,7 @@ public class Armor extends GameObject {
 
     public static final String PATH_SETTING = "game/armor/";
     public String name, title; //name - техническое название, title - игровое
+    public String imageName;
 
     public Player player;
     public Effect effect = new Effect();
@@ -92,7 +93,8 @@ public class Armor extends GameObject {
         effect.addition.stability = cr.findInteger("STABILITY");
 
         animSpeed = cr.findInteger("ANIMATION_SPEED");
-        textureHandlers = Manager.getService(AnimationStorage.class).getAnimation(cr.findString("IMAGE_NAME"));
+        imageName = cr.findString("IMAGE_NAME");
+        textureHandlers = Manager.getService(AnimationStorage.class).getAnimation(imageName);
         title = cr.findString("TITLE");
     }
 }

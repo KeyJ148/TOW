@@ -44,6 +44,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
     public String sound_hit;
 
     public Player player;
+    public String imageName;
     public Sprite texture;
 
     public void init(Player player, double x, double y, double dir, double damage, int range, String name) {
@@ -108,7 +109,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
         Manager.getService(TCPControl.class).send(15, idNet + " " + expSize);
 
         if (explosionSize > 0) {
-            GameObject explosion = GameObjectFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, -100);
+            GameObject explosion = GameObjectFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, 3000);
             explosion.setComponent(new Explosion(expSize));
             explosion.getComponent(Particles.class).destroyObject = true;
             Global.location.objAdd(explosion);
@@ -136,7 +137,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
                 + " " + Math.round(getComponent(Position.class).y)
                 + " " + getComponent(Movement.class).getDirection()
                 + " " + getComponent(Movement.class).speed
-                + " " + "b_default"
+                + " " + imageName
                 + " " + idNet;
     }
 
@@ -152,7 +153,8 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
 
         damage += cr.findDouble("DAMAGE");//К дамагу пушки прибавляем дамаг патрона
         range += cr.findInteger("RANGE");//К дальности пушки прибавляем дальность патрона
-        texture = Manager.getService(SpriteStorage.class).getSprite(cr.findString("IMAGE_NAME"));
+        imageName = cr.findString("IMAGE_NAME");
+        texture = Manager.getService(SpriteStorage.class).getSprite(imageName);
         title = cr.findString("TITLE");
         sound_shot = cr.findString("SOUND_SHOT");
         sound_hit = cr.findString("SOUND_HIT");

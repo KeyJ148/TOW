@@ -203,8 +203,8 @@ public class Player extends Tank {
         if (controller.runDown) newArmor.getComponent(Movement.class).speed = stats.speedTankDown;
 
         //Отправляем сообщение о том, что мы сменили броню
-        //String newName = ((Armor) armor).textureHandlers;
-        //Manager.getService(TCPControl.class).send(19, newName.substring(0, newName.lastIndexOf("_")));
+        String newName = ((Armor) armor).imageName;
+        Manager.getService(TCPControl.class).send(19, newName.substring(0, newName.lastIndexOf("_")));
     }
 
     @Override
@@ -216,7 +216,7 @@ public class Player extends Tank {
         updateStats();
 
         //Отправляем сообщение о том, что мы сменили оружие
-        //Manager.getService(TCPControl.class).send(20, ((Gun) newGun).texture.name);
+        Manager.getService(TCPControl.class).send(20, ((Gun) newGun).imageName);
     }
 
     //Игрок попал по врагу и нанес damage урона

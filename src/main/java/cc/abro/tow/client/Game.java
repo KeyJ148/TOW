@@ -3,6 +3,7 @@ package cc.abro.tow.client;
 import cc.abro.orchengine.Global;
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.gui.GuiPanelStorage;
+import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.implementation.GameInterface;
 import cc.abro.orchengine.resources.settings.SettingsStorageHandler;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
@@ -37,6 +38,8 @@ public class Game implements GameInterface {
             Texture texture = Manager.getService(SpriteStorage.class).getSprite(SettingsStorage.GRAPHICS.CURSOR_SPRITE).getTexture();
             Global.location.getMouse().getCursor().setTexture(texture);
         }
+        ClientData.name = SettingsStorage.PROFILE.NICKNAME;
+        ClientData.color = new Color(SettingsStorage.PROFILE.COLOR);
 
         MapObjectCreatorsLoader.load();
 

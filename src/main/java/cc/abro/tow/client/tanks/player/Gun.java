@@ -17,6 +17,7 @@ public class Gun extends GameObject {
 
     public static final String PATH_SETTING = "game/gun/";
     public String name, title; //name - техническое название, title - игровое
+    public String imageName;
 
     public int countTrunk; //Кол-во стволов
     public Vector2<Integer>[] trunksOffset; //Смещение конца каждого ствола по (x,y) (откуда вылетает снаряд)
@@ -114,7 +115,8 @@ public class Gun extends GameObject {
         effect.addition.damage = cr.findDouble("DAMAGE");
         effect.addition.range = cr.findInteger("RANGE");
 
-        texture = Manager.getService(SpriteStorage.class).getSprite(cr.findString("IMAGE_NAME")).getTexture();
+        imageName = cr.findString("IMAGE_NAME");
+        texture = Manager.getService(SpriteStorage.class).getSprite(imageName).getTexture();
         title = cr.findString("TITLE");
     }
 }
