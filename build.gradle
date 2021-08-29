@@ -3,7 +3,7 @@ plugins {
     id 'application'
 }
 
-version = '4.0a-SNAPSHOT'
+version = '4.0.0'
 
 compileJava.options.encoding = "UTF-8"
 //applicationDefaultJvmArgs = ["-Xmx128M"]
