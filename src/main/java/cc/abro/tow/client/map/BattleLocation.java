@@ -19,5 +19,6 @@ public class BattleLocation extends GameLocation {
         }
 
         createDebugPanel(70);
+        createTabPanel();
     }
 }

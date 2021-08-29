@@ -32,6 +32,9 @@ public final class InterfaceStyles {
     public final static int INDENT_Y = INDENT_X + 4;
     public final static int BLOCKING_BUTTON_INDENT_Y = 12;
 
+    public final static int TAB_SIZE_X = 424;      //with borders
+    public final static int TAB_LINE_SIZE_Y = 26;  //without borders
+
     public final static int BUTTON_RADIUS = 0;
 
     public final static int LABEL_LENGTH_ZERO_RULE = 360;

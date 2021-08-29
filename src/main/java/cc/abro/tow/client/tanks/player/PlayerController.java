@@ -55,6 +55,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
          */
 
         if (Global.location.getKeyboard().isKeyDown(GLFW_KEY_ESCAPE)) Manager.getService(Engine.class).stop();
+        ClientData.showGameTabMenu = !Global.location.getKeyboard().isKeyDown(GLFW_KEY_TAB);
 
         /*
          * Перебираем все события нажатия клавиш
