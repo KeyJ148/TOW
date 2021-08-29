@@ -26,7 +26,7 @@ public class BMassSmall extends Bullet {
 
         if (gameObject instanceof Armor) {
             ((Armor) gameObject).player.hp -= damage;
-            destroy();
+            destroy(explosionSize);
         }
 
         super.collision(gameObject);
