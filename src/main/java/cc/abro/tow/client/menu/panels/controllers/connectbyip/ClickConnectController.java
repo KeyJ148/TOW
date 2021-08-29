@@ -46,6 +46,7 @@ public class ClickConnectController extends MenuClickController<ClickConnectGuiE
                 Manager.createBean(Connector.class).connect(ip, Integer.parseInt(event.getPort()));
                 //TODO создать наследника EventableGuiPanelElement в котором релизовать метод destroyAndFocused
                 guiElement.getComponent().getUnfocusedComponents().iterator().forEachRemaining(c -> c.setFocusable(true));
+                createBlockingPanel("Waiting for players...", WAITING_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT);
             } catch (ConnectException e) {
                 //На самом деле этот setFocusable бесполезен, т.к. следующая BlockingPanel зблокирует эти же компоненты
                 guiElement.getComponent().getUnfocusedComponents().iterator().forEachRemaining(c -> c.setFocusable(true));
