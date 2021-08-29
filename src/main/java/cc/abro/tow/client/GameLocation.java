@@ -5,6 +5,7 @@ import cc.abro.orchengine.analysis.Analyzer;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.map.Location;
+import cc.abro.orchengine.net.server.GameServer;
 import cc.abro.orchengine.services.GuiElementService;
 
 import java.util.Collections;
@@ -35,7 +36,7 @@ public class GameLocation extends Location {
         return debugGuiElement;
     }
     protected GuiElement<GameTabGuiPanel> createTabPanel() {
-        GameTabGuiPanel gameTabGuiPanel = new GameTabGuiPanel();
+        GameTabGuiPanel gameTabGuiPanel = new GameTabGuiPanel(GameServer.peopleMax);
         GuiElement<GameTabGuiPanel> gameTabGuiElement = new GuiElement<>(gameTabGuiPanel){
             @Override
             public void updateComponent(long delta) {
@@ -43,7 +44,8 @@ public class GameLocation extends Location {
                 if (ClientData.showGameTabMenu) {
                     getComponent().setSize(0, 0);
                 } else {
-                    getComponent().setSize(TAB_SIZE_X, TAB_LINE_SIZE_Y);
+                    getComponent().setSize(TAB_SIZE_X, (TAB_LINE_SIZE_Y + 2) * (GameServer.peopleNow - GameServer.disconnect + 1) - 2);
+
                 }
             }
         };

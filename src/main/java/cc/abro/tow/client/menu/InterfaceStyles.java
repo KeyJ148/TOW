@@ -4,6 +4,7 @@ import org.joml.Vector4f;
 import org.liquidengine.legui.style.Background;
 import org.liquidengine.legui.style.Style;
 import org.liquidengine.legui.style.border.SimpleLineBorder;
+import org.liquidengine.legui.style.shadow.Shadow;
 
 public final class InterfaceStyles {
 
@@ -32,8 +33,11 @@ public final class InterfaceStyles {
     public final static int INDENT_Y = INDENT_X + 4;
     public final static int BLOCKING_BUTTON_INDENT_Y = 12;
 
-    public final static int TAB_SIZE_X = 424;      //with borders
-    public final static int TAB_LINE_SIZE_Y = 26;  //without borders
+    public final static int TAB_SIZE_X = 420;               //without borders
+    public final static int TAB_SIZE_NICKNAME_X = 280;      //without borders
+
+    public final static int TAB_SIZE_ICO_X = 33;            //without borders
+    public final static int TAB_LINE_SIZE_Y = 26;           //without borders
 
     public final static int BUTTON_RADIUS = 0;
 
