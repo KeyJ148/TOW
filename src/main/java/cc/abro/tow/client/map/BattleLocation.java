@@ -47,7 +47,7 @@ public class BattleLocation extends GameLocation {
             public void updateComponent(long delta) {
                 super.updateComponent(delta);
                 if (ClientData.showGameTabMenu) {
-                    getComponent().setSize(TAB_SIZE_X, (TAB_LINE_SIZE_Y + 2) * (GameServer.peopleNow - GameServer.disconnect + 1) - 2);
+                    getComponent().setSize(TAB_SIZE_X, (TAB_LINE_SIZE_Y + 2) * (ClientData.peopleMax + 1) - 2);
                     int ping = Manager.getService(PingChecker.class).getPing();
                     List<GameTabGuiPanel.TabDataLine> data = Stream.concat(Stream.of(ClientData.player), ClientData.enemy.values().stream())
                             .filter(Objects::nonNull)
