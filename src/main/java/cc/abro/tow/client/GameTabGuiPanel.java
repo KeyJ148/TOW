@@ -6,11 +6,13 @@ import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import org.joml.Vector4f;
 import org.liquidengine.legui.component.ImageView;
+import org.liquidengine.legui.component.Label;
 import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.image.FBOImage;
 import org.liquidengine.legui.style.Background;
 import org.liquidengine.legui.style.Style;
 import org.liquidengine.legui.style.border.SimpleLineBorder;
+import org.liquidengine.legui.style.font.FontRegistry;
 import org.liquidengine.legui.style.shadow.Shadow;
 
 import java.util.ArrayList;
@@ -44,10 +46,14 @@ public class GameTabGuiPanel extends EventableGuiPanel {
     private static final Vector4f RED_TAB_COLOR = new Vector4f(R_RED, G_RED, B_RED, A);
     private static final Vector4f BLUE_TAB_COLOR = new Vector4f(R_BLUE, G_BLUE, B_BLUE, A);
 
+    private static final String BOLD = FontRegistry.ROBOTO_BOLD;
+    private static final String REGULAR = FontRegistry.ROBOTO_REGULAR;
+
     private final List<List<Panel>> panels = new ArrayList<>();
 
     public GameTabGuiPanel(int countOfPlayers) {
         setFocusable(false);
+        setSize(0, 0);
         setStyle(createTabMenuStyle());
         getStyle().getBackground().setColor(INVISIBLE_COLOR);
         getStyle().setBorder(new SimpleLineBorder(BLACK_TAB_COLOR, 2));
@@ -67,14 +73,19 @@ public class GameTabGuiPanel extends EventableGuiPanel {
                 add(panel);
             }
         }
+        panels.get(0).get(0).add(createLabel("Nickname", (int)panels.get(0).get(0).getSize().x/2 - 30, 0,
+                (int)panels.get(0).get(0).getSize().x, (int)panels.get(0).get(1).getSize().y, BOLD));
         addImageViewInCenterOfPanel("kills_icon", panels.get(0).get(1));
+        addImageViewInCenterOfPanel("deaths_icon", panels.get(0).get(2));
+        addImageViewInCenterOfPanel("wins_icon", panels.get(0).get(3));
+        addImageViewInCenterOfPanel("ping_icon", panels.get(0).get(4));
+        //addImageViewInCenterOfPanel("dead_icon", panels.get(0).get(1));
         for(int i = 1; i <= countOfPlayers; i++) {
             panels.get(i).get(1).getStyle().getBackground().setColor(GREEN_TAB_COLOR);
             panels.get(i).get(2).getStyle().getBackground().setColor(RED_TAB_COLOR);
             panels.get(i).get(3).getStyle().getBackground().setColor(BLUE_TAB_COLOR);
 
         }
-        setSize(0, 0);
     }
 
     private void addImageViewInCenterOfPanel(String name, Panel panel) {
@@ -84,8 +95,8 @@ public class GameTabGuiPanel extends EventableGuiPanel {
 
         ImageView imageView = new ImageView(logoFBOImage);
         imageView.setStyle(createInvisibleStyle());
-        imageView.setPosition((panel.getPosition().x - texture.getWidth())/2, (panel.getPosition().y - texture.getHeight())/2);
         imageView.setSize(texture.getWidth(), texture.getHeight());
+        imageView.setPosition((panel.getSize().x - texture.getWidth())/2, (panel.getSize().y - texture.getHeight())/2);
         panel.add(imageView);
     }
 
@@ -96,6 +107,13 @@ public class GameTabGuiPanel extends EventableGuiPanel {
         style.setBorder(new SimpleLineBorder(BLACK_TAB_COLOR, 1));
         style.getBackground().setColor(GRAY_TAB_COLOR);
         return style;
+    }
+
+    public Label createLabel(String text, int x, int y, int width, int height, String font) {
+        Label label = new Label(text, x, y, width, height);
+        label.getTextState().setFont(font);
+        label.getTextState().setFontSize(LABEL_FONT_SIZE);
+        return label;
     }
 
     public void fillInTable() {
