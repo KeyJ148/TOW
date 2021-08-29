@@ -1,16 +1,19 @@
 # Ignore Gradle project-specific cache directory
-.gradle
+/.gradle
 
 # Ignore Gradle build output directory
-build
+/build
 
 #Ignore IDEA setting files
-.idea
-TOW.iml
+/.idea
+/TOW.iml
 
 #Ignore game created files
-logs
-settings
+/logs
+/settings
 
 #Ignore OrchEngine subproject
 /OrchEngine
+
+#Ignore OS-specific files
+/.directory
