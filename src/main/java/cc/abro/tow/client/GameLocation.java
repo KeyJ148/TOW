@@ -7,8 +7,11 @@ import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.map.Location;
 import cc.abro.orchengine.net.server.GameServer;
 import cc.abro.orchengine.services.GuiElementService;
+import cc.abro.tow.server.data.ServerData;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
@@ -34,23 +37,5 @@ public class GameLocation extends Location {
         Manager.getService(GuiElementService.class).addGuiElementToLocation(debugGuiElement,
                 positionX, Manager.getService(Render.class).getHeight() - Analyzer.STRING_COUNT*LABEL_HEIGHT_DEBUG, this);
         return debugGuiElement;
-    }
-    protected GuiElement<GameTabGuiPanel> createTabPanel() {
-        GameTabGuiPanel gameTabGuiPanel = new GameTabGuiPanel(GameServer.peopleMax);
-        GuiElement<GameTabGuiPanel> gameTabGuiElement = new GuiElement<>(gameTabGuiPanel){
-            @Override
-            public void updateComponent(long delta) {
-                super.updateComponent(delta);
-                if (ClientData.showGameTabMenu) {
-                    getComponent().setSize(0, 0);
-                } else {
-                    getComponent().setSize(TAB_SIZE_X, (TAB_LINE_SIZE_Y + 2) * (GameServer.peopleNow - GameServer.disconnect + 1) - 2);
-
-                }
-            }
-        };
-        Manager.getService(GuiElementService.class).addGuiElementToLocation(gameTabGuiElement,
-                (Manager.getService(Render.class).getWidth() - TAB_SIZE_X)/2, (Manager.getService(Render.class).getHeight() - TAB_LINE_SIZE_Y)/2, this);
-        return gameTabGuiElement;
     }
 }
