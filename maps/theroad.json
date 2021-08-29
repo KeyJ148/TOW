@@ -8,7 +8,7 @@
       "z": 0,
       "type": "repeated",
       "parameters": {
-        "direction": 0,
+        "direction": 90,
         "height": 900,
         "texture": "grass",
         "width": 3000

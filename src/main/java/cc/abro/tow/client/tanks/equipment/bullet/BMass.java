@@ -4,12 +4,14 @@ import cc.abro.orchengine.Global;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.tow.client.ConfigReader;
-import cc.abro.tow.client.map.objects.textured.TexturedMapObject;
+import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
+import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.tanks.enemy.EnemyArmor;
 import cc.abro.tow.client.tanks.player.Bullet;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.Random;
+import java.util.Set;
 
 @Log4j2
 public class BMass extends Bullet {
@@ -22,7 +24,7 @@ public class BMass extends Bullet {
     public void collision(GameObject gameObject) {
         if (isDestroy()) return;
 
-        if (gameObject.getClass().equals(TexturedMapObject.class) || gameObject.getClass().equals(EnemyArmor.class)) {
+        if (Set.of(CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class).contains(gameObject.getClass())) {
             Random random = new Random();
             int count = minFragmentNumber + random.nextInt(maxFragmentNumber - minFragmentNumber + 1);
 

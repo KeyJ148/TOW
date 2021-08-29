@@ -43,4 +43,11 @@ public class GameStartManuallyTests extends GameStartTests {
         OrchEngine.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
     }
 
+    @Test
+    public void gameStartAndConnectToLocalhostTestManually2() {
+        Runnable afterStart = () -> new ClickConnectController().processEvent(new ClickConnectGuiEvent("127.0.0.1", "25566"));
+        Manager.addService(new GameAfterStartService(afterStart));
+        OrchEngine.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
+    }
+
 }

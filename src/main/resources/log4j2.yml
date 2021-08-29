@@ -14,7 +14,7 @@ Configuration:
         Pattern: "%d{HH:mm:ss.SSS} %-5p\t[%t]:\t%m%n"
       Filters:
         ThresholdFilter:
-          level: trace
+          level: debug
     File:
       name: File
       fileName: logs/${date:yyyy-MM-dd}_${date:HH:mm:ss.SSSS}.log

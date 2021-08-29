@@ -70,7 +70,10 @@ public class EquipManager {
         try {
             String newArmorFullPath = getClassPackage(player.armor) + "." + newArmorClass;
             newArmor = (Armor) Class.forName(newArmorFullPath).newInstance();
-            newArmor.init(player, player.armor.getComponent(Position.class).x, player.armor.getComponent(Position.class).y, player.armor.getComponent(Position.class).getDirectionDraw(), newArmorName);
+            newArmor.init(player, player.armor.getComponent(Position.class).x,
+                    player.armor.getComponent(Position.class).y,
+                    player.armor.getComponent(Position.class).getDirectionDraw(),
+                    newArmorName);
             player.replaceArmor(newArmor);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             log.fatal("Armor not found: " + newArmorClass);

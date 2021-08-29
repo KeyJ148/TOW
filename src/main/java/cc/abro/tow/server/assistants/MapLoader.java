@@ -1,7 +1,8 @@
 package cc.abro.tow.server.assistants;
 
-import cc.abro.orchengine.util.Vector2;
+import cc.abro.orchengine.net.server.GameServer;
 import cc.abro.orchengine.net.server.senders.ServerSendTCP;
+import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.map.specification.MapSpecificationLoader;
 import cc.abro.tow.server.Server;
 import cc.abro.tow.server.data.ServerData;
@@ -100,7 +101,7 @@ public class MapLoader implements Runnable {
             allReady = true;
 
             for (int i = 0; i < ServerData.playerData.length; i++) {
-                if (!ServerData.playerData[i].gameReady) {
+                if (!GameServer.connects[i].disconnect && !ServerData.playerData[i].gameReady) {
                     allReady = false;
                     break;
                 }

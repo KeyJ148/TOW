@@ -39,7 +39,7 @@ public class Enemy extends Tank {
         this.timeLastRequestDelta = enemy.timeLastRequestDelta;
         this.lastNumberPackage = enemy.lastNumberPackage;
         this.color = enemy.color;
-        this.name = enemy.name;
+        this.setName(enemy.name);
         this.kill = enemy.kill;
         this.death = enemy.death;
         this.win = enemy.win;
@@ -78,7 +78,7 @@ public class Enemy extends Tank {
         //Инициализация пушки
         if (gun == null) {
             Texture gunTexture = Manager.getService(SpriteStorage.class).getSprite("g_default").getTexture();
-            gun = GameObjectFactory.create(x, y, directionGun, 0, gunTexture);
+            gun = GameObjectFactory.create(x, y, 2000, directionGun, gunTexture);
             gun.setComponent(new Movement());
             gun.getComponent(Movement.class).directionDrawEquals = false;
             gun.setComponent(new Follower(armor, false));
