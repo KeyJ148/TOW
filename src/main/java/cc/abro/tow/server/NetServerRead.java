@@ -141,10 +141,11 @@ public class NetServerRead implements NetServerReadInterface {
     }
 
     public void take17(MessagePack.Message message) {
-        int red = Integer.parseInt(message.text.split(" ")[0]);
-        int green = Integer.parseInt(message.text.split(" ")[1]);
-        int blue = Integer.parseInt(message.text.split(" ")[2]);
-        String name = message.text.split(" ")[3];
+        String[] array = message.text.split(" ");
+        int red = Integer.parseInt(array[0]);
+        int green = Integer.parseInt(array[1]);
+        int blue = Integer.parseInt(array[2]);
+        String name = array.length > 3 ? array[3] : "Empty nickname";
 
         ServerData.playerData[message.authorId].color = new Color(red, green, blue);
         ServerData.playerData[message.authorId].name = name;
