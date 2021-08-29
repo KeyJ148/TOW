@@ -105,7 +105,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
                     //Клавиши для одиночной игры
                     //Переход на новую карту
                     case GLFW_KEY_N:
-                        if (ClientData.peopleMax == 1) player.hp = -1000;
+                        player.hp = -1000;
                         break;
 
                     //Поднятие вампиризма до максимума
