@@ -32,4 +32,5 @@ public class ClientData {
     public static String map; //Путь к карте, которая была выбрана (Если ты сервер и выбирал карту)
     public static boolean printStats = false;
     public static boolean printAnalyzerInfo = false;
+    public static boolean showGameTabMenu = false;
 }

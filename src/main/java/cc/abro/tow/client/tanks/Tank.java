@@ -140,4 +140,8 @@ public abstract class Tank extends GameObject {
         this.name = name;
         ((Label) (nickname.getComponent(GuiElement.class)).getComponent()).getTextState().setText(name);
     }
+
+    public String getName() {
+        return name;
+    }
 }
