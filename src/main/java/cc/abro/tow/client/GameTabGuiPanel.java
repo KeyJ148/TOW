@@ -1,8 +1,13 @@
 package cc.abro.tow.client;
 
+import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.gui.EventableGuiPanel;
+import cc.abro.orchengine.resources.sprites.SpriteStorage;
+import cc.abro.orchengine.resources.textures.Texture;
 import org.joml.Vector4f;
+import org.liquidengine.legui.component.ImageView;
 import org.liquidengine.legui.component.Panel;
+import org.liquidengine.legui.image.FBOImage;
 import org.liquidengine.legui.style.Background;
 import org.liquidengine.legui.style.Style;
 import org.liquidengine.legui.style.border.SimpleLineBorder;
@@ -62,6 +67,7 @@ public class GameTabGuiPanel extends EventableGuiPanel {
                 add(panel);
             }
         }
+        addImageViewInCenterOfPanel("kills_icon", panels.get(0).get(1));
         for(int i = 1; i <= countOfPlayers; i++) {
             panels.get(i).get(1).getStyle().getBackground().setColor(GREEN_TAB_COLOR);
             panels.get(i).get(2).getStyle().getBackground().setColor(RED_TAB_COLOR);
@@ -69,6 +75,18 @@ public class GameTabGuiPanel extends EventableGuiPanel {
 
         }
         setSize(0, 0);
+    }
+
+    private void addImageViewInCenterOfPanel(String name, Panel panel) {
+        Texture texture = Manager.getService(SpriteStorage.class).getSprite(name).getTexture();
+
+        FBOImage logoFBOImage = new FBOImage(texture.getId(), texture.getWidth(), texture.getHeight());
+
+        ImageView imageView = new ImageView(logoFBOImage);
+        imageView.setStyle(createInvisibleStyle());
+        imageView.setPosition((panel.getPosition().x - texture.getWidth())/2, (panel.getPosition().y - texture.getHeight())/2);
+        imageView.setSize(texture.getWidth(), texture.getHeight());
+        panel.add(imageView);
     }
 
     public static Style createTabMenuStyle() {
@@ -81,6 +99,7 @@ public class GameTabGuiPanel extends EventableGuiPanel {
     }
 
     public void fillInTable() {
+
 
     }
 }
