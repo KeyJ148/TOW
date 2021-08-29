@@ -76,15 +76,17 @@ public abstract class Tank extends GameObject {
         alive = false;
         death++;
 
-        armor.getComponent(Movement.class).speed = 0;
-        ((AnimationRender) armor.getComponent(Rendering.class)).setFrameSpeed(0);
+        if (armor != null) {
+            armor.getComponent(Movement.class).speed = 0;
+            ((AnimationRender) armor.getComponent(Rendering.class)).setFrameSpeed(0);
 
-        setColor(explodedTankColor);
+            setColor(explodedTankColor);
 
-        GameObject explosion = GameObjectFactory.create(armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, 3000);
-        explosion.setComponent(new Explosion(100));
-        explosion.getComponent(Particles.class).destroyObject = true;
-        Global.location.objAdd(explosion);
+            GameObject explosion = GameObjectFactory.create(armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, 3000);
+            explosion.setComponent(new Explosion(100));
+            explosion.getComponent(Particles.class).destroyObject = true;
+            Global.location.objAdd(explosion);
+        }
 
         //Если в данный момент камера установлена на этот объект
         if (Global.location.camera.getFollowObject() != null && Global.location.camera.getFollowObject() == camera) {
