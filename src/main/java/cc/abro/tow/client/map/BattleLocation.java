@@ -41,7 +41,7 @@ public class BattleLocation extends GameLocation {
     }
 
     protected GuiElement<GameTabGuiPanel> createTabPanel() {
-        GameTabGuiPanel gameTabGuiPanel = new GameTabGuiPanel(GameServer.peopleMax);
+        GameTabGuiPanel gameTabGuiPanel = new GameTabGuiPanel(ClientData.peopleMax);
         GuiElement<GameTabGuiPanel> gameTabGuiElement = new GuiElement<>(gameTabGuiPanel){
             @Override
             public void updateComponent(long delta) {
