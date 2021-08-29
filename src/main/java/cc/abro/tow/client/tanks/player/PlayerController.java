@@ -15,13 +15,14 @@ import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.map.objects.Box;
 import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
+import cc.abro.tow.client.tanks.enemy.Enemy;
 import cc.abro.tow.client.tanks.enemy.EnemyArmor;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.event.KeyEvent;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -91,6 +92,14 @@ public class PlayerController extends GameObject implements Collision.CollisionL
                     //Вывод дебаг инфы
                     case GLFW_KEY_F3:
                         ClientData.printAnalyzerInfo = !ClientData.printAnalyzerInfo;
+                        break;
+
+                    //Переключение камер после смерти
+                    case GLFW_KEY_LEFT:
+                        cameraToNextEnemy();
+                        break;
+                    case GLFW_KEY_RIGHT:
+                        cameraToPrevEnemy();
                         break;
 
                     //Клавиши для одиночной игры
@@ -293,5 +302,68 @@ public class PlayerController extends GameObject implements Collision.CollisionL
                 }
             }
         }
+    }
+
+    //TODO вынести в класс камеры?
+    private void cameraToNextEnemy() {
+        if (Global.location.camera.getFollowObject() == null){
+            return;
+        }
+        List<Enemy> enemies = getEnemiesWithCamera();
+        List<Enemy> enemiesDouble = Stream.concat(enemies.stream(), enemies.stream())
+                .collect(Collectors.toList());
+        int pos = getEnemyWithCameraPos(enemies);
+        if (pos == -1){
+            return;
+        }
+
+        for (int i = pos+1; i < enemiesDouble.size(); i++) {
+            Enemy enemy = enemiesDouble.get(i);
+            if (enemy.camera != null && enemy.alive) {
+                Global.location.camera.setFollowObject(enemy.camera);
+                break;
+            }
+        }
+    }
+
+    private void cameraToPrevEnemy() {
+        if (Global.location.camera.getFollowObject() == null){
+            return;
+        }
+        List<Enemy> enemies = getEnemiesWithCamera();
+        List<Enemy> enemiesDouble = Stream.concat(enemies.stream(), enemies.stream())
+                .collect(Collectors.toList());
+        int pos = getEnemyWithCameraPos(enemies)+enemies.size();
+        if (pos == -1){
+            return;
+        }
+
+        for (int i = pos-1; i >= 0 ; i--) {
+            Enemy enemy = enemiesDouble.get(i);
+            if (enemy.camera != null && enemy.alive) {
+                Global.location.camera.setFollowObject(enemy.camera);
+                break;
+            }
+        }
+    }
+
+    private List<Enemy> getEnemiesWithCamera() {
+        return ClientData.enemy.entrySet().stream()
+                .filter(e -> e.getValue().alive)
+                .filter(e -> e.getValue().camera != null)
+                .sorted(Comparator.comparingInt(Map.Entry::getKey))
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
+    }
+
+    private int getEnemyWithCameraPos(List<Enemy> enemies) {
+        int pos = -1;
+        for (int i = 0; i < enemies.size(); i++) {
+            if (Global.location.camera.getFollowObject() == enemies.get(i).camera) {
+                pos = i;
+                break;
+            }
+        }
+        return pos;
     }
 }
