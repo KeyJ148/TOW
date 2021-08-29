@@ -76,7 +76,7 @@ public class Player extends Tank {
         hp = stats.hpMax;
 
         color = ClientData.color;
-        name = ClientData.name;
+        setName(ClientData.name);
         setColor(color);
 
         setComponent(new Follower(armor));
@@ -204,7 +204,7 @@ public class Player extends Tank {
 
         //Отправляем сообщение о том, что мы сменили броню
         String newName = ((Armor) armor).imageName;
-        Manager.getService(TCPControl.class).send(19, newName.substring(0, newName.lastIndexOf("_")));
+        Manager.getService(TCPControl.class).send(19, newName);
     }
 
     @Override

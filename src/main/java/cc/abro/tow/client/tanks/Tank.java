@@ -33,7 +33,7 @@ public abstract class Tank extends GameObject {
     public GameObject camera;
     public GameObject nickname;
 
-    public String name;
+    protected String name = "";
     public Color color = Color.WHITE;
     public boolean alive = true;
 
@@ -43,8 +43,6 @@ public abstract class Tank extends GameObject {
 
     public Tank() {
         super(Arrays.asList(new Position(0, 0, 0)));
-
-        name = ClientData.name;
         initCamera();
     }
 
@@ -136,5 +134,10 @@ public abstract class Tank extends GameObject {
     public void setColorGun(Color c) {
         if (gun == null || !gun.hasComponent(Rendering.class)) return;
         gun.getComponent(Rendering.class).color = c;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        ((Label) (nickname.getComponent(GuiElement.class)).getComponent()).getTextState().setText(name);
     }
 }
