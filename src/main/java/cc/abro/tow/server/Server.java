@@ -1,16 +1,22 @@
 package cc.abro.tow.server;
 
-import cc.abro.orchengine.util.Vector2;
+import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.implementation.ServerInterface;
 import cc.abro.orchengine.net.server.GameServer;
 import cc.abro.orchengine.net.server.senders.ServerSendTCP;
-import cc.abro.tow.client.map.specification.MapObjectSpecification;
+import cc.abro.orchengine.resources.sprites.SpriteStorage;
+import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.server.assistants.BoxCreator;
 import cc.abro.tow.server.assistants.MapLoader;
 import cc.abro.tow.server.data.PlayerData;
 import cc.abro.tow.server.data.ServerData;
 
 import java.io.File;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Server implements ServerInterface {
 
@@ -72,6 +78,21 @@ public class Server implements ServerInterface {
         int xRand, yRand, x, y, w, h;
         double disHome, disPointToHome, dxRand, dyRand;
 
+        //Подготавливаем список существующих объектов
+        List<MapObject> collisionsObjectsOnMap = Stream.concat(
+                        ServerData.map.getMapObjectSpecifications().stream()
+                                .filter(mapObjectSpecification -> !mapObjectSpecification.getType().equals("road"))
+                                .filter(mapObjectSpecification -> mapObjectSpecification.getParameters().containsKey("texture"))
+                                .map(m -> {
+                                    Texture texture = Manager.getService(SpriteStorage.class)
+                                            .getSprite((String) m.getParameters().get("texture")).getTexture();
+                                    return new MapObject(m.getX(), m.getY(), texture.getWidth(), texture.getHeight());
+                                }),
+                        Stream.of(ServerData.playerData)
+                                .filter(Objects::nonNull)
+                                .map(p -> new MapObject(p.x, p.y, 48, 64)))
+                .collect(Collectors.toList());
+
         //Цикл генерации позиции
         do {
             collision = false;
@@ -82,24 +103,33 @@ public class Server implements ServerInterface {
 
             //Перебираем все имеющиеся объекты
             //Если ни с одним не столкнулись - генерация успешна
-            for (MapObjectSpecification mapObjectSpecification : ServerData.map.getMapObjectSpecifications()) {
-                if (!mapObjectSpecification.getType().equals("road")) {
-                    x = mapObjectSpecification.getX();//Коры объекта
-                    y = mapObjectSpecification.getY();
-                    w = 100;//Размеры объекта
-                    h = 100;
-                    disHome = Math.sqrt(w * w + h * h) / 2;
-                    disPointToHome = Math.sqrt((x - xRand) * (x - xRand) + (y - yRand) * (y - yRand));
+            for (MapObject object : collisionsObjectsOnMap) {
+                x = object.x;
+                y = object.y;
+                w = object.w;
+                h = object.h;
+                disHome = Math.sqrt(w * w + h * h) / 2;
+                disPointToHome = Math.sqrt((x - xRand) * (x - xRand) + (y - yRand) * (y - yRand));
 
-                    if ((disHome + size + 30) > (disPointToHome)) {
-                        collision = true;
-                        break;
-                    }
+                if ((disHome + size + 30) > (disPointToHome)) {
+                    collision = true;
+                    break;
                 }
             }
         } while (collision);
 
         return new Vector2<>(xRand, yRand);
+    }
+
+    public static class MapObject {
+        public final int x, y, w, h;
+
+        public MapObject(int x, int y, int w, int h) {
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+        }
     }
 }
 
