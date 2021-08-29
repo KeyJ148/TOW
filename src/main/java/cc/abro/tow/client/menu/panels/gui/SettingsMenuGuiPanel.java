@@ -7,6 +7,7 @@ import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureLoader;
+import cc.abro.tow.client.SettingsStorage;
 import cc.abro.tow.client.menu.panels.controllers.settings.ClickConfirmController;
 import cc.abro.tow.client.menu.panels.events.settings.ClickConfirmGuiEvent;
 import org.liquidengine.legui.component.Button;
@@ -54,8 +55,12 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
         addLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT);
         TextAreaField textAreaFieldNickname =
                 createTextAreaField(INDENT_X + LABEL_LENGTH_NICKNAME, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT);
+        textAreaFieldNickname.getTextState().setText(SettingsStorage.PROFILE.NICKNAME);
 
-        Texture defaultTankTexture = Manager.getService(SpriteStorage.class).getSprite("sys_tank").getTexture();
+        int[] colorFromSettings = SettingsStorage.PROFILE.COLOR;
+        tankColor = new Color(colorFromSettings);
+        BufferedImage defaultTankImage = Manager.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
+        Texture defaultTankTexture = TextureLoader.createTexture(colorizeImage(defaultTankImage, tankColor));
         FBOImage tankFBOImage = new FBOImage(defaultTankTexture.getId(), defaultTankTexture.getWidth(), defaultTankTexture.getHeight());
         ImageView imageView = new ImageView(tankFBOImage);
         imageView.setStyle(createInvisibleStyle());
@@ -67,22 +72,8 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
                     getMouseReleaseListener(event -> {
                         tankColor = COLORS[fi];
 
-                        //TODO в отдельный сервис по покраске или работе с текстурами
                         BufferedImage tankImage = Manager.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
-                        int width = tankImage.getWidth();
-                        int height = tankImage.getHeight();
-                        int[] pixels = new int[width * height];
-                        tankImage.getRGB(0, 0, width, height, pixels, 0, width);
-                        Color oldColor = new Color(255, 255, 255, 255);
-                        Color newColor = tankColor;
-                        for (int p=0; p<pixels.length; p++) {
-                            if (oldColor.getRGB() == pixels[p]){
-                                pixels[p] = newColor.getRGB();
-                            }
-                        }
-
-                        tankImage.setRGB(0, 0, width, height, pixels, 0, width);
-                        Texture tankTexture = TextureLoader.createTexture(tankImage);
+                        Texture tankTexture = TextureLoader.createTexture(colorizeImage(tankImage, tankColor));
                         //TODO здесь надо вызывать delete у defaultTankTexture и переопределять defaultTankTexture = tankTexture
                         //TODO при закрытие панели не забыть очистить и tankTexture
                         FBOImage newTankFBOImage = new FBOImage(tankTexture.getId(), tankTexture.getWidth(), tankTexture.getHeight());
@@ -108,5 +99,21 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
         button.setPosition(x, y);
         add(button);
         return button;
+    }
+
+    //TODO в отдельный сервис по покраске или работе с текстурами
+    private BufferedImage colorizeImage(BufferedImage image, Color newColor) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int[] pixels = new int[width * height];
+        image.getRGB(0, 0, width, height, pixels, 0, width);
+        Color oldColor = new Color(255, 255, 255, 255);
+        for (int p=0; p<pixels.length; p++) {
+            if (oldColor.getRGB() == pixels[p]){
+                pixels[p] = newColor.getRGB();
+            }
+        }
+        image.setRGB(0, 0, width, height, pixels, 0, width);
+        return image;
     }
 }
