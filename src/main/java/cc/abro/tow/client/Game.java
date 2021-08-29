@@ -24,24 +24,27 @@ public class Game implements GameInterface {
     @Override
     public void init() {
         GameSetting.init();
+        //TODO переделать GameSetting под JSON, и вынести инициализацию настроек ниже в отдельный класс
+        try {
+            SettingsStorage.GRAPHICS = SettingsStorageHandler.initExternalSettingsOrDefaultFromInternal(SettingsStorage.Graphics.class);
+            SettingsStorage.PROFILE = SettingsStorageHandler.initExternalSettingsOrDefaultFromInternal(SettingsStorage.Profile.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (SettingsStorage.GRAPHICS.CURSOR_SPRITE != null) {
+            Global.location.getMouse().getCursor().setCapture(true);
+            Texture texture = Manager.getService(SpriteStorage.class).getSprite(SettingsStorage.GRAPHICS.CURSOR_SPRITE).getTexture();
+            Global.location.getMouse().getCursor().setTexture(texture);
+        }
+
+        MapObjectCreatorsLoader.load();
 
         guiPanelStorage.registry(new MainMenuGuiPanel());
         guiPanelStorage.registry(new SettingsMenuGuiPanel());
         guiPanelStorage.registry(new ConnectByIPMenuGuiPanel());
         guiPanelStorage.registry(new ListOfServersMenuGuiPanel());
         guiPanelStorage.registry(new CreateGameMenuGuiPanel());
-
-        MapObjectCreatorsLoader.load();
-        try {
-            SettingsStorage.GRAPHICS = SettingsStorageHandler.initExternalSettingsOrDefaultFromInternal(SettingsStorage.Graphics.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        if (SettingsStorage.GRAPHICS.CURSOR_SPRITE != null) {
-            Global.location.getMouse().getCursor().setCapture(true);
-            Texture texture = Manager.getService(SpriteStorage.class).getSprite(SettingsStorage.GRAPHICS.CURSOR_SPRITE).getTexture();
-            Global.location.getMouse().getCursor().setTexture(texture);
-        }
 
         //TODO ServerLoader.mapPath = "maps/town10k.maptest";
 
