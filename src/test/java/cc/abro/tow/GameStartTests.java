@@ -3,6 +3,8 @@ package cc.abro.tow;
 import cc.abro.orchengine.Global;
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.OrchEngine;
+import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
+import cc.abro.orchengine.gui.EventableGuiPanel;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.profiles.Profile;
 import cc.abro.orchengine.profiles.Profiles;
@@ -17,6 +19,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static cc.abro.tow.LogUtils.waitToLog;
@@ -32,7 +35,7 @@ public class GameStartTests {
     @Test
     @Timeout(value = 10)
     public void gameStartAndCreateServerTest(){
-        Runnable gameAfterStart = () -> new ClickCreateController().processEvent(new ClickCreateGuiEvent("25566", 1));
+        Runnable gameAfterStart = () -> connect("25566", 1);
         Manager.addService(new GameAfterStartService(gameAfterStart));
         AtomicReference<Boolean> hasException = new AtomicReference<>(false);
         new Thread(() -> {
@@ -47,6 +50,12 @@ public class GameStartTests {
         Global.engine.stop();
         waitToLog("Shutting down logger");
         Assertions.assertFalse(hasException.get(), "Has exception in game main thread");
+    }
+
+    public void connect(String port, int peopleMax){
+        ClickCreateController controller = new ClickCreateController();
+        controller.init(new EventableGuiPanelElement<>(new EventableGuiPanel(){}, Set.of()));
+        controller.processEvent(new ClickCreateGuiEvent(port, peopleMax));
     }
 
     /*
