@@ -1,19 +1,23 @@
 package cc.abro.tow.client.menu.panels.gui;
 
+import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelController;
 import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelGuiEvent;
 import cc.abro.orchengine.image.Color;
-import cc.abro.tow.client.ClientData;
+import cc.abro.orchengine.resources.sprites.SpriteStorage;
+import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.orchengine.resources.textures.TextureLoader;
 import cc.abro.tow.client.menu.panels.controllers.settings.ClickConfirmController;
 import cc.abro.tow.client.menu.panels.events.settings.ClickConfirmGuiEvent;
 import org.liquidengine.legui.component.Button;
-import org.liquidengine.legui.component.Label;
-import org.liquidengine.legui.component.Panel;
+import org.liquidengine.legui.component.ImageView;
 import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.event.MouseClickEvent;
+import org.liquidengine.legui.image.FBOImage;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.Background;
 
+import java.awt.image.BufferedImage;
 import java.util.Set;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
@@ -51,16 +55,38 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
         TextAreaField textAreaFieldNickname =
                 createTextAreaField(INDENT_X + LABEL_LENGTH_NICKNAME, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT);
 
-        Panel panelColor =
-                createPanel(SETTINGS_PANEL_WIDTH - PANEL_COLOR_WIDTH, 0, PANEL_COLOR_WIDTH, PANEL_COLOR_HEIGHT);
-        panelColor.getStyle().getBackground().setColor(ClientData.color.getVector4f());
+        Texture defaultTankTexture = Manager.getService(SpriteStorage.class).getSprite("sys_tank").getTexture();
+        FBOImage tankFBOImage = new FBOImage(defaultTankTexture.getId(), defaultTankTexture.getWidth(), defaultTankTexture.getHeight());
+        ImageView imageView = new ImageView(tankFBOImage);
+        imageView.setStyle(createInvisibleStyle());
+        addComponent(imageView, 230, 15, defaultTankTexture.getWidth(), defaultTankTexture.getHeight());
 
         for (int i = 0; i < COLORS.length; i++) {
             final int fi = i;
-            Button buttonColor = createColorButton(INDENT_X + (BUTTON_COLOR_SIZE + 2) * i, INDENT_Y + MENU_TEXT_FIELD_HEIGHT + 10, COLORS[i],
+            addColorButton(INDENT_X + (BUTTON_COLOR_SIZE + 2) * i, INDENT_Y + MENU_TEXT_FIELD_HEIGHT + 10, COLORS[i],
                     getMouseReleaseListener(event -> {
                         tankColor = COLORS[fi];
-                        panelColor.getStyle().getBackground().setColor(COLORS[fi].getVector4f());
+
+                        //TODO в отдельный сервис по покраске или работе с текстурами
+                        BufferedImage tankImage = Manager.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
+                        int width = tankImage.getWidth();
+                        int height = tankImage.getHeight();
+                        int[] pixels = new int[width * height];
+                        tankImage.getRGB(0, 0, width, height, pixels, 0, width);
+                        Color oldColor = new Color(255, 255, 255, 255);
+                        Color newColor = tankColor;
+                        for (int p=0; p<pixels.length; p++) {
+                            if (oldColor.getRGB() == pixels[p]){
+                                pixels[p] = newColor.getRGB();
+                            }
+                        }
+
+                        tankImage.setRGB(0, 0, width, height, pixels, 0, width);
+                        Texture tankTexture = TextureLoader.createTexture(tankImage);
+                        //TODO здесь надо вызывать delete у defaultTankTexture и переопределять defaultTankTexture = tankTexture
+                        //TODO при закрытие панели не забыть очистить и tankTexture
+                        FBOImage newTankFBOImage = new FBOImage(tankTexture.getId(), tankTexture.getWidth(), tankTexture.getHeight());
+                        imageView.setImage(newTankFBOImage);
                     }));
         }
 
@@ -71,11 +97,7 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
                 () -> new ClickConfirmGuiEvent(textAreaFieldNickname.getTextState().getText(), tankColor));
     }
 
-    private void printErrorMessage(String message) {
-        add(new Label(message, INDENT_X, SETTINGS_PANEL_HEIGHT - INDENT_Y * 2 - BUTTON_HEIGHT, 30, 30));
-    }
-
-    private Button createColorButton(int x, int y, Color color, MouseClickEventListener event) {
+    private Button addColorButton(int x, int y, Color color, MouseClickEventListener event) {
         Button button = new Button("");
         Background background = new Background();
         background.setColor(color.getVector4f());

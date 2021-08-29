@@ -6,7 +6,7 @@ import cc.abro.tow.server.Server;
 
 public class ServerStart {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         GameServer.initSettings(args, new Server(), new NetServerRead());
         GameServer.waitConnect();
     }

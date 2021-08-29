@@ -1,7 +1,5 @@
 package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.tow.client.menu.panels.events.main.ClickCloseChildPanelGuiEvent;
-import com.google.common.collect.ImmutableSet;
 import org.liquidengine.legui.component.Component;
 import org.liquidengine.legui.component.Label;
 
@@ -14,7 +12,7 @@ public class BlockingGuiPanel extends MenuGuiPanel{
 
     private final Set<Component> unfocusedComponents;
 
-    private Label label;
+    private final Label label;
 
     public BlockingGuiPanel(String message, int sizeX, int sizeY, Component parent) {
             super();
