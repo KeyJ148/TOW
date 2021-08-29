@@ -62,7 +62,7 @@ public class BattleLocation extends GameLocation {
             }
         };
         Manager.getService(GuiElementService.class).addGuiElementToLocation(gameTabGuiElement,
-                (Manager.getService(Render.class).getWidth() - TAB_SIZE_X)/2, (Manager.getService(Render.class).getHeight() - TAB_LINE_SIZE_Y)/2, this);
+                (Manager.getService(Render.class).getWidth() - TAB_SIZE_X)/2, (Manager.getService(Render.class).getHeight() - (TAB_LINE_SIZE_Y + 2) * (ClientData.peopleMax + 1) - 2)/2, this);
         return gameTabGuiElement;
     }
 }
