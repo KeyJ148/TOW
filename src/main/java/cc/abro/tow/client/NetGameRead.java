@@ -136,6 +136,7 @@ public class NetGameRead implements NetGameReadInterface {
 	//данные о карте - (int width, int height, String background)
 	public void take3(String str) {
 		String mapPath = str.split(" ")[0];
+		mapPath = mapPath.replace("\\", "/");
 		MapSpecification mapSpecification = MapSpecificationLoader.getMapSpecification(mapPath);
 		new BattleLocation(mapSpecification).activate();
 	}
