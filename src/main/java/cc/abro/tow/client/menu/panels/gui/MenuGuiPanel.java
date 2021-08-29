@@ -30,11 +30,12 @@ public class MenuGuiPanel extends EventableGuiPanel {
         Manager.getService(PanelControllersStorage.class).registry(getClass(), controllersSupplier);
     }
 
-    public void addLabel(String text, int x, int y, int width, int height) {
+    public Label addLabel(String text, int x, int y, int width, int height) {
         Label label = new Label(text, x, y, width, height);
         label.getTextState().setFont(FontRegistry.ROBOTO_REGULAR);
         label.getTextState().setFontSize(LABEL_FONT_SIZE);
         add(label);
+        return label;
     }
 
     public void addBigLabel(String text, int x, int y, int width, int height) {

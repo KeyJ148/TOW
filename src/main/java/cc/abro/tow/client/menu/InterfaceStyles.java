@@ -11,8 +11,9 @@ public final class InterfaceStyles {
     public final static int MENU_ELEMENT_HEIGHT = 70;
     public final static int BLOCKING_BUTTON_ELEMENT_WIDTH = 360;
     public final static int BLOCKING_BUTTON_ELEMENT_HEIGHT = 90;
-
     public final static int CONNECTING_ELEMENT_WIDTH = 160;
+    public final static int CONNECTED_PLAYERS_ELEMENT_WIDTH = 230;
+    public final static int WAITING_ELEMENT_WIDTH = 180;
     public final static int CONNECTING_ELEMENT_HEIGHT = 70;
 
     public final static int MENU_BUTTON_WIDTH = MENU_ELEMENT_WIDTH;
