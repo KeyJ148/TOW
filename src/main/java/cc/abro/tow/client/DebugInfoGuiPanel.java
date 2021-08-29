@@ -4,7 +4,6 @@ import cc.abro.orchengine.gui.EventableGuiPanel;
 import org.liquidengine.legui.component.Label;
 import org.liquidengine.legui.style.font.FontRegistry;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class DebugInfoGuiPanel extends EventableGuiPanel {
 
     private static final int LABEL_LENGTH = 100;
 
-    private final ArrayList<Label> labels = new ArrayList<Label>();
+    private final List<Label> labels = new ArrayList<>();
 
     public DebugInfoGuiPanel(int countLabel) {
         setFocusable(false);
@@ -24,7 +23,7 @@ public class DebugInfoGuiPanel extends EventableGuiPanel {
         for (int i = 0; i < countLabel; i++) {
             labels.add(new Label("", 0, i*LABEL_HEIGHT_DEBUG, LABEL_LENGTH, LABEL_HEIGHT_DEBUG));
             labels.get(i).getTextState().setFont(FontRegistry.ROBOTO_BOLD);
-            labels.get(i).getTextState().setFontSize(LABEL_FONT_SIZE);
+            labels.get(i).getTextState().setFontSize(ANALYZER_INFO_FONT_SIZE);
             add(labels.get(i));
         }
 

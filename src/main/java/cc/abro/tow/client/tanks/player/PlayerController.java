@@ -84,8 +84,13 @@ public class PlayerController extends GameObject implements Collision.CollisionL
                         break;
 
                     //Вывод характеристик танка
-                    case GLFW_KEY_F3:
+                    case GLFW_KEY_F2:
                         ClientData.printStats = !ClientData.printStats;
+                        break;
+
+                    //Вывод дебаг инфы
+                    case GLFW_KEY_F3:
+                        ClientData.printAnalyzerInfo = !ClientData.printAnalyzerInfo;
                         break;
 
                     //Клавиши для одиночной игры

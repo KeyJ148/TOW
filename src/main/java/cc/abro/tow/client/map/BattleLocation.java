@@ -17,5 +17,7 @@ public class BattleLocation extends GameLocation {
             objAdd(mapObject);
             ClientData.mapObjects.add(mapObjectSpecification.getId(), mapObject);
         }
+
+        createDebugPanel(70);
     }
 }
