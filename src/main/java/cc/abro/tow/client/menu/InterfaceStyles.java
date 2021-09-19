@@ -1,9 +1,11 @@
 package cc.abro.tow.client.menu;
 
 import org.joml.Vector4f;
+import org.liquidengine.legui.component.optional.align.HorizontalAlign;
 import org.liquidengine.legui.style.Background;
 import org.liquidengine.legui.style.Style;
 import org.liquidengine.legui.style.border.SimpleLineBorder;
+import org.liquidengine.legui.style.font.FontRegistry;
 
 public final class InterfaceStyles {
 
@@ -183,6 +185,24 @@ public final class InterfaceStyles {
         return style;
     }
 
+    public static Style createLabelStyle() {
+        Style style = new Style();
+        style.setFont(FontRegistry.ROBOTO_REGULAR);
+        style.setFontSize(LABEL_FONT_SIZE);
+        style.setTextColor(BLACK_COLOR);
+        style.getBackground().setColor(INVISIBLE_COLOR);
+        return style;
+    }
+
+    public static Style createBigLabelStyle() {
+        Style style = new Style();
+        style.setFont(FontRegistry.ROBOTO_BOLD);
+        style.setFontSize(BIG_LABEL_FONT_SIZE);
+        style.setTextColor(BLACK_COLOR);
+        style.getBackground().setColor(INVISIBLE_COLOR);
+        return style;
+    }
+
     public static Style createScrollBarStyle() {
         Style style = new Style();
         style.setWidth(8.0F);
@@ -207,6 +227,10 @@ public final class InterfaceStyles {
         Style style = new Style();
         style.setBorder(createButtonBorder());
         style.setBackground(createMenuButtonBackground());
+        style.setFont(FontRegistry.ROBOTO_BOLD);
+        style.setFontSize(MENU_BUTTON_FONT_SIZE);
+        style.setTextColor(BLACK_COLOR);
+        style.setHorizontalAlign(HorizontalAlign.CENTER);
         return style;
     }
 
@@ -214,7 +238,6 @@ public final class InterfaceStyles {
         Style style = new Style();
         style.setBorder(createPanelBorder());
         style.setBackground(createPanelBackground());
-        style.setDisplay(Style.DisplayType.MANUAL);
         return style;
     }
 
@@ -237,6 +260,7 @@ public final class InterfaceStyles {
         style.setBackground(createTextAreaFieldBackground());
         style.setBorder(createTextAreaFieldBorder());
         style.setFocusedStrokeColor(INVISIBLE_COLOR);
+        style.setHighlightColor(LIGHT_GRAY_COLOR);
         return style;
     }
 }

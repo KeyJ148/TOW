@@ -33,26 +33,20 @@ public class MenuGuiPanel extends EventableGuiPanel {
 
     public Label addLabel(String text, int x, int y, int width, int height) {
         Label label = new Label(text, x, y, width, height);
-        label.getStyle().setFont(FontRegistry.ROBOTO_REGULAR);
-        label.getStyle().setFontSize(LABEL_FONT_SIZE);
-        label.getStyle().setTextColor(BLACK_COLOR);
+        label.setStyle(createLabelStyle());
         add(label);
         return label;
     }
 
     public void addBigLabel(String text, int x, int y, int width, int height) {
         Label label = new Label(text, x, y, width, height);
-        label.getStyle().setFont(FontRegistry.ROBOTO_BOLD);
-        label.getStyle().setFontSize(BIG_LABEL_FONT_SIZE);
-        label.getStyle().setTextColor(BLACK_COLOR);
+        label.setStyle(createBigLabelStyle());
         add(label);
     }
 
     public Label createLabel(String text, int x, int y, int width, int height) {
         Label label = new Label(text, x, y, width, height);
-        label.getStyle().setFont(FontRegistry.ROBOTO_BOLD);
-        label.getStyle().setFontSize(BIG_LABEL_FONT_SIZE);
-        label.getStyle().setTextColor(BLACK_COLOR);
+        label.setStyle(createLabelStyle());
         return label;
     }
 
@@ -87,10 +81,6 @@ public class MenuGuiPanel extends EventableGuiPanel {
         Button button = new Button(buttonConfiguration.text);
         button.setStyle(createMenuButtonStyle());
         button.getListenerMap().addListener(MouseClickEvent.class, getMouseReleaseListenerToNotify(buttonConfiguration.event));
-        button.getStyle().setFont(FontRegistry.ROBOTO_BOLD);
-        button.getStyle().setFontSize(MENU_BUTTON_FONT_SIZE);
-        button.getStyle().setTextColor(BLACK_COLOR);
-        button.getStyle().setHorizontalAlign(HorizontalAlign.CENTER);
         button.getHoveredStyle().setBackground(createHoveredMenuButtonBackground());
         button.getPressedStyle().setBackground(createPressedMenuButtonBackground());
         button.getHoveredStyle().setBorder(createButtonBorder());
