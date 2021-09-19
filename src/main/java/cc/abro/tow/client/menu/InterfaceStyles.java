@@ -51,6 +51,10 @@ public final class InterfaceStyles {
     public final static int LABEL_HEIGHT_DEBUG = 14;
     public final static int LABEL_HEIGHT_ZERO_RULE = 18;
 
+    public final static float THICKNESS_OF_TEXT_AREA_BORDER = 2f;
+    public final static float THICKNESS_OF_PANEL_BORDER = 2f;
+    public final static float THICKNESS_OF_BUTTON_BORDER = 2f;
+
     public final static float MENU_BUTTON_FONT_SIZE = 30;
     public final static float BUTTON_FONT_SIZE = 20;
     public final static float LABEL_FONT_SIZE = BUTTON_FONT_SIZE;
@@ -156,15 +160,15 @@ public final class InterfaceStyles {
     }
 
     public static SimpleLineBorder createButtonBorder() {
-        return new SimpleLineBorder(BLACK_COLOR, 2f);
+        return new SimpleLineBorder(BLACK_COLOR, THICKNESS_OF_BUTTON_BORDER);
     }
 
     public static SimpleLineBorder createPanelBorder() {
-        return new SimpleLineBorder(BLACK_COLOR, 2f);
+        return new SimpleLineBorder(BLACK_COLOR, THICKNESS_OF_PANEL_BORDER);
     }
 
     public static SimpleLineBorder createTextAreaFieldBorder() {
-        return new SimpleLineBorder(BLACK_COLOR, 1.5f);
+        return new SimpleLineBorder(BLACK_COLOR, THICKNESS_OF_TEXT_AREA_BORDER);
     }
 
     public static SimpleLineBorder createScrollBarBorder() {
@@ -210,6 +214,7 @@ public final class InterfaceStyles {
         Style style = new Style();
         style.setBorder(createPanelBorder());
         style.setBackground(createPanelBackground());
+        style.setDisplay(Style.DisplayType.MANUAL);
         return style;
     }
 
