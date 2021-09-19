@@ -16,7 +16,7 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
     protected final static int MAIN_PANEL_HEIGHT = 5 * MENU_ELEMENT_HEIGHT / 3;
 
     public ConnectByIPMenuGuiPanel() {
-        super(() -> Set.of(new ClickChangePanelController(), new ClickConnectController()));
+        super(() -> Set.of(new ClickChangeToPanelFromCacheController(), new ClickConnectController()));
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
 
         addLabel("IP:", INDENT_X, INDENT_Y, LABEL_LENGTH_ID, MENU_TEXT_FIELD_HEIGHT);

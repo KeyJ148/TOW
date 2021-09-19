@@ -1,8 +1,8 @@
 package cc.abro.tow.client.menu.panels.gui;
 
 import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelController;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelGuiEvent;
+import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheController;
+import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
@@ -19,6 +19,7 @@ import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.Background;
 
 import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.Set;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
@@ -49,7 +50,6 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
     private Color tankColor;
 
     public SettingsMenuGuiPanel() {
-        super(() -> Set.of(new ClickChangePanelController(), new ClickConfirmController()));
         setSize(SETTINGS_PANEL_WIDTH, SETTINGS_PANEL_HEIGHT);
 
         addLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT);

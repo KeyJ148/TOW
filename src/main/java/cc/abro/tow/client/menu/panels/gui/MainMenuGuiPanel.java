@@ -10,11 +10,12 @@ import java.util.Set;
 public class MainMenuGuiPanel extends MenuGuiPanel {
 
     public MainMenuGuiPanel() {
-        super(() -> Set.of(new ClickChangePanelController(), new ClickExitController()));
-        addMenuButtons(new ButtonConfiguration("Create a game", new ClickChangePanelGuiEvent(CreateGameMenuGuiPanel.class)),
-                new ButtonConfiguration("List of servers", new ClickChangePanelGuiEvent(ListOfServersMenuGuiPanel.class)),
-                new ButtonConfiguration("Connect via IP", new ClickChangePanelGuiEvent(ConnectByIPMenuGuiPanel.class)),
-                new ButtonConfiguration("Settings", new ClickChangePanelGuiEvent(SettingsMenuGuiPanel.class)),
+        super(() -> Set.of(new ClickChangeToPanelFromCacheController(), new ClickChangePanelController(), new ClickExitController()));
+        addMenuButtons(new ButtonConfiguration("Create a game", new ClickChangeToPanelFromCacheGuiEvent(CreateGameMenuGuiPanel.class)),
+                new ButtonConfiguration("List of servers", new ClickChangeToPanelFromCacheGuiEvent(ListOfServersMenuGuiPanel.class)),
+                new ButtonConfiguration("Connect via IP", new ClickChangeToPanelFromCacheGuiEvent(ConnectByIPMenuGuiPanel.class)),
+                new ButtonConfiguration("Settings", new ClickChangePanelGuiEvent(() -> new SettingsMenuGuiPanel(),
+                        () -> Set.of(new ClickChangeToPanelFromCacheController(), new ClickConfirmController()))),
                 new ButtonConfiguration("Exit", new ClickExitGuiEvent()));
     }
 

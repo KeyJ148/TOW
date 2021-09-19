@@ -10,6 +10,7 @@ import org.liquidengine.legui.component.optional.align.HorizontalAlign;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.style.font.FontRegistry;
 
+import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -64,10 +65,11 @@ public class MenuGuiPanel extends EventableGuiPanel {
         }
     }
 
-    public void addButton(String text, int x, int y, int width, int height, Supplier<GuiElementEvent> eventSupplier) {
+    public void addButtonWithEvents(String text, int x, int y, int width, int height,
+                                    Supplier<List<GuiElementEvent>> eventSupplier) {
         Button button = new Button(text);
         button.setStyle(createButtonStyle());
-        button.getListenerMap().addListener(MouseClickEvent.class, getMouseReleaseListenerToNotify(eventSupplier));
+        button.getListenerMap().addListener(MouseClickEvent.class, getMouseReleaseListenerToNotifyEvents(eventSupplier));
         button.getStyle().setFont(FontRegistry.ROBOTO_REGULAR);
         button.getStyle().setFontSize(BUTTON_FONT_SIZE);
         button.getStyle().setTextColor(BLACK_COLOR);
