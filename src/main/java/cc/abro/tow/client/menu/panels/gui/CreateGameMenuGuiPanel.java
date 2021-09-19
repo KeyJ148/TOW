@@ -1,7 +1,7 @@
 package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelController;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelGuiEvent;
+import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheController;
+import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
 import cc.abro.tow.client.menu.panels.controllers.creategame.ClickCreateController;
 import cc.abro.tow.client.menu.panels.events.creategame.ClickCreateGuiEvent;
 import org.liquidengine.legui.component.TextAreaField;
@@ -36,7 +36,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
 
 
         addButton("Back to menu", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangePanelGuiEvent(MainMenuGuiPanel.class));
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class));
         addButton("Create a game", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
                 BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickCreateGuiEvent(
                         textAreaFieldPort.getTextState().getText(),

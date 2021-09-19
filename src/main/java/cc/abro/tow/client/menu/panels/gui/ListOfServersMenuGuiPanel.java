@@ -1,7 +1,7 @@
 package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelController;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelGuiEvent;
+import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheController;
+import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
 import org.liquidengine.legui.component.ScrollablePanel;
 
 import java.util.ArrayList;
@@ -52,14 +52,14 @@ public class ListOfServersMenuGuiPanel extends MenuGuiPanel {
         }*/
 
         addButton("Back", INDENT_BUTTON_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                () -> new ClickChangePanelGuiEvent(MainMenuGuiPanel.class));
+                () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class));
         addButton("Add server", 2*INDENT_BUTTON_X + BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangePanelGuiEvent(MainMenuGuiPanel.class));
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class));
         addButton("Edit server", 3*INDENT_BUTTON_X + 2*BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangePanelGuiEvent(MainMenuGuiPanel.class));
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class));
         addButton("Delete server", 4*INDENT_BUTTON_X + 3*BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangePanelGuiEvent(MainMenuGuiPanel.class));
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class));
         addButton("Join the game", 5*INDENT_BUTTON_X + 4*BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangePanelGuiEvent(MainMenuGuiPanel.class));
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class));
     }
 }

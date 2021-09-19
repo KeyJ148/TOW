@@ -82,10 +82,12 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
         }
 
         addButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangePanelGuiEvent(MainMenuGuiPanel.class));
-        addButton("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
+                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class));
+        addButtonWithEvents("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                () -> new ClickConfirmGuiEvent(textAreaFieldNickname.getTextState().getText(), tankColor));
+                () -> List.of(
+                        new ClickConfirmGuiEvent(textAreaFieldNickname.getTextState().getText(), tankColor),
+                        new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class)));
     }
 
     private Button addColorButton(int x, int y, Color color, MouseClickEventListener event) {

@@ -1,7 +1,7 @@
 package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelController;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelGuiEvent;
+import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheController;
+import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
 import cc.abro.tow.client.menu.panels.controllers.connectbyip.ClickConnectController;
 import cc.abro.tow.client.menu.panels.events.connectbyip.ClickConnectGuiEvent;
 import org.liquidengine.legui.component.TextAreaField;
@@ -28,7 +28,7 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
                 createTextAreaField(MAIN_PANEL_WIDTH - TEXT_AREA_LENGTH_PORT - INDENT_X, INDENT_Y, TEXT_AREA_LENGTH_PORT, MENU_TEXT_FIELD_HEIGHT, "25566");
 
         addButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                () -> new ClickChangePanelGuiEvent(MainMenuGuiPanel.class));
+                () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class));
         addButton("Connect", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                 () -> new ClickConnectGuiEvent(
                         (!textAreaFieldIP.getTextState().getText().isEmpty()) ? textAreaFieldIP.getTextState().getText() : null,

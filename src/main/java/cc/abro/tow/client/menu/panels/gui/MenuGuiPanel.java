@@ -65,6 +65,10 @@ public class MenuGuiPanel extends EventableGuiPanel {
         }
     }
 
+    public void addButton(String text, int x, int y, int width, int height, Supplier<GuiElementEvent> eventSupplier) {
+        addButtonWithEvents(text, x, y, width, height, () -> List.of(eventSupplier.get()));
+    }
+
     public void addButtonWithEvents(String text, int x, int y, int width, int height,
                                     Supplier<List<GuiElementEvent>> eventSupplier) {
         Button button = new Button(text);
