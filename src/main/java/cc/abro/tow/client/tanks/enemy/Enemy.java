@@ -110,6 +110,8 @@ public class Enemy extends Tank {
     }
 
     public void newArmor(String nameArmor) {
+        if (armor == null) return;
+
         armor.setComponent(new AnimationRender(Manager.getService(AnimationStorage.class).getAnimation(nameArmor).getTextures()));
         setColorArmor(color);
 
@@ -117,6 +119,8 @@ public class Enemy extends Tank {
     }
 
     public void newGun(String nameGun) {
+        if (gun == null) return;
+
         gun.setComponent(new SpriteRender(Manager.getService(SpriteStorage.class).getSprite(nameGun).getTexture()));
         setColorGun(color);
 
