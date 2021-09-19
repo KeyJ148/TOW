@@ -22,8 +22,9 @@ public class DebugInfoGuiPanel extends EventableGuiPanel {
 
         for (int i = 0; i < countLabel; i++) {
             labels.add(new Label("", 0, i*LABEL_HEIGHT_DEBUG, LABEL_LENGTH, LABEL_HEIGHT_DEBUG));
-            labels.get(i).getTextState().setFont(FontRegistry.ROBOTO_BOLD);
-            labels.get(i).getTextState().setFontSize(ANALYZER_INFO_FONT_SIZE);
+            labels.get(i).getStyle().setFont(FontRegistry.ROBOTO_BOLD);
+            labels.get(i).getStyle().setFontSize(ANALYZER_INFO_FONT_SIZE);
+            labels.get(i).getStyle().setTextColor(BLACK_COLOR);
             add(labels.get(i));
         }
 

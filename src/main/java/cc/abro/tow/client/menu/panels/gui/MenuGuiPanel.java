@@ -32,23 +32,26 @@ public class MenuGuiPanel extends EventableGuiPanel {
 
     public Label addLabel(String text, int x, int y, int width, int height) {
         Label label = new Label(text, x, y, width, height);
-        label.getTextState().setFont(FontRegistry.ROBOTO_REGULAR);
-        label.getTextState().setFontSize(LABEL_FONT_SIZE);
+        label.getStyle().setFont(FontRegistry.ROBOTO_REGULAR);
+        label.getStyle().setFontSize(LABEL_FONT_SIZE);
+        label.getStyle().setTextColor(BLACK_COLOR);
         add(label);
         return label;
     }
 
     public void addBigLabel(String text, int x, int y, int width, int height) {
         Label label = new Label(text, x, y, width, height);
-        label.getTextState().setFont(FontRegistry.ROBOTO_BOLD);
-        label.getTextState().setFontSize(BIG_LABEL_FONT_SIZE);
+        label.getStyle().setFont(FontRegistry.ROBOTO_BOLD);
+        label.getStyle().setFontSize(BIG_LABEL_FONT_SIZE);
+        label.getStyle().setTextColor(BLACK_COLOR);
         add(label);
     }
 
     public Label createLabel(String text, int x, int y, int width, int height) {
         Label label = new Label(text, x, y, width, height);
-        label.getTextState().setFont(FontRegistry.ROBOTO_BOLD);
-        label.getTextState().setFontSize(BIG_LABEL_FONT_SIZE);
+        label.getStyle().setFont(FontRegistry.ROBOTO_BOLD);
+        label.getStyle().setFontSize(BIG_LABEL_FONT_SIZE);
+        label.getStyle().setTextColor(BLACK_COLOR);
         return label;
     }
 
@@ -70,8 +73,9 @@ public class MenuGuiPanel extends EventableGuiPanel {
         Button button = new Button(text);
         button.setStyle(createButtonStyle());
         button.getListenerMap().addListener(MouseClickEvent.class, getMouseReleaseListenerToNotify(eventSupplier));
-        button.getTextState().setFont(FontRegistry.ROBOTO_REGULAR);
-        button.getTextState().setFontSize(BUTTON_FONT_SIZE);
+        button.getStyle().setFont(FontRegistry.ROBOTO_REGULAR);
+        button.getStyle().setFontSize(BUTTON_FONT_SIZE);
+        button.getStyle().setTextColor(BLACK_COLOR);
         button.getHoveredStyle().setBackground(createHoveredButtonBackground());
         button.getPressedStyle().setBackground(createPressedButtonBackground());
         addComponent(button, x, y, width, height);
@@ -81,8 +85,9 @@ public class MenuGuiPanel extends EventableGuiPanel {
         Button button = new Button(buttonConfiguration.text);
         button.setStyle(createMenuButtonStyle());
         button.getListenerMap().addListener(MouseClickEvent.class, getMouseReleaseListenerToNotify(buttonConfiguration.event));
-        button.getTextState().setFont(FontRegistry.ROBOTO_BOLD);
-        button.getTextState().setFontSize(MENU_BUTTON_FONT_SIZE);
+        button.getStyle().setFont(FontRegistry.ROBOTO_BOLD);
+        button.getStyle().setFontSize(MENU_BUTTON_FONT_SIZE);
+        button.getStyle().setTextColor(BLACK_COLOR);
         button.getHoveredStyle().setBackground(createHoveredMenuButtonBackground());
         button.getPressedStyle().setBackground(createPressedMenuButtonBackground());
         button.getHoveredStyle().setBorder(createButtonBorder());
@@ -95,8 +100,9 @@ public class MenuGuiPanel extends EventableGuiPanel {
         textAreaField.setStyle(createTextAreaFieldStyle());
         textAreaField.getFocusedStyle().setBackground(createFocusedTextAreaFieldBackground());
         textAreaField.getFocusedStyle().setBorder(createTextAreaFieldBorder());
-        textAreaField.getTextState().setFont(FontRegistry.ROBOTO_REGULAR);
-        textAreaField.getTextState().setFontSize(LABEL_FONT_SIZE);
+        textAreaField.getStyle().setFont(FontRegistry.ROBOTO_REGULAR);
+        textAreaField.getStyle().setFontSize(LABEL_FONT_SIZE);
+        textAreaField.getStyle().setTextColor(BLACK_COLOR);
         addComponent(textAreaField, x, y, width, height);
         return textAreaField;
     }

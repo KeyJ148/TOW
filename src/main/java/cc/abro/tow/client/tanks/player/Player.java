@@ -29,6 +29,8 @@ import org.liquidengine.legui.style.color.ColorConstants;
 
 import java.util.ArrayList;
 
+import static cc.abro.tow.client.menu.InterfaceStyles.BLACK_COLOR;
+
 public class Player extends Tank {
 
     public boolean takeArmor = true;
@@ -85,14 +87,16 @@ public class Player extends Tank {
 
         Label hpLabelComponent = new Label();
         hpLabelComponent.setFocusable(false);
-        hpLabelComponent.getTextState().setFontSize(30);
+        hpLabelComponent.getStyle().setFontSize(30f);
+        hpLabelComponent.getStyle().setTextColor(BLACK_COLOR);
         hpLabel = Manager.getService(LeguiComponentService.class).addComponentToLocation(hpLabelComponent, 1, 10, Global.location);//TODO getComponent(Position.class)
 
         statsLabel = new GameObject[stats.toString().split("\n").length + 4];
         for (int i = 0; i < statsLabel.length; i++) {
             Label statsLabelComponent = new Label();
             statsLabelComponent.setFocusable(false);
-            statsLabelComponent.getTextState().setFontSize(17);
+            statsLabelComponent.getStyle().setFontSize(17f);
+            statsLabelComponent.getStyle().setTextColor(BLACK_COLOR);
             statsLabel[i] = Manager.getService(LeguiComponentService.class).addComponentToLocation(statsLabelComponent, 1, 30 + i * 15, Global.location);//TODO getComponent(Position.class)
         }
 

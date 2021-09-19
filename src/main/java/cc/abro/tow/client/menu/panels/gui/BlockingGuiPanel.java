@@ -18,7 +18,7 @@ public class BlockingGuiPanel extends MenuGuiPanel{
             super();
             setSize(sizeX, sizeY);
 
-            int widthOfMessage = (LABEL_FONT_SIZE*9/24)*message.length();
+            int widthOfMessage = (int) (LABEL_FONT_SIZE*9/24)*message.length();
             label = addLabel(message, (sizeX - widthOfMessage)/2, BLOCKING_BUTTON_INDENT_Y, widthOfMessage, MENU_TEXT_FIELD_HEIGHT);
 
             unfocusedComponents = parent.getChildComponents().stream()

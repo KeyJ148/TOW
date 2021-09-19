@@ -31,7 +31,8 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
                 LABEL_LENGTH_MAX_PEOPLE, MENU_TEXT_FIELD_HEIGHT);
         TextAreaField textAreaFieldMaxPeople = createTextAreaField(INDENT_X + LABEL_LENGTH_PORT + TEXT_AREA_LENGTH_PORT + LABEL_LENGTH_MAX_PEOPLE + 10, INDENT_Y_LAYER2,
                 TEXT_AREA_LENGTH_MAX_PEOPLE, MENU_TEXT_FIELD_HEIGHT, "1");
-        textAreaFieldMaxPeople.getTextState().setHorizontalAlign(HorizontalAlign.CENTER);
+        textAreaFieldMaxPeople.getStyle().setHorizontalAlign(HorizontalAlign.CENTER);
+        textAreaFieldMaxPeople.getStyle().setTextColor(BLACK_COLOR);
 
 
         addButton("Back to menu", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
