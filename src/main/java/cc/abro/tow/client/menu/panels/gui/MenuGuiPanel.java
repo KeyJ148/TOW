@@ -6,6 +6,7 @@ import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
 import cc.abro.orchengine.gui.EventableGuiPanel;
 import cc.abro.orchengine.gui.PanelControllersStorage;
 import org.liquidengine.legui.component.*;
+import org.liquidengine.legui.component.optional.align.HorizontalAlign;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.style.font.FontRegistry;
 
@@ -76,6 +77,7 @@ public class MenuGuiPanel extends EventableGuiPanel {
         button.getStyle().setFont(FontRegistry.ROBOTO_REGULAR);
         button.getStyle().setFontSize(BUTTON_FONT_SIZE);
         button.getStyle().setTextColor(BLACK_COLOR);
+        button.getStyle().setHorizontalAlign(HorizontalAlign.CENTER);
         button.getHoveredStyle().setBackground(createHoveredButtonBackground());
         button.getPressedStyle().setBackground(createPressedButtonBackground());
         addComponent(button, x, y, width, height);
@@ -88,6 +90,7 @@ public class MenuGuiPanel extends EventableGuiPanel {
         button.getStyle().setFont(FontRegistry.ROBOTO_BOLD);
         button.getStyle().setFontSize(MENU_BUTTON_FONT_SIZE);
         button.getStyle().setTextColor(BLACK_COLOR);
+        button.getStyle().setHorizontalAlign(HorizontalAlign.CENTER);
         button.getHoveredStyle().setBackground(createHoveredMenuButtonBackground());
         button.getPressedStyle().setBackground(createPressedMenuButtonBackground());
         button.getHoveredStyle().setBorder(createButtonBorder());
