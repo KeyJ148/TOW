@@ -13,11 +13,13 @@ import cc.abro.tow.client.menu.panels.controllers.main.CloseChildPanelController
 import cc.abro.tow.client.menu.panels.events.creategame.ClickCreateGuiEvent;
 import cc.abro.tow.client.menu.panels.gui.BlockingGuiPanel;
 import cc.abro.tow.server.ServerLoader;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.Set;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
+@Log4j2
 public class ClickCreateController extends MenuClickController<ClickCreateGuiEvent> implements StartServerListener {
 
     private int port;
@@ -59,6 +61,8 @@ public class ClickCreateController extends MenuClickController<ClickCreateGuiEve
             } catch (NumberFormatException e) {
                 createBlockingPanelWithButton(Error.WRONG_PORT.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
             } catch (RuntimeException e) {
+                log.error(e);
+                e.printStackTrace();//TODO need remove, but log.error not working
                 createBlockingPanelWithButton(Error.UNKNOWN.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
             }
         }
