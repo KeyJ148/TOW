@@ -6,10 +6,12 @@ import cc.abro.orchengine.OrchEngine;
 import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
 import cc.abro.orchengine.gui.EventableGuiPanel;
 import cc.abro.orchengine.gui.GuiPanelStorage;
+import cc.abro.orchengine.net.client.Connector;
 import cc.abro.orchengine.profiles.Profile;
 import cc.abro.orchengine.profiles.Profiles;
 import cc.abro.tow.client.Game;
 import cc.abro.tow.client.NetGameRead;
+import cc.abro.tow.client.menu.StartServerListener;
 import cc.abro.tow.client.menu.panels.controllers.creategame.ClickCreateController;
 import cc.abro.tow.client.menu.panels.events.creategame.ClickCreateGuiEvent;
 import cc.abro.tow.server.NetServerRead;
@@ -91,6 +93,20 @@ public class GameStartTests {
                 started = true;
                 gameAfterStartService.run();
             }
+        }
+    }
+
+    public static class StartServerListenerImpl implements StartServerListener {
+
+        private final int port;
+
+        public StartServerListenerImpl(int port) {
+            this.port = port;
+        }
+
+        @Override
+        public void serverStart() {
+            Manager.createBean(Connector.class).connect("127.0.0.1", port);
         }
     }
 }
