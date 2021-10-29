@@ -130,7 +130,9 @@ public class NetGameRead implements NetGameReadInterface {
 		long numberPackage = Long.parseLong(str.split(" ")[7]);
 		int enemyId = Integer.parseInt(str.split(" ")[8]);
 
-		ClientData.enemy.get(enemyId).setData(x, y, direction, directionGun, speed, moveDirection, animSpeed, numberPackage);
+		if (ClientData.enemy.containsKey(enemyId)) {
+			ClientData.enemy.get(enemyId).setData(x, y, direction, directionGun, speed, moveDirection, animSpeed, numberPackage);
+		}
 	}
 
 	//данные о карте - (int width, int height, String background)
