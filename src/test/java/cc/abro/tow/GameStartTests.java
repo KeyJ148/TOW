@@ -1,8 +1,8 @@
 package cc.abro.tow;
 
-import cc.abro.orchengine.Global;
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.OrchEngine;
+import cc.abro.orchengine.cycle.Engine;
 import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
 import cc.abro.orchengine.gui.EventableGuiPanel;
 import cc.abro.orchengine.gui.GuiPanelStorage;
@@ -49,7 +49,7 @@ public class GameStartTests {
             }
         }).start();
         waitToLogRegex("(Load map)(.*)(completed)");
-        Global.engine.stop();
+        Manager.getService(Engine.class).stop();
         waitToLog("Shutting down logger");
         Assertions.assertFalse(hasException.get(), "Has exception in game main thread");
     }

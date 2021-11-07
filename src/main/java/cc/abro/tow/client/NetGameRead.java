@@ -1,10 +1,11 @@
 package cc.abro.tow.client;
 
-import cc.abro.orchengine.Global;
+import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.audio.AudioPlayer;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.implementation.NetGameReadInterface;
+import cc.abro.orchengine.map.LocationManager;
 import cc.abro.orchengine.net.client.Message;
 import cc.abro.orchengine.net.client.PingChecker;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
@@ -182,8 +183,8 @@ public class NetGameRead implements NetGameReadInterface {
 		ClientData.player.death = death;
 		ClientData.player.win = win;
 
-		Global.location.objAdd(ClientData.player);
-		Global.location.camera.setFollowObject(ClientData.player.camera);
+		Manager.getService(LocationManager.class).getActiveLocation().objAdd(ClientData.player);
+		Manager.getService(LocationManager.class).getActiveLocation().camera.setFollowObject(ClientData.player.camera);
 
 		//Заполнение таблицы врагов (в соответствтие с id)
 		for (int id = 0; id < ClientData.peopleMax; id++) {
@@ -192,7 +193,7 @@ public class NetGameRead implements NetGameReadInterface {
 
 		//Добавляем на карту врагов
 		for (Map.Entry<Integer, Enemy> entry : ClientData.enemy.entrySet()) {
-			Global.location.objAdd(entry.getValue());
+			Manager.getService(LocationManager.class).getActiveLocation().objAdd(entry.getValue());
 		}
 	}
 
@@ -203,7 +204,7 @@ public class NetGameRead implements NetGameReadInterface {
 		int type = Integer.parseInt(str.split(" ")[2]);
 		int idBox = Integer.parseInt(str.split(" ")[3]);
 
-		Global.location.objAdd(new Box(x, y, type, idBox));
+		Manager.getService(LocationManager.class).getActiveLocation().objAdd(new Box(x, y, type, idBox));
 	}
 
 	//начало рестарта
@@ -214,8 +215,8 @@ public class NetGameRead implements NetGameReadInterface {
 		}
 
 		ClientData.battle = false;
-		Global.location.destroy();
-		Global.location.camera.deleteFollowObject();
+		Manager.getService(LocationManager.class).getActiveLocation().destroy();
+		Manager.getService(LocationManager.class).getActiveLocation().camera.deleteFollowObject();
 
 		ClientData.mapObjects = new Vector<>();
 		ClientData.enemyBullet = new ArrayList<>();
@@ -256,7 +257,7 @@ public class NetGameRead implements NetGameReadInterface {
 
 		EnemyBullet enemyBullet = new EnemyBullet(x, y, speed, direction, spriteStorage.getSprite(texture).getTexture(), idEmeny, idNet);
 		ClientData.enemyBullet.add(enemyBullet);
-		Global.location.objAdd(enemyBullet);
+		Manager.getService(LocationManager.class).getActiveLocation().objAdd(enemyBullet);
 	}
 
 	//я нанёс урон игроку enemyId (double damage, int idSuffer, int idDamager)
@@ -320,8 +321,8 @@ public class NetGameRead implements NetGameReadInterface {
 	//я подобрал ящик - (int idBox)
 	public void take21(String str) {
 		int idBox = Integer.parseInt(str.split(" ")[0]);
-		for (int i = 0; i < Global.location.getObjectsVectorSize(); i++) {
-			GameObject gameObject = Global.location.getObject(i);
+		for (int i = 0; i < Manager.getService(LocationManager.class).getActiveLocation().getObjectsVectorSize(); i++) {
+			GameObject gameObject = Manager.getService(LocationManager.class).getActiveLocation().getObject(i);
 			if (gameObject instanceof Box && ((Box) gameObject).idBox == idBox) {
 				gameObject.destroy();
 			}

@@ -1,6 +1,5 @@
 package cc.abro.tow.client.tanks;
 
-import cc.abro.orchengine.Global;
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.audio.AudioPlayer;
 import cc.abro.orchengine.gameobject.GameObject;
@@ -13,6 +12,7 @@ import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.image.Color;
+import cc.abro.orchengine.map.LocationManager;
 import cc.abro.orchengine.resources.audios.AudioStorage;
 import cc.abro.orchengine.services.LeguiComponentService;
 import cc.abro.tow.client.ClientData;
@@ -49,9 +49,9 @@ public abstract class Tank extends GameObject {
     public void initCamera() {
         //Инициализация камеры
         camera = GameObjectFactory.create(0, 0, 0);
-        Global.location.objAdd(camera);
+        Manager.getService(LocationManager.class).getActiveLocation().objAdd(camera);
 
-        nickname = Manager.getService(LeguiComponentService.class).addComponentToLocationShiftedToCenter(new Label(), 500, 30, Global.location);//TODO Position.location
+        nickname = Manager.getService(LeguiComponentService.class).addComponentToLocationShiftedToCenter(new Label(), 500, 30, Manager.getService(LocationManager.class).getActiveLocation());//TODO Position.location
         nickname.getComponent(GuiElement.class).setMoveComponentToGameObjectPosition(true);
 
         Label label = ((Label) (nickname.getComponent(GuiElement.class)).getComponent());
@@ -85,15 +85,15 @@ public abstract class Tank extends GameObject {
             GameObject explosion = GameObjectFactory.create(armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, 3000);
             explosion.setComponent(new Explosion(100));
             explosion.getComponent(Particles.class).destroyObject = true;
-            Global.location.objAdd(explosion);
+            Manager.getService(LocationManager.class).getActiveLocation().objAdd(explosion);
         }
 
         //Если в данный момент камера установлена на этот объект
-        if (Global.location.camera.getFollowObject() != null && Global.location.camera.getFollowObject() == camera) {
+        if (Manager.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() != null && Manager.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() == camera) {
             //Выбираем живого врага с инициализированной камерой, переносим камеру туда
             for (Map.Entry<Integer, Enemy> entry : ClientData.enemy.entrySet()) {
                 if (entry.getValue().camera != null && entry.getValue().alive) {
-                    Global.location.camera.setFollowObject(entry.getValue().camera);
+                    Manager.getService(LocationManager.class).getActiveLocation().camera.setFollowObject(entry.getValue().camera);
                     break;
                 }
             }
@@ -108,7 +108,7 @@ public abstract class Tank extends GameObject {
 
         armor.destroy();
         armor = newArmor;
-        Global.location.objAdd(newArmor);
+        Manager.getService(LocationManager.class).getActiveLocation().objAdd(newArmor);
 
         setColorArmor(color);
         camera.setComponent(new Follower(armor));
@@ -119,7 +119,7 @@ public abstract class Tank extends GameObject {
 
         gun.destroy();
         gun = newGun;
-        Global.location.objAdd(newGun);
+        Manager.getService(LocationManager.class).getActiveLocation().objAdd(newGun);
         setColorGun(color);
     }
 

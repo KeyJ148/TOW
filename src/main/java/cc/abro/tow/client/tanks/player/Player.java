@@ -1,6 +1,5 @@
 package cc.abro.tow.client.tanks.player;
 
-import cc.abro.orchengine.Global;
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.GameObject;
@@ -10,6 +9,7 @@ import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
+import cc.abro.orchengine.map.LocationManager;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.net.client.udp.UDPControl;
 import cc.abro.orchengine.services.LeguiComponentService;
@@ -60,17 +60,17 @@ public class Player extends Tank {
         setComponent(new Position(x, y, 0));
 
         controller = new PlayerController(this);
-        Global.location.objAdd(controller);
+        Manager.getService(LocationManager.class).getActiveLocation().objAdd(controller);
 
         armor = new ADefault();
         ((Armor) armor).init(this, x, y, direction, "ADefault");
         effects.add(((Armor) armor).effect);
-        Global.location.objAdd(armor);
+        Manager.getService(LocationManager.class).getActiveLocation().objAdd(armor);
 
         gun = new GDefault();
         ((Gun) gun).init(this, x, y, direction, "GDefault");
         effects.add(((Gun) gun).effect);
-        Global.location.objAdd(gun);
+        Manager.getService(LocationManager.class).getActiveLocation().objAdd(gun);
 
         bullet = new BulletFactory("BDefault", this);
 
@@ -89,7 +89,7 @@ public class Player extends Tank {
         hpLabelComponent.setFocusable(false);
         hpLabelComponent.getStyle().setFontSize(30f);
         hpLabelComponent.getStyle().setTextColor(BLACK_COLOR);
-        hpLabel = Manager.getService(LeguiComponentService.class).addComponentToLocation(hpLabelComponent, 1, 10, Global.location);//TODO getComponent(Position.class)
+        hpLabel = Manager.getService(LeguiComponentService.class).addComponentToLocation(hpLabelComponent, 1, 10, Manager.getService(LocationManager.class).getActiveLocation());//TODO getComponent(Position.class)
 
         statsLabel = new GameObject[stats.toString().split("\n").length + 4];
         for (int i = 0; i < statsLabel.length; i++) {
@@ -97,7 +97,7 @@ public class Player extends Tank {
             statsLabelComponent.setFocusable(false);
             statsLabelComponent.getStyle().setFontSize(17f);
             statsLabelComponent.getStyle().setTextColor(BLACK_COLOR);
-            statsLabel[i] = Manager.getService(LeguiComponentService.class).addComponentToLocation(statsLabelComponent, 1, 30 + i * 15, Global.location);//TODO getComponent(Position.class)
+            statsLabel[i] = Manager.getService(LeguiComponentService.class).addComponentToLocation(statsLabelComponent, 1, 30 + i * 15, Manager.getService(LocationManager.class).getActiveLocation());//TODO getComponent(Position.class)
         }
 
         //Создание кнопок для отключения подбора снаряжения
@@ -117,8 +117,8 @@ public class Player extends Tank {
             buttons[i].setSize(15, 15);
 
             buttonsTake[i] = Manager.getService(LeguiComponentService.class).addComponentToLocation(buttons[i],
-                    17 * i, Manager.getService(Render.class).getHeight() - 15, Global.location);
-            //TODO getComponent(Position.class) вместо Global.location, но это конструктор
+                    17 * i, Manager.getService(Render.class).getHeight() - 15, Manager.getService(LocationManager.class).getActiveLocation());
+            //TODO getComponent(Position.class) вместо Manager.getService(LocationManager.class).getActiveLocation(), но это конструктор
         }
     }
 
