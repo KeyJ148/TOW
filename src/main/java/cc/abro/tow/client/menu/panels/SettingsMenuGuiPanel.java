@@ -1,6 +1,7 @@
 package cc.abro.tow.client.menu.panels;
 
 import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
@@ -9,6 +10,7 @@ import cc.abro.orchengine.resources.textures.TextureLoader;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.SettingsStorage;
+import cc.abro.tow.client.menu.panels.events.settings.ClickConfirmGuiEvent;
 import cc.abro.tow.client.services.SettingsService;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.ImageView;
@@ -20,6 +22,7 @@ import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.Background;
 
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
