@@ -29,7 +29,7 @@ public final class MenuGuiComponents {
         return label;
     }
 
-    public Panel createMenuPanel (ButtonConfiguration... buttonConfigurations) {
+    public static Panel createMenuPanel(ButtonConfiguration... buttonConfigurations) {
         final int INDENT = 5;
         final int MENU_PANEL_WIDTH = INDENT*2 + MENU_BUTTON_WIDTH;
         final int MENU_PANEL_HEIGHT = INDENT + buttonConfigurations.length * (INDENT + MENU_BUTTON_HEIGHT);
@@ -38,22 +38,24 @@ public final class MenuGuiComponents {
         menu.setSize(MENU_PANEL_WIDTH, MENU_PANEL_HEIGHT);
         menu.setStyle(createInvisibleStyle());
         for (int i = 0; i < buttonConfigurations.length; i++) {
-            menu.add(createMenuButton(buttonConfigurations[i]),
+            menu.add(createMenuButton(buttonConfigurations[i],
                     (MENU_PANEL_WIDTH - MENU_BUTTON_WIDTH)/2,
                     (MENU_PANEL_HEIGHT - (buttonConfigurations.length * (INDENT + MENU_BUTTON_HEIGHT) - INDENT))/2 + i * (INDENT + MENU_BUTTON_HEIGHT),
-                    MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+                    MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT));
         }
         return menu;
     }
 
-    private Button createMenuButton(ButtonConfiguration buttonConfiguration, MouseClickEventListener listener) {
+    private static Button createMenuButton(ButtonConfiguration buttonConfiguration, int x, int y, int width, int height) {
         Button button = new Button(buttonConfiguration.text);
         button.setStyle(createMenuButtonStyle());
-        button.getListenerMap().addListener(MouseClickEvent.class, listener);
+        //button.getListenerMap().addListener(MouseClickEvent.class, getMouseReleaseListenerToNotify(buttonConfiguration.event));
         button.getHoveredStyle().setBackground(createHoveredMenuButtonBackground());
         button.getPressedStyle().setBackground(createPressedMenuButtonBackground());
         button.getHoveredStyle().setBorder(createButtonBorder());
         button.getPressedStyle().setBorder(createButtonBorder());
+        button.setPosition(x, y);
+        button.setSize(width, height);
         return button;
     }
 
@@ -65,7 +67,7 @@ public final class MenuGuiComponents {
                                          Supplier<List<GuiElementEvent>> eventSupplier) {
         Button button = new Button(text);
         button.setStyle(createButtonStyle());
-        button.getListenerMap().addListener(MouseClickEvent.class, getMouseReleaseListenerToNotifyEvents(eventSupplier));
+        //button.getListenerMap().addListener(MouseClickEvent.class, getMouseReleaseListenerToNotifyEvents(eventSupplier));
         button.getStyle().setFont(FontRegistry.ROBOTO_REGULAR);
         button.getStyle().setFontSize(BUTTON_FONT_SIZE);
         button.getStyle().setTextColor(BLACK_COLOR);
@@ -113,7 +115,7 @@ public final class MenuGuiComponents {
         return panel;
     }
 
-    public ScrollablePanel createScrollablePanel(int x, int y, int width, int height) {
+    public static ScrollablePanel createScrollablePanel(int x, int y, int width, int height) {
         ScrollablePanel panel = new ScrollablePanel(x, y, width, height);
         panel.setStyle(createScrollablePanelStyle());
         ScrollBar scrollBar = panel.getVerticalScrollBar();
@@ -126,7 +128,7 @@ public final class MenuGuiComponents {
         return panel;
     }
 
-    protected static class ButtonConfiguration {
+    public static class ButtonConfiguration {
 
         public String text;
         public GuiElementEvent event;

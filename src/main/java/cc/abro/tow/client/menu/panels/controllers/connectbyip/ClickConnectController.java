@@ -9,7 +9,7 @@ import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.menu.panels.controllers.MenuClickController;
 import cc.abro.tow.client.menu.panels.events.connectbyip.ClickConnectGuiEvent;
 import cc.abro.tow.client.menu.panels.gui.CreateGameMenuGuiPanel;
-import cc.abro.tow.client.menu.panels.gui.CreateGameMenuGuiPanel;
+import cc.abro.tow.client.menu.panels.gui.LabelBlockingGuiPanel;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

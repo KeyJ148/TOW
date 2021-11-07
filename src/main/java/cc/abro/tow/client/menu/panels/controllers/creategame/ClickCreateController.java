@@ -11,6 +11,7 @@ import cc.abro.tow.client.menu.StartServerListener;
 import cc.abro.tow.client.menu.panels.controllers.MenuClickController;
 import cc.abro.tow.client.menu.panels.controllers.main.CloseChildPanelController;
 import cc.abro.tow.client.menu.panels.events.creategame.ClickCreateGuiEvent;
+import cc.abro.tow.client.menu.panels.gui.LabelBlockingGuiPanel;
 import cc.abro.tow.server.ServerLoader;
 
 import java.util.Set;
