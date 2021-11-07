@@ -49,7 +49,7 @@ public abstract class Tank extends GameObject {
     public void initCamera() {
         //Инициализация камеры
         camera = GameObjectFactory.create(0, 0, 0);
-        Manager.getService(LocationManager.class).getActiveLocation().getMap().add(camera);
+        Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(camera);
 
         nickname = Manager.getService(LeguiComponentService.class).addComponentToLocationShiftedToCenter(new Label(), 500, 30, Manager.getService(LocationManager.class).getActiveLocation());//TODO Position.location
         nickname.getComponent(GuiElement.class).setMoveComponentToGameObjectPosition(true);
@@ -85,7 +85,7 @@ public abstract class Tank extends GameObject {
             GameObject explosion = GameObjectFactory.create(armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, 3000);
             explosion.setComponent(new Explosion(100));
             explosion.getComponent(Particles.class).destroyObject = true;
-            Manager.getService(LocationManager.class).getActiveLocation().getMap().add(explosion);
+            Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(explosion);
         }
 
         //Если в данный момент камера установлена на этот объект
@@ -108,7 +108,7 @@ public abstract class Tank extends GameObject {
 
         armor.destroy();
         armor = newArmor;
-        Manager.getService(LocationManager.class).getActiveLocation().getMap().add(newArmor);
+        Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(newArmor);
 
         setColorArmor(color);
         camera.setComponent(new Follower(armor));
@@ -119,7 +119,7 @@ public abstract class Tank extends GameObject {
 
         gun.destroy();
         gun = newGun;
-        Manager.getService(LocationManager.class).getActiveLocation().getMap().add(newGun);
+        Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(newGun);
         setColorGun(color);
     }
 

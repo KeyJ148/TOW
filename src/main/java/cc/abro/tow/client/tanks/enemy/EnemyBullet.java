@@ -43,7 +43,7 @@ public class EnemyBullet extends GameObject {
 			GameObject explosion = GameObjectFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, 3000);
 			explosion.setComponent(new Explosion(explosionSize));
 			explosion.getComponent(Particles.class).destroyObject = true;
-			Manager.getService(LocationManager.class).getActiveLocation().getMap().add(explosion);
+			Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(explosion);
 		}
 	}
 }

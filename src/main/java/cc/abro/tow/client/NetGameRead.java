@@ -186,7 +186,7 @@ public class NetGameRead implements NetGameReadInterface {
 		ClientData.player.death = death;
 		ClientData.player.win = win;
 
-		Manager.getService(LocationManager.class).getActiveLocation().getMap().add(ClientData.player);
+		Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(ClientData.player);
 		Manager.getService(LocationManager.class).getActiveLocation().camera.setFollowObject(ClientData.player.camera);
 
 		//Заполнение таблицы врагов (в соответствтие с id)
@@ -196,7 +196,7 @@ public class NetGameRead implements NetGameReadInterface {
 
 		//Добавляем на карту врагов
 		for (Map.Entry<Integer, Enemy> entry : ClientData.enemy.entrySet()) {
-			Manager.getService(LocationManager.class).getActiveLocation().getMap().add(entry.getValue());
+			Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(entry.getValue());
 		}
 	}
 
@@ -207,7 +207,7 @@ public class NetGameRead implements NetGameReadInterface {
 		int type = Integer.parseInt(str.split(" ")[2]);
 		int idBox = Integer.parseInt(str.split(" ")[3]);
 
-		Manager.getService(LocationManager.class).getActiveLocation().getMap().add(new Box(x, y, type, idBox));
+		Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(new Box(x, y, type, idBox));
 	}
 
 	//начало рестарта
@@ -260,7 +260,7 @@ public class NetGameRead implements NetGameReadInterface {
 
 		EnemyBullet enemyBullet = new EnemyBullet(x, y, speed, direction, spriteStorage.getSprite(texture).getTexture(), idEmeny, idNet);
 		ClientData.enemyBullet.add(enemyBullet);
-		Manager.getService(LocationManager.class).getActiveLocation().getMap().add(enemyBullet);
+		Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(enemyBullet);
 	}
 
 	//я нанёс урон игроку enemyId (double damage, int idSuffer, int idDamager)
