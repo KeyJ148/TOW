@@ -31,13 +31,16 @@ public class NetGameRead implements NetGameReadInterface {
 	private final PingChecker pingChecker;
 	private final TCPControl tcpControl;
 	private final SpriteStorage spriteStorage;
+	private final LocationManager locationManager;
 
-	public NetGameRead(AudioPlayer audioPlayer, AudioStorage audioStorage, PingChecker pingChecker, TCPControl tcpControl, SpriteStorage spriteStorage){
+	public NetGameRead(AudioPlayer audioPlayer, AudioStorage audioStorage, PingChecker pingChecker,
+					   TCPControl tcpControl, SpriteStorage spriteStorage, LocationManager locationManager){
 		this.audioPlayer = audioPlayer;
 		this.audioStorage = audioStorage;
 		this.pingChecker = pingChecker;
 		this.tcpControl = tcpControl;
 		this.spriteStorage = spriteStorage;
+		this.locationManager = locationManager;
 	}
 
 	@Override
@@ -141,7 +144,7 @@ public class NetGameRead implements NetGameReadInterface {
 		String mapPath = str.split(" ")[0];
 		mapPath = mapPath.replace("\\", "/");
 		MapSpecification mapSpecification = MapSpecificationLoader.getMapSpecification(mapPath);
-		new BattleLocation(mapSpecification).activate();
+		locationManager.setActiveLocation(new BattleLocation(mapSpecification));
 	}
 
 	//старт сервера - (int peopleMax, int myIdFromServer)
