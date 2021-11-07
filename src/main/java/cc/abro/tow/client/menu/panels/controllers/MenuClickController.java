@@ -40,7 +40,7 @@ public abstract class MenuClickController<T extends GuiElementEvent> extends Gui
         Vector2<Double> position = getGuiElement().getPosition();
         Manager.getService(GuiElementService.class).addGuiElementToLocationShiftedToCenter(guiElement,
                 position.x.intValue(), position.y.intValue(),
-                getGuiElement().getGameObject().getComponent(Position.class).location);
+                getGuiElement().getGameObject().getLocation());
         return guiElement;
     }
 }
