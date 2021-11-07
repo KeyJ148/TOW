@@ -23,7 +23,7 @@ public class ClickConfirmController extends MenuClickController<ClickConfirmGuiE
     @Override
     public void processEvent(ClickConfirmGuiEvent event) {
         if (event.getNickname().isEmpty()) {
-            createBlockingPanelWithButton(Error.NICKNAME_IS_EMPTY.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
+            createButtonBlockingPanel(Error.NICKNAME_IS_EMPTY.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
             return;
         }
 
@@ -33,7 +33,7 @@ public class ClickConfirmController extends MenuClickController<ClickConfirmGuiE
             SettingsLoader.saveExternalSettings(SettingsStorage.PROFILE);
         } catch (IOException e) {
             log.warn("Settings can't be saved", e);
-            createBlockingPanelWithButton(Error.CANT_SAVE_SETTINGS.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
+            createButtonBlockingPanel(Error.CANT_SAVE_SETTINGS.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
             return;
         }
 

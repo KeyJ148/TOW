@@ -4,9 +4,12 @@ import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
 import cc.abro.orchengine.net.client.ConnectException;
 import cc.abro.orchengine.net.client.Connector;
+import cc.abro.orchengine.services.BlockingPanelService;
+import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.menu.panels.controllers.MenuClickController;
 import cc.abro.tow.client.menu.panels.events.connectbyip.ClickConnectGuiEvent;
-import cc.abro.tow.client.menu.panels.gui.BlockingGuiPanel;
+import cc.abro.tow.client.menu.panels.gui.CreateGameMenuGuiPanel;
+import cc.abro.tow.client.menu.panels.gui.CreateGameMenuGuiPanel;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -36,21 +39,25 @@ public class ClickConnectController extends MenuClickController<ClickConnectGuiE
             InetAddress.getByName(ip);
         } catch (UnknownHostException e) {
             e.printStackTrace();
-            createBlockingPanelWithButton(Error.WRONG_IP.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
+            createButtonBlockingPanel(Error.WRONG_IP.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
             wasConnect = false;
         }
 
         new Thread(() -> {
-            EventableGuiPanelElement<BlockingGuiPanel> guiElement = createBlockingPanel("Connecting...", CONNECTING_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT);
+            EventableGuiPanelElement<LabelBlockingGuiPanel> guiElement = createLabelBlockingPanel("Connecting...", CONNECTING_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT);
+            EventableGuiPanelElement<CreateGameMenuGuiPanel> gg = null;
+            BlockingPanelService.GuiPanelBlock block = Manager.getService(BlockingPanelService.class).createGuiPanelBlock(gg.getComponent());
+
             try {
                 Manager.createBean(Connector.class).connect(ip, Integer.parseInt(event.getPort()));
                 //TODO создать наследника EventableGuiPanelElement в котором релизовать метод destroyAndFocused
-                guiElement.getComponent().getUnfocusedComponents().iterator().forEachRemaining(c -> c.setFocusable(true));
-                createBlockingPanel("Waiting for players...", WAITING_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT);
+                block.unblock();
+                //guiElement.getComponent().focusComponents();
+                createLabelBlockingPanel("Waiting for players...", WAITING_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT);
             } catch (ConnectException e) {
                 //На самом деле этот setFocusable бесполезен, т.к. следующая BlockingPanel зблокирует эти же компоненты
-                guiElement.getComponent().getUnfocusedComponents().iterator().forEachRemaining(c -> c.setFocusable(true));
-                createBlockingPanelWithButton(Error.SERVER_NOT_FOUND.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
+                guiElement.getComponent().focusComponents();
+                createButtonBlockingPanel(Error.SERVER_NOT_FOUND.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
                 wasConnect = false;
             } finally {
                 guiElement.destroy();
