@@ -5,19 +5,16 @@ import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
 import cc.abro.orchengine.gameobject.components.gui.GuiElement;
-import cc.abro.orchengine.gui.EventableGuiPanel;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.gui.PanelControllersStorage;
-import cc.abro.orchengine.map.Background;
+import cc.abro.orchengine.location.map.Background;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.services.GuiElementService;
-import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.GameLocation;
-import cc.abro.tow.client.menu.panels.controllers.main.CloseChildPanelController;
-import cc.abro.tow.client.menu.panels.gui.*;
-
-import java.util.Set;
+import cc.abro.tow.client.menu.panels.gui.MainMenuGuiPanel;
+import cc.abro.tow.client.menu.panels.gui.MainMenuLogoGuiPanel;
+import cc.abro.tow.client.menu.panels.gui.ZeroRuleGuiPanel;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
@@ -27,7 +24,7 @@ public class MenuLocation extends GameLocation {
 
     public MenuLocation() {
         super(Manager.getService(Render.class).getWidth(), Manager.getService(Render.class).getHeight());
-        background = new Background(Manager.getService(SpriteStorage.class).getSprite(BACKGROUND_SPRITE_NAME).getTexture());
+        getMap().background = new Background(Manager.getService(SpriteStorage.class).getSprite(BACKGROUND_SPRITE_NAME).getTexture());
 
         Texture logoTexture = Manager.getService(SpriteStorage.class).getSprite("logo").getTexture();
         MainMenuLogoGuiPanel logoGuiPanel = new MainMenuLogoGuiPanel(logoTexture);
@@ -49,15 +46,6 @@ public class MenuLocation extends GameLocation {
         createDebugPanel(4);
         MenuEventController controller = new MenuEventController();
         controller.setComponent(new Position(0, 0, 0));
-        objAdd(controller);
-
-        if(true) {
-            /*FirstEntryGuiPanel firstEntryGuiPanel = new FirstEntryGuiPanel();
-            EventableGuiPanelElement<EventableGuiPanel> firstEntryGuiElement = new EventableGuiPanelElement<>(
-                    firstEntryGuiPanel, Set.of(new CloseChildPanelController()));
-            Manager.getService(GuiElementService.class).addGuiElementToLocationShiftedToCenter(firstEntryGuiElement,
-                    0, 0, this);*/
-
-        }
+        getMap().objAdd(controller);
     }
 }

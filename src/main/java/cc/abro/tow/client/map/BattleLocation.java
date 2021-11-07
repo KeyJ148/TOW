@@ -3,7 +3,7 @@ package cc.abro.tow.client.map;
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.components.gui.GuiElement;
-import cc.abro.orchengine.map.Border;
+import cc.abro.orchengine.location.map.Border;
 import cc.abro.orchengine.net.client.PingChecker;
 import cc.abro.orchengine.services.GuiElementService;
 import cc.abro.tow.client.ClientData;
@@ -29,7 +29,7 @@ public class BattleLocation extends GameLocation {
         Border.createAll(this);
         for (MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()) {
             MapObject mapObject = ClientData.mapObjectFactory.createMapObject(mapObjectSpecification);
-            objAdd(mapObject);
+            getMap().objAdd(mapObject);
             ClientData.mapObjects.add(mapObjectSpecification.getId(), mapObject);
         }
 

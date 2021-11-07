@@ -9,7 +9,7 @@ import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
-import cc.abro.orchengine.map.LocationManager;
+import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.net.client.udp.UDPControl;
 import cc.abro.orchengine.services.LeguiComponentService;
@@ -60,17 +60,17 @@ public class Player extends Tank {
         setComponent(new Position(x, y, 0));
 
         controller = new PlayerController(this);
-        Manager.getService(LocationManager.class).getActiveLocation().objAdd(controller);
+        Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(controller);
 
         armor = new ADefault();
         ((Armor) armor).init(this, x, y, direction, "ADefault");
         effects.add(((Armor) armor).effect);
-        Manager.getService(LocationManager.class).getActiveLocation().objAdd(armor);
+        Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(armor);
 
         gun = new GDefault();
         ((Gun) gun).init(this, x, y, direction, "GDefault");
         effects.add(((Gun) gun).effect);
-        Manager.getService(LocationManager.class).getActiveLocation().objAdd(gun);
+        Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(gun);
 
         bullet = new BulletFactory("BDefault", this);
 

@@ -4,7 +4,7 @@ import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.implementation.GameInterface;
-import cc.abro.orchengine.map.LocationManager;
+import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.settings.SettingsStorageHandler;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
@@ -39,9 +39,9 @@ public class Game implements GameInterface {
         }
 
         if (SettingsStorage.GRAPHICS.CURSOR_SPRITE != null) {
-            Manager.getService(LocationManager.class).getActiveLocation().getMouse().getCursor().setCapture(true);
+            Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().setCapture(true);
             Texture texture = Manager.getService(SpriteStorage.class).getSprite(SettingsStorage.GRAPHICS.CURSOR_SPRITE).getTexture();
-            Manager.getService(LocationManager.class).getActiveLocation().getMouse().getCursor().setTexture(texture);
+            Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().setTexture(texture);
         }
         ClientData.name = SettingsStorage.PROFILE.NICKNAME;
         ClientData.color = new Color(SettingsStorage.PROFILE.COLOR);
