@@ -4,6 +4,8 @@ import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gui.GuiPanelStorage;
+import cc.abro.orchengine.gui.PanelControllersStorage;
+import cc.abro.orchengine.location.map.Background;
 import cc.abro.orchengine.location.map.Background;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
