@@ -7,8 +7,8 @@ import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.gui.GuiElement;
-import cc.abro.orchengine.map.Border;
-import cc.abro.orchengine.map.LocationManager;
+import cc.abro.orchengine.location.map.Border;
+import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.ClientData;
@@ -55,13 +55,13 @@ public class PlayerController extends GameObject implements Collision.CollisionL
          * Смотрим на все зажатые клавиши
          */
 
-        if (Manager.getService(LocationManager.class).getActiveLocation().getKeyboard().isKeyDown(GLFW_KEY_ESCAPE)) Manager.getService(Engine.class).stop();
-        ClientData.showGameTabMenu = Manager.getService(LocationManager.class).getActiveLocation().getKeyboard().isKeyDown(GLFW_KEY_SPACE);
+        if (Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_ESCAPE)) Manager.getService(Engine.class).stop();
+        ClientData.showGameTabMenu = Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_SPACE);
 
         /*
          * Перебираем все события нажатия клавиш
          */
-        List<KeyEvent> keyboardEvents = Manager.getService(LocationManager.class).getActiveLocation().getKeyboard().getEventHistory().getList();
+        List<KeyEvent> keyboardEvents = Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().getEventHistory().getList();
         for (KeyEvent event : keyboardEvents) {
             if (event.getAction() == GLFW_PRESS) {// Клавиша нажата
 
@@ -147,7 +147,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
          * Выстрел
          */
         //Если нажата мышь и перезарядилась пушка и игрок вообще может стрелять
-        if (Manager.getService(LocationManager.class).getActiveLocation().getMouse().isButtonDown(GLFW_MOUSE_BUTTON_1) && ((Gun) player.gun).nanoSecFromAttack <= 0 && player.stats.attackSpeed > 0) {
+        if (Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().isButtonDown(GLFW_MOUSE_BUTTON_1) && ((Gun) player.gun).nanoSecFromAttack <= 0 && player.stats.attackSpeed > 0) {
             ((Gun) player.gun).attack(); //Стреляем
         }
 
@@ -156,10 +156,10 @@ public class PlayerController extends GameObject implements Collision.CollisionL
          */
         if (!recoil) {
             int vectorUp = 0, vectorRight = 0;
-            if (Manager.getService(LocationManager.class).getActiveLocation().getKeyboard().isKeyDown(GLFW_KEY_W)) vectorUp++;
-            if (Manager.getService(LocationManager.class).getActiveLocation().getKeyboard().isKeyDown(GLFW_KEY_S)) vectorUp--;
-            if (Manager.getService(LocationManager.class).getActiveLocation().getKeyboard().isKeyDown(GLFW_KEY_D)) vectorRight++;
-            if (Manager.getService(LocationManager.class).getActiveLocation().getKeyboard().isKeyDown(GLFW_KEY_A)) vectorRight--;
+            if (Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_W)) vectorUp++;
+            if (Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_S)) vectorUp--;
+            if (Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_D)) vectorRight++;
+            if (Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_A)) vectorRight--;
 
             runUp = false;
             runDown = false;
@@ -221,12 +221,12 @@ public class PlayerController extends GameObject implements Collision.CollisionL
         double relativeX = relativePosition.x + 0.1;
         double relativeY = relativePosition.y + 0.1;
 
-        double pointDir = -Math.toDegrees(Math.atan((relativeY - Manager.getService(LocationManager.class).getActiveLocation().getMouse().getCursor().getPosition().y) / (relativeX - Manager.getService(LocationManager.class).getActiveLocation().getMouse().getCursor().getPosition().x)));
+        double pointDir = -Math.toDegrees(Math.atan((relativeY - Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().y) / (relativeX - Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().x)));
 
         double trunkUp = ((double) delta / 1000000000) * (player.stats.directionGunUp);
-        if ((relativeX - Manager.getService(LocationManager.class).getActiveLocation().getMouse().getCursor().getPosition().x) > 0) {
+        if ((relativeX - Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().x) > 0) {
             pointDir += 180;
-        } else if ((relativeY - Manager.getService(LocationManager.class).getActiveLocation().getMouse().getCursor().getPosition().y) < 0) {
+        } else if ((relativeY - Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().y) < 0) {
             pointDir += 360;
         }
 

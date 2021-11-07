@@ -3,7 +3,7 @@ package cc.abro.tow.client.tanks.equipment.bullet;
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.map.LocationManager;
+import cc.abro.orchengine.location.LocationManager;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
@@ -45,7 +45,7 @@ public class BMass extends Bullet {
                             configName
                     );
 
-                    Manager.getService(LocationManager.class).getActiveLocation().objAdd(newBullet);
+                    Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(newBullet);
                 }
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 log.fatal("Bullet create error: " + configName);

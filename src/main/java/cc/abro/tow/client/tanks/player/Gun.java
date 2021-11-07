@@ -6,7 +6,7 @@ import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
-import cc.abro.orchengine.map.LocationManager;
+import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.util.Vector2;
@@ -87,7 +87,7 @@ public class Gun extends GameObject {
                 player.bullet.name
         );
 
-        Manager.getService(LocationManager.class).getActiveLocation().objAdd(newBullet);
+        Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(newBullet);
     }
 
     public String getConfigFileName() {

@@ -7,7 +7,7 @@ import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
 import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.gui.PanelControllersStorage;
-import cc.abro.orchengine.map.Background;
+import cc.abro.orchengine.location.map.Background;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.services.GuiElementService;
@@ -24,7 +24,7 @@ public class MenuLocation extends GameLocation {
 
     public MenuLocation() {
         super(Manager.getService(Render.class).getWidth(), Manager.getService(Render.class).getHeight());
-        background = new Background(Manager.getService(SpriteStorage.class).getSprite(BACKGROUND_SPRITE_NAME).getTexture());
+        getMap().background = new Background(Manager.getService(SpriteStorage.class).getSprite(BACKGROUND_SPRITE_NAME).getTexture());
 
         Texture logoTexture = Manager.getService(SpriteStorage.class).getSprite("logo").getTexture();
         MainMenuLogoGuiPanel logoGuiPanel = new MainMenuLogoGuiPanel(logoTexture);
@@ -46,6 +46,6 @@ public class MenuLocation extends GameLocation {
         createDebugPanel(4);
         MenuEventController controller = new MenuEventController();
         controller.setComponent(new Position(0, 0, 0));
-        objAdd(controller);
+        getMap().objAdd(controller);
     }
 }

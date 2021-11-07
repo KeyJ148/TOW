@@ -8,7 +8,7 @@ import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
-import cc.abro.orchengine.map.LocationManager;
+import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.animations.Animation;
 import cc.abro.orchengine.resources.animations.AnimationStorage;
@@ -68,7 +68,7 @@ public class Enemy extends Tank {
         if (armor == null) {
             Animation armorAnimation = Manager.getService(AnimationStorage.class).getAnimation("a_default");
             armor = new EnemyArmor(x, y, direction, 1000, armorAnimation, this);
-            Manager.getService(LocationManager.class).getActiveLocation().objAdd(armor);
+            Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(armor);
             setColorArmor(color);
 
             setComponent(new Follower(armor));
@@ -82,7 +82,7 @@ public class Enemy extends Tank {
             gun.setComponent(new Movement());
             gun.getComponent(Movement.class).directionDrawEquals = false;
             gun.setComponent(new Follower(armor, false));
-            Manager.getService(LocationManager.class).getActiveLocation().objAdd(gun);
+            Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(gun);
             setColorGun(color);
         }
 
@@ -115,7 +115,7 @@ public class Enemy extends Tank {
         armor.setComponent(new AnimationRender(Manager.getService(AnimationStorage.class).getAnimation(nameArmor).getTextures()));
         setColorArmor(color);
 
-        Manager.getService(LocationManager.class).getActiveLocation().mapControl.update(armor);
+        Manager.getService(LocationManager.class).getActiveLocation().getMap().mapControl.update(armor);
     }
 
     public void newGun(String nameGun) {
@@ -124,6 +124,6 @@ public class Enemy extends Tank {
         gun.setComponent(new SpriteRender(Manager.getService(SpriteStorage.class).getSprite(nameGun).getTexture()));
         setColorGun(color);
 
-        Manager.getService(LocationManager.class).getActiveLocation().mapControl.update(gun);
+        Manager.getService(LocationManager.class).getActiveLocation().getMap().mapControl.update(gun);
     }
 }
