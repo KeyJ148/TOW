@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
-import static cc.abro.tow.client.menu.MenuGuiComponents.createBigLabel;
-import static cc.abro.tow.client.menu.MenuGuiComponents.createButton;
+import static cc.abro.tow.client.menu.MenuGuiComponents.*;
 
 public class ListOfServersMenuGuiPanel extends MenuGuiPanel {
 
