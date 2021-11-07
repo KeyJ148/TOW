@@ -1,7 +1,6 @@
 package cc.abro.tow.client.menu.panels.controllers.creategame;
 
 import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
 import cc.abro.orchengine.net.client.Connector;
 import cc.abro.orchengine.net.server.GameServer;
@@ -57,7 +56,7 @@ public class ClickCreateController extends MenuClickController<ClickCreateGuiEve
                 Vector2<Double> position = getGuiElement().getPosition();
                 Manager.getService(GuiElementService.class).addGuiElementToLocationShiftedToCenter(guiElement,
                         position.x.intValue(), position.y.intValue(),
-                        getGuiElement().getGameObject().getComponent(Position.class).location);
+                        getGuiElement().getGameObject().getLocation());
             } catch (NumberFormatException e) {
                 createButtonBlockingPanel(Error.WRONG_PORT.getText(), BLOCKING_BUTTON_ELEMENT_WIDTH, BLOCKING_BUTTON_ELEMENT_HEIGHT);
             } catch (RuntimeException e) {
