@@ -1,11 +1,8 @@
 package cc.abro.tow.client.menu.panels.gui;
 
 import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelController;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelGuiEvent;
 import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheController;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
+import cc.abro.orchengine.gui.BlockingGuiPanel;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
@@ -13,6 +10,7 @@ import cc.abro.orchengine.resources.textures.TextureLoader;
 import cc.abro.tow.client.SettingsStorage;
 import cc.abro.tow.client.menu.panels.events.settings.ClickConfirmGuiEvent;
 import org.liquidengine.legui.component.Button;
+import org.liquidengine.legui.component.Component;
 import org.liquidengine.legui.component.ImageView;
 import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.event.MouseClickEvent;
@@ -22,16 +20,17 @@ import org.liquidengine.legui.style.Background;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
-import java.util.Set;
-import java.util.List;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
+import static cc.abro.tow.client.menu.MenuGuiComponents.createButtonWithEvents;
+import static cc.abro.tow.client.menu.panels.gui.SettingsMenuGuiPanel.SETTINGS_PANEL_HEIGHT;
+import static cc.abro.tow.client.menu.panels.gui.SettingsMenuGuiPanel.SETTINGS_PANEL_WIDTH;
 
-public class SettingsMenuGuiPanel extends MenuGuiPanel {
+public class FirstEntryGuiPanel extends BlockingGuiPanel {
 
-    protected final static int SETTINGS_PANEL_WIDTH = 2 * MENU_ELEMENT_WIDTH;
-    protected final static int SETTINGS_PANEL_HEIGHT = 3 * MENU_ELEMENT_HEIGHT;
+    protected final static int FIRST_ENTRY_PANEL_WIDTH = MENU_ELEMENT_WIDTH;
+    protected final static int FIRST_ENTRY_PANEL_HEIGHT = 3 * MENU_ELEMENT_HEIGHT;
     protected final static int LENGTH_TEXT_AREA_NICK = 100;
     protected final static int BUTTON_COLOR_SIZE = 15;
     protected final static int PANEL_COLOR_WIDTH = 45;
@@ -53,13 +52,14 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
 
     private Color tankColor;
 
-    public SettingsMenuGuiPanel() {
-        setSize(SETTINGS_PANEL_WIDTH, SETTINGS_PANEL_HEIGHT);
+    public FirstEntryGuiPanel(Component parent) {
+        super(FIRST_ENTRY_PANEL_WIDTH, FIRST_ENTRY_PANEL_HEIGHT, parent);
 
         add(createLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldNickname =
                 createTextAreaField(INDENT_X + LABEL_LENGTH_NICKNAME, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
                         SettingsStorage.PROFILE.NICKNAME);
+        add(textAreaFieldNickname);
 
         int[] colorFromSettings = SettingsStorage.PROFILE.COLOR;
         tankColor = new Color(colorFromSettings);
@@ -115,11 +115,12 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
         image.getRGB(0, 0, width, height, pixels, 0, width);
         Color oldColor = new Color(255, 255, 255, 255);
         for (int p=0; p<pixels.length; p++) {
-            if (oldColor.getRGB() == pixels[p]){
+            if (oldColor.getRGB() == pixels[p]) {
                 pixels[p] = newColor.getRGB();
             }
         }
         image.setRGB(0, 0, width, height, pixels, 0, width);
         return image;
     }
+
 }
