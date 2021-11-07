@@ -1,9 +1,7 @@
 package cc.abro.tow.client.menu.panels.controllers;
 
 import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
-import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementController;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
 import cc.abro.orchengine.gui.EventableGuiPanel;

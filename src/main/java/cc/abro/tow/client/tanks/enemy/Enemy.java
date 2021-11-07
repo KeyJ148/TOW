@@ -68,7 +68,7 @@ public class Enemy extends Tank {
         if (armor == null) {
             Animation armorAnimation = Manager.getService(AnimationStorage.class).getAnimation("a_default");
             armor = new EnemyArmor(x, y, direction, 1000, armorAnimation, this);
-            Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(armor);
+            Manager.getService(LocationManager.class).getActiveLocation().getMap().add(armor);
             setColorArmor(color);
 
             setComponent(new Follower(armor));
@@ -82,7 +82,7 @@ public class Enemy extends Tank {
             gun.setComponent(new Movement());
             gun.getComponent(Movement.class).directionDrawEquals = false;
             gun.setComponent(new Follower(armor, false));
-            Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(gun);
+            Manager.getService(LocationManager.class).getActiveLocation().getMap().add(gun);
             setColorGun(color);
         }
 

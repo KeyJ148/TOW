@@ -1,9 +1,7 @@
 package cc.abro.tow.client.menu.panels.events.settings;
 
-import cc.abro.orchengine.gameobject.components.gui.GuiElementController;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
 import cc.abro.orchengine.image.Color;
-import cc.abro.tow.client.menu.panels.controllers.settings.ClickConfirmController;
 
 
 public class ClickConfirmGuiEvent implements GuiElementEvent {

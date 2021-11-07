@@ -46,6 +46,6 @@ public class MenuLocation extends GameLocation {
         createDebugPanel(4);
         MenuEventController controller = new MenuEventController();
         controller.setComponent(new Position(0, 0, 0));
-        getMap().objAdd(controller);
+        getMap().add(controller);
     }
 }

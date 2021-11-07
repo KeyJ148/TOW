@@ -29,7 +29,7 @@ public class BattleLocation extends GameLocation {
         Border.createAll(this);
         for (MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()) {
             MapObject mapObject = ClientData.mapObjectFactory.createMapObject(mapObjectSpecification);
-            getMap().objAdd(mapObject);
+            getMap().add(mapObject);
             ClientData.mapObjects.add(mapObjectSpecification.getId(), mapObject);
         }
 

@@ -1,8 +1,6 @@
 package cc.abro.tow.client.menu.panels.events.connectbyip;
 
-import cc.abro.orchengine.gameobject.components.gui.GuiElementController;
 import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
-import cc.abro.tow.client.menu.panels.controllers.connectbyip.ClickConnectController;
 
 public class ClickConnectGuiEvent implements GuiElementEvent {
 

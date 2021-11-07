@@ -1,14 +1,12 @@
 package cc.abro.tow.client.menu.panels.gui;
 
 import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheController;
 import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureLoader;
 import cc.abro.tow.client.SettingsStorage;
-import cc.abro.tow.client.menu.panels.controllers.settings.ClickConfirmController;
 import cc.abro.tow.client.menu.panels.events.settings.ClickConfirmGuiEvent;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.ImageView;
@@ -20,7 +18,6 @@ import org.liquidengine.legui.style.Background;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
-import java.util.Set;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
