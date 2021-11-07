@@ -20,9 +20,11 @@ import java.io.IOException;
 public class Game implements GameInterface {
 
     private final GuiPanelStorage guiPanelStorage;
+    private final LocationManager locationManager;
 
-    public Game(GuiPanelStorage guiPanelStorage){
+    public Game(GuiPanelStorage guiPanelStorage, LocationManager locationManager){
         this.guiPanelStorage = guiPanelStorage;
+        this.locationManager = locationManager;
     }
 
     @Override
@@ -53,7 +55,7 @@ public class Game implements GameInterface {
 
         //TODO ServerLoader.mapPath = "maps/town10k.maptest";
 
-        new MenuLocation().activate();
+        locationManager.setActiveLocation(new MenuLocation());
     }
 
     @Override
