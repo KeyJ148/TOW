@@ -6,7 +6,7 @@ import cc.abro.tow.client.menu.panels.events.main.ClickCloseChildPanelGuiEvent;
 public class CloseChildPanelController extends MenuClickController<ClickCloseChildPanelGuiEvent> {
 
     @Override
-    protected Class<ClickCloseChildPanelGuiEvent> getProcessedEventClass() {
+    public Class<ClickCloseChildPanelGuiEvent> getProcessedEventClass() {
         return ClickCloseChildPanelGuiEvent.class;
     }
 

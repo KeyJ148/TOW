@@ -1,15 +1,13 @@
 package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheController;
 import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
 import org.liquidengine.legui.component.ScrollablePanel;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
-import static cc.abro.tow.client.menu.MenuGuiComponents.createBigLabel;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
+import static cc.abro.tow.client.menu.MenuGuiService.createButton;
 
 public class ListOfServersMenuGuiPanel extends MenuGuiPanel {
 
@@ -41,7 +39,7 @@ public class ListOfServersMenuGuiPanel extends MenuGuiPanel {
     }
 
     public ListOfServersMenuGuiPanel() {
-        super(() -> Set.of(new ClickChangeToPanelFromCacheController()));
+        super();
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
         add(createBigLabel("List of servers", (MAIN_PANEL_WIDTH - LABEL_LENGTH_LIST_OF_SERVERS)/2, INDENT_Y, LABEL_LENGTH_LIST_OF_SERVERS, MENU_TEXT_FIELD_HEIGHT));
         ScrollablePanel scrollablePanel = createScrollablePanel(INDENT_X, 2*INDENT_Y + MENU_TEXT_FIELD_HEIGHT,
@@ -54,14 +52,18 @@ public class ListOfServersMenuGuiPanel extends MenuGuiPanel {
         }*/
 
         add(createButton("Back", INDENT_BUTTON_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class)));
+                getMouseReleaseListenerToNotify(() -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class))));
         add(createButton("Add server", 2*INDENT_BUTTON_X + BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class)));
+                BUTTON_WIDTH, BUTTON_HEIGHT,
+                getMouseReleaseListenerToNotify(() -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class))));
         add(createButton("Edit server", 3*INDENT_BUTTON_X + 2*BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class)));
+                BUTTON_WIDTH, BUTTON_HEIGHT,
+                getMouseReleaseListenerToNotify(() -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class))));
         add(createButton("Delete server", 4*INDENT_BUTTON_X + 3*BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class)));
+                BUTTON_WIDTH, BUTTON_HEIGHT,
+                getMouseReleaseListenerToNotify(() -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class))));
         add(createButton("Join the game", 5*INDENT_BUTTON_X + 4*BUTTON_WIDTH, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class)));
+                BUTTON_WIDTH, BUTTON_HEIGHT,
+                getMouseReleaseListenerToNotify(() -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class))));
     }
 }

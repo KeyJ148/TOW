@@ -8,7 +8,7 @@ import cc.abro.tow.client.menu.panels.events.main.ClickExitGuiEvent;
 public class ClickExitController extends MenuClickController<ClickExitGuiEvent> {
 
     @Override
-    protected Class<ClickExitGuiEvent> getProcessedEventClass() {
+    public Class<ClickExitGuiEvent> getProcessedEventClass() {
         return ClickExitGuiEvent.class;
     }
 

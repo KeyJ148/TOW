@@ -1,20 +1,17 @@
 package cc.abro.tow.client.menu.panels.controllers.creategame;
 
 import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
+import cc.abro.orchengine.gameobject.components.gui.EventableGuiElement;
 import cc.abro.orchengine.net.client.Connector;
 import cc.abro.orchengine.net.server.GameServer;
 import cc.abro.orchengine.services.GuiElementService;
 import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.menu.StartServerListener;
 import cc.abro.tow.client.menu.panels.controllers.MenuClickController;
-import cc.abro.tow.client.menu.panels.controllers.main.CloseChildPanelController;
 import cc.abro.tow.client.menu.panels.events.creategame.ClickCreateGuiEvent;
 import cc.abro.tow.client.menu.panels.gui.LabelBlockingGuiPanel;
 import cc.abro.tow.server.ServerLoader;
 import lombok.extern.log4j.Log4j2;
-
-import java.util.Set;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
@@ -25,7 +22,7 @@ public class ClickCreateController extends MenuClickController<ClickCreateGuiEve
     private boolean serverLaunching = false;
 
     @Override
-    protected Class<ClickCreateGuiEvent> getProcessedEventClass() {
+    public Class<ClickCreateGuiEvent> getProcessedEventClass() {
         return ClickCreateGuiEvent.class;
     }
 
@@ -45,8 +42,7 @@ public class ClickCreateController extends MenuClickController<ClickCreateGuiEve
                 //TODO возможно нужно избавиться от дублирования
                 LabelBlockingGuiPanel guiPanel = new LabelBlockingGuiPanel("Connected players: ", CONNECTED_PLAYERS_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT,
                         getGuiElement().getComponent());
-                EventableGuiPanelElement<LabelBlockingGuiPanel> guiElement = new EventableGuiPanelElement<>(guiPanel,
-                        Set.of(new CloseChildPanelController())) {
+                EventableGuiElement<LabelBlockingGuiPanel> guiElement = new EventableGuiElement<>(guiPanel) {
                     @Override
                     public void updateComponent(long delta) {
                         super.updateComponent(delta);

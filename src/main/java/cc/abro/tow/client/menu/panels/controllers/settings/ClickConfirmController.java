@@ -16,7 +16,7 @@ import static cc.abro.tow.client.menu.InterfaceStyles.BLOCKING_BUTTON_ELEMENT_WI
 public class ClickConfirmController extends MenuClickController<ClickConfirmGuiEvent> {
 
     @Override
-    protected Class<ClickConfirmGuiEvent> getProcessedEventClass() {
+    public Class<ClickConfirmGuiEvent> getProcessedEventClass() {
         return ClickConfirmGuiEvent.class;
     }
 

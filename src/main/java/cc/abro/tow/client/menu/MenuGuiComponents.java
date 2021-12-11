@@ -1,19 +1,15 @@
 package cc.abro.tow.client.menu;
 
-import cc.abro.orchengine.gameobject.components.gui.GuiElementEvent;
-import cc.abro.orchengine.gui.EventableGuiPanel;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.liquidengine.legui.component.*;
 import org.liquidengine.legui.component.optional.align.HorizontalAlign;
-import org.liquidengine.legui.event.MouseClickEvent;
-import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.font.FontRegistry;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
-import static cc.abro.tow.client.menu.InterfaceStyles.createScrollablePanelContainerStyle;
 
 public final class MenuGuiComponents {
 
@@ -29,27 +25,31 @@ public final class MenuGuiComponents {
         return label;
     }
 
-    public static Panel createMenuPanel(ButtonConfiguration... buttonConfigurations) {
+    public static Pair<Panel, List<Button>> createMenuPanel(List<String> buttonTexts) {
+        int countButtons = buttonTexts.size();
+
         final int INDENT = 5;
         final int MENU_PANEL_WIDTH = INDENT*2 + MENU_BUTTON_WIDTH;
-        final int MENU_PANEL_HEIGHT = INDENT + buttonConfigurations.length * (INDENT + MENU_BUTTON_HEIGHT);
+        final int MENU_PANEL_HEIGHT = INDENT + countButtons * (INDENT + MENU_BUTTON_HEIGHT);
 
         Panel menu = new Panel();
         menu.setSize(MENU_PANEL_WIDTH, MENU_PANEL_HEIGHT);
         menu.setStyle(createInvisibleStyle());
-        for (int i = 0; i < buttonConfigurations.length; i++) {
-            menu.add(createMenuButton(buttonConfigurations[i],
+        List<Button> buttons = new ArrayList<>(countButtons);
+        for (int i = 0; i < countButtons; i++) {
+            Button button = createMenuButton(buttonTexts.get(i),
                     (MENU_PANEL_WIDTH - MENU_BUTTON_WIDTH)/2,
-                    (MENU_PANEL_HEIGHT - (buttonConfigurations.length * (INDENT + MENU_BUTTON_HEIGHT) - INDENT))/2 + i * (INDENT + MENU_BUTTON_HEIGHT),
-                    MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT));
+                    (MENU_PANEL_HEIGHT - (countButtons * (INDENT + MENU_BUTTON_HEIGHT) - INDENT))/2 + i * (INDENT + MENU_BUTTON_HEIGHT),
+                    MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+            buttons.add(button);
+            menu.add(button);
         }
-        return menu;
+        return new ImmutablePair<>(menu, buttons);
     }
 
-    private static Button createMenuButton(ButtonConfiguration buttonConfiguration, int x, int y, int width, int height) {
-        Button button = new Button(buttonConfiguration.text);
+    public static Button createMenuButton(String text, int x, int y, int width, int height) {
+        Button button = new Button(text);
         button.setStyle(createMenuButtonStyle());
-        //button.getListenerMap().addListener(MouseClickEvent.class, getMouseReleaseListenerToNotify(buttonConfiguration.event));
         button.getHoveredStyle().setBackground(createHoveredMenuButtonBackground());
         button.getPressedStyle().setBackground(createPressedMenuButtonBackground());
         button.getHoveredStyle().setBorder(createButtonBorder());
@@ -59,15 +59,9 @@ public final class MenuGuiComponents {
         return button;
     }
 
-    public static Button createButton(String text, int x, int y, int width, int height, Supplier<GuiElementEvent> eventSupplier) {
-        return createButtonWithEvents(text, x, y, width, height, () -> List.of(eventSupplier.get()));
-    }
-
-    public static Button createButtonWithEvents(String text, int x, int y, int width, int height,
-                                         Supplier<List<GuiElementEvent>> eventSupplier) {
+    public static Button createButton(String text, int x, int y, int width, int height) {
         Button button = new Button(text);
         button.setStyle(createButtonStyle());
-        //button.getListenerMap().addListener(MouseClickEvent.class, getMouseReleaseListenerToNotifyEvents(eventSupplier));
         button.getStyle().setFont(FontRegistry.ROBOTO_REGULAR);
         button.getStyle().setFontSize(BUTTON_FONT_SIZE);
         button.getStyle().setTextColor(BLACK_COLOR);
@@ -126,16 +120,5 @@ public final class MenuGuiComponents {
         panel.setHorizontalScrollBarVisible(false);
         panel.setFocusable(false);
         return panel;
-    }
-
-    public static class ButtonConfiguration {
-
-        public String text;
-        public GuiElementEvent event;
-
-        public ButtonConfiguration(String text, GuiElementEvent event) {
-            this.text = text;
-            this.event = event;
-        }
     }
 }
