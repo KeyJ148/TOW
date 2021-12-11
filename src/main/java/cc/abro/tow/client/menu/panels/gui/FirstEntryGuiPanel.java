@@ -23,7 +23,7 @@ import java.util.List;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
-import static cc.abro.tow.client.menu.MenuGuiComponents.createButtonWithEvents;
+import static cc.abro.tow.client.menu.MenuGuiService.createButton;
 import static cc.abro.tow.client.menu.panels.gui.SettingsMenuGuiPanel.SETTINGS_PANEL_HEIGHT;
 import static cc.abro.tow.client.menu.panels.gui.SettingsMenuGuiPanel.SETTINGS_PANEL_WIDTH;
 
@@ -86,12 +86,13 @@ public class FirstEntryGuiPanel extends BlockingGuiPanel {
         }
 
         add(createButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class)));
-        add(createButtonWithEvents("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
+                BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListenerToNotify(() -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class))));
+        add(createButton("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
+                getMouseReleaseListenerToNotifyEvents(
                 () -> List.of(
                         new ClickConfirmGuiEvent(textAreaFieldNickname.getTextState().getText(), tankColor),
-                        new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class))));
+                        new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class)))));
     }
 
     private Button addColorButton(int x, int y, Color color, MouseClickEventListener event) {

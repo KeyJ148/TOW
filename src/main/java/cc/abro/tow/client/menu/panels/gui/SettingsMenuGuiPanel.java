@@ -1,10 +1,6 @@
 package cc.abro.tow.client.menu.panels.gui;
 
 import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelController;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangePanelGuiEvent;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheController;
 import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
@@ -22,11 +18,11 @@ import org.liquidengine.legui.style.Background;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
-import java.util.Set;
-import java.util.List;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
-import static cc.abro.tow.client.menu.MenuGuiComponents.*;
+import static cc.abro.tow.client.menu.MenuGuiComponents.createLabel;
+import static cc.abro.tow.client.menu.MenuGuiComponents.createTextAreaField;
+import static cc.abro.tow.client.menu.MenuGuiService.createButton;
 
 public class SettingsMenuGuiPanel extends MenuGuiPanel {
 
@@ -86,12 +82,13 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
         }
 
         add(createButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class)));
-        add(createButtonWithEvents("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
+                BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListenerToNotify(() -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class))));
+        add(createButton("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
+                getMouseReleaseListenerToNotifyEvents(
                 () -> List.of(
                         new ClickConfirmGuiEvent(textAreaFieldNickname.getTextState().getText(), tankColor),
-                        new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class))));
+                        new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class)))));
     }
 
     private Button addColorButton(int x, int y, Color color, MouseClickEventListener event) {

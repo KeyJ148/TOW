@@ -3,7 +3,7 @@ package cc.abro.tow;
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.OrchEngine;
 import cc.abro.orchengine.cycle.Engine;
-import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
+import cc.abro.orchengine.gameobject.components.gui.EventableGuiElement;
 import cc.abro.orchengine.gui.EventableGuiPanel;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.net.client.Connector;
@@ -56,7 +56,7 @@ public class GameStartTests {
 
     public void connect(String port, int peopleMax){
         ClickCreateController controller = new ClickCreateController();
-        controller.init(new EventableGuiPanelElement<>(new EventableGuiPanel(){}, Set.of()));
+        controller.init(new EventableGuiElement<>(new EventableGuiPanel(){}));
         controller.processEvent(new ClickCreateGuiEvent(port, peopleMax));
     }
 

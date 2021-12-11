@@ -1,21 +1,13 @@
 package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheController;
 import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
-import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheController;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
-import cc.abro.tow.client.menu.panels.controllers.connectbyip.ClickConnectController;
 import cc.abro.tow.client.menu.panels.events.connectbyip.ClickConnectGuiEvent;
-import cc.abro.tow.client.menu.MenuGuiComponents;
 import org.liquidengine.legui.component.TextAreaField;
 
-import java.util.Set;
-
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
-import static cc.abro.tow.client.menu.MenuGuiComponents.createButton;
 import static cc.abro.tow.client.menu.MenuGuiComponents.createLabel;
 import static cc.abro.tow.client.menu.MenuGuiComponents.createTextAreaField;
+import static cc.abro.tow.client.menu.MenuGuiService.createButton;
 
 public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
 
@@ -23,7 +15,7 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
     protected final static int MAIN_PANEL_HEIGHT = 5 * MENU_ELEMENT_HEIGHT / 3;
 
     public ConnectByIPMenuGuiPanel() {
-        super(() -> Set.of(new ClickChangeToPanelFromCacheController(), new ClickConnectController()));
+        super();
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
 
         add(createLabel("IP:", INDENT_X, INDENT_Y, LABEL_LENGTH_ID, MENU_TEXT_FIELD_HEIGHT));
@@ -37,11 +29,12 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel {
         add(textAreaFieldPort);
 
         add(createButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class)));
+                getMouseReleaseListenerToNotify(
+                () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class))));
         add(createButton("Connect", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                () -> new ClickConnectGuiEvent(
+                getMouseReleaseListenerToNotify(() -> new ClickConnectGuiEvent(
                         (!textAreaFieldIP.getTextState().getText().isEmpty()) ? textAreaFieldIP.getTextState().getText() : null,
                         textAreaFieldPort.getTextState().getText()
-                )));
+                ))));
     }
 }

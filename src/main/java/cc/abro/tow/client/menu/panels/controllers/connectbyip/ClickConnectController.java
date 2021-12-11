@@ -1,11 +1,10 @@
 package cc.abro.tow.client.menu.panels.controllers.connectbyip;
 
 import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.gameobject.components.gui.EventableGuiPanelElement;
+import cc.abro.orchengine.gameobject.components.gui.EventableGuiElement;
 import cc.abro.orchengine.net.client.ConnectException;
 import cc.abro.orchengine.net.client.Connector;
 import cc.abro.orchengine.services.BlockingPanelService;
-import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.menu.panels.controllers.MenuClickController;
 import cc.abro.tow.client.menu.panels.events.connectbyip.ClickConnectGuiEvent;
 import cc.abro.tow.client.menu.panels.gui.CreateGameMenuGuiPanel;
@@ -23,7 +22,7 @@ public class ClickConnectController extends MenuClickController<ClickConnectGuiE
     private boolean wasConnect = false;
 
     @Override
-    protected Class<ClickConnectGuiEvent> getProcessedEventClass() {
+    public Class<ClickConnectGuiEvent> getProcessedEventClass() {
         return ClickConnectGuiEvent.class;
     }
 
@@ -44,13 +43,13 @@ public class ClickConnectController extends MenuClickController<ClickConnectGuiE
         }
 
         new Thread(() -> {
-            EventableGuiPanelElement<LabelBlockingGuiPanel> guiElement = createLabelBlockingPanel("Connecting...", CONNECTING_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT);
-            EventableGuiPanelElement<CreateGameMenuGuiPanel> gg = null;
+            EventableGuiElement<LabelBlockingGuiPanel> guiElement = createLabelBlockingPanel("Connecting...", CONNECTING_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT);
+            EventableGuiElement<CreateGameMenuGuiPanel> gg = null;
             BlockingPanelService.GuiPanelBlock block = Manager.getService(BlockingPanelService.class).createGuiPanelBlock(gg.getComponent());
 
             try {
                 Manager.createBean(Connector.class).connect(ip, Integer.parseInt(event.getPort()));
-                //TODO создать наследника EventableGuiPanelElement в котором релизовать метод destroyAndFocused
+                //TODO создать наследника EventableGuiElement в котором релизовать метод destroyAndFocused
                 block.unblock();
                 //guiElement.getComponent().focusComponents();
                 createLabelBlockingPanel("Waiting for players...", WAITING_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT);

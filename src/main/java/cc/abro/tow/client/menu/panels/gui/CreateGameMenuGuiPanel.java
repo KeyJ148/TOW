@@ -1,16 +1,12 @@
 package cc.abro.tow.client.menu.panels.gui;
 
-import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheController;
 import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
-import cc.abro.tow.client.menu.panels.controllers.creategame.ClickCreateController;
 import cc.abro.tow.client.menu.panels.events.creategame.ClickCreateGuiEvent;
 import org.liquidengine.legui.component.TextAreaField;
-import org.liquidengine.legui.component.optional.align.HorizontalAlign;
-
-import java.util.Set;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
+import static cc.abro.tow.client.menu.MenuGuiService.createButton;
 
 public class CreateGameMenuGuiPanel extends MenuGuiPanel {
 
@@ -19,7 +15,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
     protected final static int INDENT_Y_LAYER2 = + INDENT_Y + MENU_TEXT_FIELD_HEIGHT + 20;
 
     public CreateGameMenuGuiPanel() {
-        super(() -> Set.of(new ClickChangeToPanelFromCacheController(), new ClickCreateController()));
+        super();
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
 
         add(createLabel("Server name:", INDENT_X, INDENT_Y, LABEL_LENGTH_SERVER_NAME, MENU_TEXT_FIELD_HEIGHT));
@@ -39,11 +35,11 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel {
         add(textAreaFieldMaxPeople);
 
         add(createButton("Back to menu", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class)));
+                BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListenerToNotify(() -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class))));
         add(createButton("Create a game", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, () -> new ClickCreateGuiEvent(
+                BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListenerToNotify(() -> new ClickCreateGuiEvent(
                         textAreaFieldPort.getTextState().getText(),
                         Integer.parseInt(textAreaFieldMaxPeople.getTextState().getText())
-                )));
+                ))));
     }
 }
