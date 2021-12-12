@@ -4,13 +4,13 @@ import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.OrchEngine;
 import cc.abro.orchengine.cycle.Engine;
 import cc.abro.orchengine.gui.GuiPanelStorage;
+import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.client.Connector;
 import cc.abro.orchengine.profiles.Profile;
 import cc.abro.orchengine.profiles.Profiles;
 import cc.abro.tow.client.Game;
 import cc.abro.tow.client.NetGameRead;
-import cc.abro.tow.client.menu.panels.controllers.creategame.ClickCreateController;
-import cc.abro.tow.client.menu.panels.events.creategame.ClickCreateGuiEvent;
+import cc.abro.tow.client.services.CreateServerService;
 import cc.abro.tow.server.NetServerRead;
 import cc.abro.tow.server.Server;
 import org.junit.jupiter.api.Assertions;
@@ -32,8 +32,8 @@ public class GameStartTests {
 
     @Test
     @Timeout(value = 10)
-    public void gameStartAndCreateServerTest(){
-        Runnable gameAfterStart = () -> connect("25566", 1);
+    public void gameStartAndCreateServerTest() {
+        Runnable gameAfterStart = () -> Manager.getService(CreateServerService.class).createServer("25566", 1);
         Manager.addService(new GameAfterStartService(gameAfterStart));
         AtomicReference<Boolean> hasException = new AtomicReference<>(false);
         new Thread(() -> {
@@ -48,12 +48,6 @@ public class GameStartTests {
         Manager.getService(Engine.class).stop();
         waitToLog("Shutting down logger");
         Assertions.assertFalse(hasException.get(), "Has exception in game main thread");
-    }
-
-    public void connect(String port, int peopleMax){
-        ClickCreateController controller = new ClickCreateController();
-        controller.init(new EventableGuiElement<>(new EventableGuiPanel(){}));
-        controller.processEvent(new ClickCreateGuiEvent(port, peopleMax));
     }
 
     /*
@@ -77,8 +71,9 @@ public class GameStartTests {
         private boolean started = false;
         private final GameAfterStartService gameAfterStartService;
 
-        public GameProxyService(GuiPanelStorage guiPanelStorage, GameAfterStartService gameAfterStartService) {
-            super(guiPanelStorage);
+        public GameProxyService(GuiPanelStorage guiPanelStorage, LocationManager locationManager,
+                                GameAfterStartService gameAfterStartService) {
+            super(guiPanelStorage, locationManager);
             this.gameAfterStartService = gameAfterStartService;
         }
 
