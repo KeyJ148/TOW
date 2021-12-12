@@ -5,22 +5,22 @@ import cc.abro.orchengine.cycle.Engine;
 import org.liquidengine.legui.component.Panel;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.createInvisibleStyle;
-import static cc.abro.tow.client.menu.MenuGuiComponents.MenuButtonConfiguration;
+import static cc.abro.tow.client.menu.MenuGuiComponents.ButtonConfiguration;
 import static cc.abro.tow.client.menu.MenuGuiComponents.createMenuPanel;
 
 public class MainMenuGuiPanel extends MenuGuiPanel {
 
     public MainMenuGuiPanel() {
         Panel panel = createMenuPanel(
-                new MenuButtonConfiguration("Create a game",
+                new ButtonConfiguration("Create a game",
                         getChangeToCachedPanelReleaseListener(CreateGameMenuGuiPanel.class)),
-                new MenuButtonConfiguration("List of servers",
+                new ButtonConfiguration("List of servers",
                         getChangeToCachedPanelReleaseListener(ListOfServersMenuGuiPanel.class)),
-                new MenuButtonConfiguration("Connect via IP",
+                new ButtonConfiguration("Connect via IP",
                         getChangeToCachedPanelReleaseListener(ConnectByIPMenuGuiPanel.class)),
-                new MenuButtonConfiguration("Settings",
+                new ButtonConfiguration("Settings",
                         getChangeToPanelReleaseListener(SettingsMenuGuiPanel::new)),
-                new MenuButtonConfiguration("Exit",
+                new ButtonConfiguration("Exit",
                         getMouseReleaseListener(() -> Manager.getService(Engine.class).stop())));
         setSize(panel.getSize());
         setStyle(createInvisibleStyle());

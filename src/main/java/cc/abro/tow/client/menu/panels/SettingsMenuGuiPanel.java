@@ -102,7 +102,7 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
                                 Manager.getService(SettingsService.class).setSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
                                 getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
                             } catch (SettingsService.EmptyNicknameException e) {
-                                addButtonGuiPanelWithUnblockAndBlockFrame(FirstEntryGuiPanel.Error.NICKNAME_IS_EMPTY.getText());
+                                addButtonGuiPanelWithUnblockAndBlockFrame(NICKNAME_IS_EMPTY.getText());
                             } catch (SettingsService.CantSaveSettingException e) {
                                 addButtonGuiPanelWithUnblockAndBlockFrame(CANT_SAVE_SETTINGS.getText());
                             }
@@ -112,6 +112,18 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
     private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {
         BlockingGuiService.GuiBlock guiBlock = Manager.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
         Panel panel = createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
+        Manager.getService(GuiService.class).moveComponentToWindowCenter(panel);
+        getFrame().getContainer().add(panel);
+    }
+
+    private void addDialogGuiPanelWithUnblockAndBlockFrame(String labelText, String leftButton, String rightButton) {
+        BlockingGuiService.GuiBlock guiBlock = Manager.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
+        Panel panel = createDialogPanel(labelText,
+                new ButtonConfiguration(leftButton, getMouseReleaseListener(event -> {
+                    getUnblockAndParentDestroyReleaseListener(guiBlock).process(event);
+                    getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
+                })),
+                new ButtonConfiguration(rightButton, getUnblockAndParentDestroyReleaseListener(guiBlock))).panel();
         Manager.getService(GuiService.class).moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }

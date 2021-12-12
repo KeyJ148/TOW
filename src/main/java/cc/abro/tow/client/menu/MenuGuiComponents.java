@@ -6,7 +6,11 @@ import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.font.FontRegistry;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
+import static java.lang.Math.max;
 
 public final class MenuGuiComponents {
 
@@ -31,7 +35,7 @@ public final class MenuGuiComponents {
         return label;
     }
 
-    public static Panel createMenuPanel(MenuButtonConfiguration... buttonConfigurations) {
+    public static Panel createMenuPanel(ButtonConfiguration... buttonConfigurations) {
         int countButtons = buttonConfigurations.length;
 
         final int INDENT = 5;
@@ -138,6 +142,24 @@ public final class MenuGuiComponents {
         return new ButtonGuiPanel(labelGuiPanel.panel, labelGuiPanel.label, button);
     }
 
+    public static DialogGuiPanel createDialogPanel(String labelText, ButtonConfiguration... buttonConfigurations) {
+        LabelGuiPanel labelGuiPanel = createLabelPanel(labelText,
+                buttonConfigurations.length * (SMALL_BUTTON_WIDTH + INDENT_X) + INDENT_X, BLOCKING_BUTTON_ELEMENT_HEIGHT);
+        ArrayList<Button> buttons = new ArrayList<>();
+        int indent = (int) (labelGuiPanel.panel.getSize().x - SMALL_BUTTON_WIDTH * buttonConfigurations.length) /
+                (buttonConfigurations.length + 1);
+        for(int i = 0; i < buttonConfigurations.length; i++) {
+            ButtonConfiguration buttonConfiguration = buttonConfigurations[i];
+            Button button = createButton(buttonConfiguration.text,
+                    i * (SMALL_BUTTON_WIDTH + indent) + indent,
+                    (int) labelGuiPanel.panel.getSize().y - BUTTON_HEIGHT - BLOCKING_BUTTON_INDENT_Y,
+                    SMALL_BUTTON_WIDTH, BUTTON_HEIGHT, buttonConfiguration.eventListener);
+            labelGuiPanel.panel.add(button);
+            buttons.add(button);
+        }
+        return new DialogGuiPanel(labelGuiPanel.panel, labelGuiPanel.label, buttons);
+    }
+
     public static ScrollablePanel createScrollablePanel(int x, int y, int width, int height) {
         ScrollablePanel panel = new ScrollablePanel(x, y, width, height);
         panel.setStyle(createScrollablePanelStyle());
@@ -151,7 +173,8 @@ public final class MenuGuiComponents {
         return panel;
     }
 
-    public static record MenuButtonConfiguration(String text, MouseClickEventListener eventListener) { }
+    public static record ButtonConfiguration(String text, MouseClickEventListener eventListener) { }
     public static record LabelGuiPanel(Panel panel, Label label) { }
     public static record ButtonGuiPanel(Panel panel, Label label, Button button) { }
+    public static record DialogGuiPanel(Panel panel, Label label, List<Button> buttons) { }
 }
