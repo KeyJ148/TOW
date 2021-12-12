@@ -12,12 +12,14 @@ public final class MenuGuiComponents {
 
     public static Label createBigLabel(String text, int x, int y, int width, int height) {
         Label label = new Label(text, x, y, width, height);
+        label.setFocusable(false);
         label.setStyle(createBigLabelStyle());
         return label;
     }
 
     public static Label createLabel(String text, int x, int y, int width, int height) {
         Label label = new Label(text, x, y, width, height);
+        label.setFocusable(false);
         label.setStyle(createLabelStyle());
         return label;
     }
@@ -111,7 +113,7 @@ public final class MenuGuiComponents {
 
     public static LabelGuiPanel createLabelPanel(String message, int width, int height) {
         Panel panel = createPanel(width, height);
-        int widthOfMessage = (int) (LABEL_FONT_SIZE*9/24) * message.length();
+        int widthOfMessage = (int) (LABEL_FONT_SIZE*10/24) * message.length();
         Label label = createLabel(message, (width - widthOfMessage)/2, BLOCKING_BUTTON_INDENT_Y,
                 widthOfMessage, MENU_TEXT_FIELD_HEIGHT);
         panel.add(label);
