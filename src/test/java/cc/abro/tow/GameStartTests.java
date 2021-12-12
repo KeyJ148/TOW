@@ -9,7 +9,6 @@ import cc.abro.orchengine.profiles.Profile;
 import cc.abro.orchengine.profiles.Profiles;
 import cc.abro.tow.client.Game;
 import cc.abro.tow.client.NetGameRead;
-import cc.abro.tow.client.menu.StartServerListener;
 import cc.abro.tow.client.menu.panels.controllers.creategame.ClickCreateController;
 import cc.abro.tow.client.menu.panels.events.creategame.ClickCreateGuiEvent;
 import cc.abro.tow.server.NetServerRead;
@@ -93,7 +92,7 @@ public class GameStartTests {
         }
     }
 
-    public static class StartServerListenerImpl implements StartServerListener {
+    public static class StartServerListenerImpl implements Runnable {
 
         private final int port;
 
@@ -102,7 +101,7 @@ public class GameStartTests {
         }
 
         @Override
-        public void serverStart() {
+        public void run() {
             Manager.createBean(Connector.class).connect("127.0.0.1", port);
         }
     }
