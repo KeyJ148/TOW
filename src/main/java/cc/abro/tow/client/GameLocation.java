@@ -3,11 +3,8 @@ package cc.abro.tow.client;
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.analysis.Analyzer;
 import cc.abro.orchengine.cycle.Render;
-import cc.abro.orchengine.gameobject.components.gui.GuiElement;
-import cc.abro.orchengine.location.Location;
-import cc.abro.orchengine.services.GuiElementService;
+import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObjectFactory;
-import cc.abro.orchengine.gameobject.QueueComponent;
 import cc.abro.orchengine.location.Location;
 
 import java.util.Collections;
@@ -27,11 +24,11 @@ public class GameLocation extends Location {
         getGuiLocationFrame().getGuiFrame().getContainer().add(debugGuiPanel);
 
         DebugInfoComponent debugInfoComponent = new DebugInfoComponent(debugGuiPanel);
-        getMap().objAdd(GameObjectFactory.create(debugInfoComponent));
+        getMap().add(GameObjectFactory.create(debugInfoComponent));
     }
 
     //TODO вынести в отдельный класс или упростить в новой системе компонент
-    public class DebugInfoComponent extends QueueComponent {
+    public class DebugInfoComponent extends Component {
 
         private final DebugInfoGuiPanel debugInfoGuiPanel;
 
@@ -40,7 +37,7 @@ public class GameLocation extends Location {
         }
 
         @Override
-        protected void updateComponent(long delta) {
+        public void update(long delta) {
             if (ClientData.printAnalyzerInfo) {
                 debugInfoGuiPanel.setText(Manager.getService(Analyzer.class).getAnalysisResult());
             } else {
@@ -49,21 +46,11 @@ public class GameLocation extends Location {
         }
 
         @Override
-        protected void drawComponent() {}
+        public void draw() {}
 
         @Override
-        public Class getComponentClass() {
+        public Class<? extends Component> getComponentClass() {
             return DebugInfoComponent.class;
-        }
-
-        @Override
-        public List<Class<? extends QueueComponent>> getPreliminaryUpdateComponents() {
-            return Collections.emptyList();
-        }
-
-        @Override
-        public List<Class<? extends QueueComponent>> getPreliminaryDrawComponents() {
-            return Collections.emptyList();
         }
     }
 }
