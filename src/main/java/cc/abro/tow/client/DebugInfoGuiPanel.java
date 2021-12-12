@@ -9,7 +9,7 @@ import java.util.List;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
-//TODO мб в другой пакет? Но это не наследник Panel
+//TODO мб в другой пакет? Но это не наследник MenuGuiPanel
 public class DebugInfoGuiPanel extends Panel {
 
     private static final int LABEL_LENGTH = 100;

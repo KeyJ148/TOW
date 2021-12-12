@@ -13,6 +13,9 @@ import cc.abro.tow.client.menu.panels.FirstEntryGuiPanel;
 import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.MainMenuLogoGuiPanel;
 import cc.abro.tow.client.menu.panels.ZeroRuleGuiPanel;
+import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
+import cc.abro.tow.client.menu.panels.MainMenuLogoGuiPanel;
+import cc.abro.tow.client.menu.panels.ZeroRuleGuiPanel;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
@@ -51,6 +54,6 @@ public class MenuLocation extends GameLocation {
         addDebugPanel(4);
         MenuEventController controller = new MenuEventController();
         controller.setComponent(new Position(0, 0, 0));
-        getMap().objAdd(controller);
+        getMap().add(controller);
     }
 }

@@ -27,7 +27,7 @@ public class Server implements ServerInterface {
     public void init() {
         //Engine: Инициализация сервера сразу после создания сокета (Цикл подключения ещё не запущен, но сокет существует)
         if (ServerLoader.startServerListener != null) {
-            new Thread(() -> ServerLoader.startServerListener.serverStart()).start();
+            new Thread(() -> ServerLoader.startServerListener.run()).start();
         }
     }
 

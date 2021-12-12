@@ -112,7 +112,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
             GameObject explosion = GameObjectFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, 3000);
             explosion.setComponent(new Explosion(expSize));
             explosion.getComponent(Particles.class).destroyObject = true;
-            Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(explosion);
+            Manager.getService(LocationManager.class).getActiveLocation().getMap().add(explosion);
         }
     }
 

@@ -1,14 +1,13 @@
 package cc.abro.tow.server;
 
 import cc.abro.tow.ServerStart;
-import cc.abro.tow.client.menu.StartServerListener;
 
 public class ServerLoader extends Thread {
 
     //Параметры, которые необходимо передать от клиента серверу
     //null, если этот параметр не передавался
     public static String mapPath = null;
-    public static StartServerListener startServerListener = null;
+    public static Runnable startServerListener = null;
 
     //Параметры передаваемые серверу при запуске
     private int port;

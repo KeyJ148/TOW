@@ -45,7 +45,7 @@ public class BMass extends Bullet {
                             configName
                     );
 
-                    Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(newBullet);
+                    Manager.getService(LocationManager.class).getActiveLocation().getMap().add(newBullet);
                 }
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 log.fatal("Bullet create error: " + configName);

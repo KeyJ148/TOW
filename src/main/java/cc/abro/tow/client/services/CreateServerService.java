@@ -2,12 +2,11 @@ package cc.abro.tow.client.services;
 
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.net.client.Connector;
-import cc.abro.tow.client.menu.StartServerListener;
 import cc.abro.tow.server.ServerLoader;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class CreateServerService implements StartServerListener {
+public class CreateServerService {
 
     private int port;
     private boolean serverLaunching = false;
@@ -21,7 +20,7 @@ public class CreateServerService implements StartServerListener {
                 if (port < 1024 || port > 65535) {
                     throw new WrongPortException();
                 }
-                ServerLoader.startServerListener = this;
+                ServerLoader.startServerListener = () -> Manager.createBean(Connector.class).connect("127.0.0.1", port);
                 serverLaunching = true;
 
                 new ServerLoader(port, maxPeople, false);
@@ -31,11 +30,6 @@ public class CreateServerService implements StartServerListener {
                 throw e;
             }
         }
-    }
-
-    @Override
-    public void serverStart() {
-        Manager.createBean(Connector.class).connect("127.0.0.1", port);
     }
 
     public class ServerIsLaunchingExeption extends RuntimeException {}

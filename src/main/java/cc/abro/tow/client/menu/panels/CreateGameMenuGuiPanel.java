@@ -1,8 +1,8 @@
 package cc.abro.tow.client.menu.panels;
 
 import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObjectFactory;
-import cc.abro.orchengine.gameobject.QueueComponent;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.server.GameServer;
@@ -64,7 +64,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
 
         ConnectedPlayersUpdater connectedPlayersUpdater = new ConnectedPlayersUpdater(connectedGuiPanel.label());
         Manager.getService(LocationManager.class).getActiveLocation().getMap()
-                .objAdd(GameObjectFactory.create(connectedPlayersUpdater));
+                .add(GameObjectFactory.create(connectedPlayersUpdater));
 
         try {
             Manager.getService(CreateServerService.class).createServer(port,
@@ -105,7 +105,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
     }
 
     //TODO упростить в системе компонент новой
-    public class ConnectedPlayersUpdater extends QueueComponent {
+    public class ConnectedPlayersUpdater extends Component {
 
         private final Label label;
 
@@ -118,21 +118,12 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
         }
 
         @Override
-        protected void updateComponent(long delta) {
+        public void update(long delta) {
             label.getTextState().setText("Connected players: " + GameServer.peopleNow + "/" + GameServer.peopleMax);
         }
 
         @Override
-        protected void drawComponent() {}
+        public void draw() {}
 
-        @Override
-        public List<Class<? extends QueueComponent>> getPreliminaryUpdateComponents() {
-            return Collections.emptyList();
-        }
-
-        @Override
-        public List<Class<? extends QueueComponent>> getPreliminaryDrawComponents() {
-            return Collections.emptyList();
-        }
     }
 }

@@ -25,6 +25,7 @@ import static cc.abro.tow.client.menu.InterfaceStyles.*;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
 import static cc.abro.tow.client.menu.panels.FirstEntryGuiPanel.Error.CANT_SAVE_SETTINGS;
 import static cc.abro.tow.client.menu.panels.FirstEntryGuiPanel.Error.NICKNAME_IS_EMPTY;
+import static cc.abro.tow.client.menu.MenuGuiComponents.*;
 
 public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 

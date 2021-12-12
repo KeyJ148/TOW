@@ -2,8 +2,8 @@ package cc.abro.tow.client.map;
 
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.cycle.Render;
+import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObjectFactory;
-import cc.abro.orchengine.gameobject.QueueComponent;
 import cc.abro.orchengine.location.map.Border;
 import cc.abro.orchengine.net.client.PingChecker;
 import cc.abro.tow.client.ClientData;
@@ -12,7 +12,6 @@ import cc.abro.tow.client.GameTabGuiPanel;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;
 import cc.abro.tow.client.map.specification.MapSpecification;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -30,7 +29,7 @@ public class BattleLocation extends GameLocation {
         Border.createAll(this);
         for (MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()) {
             MapObject mapObject = ClientData.mapObjectFactory.createMapObject(mapObjectSpecification);
-            getMap().objAdd(mapObject);
+            getMap().add(mapObject);
             ClientData.mapObjects.add(mapObjectSpecification.getId(), mapObject);
         }
 
@@ -44,19 +43,20 @@ public class BattleLocation extends GameLocation {
                 (Manager.getService(Render.class).getHeight() - (TAB_LINE_SIZE_Y + 2) * (ClientData.peopleMax + 1) - 2)/2);
         getGuiLocationFrame().getGuiFrame().getContainer().add(gameTabGuiPanel);
         TabPanelComponent tabPanelComponent = new TabPanelComponent(gameTabGuiPanel);
-        getMap().objAdd(GameObjectFactory.create(tabPanelComponent));
+        getMap().add(GameObjectFactory.create(tabPanelComponent));
     }
 
     //TODO в отдельный класс или упростить в новой системе компонент
-    public class TabPanelComponent extends QueueComponent {
+    public class TabPanelComponent extends Component {
 
         private final GameTabGuiPanel gameTabGuiPanel;
 
         public TabPanelComponent(GameTabGuiPanel gameTabGuiPanel){
             this.gameTabGuiPanel = gameTabGuiPanel;
         }
+
         @Override
-        protected void updateComponent(long delta) {
+        public void update(long delta) {
             if (ClientData.showGameTabMenu) {
                 gameTabGuiPanel.setSize(TAB_SIZE_X, (TAB_LINE_SIZE_Y + 2) * (ClientData.peopleMax + 1) - 2);
                 int ping = Manager.getService(PingChecker.class).getPing();
@@ -74,21 +74,11 @@ public class BattleLocation extends GameLocation {
         }
 
         @Override
-        protected void drawComponent() {}
+        public void draw() {}
 
         @Override
         public Class getComponentClass() {
             return TabPanelComponent.class;
-        }
-
-        @Override
-        public List<Class<? extends QueueComponent>> getPreliminaryUpdateComponents() {
-            return Collections.emptyList();
-        }
-
-        @Override
-        public List<Class<? extends QueueComponent>> getPreliminaryDrawComponents() {
-            return Collections.emptyList();
         }
     }
 }
