@@ -9,6 +9,9 @@ compileJava.options.encoding = "UTF-8"
 //applicationDefaultJvmArgs = ["-Xmx128M"]
 applicationDefaultJvmArgs += ["-Dlog4j.defaultInitOverride=true", "-Dlog4j.configurationFile=log4j2.yml"]
 
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+compileJava.sourceCompatibility = '17'
+compileJava.targetCompatibility = '17'
 compileTestJava.options.encoding = "UTF-8"
 compileTestJava.options.compilerArgs += ["-Xlint"]
 

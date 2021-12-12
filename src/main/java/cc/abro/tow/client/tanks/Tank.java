@@ -7,14 +7,13 @@ import cc.abro.orchengine.gameobject.GameObjectFactory;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
-import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.audios.AudioStorage;
-import cc.abro.orchengine.services.LeguiComponentService;
+import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.GameSetting;
 import cc.abro.tow.client.particles.Explosion;
@@ -31,7 +30,7 @@ public abstract class Tank extends GameObject {
     public GameObject armor;
     public GameObject gun;
     public GameObject camera;
-    public GameObject nickname;
+    public Label nickname;
 
     protected String name = "";
     public Color color = Color.WHITE;
@@ -51,12 +50,12 @@ public abstract class Tank extends GameObject {
         camera = GameObjectFactory.create(0, 0, 0);
         Manager.getService(LocationManager.class).getActiveLocation().getMap().objAdd(camera);
 
-        nickname = Manager.getService(LeguiComponentService.class).addComponentToLocationShiftedToCenter(new Label(), 500, 30, Manager.getService(LocationManager.class).getActiveLocation());//TODO Position.location
-        nickname.getComponent(GuiElement.class).setMoveComponentToGameObjectPosition(true);
+        nickname = new Label();
+        nickname.setSize(500, 30);
+        Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(nickname);//TODO Position.location
 
-        Label label = ((Label) (nickname.getComponent(GuiElement.class)).getComponent());
-        label.setFocusable(false); //Иначе событие мыши перехватывает надпись, и оно не поступает в игру
-        label.getTextState().setText(name);
+        nickname.setFocusable(false); //Иначе событие мыши перехватывает надпись, и оно не поступает в игру
+        nickname.getTextState().setText(name);
     }
 
     @Override
@@ -66,9 +65,11 @@ public abstract class Tank extends GameObject {
         if (!alive) return;
 
         if (armor != null && armor.hasComponent(Position.class)) {
-            Label label = ((Label) (nickname.getComponent(GuiElement.class)).getComponent());
-            nickname.getComponent(Position.class).x = armor.getComponent(Position.class).x - name.length() * 3.45 + label.getSize().x / 2;
-            nickname.getComponent(Position.class).y = armor.getComponent(Position.class).y - 50;
+            double x = armor.getComponent(Position.class).x - name.length() * 3.45;
+            double y = armor.getComponent(Position.class).y - 55;
+            Vector2<Integer> relativePosition = Manager.getService(LocationManager.class).getActiveLocation().camera //TODO не с активной, а из position
+                    .toRelativePosition(new Vector2(x, y));
+            nickname.setPosition(relativePosition.x, relativePosition.y);
         }
     }
 
@@ -140,7 +141,7 @@ public abstract class Tank extends GameObject {
 
     public void setName(String name) {
         this.name = name;
-        ((Label) (nickname.getComponent(GuiElement.class)).getComponent()).getTextState().setText(name);
+        nickname.getTextState().setText(name);
     }
 
     public String getName() {
