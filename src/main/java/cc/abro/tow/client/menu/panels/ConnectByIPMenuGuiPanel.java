@@ -17,7 +17,7 @@ import static cc.abro.tow.client.menu.MenuGuiComponents.*;
 
 public class ConnectByIPMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
-    protected final static int MAIN_PANEL_WIDTH = 4 * MENU_ELEMENT_WIDTH / 3;
+    protected final static int MAIN_PANEL_WIDTH = 4 * MENU_ELEMENT_WIDTH / 3 + 1;
     protected final static int MAIN_PANEL_HEIGHT = 5 * MENU_ELEMENT_HEIGHT / 3;
 
     public ConnectByIPMenuGuiPanel() {

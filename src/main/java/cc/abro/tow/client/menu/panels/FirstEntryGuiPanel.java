@@ -17,18 +17,26 @@ import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.Background;
 
 import java.awt.image.BufferedImage;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.random.RandomGenerator;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
 
 public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
-    protected final static int FIRST_ENTRY_PANEL_WIDTH = MENU_ELEMENT_WIDTH;
-    protected final static int FIRST_ENTRY_PANEL_HEIGHT = 3 * MENU_ELEMENT_HEIGHT;
+    protected final static int FIRST_ENTRY_PANEL_WIDTH = (4 * MENU_ELEMENT_WIDTH / 3) + 1;
+    protected final static int FIRST_ENTRY_PANEL_HEIGHT = (5 * MENU_ELEMENT_HEIGHT / 2) + 1;
     protected final static int LENGTH_TEXT_AREA_NICK = 100;
     protected final static int BUTTON_COLOR_SIZE = 15;
     protected final static int PANEL_COLOR_WIDTH = 45;
     protected final static int PANEL_COLOR_HEIGHT = 20;
+    protected final static int LABEL_LENGTH_CHAPTER = 310;
+    protected final static int INDENT_PLUS_Y = 15*2 + LABEL_HEIGHT_CHAPTER;
+    protected final static int INDENT_PLUS_TANK_Y = 20 + LABEL_HEIGHT_CHAPTER;
+    protected final static int INDENT_PLUS_X = INDENT_X + 15;
+    protected final static int INDENT_PLUS_TANK_X = 230 + 15;
 
     private final static Color[] COLORS = {
             new Color(255, 255, 255),
@@ -46,13 +54,16 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
 
     private Color tankColor;
 
-    public FirstEntryGuiPanel(Component parent) {
+    public FirstEntryGuiPanel() {
         GuiService guiService = Manager.getService(GuiService.class);
         setSize(FIRST_ENTRY_PANEL_WIDTH, FIRST_ENTRY_PANEL_HEIGHT);
 
-        add(createLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT));
+        add(createLargerLabel("Choose your nickname and color",
+                (FIRST_ENTRY_PANEL_WIDTH - LABEL_LENGTH_CHAPTER)/2, 15, LABEL_LENGTH_CHAPTER, LABEL_HEIGHT_CHAPTER));
+
+        add(createLabel("Nickname:", INDENT_PLUS_X, INDENT_PLUS_Y, 30, MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldNickname =
-                createTextAreaField(INDENT_X + LABEL_LENGTH_NICKNAME, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
+                createTextAreaField(INDENT_PLUS_X + LABEL_LENGTH_NICKNAME, INDENT_PLUS_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
                         SettingsStorage.PROFILE.NICKNAME);
         add(textAreaFieldNickname);
 
@@ -63,11 +74,12 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
         FBOImage tankFBOImage = new FBOImage(defaultTankTexture.getId(), defaultTankTexture.getWidth(), defaultTankTexture.getHeight());
         ImageView imageView = new ImageView(tankFBOImage);
         imageView.setStyle(createInvisibleStyle());
-        addComponent(imageView, 230, 15, defaultTankTexture.getWidth(), defaultTankTexture.getHeight());
+        imageView.setFocusable(false);
+        addComponent(imageView, INDENT_PLUS_TANK_X, INDENT_PLUS_TANK_Y, defaultTankTexture.getWidth(), defaultTankTexture.getHeight());
 
         for (int i = 0; i < COLORS.length; i++) {
             final int fi = i;
-            addColorButton(INDENT_X + (BUTTON_COLOR_SIZE + 2) * i, INDENT_Y + MENU_TEXT_FIELD_HEIGHT + 10, COLORS[i],
+            addColorButton(INDENT_PLUS_X + (BUTTON_COLOR_SIZE + 2) * i, INDENT_PLUS_Y + MENU_TEXT_FIELD_HEIGHT + 10, COLORS[i],
                     getMouseReleaseListener(() -> {
                         tankColor = COLORS[fi];
 
@@ -80,10 +92,8 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
                     }));
         }
 
-        add(createButton("Back to menu", INDENT_X, SettingsMenuGuiPanel.SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class)));
-        add(createButton("Confirm", SettingsMenuGuiPanel.SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
-                SettingsMenuGuiPanel.SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
+        add(createButton("Confirm", (FIRST_ENTRY_PANEL_WIDTH - BUTTON_WIDTH)/2,
+                FIRST_ENTRY_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
                     try {
                         Manager.getService(SettingsService.class).setSettings(textAreaFieldNickname.getTextState().getText(), tankColor);

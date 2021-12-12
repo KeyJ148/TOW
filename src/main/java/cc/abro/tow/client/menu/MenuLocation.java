@@ -9,6 +9,7 @@ import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.GameLocation;
+import cc.abro.tow.client.menu.panels.FirstEntryGuiPanel;
 import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.MainMenuLogoGuiPanel;
 import cc.abro.tow.client.menu.panels.ZeroRuleGuiPanel;
@@ -19,7 +20,7 @@ public class MenuLocation extends GameLocation {
 
     private static final String BACKGROUND_SPRITE_NAME = "main_menu_background";
 
-    public MenuLocation() {
+    public MenuLocation(boolean settingsLoadSuccess) {
         super(Manager.getService(Render.class).getWidth(), Manager.getService(Render.class).getHeight());
         GuiService guiService = Manager.getService(GuiService.class);
 
@@ -36,9 +37,16 @@ public class MenuLocation extends GameLocation {
                 Manager.getService(Render.class).getHeight() - LABEL_HEIGHT_ZERO_RULE - INDENT_Y/2);
         getGuiLocationFrame().getGuiFrame().getContainer().add(zeroRuleGuiPanel);
 
-        MainMenuGuiPanel menuGuiPanel = Manager.getService(GuiPanelStorage.class).getPanel(MainMenuGuiPanel.class);
-        guiService.moveComponentToWindowCenter(menuGuiPanel);
-        getGuiLocationFrame().getGuiFrame().getContainer().add(menuGuiPanel);
+
+        if(settingsLoadSuccess) {
+            MainMenuGuiPanel menuGuiPanel = Manager.getService(GuiPanelStorage.class).getPanel(MainMenuGuiPanel.class);
+            guiService.moveComponentToWindowCenter(menuGuiPanel);
+            getGuiLocationFrame().getGuiFrame().getContainer().add(menuGuiPanel);
+        } else {
+            FirstEntryGuiPanel firstEntryGuiPanel = new FirstEntryGuiPanel();
+            guiService.moveComponentToWindowCenter(firstEntryGuiPanel);
+            getGuiLocationFrame().getGuiFrame().getContainer().add(firstEntryGuiPanel);
+        }
 
         addDebugPanel(4);
         MenuEventController controller = new MenuEventController();

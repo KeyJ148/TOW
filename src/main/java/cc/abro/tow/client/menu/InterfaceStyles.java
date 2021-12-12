@@ -52,6 +52,7 @@ public final class InterfaceStyles {
 
     public final static int LABEL_HEIGHT_DEBUG = 14;
     public final static int LABEL_HEIGHT_ZERO_RULE = 18;
+    public final static int LABEL_HEIGHT_CHAPTER = 24;
 
     public final static float THICKNESS_OF_TEXT_AREA_BORDER = 2f;
     public final static float THICKNESS_OF_PANEL_BORDER = 2f;
@@ -60,9 +61,9 @@ public final class InterfaceStyles {
     public final static float MENU_BUTTON_FONT_SIZE = 30;
     public final static float BUTTON_FONT_SIZE = 20;
     public final static float LABEL_FONT_SIZE = BUTTON_FONT_SIZE;
-    public final static float ANALYZER_INFO_FONT_SIZE = 16;
     public final static float SLIGHTLY_BIG_LABEL_FONT_SIZE = 27;
     public final static float BIG_LABEL_FONT_SIZE = 35;
+    public final static float ANALYZER_INFO_FONT_SIZE = 16;
     public final static int LABEL_ERROR_FONT_SIZE = 18;
 
     public final static Vector4f WHITE_COLOR = new Vector4f(1.0f, 1.0f, 1.0f, 1);
@@ -194,6 +195,15 @@ public final class InterfaceStyles {
         return style;
     }
 
+    public static Style createLargerLabelStyle() {
+        Style style = new Style();
+        style.setFont(FontRegistry.ROBOTO_BOLD);
+        style.setFontSize(SLIGHTLY_BIG_LABEL_FONT_SIZE);
+        style.setTextColor(BLACK_COLOR);
+        style.getBackground().setColor(INVISIBLE_COLOR);
+        return style;
+    }
+
     public static Style createBigLabelStyle() {
         Style style = new Style();
         style.setFont(FontRegistry.ROBOTO_BOLD);
@@ -202,6 +212,7 @@ public final class InterfaceStyles {
         style.getBackground().setColor(INVISIBLE_COLOR);
         return style;
     }
+
 
     public static Style createScrollBarStyle() {
         Style style = new Style();

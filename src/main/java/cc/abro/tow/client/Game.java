@@ -5,18 +5,16 @@ import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.implementation.GameInterface;
 import cc.abro.orchengine.location.LocationManager;
+import cc.abro.orchengine.resources.settings.SettingsLoader;
 import cc.abro.orchengine.resources.settings.SettingsStorageHandler;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.map.factory.MapObjectCreatorsLoader;
 import cc.abro.tow.client.menu.MenuLocation;
+import cc.abro.tow.client.menu.panels.*;
 import cc.abro.tow.client.services.ConnectServerService;
 import cc.abro.tow.client.services.CreateServerService;
-import cc.abro.tow.client.menu.panels.ConnectByIPMenuGuiPanel;
-import cc.abro.tow.client.menu.panels.CreateGameMenuGuiPanel;
-import cc.abro.tow.client.menu.panels.ListOfServersMenuGuiPanel;
-import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
 import cc.abro.tow.client.services.SettingsService;
 
 import java.io.IOException;
@@ -46,9 +44,20 @@ public class Game implements GameInterface {
         //TODO переделать GameSetting под JSON, и вынести инициализацию настроек ниже в отдельный класс
         try {
             SettingsStorage.GRAPHICS = SettingsStorageHandler.initExternalSettingsOrDefaultFromInternal(SettingsStorage.Graphics.class);
-            SettingsStorage.PROFILE = SettingsStorageHandler.initExternalSettingsOrDefaultFromInternal(SettingsStorage.Profile.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+
+        boolean settingsLoadSuccess = true;
+        try {
+            SettingsStorage.PROFILE = SettingsLoader.loadExternalSettings(SettingsStorage.Profile.class);
+        } catch (IOException e) {
+            settingsLoadSuccess = false;
+            try {
+                SettingsStorage.PROFILE = SettingsLoader.loadInternalSettings(SettingsStorage.Profile.class);
+            } catch (IOException e2) {
+                throw new RuntimeException(e2);
+            }
         }
 
         if (SettingsStorage.GRAPHICS.CURSOR_SPRITE != null) {
@@ -69,7 +78,7 @@ public class Game implements GameInterface {
 
         //TODO ServerLoader.mapPath = "maps/town10k.maptest";
 
-        locationManager.setActiveLocation(new MenuLocation());
+        locationManager.setActiveLocation(new MenuLocation(settingsLoadSuccess));
     }
 
     @Override

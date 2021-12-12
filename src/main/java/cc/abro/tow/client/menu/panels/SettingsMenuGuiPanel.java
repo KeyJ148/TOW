@@ -23,6 +23,8 @@ import java.awt.image.BufferedImage;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
+import static cc.abro.tow.client.menu.panels.FirstEntryGuiPanel.Error.CANT_SAVE_SETTINGS;
+import static cc.abro.tow.client.menu.panels.FirstEntryGuiPanel.Error.NICKNAME_IS_EMPTY;
 
 public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
@@ -85,7 +87,13 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
         }
 
         add(createButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class)));
+                BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListener(event -> {
+            if((tankColor.getRGB() != new Color(SettingsStorage.PROFILE.COLOR).getRGB()) || !(textAreaFieldNickname.getTextState().getText().equals(SettingsStorage.PROFILE.NICKNAME))) {
+                addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes. Are you sure you want to go back?", "Yes", "No");
+            } else {
+                getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
+            }
+        })));
         add(createButton("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                         getMouseReleaseListener(event -> {
@@ -95,7 +103,7 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
                             } catch (SettingsService.EmptyNicknameException e) {
                                 addButtonGuiPanelWithUnblockAndBlockFrame(FirstEntryGuiPanel.Error.NICKNAME_IS_EMPTY.getText());
                             } catch (SettingsService.CantSaveSettingException e) {
-                                addButtonGuiPanelWithUnblockAndBlockFrame(FirstEntryGuiPanel.Error.CANT_SAVE_SETTINGS.getText());
+                                addButtonGuiPanelWithUnblockAndBlockFrame(CANT_SAVE_SETTINGS.getText());
                             }
                         })));
     }

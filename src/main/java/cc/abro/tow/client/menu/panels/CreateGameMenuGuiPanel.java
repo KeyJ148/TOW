@@ -21,8 +21,8 @@ import static cc.abro.tow.client.menu.MenuGuiComponents.*;
 
 public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
-    protected final static int MAIN_PANEL_WIDTH = 4 * MENU_ELEMENT_WIDTH / 3;
-    protected final static int MAIN_PANEL_HEIGHT = 10 * MENU_ELEMENT_HEIGHT / 3;
+    protected final static int MAIN_PANEL_WIDTH = 4 * MENU_ELEMENT_WIDTH / 3 + 1;
+    protected final static int MAIN_PANEL_HEIGHT = 10 * MENU_ELEMENT_HEIGHT / 3 + 1;
     protected final static int INDENT_Y_LAYER2 = + INDENT_Y + MENU_TEXT_FIELD_HEIGHT + 20;
 
     public CreateGameMenuGuiPanel() {
