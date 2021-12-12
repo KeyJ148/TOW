@@ -1,17 +1,18 @@
-package cc.abro.tow.client.menu.panels.gui;
+package cc.abro.tow.client.menu.panels;
 
 import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
-import cc.abro.orchengine.gui.BlockingGuiPanel;
+import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureLoader;
+import cc.abro.orchengine.services.BlockingGuiService;
+import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.SettingsStorage;
-import cc.abro.tow.client.menu.panels.events.settings.ClickConfirmGuiEvent;
+import cc.abro.tow.client.services.SettingsService;
 import org.liquidengine.legui.component.Button;
-import org.liquidengine.legui.component.Component;
 import org.liquidengine.legui.component.ImageView;
+import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.image.FBOImage;
@@ -19,18 +20,14 @@ import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.Background;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
-import static cc.abro.tow.client.menu.MenuGuiService.createButton;
-import static cc.abro.tow.client.menu.panels.gui.SettingsMenuGuiPanel.SETTINGS_PANEL_HEIGHT;
-import static cc.abro.tow.client.menu.panels.gui.SettingsMenuGuiPanel.SETTINGS_PANEL_WIDTH;
 
-public class FirstEntryGuiPanel extends BlockingGuiPanel {
+public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
-    protected final static int FIRST_ENTRY_PANEL_WIDTH = MENU_ELEMENT_WIDTH;
-    protected final static int FIRST_ENTRY_PANEL_HEIGHT = 3 * MENU_ELEMENT_HEIGHT;
+    protected final static int SETTINGS_PANEL_WIDTH = 2 * MENU_ELEMENT_WIDTH;
+    protected final static int SETTINGS_PANEL_HEIGHT = 3 * MENU_ELEMENT_HEIGHT;
     protected final static int LENGTH_TEXT_AREA_NICK = 100;
     protected final static int BUTTON_COLOR_SIZE = 15;
     protected final static int PANEL_COLOR_WIDTH = 45;
@@ -52,8 +49,8 @@ public class FirstEntryGuiPanel extends BlockingGuiPanel {
 
     private Color tankColor;
 
-    public FirstEntryGuiPanel(Component parent) {
-        super(FIRST_ENTRY_PANEL_WIDTH, FIRST_ENTRY_PANEL_HEIGHT, parent);
+    public SettingsMenuGuiPanel() {
+        setSize(SETTINGS_PANEL_WIDTH, SETTINGS_PANEL_HEIGHT);
 
         add(createLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldNickname =
@@ -68,7 +65,9 @@ public class FirstEntryGuiPanel extends BlockingGuiPanel {
         FBOImage tankFBOImage = new FBOImage(defaultTankTexture.getId(), defaultTankTexture.getWidth(), defaultTankTexture.getHeight());
         ImageView imageView = new ImageView(tankFBOImage);
         imageView.setStyle(createInvisibleStyle());
-        addComponent(imageView, 230, 15, defaultTankTexture.getWidth(), defaultTankTexture.getHeight());
+        imageView.setPosition(230, 15);
+        imageView.setSize(defaultTankTexture.getWidth(), defaultTankTexture.getHeight());
+        add(imageView);
 
         for (int i = 0; i < COLORS.length; i++) {
             final int fi = i;
@@ -86,13 +85,26 @@ public class FirstEntryGuiPanel extends BlockingGuiPanel {
         }
 
         add(createButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListenerToNotify(() -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class))));
+                BUTTON_WIDTH, BUTTON_HEIGHT, getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class)));
         add(createButton("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                getMouseReleaseListenerToNotifyEvents(
-                () -> List.of(
-                        new ClickConfirmGuiEvent(textAreaFieldNickname.getTextState().getText(), tankColor),
-                        new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class)))));
+                        getMouseReleaseListener(event -> {
+                            try {
+                                Manager.getService(SettingsService.class).setSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
+                                getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
+                            } catch (SettingsService.EmptyNicknameException e) {
+                                addButtonGuiPanelWithUnblockAndBlockFrame(FirstEntryGuiPanel.Error.NICKNAME_IS_EMPTY.getText());
+                            } catch (SettingsService.CantSaveSettingException e) {
+                                addButtonGuiPanelWithUnblockAndBlockFrame(FirstEntryGuiPanel.Error.CANT_SAVE_SETTINGS.getText());
+                            }
+                        })));
+    }
+
+    private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {
+        BlockingGuiService.GuiBlock guiBlock = Manager.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
+        Panel panel = createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
+        Manager.getService(GuiService.class).moveComponentToWindowCenter(panel);
+        getFrame().getContainer().add(panel);
     }
 
     private Button addColorButton(int x, int y, Color color, MouseClickEventListener event) {
@@ -116,12 +128,11 @@ public class FirstEntryGuiPanel extends BlockingGuiPanel {
         image.getRGB(0, 0, width, height, pixels, 0, width);
         Color oldColor = new Color(255, 255, 255, 255);
         for (int p=0; p<pixels.length; p++) {
-            if (oldColor.getRGB() == pixels[p]) {
+            if (oldColor.getRGB() == pixels[p]){
                 pixels[p] = newColor.getRGB();
             }
         }
         image.setRGB(0, 0, width, height, pixels, 0, width);
         return image;
     }
-
 }

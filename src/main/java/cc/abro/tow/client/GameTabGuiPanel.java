@@ -1,7 +1,6 @@
 package cc.abro.tow.client;
 
 import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.gui.EventableGuiPanel;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
@@ -23,7 +22,7 @@ import java.util.List;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
-public class GameTabGuiPanel extends EventableGuiPanel {
+public class GameTabGuiPanel extends Panel {
 
     private static final float A = (float) 230/255;
     private static final float DARK_GRAY = (float) 48/255;

@@ -6,9 +6,8 @@ import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
-import cc.abro.orchengine.gameobject.components.gui.GuiElement;
-import cc.abro.orchengine.location.map.Border;
 import cc.abro.orchengine.location.LocationManager;
+import cc.abro.orchengine.location.map.Border;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.ClientData;
@@ -17,7 +16,6 @@ import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.tanks.enemy.Enemy;
 import cc.abro.tow.client.tanks.enemy.EnemyArmor;
-import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.event.KeyEvent;
 
 import java.util.*;
@@ -70,19 +68,19 @@ public class PlayerController extends GameObject implements Collision.CollisionL
                     //Клавиши запрета и разрешения на подбор ящиков
                     case GLFW_KEY_1:
                         player.takeArmor = !player.takeArmor;
-                        ((Button) (player.buttonsTake[0].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeArmor) ? "" : "x");
+                        player.buttonsTake[0].getTextState().setText((player.takeArmor) ? "" : "x");
                         break;
                     case GLFW_KEY_2:
                         player.takeGun = !player.takeGun;
-                        ((Button) (player.buttonsTake[1].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeGun) ? "" : "x");
+                        player.buttonsTake[1].getTextState().setText((player.takeGun) ? "" : "x");
                         break;
                     case GLFW_KEY_3:
                         player.takeBullet = !player.takeBullet;
-                        ((Button) (player.buttonsTake[2].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeBullet) ? "" : "x");
+                        player.buttonsTake[2].getTextState().setText((player.takeBullet) ? "" : "x");
                         break;
                     case GLFW_KEY_4:
                         player.takeHealth = !player.takeHealth;
-                        ((Button) (player.buttonsTake[3].getComponent(GuiElement.class)).getComponent()).getTextState().setText((player.takeHealth) ? "" : "x");
+                        player.buttonsTake[3].getTextState().setText((player.takeHealth) ? "" : "x");
                         break;
 
                     //Вывод характеристик танка

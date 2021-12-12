@@ -1,33 +1,30 @@
-package cc.abro.tow.client.menu.panels.gui;
+package cc.abro.tow.client.menu.panels;
 
 import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.gameobject.components.gui.ClickChangeToPanelFromCacheGuiEvent;
+import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureLoader;
+import cc.abro.orchengine.services.BlockingGuiService;
+import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.SettingsStorage;
-import cc.abro.tow.client.menu.panels.events.settings.ClickConfirmGuiEvent;
-import org.liquidengine.legui.component.Button;
-import org.liquidengine.legui.component.ImageView;
-import org.liquidengine.legui.component.TextAreaField;
+import cc.abro.tow.client.services.SettingsService;
+import org.liquidengine.legui.component.*;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.image.FBOImage;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.Background;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
-import static cc.abro.tow.client.menu.MenuGuiComponents.createLabel;
-import static cc.abro.tow.client.menu.MenuGuiComponents.createTextAreaField;
-import static cc.abro.tow.client.menu.MenuGuiService.createButton;
+import static cc.abro.tow.client.menu.MenuGuiComponents.*;
 
-public class SettingsMenuGuiPanel extends MenuGuiPanel {
+public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
-    protected final static int SETTINGS_PANEL_WIDTH = 2 * MENU_ELEMENT_WIDTH;
-    protected final static int SETTINGS_PANEL_HEIGHT = 3 * MENU_ELEMENT_HEIGHT;
+    protected final static int FIRST_ENTRY_PANEL_WIDTH = MENU_ELEMENT_WIDTH;
+    protected final static int FIRST_ENTRY_PANEL_HEIGHT = 3 * MENU_ELEMENT_HEIGHT;
     protected final static int LENGTH_TEXT_AREA_NICK = 100;
     protected final static int BUTTON_COLOR_SIZE = 15;
     protected final static int PANEL_COLOR_WIDTH = 45;
@@ -49,13 +46,15 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
 
     private Color tankColor;
 
-    public SettingsMenuGuiPanel() {
-        setSize(SETTINGS_PANEL_WIDTH, SETTINGS_PANEL_HEIGHT);
+    public FirstEntryGuiPanel(Component parent) {
+        GuiService guiService = Manager.getService(GuiService.class);
+        setSize(FIRST_ENTRY_PANEL_WIDTH, FIRST_ENTRY_PANEL_HEIGHT);
 
         add(createLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldNickname =
                 createTextAreaField(INDENT_X + LABEL_LENGTH_NICKNAME, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
                         SettingsStorage.PROFILE.NICKNAME);
+        add(textAreaFieldNickname);
 
         int[] colorFromSettings = SettingsStorage.PROFILE.COLOR;
         tankColor = new Color(colorFromSettings);
@@ -69,7 +68,7 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
         for (int i = 0; i < COLORS.length; i++) {
             final int fi = i;
             addColorButton(INDENT_X + (BUTTON_COLOR_SIZE + 2) * i, INDENT_Y + MENU_TEXT_FIELD_HEIGHT + 10, COLORS[i],
-                    getMouseReleaseListener(event -> {
+                    getMouseReleaseListener(() -> {
                         tankColor = COLORS[fi];
 
                         BufferedImage tankImage = Manager.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
@@ -81,14 +80,45 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
                     }));
         }
 
-        add(createButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListenerToNotify(() -> new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class))));
-        add(createButton("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
-                SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                getMouseReleaseListenerToNotifyEvents(
-                () -> List.of(
-                        new ClickConfirmGuiEvent(textAreaFieldNickname.getTextState().getText(), tankColor),
-                        new ClickChangeToPanelFromCacheGuiEvent(MainMenuGuiPanel.class)))));
+        add(createButton("Back to menu", INDENT_X, SettingsMenuGuiPanel.SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
+                BUTTON_WIDTH, BUTTON_HEIGHT, getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class)));
+        add(createButton("Confirm", SettingsMenuGuiPanel.SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
+                SettingsMenuGuiPanel.SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
+                getMouseReleaseListener(event -> {
+                    try {
+                        Manager.getService(SettingsService.class).setSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
+                        getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
+                    } catch (SettingsService.EmptyNicknameException e) {
+                        addButtonGuiPanelWithUnblockAndBlockFrame(Error.NICKNAME_IS_EMPTY.getText());
+                    } catch (SettingsService.CantSaveSettingException e) {
+                        addButtonGuiPanelWithUnblockAndBlockFrame(Error.CANT_SAVE_SETTINGS.getText());
+                    }
+                })));
+    }
+
+    private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {
+        BlockingGuiService.GuiBlock guiBlock = Manager.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
+        Panel panel = createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
+        Manager.getService(GuiService.class).moveComponentToWindowCenter(panel);
+        getFrame().getContainer().add(panel);
+    }
+
+    //TODO
+    public enum Error {
+        NICKNAME_IS_EMPTY("ERROR: Nickname is empty"),
+        WRONG_LETTERS_IN_NICKNAME("ERROR: Wrong letters in nickname"),
+        CANT_SAVE_SETTINGS("ERROR: Settings can't be saved"),
+        UNKNOWN("ERROR: Something went wrong");
+
+        private final String text;
+
+        Error(String text) {
+            this.text = text;
+        }
+
+        public String getText() {
+            return text;
+        }
     }
 
     private Button addColorButton(int x, int y, Color color, MouseClickEventListener event) {
@@ -112,11 +142,12 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
         image.getRGB(0, 0, width, height, pixels, 0, width);
         Color oldColor = new Color(255, 255, 255, 255);
         for (int p=0; p<pixels.length; p++) {
-            if (oldColor.getRGB() == pixels[p]){
+            if (oldColor.getRGB() == pixels[p]) {
                 pixels[p] = newColor.getRGB();
             }
         }
         image.setRGB(0, 0, width, height, pixels, 0, width);
         return image;
     }
+
 }

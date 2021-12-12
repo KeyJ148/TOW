@@ -1,4 +1,4 @@
-package cc.abro.tow.client.menu.panels.gui;
+package cc.abro.tow.client.menu.panels;
 
 import org.liquidengine.legui.component.Label;
 import org.liquidengine.legui.style.font.FontRegistry;

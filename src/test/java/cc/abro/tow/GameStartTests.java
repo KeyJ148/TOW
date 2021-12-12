@@ -3,8 +3,6 @@ package cc.abro.tow;
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.OrchEngine;
 import cc.abro.orchengine.cycle.Engine;
-import cc.abro.orchengine.gameobject.components.gui.EventableGuiElement;
-import cc.abro.orchengine.gui.EventableGuiPanel;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.net.client.Connector;
 import cc.abro.orchengine.profiles.Profile;
@@ -21,7 +19,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static cc.abro.tow.LogUtils.waitToLog;
