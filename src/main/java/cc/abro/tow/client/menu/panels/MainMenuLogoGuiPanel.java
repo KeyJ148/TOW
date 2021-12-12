@@ -1,4 +1,4 @@
-package cc.abro.tow.client.menu.panels.gui;
+package cc.abro.tow.client.menu.panels;
 
 import cc.abro.orchengine.resources.textures.Texture;
 import org.liquidengine.legui.component.ImageView;
@@ -15,8 +15,9 @@ public class MainMenuLogoGuiPanel extends MenuGuiPanel {
 
         ImageView imageView = new ImageView(logoFBOImage);
         imageView.setStyle(createInvisibleStyle());
+        imageView.setPosition(0, 0);
+        imageView.setSize(logoTexture.getWidth(), logoTexture.getHeight());
 
-        addComponent(imageView, 0, 0,
-                logoTexture.getWidth(), logoTexture.getHeight());
+        add(imageView);
     }
 }

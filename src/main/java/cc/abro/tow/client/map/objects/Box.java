@@ -70,11 +70,11 @@ public class Box extends GameObject {
 				soundName = "bullet";
 				break;
 			case 3:
-				if (player.takeHealth) player.hp = player.hp + player.stats.hpMax * 0.4;
+				if (player.takeHealth) player.hp = (long) (player.hp + player.stats.hpMax * 0.4);
 				soundName = "heal";
 				break;
 			case 4:
-				if (player.takeHealth) player.hp = player.stats.hpMax;
+				if (player.takeHealth) player.hp = (long) player.stats.hpMax;
 				soundName = "heal";
 				break;
 		}

@@ -19,8 +19,8 @@ public class Explosion extends ParticlesTexture {
     }
 
     @Override
-    public void addToGameObject(GameObject gameObject) {
-        super.addToGameObject(gameObject);
+    public void notifyAboutAddToGameObject(GameObject gameObject) { //TODO точно в notify? Мб отдельную функцию activate()?
+        super.notifyAboutAddToGameObject(gameObject);
 
         double count = size * 2;
         Random rand = new Random();

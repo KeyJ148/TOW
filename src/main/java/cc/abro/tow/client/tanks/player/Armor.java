@@ -8,7 +8,7 @@ import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
-import cc.abro.orchengine.map.Border;
+import cc.abro.orchengine.location.map.Border;
 import cc.abro.orchengine.resources.animations.Animation;
 import cc.abro.orchengine.resources.animations.AnimationStorage;
 import cc.abro.tow.client.ConfigReader;

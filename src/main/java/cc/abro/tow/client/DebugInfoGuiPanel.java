@@ -1,7 +1,7 @@
 package cc.abro.tow.client;
 
-import cc.abro.orchengine.gui.EventableGuiPanel;
 import org.liquidengine.legui.component.Label;
+import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.style.font.FontRegistry;
 
 import java.util.ArrayList;
@@ -9,7 +9,8 @@ import java.util.List;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
-public class DebugInfoGuiPanel extends EventableGuiPanel {
+//TODO мб в другой пакет? Но это не наследник MenuGuiPanel
+public class DebugInfoGuiPanel extends Panel {
 
     private static final int LABEL_LENGTH = 100;
 
@@ -22,8 +23,9 @@ public class DebugInfoGuiPanel extends EventableGuiPanel {
 
         for (int i = 0; i < countLabel; i++) {
             labels.add(new Label("", 0, i*LABEL_HEIGHT_DEBUG, LABEL_LENGTH, LABEL_HEIGHT_DEBUG));
-            labels.get(i).getTextState().setFont(FontRegistry.ROBOTO_BOLD);
-            labels.get(i).getTextState().setFontSize(ANALYZER_INFO_FONT_SIZE);
+            labels.get(i).getStyle().setFont(FontRegistry.ROBOTO_BOLD);
+            labels.get(i).getStyle().setFontSize(ANALYZER_INFO_FONT_SIZE);
+            labels.get(i).getStyle().setTextColor(BLACK_COLOR);
             add(labels.get(i));
         }
 

@@ -1,18 +1,16 @@
 package cc.abro.tow.client.tanks.player;
 
-import cc.abro.orchengine.Global;
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
-import cc.abro.orchengine.gameobject.components.gui.GuiElement;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
+import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.net.client.udp.UDPControl;
-import cc.abro.orchengine.services.LeguiComponentService;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.GameSetting;
 import cc.abro.tow.client.tanks.Effect;
@@ -28,6 +26,8 @@ import org.liquidengine.legui.style.border.SimpleLineBorder;
 import org.liquidengine.legui.style.color.ColorConstants;
 
 import java.util.ArrayList;
+
+import static cc.abro.tow.client.menu.InterfaceStyles.BLACK_COLOR;
 
 public class Player extends Tank {
 
@@ -50,25 +50,25 @@ public class Player extends Tank {
     private int sendDataLast = 0;//Как давно отправляли данные
     private static long numberPackage = 0; //Номер пакета UDP
 
-    public GameObject hpLabel;
-    public GameObject[] statsLabel;
-    public GameObject[] buttonsTake = new GameObject[4];
+    public Label hpLabel;
+    public Label[] statsLabel;
+    public Button[] buttonsTake = new Button[4];
 
     public Player(double x, double y, double direction) {
         setComponent(new Position(x, y, 0));
 
         controller = new PlayerController(this);
-        Global.location.objAdd(controller);
+        Manager.getService(LocationManager.class).getActiveLocation().getMap().add(controller);
 
         armor = new ADefault();
         ((Armor) armor).init(this, x, y, direction, "ADefault");
         effects.add(((Armor) armor).effect);
-        Global.location.objAdd(armor);
+        Manager.getService(LocationManager.class).getActiveLocation().getMap().add(armor);
 
         gun = new GDefault();
         ((Gun) gun).init(this, x, y, direction, "GDefault");
         effects.add(((Gun) gun).effect);
-        Global.location.objAdd(gun);
+        Manager.getService(LocationManager.class).getActiveLocation().getMap().add(gun);
 
         bullet = new BulletFactory("BDefault", this);
 
@@ -83,21 +83,25 @@ public class Player extends Tank {
         gun.setComponent(new Follower(armor, false)); //TODO: gun.follower дублируется в 3-х местах
         camera.setComponent(new Follower(armor));
 
-        Label hpLabelComponent = new Label();
-        hpLabelComponent.setFocusable(false);
-        hpLabelComponent.getTextState().setFontSize(30);
-        hpLabel = Manager.getService(LeguiComponentService.class).addComponentToLocation(hpLabelComponent, 1, 10, Global.location);//TODO getComponent(Position.class)
+        hpLabel = new Label();
+        hpLabel.setFocusable(false);
+        hpLabel.getStyle().setFontSize(30f);
+        hpLabel.getStyle().setTextColor(BLACK_COLOR);
+        hpLabel.setPosition(1, 10);
+        Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(hpLabel);//TODO getComponent(Position.class)
 
-        statsLabel = new GameObject[stats.toString().split("\n").length + 4];
+        statsLabel = new Label[stats.toString().split("\n").length + 4];
         for (int i = 0; i < statsLabel.length; i++) {
-            Label statsLabelComponent = new Label();
-            statsLabelComponent.setFocusable(false);
-            statsLabelComponent.getTextState().setFontSize(17);
-            statsLabel[i] = Manager.getService(LeguiComponentService.class).addComponentToLocation(statsLabelComponent, 1, 30 + i * 15, Global.location);//TODO getComponent(Position.class)
+            statsLabel[i] = new Label();
+            statsLabel[i].setFocusable(false);
+            statsLabel[i].getStyle().setFontSize(17f);
+            statsLabel[i].getStyle().setTextColor(BLACK_COLOR);
+            statsLabel[i].setPosition(1, 30 + i * 15);
+            Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(statsLabel[i]);//TODO getComponent(Position.class)
         }
 
         //Создание кнопок для отключения подбора снаряжения
-        Button[] buttons = new Button[4];
+        buttonsTake = new Button[4];
         Background[] buttonsBackground = new Background[4];
         for (int i = 0; i < buttonsBackground.length; i++) buttonsBackground[i] = new Background();
         buttonsBackground[0].setColor(new Vector4f(0, 1, 0, 1));
@@ -105,16 +109,15 @@ public class Player extends Tank {
         buttonsBackground[2].setColor(new Vector4f(0, 0, 1, 1));
         buttonsBackground[3].setColor(new Vector4f(1, 1, 1, 1));
 
-        for (int i = 0; i < buttons.length; i++) {
-            buttons[i] = new Button("");
+        for (int i = 0; i < buttonsTake.length; i++) {
+            buttonsTake[i] = new Button("");
             SimpleLineBorder buttonTakeBorder = new SimpleLineBorder(ColorConstants.black(), 1);
-            buttons[i].getStyle().setBorder(buttonTakeBorder);
-            buttons[i].getStyle().setBackground(buttonsBackground[i]);
-            buttons[i].setSize(15, 15);
-
-            buttonsTake[i] = Manager.getService(LeguiComponentService.class).addComponentToLocation(buttons[i],
-                    17 * i, Manager.getService(Render.class).getHeight() - 15, Global.location);
-            //TODO getComponent(Position.class) вместо Global.location, но это конструктор
+            buttonsTake[i].getStyle().setBorder(buttonTakeBorder);
+            buttonsTake[i].getStyle().setBackground(buttonsBackground[i]);
+            buttonsTake[i].setSize(15, 15);
+            buttonsTake[i].setPosition(17 * i, Manager.getService(Render.class).getHeight() - 15);
+            Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(buttonsTake[i]);
+            //TODO getComponent(Position.class) вместо Manager.getService(LocationManager.class).getActiveLocation(), но это конструктор
         }
     }
 
@@ -132,21 +135,21 @@ public class Player extends Tank {
         if (vampire < 0.0) vampire = 0.0;
 
         //Отрисовка HP
-        ((Label) (hpLabel.getComponent(GuiElement.class)).getComponent()).getTextState().setText("HP: " + Math.round(hp) + "/" + Math.round(stats.hpMax));
+        hpLabel.getTextState().setText("HP: " + Math.round(hp) + "/" + Math.round(stats.hpMax));
 
         //Отрисовка статов
         if (ClientData.printStats) {
             String[] array = stats.toString().split("\n");
             for (int i = 0; i < array.length; i++) {
-                ((Label) (statsLabel[i].getComponent(GuiElement.class)).getComponent()).getTextState().setText(array[i]);
+                statsLabel[i].getTextState().setText(array[i]);
             }
-            ((Label) (statsLabel[array.length].getComponent(GuiElement.class)).getComponent()).getTextState().setText("Armor: " + ((Armor) armor).title);
-            ((Label) (statsLabel[array.length + 1].getComponent(GuiElement.class)).getComponent()).getTextState().setText("Gun: " + ((Gun) gun).title);
-            ((Label) (statsLabel[array.length + 2].getComponent(GuiElement.class)).getComponent()).getTextState().setText("Bullet: " + bullet.title);
-            ((Label) (statsLabel[array.length + 3].getComponent(GuiElement.class)).getComponent()).getTextState().setText("Vampire: " + Math.round(vampire * 100) + "%");
+            statsLabel[array.length].getTextState().setText("Armor: " + ((Armor) armor).title);
+            statsLabel[array.length + 1].getTextState().setText("Gun: " + ((Gun) gun).title);
+            statsLabel[array.length + 2].getTextState().setText("Bullet: " + bullet.title);
+            statsLabel[array.length + 3].getTextState().setText("Vampire: " + Math.round(vampire * 100) + "%");
         } else {
             for (int i = 0; i < statsLabel.length; i++) {
-                ((Label) (statsLabel[i].getComponent(GuiElement.class)).getComponent()).getTextState().setText("");
+                statsLabel[i].getTextState().setText("");
             }
         }
 

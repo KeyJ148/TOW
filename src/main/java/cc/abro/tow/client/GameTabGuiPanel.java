@@ -1,7 +1,6 @@
 package cc.abro.tow.client;
 
 import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.gui.EventableGuiPanel;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
@@ -23,7 +22,8 @@ import java.util.List;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 
-public class GameTabGuiPanel extends EventableGuiPanel {
+//TODO мб в другой пакет? Но это не наследник MenuGuiPanel
+public class GameTabGuiPanel extends Panel {
 
     private static final float A = (float) 230/255;
     private static final float DARK_GRAY = (float) 48/255;
@@ -68,8 +68,9 @@ public class GameTabGuiPanel extends EventableGuiPanel {
 
         public void createNicknameLabel(String text, String font) {
             nickname = new Label(text, 12, 0, (int)panels.get(0).getSize().x, (int)panels.get(0).getSize().y);
-            nickname.getTextState().setFont(font);
-            nickname.getTextState().setFontSize(LABEL_FONT_SIZE);
+            nickname.getStyle().setFont(font);
+            nickname.getStyle().setFontSize(LABEL_FONT_SIZE);
+            nickname.getStyle().setTextColor(BLACK_COLOR);
             nickname.setFocusable(false);
             panels.get(0).add(nickname);
         }
@@ -112,8 +113,9 @@ public class GameTabGuiPanel extends EventableGuiPanel {
         public void createKillsLabelAndColor() {
             kills = new Label("0", panels.get(1).getSize().x/2 - 5, 0,
                     (int)panels.get(1).getSize().x, (int)panels.get(1).getSize().y);
-            kills.getTextState().setFont(REGULAR);
-            kills.getTextState().setFontSize(LABEL_FONT_SIZE);
+            kills.getStyle().setFont(REGULAR);
+            kills.getStyle().setFontSize(LABEL_FONT_SIZE);
+            kills.getStyle().setTextColor(BLACK_COLOR);
             kills.setFocusable(false);
             panels.get(1).add(kills);
             panels.get(1).getStyle().getBackground().setColor(GREEN_TAB_COLOR);
@@ -122,8 +124,9 @@ public class GameTabGuiPanel extends EventableGuiPanel {
         public void createDeathsLabelAndColor() {
             deaths = new Label("0", panels.get(2).getSize().x/2 - 5, 0,
                     (int)panels.get(2).getSize().x, (int)panels.get(2).getSize().y);
-            deaths.getTextState().setFont(REGULAR);
-            deaths.getTextState().setFontSize(LABEL_FONT_SIZE);
+            deaths.getStyle().setFont(REGULAR);
+            deaths.getStyle().setFontSize(LABEL_FONT_SIZE);
+            deaths.getStyle().setTextColor(BLACK_COLOR);
             deaths.setFocusable(false);
             panels.get(2).add(deaths);
             panels.get(2).getStyle().getBackground().setColor(RED_TAB_COLOR);
@@ -132,8 +135,9 @@ public class GameTabGuiPanel extends EventableGuiPanel {
         public void createWinsLabelAndColor() {
             wins = new Label("0", panels.get(3).getSize().x/2 - 5, 0,
                     (int)panels.get(3).getSize().x, (int)panels.get(3).getSize().y);
-            wins.getTextState().setFont(REGULAR);
-            wins.getTextState().setFontSize(LABEL_FONT_SIZE);
+            wins.getStyle().setFont(REGULAR);
+            wins.getStyle().setFontSize(LABEL_FONT_SIZE);
+            wins.getStyle().setTextColor(BLACK_COLOR);
             wins.setFocusable(false);
             panels.get(3).add(wins);
             panels.get(3).getStyle().getBackground().setColor(BLUE_TAB_COLOR);
@@ -142,8 +146,9 @@ public class GameTabGuiPanel extends EventableGuiPanel {
         public void createPingsLabelAndColor() {
             ping = new Label("0", panels.get(4).getSize().x/2 - 5, 0,
                     (int)panels.get(4).getSize().x, (int)panels.get(4).getSize().y);
-            ping.getTextState().setFont(REGULAR);
-            ping.getTextState().setFontSize(LABEL_FONT_SIZE);
+            ping.getStyle().setFont(REGULAR);
+            ping.getStyle().setFontSize(LABEL_FONT_SIZE);
+            ping.getStyle().setTextColor(BLACK_COLOR);
             ping.setFocusable(false);
             panels.get(4).add(ping);
         }
@@ -244,8 +249,9 @@ public class GameTabGuiPanel extends EventableGuiPanel {
 
     public Label createLabel(String text, int x, int y, int width, int height, String font) {
         Label label = new Label(text, x, y, width, height);
-        label.getTextState().setFont(font);
-        label.getTextState().setFontSize(LABEL_FONT_SIZE);
+        label.getStyle().setFont(font);
+        label.getStyle().setFontSize(LABEL_FONT_SIZE);
+        label.getStyle().setTextColor(BLACK_COLOR);
         return label;
     }
 

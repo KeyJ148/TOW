@@ -1,7 +1,6 @@
 package cc.abro.tow.client.tanks.player;
 
 
-import cc.abro.orchengine.Global;
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.audio.AudioPlayer;
 import cc.abro.orchengine.gameobject.GameObject;
@@ -12,7 +11,8 @@ import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
-import cc.abro.orchengine.map.Border;
+import cc.abro.orchengine.location.map.Border;
+import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.audios.AudioStorage;
 import cc.abro.orchengine.resources.sprites.Sprite;
@@ -112,7 +112,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
             GameObject explosion = GameObjectFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, 3000);
             explosion.setComponent(new Explosion(expSize));
             explosion.getComponent(Particles.class).destroyObject = true;
-            Global.location.objAdd(explosion);
+            Manager.getService(LocationManager.class).getActiveLocation().getMap().add(explosion);
         }
     }
 
