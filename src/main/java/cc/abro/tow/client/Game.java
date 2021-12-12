@@ -71,12 +71,4 @@ public class Game implements GameInterface {
 
         locationManager.setActiveLocation(new MenuLocation());
     }
-
-    @Override
-    public void update(long delta) {
-    }
-
-    @Override
-    public void render() {
-    }
 }
