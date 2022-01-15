@@ -1,6 +1,7 @@
 package cc.abro.tow.client;
 
 import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
@@ -53,8 +54,10 @@ public class GameTabGuiPanel extends Panel {
     private static final String LIGHT = FontRegistry.ROBOTO_LIGHT;
 
     private final List<TabLine> tabLines = new ArrayList<>();
+    private final int countOfPlayers;
 
     public GameTabGuiPanel(int countOfPlayers) {
+        this.countOfPlayers = countOfPlayers;
         setFocusable(false);
         setSize(0, 0);
         setStyle(createTabMenuStyle());
@@ -95,6 +98,17 @@ public class GameTabGuiPanel extends Panel {
             currentTabLines.createWinsLabelAndColor();
             currentTabLines.createPingsLabelAndColor();
         }
+    }
+
+    public void changePosition() {
+        setPosition((Manager.getService(Render.class).getWidth() - TAB_SIZE_X)/2,
+                (Manager.getService(Render.class).getHeight() - (TAB_LINE_SIZE_Y + 2) *
+                        (countOfPlayers + 1) - 2)/2);
+    }
+
+    public void changeSize() {
+        setSize(TAB_SIZE_X, (TAB_LINE_SIZE_Y + 2) *
+                (countOfPlayers + 1) - 2);
     }
 
     public static class TabDataLine {
