@@ -54,6 +54,123 @@ public class GameTabGuiPanel extends Panel {
 
     private final List<TabLine> tabLines = new ArrayList<>();
 
+    public GameTabGuiPanel(int countOfPlayers) {
+        setFocusable(false);
+        setSize(0, 0);
+        setStyle(createTabMenuStyle());
+        getStyle().getBackground().setColor(INVISIBLE_COLOR);
+        getStyle().setBorder(new SimpleLineBorder(BLACK_TAB_COLOR, 2));
+        for(int i = 0; i <= countOfPlayers; i++) {
+            tabLines.add(new TabLine());
+            tabLines.get(i).panels = new ArrayList<>();
+            tabLines.get(i).panels.add(new Panel(0, (TAB_LINE_SIZE_Y + 2)*i,
+                    TAB_SIZE_NICKNAME_X, TAB_LINE_SIZE_Y));
+            for(int j = 0; j < 4; j++) {
+                tabLines.get(i).panels.add(new Panel(TAB_SIZE_NICKNAME_X + 2*(j+1) + TAB_SIZE_ICO_X*j, (TAB_LINE_SIZE_Y + 2) * i,
+                        TAB_SIZE_ICO_X, TAB_LINE_SIZE_Y));
+            }
+        }
+        for(TabLine tabLine: tabLines) {
+            for(Panel panel: tabLine.panels) {
+                panel.setStyle(createTabMenuStyle());
+                panel.setFocusable(false);
+                add(panel);
+            }
+        }
+        TabLine startTabLine = tabLines.get(0);
+        /*panels.get(0).get(0).add(createLabel("Nickname", (int)panels.get(0).get(0).getSize().x/2 - 30, 0,
+                (int)panels.get(0).get(0).getSize().x, (int)panels.get(0).get(1).getSize().y, BOLD));*/
+        startTabLine.createNicknameLabel("Nickname", BOLD);
+        addImageViewInCenterOfPanel("kills_icon", startTabLine.panels.get(1));
+        addImageViewInCenterOfPanel("deaths_icon", startTabLine.panels.get(2));
+        addImageViewInCenterOfPanel("wins_icon", startTabLine.panels.get(3));
+        addImageViewInCenterOfPanel("ping_icon", startTabLine.panels.get(4));
+        for(int i = 1; i <= countOfPlayers; i++) {
+            TabLine currentTabLines = tabLines.get(i);
+            currentTabLines.createNicknameLabel("", REGULAR);
+            currentTabLines.createNicknameBackground(RED_COLOR);
+            currentTabLines.createImageView("dead_icon");
+            currentTabLines.createKillsLabelAndColor();
+            currentTabLines.createDeathsLabelAndColor();
+            currentTabLines.createWinsLabelAndColor();
+            currentTabLines.createPingsLabelAndColor();
+        }
+    }
+
+    public static class TabDataLine {
+        public Boolean dead;
+        public String nickname;
+        public Color color;
+        public Integer kills;
+        public Integer deaths;
+        public Integer wins;
+        public Integer ping;
+
+        public TabDataLine(boolean dead, String nickname, Color color, Integer kills, Integer deaths, Integer wins, Integer ping) {
+            this.dead = dead;
+            this.nickname = nickname;
+            this.color = color;
+            this.kills = kills;
+            this.deaths = deaths;
+            this.wins = wins;
+            this.ping = ping;
+        }
+    }
+
+    private void addImageViewInCenterOfPanel(String name, Panel panel) {
+        Texture texture = Manager.getService(SpriteStorage.class).getSprite(name).getTexture();
+        FBOImage logoFBOImage = new FBOImage(texture.getId(), texture.getWidth(), texture.getHeight());
+        ImageView imageView = new ImageView(logoFBOImage);
+        imageView.setStyle(createInvisibleStyle());
+        imageView.setSize(texture.getWidth(), texture.getHeight());
+        imageView.setPosition((panel.getSize().x - texture.getWidth())/2, (panel.getSize().y - texture.getHeight())/2);
+        panel.add(imageView);
+    }
+
+    private void addImageViewToPanel(String name, Panel panel) {
+        Texture texture = Manager.getService(SpriteStorage.class).getSprite(name).getTexture();
+        FBOImage logoFBOImage = new FBOImage(texture.getId(), texture.getWidth(), texture.getHeight());
+        ImageView imageView = new ImageView(logoFBOImage);
+        imageView.setStyle(createInvisibleStyle());
+        imageView.setSize(texture.getWidth(), texture.getHeight());
+        imageView.setPosition(-10, (panel.getSize().y - texture.getHeight())/2);
+        panel.add(imageView);
+    }
+
+    public static Style createTabMenuStyle() {
+        Style style = new Style();
+        style.setBorderRadius(0);
+        style.setShadow(new Shadow(0, 0, 0, 0, INVISIBLE_COLOR));
+        style.setBorder(new SimpleLineBorder(BLACK_TAB_COLOR, 1));
+        style.getBackground().setColor(GRAY_TAB_COLOR);
+        return style;
+    }
+
+    public Label createLabel(String text, int x, int y, int width, int height, String font) {
+        Label label = new Label(text, x, y, width, height);
+        label.getStyle().setFont(font);
+        label.getStyle().setFontSize(LABEL_FONT_SIZE);
+        label.getStyle().setTextColor(BLACK_COLOR);
+        return label;
+    }
+
+    public void fillInTable(List<TabDataLine> data) {
+        for(int i = 0; i < data.size(); i++) {
+            TabLine currentTabLines = tabLines.get(i+1);
+            if(data.get(i).dead)
+                currentTabLines.enableImageView();
+            else
+                currentTabLines.disableImageView();
+
+            currentTabLines.nickname.getTextState().setText(data.get(i).nickname);
+            currentTabLines.changeNicknameBackground(data.get(i).color.getVector4f());
+            currentTabLines.kills.getTextState().setText(data.get(i).kills.toString());
+            currentTabLines.deaths.getTextState().setText(data.get(i).deaths.toString());
+            currentTabLines.wins.getTextState().setText(data.get(i).wins.toString());
+            currentTabLines.ping.getTextState().setText(data.get(i).ping.toString());
+        }
+    }
+
     @NoArgsConstructor
     @AllArgsConstructor
     public static class TabLine {
@@ -153,122 +270,5 @@ public class GameTabGuiPanel extends Panel {
             panels.get(4).add(ping);
         }
 
-    }
-
-    public static class TabDataLine {
-        public Boolean dead;
-        public String nickname;
-        public Color color;
-        public Integer kills;
-        public Integer deaths;
-        public Integer wins;
-        public Integer ping;
-
-        public TabDataLine(boolean dead, String nickname, Color color, Integer kills, Integer deaths, Integer wins, Integer ping) {
-            this.dead = dead;
-            this.nickname = nickname;
-            this.color = color;
-            this.kills = kills;
-            this.deaths = deaths;
-            this.wins = wins;
-            this.ping = ping;
-        }
-    }
-
-    public GameTabGuiPanel(int countOfPlayers) {
-        setFocusable(false);
-        setSize(0, 0);
-        setStyle(createTabMenuStyle());
-        getStyle().getBackground().setColor(INVISIBLE_COLOR);
-        getStyle().setBorder(new SimpleLineBorder(BLACK_TAB_COLOR, 2));
-        for(int i = 0; i <= countOfPlayers; i++) {
-            tabLines.add(new TabLine());
-            tabLines.get(i).panels = new ArrayList<>();
-            tabLines.get(i).panels.add(new Panel(0, (TAB_LINE_SIZE_Y + 2)*i,
-                    TAB_SIZE_NICKNAME_X, TAB_LINE_SIZE_Y));
-            for(int j = 0; j < 4; j++) {
-                tabLines.get(i).panels.add(new Panel(TAB_SIZE_NICKNAME_X + 2*(j+1) + TAB_SIZE_ICO_X*j, (TAB_LINE_SIZE_Y + 2) * i,
-                        TAB_SIZE_ICO_X, TAB_LINE_SIZE_Y));
-            }
-        }
-        for(TabLine tabLine: tabLines) {
-            for(Panel panel: tabLine.panels) {
-                panel.setStyle(createTabMenuStyle());
-                panel.setFocusable(false);
-                add(panel);
-            }
-        }
-        TabLine startTabLine = tabLines.get(0);
-        /*panels.get(0).get(0).add(createLabel("Nickname", (int)panels.get(0).get(0).getSize().x/2 - 30, 0,
-                (int)panels.get(0).get(0).getSize().x, (int)panels.get(0).get(1).getSize().y, BOLD));*/
-        startTabLine.createNicknameLabel("Nickname", BOLD);
-        addImageViewInCenterOfPanel("kills_icon", startTabLine.panels.get(1));
-        addImageViewInCenterOfPanel("deaths_icon", startTabLine.panels.get(2));
-        addImageViewInCenterOfPanel("wins_icon", startTabLine.panels.get(3));
-        addImageViewInCenterOfPanel("ping_icon", startTabLine.panels.get(4));
-        for(int i = 1; i <= countOfPlayers; i++) {
-            TabLine currentTabLines = tabLines.get(i);
-            currentTabLines.createNicknameLabel("", REGULAR);
-            currentTabLines.createNicknameBackground(RED_COLOR);
-            currentTabLines.createImageView("dead_icon");
-            currentTabLines.createKillsLabelAndColor();
-            currentTabLines.createDeathsLabelAndColor();
-            currentTabLines.createWinsLabelAndColor();
-            currentTabLines.createPingsLabelAndColor();
-        }
-    }
-
-    private void addImageViewInCenterOfPanel(String name, Panel panel) {
-        Texture texture = Manager.getService(SpriteStorage.class).getSprite(name).getTexture();
-        FBOImage logoFBOImage = new FBOImage(texture.getId(), texture.getWidth(), texture.getHeight());
-        ImageView imageView = new ImageView(logoFBOImage);
-        imageView.setStyle(createInvisibleStyle());
-        imageView.setSize(texture.getWidth(), texture.getHeight());
-        imageView.setPosition((panel.getSize().x - texture.getWidth())/2, (panel.getSize().y - texture.getHeight())/2);
-        panel.add(imageView);
-    }
-
-    private void addImageViewToPanel(String name, Panel panel) {
-        Texture texture = Manager.getService(SpriteStorage.class).getSprite(name).getTexture();
-        FBOImage logoFBOImage = new FBOImage(texture.getId(), texture.getWidth(), texture.getHeight());
-        ImageView imageView = new ImageView(logoFBOImage);
-        imageView.setStyle(createInvisibleStyle());
-        imageView.setSize(texture.getWidth(), texture.getHeight());
-        imageView.setPosition(-10, (panel.getSize().y - texture.getHeight())/2);
-        panel.add(imageView);
-    }
-
-    public static Style createTabMenuStyle() {
-        Style style = new Style();
-        style.setBorderRadius(0);
-        style.setShadow(new Shadow(0, 0, 0, 0, INVISIBLE_COLOR));
-        style.setBorder(new SimpleLineBorder(BLACK_TAB_COLOR, 1));
-        style.getBackground().setColor(GRAY_TAB_COLOR);
-        return style;
-    }
-
-    public Label createLabel(String text, int x, int y, int width, int height, String font) {
-        Label label = new Label(text, x, y, width, height);
-        label.getStyle().setFont(font);
-        label.getStyle().setFontSize(LABEL_FONT_SIZE);
-        label.getStyle().setTextColor(BLACK_COLOR);
-        return label;
-    }
-
-    public void fillInTable(List<TabDataLine> data) {
-        for(int i = 0; i < data.size(); i++) {
-            TabLine currentTabLines = tabLines.get(i+1);
-            if(data.get(i).dead)
-                currentTabLines.enableImageView();
-            else
-                currentTabLines.disableImageView();
-
-            currentTabLines.nickname.getTextState().setText(data.get(i).nickname);
-            currentTabLines.changeNicknameBackground(data.get(i).color.getVector4f());
-            currentTabLines.kills.getTextState().setText(data.get(i).kills.toString());
-            currentTabLines.deaths.getTextState().setText(data.get(i).deaths.toString());
-            currentTabLines.wins.getTextState().setText(data.get(i).wins.toString());
-            currentTabLines.ping.getTextState().setText(data.get(i).ping.toString());
-        }
     }
 }
