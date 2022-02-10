@@ -26,7 +26,7 @@ dependencies {
     implementation project('OrchEngine')
 
     //implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'org.liquidengine:legui:3.3.1'
+    implementation 'org.liquidengine:legui:3.3.5'
     implementation 'io.cucumber:cucumber-picocontainer:2.4.0'
 
     //implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
