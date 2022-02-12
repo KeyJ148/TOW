@@ -430,6 +430,11 @@
     "maskPath": null
   },
   {
+    "name": "window_icon",
+    "texturePath": "graphics/sprites/textures/sys/window_icon.png",
+    "maskPath": null
+  },
+  {
     "name": "inf_deaths",
     "texturePath": "graphics/sprites/textures/inf/inf_deaths.png",
     "maskPath": null
