@@ -100,6 +100,7 @@ public abstract class Tank extends GameObject {
             }
         }
 
+        Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().remove(nickname);
         Context.getService(AudioPlayer.class).playSoundEffect(Context.getService(AudioStorage.class).getAudio("explosion"), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
     }
 
