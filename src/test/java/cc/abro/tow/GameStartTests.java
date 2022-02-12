@@ -1,103 +1,83 @@
 package cc.abro.tow;
 
-import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.OrchEngine;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Engine;
-import cc.abro.orchengine.gui.GuiPanelStorage;
-import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.client.Connector;
-import cc.abro.orchengine.profiles.Profile;
-import cc.abro.orchengine.profiles.Profiles;
-import cc.abro.tow.client.Game;
-import cc.abro.tow.client.NetGameRead;
 import cc.abro.tow.client.services.CreateServerService;
-import cc.abro.tow.server.NetServerRead;
-import cc.abro.tow.server.Server;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-import static cc.abro.tow.LogUtils.waitToLog;
-import static cc.abro.tow.LogUtils.waitToLogRegex;
+import static cc.abro.tow.TestUtils.*;
+import static cc.abro.tow.logs.LogUtils.waitToLog;
+import static cc.abro.tow.logs.LogUtils.waitToLogRegex;
+import static cc.abro.tow.services.ServiceUtils.Profiles.TEST_DISABLE_RENDER;
+import static cc.abro.tow.services.ServiceUtils.Profiles.TEST_NOT_SHUTDOWN;
 
 public class GameStartTests {
 
-    @BeforeAll
-    public static void setUpAll() {
-        Profiles.initProfile(Profile.TESTS);
-    }
+    private static final String[] ACTIVE_PROFILES = {TEST_NOT_SHUTDOWN, TEST_DISABLE_RENDER};
 
     @Test
     @Timeout(value = 10)
     public void gameStartAndCreateServerTest() {
-        Runnable gameAfterStart = () -> Manager.getService(CreateServerService.class).createServer("25566", 1);
-        Manager.addService(new GameAfterStartService(gameAfterStart));
         AtomicReference<Boolean> hasException = new AtomicReference<>(false);
-        new Thread(() -> {
+
+        ThreadGroup testThreadGroup = new ThreadGroup(Thread.currentThread().getThreadGroup(), "test");
+        new Thread(testThreadGroup, () -> {
             try {
-                OrchEngine.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
+                Runnable afterStart = () -> Context.getService(CreateServerService.class).createServer("25566", 1);
+                Context.addService(new GameAfterStartService(afterStart));
+                GameStart.main(ACTIVE_PROFILES);
             } catch (Exception e) {
                 e.printStackTrace();
                 hasException.set(true);
             }
         }).start();
+
         waitToLogRegex("(Load map)(.*)(completed)");
-        Manager.getService(Engine.class).stop();
-        waitToLog("Shutting down logger");
+        Context.getService(Engine.class, testThreadGroup).stop();
+        waitToLog("Shutting down all services complete");
         Assertions.assertFalse(hasException.get(), "Has exception in game main thread");
     }
 
-    /*
-     * Execute Runnable after the game started
-     */
-    public static class GameAfterStartService {
+    @Test
+    @Timeout(value = 10)
+    public void gameStartAndCreateServer2PlayerTest() {
+        AtomicReference<Boolean> hasException = new AtomicReference<>(false);
 
-        private final Runnable runAfterStart;
-
-        public GameAfterStartService(Runnable runAfterStart) {
-            this.runAfterStart = runAfterStart;
-        }
-
-        public void run() {
-            runAfterStart.run();
-        }
-    }
-
-    public static class GameProxyService extends Game {
-
-        private boolean started = false;
-        private final GameAfterStartService gameAfterStartService;
-
-        public GameProxyService(GuiPanelStorage guiPanelStorage, LocationManager locationManager,
-                                GameAfterStartService gameAfterStartService) {
-            super(guiPanelStorage, locationManager);
-            this.gameAfterStartService = gameAfterStartService;
-        }
-
-        @Override
-        public void update(long delta) {
-            super.update(delta);
-            if (!started) {
-                started = true;
-                gameAfterStartService.run();
+        ThreadGroup serverThreadGroup = new ThreadGroup(Thread.currentThread().getThreadGroup(), "test-server");
+        new Thread(serverThreadGroup, () -> {
+            try {
+                Runnable afterStart = () -> Context.getService(CreateServerService.class).createServer("25566", 2);
+                Context.addService(new GameAfterStartService(afterStart));
+                GameStart.main(ACTIVE_PROFILES);
+            } catch (Exception e) {
+                e.printStackTrace();
+                hasException.set(true);
             }
-        }
-    }
+        }).start();
 
-    public static class StartServerListenerImpl implements Runnable {
+        waitToLogRegex("Server started");
 
-        private final int port;
+        ThreadGroup clientThreadGroup = new ThreadGroup(Thread.currentThread().getThreadGroup(), "test-client");
+        new Thread(clientThreadGroup, () -> {
+            try {
+                Runnable afterStart = () -> Context.createBean(Connector.class).connect(DEFAULT_IP, DEFAULT_PORT);
+                Context.addService(new GameAfterStartService(afterStart));
+                GameStart.main(ACTIVE_PROFILES);
+            } catch (Exception e) {
+                e.printStackTrace();
+                hasException.set(true);
+            }
+        }).start();
 
-        public StartServerListenerImpl(int port) {
-            this.port = port;
-        }
-
-        @Override
-        public void run() {
-            Manager.createBean(Connector.class).connect("127.0.0.1", port);
-        }
+        waitToLog(log -> log.matches("(Load map)(.*)(completed)"), 2);
+        Context.getService(Engine.class, serverThreadGroup).stop();
+        Context.getService(Engine.class, clientThreadGroup).stop();
+        waitToLog("Shutting down all services complete");
+        Assertions.assertFalse(hasException.get(), "Has exception in game main thread");
     }
 }

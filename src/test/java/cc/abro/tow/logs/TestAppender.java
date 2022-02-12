@@ -1,4 +1,4 @@
-package cc.abro.tow;
+package cc.abro.tow.logs;
 
 import lombok.Getter;
 import org.apache.logging.log4j.core.Filter;
@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import static cc.abro.tow.TestAppender.NAME;
+import static cc.abro.tow.logs.TestAppender.NAME;
 
 @Plugin(name = NAME, category = "Core", elementType = "appender", printObject = true)
 public class TestAppender extends AbstractAppender {
