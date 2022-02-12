@@ -24,27 +24,14 @@ public class Box extends GameObject {
 		this.idBox = idBox;
 		this.typeBox = typeBox;
 
-		String nameBox;
-		switch (typeBox) {
-			case 0:
-				nameBox = "box_armor";
-				break;
-			case 1:
-				nameBox = "box_gun";
-				break;
-			case 2:
-				nameBox = "box_bullet";
-				break;
-			case 3:
-				nameBox = "box_health";
-				break;
-			case 4:
-				nameBox = "box_healthfull";
-				break;
-			default:
-				nameBox = "error";
-				break;
-		}
+		String nameBox = switch (typeBox) {
+			case 0 -> "box_armor";
+			case 1 -> "box_gun";
+			case 2 -> "box_bullet";
+			case 3 -> "box_health";
+			case 4 -> "box_healthfull";
+			default -> "error";
+		};
 
 		Sprite sprite = Context.getService(SpriteStorage.class).getSprite(nameBox);
 		setComponent(new Position(x, y, 1000));
