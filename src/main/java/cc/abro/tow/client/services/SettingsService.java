@@ -1,5 +1,7 @@
 package cc.abro.tow.client.services;
 
+import cc.abro.orchengine.context.Context;
+import cc.abro.orchengine.context.GameService;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.settings.SettingsLoader;
 import cc.abro.tow.client.ClientData;
@@ -9,6 +11,7 @@ import lombok.extern.log4j.Log4j2;
 import java.io.IOException;
 
 @Log4j2
+@GameService
 public class SettingsService {
 
     public void setSettings(String nickname, Color tankColor){
@@ -25,8 +28,8 @@ public class SettingsService {
             throw new CantSaveSettingException();
         }
 
-        ClientData.name = nickname;
-        ClientData.color = tankColor;
+        Context.getService(ClientData.class).name = nickname;
+        Context.getService(ClientData.class).color = tankColor;
     }
 
     public class EmptyNicknameException extends RuntimeException {}

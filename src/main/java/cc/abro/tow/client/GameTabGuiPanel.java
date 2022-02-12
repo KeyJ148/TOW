@@ -1,6 +1,6 @@
 package cc.abro.tow.client;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
@@ -101,8 +101,8 @@ public class GameTabGuiPanel extends Panel {
     }
 
     public void changePosition() {
-        setPosition((Manager.getService(Render.class).getWidth() - TAB_SIZE_X)/2,
-                (Manager.getService(Render.class).getHeight() - (TAB_LINE_SIZE_Y + 2) *
+        setPosition((Context.getService(Render.class).getWidth() - TAB_SIZE_X)/2,
+                (Context.getService(Render.class).getHeight() - (TAB_LINE_SIZE_Y + 2) *
                         (countOfPlayers + 1) - 2)/2);
     }
 
@@ -132,7 +132,7 @@ public class GameTabGuiPanel extends Panel {
     }
 
     private void addImageViewInCenterOfPanel(String name, Panel panel) {
-        Texture texture = Manager.getService(SpriteStorage.class).getSprite(name).getTexture();
+        Texture texture = Context.getService(SpriteStorage.class).getSprite(name).getTexture();
         FBOImage logoFBOImage = new FBOImage(texture.getId(), texture.getWidth(), texture.getHeight());
         ImageView imageView = new ImageView(logoFBOImage);
         imageView.setStyle(createInvisibleStyle());
@@ -142,7 +142,7 @@ public class GameTabGuiPanel extends Panel {
     }
 
     private void addImageViewToPanel(String name, Panel panel) {
-        Texture texture = Manager.getService(SpriteStorage.class).getSprite(name).getTexture();
+        Texture texture = Context.getService(SpriteStorage.class).getSprite(name).getTexture();
         FBOImage logoFBOImage = new FBOImage(texture.getId(), texture.getWidth(), texture.getHeight());
         ImageView imageView = new ImageView(logoFBOImage);
         imageView.setStyle(createInvisibleStyle());
@@ -223,7 +223,7 @@ public class GameTabGuiPanel extends Panel {
         }
 
         public void createImageView(String name) {
-            Texture texture = Manager.getService(SpriteStorage.class).getSprite(name).getTexture();
+            Texture texture = Context.getService(SpriteStorage.class).getSprite(name).getTexture();
             FBOImage logoFBOImage = new FBOImage(texture.getId(), texture.getWidth(), texture.getHeight());
             deadIcon = new ImageView(logoFBOImage);
             deadIcon.setStyle(createInvisibleStyle());

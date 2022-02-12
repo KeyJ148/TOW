@@ -1,6 +1,6 @@
 package cc.abro.tow.client.menu.panels;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.net.client.ConnectException;
 import cc.abro.orchengine.services.BlockingGuiService;
@@ -46,20 +46,20 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel implements MouseReleas
     private void connectToServer(String ip, String port) {
         Panel connectingGuiPanel = createLabelPanel("Connecting...",
                 CONNECTING_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT).panel();
-        Manager.getService(GuiService.class).moveComponentToWindowCenter(connectingGuiPanel);
-        BlockingGuiService.GuiBlock frameBlock = Manager.getService(BlockingGuiService.class)
+        Context.getService(GuiService.class).moveComponentToWindowCenter(connectingGuiPanel);
+        BlockingGuiService.GuiBlock frameBlock = Context.getService(BlockingGuiService.class)
                 .createGuiBlock(getFrame().getContainer());
         getFrame().getContainer().add(connectingGuiPanel);
 
         try {
-            Manager.getService(ConnectServerService.class).connect(
+            Context.getService(ConnectServerService.class).connect(
                     (!ip.isEmpty()) ? InetAddress.getByName(ip) : InetAddress.getLocalHost(),
                     Integer.parseInt(port));
 
             getFrame().getContainer().remove(connectingGuiPanel);
             Panel waitingGuiPanel = createLabelPanel("Waiting for players...",
                     WAITING_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT).panel();
-            Manager.getService(GuiService.class).moveComponentToWindowCenter(waitingGuiPanel);
+            Context.getService(GuiService.class).moveComponentToWindowCenter(waitingGuiPanel);
             getFrame().getContainer().add(waitingGuiPanel);
         } catch (UnknownHostException e) {
             getFrame().getContainer().remove(connectingGuiPanel);
@@ -75,7 +75,7 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel implements MouseReleas
 
     private void addButtonGuiPanelWithUnblock(String text, BlockingGuiService.GuiBlock guiBlock) {
         Panel panel = createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
-        Manager.getService(GuiService.class).moveComponentToWindowCenter(panel);
+        Context.getService(GuiService.class).moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }
 

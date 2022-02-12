@@ -1,49 +1,35 @@
 package cc.abro.tow.client;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
+import cc.abro.orchengine.context.GameService;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.image.Color;
-import cc.abro.orchengine.implementation.GameInterface;
-import cc.abro.orchengine.location.LocationManager;
+import cc.abro.orchengine.init.interfaces.GameInterface;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.settings.SettingsLoader;
 import cc.abro.orchengine.resources.settings.SettingsStorageHandler;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
-import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.map.factory.MapObjectCreatorsLoader;
 import cc.abro.tow.client.menu.MenuLocation;
-import cc.abro.tow.client.services.ConnectServerService;
-import cc.abro.tow.client.services.CreateServerService;
 import cc.abro.tow.client.menu.panels.ConnectByIPMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.CreateGameMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.ListOfServersMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
-import cc.abro.tow.client.services.SettingsService;
-import cc.abro.tow.client.menu.panels.*;
-import cc.abro.tow.client.services.ConnectServerService;
-import cc.abro.tow.client.services.CreateServerService;
-import cc.abro.tow.client.services.SettingsService;
 
 import java.io.IOException;
-import java.util.List;
 
+@GameService
 public class Game implements GameInterface {
 
     private final GuiPanelStorage guiPanelStorage;
     private final LocationManager locationManager;
+    private final ClientData clientData;
 
-    public Game(GuiPanelStorage guiPanelStorage, LocationManager locationManager) {
+    public Game(GuiPanelStorage guiPanelStorage, LocationManager locationManager, ClientData clientData) {
         this.guiPanelStorage = guiPanelStorage;
         this.locationManager = locationManager;
-    }
-
-    @Override
-    public List<Class<?>> getInitializingServices() {
-        return List.of(GuiService.class,
-                SettingsService.class,
-                CreateServerService.class,
-                ConnectServerService.class);
+        this.clientData = clientData;
     }
 
     @Override
@@ -69,12 +55,12 @@ public class Game implements GameInterface {
         }
 
         if (SettingsStorage.GRAPHICS.CURSOR_SPRITE != null) {
-            Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().setCapture(true);
-            Texture texture = Manager.getService(SpriteStorage.class).getSprite(SettingsStorage.GRAPHICS.CURSOR_SPRITE).getTexture();
-            Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().setTexture(texture);
+            Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().setCapture(true);
+            Texture texture = Context.getService(SpriteStorage.class).getSprite(SettingsStorage.GRAPHICS.CURSOR_SPRITE).getTexture();
+            Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().setTexture(texture);
         }
-        ClientData.name = SettingsStorage.PROFILE.NICKNAME;
-        ClientData.color = new Color(SettingsStorage.PROFILE.COLOR);
+        clientData.name = SettingsStorage.PROFILE.NICKNAME;
+        clientData.color = new Color(SettingsStorage.PROFILE.COLOR);
 
         MapObjectCreatorsLoader.load();
 

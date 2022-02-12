@@ -1,5 +1,6 @@
 package cc.abro.tow.client.map.factory;
 
+import cc.abro.orchengine.context.Context;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.map.objects.box.BoxMapObjectCreator;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObjectCreator;
@@ -10,10 +11,10 @@ import cc.abro.tow.client.map.objects.textured.TexturedMapObjectCreator;
 public class MapObjectCreatorsLoader {
 
     public static void load() {
-        ClientData.mapObjectFactory.registryNewCreator(new TexturedMapObjectCreator());
-        ClientData.mapObjectFactory.registryNewCreator(new DestroyedMapObjectCreator());
-        ClientData.mapObjectFactory.registryNewCreator(new BoxMapObjectCreator());
-        ClientData.mapObjectFactory.registryNewCreator(new RepeatedMapObjectCreator());
-        ClientData.mapObjectFactory.registryNewCreator(new RoadMapObjectCreator());
+        Context.getService(ClientData.class).mapObjectFactory.registryNewCreator(new TexturedMapObjectCreator());
+        Context.getService(ClientData.class).mapObjectFactory.registryNewCreator(new DestroyedMapObjectCreator());
+        Context.getService(ClientData.class).mapObjectFactory.registryNewCreator(new BoxMapObjectCreator());
+        Context.getService(ClientData.class).mapObjectFactory.registryNewCreator(new RepeatedMapObjectCreator());
+        Context.getService(ClientData.class).mapObjectFactory.registryNewCreator(new RoadMapObjectCreator());
     }
 }
