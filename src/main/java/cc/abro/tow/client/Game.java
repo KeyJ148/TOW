@@ -2,6 +2,7 @@ package cc.abro.tow.client;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.GameService;
+import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.init.interfaces.GameInterface;
@@ -62,8 +63,10 @@ public class Game implements GameInterface {
         clientData.name = SettingsStorage.PROFILE.NICKNAME;
         clientData.color = new Color(SettingsStorage.PROFILE.COLOR);
 
-        MapObjectCreatorsLoader.load();
+        Texture icon = Context.getService(SpriteStorage.class).getSprite("window_icon").getTexture();
+        Context.getService(Render.class).setIcon(icon);
 
+        MapObjectCreatorsLoader.load();
 
         guiPanelStorage.registry(new MainMenuGuiPanel());
         guiPanelStorage.registry(new ConnectByIPMenuGuiPanel());

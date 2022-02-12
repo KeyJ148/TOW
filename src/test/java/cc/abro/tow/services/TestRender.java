@@ -4,6 +4,7 @@ import cc.abro.orchengine.context.TestService;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.init.interfaces.GameInterface;
 import cc.abro.orchengine.location.LocationManager;
+import cc.abro.orchengine.resources.textures.Texture;
 import org.liquidengine.legui.DefaultInitializer;
 
 import static cc.abro.tow.services.ServiceUtils.Profiles.TEST_DISABLE_RENDER;
@@ -37,6 +38,9 @@ public class TestRender extends Render {
 
     @Override
     public void stop() {}
+
+    @Override
+    public void setIcon(Texture texture) {}
 
     @Override
     public void vsync() {}
