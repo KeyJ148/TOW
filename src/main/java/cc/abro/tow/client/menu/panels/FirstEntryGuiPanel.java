@@ -1,25 +1,25 @@
 package cc.abro.tow.client.menu.panels;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
-import cc.abro.orchengine.resources.textures.TextureLoader;
+import cc.abro.orchengine.resources.textures.TextureService;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.SettingsStorage;
 import cc.abro.tow.client.services.SettingsService;
-import org.liquidengine.legui.component.*;
+import org.liquidengine.legui.component.Button;
+import org.liquidengine.legui.component.ImageView;
+import org.liquidengine.legui.component.Panel;
+import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.image.FBOImage;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.Background;
 
 import java.awt.image.BufferedImage;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.random.RandomGenerator;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
@@ -55,7 +55,7 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
     private Color tankColor;
 
     public FirstEntryGuiPanel() {
-        GuiService guiService = Manager.getService(GuiService.class);
+        GuiService guiService = Context.getService(GuiService.class);
         setSize(FIRST_ENTRY_PANEL_WIDTH, FIRST_ENTRY_PANEL_HEIGHT);
 
         add(createLargerLabel("Choose your nickname and color",
@@ -69,8 +69,8 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
 
         int[] colorFromSettings = SettingsStorage.PROFILE.COLOR;
         tankColor = new Color(colorFromSettings);
-        BufferedImage defaultTankImage = Manager.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
-        Texture defaultTankTexture = TextureLoader.createTexture(colorizeImage(defaultTankImage, tankColor));
+        BufferedImage defaultTankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
+        Texture defaultTankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(defaultTankImage, tankColor));
         FBOImage tankFBOImage = new FBOImage(defaultTankTexture.getId(), defaultTankTexture.getWidth(), defaultTankTexture.getHeight());
         ImageView imageView = new ImageView(tankFBOImage);
         imageView.setStyle(createInvisibleStyle());
@@ -83,8 +83,8 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
                     getMouseReleaseListener(() -> {
                         tankColor = COLORS[fi];
 
-                        BufferedImage tankImage = Manager.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
-                        Texture tankTexture = TextureLoader.createTexture(colorizeImage(tankImage, tankColor));
+                        BufferedImage tankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
+                        Texture tankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(tankImage, tankColor));
                         //TODO здесь надо вызывать delete у defaultTankTexture и переопределять defaultTankTexture = tankTexture
                         //TODO при закрытие панели не забыть очистить и tankTexture
                         FBOImage newTankFBOImage = new FBOImage(tankTexture.getId(), tankTexture.getWidth(), tankTexture.getHeight());
@@ -96,7 +96,7 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
                 FIRST_ENTRY_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
                     try {
-                        Manager.getService(SettingsService.class).setSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
+                        Context.getService(SettingsService.class).setSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
                         getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
                     } catch (SettingsService.EmptyNicknameException e) {
                         addButtonGuiPanelWithUnblockAndBlockFrame(Error.NICKNAME_IS_EMPTY.getText());
@@ -107,9 +107,9 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
     }
 
     private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {
-        BlockingGuiService.GuiBlock guiBlock = Manager.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
+        BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
         Panel panel = createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
-        Manager.getService(GuiService.class).moveComponentToWindowCenter(panel);
+        Context.getService(GuiService.class).moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }
 

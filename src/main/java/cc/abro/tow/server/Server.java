@@ -1,7 +1,8 @@
 package cc.abro.tow.server;
 
-import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.implementation.ServerInterface;
+import cc.abro.orchengine.context.Context;
+import cc.abro.orchengine.context.GameService;
+import cc.abro.orchengine.init.interfaces.ServerInterface;
 import cc.abro.orchengine.net.server.GameServer;
 import cc.abro.orchengine.net.server.senders.ServerSendTCP;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
@@ -18,6 +19,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@GameService
 public class Server implements ServerInterface {
 
     public static final String PATH_MAP = "maps/";
@@ -84,7 +86,7 @@ public class Server implements ServerInterface {
                                 .filter(mapObjectSpecification -> !mapObjectSpecification.getType().equals("road"))
                                 .filter(mapObjectSpecification -> mapObjectSpecification.getParameters().containsKey("texture"))
                                 .map(m -> {
-                                    Texture texture = Manager.getService(SpriteStorage.class)
+                                    Texture texture = Context.getService(SpriteStorage.class)
                                             .getSprite((String) m.getParameters().get("texture")).getTexture();
                                     return new MapObject(m.getX(), m.getY(), texture.getWidth(), texture.getHeight());
                                 }),

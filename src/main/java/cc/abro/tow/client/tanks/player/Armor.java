@@ -1,6 +1,6 @@
 package cc.abro.tow.client.tanks.player;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Follower;
@@ -94,7 +94,7 @@ public class Armor extends GameObject {
 
         animSpeed = cr.findInteger("ANIMATION_SPEED");
         imageName = cr.findString("IMAGE_NAME");
-        textureHandlers = Manager.getService(AnimationStorage.class).getAnimation(imageName);
+        textureHandlers = Context.getService(AnimationStorage.class).getAnimation(imageName);
         title = cr.findString("TITLE");
     }
 }

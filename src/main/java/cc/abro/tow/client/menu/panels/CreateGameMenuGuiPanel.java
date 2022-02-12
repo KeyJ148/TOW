@@ -1,6 +1,6 @@
 package cc.abro.tow.client.menu.panels;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObjectFactory;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
@@ -12,9 +12,6 @@ import cc.abro.tow.client.services.CreateServerService;
 import org.liquidengine.legui.component.Label;
 import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.TextAreaField;
-
-import java.util.Collections;
-import java.util.List;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
@@ -57,17 +54,17 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
     private void connectToServer(String port, String maxPeople) {
         LabelGuiPanel connectedGuiPanel = createLabelPanel("Connected players: ",
                 CONNECTED_PLAYERS_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT);
-        BlockingGuiService.GuiBlock frameBlock = Manager.getService(BlockingGuiService.class)
+        BlockingGuiService.GuiBlock frameBlock = Context.getService(BlockingGuiService.class)
                 .createGuiBlock(getFrame().getContainer());
-        Manager.getService(GuiService.class).moveComponentToWindowCenter(connectedGuiPanel.panel());
+        Context.getService(GuiService.class).moveComponentToWindowCenter(connectedGuiPanel.panel());
         getFrame().getContainer().add(connectedGuiPanel.panel());
 
         ConnectedPlayersUpdater connectedPlayersUpdater = new ConnectedPlayersUpdater(connectedGuiPanel.label());
-        Manager.getService(LocationManager.class).getActiveLocation().getMap()
+        Context.getService(LocationManager.class).getActiveLocation().getMap()
                 .add(GameObjectFactory.create(connectedPlayersUpdater));
 
         try {
-            Manager.getService(CreateServerService.class).createServer(port,
+            Context.getService(CreateServerService.class).createServer(port,
                     Integer.parseInt(maxPeople));
         } catch (CreateServerService.ServerIsLaunchingExeption e) {
             getFrame().getContainer().remove(connectedGuiPanel.panel());
@@ -83,7 +80,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
 
     private void addButtonGuiPanelWithUnblock(String text, BlockingGuiService.GuiBlock guiBlock) {
         Panel panel = createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
-        Manager.getService(GuiService.class).moveComponentToWindowCenter(panel);
+        Context.getService(GuiService.class).moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }
 

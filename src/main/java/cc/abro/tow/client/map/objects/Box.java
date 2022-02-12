@@ -1,7 +1,7 @@
 package cc.abro.tow.client.map.objects;
 
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.audio.AudioPlayer;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Collision;
@@ -46,7 +46,7 @@ public class Box extends GameObject {
 				break;
 		}
 
-		Sprite sprite = Manager.getService(SpriteStorage.class).getSprite(nameBox);
+		Sprite sprite = Context.getService(SpriteStorage.class).getSprite(nameBox);
 		setComponent(new Position(x, y, 1000));
 		setComponent(new SpriteRender(sprite.getTexture()));
 		setComponent(new Collision(sprite.getMask()));
@@ -79,9 +79,9 @@ public class Box extends GameObject {
 				break;
 		}
 
-		Manager.getService(TCPControl.class).send(21, String.valueOf(idBox));
+		Context.getService(TCPControl.class).send(21, String.valueOf(idBox));
 
-		Manager.getService(AudioPlayer.class).playSoundEffect(Manager.getService(AudioStorage.class).getAudio(soundName), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
-		Manager.getService(TCPControl.class).send(25, (int) getComponent(Position.class).x + " " + (int) getComponent(Position.class).y + " " + soundName);
+		Context.getService(AudioPlayer.class).playSoundEffect(Context.getService(AudioStorage.class).getAudio(soundName), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
+		Context.getService(TCPControl.class).send(25, (int) getComponent(Position.class).x + " " + (int) getComponent(Position.class).y + " " + soundName);
 	}
 }

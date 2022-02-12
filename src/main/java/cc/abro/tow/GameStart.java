@@ -1,14 +1,16 @@
 package cc.abro.tow;
 
 import cc.abro.orchengine.OrchEngine;
-import cc.abro.tow.client.Game;
-import cc.abro.tow.client.NetGameRead;
-import cc.abro.tow.server.NetServerRead;
-import cc.abro.tow.server.Server;
+
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GameStart {
 
     public static void main(String[] args) {
-        OrchEngine.start(Game.class, NetGameRead.class, Server.class, NetServerRead.class);
+        Set<String> activeProfiles = Arrays.stream(args).collect(Collectors.toSet());
+        Set<String> packagesForScan = Set.of(GameStart.class.getPackage().getName());
+        OrchEngine.start(activeProfiles, packagesForScan);
     }
 }

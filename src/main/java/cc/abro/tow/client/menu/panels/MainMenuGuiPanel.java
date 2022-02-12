@@ -1,6 +1,6 @@
 package cc.abro.tow.client.menu.panels;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Engine;
 import cc.abro.tow.client.menu.panels.settings.SettingsMenuGuiPanel;
 import org.liquidengine.legui.component.Panel;
@@ -22,7 +22,7 @@ public class MainMenuGuiPanel extends MenuGuiPanel {
                 new ButtonConfiguration("Settings",
                         getChangeToPanelReleaseListener(SettingsMenuGuiPanel::new)),
                 new ButtonConfiguration("Exit",
-                        getMouseReleaseListener(() -> Manager.getService(Engine.class).stop())));
+                        getMouseReleaseListener(() -> Context.getService(Engine.class).stop())));
         setSize(panel.getSize());
         setStyle(createInvisibleStyle());
         add(panel);

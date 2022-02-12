@@ -1,6 +1,6 @@
 package cc.abro.tow.client.tanks.enemy;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObjectFactory;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
@@ -53,22 +53,22 @@ public class Enemy extends Tank {
             timeLastRequestDelta -= delta;
             if (timeLastRequestDelta <= 0) {
                 timeLastRequestDelta = REQUEST_DATA_EVERY_TIME;
-                Manager.getService(TCPControl.class).send(16, String.valueOf(id));
+                Context.getService(TCPControl.class).send(16, String.valueOf(id));
             }
         }
     }
 
     public void setData(int x, int y, int direction, int directionGun, int speed, double moveDirection, int animSpeed, long numberPackage) {
-        if (!ClientData.battle) return;
+        if (!Context.getService(ClientData.class).battle) return;
         if (!alive) return;
         if (numberPackage < lastNumberPackage) return;
         lastNumberPackage = numberPackage;
 
         //Инициализация брони
         if (armor == null) {
-            Animation armorAnimation = Manager.getService(AnimationStorage.class).getAnimation("a_default");
+            Animation armorAnimation = Context.getService(AnimationStorage.class).getAnimation("a_default");
             armor = new EnemyArmor(x, y, direction, 1000, armorAnimation, this);
-            Manager.getService(LocationManager.class).getActiveLocation().getMap().add(armor);
+            Context.getService(LocationManager.class).getActiveLocation().getMap().add(armor);
             setColorArmor(color);
 
             setComponent(new Follower(armor));
@@ -77,12 +77,12 @@ public class Enemy extends Tank {
 
         //Инициализация пушки
         if (gun == null) {
-            Texture gunTexture = Manager.getService(SpriteStorage.class).getSprite("g_default").getTexture();
+            Texture gunTexture = Context.getService(SpriteStorage.class).getSprite("g_default").getTexture();
             gun = GameObjectFactory.create(x, y, 2000, directionGun, gunTexture);
             gun.setComponent(new Movement());
             gun.getComponent(Movement.class).directionDrawEquals = false;
             gun.setComponent(new Follower(armor, false));
-            Manager.getService(LocationManager.class).getActiveLocation().getMap().add(gun);
+            Context.getService(LocationManager.class).getActiveLocation().getMap().add(gun);
             setColorGun(color);
         }
 
@@ -112,18 +112,18 @@ public class Enemy extends Tank {
     public void newArmor(String nameArmor) {
         if (armor == null) return;
 
-        armor.setComponent(new AnimationRender(Manager.getService(AnimationStorage.class).getAnimation(nameArmor).getTextures()));
+        armor.setComponent(new AnimationRender(Context.getService(AnimationStorage.class).getAnimation(nameArmor).getTextures()));
         setColorArmor(color);
 
-        Manager.getService(LocationManager.class).getActiveLocation().getMap().mapControl.update(armor);
+        Context.getService(LocationManager.class).getActiveLocation().getMap().mapControl.update(armor);
     }
 
     public void newGun(String nameGun) {
         if (gun == null) return;
 
-        gun.setComponent(new SpriteRender(Manager.getService(SpriteStorage.class).getSprite(nameGun).getTexture()));
+        gun.setComponent(new SpriteRender(Context.getService(SpriteStorage.class).getSprite(nameGun).getTexture()));
         setColorGun(color);
 
-        Manager.getService(LocationManager.class).getActiveLocation().getMap().mapControl.update(gun);
+        Context.getService(LocationManager.class).getActiveLocation().getMap().mapControl.update(gun);
     }
 }

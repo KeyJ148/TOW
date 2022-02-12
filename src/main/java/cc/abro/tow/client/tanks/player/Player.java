@@ -1,6 +1,6 @@
 package cc.abro.tow.client.tanks.player;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Follower;
@@ -58,25 +58,25 @@ public class Player extends Tank {
         setComponent(new Position(x, y, 0));
 
         controller = new PlayerController(this);
-        Manager.getService(LocationManager.class).getActiveLocation().getMap().add(controller);
+        Context.getService(LocationManager.class).getActiveLocation().getMap().add(controller);
 
         armor = new ADefault();
         ((Armor) armor).init(this, x, y, direction, "ADefault");
         effects.add(((Armor) armor).effect);
-        Manager.getService(LocationManager.class).getActiveLocation().getMap().add(armor);
+        Context.getService(LocationManager.class).getActiveLocation().getMap().add(armor);
 
         gun = new GDefault();
         ((Gun) gun).init(this, x, y, direction, "GDefault");
         effects.add(((Gun) gun).effect);
-        Manager.getService(LocationManager.class).getActiveLocation().getMap().add(gun);
+        Context.getService(LocationManager.class).getActiveLocation().getMap().add(gun);
 
         bullet = new BulletFactory("BDefault", this);
 
         updateStats();
         hp = stats.hpMax;
 
-        color = ClientData.color;
-        setName(ClientData.name);
+        color = Context.getService(ClientData.class).color;
+        setName(Context.getService(ClientData.class).name);
         setColor(color);
 
         setComponent(new Follower(armor));
@@ -88,7 +88,7 @@ public class Player extends Tank {
         hpLabel.getStyle().setFontSize(30f);
         hpLabel.getStyle().setTextColor(BLACK_COLOR);
         hpLabel.setPosition(1, 10);
-        Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(hpLabel);//TODO getComponent(Position.class)
+        Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(hpLabel);//TODO getComponent(Position.class)
 
         statsLabel = new Label[stats.toString().split("\n").length + 4];
         for (int i = 0; i < statsLabel.length; i++) {
@@ -97,7 +97,7 @@ public class Player extends Tank {
             statsLabel[i].getStyle().setFontSize(17f);
             statsLabel[i].getStyle().setTextColor(BLACK_COLOR);
             statsLabel[i].setPosition(1, 30 + i * 15);
-            Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(statsLabel[i]);//TODO getComponent(Position.class)
+            Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(statsLabel[i]);//TODO getComponent(Position.class)
         }
 
         //Создание кнопок для отключения подбора снаряжения
@@ -115,8 +115,8 @@ public class Player extends Tank {
             buttonsTake[i].getStyle().setBorder(buttonTakeBorder);
             buttonsTake[i].getStyle().setBackground(buttonsBackground[i]);
             buttonsTake[i].setSize(15, 15);
-            buttonsTake[i].setPosition(17 * i, Manager.getService(Render.class).getHeight() - 15);
-            Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(buttonsTake[i]);
+            buttonsTake[i].setPosition(17 * i, Context.getService(Render.class).getHeight() - 15);
+            Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(buttonsTake[i]);
             //TODO getComponent(Position.class) вместо Manager.getService(LocationManager.class).getActiveLocation(), но это конструктор
         }
     }
@@ -138,7 +138,7 @@ public class Player extends Tank {
         hpLabel.getTextState().setText("HP: " + Math.round(hp) + "/" + Math.round(stats.hpMax));
 
         //Отрисовка статов
-        if (ClientData.printStats) {
+        if (Context.getService(ClientData.class).printStats) {
             String[] array = stats.toString().split("\n");
             for (int i = 0; i < array.length; i++) {
                 statsLabel[i].getTextState().setText(array[i]);
@@ -159,11 +159,11 @@ public class Player extends Tank {
         //Проверка HP
         if (hp <= 0) {
             if (lastDamagerEnemyId != -1) {
-                Manager.getService(TCPControl.class).send(23, String.valueOf(lastDamagerEnemyId));
-                ClientData.enemy.get(lastDamagerEnemyId).kill++;
+                Context.getService(TCPControl.class).send(23, String.valueOf(lastDamagerEnemyId));
+                Context.getService(ClientData.class).enemy.get(lastDamagerEnemyId).kill++;
             }
 
-            Manager.getService(TCPControl.class).send(12, "");
+            Context.getService(TCPControl.class).send(12, "");
             exploded();
         } else {
             if ((hp + delta / Math.pow(10, 9) * stats.hpRegen) > stats.hpMax) {
@@ -175,9 +175,9 @@ public class Player extends Tank {
 
         //Отправка данных о игроке
         sendDataLast += delta;
-        if (ClientData.battle && sendDataLast >= Math.pow(10, 9) / GameSetting.MPS) {
+        if (Context.getService(ClientData.class).battle && sendDataLast >= Math.pow(10, 9) / GameSetting.MPS) {
             sendDataLast -= Math.pow(10, 9) / GameSetting.MPS;
-            Manager.getService(UDPControl.class).send(2, getData());
+            Context.getService(UDPControl.class).send(2, getData());
         }
     }
 
@@ -207,7 +207,7 @@ public class Player extends Tank {
 
         //Отправляем сообщение о том, что мы сменили броню
         String newName = ((Armor) armor).imageName;
-        Manager.getService(TCPControl.class).send(19, newName);
+        Context.getService(TCPControl.class).send(19, newName);
     }
 
     @Override
@@ -219,7 +219,7 @@ public class Player extends Tank {
         updateStats();
 
         //Отправляем сообщение о том, что мы сменили оружие
-        Manager.getService(TCPControl.class).send(20, ((Gun) newGun).imageName);
+        Context.getService(TCPControl.class).send(20, ((Gun) newGun).imageName);
     }
 
     //Игрок попал по врагу и нанес damage урона
