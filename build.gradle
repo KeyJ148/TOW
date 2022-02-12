@@ -17,7 +17,6 @@ compileTestJava.options.compilerArgs += ["-Xlint"]
 
 repositories {
 	mavenCentral()
-    jcenter()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     maven { url "https://raw.github.com/SpinyOwl/repo/releases" }
 }
@@ -25,14 +24,8 @@ repositories {
 dependencies {
     implementation project('OrchEngine')
 
-    //implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.liquidengine:legui:3.3.5'
     implementation 'io.cucumber:cucumber-picocontainer:2.4.0'
-
-    //implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
-    //implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
-    //implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.12.4'
-    //implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.4'
 
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
