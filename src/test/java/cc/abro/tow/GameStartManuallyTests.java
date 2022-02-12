@@ -1,13 +1,9 @@
 package cc.abro.tow;
 
-import cc.abro.orchengine.OrchEngine;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Engine;
 import cc.abro.orchengine.net.client.Connector;
-import cc.abro.tow.client.NetGameRead;
 import cc.abro.tow.client.services.CreateServerService;
-import cc.abro.tow.server.NetServerRead;
-import cc.abro.tow.server.Server;
 import cc.abro.tow.server.ServerLoader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -49,25 +45,19 @@ public class GameStartManuallyTests {
     @Test
     public void gameStartAndCreateServerManually() {
         Context.addService(createStartServerAfterStartGameService(1));
-        OrchEngine.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
+        GameStart.main(new String[0]);
     }
 
     @Test
     public void gameStartAndCreateServer2PlayerManually() {
         Context.addService(createStartServerAfterStartGameService(2));
-        OrchEngine.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
+        GameStart.main(new String[0]);
     }
 
     @Test
     public void gameStartAndConnectToLocalhostManually() {
         Context.addService(createConnectAfterStartGameService());
-        OrchEngine.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
-    }
-
-    @Test
-    public void gameStartAndConnectToLocalhostManually2() {
-        Context.addService(createConnectAfterStartGameService());
-        OrchEngine.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
+        GameStart.main(new String[0]);
     }
 
     private GameAfterStartService createStartServerAfterStartGameService(int peopleMax){
