@@ -77,7 +77,6 @@ public final class MenuGuiComponents {
         button.setStyle(createButtonStyle());
         button.getStyle().setFont(FontRegistry.ROBOTO_REGULAR);
         button.getStyle().setFontSize(BUTTON_FONT_SIZE);
-        button.getStyle().setTextColor(BLACK_COLOR);
         button.getStyle().setHorizontalAlign(HorizontalAlign.CENTER);
         button.getHoveredStyle().setBackground(createHoveredButtonBackground());
         button.getPressedStyle().setBackground(createPressedButtonBackground());
@@ -109,7 +108,6 @@ public final class MenuGuiComponents {
         TextAreaField textAreaField = createTextAreaField(x, y, width, height);
         textAreaField.getTextState().setText(text);
         textAreaField.getStyle().setHorizontalAlign(HorizontalAlign.CENTER);
-        textAreaField.getStyle().setTextColor(BLACK_COLOR);
         return textAreaField;
     }
 

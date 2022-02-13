@@ -1,4 +1,4 @@
-package cc.abro.tow.client.menu.panels;
+package cc.abro.tow.client.menu.panels.settings;
 
 import cc.abro.orchengine.Manager;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
@@ -9,6 +9,8 @@ import cc.abro.orchengine.resources.textures.TextureLoader;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.SettingsStorage;
+import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
+import cc.abro.tow.client.menu.panels.MenuGuiPanel;
 import cc.abro.tow.client.services.SettingsService;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.ImageView;
@@ -22,19 +24,16 @@ import org.liquidengine.legui.style.Background;
 import java.awt.image.BufferedImage;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
+import static cc.abro.tow.client.menu.InterfaceStyles.BUTTON_HEIGHT;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
+import static cc.abro.tow.client.menu.MenuGuiComponents.createButton;
 import static cc.abro.tow.client.menu.panels.FirstEntryGuiPanel.Error.CANT_SAVE_SETTINGS;
 import static cc.abro.tow.client.menu.panels.FirstEntryGuiPanel.Error.NICKNAME_IS_EMPTY;
-import static cc.abro.tow.client.menu.MenuGuiComponents.*;
 
-public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
+public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
-    protected final static int SETTINGS_PANEL_WIDTH = 2 * MENU_ELEMENT_WIDTH;
-    protected final static int SETTINGS_PANEL_HEIGHT = 3 * MENU_ELEMENT_HEIGHT;
     protected final static int LENGTH_TEXT_AREA_NICK = 100;
     protected final static int BUTTON_COLOR_SIZE = 15;
-    protected final static int PANEL_COLOR_WIDTH = 45;
-    protected final static int PANEL_COLOR_HEIGHT = 20;
 
     private final static Color[] COLORS = {
             new Color(255, 255, 255),
@@ -52,9 +51,12 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
 
     private Color tankColor;
 
-    public SettingsMenuGuiPanel() {
-        setSize(SETTINGS_PANEL_WIDTH, SETTINGS_PANEL_HEIGHT);
+    private final MenuGuiPanel parent;
 
+    public PlayerSettingsMenuGuiPanel(MenuGuiPanel parent) {
+        this.parent = parent;
+        setSize(SETTINGS_PANEL_WIDTH, SETTINGS_PANEL_HEIGHT);
+        setPosition(THICKNESS_OF_PANEL_BORDER, THICKNESS_OF_PANEL_BORDER);
         add(createLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldNickname =
                 createTextAreaField(INDENT_X + LABEL_LENGTH_NICKNAME, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
@@ -89,24 +91,24 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
 
         add(createButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
                 BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListener(event -> {
-            if((tankColor.getRGB() != new Color(SettingsStorage.PROFILE.COLOR).getRGB()) || !(textAreaFieldNickname.getTextState().getText().equals(SettingsStorage.PROFILE.NICKNAME))) {
-                addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes. Are you sure you want to go back?", "Yes", "No");
-            } else {
-                getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
-            }
-        })));
+                    if((tankColor.getRGB() != new Color(SettingsStorage.PROFILE.COLOR).getRGB()) || !(textAreaFieldNickname.getTextState().getText().equals(SettingsStorage.PROFILE.NICKNAME))) {
+                        addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes. Are you sure you want to go back?", "Yes", "No");
+                    } else {
+                        parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
+                    }
+                })));
         add(createButton("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                        getMouseReleaseListener(event -> {
-                            try {
-                                Manager.getService(SettingsService.class).setSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
-                                getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
-                            } catch (SettingsService.EmptyNicknameException e) {
-                                addButtonGuiPanelWithUnblockAndBlockFrame(NICKNAME_IS_EMPTY.getText());
-                            } catch (SettingsService.CantSaveSettingException e) {
-                                addButtonGuiPanelWithUnblockAndBlockFrame(CANT_SAVE_SETTINGS.getText());
-                            }
-                        })));
+                getMouseReleaseListener(event -> {
+                    try {
+                        Manager.getService(SettingsService.class).setSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
+                        parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
+                    } catch (SettingsService.EmptyNicknameException e) {
+                        addButtonGuiPanelWithUnblockAndBlockFrame(NICKNAME_IS_EMPTY.getText());
+                    } catch (SettingsService.CantSaveSettingException e) {
+                        addButtonGuiPanelWithUnblockAndBlockFrame(CANT_SAVE_SETTINGS.getText());
+                    }
+                })));
     }
 
     private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {
@@ -121,14 +123,14 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
         Panel panel = createDialogPanel(labelText,
                 new ButtonConfiguration(leftButton, getMouseReleaseListener(event -> {
                     getUnblockAndParentDestroyReleaseListener(guiBlock).process(event);
-                    getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
+                    parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
                 })),
                 new ButtonConfiguration(rightButton, getUnblockAndParentDestroyReleaseListener(guiBlock))).panel();
         Manager.getService(GuiService.class).moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }
 
-    private Button addColorButton(int x, int y, Color color, MouseClickEventListener event) {
+    private void addColorButton(int x, int y, Color color, MouseClickEventListener event) {
         Button button = new Button("");
         Background background = new Background();
         background.setColor(color.getVector4f());
@@ -138,7 +140,6 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
         button.setSize(BUTTON_COLOR_SIZE, BUTTON_COLOR_SIZE);
         button.setPosition(x, y);
         add(button);
-        return button;
     }
 
     //TODO в отдельный сервис по покраске или работе с текстурами

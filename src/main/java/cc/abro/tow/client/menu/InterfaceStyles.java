@@ -11,6 +11,8 @@ public final class InterfaceStyles {
 
     public final static int MENU_ELEMENT_WIDTH = 250;
     public final static int MENU_ELEMENT_HEIGHT = 70;
+    public final static int SETTINGS_PANEL_WIDTH = 4 * MENU_ELEMENT_WIDTH / 3 + 1;
+    public final static int SETTINGS_PANEL_HEIGHT = 3 * MENU_ELEMENT_HEIGHT;
     public final static int BLOCKING_BUTTON_ELEMENT_WIDTH = 360;
     public final static int BLOCKING_BUTTON_ELEMENT_HEIGHT = 90;
     public final static int CONNECTING_ELEMENT_WIDTH = 160;
@@ -230,6 +232,7 @@ public final class InterfaceStyles {
         Style style = new Style();
         style.setBorder(createButtonBorder());
         style.setBackground(createButtonBackground());
+        style.setTextColor(BLACK_COLOR);
         style.setBorderRadius(BUTTON_RADIUS);
         return style;
     }
