@@ -99,16 +99,16 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
                 })));
         add(createButton("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
-                        getMouseReleaseListener(event -> {
-                            try {
-                                Context.getService(SettingsService.class).setSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
-                                getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
-                            } catch (SettingsService.EmptyNicknameException e) {
-                                addButtonGuiPanelWithUnblockAndBlockFrame(NICKNAME_IS_EMPTY.getText());
-                            } catch (SettingsService.CantSaveSettingException e) {
-                                addButtonGuiPanelWithUnblockAndBlockFrame(CANT_SAVE_SETTINGS.getText());
-                            }
-                        })));
+                getMouseReleaseListener(event -> {
+                    try {
+                        Context.getService(SettingsService.class).setSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
+                        parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
+                    } catch (SettingsService.EmptyNicknameException e) {
+                        addButtonGuiPanelWithUnblockAndBlockFrame(NICKNAME_IS_EMPTY.getText());
+                    } catch (SettingsService.CantSaveSettingException e) {
+                        addButtonGuiPanelWithUnblockAndBlockFrame(CANT_SAVE_SETTINGS.getText());
+                    }
+                })));
     }
 
     private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {
