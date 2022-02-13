@@ -43,6 +43,9 @@ public class TestRender extends Render {
     public void setIcon(Texture texture) {}
 
     @Override
+    public void showWindow() {}
+
+    @Override
     public void vsync() {}
 
     @Override

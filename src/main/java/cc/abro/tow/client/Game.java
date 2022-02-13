@@ -7,6 +7,7 @@ import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.init.interfaces.GameInterface;
 import cc.abro.orchengine.location.LocationManager;
+import cc.abro.orchengine.resources.JsonContainerLoader;
 import cc.abro.orchengine.resources.settings.SettingsLoader;
 import cc.abro.orchengine.resources.settings.SettingsStorageHandler;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
@@ -17,11 +18,16 @@ import cc.abro.tow.client.menu.panels.ConnectByIPMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.CreateGameMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.ListOfServersMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
+import java.util.Arrays;
 
+@Log4j2
 @GameService
 public class Game implements GameInterface {
+
+    private static final String SPRITE_CONFIG_PATH = "configs/sprite.json";
 
     private final GuiPanelStorage guiPanelStorage;
     private final LocationManager locationManager;
@@ -53,6 +59,15 @@ public class Game implements GameInterface {
             } catch (IOException e2) {
                 throw new RuntimeException(e2);
             }
+        }
+
+        try {
+            SpriteStorage.SpriteContainer[] spriteContainers = JsonContainerLoader.loadInternalFile(
+                    SpriteStorage.SpriteContainer[].class, SPRITE_CONFIG_PATH);
+            Context.getService(SpriteStorage.class).loadSprites(Arrays.stream(spriteContainers).toList());
+        } catch (IOException e) {
+            log.fatal("Error loading sprites", e);
+            throw new RuntimeException(e);
         }
 
         if (SettingsStorage.GRAPHICS.CURSOR_SPRITE != null) {
