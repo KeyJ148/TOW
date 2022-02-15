@@ -2,6 +2,8 @@ node {
     withEnv(["JAVA_HOME=${ tool 'OpenJDK-17.0.1' }"]) {
         stage('Setup settings') {
             JAVA_VERSION='17.0.1';
+            print JAVA_VERSION;
+            print payload;
             switch (Target_OS) {
                 case 'Windows': 
                     env.BUILD_LWJGL_NATIVES = 'natives-windows'
