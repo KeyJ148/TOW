@@ -6,9 +6,7 @@
 
 Скриншоты:
 
-![](https://github.com/KeyJ148/TOW/raw/ac9eef5e33faf87c33c08794a601b6785996fa3f/archive/screenshots/1.bmp)
-![](https://github.com/KeyJ148/TOW/raw/ac9eef5e33faf87c33c08794a601b6785996fa3f/archive/screenshots/2.bmp)
-![](https://github.com/KeyJ148/TOW/raw/ac9eef5e33faf87c33c08794a601b6785996fa3f/archive/screenshots/3.bmp)
+<img src="https://github.com/KeyJ148/TOW/raw/ac9eef5e33faf87c33c08794a601b6785996fa3f/archive/screenshots/1.bmp" alt="Tanks: Orchestra of War" width="270"/>&emsp;<img src="https://github.com/KeyJ148/TOW/raw/ac9eef5e33faf87c33c08794a601b6785996fa3f/archive/screenshots/2.bmp" alt="Tanks: Orchestra of War" width="270"/>&emsp;<img src="https://github.com/KeyJ148/TOW/raw/ac9eef5e33faf87c33c08794a601b6785996fa3f/archive/screenshots/3.bmp" alt="Tanks: Orchestra of War" width="270"/>
 
 ## Управление 
 WS - движение вперёд/назад  
