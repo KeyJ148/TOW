@@ -3,31 +3,36 @@ node {
         stage('Setup settings') {
             JAVA_VERSION='17.0.1';
             switch (Target_OS) {
-                case 'Windows': 
+                case 'Windows':
+                    env.START_ON_FIRST_THREAD = 'false'
                     env.BUILD_LWJGL_NATIVES = 'natives-windows'
                     JDK_NAME = "openjdk-${JAVA_VERSION}_windows-x64_bin"
                     FILES = ['Start.bat', 'TOW.exe']
                     PUBLISH_PATH = 'windows'
                     break
                 case 'Linux':
+                    env.START_ON_FIRST_THREAD = 'false'
                     env.BUILD_LWJGL_NATIVES = 'natives-linux'
                     JDK_NAME = "openjdk-${JAVA_VERSION}_linux-x64_bin"
                     FILES = ['TOW.sh', 'TOW.png']
                     PUBLISH_PATH = 'linux'
                     break
                 case 'MacOS':
+                    env.START_ON_FIRST_THREAD = 'true'
                     env.BUILD_LWJGL_NATIVES = 'natives-macos'
                     JDK_NAME = "openjdk-${JAVA_VERSION}_macos-x64_bin"
                     FILES = ['TOW-osx.sh', 'TOW.png']
                     PUBLISH_PATH = 'macos'
                     break
                 case 'Linux ARM':
+                    env.START_ON_FIRST_THREAD = 'false'
                     env.BUILD_LWJGL_NATIVES = 'natives-linux-arm64'
                     JDK_NAME = "openjdk-${JAVA_VERSION}_linux-aarch64_bin"
                     FILES = ['TOW.sh', 'TOW.png']
                     PUBLISH_PATH = 'linux-arm'
                     break
                 case 'MacOS ARM':
+                    env.START_ON_FIRST_THREAD = 'true'
                     env.BUILD_LWJGL_NATIVES = 'natives-macos-arm64'
                     JDK_NAME = "openjdk-${JAVA_VERSION}_macos-aarch64_bin"
                     FILES = ['TOW-osx.sh', 'TOW.png']
