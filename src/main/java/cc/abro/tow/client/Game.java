@@ -71,7 +71,6 @@ public class Game implements GameInterface {
         }
 
         if (SettingsStorage.GRAPHICS.CURSOR_SPRITE != null) {
-            Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().setCapture(true);
             Texture texture = Context.getService(SpriteStorage.class).getSprite(SettingsStorage.GRAPHICS.CURSOR_SPRITE).getTexture();
             Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().setTexture(texture);
         }

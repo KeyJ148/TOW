@@ -7,7 +7,7 @@ version = '4.2.0-SNAPSHOT'
 
 compileJava.options.encoding = "UTF-8"
 //applicationDefaultJvmArgs = ["-Xmx128M"]
-applicationDefaultJvmArgs += "-XstartOnFirstThread"
+//applicationDefaultJvmArgs += "-XstartOnFirstThread" //TODO For MacOS
 applicationDefaultJvmArgs += ["-Dlog4j.defaultInitOverride=true", "-Dlog4j.configurationFile=log4j2.yml"]
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
