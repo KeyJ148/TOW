@@ -49,7 +49,7 @@ node {
                     [$class: 'StringParameterValue', name: 'Type_of_archive', value: '.tar'],
                     [$class: 'BooleanParameterValue', name: 'Clean_Workspace', value: Clean_Workspace]
                 ]
-            }/*,
+            },
 
             MacOS_zip: {
                 build job: 'TOW', parameters: [
@@ -89,7 +89,7 @@ node {
                     [$class: 'StringParameterValue', name: 'Type_of_archive', value: '.tar'],
                     [$class: 'BooleanParameterValue', name: 'Clean_Workspace', value: Clean_Workspace]
                 ]
-            }*/
+            }
         ])
     }
 }
