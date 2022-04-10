@@ -1,7 +1,7 @@
 package cc.abro.tow.client.tanks.player;
 
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.audio.AudioPlayer;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.GameObjectFactory;
@@ -52,7 +52,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
         this.name = name;
         this.damage = damage; //Дамаг исключительно от выстрелевшей пушки
         this.range = range; //Дальность исключительно от выстрелевшей пушки
-        this.idNet = ClientData.idNet;
+        this.idNet = Context.getService(ClientData.class).idNet;
         this.startX = x;
         this.startY = y;
 
@@ -69,8 +69,8 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
         getComponent(Collision.class).addListener(this);
         ((CollisionDirect) getComponent(Collision.class)).init();
 
-        Manager.getService(TCPControl.class).send(13, getData());
-        ClientData.idNet++;
+        Context.getService(TCPControl.class).send(13, getData());
+        Context.getService(ClientData.class).idNet++;
 
         playSoundShot();
     }
@@ -86,18 +86,18 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
         if (Set.of(CollisedMapObject.class, DestroyedMapObject.class).contains(gameObject.getClass())) {
             destroy(explosionSize);
 
-            Manager.getService(AudioPlayer.class).playSoundEffect(Manager.getService(AudioStorage.class).getAudio(sound_hit), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
-            Manager.getService(TCPControl.class).send(25, (int) getComponent(Position.class).x + " " + (int) getComponent(Position.class).y + " " + sound_hit);
+            Context.getService(AudioPlayer.class).playSoundEffect(Context.getService(AudioStorage.class).getAudio(sound_hit), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
+            Context.getService(TCPControl.class).send(25, (int) getComponent(Position.class).x + " " + (int) getComponent(Position.class).y + " " + sound_hit);
         }
 
         if (gameObject.getClass().equals(EnemyArmor.class)) {
             EnemyArmor ea = (EnemyArmor) gameObject;
 
-            Manager.getService(TCPControl.class).send(14, damage + " " + ea.enemy.id);
+            Context.getService(TCPControl.class).send(14, damage + " " + ea.enemy.id);
             destroy(explosionSize);
 
-            Manager.getService(AudioPlayer.class).playSoundEffect(Manager.getService(AudioStorage.class).getAudio(sound_hit), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
-            Manager.getService(TCPControl.class).send(25, (int) getComponent(Position.class).x + " " + (int) getComponent(Position.class).y + " " + sound_hit);
+            Context.getService(AudioPlayer.class).playSoundEffect(Context.getService(AudioStorage.class).getAudio(sound_hit), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
+            Context.getService(TCPControl.class).send(25, (int) getComponent(Position.class).x + " " + (int) getComponent(Position.class).y + " " + sound_hit);
 
             //Для вампирского сета
             if (ea.enemy.alive) player.hitting(damage);
@@ -106,13 +106,13 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
 
     public void destroy(int expSize) {
         destroy();
-        Manager.getService(TCPControl.class).send(15, idNet + " " + expSize);
+        Context.getService(TCPControl.class).send(15, idNet + " " + expSize);
 
         if (explosionSize > 0) {
             GameObject explosion = GameObjectFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, 3000);
             explosion.setComponent(new Explosion(expSize));
             explosion.getComponent(Particles.class).destroyObject = true;
-            Manager.getService(LocationManager.class).getActiveLocation().getMap().add(explosion);
+            Context.getService(LocationManager.class).getActiveLocation().getMap().add(explosion);
         }
     }
 
@@ -128,8 +128,8 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
     }
 
     public void playSoundShot() {
-        Manager.getService(AudioPlayer.class).playSoundEffect(Manager.getService(AudioStorage.class).getAudio(sound_shot), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
-        Manager.getService(TCPControl.class).send(25, (int) getComponent(Position.class).x + " " + (int) getComponent(Position.class).y + " " + sound_shot);
+        Context.getService(AudioPlayer.class).playSoundEffect(Context.getService(AudioStorage.class).getAudio(sound_shot), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
+        Context.getService(TCPControl.class).send(25, (int) getComponent(Position.class).x + " " + (int) getComponent(Position.class).y + " " + sound_shot);
     }
 
     public String getData() {
@@ -154,7 +154,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
         damage += cr.findDouble("DAMAGE");//К дамагу пушки прибавляем дамаг патрона
         range += cr.findInteger("RANGE");//К дальности пушки прибавляем дальность патрона
         imageName = cr.findString("IMAGE_NAME");
-        texture = Manager.getService(SpriteStorage.class).getSprite(imageName);
+        texture = Context.getService(SpriteStorage.class).getSprite(imageName);
         title = cr.findString("TITLE");
         sound_shot = cr.findString("SOUND_SHOT");
         sound_hit = cr.findString("SOUND_HIT");

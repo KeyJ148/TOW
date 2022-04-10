@@ -1,15 +1,14 @@
 package cc.abro.tow.client.menu.panels;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
-import cc.abro.orchengine.resources.textures.TextureLoader;
+import cc.abro.orchengine.resources.textures.TextureService;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.orchengine.services.GuiService;
-import cc.abro.tow.client.SettingsStorage;
-import cc.abro.tow.client.services.SettingsService;
+import cc.abro.tow.client.settings.SettingsService;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.ImageView;
 import org.liquidengine.legui.component.Panel;
@@ -25,7 +24,6 @@ import static cc.abro.tow.client.menu.InterfaceStyles.*;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
 import static cc.abro.tow.client.menu.panels.FirstEntryGuiPanel.Error.CANT_SAVE_SETTINGS;
 import static cc.abro.tow.client.menu.panels.FirstEntryGuiPanel.Error.NICKNAME_IS_EMPTY;
-import static cc.abro.tow.client.menu.MenuGuiComponents.*;
 
 public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
@@ -58,13 +56,13 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
         add(createLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldNickname =
                 createTextAreaField(INDENT_X + LABEL_LENGTH_NICKNAME, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
-                        SettingsStorage.PROFILE.NICKNAME);
+                        Context.getService(SettingsService.class).getSettings().profile.nickname);
         add(textAreaFieldNickname);
 
-        int[] colorFromSettings = SettingsStorage.PROFILE.COLOR;
+        int[] colorFromSettings = Context.getService(SettingsService.class).getSettings().profile.color;
         tankColor = new Color(colorFromSettings);
-        BufferedImage defaultTankImage = Manager.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
-        Texture defaultTankTexture = TextureLoader.createTexture(colorizeImage(defaultTankImage, tankColor));
+        BufferedImage defaultTankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
+        Texture defaultTankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(defaultTankImage, tankColor));
         FBOImage tankFBOImage = new FBOImage(defaultTankTexture.getId(), defaultTankTexture.getWidth(), defaultTankTexture.getHeight());
         ImageView imageView = new ImageView(tankFBOImage);
         imageView.setStyle(createInvisibleStyle());
@@ -78,8 +76,8 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
                     getMouseReleaseListener(event -> {
                         tankColor = COLORS[fi];
 
-                        BufferedImage tankImage = Manager.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
-                        Texture tankTexture = TextureLoader.createTexture(colorizeImage(tankImage, tankColor));
+                        BufferedImage tankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
+                        Texture tankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(tankImage, tankColor));
                         //TODO здесь надо вызывать delete у defaultTankTexture и переопределять defaultTankTexture = tankTexture
                         //TODO при закрытие панели не забыть очистить и tankTexture
                         FBOImage newTankFBOImage = new FBOImage(tankTexture.getId(), tankTexture.getWidth(), tankTexture.getHeight());
@@ -89,7 +87,8 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
 
         add(createButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
                 BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListener(event -> {
-            if((tankColor.getRGB() != new Color(SettingsStorage.PROFILE.COLOR).getRGB()) || !(textAreaFieldNickname.getTextState().getText().equals(SettingsStorage.PROFILE.NICKNAME))) {
+            if((tankColor.getRGB() != new Color(Context.getService(SettingsService.class).getSettings().profile.color).getRGB()) ||
+                    !(textAreaFieldNickname.getTextState().getText().equals(Context.getService(SettingsService.class).getSettings().profile.nickname))) {
                 addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes. Are you sure you want to go back?", "Yes", "No");
             } else {
                 getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
@@ -99,7 +98,7 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                         getMouseReleaseListener(event -> {
                             try {
-                                Manager.getService(SettingsService.class).setSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
+                                Context.getService(SettingsService.class).setProfileSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
                                 getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
                             } catch (SettingsService.EmptyNicknameException e) {
                                 addButtonGuiPanelWithUnblockAndBlockFrame(NICKNAME_IS_EMPTY.getText());
@@ -110,21 +109,21 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
     }
 
     private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {
-        BlockingGuiService.GuiBlock guiBlock = Manager.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
+        BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
         Panel panel = createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
-        Manager.getService(GuiService.class).moveComponentToWindowCenter(panel);
+        Context.getService(GuiService.class).moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }
 
     private void addDialogGuiPanelWithUnblockAndBlockFrame(String labelText, String leftButton, String rightButton) {
-        BlockingGuiService.GuiBlock guiBlock = Manager.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
+        BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
         Panel panel = createDialogPanel(labelText,
                 new ButtonConfiguration(leftButton, getMouseReleaseListener(event -> {
                     getUnblockAndParentDestroyReleaseListener(guiBlock).process(event);
                     getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
                 })),
                 new ButtonConfiguration(rightButton, getUnblockAndParentDestroyReleaseListener(guiBlock))).panel();
-        Manager.getService(GuiService.class).moveComponentToWindowCenter(panel);
+        Context.getService(GuiService.class).moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }
 

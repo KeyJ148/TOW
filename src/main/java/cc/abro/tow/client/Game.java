@@ -1,83 +1,76 @@
 package cc.abro.tow.client;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.audio.AudioPlayer;
+import cc.abro.orchengine.context.Context;
+import cc.abro.orchengine.context.GameService;
+import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.image.Color;
-import cc.abro.orchengine.implementation.GameInterface;
+import cc.abro.orchengine.init.interfaces.GameInterface;
 import cc.abro.orchengine.location.LocationManager;
-import cc.abro.orchengine.location.LocationManager;
-import cc.abro.orchengine.resources.settings.SettingsLoader;
-import cc.abro.orchengine.resources.settings.SettingsStorageHandler;
+import cc.abro.orchengine.resources.JsonContainerLoader;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
-import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.map.factory.MapObjectCreatorsLoader;
 import cc.abro.tow.client.menu.MenuLocation;
-import cc.abro.tow.client.services.ConnectServerService;
-import cc.abro.tow.client.services.CreateServerService;
 import cc.abro.tow.client.menu.panels.ConnectByIPMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.CreateGameMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.ListOfServersMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
-import cc.abro.tow.client.services.SettingsService;
-import cc.abro.tow.client.menu.panels.*;
-import cc.abro.tow.client.services.ConnectServerService;
-import cc.abro.tow.client.services.CreateServerService;
-import cc.abro.tow.client.services.SettingsService;
+import cc.abro.tow.client.settings.Settings;
+import cc.abro.tow.client.settings.SettingsService;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Arrays;
 
+@Log4j2
+@GameService
 public class Game implements GameInterface {
+
+    public static final String SPRITE_CONFIG_PATH = "configs/sprite.json";
+    private static final String WINDOW_NAME = "Tanks: Orchestra of war";
 
     private final GuiPanelStorage guiPanelStorage;
     private final LocationManager locationManager;
+    private final ClientData clientData;
+    private final AudioPlayer audioPlayer;
+    private final SettingsService settingsService;
 
-    public Game(GuiPanelStorage guiPanelStorage, LocationManager locationManager) {
+    public Game(GuiPanelStorage guiPanelStorage, LocationManager locationManager, ClientData clientData,
+                AudioPlayer audioPlayer, SettingsService settingsService) {
         this.guiPanelStorage = guiPanelStorage;
         this.locationManager = locationManager;
-    }
-
-    @Override
-    public List<Class<?>> getInitializingServices() {
-        return List.of(GuiService.class,
-                SettingsService.class,
-                CreateServerService.class,
-                ConnectServerService.class);
+        this.clientData = clientData;
+        this.audioPlayer = audioPlayer;
+        this.settingsService = settingsService;
     }
 
     @Override
     public void init() {
         GameSetting.init();
-        //TODO переделать GameSetting под JSON, и вынести инициализацию настроек ниже в отдельный класс
+        audioPlayer.setVolume(settingsService.getSettings().volume.soundVolume);
+
         try {
-            SettingsStorage.GRAPHICS = SettingsStorageHandler.initExternalSettingsOrDefaultFromInternal(SettingsStorage.Graphics.class);
+            SpriteStorage.SpriteContainer[] spriteContainers = JsonContainerLoader.loadInternalFile(
+                    SpriteStorage.SpriteContainer[].class, SPRITE_CONFIG_PATH);
+            Context.getService(SpriteStorage.class).loadSprites(Arrays.stream(spriteContainers).toList());
         } catch (IOException e) {
+            log.fatal("Error loading sprites", e);
             throw new RuntimeException(e);
         }
 
-        boolean settingsLoadSuccess = true;
-        try {
-            SettingsStorage.PROFILE = SettingsLoader.loadExternalSettings(SettingsStorage.Profile.class);
-        } catch (IOException e) {
-            settingsLoadSuccess = false;
-            try {
-                SettingsStorage.PROFILE = SettingsLoader.loadInternalSettings(SettingsStorage.Profile.class);
-            } catch (IOException e2) {
-                throw new RuntimeException(e2);
-            }
+        if (settingsService.getSettings().graphics.cursorSprite != null) {
+            Texture texture = Context.getService(SpriteStorage.class).getSprite(settingsService.getSettings().graphics.cursorSprite).getTexture();
+            Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().setTexture(texture);
         }
+        clientData.name = settingsService.getSettings().profile.nickname;
+        clientData.color = new Color(settingsService.getSettings().profile.color);
 
-        if (SettingsStorage.GRAPHICS.CURSOR_SPRITE != null) {
-            Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().setCapture(true);
-            Texture texture = Manager.getService(SpriteStorage.class).getSprite(SettingsStorage.GRAPHICS.CURSOR_SPRITE).getTexture();
-            Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().setTexture(texture);
-        }
-        ClientData.name = SettingsStorage.PROFILE.NICKNAME;
-        ClientData.color = new Color(SettingsStorage.PROFILE.COLOR);
+        Texture icon = Context.getService(SpriteStorage.class).getSprite("window_icon").getTexture();
+        Context.getService(Render.class).setIcon(icon);
 
         MapObjectCreatorsLoader.load();
-
 
         guiPanelStorage.registry(new MainMenuGuiPanel());
         guiPanelStorage.registry(new ConnectByIPMenuGuiPanel());
@@ -86,6 +79,13 @@ public class Game implements GameInterface {
 
         //TODO ServerLoader.mapPath = "maps/town10k.maptest";
 
-        locationManager.setActiveLocation(new MenuLocation(settingsLoadSuccess));
+        locationManager.setActiveLocation(new MenuLocation(!settingsService.isLoadSuccess()));
+    }
+
+    @Override
+    public Render.Settings getRenderSettings() {
+        Settings.Graphics graphics = settingsService.getSettings().graphics;
+        return new Render.Settings(graphics.widthScreen, graphics.heightScreen, graphics.fullScreen,
+                graphics.fpsLimit, graphics.vSyncDivider, WINDOW_NAME);
     }
 }

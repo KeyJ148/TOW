@@ -1,6 +1,6 @@
 package cc.abro.tow.client.tanks.player;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Engine;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Collision;
@@ -53,13 +53,13 @@ public class PlayerController extends GameObject implements Collision.CollisionL
          * Смотрим на все зажатые клавиши
          */
 
-        if (Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_ESCAPE)) Manager.getService(Engine.class).stop();
-        ClientData.showGameTabMenu = Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_SPACE);
+        if (Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_ESCAPE)) Context.getService(Engine.class).stop();
+        Context.getService(ClientData.class).showGameTabMenu = Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_SPACE);
 
         /*
          * Перебираем все события нажатия клавиш
          */
-        List<KeyEvent<?>> keyboardEvents = Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().getEventHistory().getList();
+        List<KeyEvent<?>> keyboardEvents = Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().getEventHistory().getList();
         for (KeyEvent<?> event : keyboardEvents) {
             if (event.getAction() == GLFW_PRESS) {// Клавиша нажата
 
@@ -85,12 +85,12 @@ public class PlayerController extends GameObject implements Collision.CollisionL
 
                     //Вывод характеристик танка
                     case GLFW_KEY_F2:
-                        ClientData.printStats = !ClientData.printStats;
+                        Context.getService(ClientData.class).printStats = !Context.getService(ClientData.class).printStats;
                         break;
 
                     //Вывод дебаг инфы
                     case GLFW_KEY_F3:
-                        ClientData.printAnalyzerInfo = !ClientData.printAnalyzerInfo;
+                        Context.getService(ClientData.class).printAnalyzerInfo = !Context.getService(ClientData.class).printAnalyzerInfo;
                         break;
 
                     //Переключение камер после смерти
@@ -109,28 +109,28 @@ public class PlayerController extends GameObject implements Collision.CollisionL
 
                     //Поднятие вампиризма до максимума
                     case GLFW_KEY_V:
-                        if (ClientData.peopleMax == 1) player.vampire = 1;
+                        if (Context.getService(ClientData.class).peopleMax == 1) player.vampire = 1;
                         break;
 
                     //Имитация подбора ящика
                     case GLFW_KEY_T:
-                        if (ClientData.peopleMax == 1)
+                        if (Context.getService(ClientData.class).peopleMax == 1)
                             new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 0, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_G:
-                        if (ClientData.peopleMax == 1)
+                        if (Context.getService(ClientData.class).peopleMax == 1)
                             new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 1, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_B:
-                        if (ClientData.peopleMax == 1)
+                        if (Context.getService(ClientData.class).peopleMax == 1)
                             new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 2, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_H:
-                        if (ClientData.peopleMax == 1)
+                        if (Context.getService(ClientData.class).peopleMax == 1)
                             new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 3, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_F:
-                        if (ClientData.peopleMax == 1)
+                        if (Context.getService(ClientData.class).peopleMax == 1)
                             new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 4, -1).collisionPlayer(player);
                         break;
                 }
@@ -145,7 +145,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
          * Выстрел
          */
         //Если нажата мышь и перезарядилась пушка и игрок вообще может стрелять
-        if (Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().isButtonDown(GLFW_MOUSE_BUTTON_1) && ((Gun) player.gun).nanoSecFromAttack <= 0 && player.stats.attackSpeed > 0) {
+        if (Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().isButtonDown(GLFW_MOUSE_BUTTON_1) && ((Gun) player.gun).nanoSecFromAttack <= 0 && player.stats.attackSpeed > 0) {
             ((Gun) player.gun).attack(); //Стреляем
         }
 
@@ -154,10 +154,10 @@ public class PlayerController extends GameObject implements Collision.CollisionL
          */
         if (!recoil) {
             int vectorUp = 0, vectorRight = 0;
-            if (Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_W)) vectorUp++;
-            if (Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_S)) vectorUp--;
-            if (Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_D)) vectorRight++;
-            if (Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_A)) vectorRight--;
+            if (Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_W)) vectorUp++;
+            if (Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_S)) vectorUp--;
+            if (Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_D)) vectorRight++;
+            if (Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_A)) vectorRight--;
 
             runUp = false;
             runDown = false;
@@ -219,12 +219,12 @@ public class PlayerController extends GameObject implements Collision.CollisionL
         double relativeX = relativePosition.x + 0.1;
         double relativeY = relativePosition.y + 0.1;
 
-        double pointDir = -Math.toDegrees(Math.atan((relativeY - Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().y) / (relativeX - Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().x)));
+        double pointDir = -Math.toDegrees(Math.atan((relativeY - Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().y) / (relativeX - Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().x)));
 
         double trunkUp = ((double) delta / 1000000000) * (player.stats.directionGunUp);
-        if ((relativeX - Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().x) > 0) {
+        if ((relativeX - Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().x) > 0) {
             pointDir += 180;
-        } else if ((relativeY - Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().y) < 0) {
+        } else if ((relativeY - Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().y) < 0) {
             pointDir += 360;
         }
 
@@ -266,7 +266,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
         if (gameObject.getClass().equals(DestroyedMapObject.class)) {
             DestroyedMapObject destroyedMapObject = (DestroyedMapObject) gameObject;
             if (destroyedMapObject.getStability() < player.stats.stability){
-                Manager.getService(TCPControl.class).send(22, String.valueOf(destroyedMapObject.getId()));
+                Context.getService(TCPControl.class).send(22, String.valueOf(destroyedMapObject.getId()));
                 destroyedMapObject.destroy();
             }
         }
@@ -305,7 +305,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
 
     //TODO вынести в класс камеры?
     private void cameraToNextEnemy() {
-        if (Manager.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() == null){
+        if (Context.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() == null){
             return;
         }
         List<Enemy> enemies = getEnemiesWithCamera();
@@ -319,14 +319,14 @@ public class PlayerController extends GameObject implements Collision.CollisionL
         for (int i = pos+1; i < enemiesDouble.size(); i++) {
             Enemy enemy = enemiesDouble.get(i);
             if (enemy.camera != null && enemy.alive) {
-                Manager.getService(LocationManager.class).getActiveLocation().camera.setFollowObject(enemy.camera);
+                Context.getService(LocationManager.class).getActiveLocation().camera.setFollowObject(enemy.camera);
                 break;
             }
         }
     }
 
     private void cameraToPrevEnemy() {
-        if (Manager.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() == null){
+        if (Context.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() == null){
             return;
         }
         List<Enemy> enemies = getEnemiesWithCamera();
@@ -340,14 +340,14 @@ public class PlayerController extends GameObject implements Collision.CollisionL
         for (int i = pos-1; i >= 0 ; i--) {
             Enemy enemy = enemiesDouble.get(i);
             if (enemy.camera != null && enemy.alive) {
-                Manager.getService(LocationManager.class).getActiveLocation().camera.setFollowObject(enemy.camera);
+                Context.getService(LocationManager.class).getActiveLocation().camera.setFollowObject(enemy.camera);
                 break;
             }
         }
     }
 
     private List<Enemy> getEnemiesWithCamera() {
-        return ClientData.enemy.entrySet().stream()
+        return Context.getService(ClientData.class).enemy.entrySet().stream()
                 .filter(e -> e.getValue().alive)
                 .filter(e -> e.getValue().camera != null)
                 .sorted(Comparator.comparingInt(Map.Entry::getKey))
@@ -358,7 +358,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
     private int getEnemyWithCameraPos(List<Enemy> enemies) {
         int pos = -1;
         for (int i = 0; i < enemies.size(); i++) {
-            if (Manager.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() == enemies.get(i).camera) {
+            if (Context.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() == enemies.get(i).camera) {
                 pos = i;
                 break;
             }

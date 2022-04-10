@@ -1,7 +1,6 @@
 package cc.abro.tow.client.map;
 
-import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.cycle.Render;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObjectFactory;
 import cc.abro.orchengine.location.map.Border;
@@ -18,9 +17,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static cc.abro.tow.client.menu.InterfaceStyles.TAB_LINE_SIZE_Y;
-import static cc.abro.tow.client.menu.InterfaceStyles.TAB_SIZE_X;
-
 public class BattleLocation extends GameLocation {
 
     public BattleLocation(MapSpecification mapSpecification) {
@@ -28,9 +24,9 @@ public class BattleLocation extends GameLocation {
 
         Border.createAll(this);
         for (MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()) {
-            MapObject mapObject = ClientData.mapObjectFactory.createMapObject(mapObjectSpecification);
+            MapObject mapObject = Context.getService(ClientData.class).mapObjectFactory.createMapObject(mapObjectSpecification);
             getMap().add(mapObject);
-            ClientData.mapObjects.add(mapObjectSpecification.getId(), mapObject);
+            Context.getService(ClientData.class).mapObjects.add(mapObjectSpecification.getId(), mapObject);
         }
 
         addDebugPanel(70);
@@ -38,10 +34,8 @@ public class BattleLocation extends GameLocation {
     }
 
     protected void addTabPanel() {
-        GameTabGuiPanel gameTabGuiPanel = new GameTabGuiPanel(ClientData.peopleMax);
-        gameTabGuiPanel.setPosition((Manager.getService(Render.class).getWidth() - TAB_SIZE_X)/2,
-                (Manager.getService(Render.class).getHeight() - (TAB_LINE_SIZE_Y + 2) * (ClientData.peopleMax + 1) - 2)/2);
-        getGuiLocationFrame().getGuiFrame().getContainer().add(gameTabGuiPanel);
+        GameTabGuiPanel gameTabGuiPanel = new GameTabGuiPanel(Context.getService(ClientData.class).peopleMax);
+        gameTabGuiPanel.changePosition();
         TabPanelComponent tabPanelComponent = new TabPanelComponent(gameTabGuiPanel);
         getMap().add(GameObjectFactory.create(tabPanelComponent));
     }
@@ -57,19 +51,22 @@ public class BattleLocation extends GameLocation {
 
         @Override
         public void update(long delta) {
-            if (ClientData.showGameTabMenu) {
-                gameTabGuiPanel.setSize(TAB_SIZE_X, (TAB_LINE_SIZE_Y + 2) * (ClientData.peopleMax + 1) - 2);
-                int ping = Manager.getService(PingChecker.class).getPing();
-                List<GameTabGuiPanel.TabDataLine> data = Stream.concat(Stream.of(ClientData.player), ClientData.enemy.values().stream())
+            if (Context.getService(ClientData.class).showGameTabMenu) {
+                if (!getGuiLocationFrame().getGuiFrame().getContainer().contains(gameTabGuiPanel)) {
+                    getGuiLocationFrame().getGuiFrame().getContainer().add(gameTabGuiPanel);
+                    gameTabGuiPanel.changeSize();
+                }
+                int ping = Context.getService(PingChecker.class).getPing();
+                List<GameTabGuiPanel.TabDataLine> data = Stream.concat(Stream.of(Context.getService(ClientData.class).player), Context.getService(ClientData.class).enemy.values().stream())
                         .filter(Objects::nonNull)
                         .filter(tank -> tank.getName() != null)
                         .map(tank -> new GameTabGuiPanel.TabDataLine(!tank.alive,
                                 tank.getName(), tank.color, tank.kill, tank.death, tank.win, ping))
-                        .sorted(Comparator.comparingInt(t -> t.wins))
+                        .sorted(Comparator.comparingInt(t -> -t.wins))
                         .collect(Collectors.toList());
                 gameTabGuiPanel.fillInTable(data);
             } else {
-                gameTabGuiPanel.setSize(0, 0);
+                getGuiLocationFrame().getGuiFrame().getContainer().remove(gameTabGuiPanel);
             }
         }
 

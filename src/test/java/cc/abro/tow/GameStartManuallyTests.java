@@ -1,50 +1,63 @@
 package cc.abro.tow;
 
-import cc.abro.orchengine.Manager;
-import cc.abro.orchengine.OrchEngine;
+import cc.abro.orchengine.context.Context;
+import cc.abro.orchengine.cycle.Engine;
 import cc.abro.orchengine.net.client.Connector;
-import cc.abro.orchengine.profiles.Profile;
-import cc.abro.orchengine.profiles.Profiles;
-import cc.abro.tow.client.NetGameRead;
-import cc.abro.tow.server.NetServerRead;
-import cc.abro.tow.server.Server;
+import cc.abro.tow.client.services.CreateServerService;
 import cc.abro.tow.server.ServerLoader;
-import org.junit.jupiter.api.Assumptions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
-public class GameStartManuallyTests extends GameStartTests {
+import java.util.concurrent.atomic.AtomicReference;
 
-    private static final String DEFAULT_IP = "127.0.0.1";
-    private static final int DEFAULT_PORT = 25566;
+import static cc.abro.tow.TestUtils.*;
+import static cc.abro.tow.logs.LogUtils.waitToLog;
+import static cc.abro.tow.logs.LogUtils.waitToLogRegex;
+import static cc.abro.tow.services.ServiceUtils.Profiles.TEST_NOT_SHUTDOWN;
 
-    @BeforeAll
-    public static void setUpAll() {
-        Assumptions.assumeTrue(Profiles.getActiveProfile() == Profile.LOCAL);
-    }
+public class GameStartManuallyTests {
+
+    private static final String[] ACTIVE_PROFILES = {TEST_NOT_SHUTDOWN};
 
     @Test
+    @Timeout(value = 10)
     public void gameStartAndCreateServerTestManually() {
-        Manager.addService(createStartServerAfterStartGameService(1));
-        OrchEngine.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
+        AtomicReference<Boolean> hasException = new AtomicReference<>(false);
+
+        new Thread(() -> {
+            try {
+                Runnable gameAfterStart = () -> Context.getService(CreateServerService.class).createServer("25566", 1);
+                Context.addService(new GameAfterStartService(gameAfterStart));
+                GameStart.main(ACTIVE_PROFILES);
+            } catch (Exception e) {
+                e.printStackTrace();
+                hasException.set(true);
+            }
+        }).start();
+
+        waitToLogRegex("(Load map)(.*)(completed)");
+        Context.getService(Engine.class).stop();
+        waitToLog("Shutting down all services complete");
+        Assertions.assertFalse(hasException.get(), "Has exception in game main thread");
     }
 
     @Test
-    public void gameStartAndCreateServer2PlayerTestManually() {
-        Manager.addService(createStartServerAfterStartGameService(2));
-        OrchEngine.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
+    public void gameStartAndCreateServerManually() {
+        Context.addService(createStartServerAfterStartGameService(1));
+        GameStart.main(new String[0]);
     }
 
     @Test
-    public void gameStartAndConnectToLocalhostTestManually() {
-        Manager.addService(createConnectAfterStartGameService());
-        OrchEngine.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
+    public void gameStartAndCreateServer2PlayerManually() {
+        Context.addService(createStartServerAfterStartGameService(2));
+        GameStart.main(new String[0]);
     }
 
     @Test
-    public void gameStartAndConnectToLocalhostTestManually2() {
-        Manager.addService(createConnectAfterStartGameService());
-        OrchEngine.start(GameProxyService.class, NetGameRead.class, Server.class, NetServerRead.class);
+    public void gameStartAndConnectToLocalhostManually() {
+        Context.addService(createConnectAfterStartGameService());
+        GameStart.main(new String[0]);
     }
 
     private GameAfterStartService createStartServerAfterStartGameService(int peopleMax){
@@ -61,7 +74,7 @@ public class GameStartManuallyTests extends GameStartTests {
     }
 
     private GameAfterStartService createConnectAfterStartGameService(String ip, int port){
-        return new GameAfterStartService(() -> Manager.createBean(Connector.class).connect(ip, port));
+        return new GameAfterStartService(() -> Context.createBean(Connector.class).connect(ip, port));
     }
 
 }

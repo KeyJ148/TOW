@@ -1,6 +1,6 @@
 package cc.abro.tow.client.map.objects.textured;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.tow.client.map.MapObject;
@@ -27,11 +27,11 @@ public class TexturedMapObjectCreator implements MapObjectCreator {
     }
 
     protected double getDirection(MapObjectSpecification mapObjectSpecification) {
-        return (double) mapObjectSpecification.getParameters().get("direction");
+        return ((Number) mapObjectSpecification.getParameters().get("direction")).doubleValue();
     }
 
     protected Texture getTexture(MapObjectSpecification mapObjectSpecification) {
         String textureName = (String) mapObjectSpecification.getParameters().get("texture");
-        return Manager.getService(SpriteStorage.class).getSprite(textureName).getTexture();
+        return Context.getService(SpriteStorage.class).getSprite(textureName).getTexture();
     }
 }

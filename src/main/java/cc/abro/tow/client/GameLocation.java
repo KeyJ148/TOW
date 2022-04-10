@@ -1,6 +1,6 @@
 package cc.abro.tow.client;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.analysis.AnalysisStringBuilder;
 import cc.abro.orchengine.analysis.Analyzer;
 import cc.abro.orchengine.cycle.Render;
@@ -21,7 +21,7 @@ public class GameLocation extends Location {
     protected void addDebugPanel(int positionX) {
         DebugInfoGuiPanel debugGuiPanel = new DebugInfoGuiPanel(AnalysisStringBuilder.STRING_COUNT);
         debugGuiPanel.setPosition(positionX,
-                Manager.getService(Render.class).getHeight() - AnalysisStringBuilder.STRING_COUNT*LABEL_HEIGHT_DEBUG);
+                Context.getService(Render.class).getHeight() - AnalysisStringBuilder.STRING_COUNT*LABEL_HEIGHT_DEBUG);
         getGuiLocationFrame().getGuiFrame().getContainer().add(debugGuiPanel);
 
         DebugInfoComponent debugInfoComponent = new DebugInfoComponent(debugGuiPanel);
@@ -39,8 +39,8 @@ public class GameLocation extends Location {
 
         @Override
         public void update(long delta) {
-            if (ClientData.printAnalyzerInfo) {
-                debugInfoGuiPanel.setText(Manager.getService(Analyzer.class).getAnalysisResult());
+            if (Context.getService(ClientData.class).printAnalyzerInfo) {
+                debugInfoGuiPanel.setText(Context.getService(Analyzer.class).getAnalysisResult());
             } else {
                 debugInfoGuiPanel.setText(Collections.nCopies(AnalysisStringBuilder.STRING_COUNT, ""));
             }

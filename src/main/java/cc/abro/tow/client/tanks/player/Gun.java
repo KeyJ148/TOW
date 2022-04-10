@@ -1,6 +1,6 @@
 package cc.abro.tow.client.tanks.player;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
@@ -87,7 +87,7 @@ public class Gun extends GameObject {
                 player.bullet.name
         );
 
-        Manager.getService(LocationManager.class).getActiveLocation().getMap().add(newBullet);
+        Context.getService(LocationManager.class).getActiveLocation().getMap().add(newBullet);
     }
 
     public String getConfigFileName() {
@@ -116,7 +116,7 @@ public class Gun extends GameObject {
         effect.addition.range = cr.findInteger("RANGE");
 
         imageName = cr.findString("IMAGE_NAME");
-        texture = Manager.getService(SpriteStorage.class).getSprite(imageName).getTexture();
+        texture = Context.getService(SpriteStorage.class).getSprite(imageName).getTexture();
         title = cr.findString("TITLE");
     }
 }

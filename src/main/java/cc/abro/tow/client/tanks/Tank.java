@@ -1,6 +1,6 @@
 package cc.abro.tow.client.tanks;
 
-import cc.abro.orchengine.Manager;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.audio.AudioPlayer;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.GameObjectFactory;
@@ -48,11 +48,11 @@ public abstract class Tank extends GameObject {
     public void initCamera() {
         //Инициализация камеры
         camera = GameObjectFactory.create(0, 0, 0);
-        Manager.getService(LocationManager.class).getActiveLocation().getMap().add(camera);
+        Context.getService(LocationManager.class).getActiveLocation().getMap().add(camera);
 
         nickname = new Label();
         nickname.setSize(500, 30);
-        Manager.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(nickname);//TODO Position.location
+        Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(nickname);//TODO Position.location
 
         nickname.setFocusable(false); //Иначе событие мыши перехватывает надпись, и оно не поступает в игру
         nickname.getTextState().setText(name);
@@ -67,7 +67,7 @@ public abstract class Tank extends GameObject {
         if (armor != null && armor.hasComponent(Position.class)) {
             double x = armor.getComponent(Position.class).x - name.length() * 3.45;
             double y = armor.getComponent(Position.class).y - 55;
-            Vector2<Integer> relativePosition = Manager.getService(LocationManager.class).getActiveLocation().camera //TODO не с активной, а из position
+            Vector2<Integer> relativePosition = Context.getService(LocationManager.class).getActiveLocation().camera //TODO не с активной, а из position
                     .toRelativePosition(new Vector2(x, y));
             nickname.setPosition(relativePosition.x, relativePosition.y);
         }
@@ -86,21 +86,22 @@ public abstract class Tank extends GameObject {
             GameObject explosion = GameObjectFactory.create(armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, 3000);
             explosion.setComponent(new Explosion(100));
             explosion.getComponent(Particles.class).destroyObject = true;
-            Manager.getService(LocationManager.class).getActiveLocation().getMap().add(explosion);
+            Context.getService(LocationManager.class).getActiveLocation().getMap().add(explosion);
         }
 
         //Если в данный момент камера установлена на этот объект
-        if (Manager.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() != null && Manager.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() == camera) {
+        if (Context.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() != null && Context.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() == camera) {
             //Выбираем живого врага с инициализированной камерой, переносим камеру туда
-            for (Map.Entry<Integer, Enemy> entry : ClientData.enemy.entrySet()) {
+            for (Map.Entry<Integer, Enemy> entry : Context.getService(ClientData.class).enemy.entrySet()) {
                 if (entry.getValue().camera != null && entry.getValue().alive) {
-                    Manager.getService(LocationManager.class).getActiveLocation().camera.setFollowObject(entry.getValue().camera);
+                    Context.getService(LocationManager.class).getActiveLocation().camera.setFollowObject(entry.getValue().camera);
                     break;
                 }
             }
         }
 
-        Manager.getService(AudioPlayer.class).playSoundEffect(Manager.getService(AudioStorage.class).getAudio("explosion"), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
+        Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().remove(nickname);
+        Context.getService(AudioPlayer.class).playSoundEffect(Context.getService(AudioStorage.class).getAudio("explosion"), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
     }
 
     public void replaceArmor(GameObject newArmor) {
@@ -109,7 +110,7 @@ public abstract class Tank extends GameObject {
 
         armor.destroy();
         armor = newArmor;
-        Manager.getService(LocationManager.class).getActiveLocation().getMap().add(newArmor);
+        Context.getService(LocationManager.class).getActiveLocation().getMap().add(newArmor);
 
         setColorArmor(color);
         camera.setComponent(new Follower(armor));
@@ -120,7 +121,7 @@ public abstract class Tank extends GameObject {
 
         gun.destroy();
         gun = newGun;
-        Manager.getService(LocationManager.class).getActiveLocation().getMap().add(newGun);
+        Context.getService(LocationManager.class).getActiveLocation().getMap().add(newGun);
         setColorGun(color);
     }
 

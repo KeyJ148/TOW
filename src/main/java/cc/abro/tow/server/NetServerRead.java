@@ -1,6 +1,7 @@
 package cc.abro.tow.server;
 
-import cc.abro.orchengine.implementation.NetServerReadInterface;
+import cc.abro.orchengine.context.GameService;
+import cc.abro.orchengine.init.interfaces.NetServerReadInterface;
 import cc.abro.orchengine.net.server.GameServer;
 import cc.abro.orchengine.net.server.MessagePack;
 import cc.abro.orchengine.net.server.senders.ServerSendTCP;
@@ -11,6 +12,7 @@ import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
+@GameService
 public class NetServerRead implements NetServerReadInterface {
 
     @Override

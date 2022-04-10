@@ -26,6 +26,6 @@ public class DestroyedMapObjectCreator extends CollisedMapObjectCreator {
     }
 
     protected double getStability(MapObjectSpecification mapObjectSpecification) {
-        return (double) mapObjectSpecification.getParameters().get("stability");
+        return ((Number) mapObjectSpecification.getParameters().get("stability")).doubleValue();
     }
 }
