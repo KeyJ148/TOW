@@ -20,6 +20,7 @@ import static cc.abro.tow.logs.TestAppender.NAME;
 @Plugin(name = NAME, category = "Core", elementType = "appender", printObject = true)
 public class TestAppender extends AbstractAppender {
 
+    public static final long serialVersionUID = 1567825342486742L;
     public static final String NAME = "TestAppender";
 
     @Getter

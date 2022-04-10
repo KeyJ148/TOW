@@ -27,7 +27,7 @@ import java.util.Arrays;
 @GameService
 public class Game implements GameInterface {
 
-    private static final String SPRITE_CONFIG_PATH = "configs/sprite.json";
+    public static final String SPRITE_CONFIG_PATH = "configs/sprite.json";
 
     private final GuiPanelStorage guiPanelStorage;
     private final LocationManager locationManager;
