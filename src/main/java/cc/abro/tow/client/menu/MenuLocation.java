@@ -20,7 +20,7 @@ public class MenuLocation extends GameLocation {
 
     private static final String BACKGROUND_SPRITE_NAME = "main_menu_background";
 
-    public MenuLocation(boolean settingsLoadSuccess) {
+    public MenuLocation(boolean createFirstEntryPanel) {
         super(Context.getService(Render.class).getWidth(), Context.getService(Render.class).getHeight());
         GuiService guiService = Context.getService(GuiService.class);
 
@@ -38,7 +38,7 @@ public class MenuLocation extends GameLocation {
         getGuiLocationFrame().getGuiFrame().getContainer().add(zeroRuleGuiPanel);
 
 
-        if(settingsLoadSuccess) {
+        if (!createFirstEntryPanel) {
             MainMenuGuiPanel menuGuiPanel = Context.getService(GuiPanelStorage.class).getPanel(MainMenuGuiPanel.class);
             guiService.moveComponentToWindowCenter(menuGuiPanel);
             getGuiLocationFrame().getGuiFrame().getContainer().add(menuGuiPanel);

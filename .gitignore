@@ -10,7 +10,7 @@
 
 #Ignore game created files
 /logs
-/settings
+/setting.json
 
 #Ignore OrchEngine subproject
 /OrchEngine

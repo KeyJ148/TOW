@@ -8,8 +8,7 @@ import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureService;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.orchengine.services.GuiService;
-import cc.abro.tow.client.SettingsStorage;
-import cc.abro.tow.client.services.SettingsService;
+import cc.abro.tow.client.settings.SettingsService;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.ImageView;
 import org.liquidengine.legui.component.Panel;
@@ -64,10 +63,10 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
         add(createLabel("Nickname:", INDENT_PLUS_X, INDENT_PLUS_Y, 30, MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldNickname =
                 createTextAreaField(INDENT_PLUS_X + LABEL_LENGTH_NICKNAME, INDENT_PLUS_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
-                        SettingsStorage.PROFILE.NICKNAME);
+                        Context.getService(SettingsService.class).getSettings().profile.nickname);
         add(textAreaFieldNickname);
 
-        int[] colorFromSettings = SettingsStorage.PROFILE.COLOR;
+        int[] colorFromSettings = Context.getService(SettingsService.class).getSettings().profile.color;
         tankColor = new Color(colorFromSettings);
         BufferedImage defaultTankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
         Texture defaultTankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(defaultTankImage, tankColor));
@@ -96,7 +95,7 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
                 FIRST_ENTRY_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
                     try {
-                        Context.getService(SettingsService.class).setSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
+                        Context.getService(SettingsService.class).setProfileSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
                         getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
                     } catch (SettingsService.EmptyNicknameException e) {
                         addButtonGuiPanelWithUnblockAndBlockFrame(Error.NICKNAME_IS_EMPTY.getText());

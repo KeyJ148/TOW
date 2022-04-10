@@ -1,8 +1,0 @@
-{
-  "WIDTH_SCREEN": 1280,
-  "HEIGHT_SCREEN": 720,
-  "FPS_LIMIT": 120,
-  "VSYNC_DIVIDER": 1,
-  "WINDOW_NAME": "Tanks: Orchestra of war",
-  "FULL_SCREEN": true
-}

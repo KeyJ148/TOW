@@ -8,8 +8,7 @@ import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureService;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.orchengine.services.GuiService;
-import cc.abro.tow.client.SettingsStorage;
-import cc.abro.tow.client.services.SettingsService;
+import cc.abro.tow.client.settings.SettingsService;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.ImageView;
 import org.liquidengine.legui.component.Panel;
@@ -57,10 +56,10 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
         add(createLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldNickname =
                 createTextAreaField(INDENT_X + LABEL_LENGTH_NICKNAME, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
-                        SettingsStorage.PROFILE.NICKNAME);
+                        Context.getService(SettingsService.class).getSettings().profile.nickname);
         add(textAreaFieldNickname);
 
-        int[] colorFromSettings = SettingsStorage.PROFILE.COLOR;
+        int[] colorFromSettings = Context.getService(SettingsService.class).getSettings().profile.color;
         tankColor = new Color(colorFromSettings);
         BufferedImage defaultTankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
         Texture defaultTankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(defaultTankImage, tankColor));
@@ -88,7 +87,8 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
 
         add(createButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
                 BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListener(event -> {
-            if((tankColor.getRGB() != new Color(SettingsStorage.PROFILE.COLOR).getRGB()) || !(textAreaFieldNickname.getTextState().getText().equals(SettingsStorage.PROFILE.NICKNAME))) {
+            if((tankColor.getRGB() != new Color(Context.getService(SettingsService.class).getSettings().profile.color).getRGB()) ||
+                    !(textAreaFieldNickname.getTextState().getText().equals(Context.getService(SettingsService.class).getSettings().profile.nickname))) {
                 addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes. Are you sure you want to go back?", "Yes", "No");
             } else {
                 getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
@@ -98,7 +98,7 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                         getMouseReleaseListener(event -> {
                             try {
-                                Context.getService(SettingsService.class).setSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
+                                Context.getService(SettingsService.class).setProfileSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
                                 getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
                             } catch (SettingsService.EmptyNicknameException e) {
                                 addButtonGuiPanelWithUnblockAndBlockFrame(NICKNAME_IS_EMPTY.getText());

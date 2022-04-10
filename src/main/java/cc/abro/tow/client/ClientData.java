@@ -15,7 +15,7 @@ import java.util.Vector;
 @GameService
 public class ClientData {
 
-    public String name = "Player";
+    public String name = "Player";  //TODO возможно убрать и использовать из SettingsService (и color)
     public Color color = Color.WHITE;
     public Player player;
 
