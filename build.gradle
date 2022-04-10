@@ -5,21 +5,22 @@ plugins {
 
 version = '4.3.0-SNAPSHOT'
 
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 compileJava.options.encoding = "UTF-8"
-//applicationDefaultJvmArgs = ["-Xmx128M"]
+compileJava.sourceCompatibility = '17'
+compileJava.targetCompatibility = '17'
+compileTestJava.options.encoding = "UTF-8"
+compileTestJava.options.compilerArgs += ["-Xlint"]
+
 def startOnFirstThread = System.getenv('START_ON_FIRST_THREAD')
 if (Boolean.parseBoolean(startOnFirstThread) ||
         startOnFirstThread == null && OperatingSystem.current() == OperatingSystem.MAC_OS) {
     applicationDefaultJvmArgs += "-XstartOnFirstThread"
 }
 
-applicationDefaultJvmArgs += ["-Dlog4j.defaultInitOverride=true", "-Dlog4j.configurationFile=log4j2.yml"]
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-compileJava.sourceCompatibility = '17'
-compileJava.targetCompatibility = '17'
-compileTestJava.options.encoding = "UTF-8"
-compileTestJava.options.compilerArgs += ["-Xlint"]
+//applicationDefaultJvmArgs = ["-Xmx128M"]
+//applicationDefaultJvmArgs += ["-Dlog4j.defaultInitOverride=true", "-Dlog4j.configurationFile=log4j2.yml"]
+//applicationDefaultJvmArgs += ["-Dlog4j.debug"]
 
 repositories {
 	mavenCentral()
