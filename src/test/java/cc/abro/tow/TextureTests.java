@@ -26,7 +26,7 @@ public class TextureTests {
         Set<String> brokenImages = new HashSet<>();
         for (SpriteStorage.SpriteContainer spriteContainer : spriteContainers) {
             BufferedImage image = Context.getService(TextureService.class)
-                    .getTexture(spriteContainer.texturePath).getImage();
+                    .getTexture(spriteContainer.texturePath()).getImage();
             int width = image.getWidth();
             int height = image.getHeight();
             int[] pixels = new int[width * height];
@@ -43,7 +43,7 @@ public class TextureTests {
                     int a = (pixel >> 24) & 0xFF;
 
                     if (a == 0 && (r != 0 || g != 0 || b != 0)) {
-                        brokenImages.add(spriteContainer.texturePath);
+                        brokenImages.add(spriteContainer.texturePath());
                         break imageLoop;
                     }
                 }

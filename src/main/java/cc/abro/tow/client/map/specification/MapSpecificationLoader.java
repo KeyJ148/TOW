@@ -29,14 +29,6 @@ public class MapSpecificationLoader {
         }
     }
 
-    private static class MapContainer {
-        public int width, height;
-        public MapObjectContainer[] mapObjectContainers;
-    }
-
-    private static class MapObjectContainer {
-        public int x, y, z;
-        public String type;
-        public Map<String, Object> parameters;
-    }
+    private static record MapContainer (int width, int height, MapObjectContainer[] mapObjectContainers) {}
+    private static record MapObjectContainer (int x, int y, int z, String type, Map<String, Object> parameters) {}
 }

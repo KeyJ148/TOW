@@ -27,7 +27,7 @@ public class TexturedMapObjectCreator implements MapObjectCreator {
     }
 
     protected double getDirection(MapObjectSpecification mapObjectSpecification) {
-        return (double) mapObjectSpecification.getParameters().get("direction");
+        return ((Number) mapObjectSpecification.getParameters().get("direction")).doubleValue();
     }
 
     protected Texture getTexture(MapObjectSpecification mapObjectSpecification) {

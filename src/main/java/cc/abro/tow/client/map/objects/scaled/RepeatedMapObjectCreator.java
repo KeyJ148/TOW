@@ -26,11 +26,11 @@ public class RepeatedMapObjectCreator extends TexturedMapObjectCreator {
     }
 
     protected int getWidth(MapObjectSpecification mapObjectSpecification) {
-        return (int) (double) mapObjectSpecification.getParameters().get("width");
+        return ((Number) mapObjectSpecification.getParameters().get("width")).intValue();
     }
 
     protected int getHeight(MapObjectSpecification mapObjectSpecification) {
-        return (int) (double) mapObjectSpecification.getParameters().get("height");
+        return ((Number) mapObjectSpecification.getParameters().get("height")).intValue();
     }
 
 }
