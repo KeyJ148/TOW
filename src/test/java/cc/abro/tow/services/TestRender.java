@@ -46,7 +46,7 @@ public class TestRender extends Render {
     public void showWindow() {}
 
     @Override
-    public void vsync() {}
+    public void vSync() {}
 
     @Override
     public int getWidth() {

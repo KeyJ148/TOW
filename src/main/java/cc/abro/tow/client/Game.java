@@ -1,5 +1,6 @@
 package cc.abro.tow.client;
 
+import cc.abro.orchengine.audio.AudioPlayer;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.GameService;
 import cc.abro.orchengine.cycle.Render;
@@ -32,11 +33,14 @@ public class Game implements GameInterface {
     private final GuiPanelStorage guiPanelStorage;
     private final LocationManager locationManager;
     private final ClientData clientData;
+    private final AudioPlayer audioPlayer;
 
-    public Game(GuiPanelStorage guiPanelStorage, LocationManager locationManager, ClientData clientData) {
+    public Game(GuiPanelStorage guiPanelStorage, LocationManager locationManager, ClientData clientData,
+                AudioPlayer audioPlayer) {
         this.guiPanelStorage = guiPanelStorage;
         this.locationManager = locationManager;
         this.clientData = clientData;
+        this.audioPlayer = audioPlayer;
     }
 
     @Override
@@ -61,6 +65,7 @@ public class Game implements GameInterface {
             }
         }
 
+        audioPlayer.setVolume(50);
         try {
             SpriteStorage.SpriteContainer[] spriteContainers = JsonContainerLoader.loadInternalFile(
                     SpriteStorage.SpriteContainer[].class, SPRITE_CONFIG_PATH);
