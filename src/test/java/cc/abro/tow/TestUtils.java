@@ -1,5 +1,6 @@
 package cc.abro.tow;
 
+import cc.abro.orchengine.audio.AudioPlayer;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.TestService;
 import cc.abro.orchengine.gui.GuiPanelStorage;
@@ -7,6 +8,7 @@ import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.client.Connector;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.Game;
+import cc.abro.tow.client.settings.SettingsService;
 
 public class TestUtils {
     public static final String DEFAULT_IP = "127.0.0.1";
@@ -34,9 +36,13 @@ public class TestUtils {
         private boolean started = false;
         private final GameAfterStartService gameAfterStartService;
 
-        public GameProxyService(GuiPanelStorage guiPanelStorage, LocationManager locationManager, ClientData clientData,
+        public GameProxyService(GuiPanelStorage guiPanelStorage,
+                                LocationManager locationManager,
+                                ClientData clientData,
+                                AudioPlayer audioPlayer,
+                                SettingsService settingsService,
                                 GameAfterStartService gameAfterStartService) {
-            super(guiPanelStorage, locationManager, clientData);
+            super(guiPanelStorage, locationManager, clientData, audioPlayer, settingsService);
             this.gameAfterStartService = gameAfterStartService;
         }
 

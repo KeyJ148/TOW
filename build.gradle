@@ -17,7 +17,6 @@ if (Boolean.parseBoolean(startOnFirstThread) ||
         startOnFirstThread == null && OperatingSystem.current() == OperatingSystem.MAC_OS) {
     applicationDefaultJvmArgs += "-XstartOnFirstThread"
 }
-
 //applicationDefaultJvmArgs = ["-Xmx128M"]
 //applicationDefaultJvmArgs += ["-Dlog4j.defaultInitOverride=true", "-Dlog4j.configurationFile=log4j2.yml"]
 //applicationDefaultJvmArgs += ["-Dlog4j.debug"]
@@ -99,5 +98,5 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
-    implementation 'org.jetbrains:annotations:15.0'
+    implementation 'org.jetbrains:annotations:23.0.0'
 }
