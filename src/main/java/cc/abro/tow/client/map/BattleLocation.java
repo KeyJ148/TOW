@@ -21,6 +21,8 @@ public class BattleLocation extends GameLocation {
 
     public BattleLocation(MapSpecification mapSpecification) {
         super(mapSpecification.getWidth(), mapSpecification.getHeight());
+        getCamera().setVisibleLocationOnly(true);
+        getCamera().setSoundOnFollowingObject(true);
 
         Border.createAll(this);
         for (MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()) {

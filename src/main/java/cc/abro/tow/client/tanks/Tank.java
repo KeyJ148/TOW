@@ -67,8 +67,8 @@ public abstract class Tank extends GameObject {
         if (armor != null && armor.hasComponent(Position.class)) {
             double x = armor.getComponent(Position.class).x - name.length() * 3.45;
             double y = armor.getComponent(Position.class).y - 55;
-            Vector2<Integer> relativePosition = Context.getService(LocationManager.class).getActiveLocation().camera //TODO не с активной, а из position
-                    .toRelativePosition(new Vector2(x, y));
+            Vector2<Integer> relativePosition = Context.getService(LocationManager.class).getActiveLocation().getCamera() //TODO не с активной, а из position
+                    .toRelativePosition(new Vector2<>((int) x, (int) y));
             nickname.setPosition(relativePosition.x, relativePosition.y);
         }
     }
@@ -90,11 +90,12 @@ public abstract class Tank extends GameObject {
         }
 
         //Если в данный момент камера установлена на этот объект
-        if (Context.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() != null && Context.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() == camera) {
+        if (Context.getService(LocationManager.class).getActiveLocation().getCamera().hasFollowObject() &&
+                Context.getService(LocationManager.class).getActiveLocation().getCamera().getFollowObject() == camera) {
             //Выбираем живого врага с инициализированной камерой, переносим камеру туда
             for (Map.Entry<Integer, Enemy> entry : Context.getService(ClientData.class).enemy.entrySet()) {
                 if (entry.getValue().camera != null && entry.getValue().alive) {
-                    Context.getService(LocationManager.class).getActiveLocation().camera.setFollowObject(entry.getValue().camera);
+                    Context.getService(LocationManager.class).getActiveLocation().getCamera().setFollowObject(entry.getValue().camera);
                     break;
                 }
             }

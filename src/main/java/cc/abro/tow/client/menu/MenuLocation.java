@@ -22,6 +22,9 @@ public class MenuLocation extends GameLocation {
 
     public MenuLocation(boolean createFirstEntryPanel) {
         super(Context.getService(Render.class).getWidth(), Context.getService(Render.class).getHeight());
+        getCamera().setX(getWidth() / 2.0);
+        getCamera().setY(getHeight() / 2.0);
+
         GuiService guiService = Context.getService(GuiService.class);
 
         getMap().background = new Background(Context.getService(SpriteStorage.class).getSprite(BACKGROUND_SPRITE_NAME).getTexture());

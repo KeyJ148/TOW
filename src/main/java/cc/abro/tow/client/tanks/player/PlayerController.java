@@ -305,7 +305,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
 
     //TODO вынести в класс камеры?
     private void cameraToNextEnemy() {
-        if (Context.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() == null){
+        if (!Context.getService(LocationManager.class).getActiveLocation().getCamera().hasFollowObject()){
             return;
         }
         List<Enemy> enemies = getEnemiesWithCamera();
@@ -319,14 +319,14 @@ public class PlayerController extends GameObject implements Collision.CollisionL
         for (int i = pos+1; i < enemiesDouble.size(); i++) {
             Enemy enemy = enemiesDouble.get(i);
             if (enemy.camera != null && enemy.alive) {
-                Context.getService(LocationManager.class).getActiveLocation().camera.setFollowObject(enemy.camera);
+                Context.getService(LocationManager.class).getActiveLocation().getCamera().setFollowObject(enemy.camera);
                 break;
             }
         }
     }
 
     private void cameraToPrevEnemy() {
-        if (Context.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() == null){
+        if (!Context.getService(LocationManager.class).getActiveLocation().getCamera().hasFollowObject()){
             return;
         }
         List<Enemy> enemies = getEnemiesWithCamera();
@@ -340,7 +340,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
         for (int i = pos-1; i >= 0 ; i--) {
             Enemy enemy = enemiesDouble.get(i);
             if (enemy.camera != null && enemy.alive) {
-                Context.getService(LocationManager.class).getActiveLocation().camera.setFollowObject(enemy.camera);
+                Context.getService(LocationManager.class).getActiveLocation().getCamera().setFollowObject(enemy.camera);
                 break;
             }
         }
@@ -358,7 +358,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
     private int getEnemyWithCameraPos(List<Enemy> enemies) {
         int pos = -1;
         for (int i = 0; i < enemies.size(); i++) {
-            if (Context.getService(LocationManager.class).getActiveLocation().camera.getFollowObject() == enemies.get(i).camera) {
+            if (Context.getService(LocationManager.class).getActiveLocation().getCamera().getFollowObject() == enemies.get(i).camera) {
                 pos = i;
                 break;
             }

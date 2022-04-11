@@ -189,7 +189,7 @@ public class NetGameRead implements NetGameReadInterface {
 		Context.getService(ClientData.class).player.win = win;
 
 		Context.getService(LocationManager.class).getActiveLocation().getMap().add(Context.getService(ClientData.class).player);
-		Context.getService(LocationManager.class).getActiveLocation().camera.setFollowObject(Context.getService(ClientData.class).player.camera);
+		Context.getService(LocationManager.class).getActiveLocation().getCamera().setFollowObject(Context.getService(ClientData.class).player.camera);
 
 		//Заполнение таблицы врагов (в соответствтие с id)
 		for (int id = 0; id < Context.getService(ClientData.class).peopleMax; id++) {
@@ -221,7 +221,7 @@ public class NetGameRead implements NetGameReadInterface {
 
 		Context.getService(ClientData.class).battle = false;
 		Context.getService(LocationManager.class).getActiveLocation().destroy();
-		Context.getService(LocationManager.class).getActiveLocation().camera.deleteFollowObject();
+		Context.getService(LocationManager.class).getActiveLocation().getCamera().deleteFollowObject();
 
 		Context.getService(ClientData.class).mapObjects = new Vector<>();
 		Context.getService(ClientData.class).enemyBullet = new ArrayList<>();
