@@ -19,12 +19,14 @@ import java.util.stream.Stream;
 
 public class BattleLocation extends GameLocation {
 
+    private final static int BORDER_SIZE = 100;
+
     public BattleLocation(MapSpecification mapSpecification) {
         super(mapSpecification.getWidth(), mapSpecification.getHeight());
         getCamera().setVisibleLocationOnly(true);
         getCamera().setSoundOnFollowingObject(true);
 
-        Border.createAll(this);
+        Border.createAndAddAll(this, BORDER_SIZE);
         for (MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()) {
             MapObject mapObject = Context.getService(ClientData.class).mapObjectFactory.createMapObject(mapObjectSpecification);
             getMap().add(mapObject);
