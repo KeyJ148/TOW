@@ -49,7 +49,7 @@ public class Game implements GameInterface {
     @Override
     public void init() {
         GameSetting.init();
-        audioPlayer.setVolume(settingsService.getSettings().volume.soundVolume);
+        audioPlayer.setVolume(settingsService.getSettings().getVolume().getSoundVolume());
 
         try {
             SpriteStorage.SpriteContainer[] spriteContainers = JsonContainerLoader.loadInternalFile(
@@ -60,12 +60,12 @@ public class Game implements GameInterface {
             throw new RuntimeException(e);
         }
 
-        if (settingsService.getSettings().graphics.cursorSprite != null) {
-            Texture texture = Context.getService(SpriteStorage.class).getSprite(settingsService.getSettings().graphics.cursorSprite).getTexture();
+        if (settingsService.getSettings().getGraphics().getCursorSprite() != null) {
+            Texture texture = Context.getService(SpriteStorage.class).getSprite(settingsService.getSettings().getGraphics().getCursorSprite()).getTexture();
             Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().setTexture(texture);
         }
-        clientData.name = settingsService.getSettings().profile.nickname;
-        clientData.color = new Color(settingsService.getSettings().profile.color);
+        clientData.name = settingsService.getSettings().getProfile().getNickname();
+        clientData.color = new Color(settingsService.getSettings().getProfile().getColor());
 
         Texture icon = Context.getService(SpriteStorage.class).getSprite("window_icon").getTexture();
         Context.getService(Render.class).setIcon(icon);
@@ -84,8 +84,8 @@ public class Game implements GameInterface {
 
     @Override
     public Render.Settings getRenderSettings() {
-        Settings.Graphics graphics = settingsService.getSettings().graphics;
-        return new Render.Settings(graphics.widthScreen, graphics.heightScreen, graphics.fullScreen,
-                graphics.fpsLimit, graphics.vSyncDivider, WINDOW_NAME);
+        Settings.Graphics graphics = settingsService.getSettings().getGraphics();
+        return new Render.Settings(graphics.getWidthScreen(), graphics.getHeightScreen(), graphics.isFullScreen(),
+                graphics.getFpsLimit(), graphics.getVSyncDivider(), WINDOW_NAME);
     }
 }

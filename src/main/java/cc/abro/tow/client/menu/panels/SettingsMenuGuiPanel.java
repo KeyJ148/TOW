@@ -56,10 +56,10 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
         add(createLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldNickname =
                 createTextAreaField(INDENT_X + LABEL_LENGTH_NICKNAME, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
-                        Context.getService(SettingsService.class).getSettings().profile.nickname);
+                        Context.getService(SettingsService.class).getSettings().getProfile().getNickname());
         add(textAreaFieldNickname);
 
-        int[] colorFromSettings = Context.getService(SettingsService.class).getSettings().profile.color;
+        int[] colorFromSettings = Context.getService(SettingsService.class).getSettings().getProfile().getColor();
         tankColor = new Color(colorFromSettings);
         BufferedImage defaultTankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
         Texture defaultTankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(defaultTankImage, tankColor));
@@ -87,8 +87,8 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBl
 
         add(createButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
                 BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListener(event -> {
-            if((tankColor.getRGB() != new Color(Context.getService(SettingsService.class).getSettings().profile.color).getRGB()) ||
-                    !(textAreaFieldNickname.getTextState().getText().equals(Context.getService(SettingsService.class).getSettings().profile.nickname))) {
+            if((tankColor.getRGB() != new Color(Context.getService(SettingsService.class).getSettings().getProfile().getColor()).getRGB()) ||
+                    !(textAreaFieldNickname.getTextState().getText().equals(Context.getService(SettingsService.class).getSettings().getProfile().getNickname()))) {
                 addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes. Are you sure you want to go back?", "Yes", "No");
             } else {
                 getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);

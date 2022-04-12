@@ -70,8 +70,8 @@ public class SettingsService {
             throw new EmptyNicknameException();
         }
 
-        settings.profile.nickname = nickname;
-        settings.profile.color = tankColor.getRGBArray();
+        settings.getProfile().setNickname(nickname);
+        settings.getProfile().setColor(tankColor.getRGBArray());
         try {
             saveSettingsToDisk();
         } catch (IOException e) {

@@ -326,8 +326,7 @@ public class NetGameRead implements NetGameReadInterface {
 	//я подобрал ящик - (int idBox)
 	public void take21(String str) {
 		int idBox = Integer.parseInt(str.split(" ")[0]);
-		for (int i = 0; i < Context.getService(LocationManager.class).getActiveLocation().getMap().getObjectsVectorSize(); i++) {
-			GameObject gameObject = Context.getService(LocationManager.class).getActiveLocation().getMap().getObject(i);
+		for (GameObject gameObject : Context.getService(LocationManager.class).getActiveLocation().getMap().getObjects()) {
 			if (gameObject instanceof Box && ((Box) gameObject).idBox == idBox) {
 				gameObject.destroy();
 			}

@@ -63,10 +63,10 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
         add(createLabel("Nickname:", INDENT_PLUS_X, INDENT_PLUS_Y, 30, MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldNickname =
                 createTextAreaField(INDENT_PLUS_X + LABEL_LENGTH_NICKNAME, INDENT_PLUS_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
-                        Context.getService(SettingsService.class).getSettings().profile.nickname);
+                        Context.getService(SettingsService.class).getSettings().getProfile().getNickname());
         add(textAreaFieldNickname);
 
-        int[] colorFromSettings = Context.getService(SettingsService.class).getSettings().profile.color;
+        int[] colorFromSettings = Context.getService(SettingsService.class).getSettings().getProfile().getColor();
         tankColor = new Color(colorFromSettings);
         BufferedImage defaultTankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
         Texture defaultTankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(defaultTankImage, tankColor));
