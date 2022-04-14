@@ -25,17 +25,20 @@ import static cc.abro.tow.client.menu.MenuGuiComponents.*;
 
 public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
-    protected final static int FIRST_ENTRY_PANEL_WIDTH = (4 * MENU_ELEMENT_WIDTH / 3) + 1;
-    protected final static int FIRST_ENTRY_PANEL_HEIGHT = (5 * MENU_ELEMENT_HEIGHT / 2) + 1;
-    protected final static int LENGTH_TEXT_AREA_NICK = 100;
-    protected final static int BUTTON_COLOR_SIZE = 15;
-    protected final static int PANEL_COLOR_WIDTH = 45;
-    protected final static int PANEL_COLOR_HEIGHT = 20;
-    protected final static int LABEL_LENGTH_CHAPTER = 310;
-    protected final static int INDENT_PLUS_Y = 15*2 + LABEL_HEIGHT_CHAPTER;
-    protected final static int INDENT_PLUS_TANK_Y = 20 + LABEL_HEIGHT_CHAPTER;
-    protected final static int INDENT_PLUS_X = INDENT_X + 15;
-    protected final static int INDENT_PLUS_TANK_X = 230 + 15;
+    protected static final int FIRST_ENTRY_PANEL_WIDTH = (4 * MENU_ELEMENT_WIDTH / 3) + 1;
+    protected static final int FIRST_ENTRY_PANEL_HEIGHT = (5 * MENU_ELEMENT_HEIGHT / 2) + 1;
+    protected static final int LENGTH_TEXT_AREA_NICK = 100;
+    protected static final int BUTTON_COLOR_SIZE = 15;
+    protected static final int PANEL_COLOR_WIDTH = 45;
+    protected static final int PANEL_COLOR_HEIGHT = 20;
+    protected static final int LABEL_LENGTH_CHAPTER = 310;
+    protected static final int INDENT_PLUS_Y = 15*2 + LABEL_HEIGHT_CHAPTER;
+    protected static final int INDENT_PLUS_TANK_Y = 20 + LABEL_HEIGHT_CHAPTER;
+    protected static final int INDENT_PLUS_X = INDENT_X + 15;
+    protected static final int INDENT_PLUS_TANK_X = 230 + 15;
+    
+    private final GuiService guiService;
+    private final SettingsService settingsService;
 
     private final static Color[] COLORS = {
             new Color(255, 255, 255),
@@ -54,7 +57,8 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
     private Color tankColor;
 
     public FirstEntryGuiPanel() {
-        GuiService guiService = Context.getService(GuiService.class);
+        guiService = Context.getService(GuiService.class);
+        settingsService = Context.getService(SettingsService.class);
         setSize(FIRST_ENTRY_PANEL_WIDTH, FIRST_ENTRY_PANEL_HEIGHT);
 
         add(createLargerLabel("Choose your nickname and color",
@@ -63,10 +67,10 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
         add(createLabel("Nickname:", INDENT_PLUS_X, INDENT_PLUS_Y, 30, MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldNickname =
                 createTextAreaField(INDENT_PLUS_X + LABEL_LENGTH_NICKNAME, INDENT_PLUS_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
-                        Context.getService(SettingsService.class).getSettings().getProfile().getNickname());
+                        settingsService.getSettings().getProfile().getNickname());
         add(textAreaFieldNickname);
 
-        int[] colorFromSettings = Context.getService(SettingsService.class).getSettings().getProfile().getColor();
+        int[] colorFromSettings = settingsService.getSettings().getProfile().getColor();
         tankColor = new Color(colorFromSettings);
         BufferedImage defaultTankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
         Texture defaultTankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(defaultTankImage, tankColor));
@@ -95,7 +99,7 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
                 FIRST_ENTRY_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
                     try {
-                        Context.getService(SettingsService.class).setProfileSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
+                        settingsService.setProfileSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
                         getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
                     } catch (SettingsService.EmptyNicknameException e) {
                         addButtonGuiPanelWithUnblockAndBlockFrame(Error.NICKNAME_IS_EMPTY.getText());

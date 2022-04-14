@@ -1,5 +1,7 @@
 package cc.abro.tow.client.settings;
 
+import java.io.IOException;
+
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.GameService;
 import cc.abro.orchengine.image.Color;
@@ -7,28 +9,26 @@ import cc.abro.orchengine.resources.JsonContainerLoader;
 import cc.abro.tow.client.ClientData;
 import lombok.extern.log4j.Log4j2;
 
-import java.io.IOException;
-
 @Log4j2
 @GameService
 public class SettingsService {
 
     private static final String PATH = "setting.json";
 
-    private boolean loadSuccess;
+    private final boolean loadSuccess;
     private Settings settings;
 
     public SettingsService() {
+        boolean loadSuccess = true;
         try {
             loadSettingsFromDisk();
-            loadSuccess = true;
         } catch (IOException e) {
-            log.warn("Settings can't load. Create default settings and save it to disk.");
-            log.debug(e);
             loadSuccess = false;
+            log.warn("Settings can't load. Create default settings.");
+            log.debug(e);
             setDefaultSettings();
-            saveSettingsToDiskAsync();
         }
+        this.loadSuccess = loadSuccess;
     }
 
     public void setDefaultSettings() {
