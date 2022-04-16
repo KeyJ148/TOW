@@ -77,18 +77,6 @@ public class Armor extends GameObject {
         player.effects.remove(effect);
     }
 
-    @Override
-    public void draw() {
-        super.draw();
-        if (player.armor != this) {
-            System.out.println("???");
-            //TODO для дебага. Рендер происходит в чанках, которых нет в DepthVector.
-            //TODO Мб проблема в cc.abro.orchengine.location.map.DepthVector.pointToChunk
-        } else {
-            System.out.println("DRAW OK");
-        }
-    }
-
     public String getConfigFileName() {
         return PATH_SETTING + name + ".properties";
     }
