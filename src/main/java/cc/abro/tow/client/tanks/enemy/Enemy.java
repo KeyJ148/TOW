@@ -115,7 +115,7 @@ public class Enemy extends Tank {
         armor.setComponent(new AnimationRender(Context.getService(AnimationStorage.class).getAnimation(nameArmor).getTextures()));
         setColorArmor(color);
 
-        Context.getService(LocationManager.class).getActiveLocation().getMap().mapControl.update(armor);
+        Context.getService(LocationManager.class).getActiveLocation().getMap().layersContainer.update(armor);
     }
 
     public void newGun(String nameGun) {
@@ -124,6 +124,6 @@ public class Enemy extends Tank {
         gun.setComponent(new SpriteRender(Context.getService(SpriteStorage.class).getSprite(nameGun).getTexture()));
         setColorGun(color);
 
-        Context.getService(LocationManager.class).getActiveLocation().getMap().mapControl.update(gun);
+        Context.getService(LocationManager.class).getActiveLocation().getMap().layersContainer.update(gun);
     }
 }
