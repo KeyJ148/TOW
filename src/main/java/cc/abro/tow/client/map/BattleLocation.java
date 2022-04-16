@@ -3,7 +3,7 @@ package cc.abro.tow.client.map;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObjectFactory;
-import cc.abro.orchengine.location.map.Border;
+import cc.abro.orchengine.location.objects.Border;
 import cc.abro.orchengine.net.client.PingChecker;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.GameLocation;
@@ -29,7 +29,7 @@ public class BattleLocation extends GameLocation {
         Border.createAndAddAll(this, BORDER_SIZE);
         for (MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()) {
             MapObject mapObject = Context.getService(ClientData.class).mapObjectFactory.createMapObject(mapObjectSpecification);
-            getMap().add(mapObject);
+            getObjectsContainer().add(mapObject);
             Context.getService(ClientData.class).mapObjects.add(mapObjectSpecification.getId(), mapObject);
         }
 
@@ -41,7 +41,7 @@ public class BattleLocation extends GameLocation {
         GameTabGuiPanel gameTabGuiPanel = new GameTabGuiPanel(Context.getService(ClientData.class).peopleMax);
         gameTabGuiPanel.changePosition();
         TabPanelComponent tabPanelComponent = new TabPanelComponent(gameTabGuiPanel);
-        getMap().add(GameObjectFactory.create(tabPanelComponent));
+        getObjectsContainer().add(GameObjectFactory.create(tabPanelComponent));
     }
 
     //TODO в отдельный класс или упростить в новой системе компонент

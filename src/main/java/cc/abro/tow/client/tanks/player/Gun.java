@@ -87,7 +87,7 @@ public class Gun extends GameObject {
                 player.bullet.name
         );
 
-        Context.getService(LocationManager.class).getActiveLocation().getMap().add(newBullet);
+        Context.getService(LocationManager.class).getActiveLocation().getObjectsContainer().add(newBullet);
     }
 
     public String getConfigFileName() {

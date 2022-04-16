@@ -60,7 +60,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
         getFrame().getContainer().add(connectedGuiPanel.panel());
 
         ConnectedPlayersUpdater connectedPlayersUpdater = new ConnectedPlayersUpdater(connectedGuiPanel.label());
-        Context.getService(LocationManager.class).getActiveLocation().getMap()
+        Context.getService(LocationManager.class).getActiveLocation().getObjectsContainer()
                 .add(GameObjectFactory.create(connectedPlayersUpdater));
 
         try {

@@ -58,17 +58,17 @@ public class Player extends Tank {
         setComponent(new Position(x, y, 0));
 
         controller = new PlayerController(this);
-        Context.getService(LocationManager.class).getActiveLocation().getMap().add(controller);
+        Context.getService(LocationManager.class).getActiveLocation().getObjectsContainer().add(controller);
 
         armor = new ADefault();
         ((Armor) armor).init(this, x, y, direction, "ADefault");
         effects.add(((Armor) armor).effect);
-        Context.getService(LocationManager.class).getActiveLocation().getMap().add(armor);
+        Context.getService(LocationManager.class).getActiveLocation().getObjectsContainer().add(armor);
 
         gun = new GDefault();
         ((Gun) gun).init(this, x, y, direction, "GDefault");
         effects.add(((Gun) gun).effect);
-        Context.getService(LocationManager.class).getActiveLocation().getMap().add(gun);
+        Context.getService(LocationManager.class).getActiveLocation().getObjectsContainer().add(gun);
 
         bullet = new BulletFactory("BDefault", this);
 

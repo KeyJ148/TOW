@@ -25,7 +25,7 @@ public class GameLocation extends Location {
         getGuiLocationFrame().getGuiFrame().getContainer().add(debugGuiPanel);
 
         DebugInfoComponent debugInfoComponent = new DebugInfoComponent(debugGuiPanel);
-        getMap().add(GameObjectFactory.create(debugInfoComponent));
+        getObjectsContainer().add(GameObjectFactory.create(debugInfoComponent));
     }
 
     //TODO вынести в отдельный класс или упростить в новой системе компонент

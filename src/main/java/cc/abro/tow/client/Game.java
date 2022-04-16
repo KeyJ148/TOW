@@ -19,6 +19,7 @@ import cc.abro.tow.client.menu.panels.ListOfServersMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
 import cc.abro.tow.client.settings.Settings;
 import cc.abro.tow.client.settings.SettingsService;
+import cc.abro.tow.server.ServerLoader;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
@@ -77,7 +78,8 @@ public class Game implements GameInterface {
         guiPanelStorage.registry(new ListOfServersMenuGuiPanel());
         guiPanelStorage.registry(new CreateGameMenuGuiPanel());
 
-        //TODO ServerLoader.mapPath = "maps/town10k.maptest";
+        //TODO
+        ServerLoader.mapPath = "maps/town10k.maptest";
 
         locationManager.setActiveLocation(new MenuLocation(!settingsService.isLoadSuccess()));
     }

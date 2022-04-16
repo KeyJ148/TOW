@@ -7,7 +7,7 @@ import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.location.LocationManager;
-import cc.abro.orchengine.location.map.Border;
+import cc.abro.orchengine.location.objects.Border;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.ClientData;
