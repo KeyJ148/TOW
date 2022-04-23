@@ -68,7 +68,7 @@ public class Enemy extends Tank {
         if (armor == null) {
             Animation armorAnimation = Context.getService(AnimationStorage.class).getAnimation("a_default");
             armor = new EnemyArmor(x, y, direction, 1000, armorAnimation, this);
-            Context.getService(LocationManager.class).getActiveLocation().getObjectsContainer().add(armor);
+            Context.getService(LocationManager.class).getActiveLocation().add(armor);
             setColorArmor(color);
 
             setComponent(new Follower(armor));
@@ -82,7 +82,7 @@ public class Enemy extends Tank {
             gun.setComponent(new Movement());
             gun.getComponent(Movement.class).directionDrawEquals = false;
             gun.setComponent(new Follower(armor, false));
-            Context.getService(LocationManager.class).getActiveLocation().getObjectsContainer().add(gun);
+            Context.getService(LocationManager.class).getActiveLocation().add(gun);
             setColorGun(color);
         }
 
@@ -115,7 +115,7 @@ public class Enemy extends Tank {
         armor.setComponent(new AnimationRender(Context.getService(AnimationStorage.class).getAnimation(nameArmor).getTextures()));
         setColorArmor(color);
 
-        Context.getService(LocationManager.class).getActiveLocation().getObjectsContainer().update(armor);
+        Context.getService(LocationManager.class).getActiveLocation().checkGameObjectChunkChanged(armor);
     }
 
     public void newGun(String nameGun) {
@@ -124,6 +124,6 @@ public class Enemy extends Tank {
         gun.setComponent(new SpriteRender(Context.getService(SpriteStorage.class).getSprite(nameGun).getTexture()));
         setColorGun(color);
 
-        Context.getService(LocationManager.class).getActiveLocation().getObjectsContainer().update(gun);
+        Context.getService(LocationManager.class).getActiveLocation().checkGameObjectChunkChanged(gun);
     }
 }

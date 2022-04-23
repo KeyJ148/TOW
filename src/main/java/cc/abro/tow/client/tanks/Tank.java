@@ -50,7 +50,7 @@ public abstract class Tank extends GameObject {
     public void initCamera() {
         //Инициализация камеры
         camera = GameObjectFactory.create(0, 0, 0);
-        locationManager.getActiveLocation().getObjectsContainer().add(camera);
+        locationManager.getActiveLocation().add(camera);
 
         nickname = new Label();
         nickname.setSize(500, 30);
@@ -88,7 +88,7 @@ public abstract class Tank extends GameObject {
             GameObject explosion = GameObjectFactory.create(armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, 3000);
             explosion.setComponent(new Explosion(100));
             explosion.getComponent(Particles.class).destroyObject = true;
-            locationManager.getActiveLocation().getObjectsContainer().add(explosion);
+            locationManager.getActiveLocation().add(explosion);
         }
 
         //Если в данный момент камера установлена на этот объект
@@ -113,7 +113,7 @@ public abstract class Tank extends GameObject {
 
         armor.destroy();
         armor = newArmor;
-        locationManager.getActiveLocation().getObjectsContainer().add(newArmor);
+        locationManager.getActiveLocation().add(newArmor);
 
         setColorArmor(color);
         camera.setComponent(new Follower(armor));
@@ -124,7 +124,7 @@ public abstract class Tank extends GameObject {
 
         gun.destroy();
         gun = newGun;
-        locationManager.getActiveLocation().getObjectsContainer().add(newGun);
+        locationManager.getActiveLocation().add(newGun);
         setColorGun(color);
     }
 

@@ -188,7 +188,7 @@ public class NetGameRead implements NetGameReadInterface {
 		Context.getService(ClientData.class).player.death = death;
 		Context.getService(ClientData.class).player.win = win;
 
-		Context.getService(LocationManager.class).getActiveLocation().getObjectsContainer().add(Context.getService(ClientData.class).player);
+		Context.getService(LocationManager.class).getActiveLocation().add(Context.getService(ClientData.class).player);
 		Context.getService(LocationManager.class).getActiveLocation().getCamera().setFollowObject(Context.getService(ClientData.class).player.camera);
 
 		//Заполнение таблицы врагов (в соответствтие с id)
@@ -198,7 +198,7 @@ public class NetGameRead implements NetGameReadInterface {
 
 		//Добавляем на карту врагов
 		for (Map.Entry<Integer, Enemy> entry : Context.getService(ClientData.class).enemy.entrySet()) {
-			Context.getService(LocationManager.class).getActiveLocation().getObjectsContainer().add(entry.getValue());
+			Context.getService(LocationManager.class).getActiveLocation().add(entry.getValue());
 		}
 	}
 
@@ -209,7 +209,7 @@ public class NetGameRead implements NetGameReadInterface {
 		int type = Integer.parseInt(str.split(" ")[2]);
 		int idBox = Integer.parseInt(str.split(" ")[3]);
 
-		Context.getService(LocationManager.class).getActiveLocation().getObjectsContainer().add(new Box(x, y, type, idBox));
+		Context.getService(LocationManager.class).getActiveLocation().add(new Box(x, y, type, idBox));
 	}
 
 	//начало рестарта
@@ -262,7 +262,7 @@ public class NetGameRead implements NetGameReadInterface {
 
 		EnemyBullet enemyBullet = new EnemyBullet(x, y, speed, direction, spriteStorage.getSprite(texture).getTexture(), idEmeny, idNet);
 		Context.getService(ClientData.class).enemyBullet.add(enemyBullet);
-		Context.getService(LocationManager.class).getActiveLocation().getObjectsContainer().add(enemyBullet);
+		Context.getService(LocationManager.class).getActiveLocation().add(enemyBullet);
 	}
 
 	//я нанёс урон игроку enemyId (double damage, int idSuffer, int idDamager)
@@ -326,7 +326,7 @@ public class NetGameRead implements NetGameReadInterface {
 	//я подобрал ящик - (int idBox)
 	public void take21(String str) {
 		int idBox = Integer.parseInt(str.split(" ")[0]);
-		for (GameObject gameObject : Context.getService(LocationManager.class).getActiveLocation().getObjectsContainer().getObjects()) {
+		for (GameObject gameObject : Context.getService(LocationManager.class).getActiveLocation().getObjects()) {
 			if (gameObject instanceof Box && ((Box) gameObject).idBox == idBox) {
 				gameObject.destroy();
 			}

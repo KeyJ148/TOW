@@ -8,6 +8,7 @@ import cc.abro.orchengine.net.client.PingChecker;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.GameLocation;
 import cc.abro.tow.client.GameTabGuiPanel;
+import cc.abro.tow.client.map.objects.scaled.RepeatedMapObjectCreator;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;
 import cc.abro.tow.client.map.specification.MapSpecification;
 
@@ -29,7 +30,11 @@ public class BattleLocation extends GameLocation {
         Border.createAndAddAll(this, BORDER_SIZE);
         for (MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()) {
             MapObject mapObject = Context.getService(ClientData.class).mapObjectFactory.createMapObject(mapObjectSpecification);
-            getObjectsContainer().add(mapObject);
+            if (mapObject.getType().equals(new RepeatedMapObjectCreator().getType())) {
+                addUnsuitableObject(mapObject);
+            } else {
+                add(mapObject);
+            }
             Context.getService(ClientData.class).mapObjects.add(mapObjectSpecification.getId(), mapObject);
         }
 
@@ -41,7 +46,7 @@ public class BattleLocation extends GameLocation {
         GameTabGuiPanel gameTabGuiPanel = new GameTabGuiPanel(Context.getService(ClientData.class).peopleMax);
         gameTabGuiPanel.changePosition();
         TabPanelComponent tabPanelComponent = new TabPanelComponent(gameTabGuiPanel);
-        getObjectsContainer().add(GameObjectFactory.create(tabPanelComponent));
+        add(GameObjectFactory.create(tabPanelComponent));
     }
 
     //TODO в отдельный класс или упростить в новой системе компонент

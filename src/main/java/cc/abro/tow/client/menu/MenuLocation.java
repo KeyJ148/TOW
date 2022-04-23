@@ -22,8 +22,6 @@ public class MenuLocation extends GameLocation {
 
     public MenuLocation(boolean createFirstEntryPanel) {
         super(Context.getService(Render.class).getWidth(), Context.getService(Render.class).getHeight());
-        getCamera().setX(getWidth() / 2.0);
-        getCamera().setY(getHeight() / 2.0);
 
         GuiService guiService = Context.getService(GuiService.class);
 
@@ -54,6 +52,6 @@ public class MenuLocation extends GameLocation {
         addDebugPanel(4);
         MenuEventController controller = new MenuEventController();
         controller.setComponent(new Position(0, 0, 0));
-        getObjectsContainer().add(controller);
+        add(controller);
     }
 }

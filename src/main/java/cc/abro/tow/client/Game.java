@@ -78,7 +78,6 @@ public class Game implements GameInterface {
         guiPanelStorage.registry(new ListOfServersMenuGuiPanel());
         guiPanelStorage.registry(new CreateGameMenuGuiPanel());
 
-        //TODO
         ServerLoader.mapPath = "maps/town10k.maptest";
 
         locationManager.setActiveLocation(new MenuLocation(!settingsService.isLoadSuccess()));
