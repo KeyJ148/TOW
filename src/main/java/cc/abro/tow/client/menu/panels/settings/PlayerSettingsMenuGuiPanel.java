@@ -2,6 +2,7 @@ package cc.abro.tow.client.menu.panels.settings;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
+import cc.abro.orchengine.gui.tabpanel.TabPanel;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
@@ -20,8 +21,13 @@ import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.image.FBOImage;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.Background;
+import org.liquidengine.legui.style.border.SimpleLineBorder;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 import static cc.abro.tow.client.menu.InterfaceStyles.BUTTON_HEIGHT;
@@ -51,10 +57,9 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
 
     private Color tankColor;
 
-    private final MenuGuiPanel parent;
+    public Function<Panel, Boolean> canOut;
 
-    public PlayerSettingsMenuGuiPanel(MenuGuiPanel parent) {
-        this.parent = parent;
+    public PlayerSettingsMenuGuiPanel(MenuGuiPanel parent, TabPanel tabPanel) {
         setSize(SETTINGS_PANEL_WIDTH, SETTINGS_PANEL_HEIGHT);
         setPosition(THICKNESS_OF_PANEL_BORDER, THICKNESS_OF_PANEL_BORDER);
         add(createLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT));
@@ -78,37 +83,80 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
             final int fi = i;
             addColorButton(INDENT_X + (BUTTON_COLOR_SIZE + 2) * i, INDENT_Y + MENU_TEXT_FIELD_HEIGHT + 10, COLORS[i],
                     getMouseReleaseListener(event -> {
-                        tankColor = COLORS[fi];
-
-                        BufferedImage tankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
-                        Texture tankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(tankImage, tankColor));
-                        //TODO здесь надо вызывать delete у defaultTankTexture и переопределять defaultTankTexture = tankTexture
-                        //TODO при закрытие панели не забыть очистить и tankTexture
-                        FBOImage newTankFBOImage = new FBOImage(tankTexture.getId(), tankTexture.getWidth(), tankTexture.getHeight());
-                        imageView.setImage(newTankFBOImage);
+                        changeTankColor(COLORS[fi], imageView);
                     }));
         }
 
-        add(createButton("Back to menu", INDENT_X, SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListener(event -> {
+        final int BUTTON_INDENT_X = (SETTINGS_PANEL_WIDTH - BUTTON_WIDTH*3)/5;
+
+        add(createButton("Back to menu", BUTTON_INDENT_X,
+                SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
+                BUTTON_WIDTH, BUTTON_HEIGHT,
+                getMouseReleaseListener(event -> {
+                    BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
                     if((tankColor.getRGB() != new Color(SettingsStorage.PROFILE.COLOR).getRGB()) || !(textAreaFieldNickname.getTextState().getText().equals(SettingsStorage.PROFILE.NICKNAME))) {
-                        addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes. Are you sure you want to go back?", "Yes", "No");
+                        addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes.",
+                                new ButtonConfiguration("Back to menu", getMouseReleaseListener(buttonEvent -> {
+                                    getUnblockAndParentDestroyReleaseListener(guiBlock).process(buttonEvent);
+                                    parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(buttonEvent);
+                                })),
+                                new ButtonConfiguration("Save & back", getMouseReleaseListener(buttonEvent -> {
+                                    getUnblockAndParentDestroyReleaseListener(guiBlock).process(buttonEvent);
+                                    saveChanges(textAreaFieldNickname.getTextState().getText());
+                                    parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(buttonEvent);
+                                })),
+                                new ButtonConfiguration("Return editing", getUnblockAndParentDestroyReleaseListener(guiBlock)));
                     } else {
                         parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
                     }
                 })));
-        add(createButton("Confirm", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X,
-                SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
+        add(createButton("Save & back", SETTINGS_PANEL_WIDTH - (BUTTON_WIDTH + BUTTON_INDENT_X) * 2,
+                SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
+                BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
-                    try {
-                        Context.getService(SettingsService.class).setSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
-                        parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
-                    } catch (SettingsService.EmptyNicknameException e) {
-                        addButtonGuiPanelWithUnblockAndBlockFrame(NICKNAME_IS_EMPTY.getText());
-                    } catch (SettingsService.CantSaveSettingException e) {
-                        addButtonGuiPanelWithUnblockAndBlockFrame(CANT_SAVE_SETTINGS.getText());
-                    }
+                    saveChanges(textAreaFieldNickname.getTextState().getText());
+                    parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
                 })));
+
+        add(createButton("Save", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - BUTTON_INDENT_X,
+                SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
+                BUTTON_WIDTH, BUTTON_HEIGHT,
+                getMouseReleaseListener(event -> saveChanges(textAreaFieldNickname.getTextState().getText()))));
+
+        canOut = (to -> {
+            if((tankColor.getRGB() != new Color(SettingsStorage.PROFILE.COLOR).getRGB()) || !(textAreaFieldNickname.getTextState().getText().equals(SettingsStorage.PROFILE.NICKNAME))) {
+                BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
+                addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes.",
+                        new ButtonConfiguration("Switch without saving", event -> {
+                            getUnblockAndParentDestroyReleaseListener(guiBlock).process(event);
+                            changeTankColor(new Color(SettingsStorage.PROFILE.COLOR), imageView);
+                            textAreaFieldNickname.getTextState().setText(SettingsStorage.PROFILE.NICKNAME);
+                            tabPanel.setActivePanelFromTiedPair(tabPanel.getTideButtonPanel(to));
+                        }),
+                        new ButtonConfiguration("Save changes & switch", event -> {
+                            getUnblockAndParentDestroyReleaseListener(guiBlock).process(event);
+                            saveChanges(textAreaFieldNickname.getTextState().getText());
+                            tabPanel.setActivePanelFromTiedPair(tabPanel.getTideButtonPanel(to));
+                        }),
+                        new ButtonConfiguration("Don't switch", event -> {
+                            getUnblockAndParentDestroyReleaseListener(guiBlock).process(event);
+                        }));
+                return false;
+            } else {
+                return true;
+            }
+        });
+
+    }
+
+    private void saveChanges(String nickname) {
+        try {
+            Context.getService(SettingsService.class).setSettings(nickname, tankColor);
+        } catch (SettingsService.EmptyNicknameException e) {
+            addButtonGuiPanelWithUnblockAndBlockFrame(NICKNAME_IS_EMPTY.getText());
+        } catch (SettingsService.CantSaveSettingException e) {
+            addButtonGuiPanelWithUnblockAndBlockFrame(CANT_SAVE_SETTINGS.getText());
+        }
     }
 
     private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {
@@ -118,14 +166,8 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
         getFrame().getContainer().add(panel);
     }
 
-    private void addDialogGuiPanelWithUnblockAndBlockFrame(String labelText, String leftButton, String rightButton) {
-        BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
-        Panel panel = createDialogPanel(labelText,
-                new ButtonConfiguration(leftButton, getMouseReleaseListener(event -> {
-                    getUnblockAndParentDestroyReleaseListener(guiBlock).process(event);
-                    parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
-                })),
-                new ButtonConfiguration(rightButton, getUnblockAndParentDestroyReleaseListener(guiBlock))).panel();
+    private void addDialogGuiPanelWithUnblockAndBlockFrame(String labelText, ButtonConfiguration... buttonConfigurations) {
+        Panel panel = createDialogPanel(labelText, buttonConfigurations).panel();
         Context.getService(GuiService.class).moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }
@@ -140,6 +182,16 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
         button.setSize(BUTTON_COLOR_SIZE, BUTTON_COLOR_SIZE);
         button.setPosition(x, y);
         add(button);
+    }
+
+    private void changeTankColor(Color color, ImageView imageView) {
+        tankColor = color;
+        BufferedImage tankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
+        Texture tankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(tankImage, tankColor));
+        //TODO здесь надо вызывать delete у defaultTankTexture и переопределять defaultTankTexture = tankTexture
+        //TODO при закрытие панели не забыть очистить и tankTexture
+        FBOImage newTankFBOImage = new FBOImage(tankTexture.getId(), tankTexture.getWidth(), tankTexture.getHeight());
+        imageView.setImage(newTankFBOImage);
     }
 
     //TODO в отдельный сервис по покраске или работе с текстурами

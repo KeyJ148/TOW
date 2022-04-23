@@ -1,5 +1,6 @@
 package cc.abro.tow.client.menu;
 
+import com.google.common.base.Optional;
 import org.liquidengine.legui.component.*;
 import org.liquidengine.legui.component.optional.align.HorizontalAlign;
 import org.liquidengine.legui.event.MouseClickEvent;
@@ -7,6 +8,8 @@ import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.font.FontRegistry;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
@@ -75,9 +78,6 @@ public final class MenuGuiComponents {
         Button button = new Button(text);
         button.getListenerMap().addListener(MouseClickEvent.class, mouseClickEventListener);
         button.setStyle(createButtonStyle());
-        button.getStyle().setFont(FontRegistry.ROBOTO_REGULAR);
-        button.getStyle().setFontSize(BUTTON_FONT_SIZE);
-        button.getStyle().setHorizontalAlign(HorizontalAlign.CENTER);
         button.getHoveredStyle().setBackground(createHoveredButtonBackground());
         button.getPressedStyle().setBackground(createPressedButtonBackground());
         button.setPosition(x, y);
@@ -141,17 +141,18 @@ public final class MenuGuiComponents {
     }
 
     public static DialogGuiPanel createDialogPanel(String labelText, ButtonConfiguration... buttonConfigurations) {
+        final int BUTTON_WIDTH = Arrays.stream(buttonConfigurations).max(Comparator.comparing(ButtonConfiguration::text)).get().text.length() * 11;
         LabelGuiPanel labelGuiPanel = createLabelPanel(labelText,
-                buttonConfigurations.length * (SMALL_BUTTON_WIDTH + INDENT_X) + INDENT_X, BLOCKING_BUTTON_ELEMENT_HEIGHT);
+                buttonConfigurations.length * (BUTTON_WIDTH + INDENT_X) + INDENT_X, BLOCKING_BUTTON_ELEMENT_HEIGHT);
         ArrayList<Button> buttons = new ArrayList<>();
-        int indent = (int) (labelGuiPanel.panel.getSize().x - SMALL_BUTTON_WIDTH * buttonConfigurations.length) /
+        int indent = (int) (labelGuiPanel.panel.getSize().x - BUTTON_WIDTH * buttonConfigurations.length) /
                 (buttonConfigurations.length + 1);
         for(int i = 0; i < buttonConfigurations.length; i++) {
             ButtonConfiguration buttonConfiguration = buttonConfigurations[i];
             Button button = createButton(buttonConfiguration.text,
-                    i * (SMALL_BUTTON_WIDTH + indent) + indent,
+                    i * (BUTTON_WIDTH + indent) + indent,
                     (int) labelGuiPanel.panel.getSize().y - BUTTON_HEIGHT - BLOCKING_BUTTON_INDENT_Y,
-                    SMALL_BUTTON_WIDTH, BUTTON_HEIGHT, buttonConfiguration.eventListener);
+                    BUTTON_WIDTH, BUTTON_HEIGHT, buttonConfiguration.eventListener);
             labelGuiPanel.panel.add(button);
             buttons.add(button);
         }

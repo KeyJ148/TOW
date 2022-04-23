@@ -11,7 +11,7 @@ public final class InterfaceStyles {
 
     public final static int MENU_ELEMENT_WIDTH = 250;
     public final static int MENU_ELEMENT_HEIGHT = 70;
-    public final static int SETTINGS_PANEL_WIDTH = 4 * MENU_ELEMENT_WIDTH / 3 + 1;
+    public final static int SETTINGS_PANEL_WIDTH = 5 * MENU_ELEMENT_WIDTH/3 + 1;
     public final static int SETTINGS_PANEL_HEIGHT = 3 * MENU_ELEMENT_HEIGHT;
     public final static int BLOCKING_BUTTON_ELEMENT_WIDTH = 360;
     public final static int BLOCKING_BUTTON_ELEMENT_HEIGHT = 90;
@@ -25,6 +25,7 @@ public final class InterfaceStyles {
     public final static int BUTTON_WIDTH = 106;
     public final static int SMALL_BUTTON_WIDTH = BUTTON_WIDTH/2;
     public final static int BUTTON_HEIGHT = 23;
+    public final static int TAB_BUTTON_HEIGHT = 26;
     public final static int MENU_TEXT_FIELD_HEIGHT = BUTTON_HEIGHT;
 
     public final static int TEXT_AREA_LENGTH_MAX_PEOPLE = 20;
@@ -234,6 +235,21 @@ public final class InterfaceStyles {
         style.setBackground(createButtonBackground());
         style.setTextColor(BLACK_COLOR);
         style.setBorderRadius(BUTTON_RADIUS);
+        style.setFont(FontRegistry.ROBOTO_REGULAR);
+        style.setFontSize(BUTTON_FONT_SIZE);
+        style.setHorizontalAlign(HorizontalAlign.CENTER);
+        return style;
+    }
+
+    public static Style createActiveButtonStyle() {
+        Style style = new Style();
+        style.setBorder(new SimpleLineBorder(INVISIBLE_COLOR, 0));
+        style.setBackground(createHoveredButtonBackground());
+        style.setTextColor(BLACK_COLOR);
+        style.setBorderRadius(BUTTON_RADIUS);
+        style.setFont(FontRegistry.ROBOTO_REGULAR);
+        style.setFontSize(BUTTON_FONT_SIZE);
+        style.setHorizontalAlign(HorizontalAlign.CENTER);
         return style;
     }
 
