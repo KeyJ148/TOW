@@ -62,10 +62,10 @@ node {
             
         stage('Gradle build') {
             dir ('repo') {
-                sh './gradlew distZip'
+                sh './gradlew --no-daemon distZip'
             }
         }
-        
+
         stage('Check and update caches') {
             dir ('cache'){
                 for (String file : FILES) {
@@ -86,10 +86,10 @@ node {
                 }
             }
         }
-        
+
         stage('Create game client') {
             dir ('repo') {
-                VERSION = sh (script: './gradlew properties | grep "version"', returnStdout: true).split(' ')[1].trim()
+                VERSION = sh (script: './gradlew --no-daemon properties | grep "version"', returnStdout: true).split(' ')[1].trim()
             }
             dir('game'){
                 deleteDir()
@@ -98,7 +98,7 @@ node {
             sh "unzip -X repo/build/distributions/TOW-${VERSION}.zip -d game"
             dir("game/TOW-${VERSION}") {
                 sh 'mkdir jdk'
-                if (Target_OS == 'Windows' || Target_OS == 'Linux' || Target_OS == 'Linux ARM') {  
+                if (Target_OS == 'Windows' || Target_OS == 'Linux' || Target_OS == 'Linux ARM') {
                     sh "cp -R ../../cache/${JDK_NAME}/jdk-${JAVA_VERSION}/* jdk/"
                 } else if (Target_OS == 'MacOS' || Target_OS == 'MacOS ARM') {
                     sh "cp -R ../../cache/${JDK_NAME}/jdk-${JAVA_VERSION}.jdk/* jdk/"
@@ -141,10 +141,10 @@ node {
                     break;
             }
         }
-        
+
         stage('Create docs') {
             dir ('repo') {
-                sh './gradlew javadoc'
+                sh './gradlew --no-daemon javadoc'
                 zip zipFile: '../publish/javadoc.zip', dir: 'build/docs/javadoc'
             }
         }
