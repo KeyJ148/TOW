@@ -60,10 +60,10 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
         add(createLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldNickname =
                 createTextAreaField(INDENT_X + LABEL_LENGTH_NICKNAME, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
-                        settings.profile.nickname);
+                        settings.getProfile().getNickname());
         add(textAreaFieldNickname);
 
-        int[] colorFromSettings = settings.profile.color;
+        int[] colorFromSettings = settings.getProfile().getColor();
         tankColor = new Color(colorFromSettings);
         BufferedImage defaultTankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
         Texture defaultTankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(defaultTankImage, tankColor));
@@ -89,8 +89,8 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
                 BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
                     BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
-                    if((tankColor.getRGB() != new Color(settings.profile.color).getRGB()) ||
-                            !(textAreaFieldNickname.getTextState().getText().equals(settings.profile.nickname))) {
+                    if((tankColor.getRGB() != new Color(settings.getProfile().getColor()).getRGB()) ||
+                            !(textAreaFieldNickname.getTextState().getText().equals(settings.getProfile().getNickname()))) {
                         addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes.",
                                 new ButtonConfiguration("Back to menu", getMouseReleaseListener(buttonEvent -> {
                                     getUnblockAndParentDestroyReleaseListener(guiBlock).process(buttonEvent);
@@ -120,14 +120,14 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
                 getMouseReleaseListener(event -> saveChanges(textAreaFieldNickname.getTextState().getText()))));
 
         canOut = (to -> {
-            if((tankColor.getRGB() != new Color(settings.profile.color).getRGB()) ||
-                    !(textAreaFieldNickname.getTextState().getText().equals(settings.profile.nickname))) {
+            if((tankColor.getRGB() != new Color(settings.getProfile().getColor()).getRGB()) ||
+                    !(textAreaFieldNickname.getTextState().getText().equals(settings.getProfile().getNickname()))) {
                 BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
                 addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes.",
                         new ButtonConfiguration("Switch without saving", event -> {
                             getUnblockAndParentDestroyReleaseListener(guiBlock).process(event);
-                            changeTankColor(new Color(settings.profile.color), imageView);
-                            textAreaFieldNickname.getTextState().setText(settings.profile.nickname);
+                            changeTankColor(new Color(settings.getProfile().getColor()), imageView);
+                            textAreaFieldNickname.getTextState().setText(settings.getProfile().getNickname());
                             tabPanel.setActivePanelFromTiedPair(tabPanel.getTideButtonPanel(to));
                         }),
                         new ButtonConfiguration("Save changes & switch", event -> {
