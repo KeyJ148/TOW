@@ -6,6 +6,7 @@ import cc.abro.tow.client.menu.panels.MenuGuiPanel;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.Component;
 import org.liquidengine.legui.component.Panel;
+import org.liquidengine.legui.style.Style;
 import org.liquidengine.legui.style.border.SimpleLineBorder;
 
 import java.util.ArrayList;
@@ -28,10 +29,10 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
     public SettingsMenuGuiPanel() {
         setStyle(createInvisibleStyle());
         setSize(SETTINGS_PANEL_WIDTH + Math.max(THICKNESS_OF_PANEL_BORDER, THICKNESS_OF_BUTTON_BORDER)*2,
-                SETTINGS_PANEL_HEIGHT + Math.max(THICKNESS_OF_PANEL_BORDER, THICKNESS_OF_BUTTON_BORDER)*2 + 60);
+                SETTINGS_PANEL_HEIGHT + Math.max(THICKNESS_OF_PANEL_BORDER, THICKNESS_OF_BUTTON_BORDER)*2 + TAB_BUTTON_HEIGHT);
 
         TabPanel mainPanel = new TabPanel(0, 0, SETTINGS_PANEL_WIDTH + Math.max(THICKNESS_OF_PANEL_BORDER, THICKNESS_OF_BUTTON_BORDER)*2,
-                + Math.max(THICKNESS_OF_PANEL_BORDER, THICKNESS_OF_BUTTON_BORDER)*2 + SETTINGS_PANEL_HEIGHT + 60);
+                + Math.max(THICKNESS_OF_PANEL_BORDER, THICKNESS_OF_BUTTON_BORDER)*2 + SETTINGS_PANEL_HEIGHT + TAB_BUTTON_HEIGHT);
         mainPanel.setMode(new AlignAllTabPanelButtonMode());
         PlayerSettingsMenuGuiPanel playerSettings = new PlayerSettingsMenuGuiPanel(this, mainPanel);
         SoundSettingsMenuGuiPanel soundSettings = new SoundSettingsMenuGuiPanel(this);
@@ -45,10 +46,11 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
         mainPanel.addNewTiedButtonPanel(buttons.get(0), playerSettings, playerSettings.canOut, u -> true);
         mainPanel.addNewTiedButtonPanel(buttons.get(1), soundSettings);
         mainPanel.addNewTiedButtonPanel(buttons.get(2), videoSettings);
+        mainPanel.setButtonsStyle(createButtonStyle());
 
         for(Button button: buttons) {
             Panel crutch = new Panel();
-            crutch.setSize(button.getSize().x, button.getSize().y - 2*THICKNESS_OF_BUTTON_BORDER);
+            crutch.setSize(button.getSize().x, button.getSize().y - THICKNESS_OF_BUTTON_BORDER);
             crutch.setPosition(button.getPosition());
             crutch.setStyle(createInvisibleStyle());
             crutch.getStyle().setBorder(createButtonBorder());
@@ -57,8 +59,8 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
             mainPanel.remove(button);
             mainPanel.add(button);
         }
+
         mainPanel.setStyle(createInvisibleStyle());
-        mainPanel.setButtonsStyle(createButtonStyle());
         mainPanel.setActiveButtonStyle(createActiveButtonStyle());
         add(mainPanel);
     }
