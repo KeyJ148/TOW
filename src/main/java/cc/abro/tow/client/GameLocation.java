@@ -14,8 +14,10 @@ import static cc.abro.tow.client.menu.InterfaceStyles.LABEL_HEIGHT_DEBUG;
 
 public class GameLocation extends Location {
 
+    private final static int CHUNK_SIZE = 100;
+
     public GameLocation(int width, int height) {
-        super(width, height);
+        super(width, height, CHUNK_SIZE);
     }
 
     protected void addDebugPanel(int positionX) {
@@ -25,7 +27,7 @@ public class GameLocation extends Location {
         getGuiLocationFrame().getGuiFrame().getContainer().add(debugGuiPanel);
 
         DebugInfoComponent debugInfoComponent = new DebugInfoComponent(debugGuiPanel);
-        getMap().add(GameObjectFactory.create(debugInfoComponent));
+        add(GameObjectFactory.create(debugInfoComponent));
     }
 
     //TODO вынести в отдельный класс или упростить в новой системе компонент

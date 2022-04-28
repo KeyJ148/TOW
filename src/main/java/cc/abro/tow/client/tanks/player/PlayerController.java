@@ -7,7 +7,7 @@ import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.location.LocationManager;
-import cc.abro.orchengine.location.map.Border;
+import cc.abro.orchengine.location.objects.Border;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.ClientData;
@@ -116,6 +116,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
                         break;
 
                     //Имитация подбора ящика
+                    //TODO ящик генерируется в позиции player, которая не обновляется. В итоге звук не воспроизводится, т.к. камера далеко от player
                     case GLFW_KEY_T:
                         if (Context.getService(ClientData.class).peopleMax == 1)
                             new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 0, -1).collisionPlayer(player);

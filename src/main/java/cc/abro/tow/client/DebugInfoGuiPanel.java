@@ -12,17 +12,18 @@ import static cc.abro.tow.client.menu.InterfaceStyles.*;
 //TODO мб в другой пакет? Но это не наследник MenuGuiPanel
 public class DebugInfoGuiPanel extends Panel {
 
-    private static final int LABEL_LENGTH = 100;
+    private static final int PANEL_WIDTH = 1500;
+    private static final int LABEL_WIDTH = 150;
 
     private final List<Label> labels = new ArrayList<>();
 
     public DebugInfoGuiPanel(int countLabel) {
         setFocusable(false);
         setStyle(createInvisibleStyle());
-        setSize(1000, MENU_TEXT_FIELD_HEIGHT*2);
+        setSize(PANEL_WIDTH, MENU_TEXT_FIELD_HEIGHT*2);
 
         for (int i = 0; i < countLabel; i++) {
-            labels.add(new Label("", 0, i*LABEL_HEIGHT_DEBUG, LABEL_LENGTH, LABEL_HEIGHT_DEBUG));
+            labels.add(new Label("", 0, i*LABEL_HEIGHT_DEBUG, LABEL_WIDTH, LABEL_HEIGHT_DEBUG));
             labels.get(i).getStyle().setFont(FontRegistry.ROBOTO_BOLD);
             labels.get(i).getStyle().setFontSize(ANALYZER_INFO_FONT_SIZE);
             labels.get(i).getStyle().setTextColor(BLACK_COLOR);
