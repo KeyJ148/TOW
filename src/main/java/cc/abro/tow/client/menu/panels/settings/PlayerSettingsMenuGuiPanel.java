@@ -9,10 +9,10 @@ import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureService;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.orchengine.services.GuiService;
-import cc.abro.tow.client.SettingsStorage;
 import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.MenuGuiPanel;
-import cc.abro.tow.client.services.SettingsService;
+import cc.abro.tow.client.settings.Settings;
+import cc.abro.tow.client.settings.SettingsService;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.ImageView;
 import org.liquidengine.legui.component.Panel;
@@ -21,18 +21,12 @@ import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.image.FBOImage;
 import org.liquidengine.legui.listener.MouseClickEventListener;
 import org.liquidengine.legui.style.Background;
-import org.liquidengine.legui.style.border.SimpleLineBorder;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
-import static cc.abro.tow.client.menu.InterfaceStyles.BUTTON_HEIGHT;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
-import static cc.abro.tow.client.menu.MenuGuiComponents.createButton;
 import static cc.abro.tow.client.menu.panels.FirstEntryGuiPanel.Error.CANT_SAVE_SETTINGS;
 import static cc.abro.tow.client.menu.panels.FirstEntryGuiPanel.Error.NICKNAME_IS_EMPTY;
 
@@ -60,15 +54,16 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
     public Function<Panel, Boolean> canOut;
 
     public PlayerSettingsMenuGuiPanel(MenuGuiPanel parent, TabPanel tabPanel) {
+        Settings settings = Context.getService(SettingsService.class).getSettings();
         setSize(SETTINGS_PANEL_WIDTH, SETTINGS_PANEL_HEIGHT);
         setPosition(THICKNESS_OF_PANEL_BORDER, THICKNESS_OF_PANEL_BORDER);
         add(createLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldNickname =
                 createTextAreaField(INDENT_X + LABEL_LENGTH_NICKNAME, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
-                        SettingsStorage.PROFILE.NICKNAME);
+                        settings.profile.nickname);
         add(textAreaFieldNickname);
 
-        int[] colorFromSettings = SettingsStorage.PROFILE.COLOR;
+        int[] colorFromSettings = settings.profile.color;
         tankColor = new Color(colorFromSettings);
         BufferedImage defaultTankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
         Texture defaultTankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(defaultTankImage, tankColor));
@@ -94,7 +89,8 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
                 BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
                     BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
-                    if((tankColor.getRGB() != new Color(SettingsStorage.PROFILE.COLOR).getRGB()) || !(textAreaFieldNickname.getTextState().getText().equals(SettingsStorage.PROFILE.NICKNAME))) {
+                    if((tankColor.getRGB() != new Color(settings.profile.color).getRGB()) ||
+                            !(textAreaFieldNickname.getTextState().getText().equals(settings.profile.nickname))) {
                         addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes.",
                                 new ButtonConfiguration("Back to menu", getMouseReleaseListener(buttonEvent -> {
                                     getUnblockAndParentDestroyReleaseListener(guiBlock).process(buttonEvent);
@@ -124,13 +120,14 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
                 getMouseReleaseListener(event -> saveChanges(textAreaFieldNickname.getTextState().getText()))));
 
         canOut = (to -> {
-            if((tankColor.getRGB() != new Color(SettingsStorage.PROFILE.COLOR).getRGB()) || !(textAreaFieldNickname.getTextState().getText().equals(SettingsStorage.PROFILE.NICKNAME))) {
+            if((tankColor.getRGB() != new Color(settings.profile.color).getRGB()) ||
+                    !(textAreaFieldNickname.getTextState().getText().equals(settings.profile.nickname))) {
                 BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
                 addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes.",
                         new ButtonConfiguration("Switch without saving", event -> {
                             getUnblockAndParentDestroyReleaseListener(guiBlock).process(event);
-                            changeTankColor(new Color(SettingsStorage.PROFILE.COLOR), imageView);
-                            textAreaFieldNickname.getTextState().setText(SettingsStorage.PROFILE.NICKNAME);
+                            changeTankColor(new Color(settings.profile.color), imageView);
+                            textAreaFieldNickname.getTextState().setText(settings.profile.nickname);
                             tabPanel.setActivePanelFromTiedPair(tabPanel.getTideButtonPanel(to));
                         }),
                         new ButtonConfiguration("Save changes & switch", event -> {
@@ -151,7 +148,7 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
 
     private void saveChanges(String nickname) {
         try {
-            Context.getService(SettingsService.class).setSettings(nickname, tankColor);
+            Context.getService(SettingsService.class).setProfileSettings(nickname, tankColor);
         } catch (SettingsService.EmptyNicknameException e) {
             addButtonGuiPanelWithUnblockAndBlockFrame(NICKNAME_IS_EMPTY.getText());
         } catch (SettingsService.CantSaveSettingException e) {
