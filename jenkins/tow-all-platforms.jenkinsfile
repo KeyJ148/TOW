@@ -5,7 +5,6 @@ node {
                 build job: 'TOW', parameters: [
                     [$class: 'StringParameterValue', name: 'Target_OS', value: 'Windows'],
                     [$class: 'StringParameterValue', name: 'TOW_Branch', value: TOW_Branch],
-                    [$class: 'StringParameterValue', name: 'OrchEngine_Branch', value: OrchEngine_Branch],
                     [$class: 'StringParameterValue', name: 'Type_of_archive', value: '.zip'],
                     [$class: 'BooleanParameterValue', name: 'Clean_Workspace', value: Clean_Workspace]
                 ]
@@ -15,7 +14,6 @@ node {
                 build job: 'TOW', parameters: [
                     [$class: 'StringParameterValue', name: 'Target_OS', value: 'Linux'],
                     [$class: 'StringParameterValue', name: 'TOW_Branch', value: TOW_Branch],
-                    [$class: 'StringParameterValue', name: 'OrchEngine_Branch', value: OrchEngine_Branch],
                     [$class: 'StringParameterValue', name: 'Type_of_archive', value: '.zip'],
                     [$class: 'BooleanParameterValue', name: 'Clean_Workspace', value: Clean_Workspace]
                 ]
@@ -25,7 +23,6 @@ node {
                 build job: 'TOW', parameters: [
                     [$class: 'StringParameterValue', name: 'Target_OS', value: 'Linux'],
                     [$class: 'StringParameterValue', name: 'TOW_Branch', value: TOW_Branch],
-                    [$class: 'StringParameterValue', name: 'OrchEngine_Branch', value: OrchEngine_Branch],
                     [$class: 'StringParameterValue', name: 'Type_of_archive', value: '.tar'],
                     [$class: 'BooleanParameterValue', name: 'Clean_Workspace', value: Clean_Workspace]
                 ]
@@ -35,7 +32,6 @@ node {
                 build job: 'TOW', parameters: [
                     [$class: 'StringParameterValue', name: 'Target_OS', value: 'Linux ARM'],
                     [$class: 'StringParameterValue', name: 'TOW_Branch', value: TOW_Branch],
-                    [$class: 'StringParameterValue', name: 'OrchEngine_Branch', value: OrchEngine_Branch],
                     [$class: 'StringParameterValue', name: 'Type_of_archive', value: '.zip'],
                     [$class: 'BooleanParameterValue', name: 'Clean_Workspace', value: Clean_Workspace]
                 ]
@@ -45,7 +41,6 @@ node {
                 build job: 'TOW', parameters: [
                     [$class: 'StringParameterValue', name: 'Target_OS', value: 'Linux ARM'],
                     [$class: 'StringParameterValue', name: 'TOW_Branch', value: TOW_Branch],
-                    [$class: 'StringParameterValue', name: 'OrchEngine_Branch', value: OrchEngine_Branch],
                     [$class: 'StringParameterValue', name: 'Type_of_archive', value: '.tar'],
                     [$class: 'BooleanParameterValue', name: 'Clean_Workspace', value: Clean_Workspace]
                 ]
@@ -55,7 +50,6 @@ node {
                 build job: 'TOW', parameters: [
                     [$class: 'StringParameterValue', name: 'Target_OS', value: 'MacOS'],
                     [$class: 'StringParameterValue', name: 'TOW_Branch', value: TOW_Branch],
-                    [$class: 'StringParameterValue', name: 'OrchEngine_Branch', value: OrchEngine_Branch],
                     [$class: 'StringParameterValue', name: 'Type_of_archive', value: '.zip'],
                     [$class: 'BooleanParameterValue', name: 'Clean_Workspace', value: Clean_Workspace]
                 ]
@@ -65,7 +59,6 @@ node {
                 build job: 'TOW', parameters: [
                     [$class: 'StringParameterValue', name: 'Target_OS', value: 'MacOS'],
                     [$class: 'StringParameterValue', name: 'TOW_Branch', value: TOW_Branch],
-                    [$class: 'StringParameterValue', name: 'OrchEngine_Branch', value: OrchEngine_Branch],
                     [$class: 'StringParameterValue', name: 'Type_of_archive', value: '.tar'],
                     [$class: 'BooleanParameterValue', name: 'Clean_Workspace', value: Clean_Workspace]
                 ]
@@ -75,7 +68,6 @@ node {
                 build job: 'TOW', parameters: [
                     [$class: 'StringParameterValue', name: 'Target_OS', value: 'MacOS ARM'],
                     [$class: 'StringParameterValue', name: 'TOW_Branch', value: TOW_Branch],
-                    [$class: 'StringParameterValue', name: 'OrchEngine_Branch', value: OrchEngine_Branch],
                     [$class: 'StringParameterValue', name: 'Type_of_archive', value: '.zip'],
                     [$class: 'BooleanParameterValue', name: 'Clean_Workspace', value: Clean_Workspace]
                 ]
@@ -85,7 +77,6 @@ node {
                 build job: 'TOW', parameters: [
                     [$class: 'StringParameterValue', name: 'Target_OS', value: 'MacOS ARM'],
                     [$class: 'StringParameterValue', name: 'TOW_Branch', value: TOW_Branch],
-                    [$class: 'StringParameterValue', name: 'OrchEngine_Branch', value: OrchEngine_Branch],
                     [$class: 'StringParameterValue', name: 'Type_of_archive', value: '.tar'],
                     [$class: 'BooleanParameterValue', name: 'Clean_Workspace', value: Clean_Workspace]
                 ]

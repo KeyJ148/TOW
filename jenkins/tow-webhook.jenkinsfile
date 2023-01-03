@@ -3,7 +3,6 @@ node {
         branch = TOW_Branch.split('/')[2]
         build job: 'TOW-all-platforms', parameters: [
             [$class: 'StringParameterValue', name: 'TOW_Branch', value: branch],
-            [$class: 'StringParameterValue', name: 'OrchEngine_Branch', value: ''],
             [$class: 'BooleanParameterValue', name: 'Clean_Workspace', value: 'False']
         ]
     }
