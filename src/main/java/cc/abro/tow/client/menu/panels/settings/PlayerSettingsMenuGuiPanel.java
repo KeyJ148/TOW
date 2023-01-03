@@ -17,6 +17,7 @@ import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.ImageView;
 import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.TextAreaField;
+import org.liquidengine.legui.event.KeyEvent;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.image.FBOImage;
 import org.liquidengine.legui.listener.MouseClickEventListener;
@@ -50,15 +51,19 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
     };
 
     private Color tankColor;
+    private final TextAreaField textAreaFieldNickname;
+    private final Settings settings;
+    Button saveButton;
+    Button saveAndBackButton;
 
     public Function<Panel, Boolean> canOut;
 
     public PlayerSettingsMenuGuiPanel(MenuGuiPanel parent, TabPanel tabPanel) {
-        Settings settings = Context.getService(SettingsService.class).getSettings();
+        settings = Context.getService(SettingsService.class).getSettings();
         setSize(SETTINGS_PANEL_WIDTH, SETTINGS_PANEL_HEIGHT);
         setPosition(THICKNESS_OF_PANEL_BORDER, THICKNESS_OF_PANEL_BORDER);
         add(createLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT));
-        TextAreaField textAreaFieldNickname =
+        textAreaFieldNickname =
                 createTextAreaField(INDENT_X + LABEL_LENGTH_NICKNAME, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
                         settings.getProfile().getNickname());
         add(textAreaFieldNickname);
@@ -106,22 +111,23 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
                         parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
                     }
                 })));
-        add(createButton("Save & back", SETTINGS_PANEL_WIDTH - (BUTTON_WIDTH + BUTTON_INDENT_X) * 2,
+        saveAndBackButton = createButton("Save & back", SETTINGS_PANEL_WIDTH - (BUTTON_WIDTH + BUTTON_INDENT_X) * 2,
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
                 BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
                     saveChanges(textAreaFieldNickname.getTextState().getText());
                     parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
-                })));
+                }));
+        add(saveAndBackButton);
 
-        add(createButton("Save", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - BUTTON_INDENT_X,
+        saveButton = createButton("Save", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - BUTTON_INDENT_X,
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
                 BUTTON_WIDTH, BUTTON_HEIGHT,
-                getMouseReleaseListener(event -> saveChanges(textAreaFieldNickname.getTextState().getText()))));
+                getMouseReleaseListener(event -> saveChanges(textAreaFieldNickname.getTextState().getText())));
+        add(saveButton);
 
         canOut = (to -> {
-            if((tankColor.getRGB() != new Color(settings.getProfile().getColor()).getRGB()) ||
-                    !(textAreaFieldNickname.getTextState().getText().equals(settings.getProfile().getNickname()))) {
+            if(isChanged()) {
                 BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
                 addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes.",
                         new ButtonConfiguration("Switch without saving", event -> {
@@ -144,11 +150,36 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
             }
         });
 
+        textAreaFieldNickname.getListenerMap().addListener(KeyEvent.class, event -> {
+            changeSaveButtons();
+        });
+
+        changeSaveButtons();
+
+    }
+
+    private void changeSaveButtons() {
+        boolean changed = isChanged();
+        saveButton.setFocusable(changed);
+        saveAndBackButton.setFocusable(changed);
+        if(changed) {
+            saveButton.setStyle(createButtonStyle());
+            saveAndBackButton.setStyle(createButtonStyle());
+        }
+        else
+        {
+            saveButton.setStyle(createBlockedButtonStyle());
+            saveAndBackButton.setStyle(createBlockedButtonStyle());
+            saveButton.setHovered(false);
+            saveAndBackButton.setHovered(false);
+        }
+
     }
 
     private void saveChanges(String nickname) {
         try {
             Context.getService(SettingsService.class).setProfileSettings(nickname, tankColor);
+            changeSaveButtons();
         } catch (SettingsService.EmptyNicknameException e) {
             addButtonGuiPanelWithUnblockAndBlockFrame(NICKNAME_IS_EMPTY.getText());
         } catch (SettingsService.CantSaveSettingException e) {
@@ -189,6 +220,12 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
         //TODO при закрытие панели не забыть очистить и tankTexture
         FBOImage newTankFBOImage = new FBOImage(tankTexture.getId(), tankTexture.getWidth(), tankTexture.getHeight());
         imageView.setImage(newTankFBOImage);
+        changeSaveButtons();
+    }
+
+    private boolean isChanged() {
+        return (tankColor.getRGB() != new Color(settings.getProfile().getColor()).getRGB() ||
+                !(textAreaFieldNickname.getTextState().getText().equals(settings.getProfile().getNickname())));
     }
 
     //TODO в отдельный сервис по покраске или работе с текстурами

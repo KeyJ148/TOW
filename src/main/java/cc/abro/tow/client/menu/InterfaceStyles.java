@@ -129,6 +129,12 @@ public final class InterfaceStyles {
         return background;
     }
 
+    public static Background createBlockedButtonBackground() {
+        Background background = new Background();
+        background.setColor(DARK_GRAY_COLOR);
+        return background;
+    }
+
     public static Background createHoveredButtonBackground() {
         Background background = new Background();
         background.setColor(GRAY_COLOR);
@@ -234,6 +240,18 @@ public final class InterfaceStyles {
         Style style = new Style();
         style.setBorder(createButtonBorder());
         style.setBackground(createButtonBackground());
+        style.setTextColor(BLACK_COLOR);
+        style.setBorderRadius(BUTTON_RADIUS);
+        style.setFont(FontRegistry.ROBOTO_REGULAR);
+        style.setFontSize(BUTTON_FONT_SIZE);
+        style.setHorizontalAlign(HorizontalAlign.CENTER);
+        return style;
+    }
+
+    public static Style createBlockedButtonStyle() {
+        Style style = new Style();
+        style.setBorder(createButtonBorder());
+        style.setBackground(createBlockedButtonBackground());
         style.setTextColor(BLACK_COLOR);
         style.setBorderRadius(BUTTON_RADIUS);
         style.setFont(FontRegistry.ROBOTO_REGULAR);
