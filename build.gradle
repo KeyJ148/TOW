@@ -6,7 +6,6 @@ plugins {
 version = '4.3.0-SNAPSHOT'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-compileJava.options.encoding = "UTF-8"
 compileJava.sourceCompatibility = '17'
 compileJava.targetCompatibility = '17'
 compileJava.options.encoding = 'UTF-8'
