@@ -30,7 +30,7 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
                 + Math.max(THICKNESS_OF_PANEL_BORDER, THICKNESS_OF_BUTTON_BORDER)*2 + SETTINGS_PANEL_HEIGHT + TAB_BUTTON_HEIGHT);
         mainPanel.setMode(new AlignAllTabPanelButtonMode());
         PlayerSettingsMenuGuiPanel playerSettings = new PlayerSettingsMenuGuiPanel(this, mainPanel);
-        SoundSettingsMenuGuiPanel soundSettings = new SoundSettingsMenuGuiPanel(this);
+        SoundSettingsMenuGuiPanel soundSettings = new SoundSettingsMenuGuiPanel(this, mainPanel);
         VideoSettingsMenuGuiPanel videoSettings = new VideoSettingsMenuGuiPanel(this);
         List<Button> buttons = new ArrayList<>(Arrays.asList(new Button("Player"), new Button("Sound"), new Button("Video")));
         mainPanel.setYIndentVision(TAB_BUTTON_HEIGHT);

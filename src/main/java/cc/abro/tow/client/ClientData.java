@@ -19,6 +19,9 @@ public class ClientData {
     public Color color = Color.WHITE;
     public Player player;
 
+    public double musicVolume;
+    public double soundVolume;
+
     public int peopleMax;
     public int myIdFromServer; //Мой id на сервере
     public boolean battle = false; //В текущий момент идет основной процесс игры (бой)

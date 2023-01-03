@@ -45,7 +45,7 @@ public final class InterfaceStyles {
 
     public final static int BUTTON_RADIUS = 0;
 
-    public final static int LABEL_LENGTH_ZERO_RULE = 360;
+    public final static int LABEL_LENGTH_ZERO_RULE = 380;
     public final static int LABEL_LENGTH_PORT = 37;
     public final static int LABEL_LENGTH_NICKNAME = 78;
     public final static int LABEL_LENGTH_ID = 20;
@@ -54,18 +54,18 @@ public final class InterfaceStyles {
     public final static int LABEL_LENGTH_LIST_OF_SERVERS = 180;
 
     public final static int LABEL_HEIGHT_DEBUG = 14;
-    public final static int LABEL_HEIGHT_ZERO_RULE = 18;
+    public final static int LABEL_HEIGHT_ZERO_RULE = 20;
     public final static int LABEL_HEIGHT_CHAPTER = 24;
 
     public final static float THICKNESS_OF_TEXT_AREA_BORDER = 2f;
     public final static float THICKNESS_OF_PANEL_BORDER = 2f;
     public final static float THICKNESS_OF_BUTTON_BORDER = 2f;
 
-    public final static float MENU_BUTTON_FONT_SIZE = 30;
-    public final static float BUTTON_FONT_SIZE = 20;
+    public final static float MENU_BUTTON_FONT_SIZE = 25;
+    public final static float BUTTON_FONT_SIZE = 15;
     public final static float LABEL_FONT_SIZE = BUTTON_FONT_SIZE;
-    public final static float SLIGHTLY_BIG_LABEL_FONT_SIZE = 27;
-    public final static float BIG_LABEL_FONT_SIZE = 35;
+    public final static float SLIGHTLY_BIG_LABEL_FONT_SIZE = 22;
+    public final static float BIG_LABEL_FONT_SIZE = 30;
     public final static float ANALYZER_INFO_FONT_SIZE = 16;
     public final static int LABEL_ERROR_FONT_SIZE = 18;
 
@@ -310,6 +310,13 @@ public final class InterfaceStyles {
         style.setBorder(createTextAreaFieldBorder());
         style.setFocusedStrokeColor(INVISIBLE_COLOR);
         style.setHighlightColor(LIGHT_GRAY_COLOR);
+        return style;
+    }
+
+    public static Style createSliderStyle() {
+        Style style = new Style();
+        style.setBackground(createButtonBackground());
+        style.setBorder(createButtonBorder());
         return style;
     }
 }

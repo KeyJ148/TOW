@@ -85,6 +85,15 @@ public final class MenuGuiComponents {
         return button;
     }
 
+    public static Slider createSlider(int x, int y, int width, int height) {
+        Slider slider = new Slider(x, y, width, height);
+        slider.setSliderColor(DARK_GRAY_COLOR);
+        slider.setSliderActiveColor(SLIGHTLY_DARK_GRAY_COLOR);
+        slider.setSliderSize(15);
+        //slider.setStyle(createSliderStyle());
+        return slider;
+    }
+
     public static TextAreaField createTextAreaField(int x, int y, int width, int height) {
         TextAreaField textAreaField = new TextAreaField();
         textAreaField.setStyle(createTextAreaFieldStyle());

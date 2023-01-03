@@ -53,8 +53,8 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
     private Color tankColor;
     private final TextAreaField textAreaFieldNickname;
     private final Settings settings;
-    Button saveButton;
-    Button saveAndBackButton;
+    private final Button saveButton;
+    private final Button saveAndBackButton;
 
     public Function<Panel, Boolean> canOut;
 
@@ -94,8 +94,7 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
                 BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
                     BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
-                    if((tankColor.getRGB() != new Color(settings.getProfile().getColor()).getRGB()) ||
-                            !(textAreaFieldNickname.getTextState().getText().equals(settings.getProfile().getNickname()))) {
+                    if(isChanged()) {
                         addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes.",
                                 new ButtonConfiguration("Back to menu", getMouseReleaseListener(buttonEvent -> {
                                     getUnblockAndParentDestroyReleaseListener(guiBlock).process(buttonEvent);
@@ -103,7 +102,7 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
                                 })),
                                 new ButtonConfiguration("Save & back", getMouseReleaseListener(buttonEvent -> {
                                     getUnblockAndParentDestroyReleaseListener(guiBlock).process(buttonEvent);
-                                    saveChanges(textAreaFieldNickname.getTextState().getText());
+                                    saveChanges();
                                     parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(buttonEvent);
                                 })),
                                 new ButtonConfiguration("Return editing", getUnblockAndParentDestroyReleaseListener(guiBlock)));
@@ -115,7 +114,7 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
                 BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
-                    saveChanges(textAreaFieldNickname.getTextState().getText());
+                    saveChanges();
                     parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
                 }));
         add(saveAndBackButton);
@@ -123,7 +122,7 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
         saveButton = createButton("Save", SETTINGS_PANEL_WIDTH - BUTTON_WIDTH - BUTTON_INDENT_X,
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
                 BUTTON_WIDTH, BUTTON_HEIGHT,
-                getMouseReleaseListener(event -> saveChanges(textAreaFieldNickname.getTextState().getText())));
+                getMouseReleaseListener(event -> saveChanges()));
         add(saveButton);
 
         canOut = (to -> {
@@ -138,7 +137,7 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
                         }),
                         new ButtonConfiguration("Save changes & switch", event -> {
                             getUnblockAndParentDestroyReleaseListener(guiBlock).process(event);
-                            saveChanges(textAreaFieldNickname.getTextState().getText());
+                            saveChanges();
                             tabPanel.setActivePanelFromTiedPair(tabPanel.getTideButtonPanel(to));
                         }),
                         new ButtonConfiguration("Don't switch", event -> {
@@ -173,12 +172,11 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
             saveButton.setHovered(false);
             saveAndBackButton.setHovered(false);
         }
-
     }
 
-    private void saveChanges(String nickname) {
+    private void saveChanges() {
         try {
-            Context.getService(SettingsService.class).setProfileSettings(nickname, tankColor);
+            Context.getService(SettingsService.class).setProfileSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
             changeSaveButtons();
         } catch (SettingsService.EmptyNicknameException e) {
             addButtonGuiPanelWithUnblockAndBlockFrame(NICKNAME_IS_EMPTY.getText());
