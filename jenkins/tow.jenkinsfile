@@ -43,20 +43,11 @@ node {
             if (Clean_Workspace == "true") {
                 cleanWs()
             }
-            if (OrchEngine_Branch == '') {
-                OrchEngine_Branch = TOW_Branch
-            }
         }
         
         stage('Clone sources TOW') {
             dir ('repo') {
                 git url: 'https://github.com/KeyJ148/TOW.git', branch: "${TOW_Branch}"
-            }
-        }
-            
-        stage('Clone sources OrchEngine') {
-            dir('repo/OrchEngine') {
-                git url: 'https://github.com/KeyJ148/OrchEngine.git', branch: "${OrchEngine_Branch}"
             }
         }
             
@@ -121,14 +112,10 @@ node {
                 deleteDir()
             }
             sh 'mkdir publish'
-            if (TOW_Branch == 'master' && OrchEngine_Branch == 'master') {
+            if (TOW_Branch == 'master') {
                 BUILD_FILE_NAME = "TOW-${VERSION}"
             } else {
-                if (TOW_Branch == OrchEngine_Branch) {
-                    BUILD_FILE_NAME = "TOW-${TOW_Branch}-${VERSION}"
-                } else {
-                    BUILD_FILE_NAME = "TOW-${TOW_Branch}-${OrchEngine_Branch}-${VERSION}"
-                }
+                BUILD_FILE_NAME = "TOW-${TOW_Branch}-${VERSION}"
             }
             switch (Type_of_archive) {
                 case '.zip':

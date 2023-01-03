@@ -4,18 +4,13 @@ import cc.abro.orchengine.gui.tabpanel.TabPanel;
 import cc.abro.orchengine.gui.tabpanel.modes.AlignAllTabPanelButtonMode;
 import cc.abro.tow.client.menu.panels.MenuGuiPanel;
 import org.liquidengine.legui.component.Button;
-import org.liquidengine.legui.component.Component;
 import org.liquidengine.legui.component.Panel;
-import org.liquidengine.legui.style.Style;
-import org.liquidengine.legui.style.border.SimpleLineBorder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
-import static org.liquidengine.legui.style.length.LengthType.pixel;
 
 public class SettingsMenuGuiPanel extends MenuGuiPanel {
 
