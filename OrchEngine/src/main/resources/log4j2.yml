@@ -1,0 +1,37 @@
+Configuration:
+  status: warn
+  name: OrchEngineLog
+  shutdownHook: disable
+  thresholdFilter:
+    level: all
+
+  appenders:
+    Console:
+      name: STDOUT
+      target: SYSTEM_OUT
+      ignoreExceptions: false
+      PatternLayout:
+        Pattern: "%d{HH:mm:ss.SSS} %-5p\t[%t]:\t%m%n"
+      Filters:
+        ThresholdFilter:
+          level: info
+    File:
+      name: File
+      fileName: logs/${date:yyyy-MM-dd}_${date:HH-mm-ss.SSSS}.log
+      ignoreExceptions: false
+      PatternLayout:
+        Pattern: "%d{HH:mm:ss.SSS} %-5p\t[%t]:\t%m%n"
+      Filters:
+        ThresholdFilter:
+          level: debug
+
+  Loggers:
+    logger:
+      - name: cc.abro.orchengine
+        level: all
+        AppenderRef:
+          - ref: File
+    Root:
+      level: all
+      AppenderRef:
+        ref: STDOUT

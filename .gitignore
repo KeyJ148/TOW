@@ -3,6 +3,7 @@
 
 # Ignore Gradle build output directory
 /build
+/OrchEngine/build
 
 #Ignore IDEA setting files
 /.idea
@@ -11,9 +12,6 @@
 #Ignore game created files
 /logs
 /setting.json
-
-#Ignore OrchEngine subproject
-/OrchEngine
 
 #Ignore OS-specific files
 /.directory

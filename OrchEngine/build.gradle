@@ -1,37 +1,35 @@
 plugins {
-    id 'java'
-    id 'application'
+    id 'java-library'
+    id 'maven-publish'
 }
 
-version = '4.3.0-SNAPSHOT'
+version = '0.1.0'
+group = 'cc.abro'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 compileJava.sourceCompatibility = '17'
 compileJava.targetCompatibility = '17'
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
-compileTestJava.options.compilerArgs += ['-Xlint']
-
-def startOnFirstThread = System.getenv('START_ON_FIRST_THREAD')
-if (Boolean.parseBoolean(startOnFirstThread) ||
-        startOnFirstThread == null && OperatingSystem.current() == OperatingSystem.MAC_OS) {
-    applicationDefaultJvmArgs += "-XstartOnFirstThread"
-}
-//applicationDefaultJvmArgs = ["-Xmx128M"]
-//applicationDefaultJvmArgs += ["-Dlog4j.defaultInitOverride=true", "-Dlog4j.configurationFile=log4j2.yml"]
-//applicationDefaultJvmArgs += ["-Dlog4j.debug"]
 
 repositories {
-	mavenCentral()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-    maven { url "https://raw.github.com/SpinyOwl/repo/releases" }
+    mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://raw.github.com/SpinyOwl/repo/releases' }
 }
 
 dependencies {
-    implementation project('OrchEngine')
-
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2.2'
     implementation 'org.liquidengine:legui:3.3.5'
     implementation 'io.cucumber:cucumber-picocontainer:2.4.0'
+    implementation 'org.reflections:reflections:0.10.2'
+
+    implementation 'org.slf4j:slf4j-api:1.7.36'
+    implementation 'org.slf4j:slf4j-nop:1.7.36'
+    implementation 'org.apache.logging.log4j:log4j-api:2.17.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.12.4'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.4'
 
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
@@ -39,20 +37,39 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.1'
-}
-
-application {
-    mainClassName = 'cc.abro.tow.GameStart'
-}
-
-distributions.main.contents {
-    into ('maps') { from 'maps' }
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
 }
 
 test {
     useJUnitPlatform()
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+
+publishing {
+    repositories {
+        maven {
+            name = 'GitHubPackages'
+            url = 'https://maven.pkg.github.com/KeyJ148/OrchEngine'
+            credentials {
+                username = System.getenv('GITHUB_ACTOR')
+                password = System.getenv('GITHUB_TOKEN')
+            }
+        }
+    }
+    publications {
+        orchEngine(MavenPublication) {
+            from components.java
+            artifactId = 'orchengine'
+
+            artifact sourceJar {
+                classifier 'sources'
+            }
+        }
+    }
 }
 
 

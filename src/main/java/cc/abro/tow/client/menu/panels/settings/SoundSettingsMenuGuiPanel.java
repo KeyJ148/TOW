@@ -3,7 +3,6 @@ package cc.abro.tow.client.menu.panels.settings;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.gui.tabpanel.TabPanel;
-import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
@@ -13,7 +12,6 @@ import cc.abro.tow.client.settings.SettingsService;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.Slider;
-import org.liquidengine.legui.event.MouseClickEvent;
 
 import java.util.function.Function;
 
