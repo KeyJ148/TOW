@@ -4,6 +4,7 @@ import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.EngineService;
 import cc.abro.orchengine.location.LocationManager;
 import lombok.extern.log4j.Log4j2;
+import org.liquidengine.legui.DefaultInitializer;
 import org.liquidengine.legui.animation.AnimatorProvider;
 import org.liquidengine.legui.component.Frame;
 import org.liquidengine.legui.system.layout.LayoutManager;
@@ -15,12 +16,19 @@ import static org.lwjgl.opengl.GL11.*;
 @Log4j2
 @EngineService
 public class LeguiRender {
+    
+    private DefaultInitializer leguiInitializer; //Инициализатор LeGUI
 
-    private Render render;
-
-    public Frame createFrame() {
-        render = Context.getService(Render.class); //TODO циклическая зависимость, избавиться
-        Frame frame = new Frame(render.getWidth(), render.getHeight());
+    /**
+     * Инициализация и настройка LeGUI
+     */
+    public void init(long windowID) {
+        leguiInitializer = new DefaultInitializer(windowID, new Frame());
+        leguiInitializer.getRenderer().initialize();
+    }
+    
+    public Frame createFrame(int width, int height) {
+        Frame frame = new Frame(width, height);
         frame.getContainer().setFocusable(true);
 
         return frame;
@@ -28,10 +36,10 @@ public class LeguiRender {
 
     public void render(Frame frame) {
         //Обновление интерфейса в соответствие с параметрами окна
-        render.getLeguiInitializer().getContext().updateGlfwWindow();
+        leguiInitializer.getContext().updateGlfwWindow();
 
         //Отрисовка интерфейса
-        render.getLeguiInitializer().getRenderer().render(frame, render.getLeguiInitializer().getContext());
+        leguiInitializer.getRenderer().render(frame, leguiInitializer.getContext());
 
         //Нормализация параметров OpenGL после отрисовки интерфейса
         glDisable(GL_DEPTH_TEST);
@@ -44,17 +52,19 @@ public class LeguiRender {
         glfwPollEvents();
 
         //Обработка событий (Системных и GUI)
-        render.getLeguiInitializer().getSystemEventProcessor().processEvents(frame, render.getLeguiInitializer().getContext());
-        render.getLeguiInitializer().getGuiEventProcessor().processEvents();
+        leguiInitializer.getSystemEventProcessor().processEvents(frame, leguiInitializer.getContext());
+        leguiInitializer.getGuiEventProcessor().processEvents();
 
         //Перерасположить компоненты
-        LayoutManager.getInstance().layout(Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame());
+        Frame activeGuiFrame = Context.getService(LocationManager.class) //TODO циклическая зависимость
+                .getActiveLocation().getGuiLocationFrame().getGuiFrame();
+        LayoutManager.getInstance().layout(activeGuiFrame);
 
         //Запуск анимаций
         AnimatorProvider.getAnimator().runAnimations();
     }
 
     public void setFrameFocused(Frame frame) {
-        render.getLeguiInitializer().getContext().setFocusedGui(frame.getContainer());
+        leguiInitializer.getContext().setFocusedGui(frame.getContainer());
     }
 }

@@ -2,6 +2,7 @@ package cc.abro.orchengine.gameobject.components.render;
 
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.orchengine.util.OpenGlUtils;
 import cc.abro.orchengine.util.Vector2;
 import org.lwjgl.opengl.GL11;
 
@@ -36,16 +37,7 @@ public class SpriteRender extends Rendering {
         color.bind();
         texture.bind();
 
-        GL11.glBegin(GL11.GL_QUADS);
-        GL11.glTexCoord2f(0, 0);
-        GL11.glVertex2f(-width / 2, -height / 2);
-        GL11.glTexCoord2f(1, 0);
-        GL11.glVertex2f(width / 2, -height / 2);
-        GL11.glTexCoord2f(1, 1);
-        GL11.glVertex2f(width / 2, height / 2);
-        GL11.glTexCoord2f(0, 1);
-        GL11.glVertex2f(-width / 2, height / 2);
-        GL11.glEnd();
+        OpenGlUtils.renderGlQuadsFromCenter(width, height);
 
         texture.unbind();
     }

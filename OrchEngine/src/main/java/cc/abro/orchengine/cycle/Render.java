@@ -8,8 +8,6 @@ import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureService;
 import lombok.extern.log4j.Log4j2;
-import org.liquidengine.legui.DefaultInitializer;
-import org.liquidengine.legui.component.Frame;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -30,19 +28,20 @@ public class Render implements Startable {
 
     private final GameInterface game;
     private final LocationManager locationManager;
+    private final LeguiRender leguiRender;
 
     private final Settings settings;
     private final FPSLimiter fpsLimiter;
 
     private long windowID; //ID окна игры для LWJGL
     private long monitorID; //ID монитора (0 для не полноэкранного режима)
-    private DefaultInitializer leguiInitializer; //Инициализатор LeGUI
     private int width;
     private int height;
 
-    public Render(GameInterface game, LocationManager locationManager) {
+    public Render(GameInterface game, LocationManager locationManager, LeguiRender leguiRender) {
         this.game = game;
         this.locationManager = locationManager;
+        this.leguiRender = leguiRender;
 
         settings = game.getRenderSettings();
         fpsLimiter = new FPSLimiter(settings.fpsLimit);
@@ -64,10 +63,8 @@ public class Render implements Startable {
             throw e;
         }
 
-        //Инициализация и настройка LeGUI
         try {
-            leguiInitializer = new DefaultInitializer(getWindowID(), new Frame());
-            leguiInitializer.getRenderer().initialize();
+            leguiRender.init(getWindowID());
         } catch (Exception e) {
             log.fatal("LeGUI initialization failed", e);
             throw e;
@@ -184,10 +181,6 @@ public class Render implements Startable {
 
     public long getMonitorID() {
         return monitorID;
-    }
-
-    public DefaultInitializer getLeguiInitializer() {
-        return leguiInitializer;
     }
 
     public record Settings(int widthScreen, int heightScreen, boolean fullScreen,

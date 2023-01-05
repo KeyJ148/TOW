@@ -2,6 +2,7 @@ package cc.abro.orchengine.location;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.LeguiRender;
+import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.input.keyboard.KeyboardHandler;
 import cc.abro.orchengine.input.mouse.MouseHandler;
 import org.liquidengine.legui.component.Frame;
@@ -15,7 +16,9 @@ public class GuiLocationFrame {
 
     public GuiLocationFrame() {
         leguiRender = Context.getService(LeguiRender.class);
-        guiFrame = leguiRender.createFrame();
+        Render render = Context.getService(Render.class);
+
+        guiFrame = leguiRender.createFrame(render.getWidth(), render.getHeight());
     }
 
     public void pollEvents() {
