@@ -5,6 +5,7 @@ import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.orchengine.util.OpenGlUtils;
 import cc.abro.orchengine.util.Vector2;
 import org.lwjgl.opengl.GL11;
 
@@ -69,17 +70,7 @@ public class Background {
             GL11.glLoadIdentity();
             backgroundColor.bind();
 
-            //TODO: OpenGL Utils / Render func для вывода прямоугольников и текстур
-            GL11.glBegin(GL11.GL_QUADS);
-            GL11.glTexCoord2f(0, 0);
-            GL11.glVertex2f(0, 0);
-            GL11.glTexCoord2f(1, 0);
-            GL11.glVertex2f(width, 0);
-            GL11.glTexCoord2f(1, 1);
-            GL11.glVertex2f(width, height);
-            GL11.glTexCoord2f(0, 1);
-            GL11.glVertex2f(0, height);
-            GL11.glEnd();
+            OpenGlUtils.renderGlQuads(width, height);
         }
 
         //Заливка фона за границами карты
@@ -90,16 +81,7 @@ public class Background {
         int fillH = (height - Context.getService(LocationManager.class).getActiveLocation().getHeight()) / 2;
 
         if (Context.getService(Render.class).getWidth() > Context.getService(LocationManager.class).getActiveLocation().getWidth()) {
-            GL11.glBegin(GL11.GL_QUADS);
-            GL11.glTexCoord2f(0, 0);
-            GL11.glVertex2f(0, 0);
-            GL11.glTexCoord2f(1, 0);
-            GL11.glVertex2f(fillW, 0);
-            GL11.glTexCoord2f(1, 1);
-            GL11.glVertex2f(fillW, height);
-            GL11.glTexCoord2f(0, 1);
-            GL11.glVertex2f(0, height);
-            GL11.glEnd();
+            OpenGlUtils.renderGlQuads(fillW, height);
             GL11.glBegin(GL11.GL_QUADS);
             GL11.glTexCoord2f(0, 0);
             GL11.glVertex2f(width - fillW, 0);
@@ -112,16 +94,7 @@ public class Background {
             GL11.glEnd();
         }
         if (Context.getService(Render.class).getHeight() > Context.getService(LocationManager.class).getActiveLocation().getHeight()) {
-            GL11.glBegin(GL11.GL_QUADS);
-            GL11.glTexCoord2f(0, 0);
-            GL11.glVertex2f(0, 0);
-            GL11.glTexCoord2f(1, 0);
-            GL11.glVertex2f(width, 0);
-            GL11.glTexCoord2f(1, 1);
-            GL11.glVertex2f(width, fillH);
-            GL11.glTexCoord2f(0, 1);
-            GL11.glVertex2f(0, fillH);
-            GL11.glEnd();
+            OpenGlUtils.renderGlQuads(width, fillH);
             GL11.glBegin(GL11.GL_QUADS);
             GL11.glTexCoord2f(0, 0);
             GL11.glVertex2f(0, height - fillH);

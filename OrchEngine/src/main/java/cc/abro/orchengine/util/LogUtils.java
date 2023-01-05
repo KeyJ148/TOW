@@ -3,7 +3,7 @@ package cc.abro.orchengine.util;
 
 import org.apache.logging.log4j.Logger;
 
-public class LogUtils {
+public final class LogUtils {
 
     public static void logFatalException(Logger log, String text, Exception e) {
         e.printStackTrace();
