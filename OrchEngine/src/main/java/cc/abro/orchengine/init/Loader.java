@@ -29,7 +29,7 @@ public class Loader {
             throw new RuntimeException(e);
         } finally {
             try {
-                Context.getService(Engine.class).stoppingCallback();
+                Context.getService(Finalizer.class).stopServicesAndCloseResources();
             } catch (Exception e) {
                 LogUtils.logFatalException(log, "The process of completing the game is not successful: ", e);
                 System.exit(0);

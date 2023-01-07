@@ -2,8 +2,6 @@ package cc.abro.orchengine.cycle;
 
 import cc.abro.orchengine.analysis.Analyzer;
 import cc.abro.orchengine.context.EngineService;
-import cc.abro.orchengine.init.Finalizer;
-import cc.abro.orchengine.init.Loader;
 import org.lwjgl.glfw.GLFW;
 
 @EngineService
@@ -49,15 +47,5 @@ public class Engine {
 
     public void stop() {
         isRun = false;
-    }
-
-    /**
-     * Завершение программы. Вызывается из {@link Loader}.
-     * Будет вызван callback для освобождения ресурсов.
-     * Callback был зарегистрирован в {@link Finalizer#registryShutdownCallback()}.
-     * Callback вызовет функцию завершения {@link Finalizer#stopServicesAndCloseResources()}.
-     */
-    public void stoppingCallback() {
-        System.exit(0);
     }
 }

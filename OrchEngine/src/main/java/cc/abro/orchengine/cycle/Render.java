@@ -136,6 +136,8 @@ public class Render implements Startable {
 
     @Override
     public void stop() {
+        leguiRender.stop();
+
         glfwFreeCallbacks(getWindowID());
         glfwDestroyWindow(getWindowID());
         glfwTerminate();

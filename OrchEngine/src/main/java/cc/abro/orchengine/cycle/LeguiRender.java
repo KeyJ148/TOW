@@ -17,7 +17,7 @@ import static org.lwjgl.opengl.GL11.*;
 @EngineService
 public class LeguiRender {
     
-    private DefaultInitializer leguiInitializer; //Инициализатор LeGUI
+    private DefaultInitializer leguiInitializer;
 
     /**
      * Инициализация и настройка LeGUI
@@ -66,5 +66,9 @@ public class LeguiRender {
 
     public void setFrameFocused(Frame frame) {
         leguiInitializer.getContext().setFocusedGui(frame.getContainer());
+    }
+
+    public void stop() {
+        leguiInitializer.getRenderer().destroy();
     }
 }
