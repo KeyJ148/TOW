@@ -9,22 +9,36 @@ import org.liquidengine.legui.animation.AnimatorProvider;
 import org.liquidengine.legui.component.Frame;
 import org.liquidengine.legui.system.layout.LayoutManager;
 import org.lwjgl.opengl.GL11;
+import org.picocontainer.Startable;
 
 import static org.lwjgl.glfw.GLFW.glfwPollEvents;
 import static org.lwjgl.opengl.GL11.*;
 
 @Log4j2
 @EngineService
-public class LeguiRender {
-    
+public class LeguiRender implements Startable {
+
+    private final Render render;
+
     private DefaultInitializer leguiInitializer;
 
-    /**
-     * Инициализация и настройка LeGUI
-     */
-    public void init(long windowID) {
-        leguiInitializer = new DefaultInitializer(windowID, new Frame());
-        leguiInitializer.getRenderer().initialize();
+    public LeguiRender(Render render) {
+        this.render = render;
+    }
+
+    @Override
+    public void start() {
+        try {
+            leguiInitializer = new DefaultInitializer(render.getWindowID(), new Frame());
+            leguiInitializer.getRenderer().initialize();
+        } catch (Exception e) {
+            log.fatal("LeGUI initialization failed", e);
+            throw e;
+        }
+    }
+
+    public Frame createFrame() {
+        return createFrame(render.getWidth(), render.getHeight());
     }
     
     public Frame createFrame(int width, int height) {
@@ -68,6 +82,7 @@ public class LeguiRender {
         leguiInitializer.getContext().setFocusedGui(frame.getContainer());
     }
 
+    @Override
     public void stop() {
         leguiInitializer.getRenderer().destroy();
     }

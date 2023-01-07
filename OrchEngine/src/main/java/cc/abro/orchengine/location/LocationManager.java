@@ -2,7 +2,6 @@ package cc.abro.orchengine.location;
 
 
 import cc.abro.orchengine.context.EngineService;
-import cc.abro.orchengine.cycle.LeguiRender;
 import cc.abro.orchengine.input.keyboard.KeyboardHandler;
 import cc.abro.orchengine.input.mouse.MouseHandler;
 
@@ -12,14 +11,8 @@ import java.util.Set;
 @EngineService
 public class LocationManager {
 
-    private final LeguiRender leguiRender;
-
     private Location activeLocation;
     private Set<Location> updatedLocations = new HashSet<>();
-
-    public LocationManager(LeguiRender leguiRender) {
-        this.leguiRender = leguiRender;
-    }
 
     public Location getActiveLocation() {
         return activeLocation;
@@ -42,7 +35,7 @@ public class LocationManager {
             newFrame.setMouse(new MouseHandler(newFrame.getGuiFrame()));
         }
         activeLocation = location;
-        leguiRender.setFrameFocused(newFrame.getGuiFrame());
+        newFrame.setFocus();
     }
 
     public Set<Location> getUpdatedLocations() {

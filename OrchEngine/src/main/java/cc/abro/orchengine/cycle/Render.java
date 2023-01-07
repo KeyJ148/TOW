@@ -28,7 +28,6 @@ public class Render implements Startable {
 
     private final GameInterface game;
     private final LocationManager locationManager;
-    private final LeguiRender leguiRender;
 
     private final Settings settings;
     private final FPSLimiter fpsLimiter;
@@ -38,10 +37,9 @@ public class Render implements Startable {
     private int width;
     private int height;
 
-    public Render(GameInterface game, LocationManager locationManager, LeguiRender leguiRender) {
+    public Render(GameInterface game, LocationManager locationManager) {
         this.game = game;
         this.locationManager = locationManager;
-        this.leguiRender = leguiRender;
 
         settings = game.getRenderSettings();
         fpsLimiter = new FPSLimiter(settings.fpsLimit);
@@ -60,13 +58,6 @@ public class Render implements Startable {
             initOpenGL();
         } catch (Exception e) {
             log.fatal("OpenGL initialization failed", e);
-            throw e;
-        }
-
-        try {
-            leguiRender.init(getWindowID());
-        } catch (Exception e) {
-            log.fatal("LeGUI initialization failed", e);
             throw e;
         }
     }
@@ -136,8 +127,6 @@ public class Render implements Startable {
 
     @Override
     public void stop() {
-        leguiRender.stop();
-
         glfwFreeCallbacks(getWindowID());
         glfwDestroyWindow(getWindowID());
         glfwTerminate();
