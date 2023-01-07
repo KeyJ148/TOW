@@ -22,7 +22,6 @@ public class TextureTests {
         Context.addService(TestTextureService.class);
         SpriteStorage.SpriteContainer[] spriteContainers = JsonContainerLoader.loadInternalFile(
                 SpriteStorage.SpriteContainer[].class, Game.SPRITE_CONFIG_PATH);
-        boolean allSuccess = true;
         Set<String> brokenImages = new HashSet<>();
         for (SpriteStorage.SpriteContainer spriteContainer : spriteContainers) {
             BufferedImage image = Context.getService(TextureService.class)
@@ -50,7 +49,7 @@ public class TextureTests {
             }
         }
         if (!brokenImages.isEmpty()) {
-            Assertions.fail("Images have not black invisible pixels: " + brokenImages);
+            Assertions.fail("Images have invisible pixels that isn't black: " + brokenImages);
         }
     }
 }

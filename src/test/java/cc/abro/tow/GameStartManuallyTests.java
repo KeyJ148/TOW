@@ -14,11 +14,10 @@ import java.util.concurrent.atomic.AtomicReference;
 import static cc.abro.tow.TestUtils.*;
 import static cc.abro.tow.logs.LogUtils.waitToLog;
 import static cc.abro.tow.logs.LogUtils.waitToLogRegex;
-import static cc.abro.tow.services.ServiceUtils.Profiles.TEST_NOT_SHUTDOWN;
 
 public class GameStartManuallyTests {
 
-    private static final String[] ACTIVE_PROFILES = {TEST_NOT_SHUTDOWN};
+    private static final String[] ACTIVE_PROFILES = {};
 
     @Test
     @Timeout(value = 10)

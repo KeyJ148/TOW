@@ -14,11 +14,10 @@ import static cc.abro.tow.TestUtils.*;
 import static cc.abro.tow.logs.LogUtils.waitToLog;
 import static cc.abro.tow.logs.LogUtils.waitToLogRegex;
 import static cc.abro.tow.services.ServiceUtils.Profiles.TEST_DISABLE_RENDER;
-import static cc.abro.tow.services.ServiceUtils.Profiles.TEST_NOT_SHUTDOWN;
 
 public class GameStartTests {
 
-    private static final String[] ACTIVE_PROFILES = {TEST_NOT_SHUTDOWN, TEST_DISABLE_RENDER};
+    private static final String[] ACTIVE_PROFILES = {TEST_DISABLE_RENDER};
 
     @Test
     @Timeout(value = 10)
