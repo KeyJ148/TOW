@@ -1,6 +1,5 @@
 package cc.abro.orchengine.cycle;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.EngineService;
 import cc.abro.orchengine.location.LocationManager;
 import lombok.extern.log4j.Log4j2;
@@ -19,11 +18,13 @@ import static org.lwjgl.opengl.GL11.*;
 public class LeguiRender implements Startable {
 
     private final Render render;
+    private final LocationManager locationManager;
 
     private DefaultInitializer leguiInitializer;
 
-    public LeguiRender(Render render) {
+    public LeguiRender(Render render, LocationManager locationManager) {
         this.render = render;
+        this.locationManager = locationManager;
     }
 
     @Override
@@ -70,8 +71,7 @@ public class LeguiRender implements Startable {
         leguiInitializer.getGuiEventProcessor().processEvents();
 
         //Перерасположить компоненты
-        Frame activeGuiFrame = Context.getService(LocationManager.class) //TODO циклическая зависимость
-                .getActiveLocation().getGuiLocationFrame().getGuiFrame();
+        Frame activeGuiFrame = locationManager.getActiveLocation().getGuiLocationFrame().getGuiFrame();
         LayoutManager.getInstance().layout(activeGuiFrame);
 
         //Запуск анимаций
