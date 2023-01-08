@@ -44,7 +44,7 @@ public class AudioLoader {
             };
 
             Audio audio = new Audio();
-            alBufferData(audio.getID(), format, audioFileRawBuffer, sampleRate);
+            alBufferData(audio.getId(), format, audioFileRawBuffer, sampleRate);
             free(audioFileRawBuffer);
 
             log.debug("Load audio \"" + path + "\" completed");

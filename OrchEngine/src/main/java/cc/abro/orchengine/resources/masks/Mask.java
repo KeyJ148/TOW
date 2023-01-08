@@ -1,6 +1,7 @@
 package cc.abro.orchengine.resources.masks;
 
 import cc.abro.orchengine.util.Vector2;
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
@@ -8,7 +9,8 @@ import java.util.List;
 @Log4j2
 public class Mask {
 
-    private int width, height;
+    @Getter
+    private final int width, height;
     private Vector2<Integer>[] maskCenter;//Позиции точек в полигоне маски (относительно центра)
     private Vector2<Integer>[] maskDefault;//Позиции точек в полигоне маски (относительно верхнего левого угла)
 
@@ -48,13 +50,5 @@ public class Mask {
             copy[i] = new Vector2(maskDefault[i]);
 
         return copy;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
     }
 }

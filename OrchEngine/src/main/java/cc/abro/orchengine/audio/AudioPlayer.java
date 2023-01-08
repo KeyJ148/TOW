@@ -7,6 +7,8 @@ import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.location.objects.Camera;
 import cc.abro.orchengine.resources.audios.Audio;
+import lombok.Getter;
+import lombok.Setter;
 import org.lwjgl.openal.AL;
 import org.lwjgl.openal.ALC;
 import org.picocontainer.Startable;
@@ -23,6 +25,8 @@ public class AudioPlayer implements Startable {
 
     private final List<AudioSource> audioSources = new LinkedList<>();
     private long context, device;
+    @Getter
+    @Setter
     private double volume = 100;
 
     @Override
@@ -88,13 +92,5 @@ public class AudioPlayer implements Startable {
                 it.remove();
             }
         }
-    }
-
-    public double getVolume() {
-        return volume;
-    }
-
-    public void setVolume(double volume) {
-        this.volume = volume;
     }
 }

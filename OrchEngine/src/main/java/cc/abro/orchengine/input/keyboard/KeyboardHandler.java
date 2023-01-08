@@ -1,5 +1,6 @@
 package cc.abro.orchengine.input.keyboard;
 
+import lombok.Getter;
 import org.liquidengine.legui.component.Frame;
 import org.liquidengine.legui.event.KeyEvent;
 
@@ -13,6 +14,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 public class KeyboardHandler {
 
     private Set<Integer> keyPressed = new HashSet<>();
+    @Getter
     private final KeyboardEventHistory eventHistory;
 
     public KeyboardHandler(Frame frame) {
@@ -38,9 +40,5 @@ public class KeyboardHandler {
         }
 
         eventHistory.update();
-    }
-
-    public KeyboardEventHistory getEventHistory() {
-        return eventHistory;
     }
 }

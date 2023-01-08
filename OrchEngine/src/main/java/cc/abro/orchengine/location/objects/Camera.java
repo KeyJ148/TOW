@@ -6,6 +6,8 @@ import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.util.Vector2;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Optional;
 
@@ -15,13 +17,19 @@ import static java.lang.Math.min;
 public class Camera {
 
     //Абсолютная позиция камеры в локации, отрисовка происходит вокруг этой позиции
+    @Setter
     private double x, y;
     //Объект, за которым следует камера (если не null, то вместо x и y будут возвращаться координаты объекта)
+    @Setter
     private GameObject followObject = null;
     //Если true, то при приближении к границе локации будет держаться на расстояние от границы, чтобы была видна только локация
+    @Getter
+    @Setter
     private boolean visibleLocationOnly;
     //Если true, то звук будет считываться будто от следуемого объекта, а не от камеры.
     //Они могут находиться в разных местах при приближении к границе локации.
+    @Getter
+    @Setter
     private boolean soundOnFollowingObject;
 
     public Camera() {
@@ -85,20 +93,8 @@ public class Camera {
         }
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
     public Optional<GameObject> getFollowObject() {
         return Optional.ofNullable(followObject);
-    }
-
-    public void setFollowObject(GameObject gameObject) {
-        followObject = gameObject;
     }
 
     public void deleteFollowObject() {
@@ -107,21 +103,5 @@ public class Camera {
 
     public boolean hasFollowObject() {
         return followObject != null;
-    }
-
-    public boolean isVisibleLocationOnly() {
-        return visibleLocationOnly;
-    }
-
-    public void setVisibleLocationOnly(boolean visibleLocationOnly) {
-        this.visibleLocationOnly = visibleLocationOnly;
-    }
-
-    public boolean isSoundOnFollowingObject() {
-        return soundOnFollowingObject;
-    }
-
-    public void setSoundOnFollowingObject(boolean soundOnFollowingObject) {
-        this.soundOnFollowingObject = soundOnFollowingObject;
     }
 }

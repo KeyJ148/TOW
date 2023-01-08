@@ -2,6 +2,8 @@ package cc.abro.orchengine.location;
 
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.location.objects.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +11,9 @@ import java.util.Set;
 
 public class Location {
 
+    @Getter
     private final int width, height;
+    @Getter
     private final Camera camera; //Положение камеры в этой локации
     /**
      * Объекты, вокруг которых надо вызывать update.
@@ -20,8 +24,10 @@ public class Location {
     private final Map<GameObject, LocationUpdater> locationUpdaters = new HashMap<>();
 
     private final ObjectsContainer objectsContainer; //Массив со всеми чанками и объектами
+    @Getter
     private final GuiLocationFrame guiLocationFrame;
-
+    @Getter
+    @Setter
     private Background background; //Фон локации (цвет и текстура)
 
     public Location() {
@@ -114,36 +120,12 @@ public class Location {
         return objectsContainer.getStatistic();
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public Camera getCamera() {
-        return camera;
-    }
-
     public void add(LocationUpdater locationUpdater) {
         locationUpdaters.put(locationUpdater.getFollowObject(), locationUpdater);
     }
 
     public void remove(LocationUpdater locationUpdater) {
         locationUpdaters.remove(locationUpdater.getFollowObject());
-    }
-
-    public GuiLocationFrame getGuiLocationFrame() {
-        return guiLocationFrame;
-    }
-
-    public Background getBackground() {
-        return background;
-    }
-
-    public void setBackground(Background background) {
-        this.background = background;
     }
 
     /**

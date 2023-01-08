@@ -7,12 +7,20 @@ import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.util.OpenGlUtils;
 import cc.abro.orchengine.util.Vector2;
+import lombok.Getter;
+import lombok.Setter;
 import org.lwjgl.opengl.GL11;
 
 public class Background {
 
+    @Getter
+    @Setter
     private Texture backgroundTexture;
+    @Getter
+    @Setter
     private Color backgroundColor;
+    @Getter
+    @Setter
     private Color outsideMapColor;
 
     public Background() {
@@ -106,29 +114,5 @@ public class Background {
             GL11.glVertex2f(0, height);
             GL11.glEnd();
         }
-    }
-
-    public Texture getBackgroundTexture() {
-        return backgroundTexture;
-    }
-
-    public void setBackgroundTexture(Texture backgroundTexture) {
-        this.backgroundTexture = backgroundTexture;
-    }
-
-    public Color getBackgroundColor() {
-        return backgroundColor;
-    }
-
-    public void setBackgroundColor(Color backgroundColor) {
-        this.backgroundColor = backgroundColor;
-    }
-
-    public Color getOutsideMapColor() {
-        return outsideMapColor;
-    }
-
-    public void setOutsideMapColor(Color outsideMapColor) {
-        this.outsideMapColor = outsideMapColor;
     }
 }

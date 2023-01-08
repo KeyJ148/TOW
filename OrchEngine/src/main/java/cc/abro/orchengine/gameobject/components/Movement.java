@@ -3,6 +3,7 @@ package cc.abro.orchengine.gameobject.components;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.location.LocationManager;
+import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +12,9 @@ public class Movement extends Component {
     public double speed; //На сколько пикселей объект смещается за 1 секунду
     private double direction; //0, 360 - в право, против часовой - движение
 
+    @Getter
     private double xPrevious;//коры объекта в предыдущем шаге
+    @Getter
     private double yPrevious;//(для столкновения)
     private double directionPrevious;//директион объекта в предыдущем шаге (для столкновения)
 
@@ -61,14 +64,6 @@ public class Movement extends Component {
         } else {
             return 360 - Math.abs(directionPrevious % 360);
         }
-    }
-
-    public double getXPrevious() {
-        return xPrevious;
-    }
-
-    public double getYPrevious() {
-        return yPrevious;
     }
 
     @Override

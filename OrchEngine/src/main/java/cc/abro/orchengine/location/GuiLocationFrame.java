@@ -4,13 +4,22 @@ import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.LeguiRender;
 import cc.abro.orchengine.input.keyboard.KeyboardHandler;
 import cc.abro.orchengine.input.mouse.MouseHandler;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.liquidengine.legui.component.Frame;
 
 public class GuiLocationFrame {
 
     private final LeguiRender leguiRender;
+
+    @Getter
     private final Frame guiFrame; //Объект хранящий все элементы gui в данной локации
+    @Getter
+    @Setter(AccessLevel.PROTECTED)
     private KeyboardHandler keyboard; //Объект хранящий события клавиатуры
+    @Getter
+    @Setter(AccessLevel.PROTECTED)
     private MouseHandler mouse; //Объект хранящий события мыши и рисующий курсор на экране
 
     public GuiLocationFrame() {
@@ -33,27 +42,7 @@ public class GuiLocationFrame {
     public void destroy() {
     }
 
-    public void setFocus(){
+    public void setFocus() {
         leguiRender.setFrameFocused(getGuiFrame());
-    }
-
-    public Frame getGuiFrame() {
-        return guiFrame;
-    }
-
-    public KeyboardHandler getKeyboard() {
-        return keyboard;
-    }
-
-    public MouseHandler getMouse() {
-        return mouse;
-    }
-
-    protected void setKeyboard(KeyboardHandler keyboard) {
-        this.keyboard = keyboard;
-    }
-
-    protected void setMouse(MouseHandler mouse) {
-        this.mouse = mouse;
     }
 }

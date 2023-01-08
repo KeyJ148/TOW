@@ -1,11 +1,13 @@
 package cc.abro.orchengine.audio;
 
 import cc.abro.orchengine.resources.audios.Audio;
+import lombok.Getter;
 
 import static org.lwjgl.openal.AL10.*;
 
 public class AudioSource {
 
+    @Getter
     private final int id;
 
     public AudioSource() {
@@ -13,7 +15,7 @@ public class AudioSource {
     }
 
     public void setAudio(Audio audio) {
-        alSourcei(id, AL_BUFFER, audio.getID());
+        alSourcei(id, AL_BUFFER, audio.getId());
     }
 
     //Установка громкости в диапазоне [0; 1]
@@ -43,10 +45,6 @@ public class AudioSource {
 
     public boolean isStopped() {
         return getState() == AL_STOPPED;
-    }
-
-    public int getID() {
-        return id;
     }
 
     public void delete() {

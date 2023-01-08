@@ -3,6 +3,8 @@ package cc.abro.orchengine.gameobject.components.render;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.util.Vector2;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.lwjgl.opengl.GL11;
 
@@ -13,7 +15,10 @@ public class AnimationRender extends Rendering {
 
     private List<Texture> textures;
 
+    @Getter
     private int frameSpeed = 0; //Кол-во кадров в секнду
+    @Getter
+    @Setter
     private int frameNow; //Номер текущего кадра [0;inf)
 
     private long update = 0; //Сколько прошло наносекунд с последней смены кадра
@@ -75,18 +80,6 @@ public class AnimationRender extends Rendering {
 
         this.update = 0;
         this.frameSpeed = frameSpeed;
-    }
-
-    public int getFrameNow() {
-        return frameNow;
-    }
-
-    public int getFrameSpeed() {
-        return frameSpeed;
-    }
-
-    public void setFrameNow(int frameNow) {
-        this.frameNow = frameNow;
     }
 
     public int getFrameNumber() {

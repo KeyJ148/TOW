@@ -1,6 +1,7 @@
 package cc.abro.orchengine.resources.textures;
 
 import cc.abro.orchengine.context.Context;
+import lombok.Getter;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
@@ -9,6 +10,7 @@ import java.awt.image.WritableRaster;
 public class Texture {
     private final TextureService textureService;
 
+    @Getter
     private final int id;
     private final BufferedImage image;
 
@@ -29,10 +31,6 @@ public class Texture {
 
     public void delete() {
         textureService.deleteTexture(id);
-    }
-
-    public int getId() {
-        return id;
     }
 
     public int getWidth() {

@@ -1,6 +1,7 @@
 package cc.abro.orchengine.input.mouse;
 
 import cc.abro.orchengine.context.Context;
+import lombok.Getter;
 import org.liquidengine.legui.component.Frame;
 import org.liquidengine.legui.event.MouseClickEvent;
 
@@ -13,6 +14,7 @@ public class MouseHandler {
     private MouseCursor cursor;
 
     private Set<Integer> buttonPressed = new HashSet<>();
+    @Getter
     private final MouseEventHistory eventHistory;
 
     public MouseHandler(Frame frame) {
@@ -53,9 +55,5 @@ public class MouseHandler {
 
     public void draw() {
         cursor.draw();
-    }
-
-    public MouseEventHistory getEventHistory() {
-        return eventHistory;
     }
 }

@@ -2,12 +2,17 @@ package cc.abro.orchengine.location.objects;
 
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Position;
+import lombok.Getter;
+import lombok.Setter;
 
 public class LocationUpdater {
 
     //Объект, вокруг которого происходит обновление
+    @Getter
     private final GameObject followObject;
     //Радиус в котором будут обновляться объекты. Если 0, то будет обновляться только followObject.
+    @Getter
+    @Setter
     private int radius;
 
     public LocationUpdater(GameObject followObject) {
@@ -25,18 +30,6 @@ public class LocationUpdater {
 
     public double getY() {
         return followObject.getComponent(Position.class).y;
-    }
-
-    public GameObject getFollowObject() {
-        return followObject;
-    }
-
-    public int getRadius() {
-        return radius;
-    }
-
-    public void setRadius(int radius) {
-        this.radius = radius;
     }
 
     public boolean isOneObjectUpdater() {

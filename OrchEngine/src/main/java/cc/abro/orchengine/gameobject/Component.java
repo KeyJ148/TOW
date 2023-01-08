@@ -1,11 +1,14 @@
 package cc.abro.orchengine.gameobject;
 
+import lombok.Getter;
+
 import java.util.Collections;
 import java.util.List;
 
 public abstract class Component {
 
     private GameObject gameObject;
+    @Getter
     private ComponentsContainer parentContainer;
     private boolean updatedInThisStep = false;
     private boolean drawInThisStep = false;
@@ -67,9 +70,5 @@ public abstract class Component {
             gameObject = getParentContainer().getGameObject();
         }
         return gameObject;
-    }
-
-    public ComponentsContainer getParentContainer() {
-        return parentContainer;
     }
 }

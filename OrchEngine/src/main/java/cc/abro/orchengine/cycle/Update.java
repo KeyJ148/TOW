@@ -16,18 +16,16 @@ public class Update {
     private final GameInterface game;
     private final TCPRead tcpRead;
     private final UDPRead udpRead;
-    private final LeguiRender leguiRender;
     private final Analyzer analyzer;
     private final LocationManager locationManager;
 
     private long lastUpdateTime;
 
-    public Update(GameInterface game, TCPRead tcpRead, UDPRead udpRead, LeguiRender leguiRender, Analyzer analyzer,
+    public Update(GameInterface game, TCPRead tcpRead, UDPRead udpRead, Analyzer analyzer,
                   LocationManager locationManager) {
         this.game = game;
         this.tcpRead = tcpRead;
         this.udpRead = udpRead;
-        this.leguiRender = leguiRender;
         this.analyzer = analyzer;
         this.locationManager = locationManager;
     }

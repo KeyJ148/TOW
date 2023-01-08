@@ -7,6 +7,7 @@ import cc.abro.orchengine.init.interfaces.GameInterface;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureService;
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWImage;
@@ -32,9 +33,13 @@ public class Render implements Startable {
     private final Settings settings;
     private final FPSLimiter fpsLimiter;
 
+    @Getter
     private long windowID; //ID окна игры для LWJGL
+    @Getter
     private long monitorID; //ID монитора (0 для не полноэкранного режима)
+    @Getter
     private int width;
+    @Getter
     private int height;
 
     public Render(GameInterface game, LocationManager locationManager) {
@@ -156,22 +161,6 @@ public class Render implements Startable {
 
     public void fpsSync() {
         fpsLimiter.sync();
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public long getWindowID() {
-        return windowID;
-    }
-
-    public long getMonitorID() {
-        return monitorID;
     }
 
     public record Settings(int widthScreen, int heightScreen, boolean fullScreen,
