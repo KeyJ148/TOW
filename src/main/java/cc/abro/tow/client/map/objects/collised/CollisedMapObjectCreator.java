@@ -17,18 +17,18 @@ public class CollisedMapObjectCreator extends TexturedMapObjectCreator {
     @Override
     public MapObject createMapObject(MapObjectSpecification mapObjectSpecification) {
         return new CollisedMapObject(
-                mapObjectSpecification.getId(),
-                mapObjectSpecification.getX(),
-                mapObjectSpecification.getY(),
-                mapObjectSpecification.getZ(),
-                mapObjectSpecification.getType(),
+                mapObjectSpecification.id(),
+                mapObjectSpecification.x(),
+                mapObjectSpecification.y(),
+                mapObjectSpecification.z(),
+                mapObjectSpecification.type(),
                 getTexture(mapObjectSpecification),
                 getDirection(mapObjectSpecification),
                 getMask(mapObjectSpecification));
     }
 
     protected Mask getMask(MapObjectSpecification mapObjectSpecification) {
-        String textureName = (String) mapObjectSpecification.getParameters().get("texture");
-        return Context.getService(SpriteStorage.class).getSprite(textureName).getMask();
+        String textureName = (String) mapObjectSpecification.parameters().get("texture");
+        return Context.getService(SpriteStorage.class).getSprite(textureName).mask();
     }
 }

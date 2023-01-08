@@ -14,11 +14,11 @@ public class RepeatedMapObjectCreator extends TexturedMapObjectCreator {
     @Override
     public MapObject createMapObject(MapObjectSpecification mapObjectSpecification) {
         return new RepeatedMapObject(
-                mapObjectSpecification.getId(),
-                mapObjectSpecification.getX(),
-                mapObjectSpecification.getY(),
-                mapObjectSpecification.getZ(),
-                mapObjectSpecification.getType(),
+                mapObjectSpecification.id(),
+                mapObjectSpecification.x(),
+                mapObjectSpecification.y(),
+                mapObjectSpecification.z(),
+                mapObjectSpecification.type(),
                 getTexture(mapObjectSpecification),
                 getDirection(mapObjectSpecification),
                 getWidth(mapObjectSpecification),
@@ -26,11 +26,11 @@ public class RepeatedMapObjectCreator extends TexturedMapObjectCreator {
     }
 
     protected int getWidth(MapObjectSpecification mapObjectSpecification) {
-        return ((Number) mapObjectSpecification.getParameters().get("width")).intValue();
+        return ((Number) mapObjectSpecification.parameters().get("width")).intValue();
     }
 
     protected int getHeight(MapObjectSpecification mapObjectSpecification) {
-        return ((Number) mapObjectSpecification.getParameters().get("height")).intValue();
+        return ((Number) mapObjectSpecification.parameters().get("height")).intValue();
     }
 
 }

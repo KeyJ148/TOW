@@ -10,7 +10,7 @@ import java.io.IOException;
 public class ConfigReader {
 
     public static final String PATH_SETTING_DIR = "game-settings/";
-    private String path;
+    private final String path;
 
     public ConfigReader(String fileName) {
         this.path = PATH_SETTING_DIR + fileName;

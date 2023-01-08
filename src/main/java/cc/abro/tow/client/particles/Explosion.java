@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class Explosion extends ParticlesTexture {
 
-    private double size;
+    private final double size;
 
     public Explosion(double size) {
         this.size = size;
@@ -27,7 +27,7 @@ public class Explosion extends ParticlesTexture {
         if (size > 70) count = size * 3;
         for (int i = 0; i < count; i++) {
             Part part = new Part();
-            part.texture = Context.getService(SpriteStorage.class).getSprite("part_ball").getTexture();
+            part.texture = Context.getService(SpriteStorage.class).getSprite("part_ball").texture();
             part.x = getGameObject().getComponent(Position.class).x;
             part.y = getGameObject().getComponent(Position.class).y;
             part.direction = getGameObject().getComponent(Position.class).getDirectionDraw() + rand.nextInt(360);

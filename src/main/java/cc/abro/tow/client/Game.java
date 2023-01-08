@@ -62,13 +62,13 @@ public class Game implements GameInterface {
         }
 
         if (settingsService.getSettings().getGraphics().getCursorSprite() != null) {
-            Texture texture = Context.getService(SpriteStorage.class).getSprite(settingsService.getSettings().getGraphics().getCursorSprite()).getTexture();
+            Texture texture = Context.getService(SpriteStorage.class).getSprite(settingsService.getSettings().getGraphics().getCursorSprite()).texture();
             Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().setTexture(texture);
         }
         clientData.name = settingsService.getSettings().getProfile().getNickname();
         clientData.color = new Color(settingsService.getSettings().getProfile().getColor());
 
-        Texture icon = Context.getService(SpriteStorage.class).getSprite("window_icon").getTexture();
+        Texture icon = Context.getService(SpriteStorage.class).getSprite("window_icon").texture();
         Context.getService(Render.class).setIcon(icon);
 
         MapObjectCreatorsLoader.load();

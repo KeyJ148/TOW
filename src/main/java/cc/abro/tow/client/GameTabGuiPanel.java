@@ -132,7 +132,7 @@ public class GameTabGuiPanel extends Panel {
     }
 
     private void addImageViewInCenterOfPanel(String name, Panel panel) {
-        Texture texture = Context.getService(SpriteStorage.class).getSprite(name).getTexture();
+        Texture texture = Context.getService(SpriteStorage.class).getSprite(name).texture();
         FBOImage logoFBOImage = new FBOImage(texture.getId(), texture.getWidth(), texture.getHeight());
         ImageView imageView = new ImageView(logoFBOImage);
         imageView.setStyle(createInvisibleStyle());
@@ -142,7 +142,7 @@ public class GameTabGuiPanel extends Panel {
     }
 
     private void addImageViewToPanel(String name, Panel panel) {
-        Texture texture = Context.getService(SpriteStorage.class).getSprite(name).getTexture();
+        Texture texture = Context.getService(SpriteStorage.class).getSprite(name).texture();
         FBOImage logoFBOImage = new FBOImage(texture.getId(), texture.getWidth(), texture.getHeight());
         ImageView imageView = new ImageView(logoFBOImage);
         imageView.setStyle(createInvisibleStyle());
@@ -223,7 +223,7 @@ public class GameTabGuiPanel extends Panel {
         }
 
         public void createImageView(String name) {
-            Texture texture = Context.getService(SpriteStorage.class).getSprite(name).getTexture();
+            Texture texture = Context.getService(SpriteStorage.class).getSprite(name).texture();
             FBOImage logoFBOImage = new FBOImage(texture.getId(), texture.getWidth(), texture.getHeight());
             deadIcon = new ImageView(logoFBOImage);
             deadIcon.setStyle(createInvisibleStyle());

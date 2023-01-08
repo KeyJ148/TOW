@@ -17,21 +17,21 @@ public class TexturedMapObjectCreator implements MapObjectCreator {
     @Override
     public MapObject createMapObject(MapObjectSpecification mapObjectSpecification) {
         return new TexturedMapObject(
-                mapObjectSpecification.getId(),
-                mapObjectSpecification.getX(),
-                mapObjectSpecification.getY(),
-                mapObjectSpecification.getZ(),
-                mapObjectSpecification.getType(),
+                mapObjectSpecification.id(),
+                mapObjectSpecification.x(),
+                mapObjectSpecification.y(),
+                mapObjectSpecification.z(),
+                mapObjectSpecification.type(),
                 getTexture(mapObjectSpecification),
                 getDirection(mapObjectSpecification));
     }
 
     protected double getDirection(MapObjectSpecification mapObjectSpecification) {
-        return ((Number) mapObjectSpecification.getParameters().get("direction")).doubleValue();
+        return ((Number) mapObjectSpecification.parameters().get("direction")).doubleValue();
     }
 
     protected Texture getTexture(MapObjectSpecification mapObjectSpecification) {
-        String textureName = (String) mapObjectSpecification.getParameters().get("texture");
-        return Context.getService(SpriteStorage.class).getSprite(textureName).getTexture();
+        String textureName = (String) mapObjectSpecification.parameters().get("texture");
+        return Context.getService(SpriteStorage.class).getSprite(textureName).texture();
     }
 }

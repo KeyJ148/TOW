@@ -1,8 +1,8 @@
 package cc.abro.tow.client;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.analysis.AnalysisStringBuilder;
 import cc.abro.orchengine.analysis.Analyzer;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObjectFactory;
@@ -35,7 +35,7 @@ public class GameLocation extends Location {
 
         private final DebugInfoGuiPanel debugInfoGuiPanel;
 
-        public DebugInfoComponent(DebugInfoGuiPanel debugInfoGuiPanel){
+        public DebugInfoComponent(DebugInfoGuiPanel debugInfoGuiPanel) {
             this.debugInfoGuiPanel = debugInfoGuiPanel;
         }
 

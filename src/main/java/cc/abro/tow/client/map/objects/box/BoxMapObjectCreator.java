@@ -14,17 +14,17 @@ public class BoxMapObjectCreator extends TexturedMapObjectCreator {
     @Override
     public MapObject createMapObject(MapObjectSpecification mapObjectSpecification) {
         return new BoxMapObject(
-                mapObjectSpecification.getId(),
-                mapObjectSpecification.getX(),
-                mapObjectSpecification.getY(),
-                mapObjectSpecification.getZ(),
-                mapObjectSpecification.getType(),
+                mapObjectSpecification.id(),
+                mapObjectSpecification.x(),
+                mapObjectSpecification.y(),
+                mapObjectSpecification.z(),
+                mapObjectSpecification.type(),
                 getTexture(mapObjectSpecification),
                 getDirection(mapObjectSpecification),
                 getBoxType(mapObjectSpecification));
     }
 
     protected int getBoxType(MapObjectSpecification mapObjectSpecification) {
-        return (int) mapObjectSpecification.getParameters().get("boxType");
+        return (int) mapObjectSpecification.parameters().get("boxType");
     }
 }

@@ -28,7 +28,7 @@ public class EnemyBullet extends GameObject {
 		this.idEnemy = idEnemy;
 		this.idNet = idNet;
 
-		if (texture.equals(Context.getService(SpriteStorage.class).getSprite("b_streamlined").getTexture())) {
+		if (texture.equals(Context.getService(SpriteStorage.class).getSprite("b_streamlined").texture())) {
 			getComponent(Movement.class).directionDrawEquals = true;
 			getComponent(Position.class).setDirectionDraw(0);
 		} else {

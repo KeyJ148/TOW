@@ -116,7 +116,7 @@ public class Gun extends GameObject {
         effect.addition.range = cr.findInteger("RANGE");
 
         imageName = cr.findString("IMAGE_NAME");
-        texture = Context.getService(SpriteStorage.class).getSprite(imageName).getTexture();
+        texture = Context.getService(SpriteStorage.class).getSprite(imageName).texture();
         title = cr.findString("TITLE");
     }
 }

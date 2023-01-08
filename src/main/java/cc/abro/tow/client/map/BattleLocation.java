@@ -35,7 +35,7 @@ public class BattleLocation extends GameLocation {
             } else {
                 add(mapObject);
             }
-            Context.getService(ClientData.class).mapObjects.add(mapObjectSpecification.getId(), mapObject);
+            Context.getService(ClientData.class).mapObjects.add(mapObjectSpecification.id(), mapObject);
         }
 
         addDebugPanel(70);

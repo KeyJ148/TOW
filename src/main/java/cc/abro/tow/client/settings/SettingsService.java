@@ -1,13 +1,15 @@
 package cc.abro.tow.client.settings;
 
-import java.io.IOException;
-
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.GameService;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.JsonContainerLoader;
 import cc.abro.tow.client.ClientData;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
+
+import java.io.IOException;
 
 @Log4j2
 @GameService
@@ -15,7 +17,9 @@ public class SettingsService {
 
     private static final String PATH = "setting.json";
 
+    @Getter
     private final boolean loadSuccess;
+    @Getter @Setter
     private Settings settings;
 
     public SettingsService() {
@@ -51,18 +55,6 @@ public class SettingsService {
                 log.error("Settings can't be saved", e);
             }
         });
-    }
-
-    public Settings getSettings() {
-        return settings;
-    }
-
-    public void setSettings(Settings settings) {
-        this.settings = settings;
-    }
-
-    public boolean isLoadSuccess() {
-        return loadSuccess;
     }
 
     public void setProfileSettings(String nickname, Color tankColor){

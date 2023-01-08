@@ -1,7 +1,7 @@
 package cc.abro.tow.client;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.audio.AudioPlayer;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.GameService;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.image.Color;
@@ -260,7 +260,7 @@ public class NetGameRead implements NetGameReadInterface {
 		long idNet = Long.parseLong(str.split(" ")[5]);
 		int idEmeny = Integer.parseInt(str.split(" ")[6]);
 
-		EnemyBullet enemyBullet = new EnemyBullet(x, y, speed, direction, spriteStorage.getSprite(texture).getTexture(), idEmeny, idNet);
+		EnemyBullet enemyBullet = new EnemyBullet(x, y, speed, direction, spriteStorage.getSprite(texture).texture(), idEmeny, idNet);
 		Context.getService(ClientData.class).enemyBullet.add(enemyBullet);
 		Context.getService(LocationManager.class).getActiveLocation().add(enemyBullet);
 	}

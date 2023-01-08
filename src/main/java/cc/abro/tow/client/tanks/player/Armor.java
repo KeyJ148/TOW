@@ -41,12 +41,12 @@ public class Armor extends GameObject {
         loadData();
 
         setComponent(new Position(x, y, 1000, direction));
-        setComponent(new AnimationRender(textureHandlers.getTextures()));
+        setComponent(new AnimationRender(textureHandlers.textures()));
         setComponent(new Movement());
         getComponent(Movement.class).setDirection(direction);
         getComponent(Movement.class).update(0);
 
-        setComponent(new Collision(textureHandlers.getMask()));
+        setComponent(new Collision(textureHandlers.mask()));
         getComponent(Collision.class).addCollisionObjects(new Class[]{
                 CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class, Box.class, Border.class});
         getComponent(Collision.class).addListener(player.controller);

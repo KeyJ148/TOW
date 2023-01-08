@@ -1,10 +1,13 @@
 package cc.abro.tow.client.map.specification;
 
+import lombok.Getter;
+
 import java.util.Collection;
 import java.util.Map;
 
 public class MapSpecification {
 
+    @Getter
     private final int width, height;
     private final Map<Integer, MapObjectSpecification> mapObjectById;
 
@@ -20,13 +23,5 @@ public class MapSpecification {
 
     public MapObjectSpecification getMapObjectSpecification(int id) {
         return mapObjectById.get(id);
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
     }
 }

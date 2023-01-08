@@ -14,11 +14,11 @@ public class DestroyedMapObjectCreator extends CollisedMapObjectCreator {
     @Override
     public MapObject createMapObject(MapObjectSpecification mapObjectSpecification) {
         return new DestroyedMapObject(
-                mapObjectSpecification.getId(),
-                mapObjectSpecification.getX(),
-                mapObjectSpecification.getY(),
-                mapObjectSpecification.getZ(),
-                mapObjectSpecification.getType(),
+                mapObjectSpecification.id(),
+                mapObjectSpecification.x(),
+                mapObjectSpecification.y(),
+                mapObjectSpecification.z(),
+                mapObjectSpecification.type(),
                 getTexture(mapObjectSpecification),
                 getDirection(mapObjectSpecification),
                 getMask(mapObjectSpecification),
@@ -26,6 +26,6 @@ public class DestroyedMapObjectCreator extends CollisedMapObjectCreator {
     }
 
     protected double getStability(MapObjectSpecification mapObjectSpecification) {
-        return ((Number) mapObjectSpecification.getParameters().get("stability")).doubleValue();
+        return ((Number) mapObjectSpecification.parameters().get("stability")).doubleValue();
     }
 }

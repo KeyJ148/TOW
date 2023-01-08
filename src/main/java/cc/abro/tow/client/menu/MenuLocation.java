@@ -25,9 +25,9 @@ public class MenuLocation extends GameLocation {
 
         GuiService guiService = Context.getService(GuiService.class);
 
-        setBackground(new Background(Context.getService(SpriteStorage.class).getSprite(BACKGROUND_SPRITE_NAME).getTexture()));
+        setBackground(new Background(Context.getService(SpriteStorage.class).getSprite(BACKGROUND_SPRITE_NAME).texture()));
 
-        Texture logoTexture = Context.getService(SpriteStorage.class).getSprite("logo").getTexture();
+        Texture logoTexture = Context.getService(SpriteStorage.class).getSprite("logo").texture();
         MainMenuLogoGuiPanel mainMenuLogoGuiPanel = new MainMenuLogoGuiPanel(logoTexture);
         mainMenuLogoGuiPanel.setPosition((Context.getService(Render.class).getWidth() - logoTexture.getWidth())/2,
                 INDENT_Y);

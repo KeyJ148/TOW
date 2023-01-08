@@ -22,12 +22,12 @@ public class MapObjectFactory {
     }
 
     public MapObject createMapObject(MapObjectSpecification mapObjectSpecification) {
-        if (!mapObjectCreatorByType.containsKey(mapObjectSpecification.getType())) {
-            log.error("MapObjectCreator \"" + mapObjectSpecification.getType() + "\" not found");
+        if (!mapObjectCreatorByType.containsKey(mapObjectSpecification.type())) {
+            log.error("MapObjectCreator \"" + mapObjectSpecification.type() + "\" not found");
             return null;
         }
 
-        return mapObjectCreatorByType.get(mapObjectSpecification.getType()).createMapObject(mapObjectSpecification);
+        return mapObjectCreatorByType.get(mapObjectSpecification.type()).createMapObject(mapObjectSpecification);
     }
 
 }

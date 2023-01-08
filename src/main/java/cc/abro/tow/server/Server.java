@@ -83,12 +83,12 @@ public class Server implements ServerInterface {
         //Подготавливаем список существующих объектов
         List<MapObject> collisionsObjectsOnMap = Stream.concat(
                         ServerData.map.getMapObjectSpecifications().stream()
-                                .filter(mapObjectSpecification -> !mapObjectSpecification.getType().equals("road"))
-                                .filter(mapObjectSpecification -> mapObjectSpecification.getParameters().containsKey("texture"))
+                                .filter(mapObjectSpecification -> !mapObjectSpecification.type().equals("road"))
+                                .filter(mapObjectSpecification -> mapObjectSpecification.parameters().containsKey("texture"))
                                 .map(m -> {
                                     Texture texture = Context.getService(SpriteStorage.class)
-                                            .getSprite((String) m.getParameters().get("texture")).getTexture();
-                                    return new MapObject(m.getX(), m.getY(), texture.getWidth(), texture.getHeight());
+                                            .getSprite((String) m.parameters().get("texture")).texture();
+                                    return new MapObject(m.x(), m.y(), texture.getWidth(), texture.getHeight());
                                 }),
                         Stream.of(ServerData.playerData)
                                 .filter(Objects::nonNull)

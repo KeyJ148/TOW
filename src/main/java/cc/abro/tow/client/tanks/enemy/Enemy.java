@@ -77,7 +77,7 @@ public class Enemy extends Tank {
 
         //Инициализация пушки
         if (gun == null) {
-            Texture gunTexture = Context.getService(SpriteStorage.class).getSprite("g_default").getTexture();
+            Texture gunTexture = Context.getService(SpriteStorage.class).getSprite("g_default").texture();
             gun = GameObjectFactory.create(x, y, 2000, directionGun, gunTexture);
             gun.setComponent(new Movement());
             gun.getComponent(Movement.class).directionDrawEquals = false;
@@ -112,7 +112,7 @@ public class Enemy extends Tank {
     public void newArmor(String nameArmor) {
         if (armor == null) return;
 
-        armor.setComponent(new AnimationRender(Context.getService(AnimationStorage.class).getAnimation(nameArmor).getTextures()));
+        armor.setComponent(new AnimationRender(Context.getService(AnimationStorage.class).getAnimation(nameArmor).textures()));
         setColorArmor(color);
 
         Context.getService(LocationManager.class).getActiveLocation().checkGameObjectChunkChanged(armor);
@@ -121,7 +121,7 @@ public class Enemy extends Tank {
     public void newGun(String nameGun) {
         if (gun == null) return;
 
-        gun.setComponent(new SpriteRender(Context.getService(SpriteStorage.class).getSprite(nameGun).getTexture()));
+        gun.setComponent(new SpriteRender(Context.getService(SpriteStorage.class).getSprite(nameGun).texture()));
         setColorGun(color);
 
         Context.getService(LocationManager.class).getActiveLocation().checkGameObjectChunkChanged(gun);

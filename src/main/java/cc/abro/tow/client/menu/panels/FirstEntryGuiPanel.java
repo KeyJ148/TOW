@@ -8,11 +8,11 @@ import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureService;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.orchengine.services.GuiService;
+import cc.abro.tow.client.settings.SettingsService;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.ImageView;
 import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.TextAreaField;
-import cc.abro.tow.client.settings.SettingsService;
 import org.liquidengine.legui.event.MouseClickEvent;
 import org.liquidengine.legui.image.FBOImage;
 import org.liquidengine.legui.listener.MouseClickEventListener;
@@ -72,7 +72,7 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
 
         int[] colorFromSettings = settingsService.getSettings().getProfile().getColor();
         tankColor = new Color(colorFromSettings);
-        BufferedImage defaultTankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
+        BufferedImage defaultTankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").texture().getImage();
         Texture defaultTankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(defaultTankImage, tankColor));
         FBOImage tankFBOImage = new FBOImage(defaultTankTexture.getId(), defaultTankTexture.getWidth(), defaultTankTexture.getHeight());
         ImageView imageView = new ImageView(tankFBOImage);
@@ -86,7 +86,7 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
                     getMouseReleaseListener(() -> {
                         tankColor = COLORS[fi];
 
-                        BufferedImage tankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
+                        BufferedImage tankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").texture().getImage();
                         Texture tankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(tankImage, tankColor));
                         //TODO здесь надо вызывать delete у defaultTankTexture и переопределять defaultTankTexture = tankTexture
                         //TODO при закрытие панели не забыть очистить и tankTexture

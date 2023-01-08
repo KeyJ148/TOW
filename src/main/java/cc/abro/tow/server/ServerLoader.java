@@ -10,9 +10,9 @@ public class ServerLoader extends Thread {
     public static Runnable startServerListener = null;
 
     //Параметры передаваемые серверу при запуске
-    private int port;
-    private int peopleMax;
-    private boolean maxPower;
+    private final int port;
+    private final int peopleMax;
+    private final boolean maxPower;
 
     public ServerLoader(int port, int peopleMax, boolean maxPower) {
         this.port = port;

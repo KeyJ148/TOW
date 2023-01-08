@@ -1,8 +1,8 @@
 package cc.abro.tow.client.tanks.player;
 
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.audio.AudioPlayer;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.GameObjectFactory;
 import cc.abro.orchengine.gameobject.components.Collision;
@@ -11,8 +11,8 @@ import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
-import cc.abro.orchengine.location.objects.Border;
 import cc.abro.orchengine.location.LocationManager;
+import cc.abro.orchengine.location.objects.Border;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.audios.AudioStorage;
 import cc.abro.orchengine.resources.sprites.Sprite;
@@ -61,9 +61,9 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
         loadData();
 
         setComponent(new Position(x, y, 1500, dir));
-        setComponent(new SpriteRender(texture.getTexture()));
+        setComponent(new SpriteRender(texture.texture()));
 
-        setComponent(new CollisionDirect(texture.getMask(), range));
+        setComponent(new CollisionDirect(texture.mask(), range));
         getComponent(Collision.class).addCollisionObjects(new Class[]{
                 CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class, Border.class});
         getComponent(Collision.class).addListener(this);

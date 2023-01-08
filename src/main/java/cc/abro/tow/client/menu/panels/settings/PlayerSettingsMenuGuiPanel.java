@@ -70,7 +70,7 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
 
         int[] colorFromSettings = settings.getProfile().getColor();
         tankColor = new Color(colorFromSettings);
-        BufferedImage defaultTankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
+        BufferedImage defaultTankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").texture().getImage();
         Texture defaultTankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(defaultTankImage, tankColor));
         FBOImage tankFBOImage = new FBOImage(defaultTankTexture.getId(), defaultTankTexture.getWidth(), defaultTankTexture.getHeight());
         ImageView imageView = new ImageView(tankFBOImage);
@@ -212,7 +212,7 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
 
     private void changeTankColor(Color color, ImageView imageView) {
         tankColor = color;
-        BufferedImage tankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").getTexture().getImage();
+        BufferedImage tankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").texture().getImage();
         Texture tankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(tankImage, tankColor));
         //TODO здесь надо вызывать delete у defaultTankTexture и переопределять defaultTankTexture = tankTexture
         //TODO при закрытие панели не забыть очистить и tankTexture
