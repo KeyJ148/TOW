@@ -1,8 +1,8 @@
 package cc.abro.tow.client.map.objects;
 
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.audio.AudioPlayer;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Position;
@@ -35,8 +35,8 @@ public class Box extends GameObject {
 
 		Sprite sprite = Context.getService(SpriteStorage.class).getSprite(nameBox);
 		setComponent(new Position(x, y, 1000));
-		setComponent(new SpriteRender(sprite.getTexture()));
-		setComponent(new Collision(sprite.getMask()));
+		setComponent(new SpriteRender(sprite.texture()));
+		setComponent(new Collision(sprite.mask()));
 	}
 
 	public void collisionPlayer(Player player) {
