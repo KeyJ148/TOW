@@ -12,6 +12,7 @@
 #Ignore game created files
 /logs
 /setting.json
+hs_err_pid*.log
 
 #Ignore OS-specific files
 /.directory
