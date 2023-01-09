@@ -40,12 +40,12 @@ public class TextureService {
 
     public Texture createTexture(BufferedImage image) {
         ByteBuffer buffer = getByteBufferFromBufferedImage(image);
-        Texture texture = new Texture(image);
-        texture.bind();
+        Texture texture = new Texture(genTextureId(), image);
+        bindTexture(texture);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-        texture.unbind();
+        unbindTexture();
         return texture;
     }
 
@@ -60,8 +60,12 @@ public class TextureService {
         }
     }
 
-    public int genTextureId() {
+    private int genTextureId() {
         return glGenTextures();
+    }
+
+    public void bindTexture(Texture texture) {
+        bindTexture(texture.getId());
     }
 
     public void bindTexture(int textureId) {
@@ -70,6 +74,10 @@ public class TextureService {
 
     public void unbindTexture() {
         glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+    public void deleteTexture(Texture texture) {
+        deleteTexture(texture.getId());
     }
 
     public void deleteTexture(int textureId) {

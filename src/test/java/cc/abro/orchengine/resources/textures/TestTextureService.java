@@ -1,25 +1,19 @@
-package cc.abro.tow.services;
+package cc.abro.orchengine.resources.textures;
 
 import cc.abro.orchengine.context.TestService;
-import cc.abro.orchengine.resources.textures.Texture;
-import cc.abro.orchengine.resources.textures.TextureService;
 
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 import static cc.abro.tow.services.ServiceUtils.Profiles.TEST_DISABLE_RENDER;
 
 @TestService({TEST_DISABLE_RENDER})
 public class TestTextureService extends TextureService {
 
-    @Override
-    public Texture createTexture(BufferedImage image) {
-        return new Texture(image);
-    }
+    private int textureIdCounter = 1;
 
     @Override
-    public int genTextureId() {
-        return new Random().nextInt();
+    public Texture createTexture(BufferedImage image) {
+        return new Texture(textureIdCounter++, image);
     }
 
     @Override

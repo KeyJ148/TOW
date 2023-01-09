@@ -5,6 +5,7 @@ import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.orchengine.resources.textures.TextureService;
 import cc.abro.orchengine.util.OpenGlUtils;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
@@ -57,7 +58,7 @@ public class Background {
             int allTexturesHeight = countTexturesInHeight * backgroundTexture.getHeight();
 
             Color.WHITE.bind();
-            backgroundTexture.bind();
+            Context.getService(TextureService.class).bindTexture(backgroundTexture);
 
             GL11.glLoadIdentity();
             GL11.glTranslatef(startRelativePosition.x, startRelativePosition.y, 0);
@@ -73,7 +74,7 @@ public class Background {
             GL11.glVertex2f(0, allTexturesHeight);
             GL11.glEnd();
 
-            backgroundTexture.unbind();
+            Context.getService(TextureService.class).unbindTexture();
         } else {
             GL11.glLoadIdentity();
             backgroundColor.bind();

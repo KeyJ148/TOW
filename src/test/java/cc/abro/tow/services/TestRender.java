@@ -1,7 +1,6 @@
 package cc.abro.tow.services;
 
 import cc.abro.orchengine.context.TestService;
-import cc.abro.orchengine.cycle.LeguiRender;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.init.interfaces.GameInterface;
 import cc.abro.orchengine.location.LocationManager;
@@ -17,13 +16,13 @@ public class TestRender extends Render {
     private final int windowId;
     private final int monitorId;
 
-    public TestRender(GameInterface game, LocationManager locationManager, LeguiRender leguiRender) {
-        this(game, locationManager, leguiRender, 1920, 1080, 1, 1);
+    public TestRender(GameInterface game, LocationManager locationManager) {
+        this(game, locationManager, 1920, 1080, 1, 1);
     }
 
-    public TestRender(GameInterface game, LocationManager locationManager, LeguiRender leguiRender,
+    public TestRender(GameInterface game, LocationManager locationManager,
                       int width, int height, int windowId, int monitorId) {
-        super(game, locationManager, leguiRender);
+        super(game, locationManager);
         this.width = width;
         this.height = height;
         this.windowId = windowId;

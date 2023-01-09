@@ -44,26 +44,26 @@ public class Box extends GameObject {
 
 		String soundName = "";
 		switch (typeBox) {
-			case 0:
+			case 0 -> {
 				if (player.takeArmor) EquipManager.newArmor(player);
 				soundName = "armor";
-				break;
-			case 1:
+			}
+			case 1 -> {
 				if (player.takeGun) EquipManager.newGun(player);
 				soundName = "gun";
-				break;
-			case 2:
+			}
+			case 2 -> {
 				if (player.takeBullet) EquipManager.newBullet(player);
 				soundName = "bullet";
-				break;
-			case 3:
+			}
+			case 3 -> {
 				if (player.takeHealth) player.hp = (long) (player.hp + player.stats.hpMax * 0.4);
 				soundName = "heal";
-				break;
-			case 4:
+			}
+			case 4 -> {
 				if (player.takeHealth) player.hp = (long) player.stats.hpMax;
 				soundName = "heal";
-				break;
+			}
 		}
 
 		Context.getService(TCPControl.class).send(21, String.valueOf(idBox));

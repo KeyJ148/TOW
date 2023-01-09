@@ -1,7 +1,9 @@
 package cc.abro.orchengine.gameobject.components.render;
 
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.orchengine.resources.textures.TextureService;
 import cc.abro.orchengine.util.Vector2;
 import org.lwjgl.opengl.GL11;
 
@@ -30,7 +32,7 @@ public class RepeatableSpriteRender extends SpriteRender {
         GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
 
         color.bind();
-        texture.bind();
+        Context.getService(TextureService.class).bindTexture(texture);
 
         GL11.glBegin(GL11.GL_QUADS);
         GL11.glTexCoord2f(0, 0);
@@ -43,6 +45,6 @@ public class RepeatableSpriteRender extends SpriteRender {
         GL11.glVertex2f(-width / 2, height / 2);
         GL11.glEnd();
 
-        texture.unbind();
+        Context.getService(TextureService.class).unbindTexture();
     }
 }

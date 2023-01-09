@@ -1,7 +1,9 @@
 package cc.abro.orchengine.gameobject.components.render;
 
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.orchengine.resources.textures.TextureService;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
 import lombok.Setter;
@@ -57,7 +59,7 @@ public class AnimationRender extends Rendering {
         GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
 
         color.bind();
-        textures.get(frameNow).bind();
+        Context.getService(TextureService.class).bindTexture(textures.get(frameNow));
 
         GL11.glBegin(GL11.GL_QUADS);
         GL11.glTexCoord2f(0, 0);
@@ -69,7 +71,7 @@ public class AnimationRender extends Rendering {
         GL11.glTexCoord2f(0, 1);
         GL11.glVertex2f(-width / 2, height / 2);
         GL11.glEnd();
-        textures.get(frameNow).unbind();
+        Context.getService(TextureService.class).unbindTexture();
     }
 
     public void setFrameSpeed(int frameSpeed) {
