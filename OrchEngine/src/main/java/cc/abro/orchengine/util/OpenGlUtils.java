@@ -1,11 +1,12 @@
 package cc.abro.orchengine.util;
 
+import lombok.experimental.UtilityClass;
 import org.lwjgl.opengl.GL11;
 
-//TODO вынести в сервис?
-public final class OpenGlUtils {
+@UtilityClass
+public class OpenGlUtils {
 
-    public static void renderGlQuads(float width, float height) {
+    public void renderGlQuads(float width, float height) {
         renderGlQuads(
                 new Vector2<>(0f, 0f),
                 new Vector2<>(width, 0f),
@@ -13,7 +14,7 @@ public final class OpenGlUtils {
                 new Vector2<>(0f, height));
     }
 
-    public static void renderGlQuadsFromCenter(float width, float height) {
+    public void renderGlQuadsFromCenter(float width, float height) {
         renderGlQuads(
                 new Vector2<>(-width / 2, -height / 2),
                 new Vector2<>(width / 2, -height / 2),
@@ -21,7 +22,7 @@ public final class OpenGlUtils {
                 new Vector2<>(-width / 2, height / 2));
     }
 
-    public static void renderGlQuads(Vector2<Float> leftUp,
+    public void renderGlQuads(Vector2<Float> leftUp,
                                      Vector2<Float> rightUp,
                                      Vector2<Float> rightDown,
                                      Vector2<Float> leftDown) {

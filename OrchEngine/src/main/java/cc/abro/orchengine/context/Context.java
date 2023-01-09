@@ -7,7 +7,6 @@ import org.picocontainer.injectors.AbstractInjector;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@EngineService
 public class Context {
 
     private static final Map<ThreadGroup, ThreadContext> contextByThreadGroup = new ConcurrentHashMap<>();

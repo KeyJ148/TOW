@@ -1,5 +1,7 @@
 package cc.abro.orchengine.resources;
 
+import lombok.experimental.UtilityClass;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,17 +18,18 @@ import java.io.InputStreamReader;
     обращение к ресурсам как к файлам не будет работать при упаковке ресурсов в JAR)
  */
 
+@UtilityClass
 public class ResourceLoader {
 
-    public static InputStream getResourceAsStream(String path) {
+    public InputStream getResourceAsStream(String path) {
         return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
     }
 
-    public static BufferedReader getResourceAsBufferedReader(String path) {
+    public BufferedReader getResourceAsBufferedReader(String path) {
         return new BufferedReader(new InputStreamReader(getResourceAsStream(path)));
     }
 
-    public static boolean existResource(String path) {
+    public boolean existResource(String path) {
         return Thread.currentThread().getContextClassLoader().getResource(path) != null;
     }
 

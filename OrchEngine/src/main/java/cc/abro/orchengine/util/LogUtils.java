@@ -1,11 +1,12 @@
 package cc.abro.orchengine.util;
 
-
+import lombok.experimental.UtilityClass;
 import org.apache.logging.log4j.Logger;
 
-public final class LogUtils {
+@UtilityClass
+public class LogUtils {
 
-    public static void logFatalException(Logger log, String text, Exception e) {
+    public void logFatalException(Logger log, String text, Exception e) {
         e.printStackTrace();
         try {
             log.fatal(text, e);
