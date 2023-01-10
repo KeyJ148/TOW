@@ -60,7 +60,7 @@ public class Color extends java.awt.Color {
         return new int[]{getRed(), getGreen(), getBlue()};
     }
 
-    public void bind() {
+    public void bind() { //TODO to service
         GL11.glColor4f(getFloatRed(), getFloatGreen(), getFloatBlue(), getFloatAlpha());
     }
 }

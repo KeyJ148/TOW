@@ -6,7 +6,7 @@ import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureService;
-import cc.abro.orchengine.util.OpenGlUtils;
+import cc.abro.orchengine.services.OpenGlService;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
 import lombok.Setter;
@@ -79,7 +79,7 @@ public class Background {
             GL11.glLoadIdentity();
             backgroundColor.bind();
 
-            OpenGlUtils.renderGlQuads(width, height);
+            Context.getService(OpenGlService.class).renderGlQuads(width, height);
         }
 
         //Заливка фона за границами карты
@@ -90,7 +90,7 @@ public class Background {
         int fillH = (height - Context.getService(LocationManager.class).getActiveLocation().getHeight()) / 2;
 
         if (Context.getService(Render.class).getWidth() > Context.getService(LocationManager.class).getActiveLocation().getWidth()) {
-            OpenGlUtils.renderGlQuads(fillW, height);
+            Context.getService(OpenGlService.class).renderGlQuads(fillW, height);
             GL11.glBegin(GL11.GL_QUADS);
             GL11.glTexCoord2f(0, 0);
             GL11.glVertex2f(width - fillW, 0);
@@ -103,7 +103,7 @@ public class Background {
             GL11.glEnd();
         }
         if (Context.getService(Render.class).getHeight() > Context.getService(LocationManager.class).getActiveLocation().getHeight()) {
-            OpenGlUtils.renderGlQuads(width, fillH);
+            Context.getService(OpenGlService.class).renderGlQuads(width, fillH);
             GL11.glBegin(GL11.GL_QUADS);
             GL11.glTexCoord2f(0, 0);
             GL11.glVertex2f(0, height - fillH);

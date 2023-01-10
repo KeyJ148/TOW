@@ -3,8 +3,7 @@ package cc.abro.orchengine.gameobject.components.render;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.resources.textures.Texture;
-import cc.abro.orchengine.resources.textures.TextureService;
-import cc.abro.orchengine.util.OpenGlUtils;
+import cc.abro.orchengine.services.OpenGlService;
 import cc.abro.orchengine.util.Vector2;
 import org.lwjgl.opengl.GL11;
 
@@ -37,11 +36,7 @@ public class SpriteRender extends Rendering {
         GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
 
         color.bind();
-        Context.getService(TextureService.class).bindTexture(texture);
-
-        OpenGlUtils.renderGlQuadsFromCenter(width, height);
-
-        Context.getService(TextureService.class).unbindTexture();
+        Context.getService(OpenGlService.class).renderTextureGlQuadsFromCenter(width, height, texture);
     }
 
     @Override
