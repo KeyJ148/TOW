@@ -1,12 +1,10 @@
-package cc.abro.tow.services;
+package cc.abro.orchengine.cycle;
 
 import cc.abro.orchengine.context.TestService;
-import cc.abro.orchengine.cycle.LeguiRender;
-import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.location.LocationManager;
 import org.liquidengine.legui.component.Frame;
 
-import static cc.abro.tow.services.ServiceUtils.Profiles.TEST_DISABLE_RENDER;
+import static cc.abro.tow.TestUtils.Profiles.TEST_DISABLE_RENDER;
 
 @TestService({TEST_DISABLE_RENDER})
 public class TestLeguiRender extends LeguiRender {
@@ -16,6 +14,9 @@ public class TestLeguiRender extends LeguiRender {
     }
 
     @Override
+    public void start() {}
+
+    @Override
     public void render(Frame frame) {}
 
     @Override
@@ -23,4 +24,7 @@ public class TestLeguiRender extends LeguiRender {
 
     @Override
     public void setFrameFocused(Frame frame) {}
+
+    @Override
+    public void stop() {}
 }

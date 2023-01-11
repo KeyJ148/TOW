@@ -11,6 +11,11 @@ import cc.abro.tow.client.Game;
 import cc.abro.tow.client.settings.SettingsService;
 
 public class TestUtils {
+
+    public static class Profiles {
+        public static final String TEST_DISABLE_RENDER = "TestDisableRender";
+    }
+
     public static final String DEFAULT_IP = "127.0.0.1";
     public static final int DEFAULT_PORT = 25566;
 

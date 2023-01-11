@@ -11,9 +11,9 @@ import org.junit.jupiter.api.Timeout;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static cc.abro.tow.TestUtils.*;
+import static cc.abro.tow.TestUtils.Profiles.TEST_DISABLE_RENDER;
 import static cc.abro.tow.logs.LogUtils.waitToLog;
 import static cc.abro.tow.logs.LogUtils.waitToLogRegex;
-import static cc.abro.tow.services.ServiceUtils.Profiles.TEST_DISABLE_RENDER;
 
 public class GameStartTests {
 

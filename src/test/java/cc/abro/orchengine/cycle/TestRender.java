@@ -1,12 +1,12 @@
-package cc.abro.tow.services;
+package cc.abro.orchengine.cycle;
 
 import cc.abro.orchengine.context.TestService;
-import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.init.interfaces.GameInterface;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.textures.Texture;
 
-import static cc.abro.tow.services.ServiceUtils.Profiles.TEST_DISABLE_RENDER;
+import static cc.abro.tow.TestUtils.Profiles.TEST_DISABLE_RENDER;
+
 
 @TestService({TEST_DISABLE_RENDER})
 public class TestRender extends Render {

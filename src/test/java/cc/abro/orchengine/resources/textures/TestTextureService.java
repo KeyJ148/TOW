@@ -4,7 +4,7 @@ import cc.abro.orchengine.context.TestService;
 
 import java.awt.image.BufferedImage;
 
-import static cc.abro.tow.services.ServiceUtils.Profiles.TEST_DISABLE_RENDER;
+import static cc.abro.tow.TestUtils.Profiles.TEST_DISABLE_RENDER;
 
 @TestService({TEST_DISABLE_RENDER})
 public class TestTextureService extends TextureService {
