@@ -48,66 +48,26 @@ public class NetGameRead implements NetGameReadInterface {
 	@Override
 	public void readTCP(Message message) {
 		switch (message.type) {
-			case 1:
-				take1(message.data);
-				break;
-			case 3:
-				take3(message.data);
-				break;
-			case 4:
-				take4(message.data);
-				break;
-			case 5:
-				take5(message.data);
-				break;
-			case 7:
-				take7(message.data);
-				break;
-			case 8:
-				take8(message.data);
-				break;
-			case 10:
-				take10(message.data);
-				break;
-			case 11:
-				take11(message.data);
-				break;
-			case 12:
-				take12(message.data);
-				break;
-			case 13:
-				take13(message.data);
-				break;
-			case 14:
-				take14(message.data);
-				break;
-			case 15:
-				take15(message.data);
-				break;
-			case 18:
-				take18(message.data);
-				break;
-			case 19:
-				take19(message.data);
-				break;
-			case 20:
-				take20(message.data);
-				break;
-			case 21:
-				take21(message.data);
-				break;
-			case 22:
-				take22(message.data);
-				break;
-			case 23:
-				take23(message.data);
-				break;
-			case 24:
-				take24(message.data);
-				break;
-			case 25:
-				take25(message.data);
-				break;
+			case 1 -> take1(message.data);
+			case 3 -> take3(message.data);
+			case 4 -> take4(message.data);
+			case 5 -> take5(message.data);
+			case 7 -> take7(message.data);
+			case 8 -> take8(message.data);
+			case 10 -> take10(message.data);
+			case 11 -> take11(message.data);
+			case 12 -> take12(message.data);
+			case 13 -> take13(message.data);
+			case 14 -> take14(message.data);
+			case 15 -> take15(message.data);
+			case 18 -> take18(message.data);
+			case 19 -> take19(message.data);
+			case 20 -> take20(message.data);
+			case 21 -> take21(message.data);
+			case 22 -> take22(message.data);
+			case 23 -> take23(message.data);
+			case 24 -> take24(message.data);
+			case 25 -> take25(message.data);
 		}
 	}
 
