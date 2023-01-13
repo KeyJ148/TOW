@@ -1,6 +1,5 @@
 package cc.abro.tow.client;
 
-import cc.abro.orchengine.audio.AudioPlayer;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.GameService;
 import cc.abro.orchengine.cycle.Render;
@@ -9,6 +8,7 @@ import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.init.interfaces.GameInterface;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.JsonContainerLoader;
+import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.tow.client.map.factory.MapObjectCreatorsLoader;
@@ -35,22 +35,22 @@ public class Game implements GameInterface {
     private final GuiPanelStorage guiPanelStorage;
     private final LocationManager locationManager;
     private final ClientData clientData;
-    private final AudioPlayer audioPlayer;
+    private final AudioService audioService;
     private final SettingsService settingsService;
 
     public Game(GuiPanelStorage guiPanelStorage, LocationManager locationManager, ClientData clientData,
-                AudioPlayer audioPlayer, SettingsService settingsService) {
+                AudioService audioService, SettingsService settingsService) {
         this.guiPanelStorage = guiPanelStorage;
         this.locationManager = locationManager;
         this.clientData = clientData;
-        this.audioPlayer = audioPlayer;
+        this.audioService = audioService;
         this.settingsService = settingsService;
     }
 
     @Override
     public void init() {
         GameSetting.init();
-        audioPlayer.setVolume(settingsService.getSettings().getVolume().getSoundVolume());
+        audioService.setVolume(settingsService.getSettings().getVolume().getSoundVolume());
 
         try {
             SpriteStorage.SpriteContainer[] spriteContainers = JsonContainerLoader.loadInternalFile(

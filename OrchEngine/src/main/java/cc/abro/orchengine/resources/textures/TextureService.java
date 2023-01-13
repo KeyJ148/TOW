@@ -60,7 +60,7 @@ public class TextureService {
         }
     }
 
-    private int genTextureId() {
+    public int genTextureId() {
         return glGenTextures();
     }
 

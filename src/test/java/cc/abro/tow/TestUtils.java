@@ -1,11 +1,11 @@
 package cc.abro.tow;
 
-import cc.abro.orchengine.audio.AudioPlayer;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.TestService;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.client.Connector;
+import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.Game;
 import cc.abro.tow.client.settings.SettingsService;
@@ -44,10 +44,10 @@ public class TestUtils {
         public GameProxyService(GuiPanelStorage guiPanelStorage,
                                 LocationManager locationManager,
                                 ClientData clientData,
-                                AudioPlayer audioPlayer,
+                                AudioService audioService,
                                 SettingsService settingsService,
                                 GameAfterStartService gameAfterStartService) {
-            super(guiPanelStorage, locationManager, clientData, audioPlayer, settingsService);
+            super(guiPanelStorage, locationManager, clientData, audioService, settingsService);
             this.gameAfterStartService = gameAfterStartService;
         }
 

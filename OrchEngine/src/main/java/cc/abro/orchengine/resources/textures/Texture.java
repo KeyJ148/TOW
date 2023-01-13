@@ -31,7 +31,6 @@ public class Texture {
         return new BufferedImage(colorModel, raster, isAlphaPremultiplied, null);
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -33,6 +33,6 @@ public class SpriteStorage {
         return spriteByName.get(name);
     }
 
-    public static record SpriteContainer(String name, String texturePath, String maskPath) {
+    public record SpriteContainer(String name, String texturePath, String maskPath) {
     }
 }

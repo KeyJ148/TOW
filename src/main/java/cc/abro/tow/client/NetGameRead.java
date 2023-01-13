@@ -1,6 +1,5 @@
 package cc.abro.tow.client;
 
-import cc.abro.orchengine.audio.AudioPlayer;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.GameService;
 import cc.abro.orchengine.gameobject.GameObject;
@@ -10,6 +9,7 @@ import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.client.Message;
 import cc.abro.orchengine.net.client.PingChecker;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
+import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.orchengine.resources.audios.AudioStorage;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.tow.client.map.BattleLocation;
@@ -28,16 +28,16 @@ import java.util.Vector;
 @GameService
 public class NetGameRead implements NetGameReadInterface {
 
-	private final AudioPlayer audioPlayer;
+	private final AudioService audioService;
 	private final AudioStorage audioStorage;
 	private final PingChecker pingChecker;
 	private final TCPControl tcpControl;
 	private final SpriteStorage spriteStorage;
 	private final LocationManager locationManager;
 
-	public NetGameRead(AudioPlayer audioPlayer, AudioStorage audioStorage, PingChecker pingChecker,
+	public NetGameRead(AudioService audioService, AudioStorage audioStorage, PingChecker pingChecker,
 					   TCPControl tcpControl, SpriteStorage spriteStorage, LocationManager locationManager){
-		this.audioPlayer = audioPlayer;
+		this.audioService = audioService;
 		this.audioStorage = audioStorage;
 		this.pingChecker = pingChecker;
 		this.tcpControl = tcpControl;
@@ -366,7 +366,7 @@ public class NetGameRead implements NetGameReadInterface {
 		int y = Integer.parseInt(str.split(" ")[1]);
 		String sound = str.split(" ")[2];
 
-		audioPlayer.playSoundEffect(audioStorage.getAudio(sound), x, y, GameSetting.SOUND_RANGE);
+		audioService.playSoundEffect(audioStorage.getAudio(sound), x, y, GameSetting.SOUND_RANGE);
 	}
 
 }
