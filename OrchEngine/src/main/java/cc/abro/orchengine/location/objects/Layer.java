@@ -63,12 +63,13 @@ public class Layer {
         //Делаем копию сета, иначе получаем ConcurrentModificationException,
         //т.к. во время апдейта можно создать новый объект и для этого будет создан новый чанк
         Set<Chunk> updatedChunks = new HashSet<>();
-        if (locationUpdaters.isEmpty()) {
+        if (locationUpdaters.isEmpty()) { //TODO ???
             updatedChunks.addAll(chunkByCoords.values());
         } else {
             updatedChunks.addAll(chunkByCoords.values());
         }
 
+        //TODO Сейчас пробегаем по всем чанкам и обновляем все объекты. Но большинство объектов статичны и не обновляемы. Сделать интерфейс Updatable?
         chunksUpdated = 0;
         objectsUpdated = 0;
         updatedChunks.forEach(chunk -> {

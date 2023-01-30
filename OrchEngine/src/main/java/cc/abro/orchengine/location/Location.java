@@ -144,10 +144,10 @@ public class Location {
         }
     }
 
-    public static record Statistic(Map<Integer, Integer> chunksUpdatedByLayerZ,
-                                   Map<Integer, Integer> objectsUpdatedByLayerZ,
-                                   Map<Integer, Integer> chunksRenderedByLayerZ,
-                                   Map<Integer, Integer> objectsRenderedByLayerZ,
-                                   Map<Integer, Integer> unsuitableObjectsRenderedByLayerZ) {
+    public record Statistic(Map<Integer, Integer> chunksUpdatedByLayerZ,
+                            Map<Integer, Integer> objectsUpdatedByLayerZ,
+                            Map<Integer, Integer> chunksRenderedByLayerZ,
+                            Map<Integer, Integer> objectsRenderedByLayerZ,
+                            Map<Integer, Integer> unsuitableObjectsRenderedByLayerZ) {
     }
 }
