@@ -68,7 +68,7 @@ public class CollisionDirect extends Collision {
         int y = relativePosition.y;
         int w = 20;
         int h = 20;
-        GL11.glBegin(GL11.GL_LINE_LOOP); //TODO GL_QUADS ?
+        GL11.glBegin(GL11.GL_LINE_LOOP); //Because GL_QUADS it is filled rectangle, but we need not filled
         GL11.glTexCoord2f(0, 0);
         GL11.glVertex2f(x, y);
         GL11.glTexCoord2f(1, 0);

@@ -12,7 +12,6 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Collision extends cc.abro.orchengine.gameobject.Component {
@@ -210,12 +209,12 @@ public class Collision extends cc.abro.orchengine.gameobject.Component {
 
     @Override
     public List<Class<? extends cc.abro.orchengine.gameobject.Component>> getPreliminaryUpdateComponents() {
-        return Arrays.asList(Movement.class, Follower.class);
+        return List.of(Movement.class, Follower.class);
     }
 
     @Override
     public List<Class<? extends Component>> getPreliminaryDrawComponents() {
-        return Arrays.asList(Rendering.class);
+        return List.of(Rendering.class);
     }
 
 }

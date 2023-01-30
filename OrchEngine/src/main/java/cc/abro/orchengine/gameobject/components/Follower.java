@@ -5,7 +5,6 @@ import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.location.LocationManager;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Follower extends Component {
@@ -59,11 +58,6 @@ public class Follower extends Component {
 
     @Override
     public List<Class<? extends Component>> getPreliminaryUpdateComponents() {
-        return Arrays.asList(Movement.class);
-    }
-
-    @Override
-    public List<Class<? extends Component>> getPreliminaryDrawComponents() {
-        return Arrays.asList();
+        return List.of(Movement.class);
     }
 }

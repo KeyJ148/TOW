@@ -5,9 +5,6 @@ import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.location.LocationManager;
 import lombok.Getter;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class Movement extends Component {
     public double speed; //На сколько пикселей объект смещается за 1 секунду
     private double direction; //0, 360 - в право, против часовой - движение
@@ -69,15 +66,5 @@ public class Movement extends Component {
     @Override
     public Class getComponentClass() {
         return Movement.class;
-    }
-
-    @Override
-    public List<Class<? extends Component>> getPreliminaryUpdateComponents() {
-        return Arrays.asList();
-    }
-
-    @Override
-    public List<Class<? extends Component>> getPreliminaryDrawComponents() {
-        return Arrays.asList();
     }
 }

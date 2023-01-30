@@ -49,7 +49,6 @@ public abstract class Component {
     /**
      * @return List of components that needed to {@link #update} before {@link #update} this component.
      */
-    //TODO проверить, что там где надо используют дефолтную реализацию
     public List<Class<? extends Component>> getPreliminaryUpdateComponents() {
         return Collections.emptyList();
     }
@@ -57,7 +56,6 @@ public abstract class Component {
     /**
      * @return List of components that needed to {@link #draw} before {@link #draw} this component.
      */
-    //TODO проверить, что там где надо используют дефолтную реализацию
     public List<Class<? extends Component>> getPreliminaryDrawComponents() {
         return Collections.emptyList();
     }

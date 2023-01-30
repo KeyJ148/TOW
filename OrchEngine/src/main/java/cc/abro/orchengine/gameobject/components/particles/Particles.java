@@ -3,7 +3,10 @@ package cc.abro.orchengine.gameobject.components.particles;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public abstract class Particles extends Component {
 
@@ -36,12 +39,7 @@ public abstract class Particles extends Component {
     }
 
     @Override
-    public List<Class<? extends Component>> getPreliminaryUpdateComponents() {
-        return Arrays.asList();
-    }
-
-    @Override
     public List<Class<? extends Component>> getPreliminaryDrawComponents() {
-        return Arrays.asList(Rendering.class);
+        return List.of(Rendering.class);
     }
 }
