@@ -47,6 +47,10 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
     public String imageName;
     public Sprite texture;
 
+    public Bullet() {
+        super(Context.getService(LocationManager.class).getActiveLocation());
+    }
+
     public void init(Player player, double x, double y, double dir, double damage, int range, String name) {
         this.player = player;
         this.name = name;
@@ -56,14 +60,14 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
         this.startX = x;
         this.startY = y;
 
-        setComponent(new Movement());
+        addComponent(new Movement());
         this.getComponent(Movement.class).setDirection(dir);
         loadData();
 
-        setComponent(new Position(x, y, 1500, dir));
-        setComponent(new SpriteRender(texture.texture()));
+        addComponent(new Position(x, y, 1500, dir));
+        addComponent(new SpriteRender(texture.texture()));
 
-        setComponent(new CollisionDirect(texture.mask(), range));
+        addComponent(new CollisionDirect(texture.mask(), range));
         getComponent(Collision.class).addCollisionObjects(new Class[]{
                 CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class, Border.class});
         getComponent(Collision.class).addListener(this);
@@ -77,7 +81,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
 
     @Override
     public void collision(GameObject gameObject) {
-        if (isDestroy()) return;
+        if (isDestroyed()) return;
 
         if (gameObject.getClass().equals(Border.class)) {
             destroy(0);
@@ -109,16 +113,17 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
         Context.getService(TCPControl.class).send(15, idNet + " " + expSize);
 
         if (explosionSize > 0) {
-            GameObject explosion = GameObjectFactory.create(getComponent(Position.class).x, getComponent(Position.class).y, 3000);
-            explosion.setComponent(new Explosion(expSize));
+            GameObject explosion = GameObjectFactory.create(getLocation(), getComponent(Position.class).x, getComponent(Position.class).y, 3000);
+            Explosion explosionParticles = new Explosion(expSize);
+            explosion.addComponent(explosionParticles);
+            explosionParticles.activate();
             explosion.getComponent(Particles.class).destroyObject = true;
-            Context.getService(LocationManager.class).getActiveLocation().add(explosion);
         }
     }
 
     @Override
     public void update(long delta) {
-        if (!isDestroy()) {
+        if (!isDestroyed()) {
             if (Math.sqrt(Math.pow(startX - getComponent(Position.class).x, 2) + Math.pow(startY - getComponent(Position.class).y, 2)) >= range) {
                 destroy(0);
             }

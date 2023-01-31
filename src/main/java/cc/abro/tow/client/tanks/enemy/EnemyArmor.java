@@ -14,11 +14,11 @@ public class EnemyArmor extends GameObject {
     public Enemy enemy;
 
     public EnemyArmor(int x, int y, double direction, int z, Animation animation, Enemy enemy) {
-        super(Arrays.asList(new Position(x, y, z, (int) direction), new AnimationRender(animation.textures())));
+        super(enemy.getLocation(), Arrays.asList(new Position(x, y, z, (int) direction), new AnimationRender(animation.textures())));
         this.enemy = enemy;
 
-        setComponent(new Movement());
+        addComponent(new Movement());
         getComponent(Movement.class).directionDrawEquals = false;
-        setComponent(new Collision(animation.mask()));
+        addComponent(new Collision(animation.mask()));
     }
 }

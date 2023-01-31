@@ -14,6 +14,7 @@ public class Chunk {
     private final Set<GameObject> objects = new HashSet<>();
 
     public void add(GameObject gameObject) {
+        if (objects.contains(gameObject)) throw new IllegalStateException(); //TODO удалить после фикса cc.abro.orchengine.location.Location.add
         objects.add(gameObject);
     }
 
@@ -24,7 +25,7 @@ public class Chunk {
     public void update(long delta) {
         //Делаем копию сета, иначе получаем ConcurrentModificationException,
         //т.к. во время апдейта можно создать новый объект и этот объект будет помещен в сет
-        new ArrayList<>(objects).forEach(gameObject -> gameObject.update(delta));
+        new ArrayList<>(objects).forEach(gameObject -> gameObject.update(delta)); //TODO в подобных местах использовать Collections.unmodifiableSet() ?
     }
 
     public void render() {

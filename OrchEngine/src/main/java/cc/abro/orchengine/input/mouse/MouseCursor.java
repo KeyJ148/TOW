@@ -6,6 +6,7 @@ import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
+import cc.abro.orchengine.location.Location;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.util.Vector2;
 import org.lwjgl.BufferUtils;
@@ -26,8 +27,8 @@ public class MouseCursor {
         this.render = render;
 
         //Создание объекта курсора (используется компонент Position и Sprite)
-        cursor = new GameObject();
-        cursor.setComponent(new Position(0, 0, -1000));
+        cursor = new GameObject(new Location()); //TODO fake location is ok?
+        cursor.addComponent(new Position(0, 0, -1000));
         cursor.getComponent(Position.class).absolute = false;
     }
 
@@ -42,7 +43,7 @@ public class MouseCursor {
 
         //Необходимо убрать флаг drawInThisStep, т.к. курсор отрисовывается и во время общей отрисовки локации
         //Потом отрисовывает интерфейс, и потом снова необходимо отрисовать курсор
-        cursor.getComponent(Rendering.class).startNewStep();
+        //TODO cursor.getComponent(Rendering.class).startNewStep();
         cursor.draw();
     }
 
@@ -54,14 +55,14 @@ public class MouseCursor {
         //Отключение стнадартного курсора
         glfwSetInputMode(render.getWindowID(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
         //Присвоение текстуры объекту курсора
-        cursor.setComponent(new SpriteRender(texture));
+        cursor.addComponent(new SpriteRender(texture));
     }
 
     public void setDefaultTexture() {
         //Включение стнадартного курсора
         glfwSetInputMode(render.getWindowID(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         //Отключение текстуры у объекта курсора
-        cursor.removeComponent(Rendering.class);
+        cursor.removeComponents(Rendering.class);
     }
 
     public void setCapture(boolean captureCursor) {

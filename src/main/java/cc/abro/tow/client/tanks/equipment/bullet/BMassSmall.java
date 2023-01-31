@@ -22,7 +22,7 @@ public class BMassSmall extends Bullet {
 
     @Override
     public void collision(GameObject gameObject) {
-        if (isDestroy()) return;
+        if (isDestroyed()) return;
 
         if (gameObject instanceof Armor) {
             ((Armor) gameObject).player.hp -= damage;

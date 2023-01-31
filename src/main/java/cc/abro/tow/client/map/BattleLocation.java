@@ -3,12 +3,12 @@ package cc.abro.tow.client.map;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObjectFactory;
+import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.location.objects.Border;
 import cc.abro.orchengine.net.client.PingChecker;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.GameLocation;
 import cc.abro.tow.client.GameTabGuiPanel;
-import cc.abro.tow.client.map.objects.scaled.RepeatedMapObjectCreator;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;
 import cc.abro.tow.client.map.specification.MapSpecification;
 
@@ -29,12 +29,14 @@ public class BattleLocation extends GameLocation {
 
         Border.createAndAddAll(this, BORDER_SIZE);
         for (MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()) {
-            MapObject mapObject = Context.getService(ClientData.class).mapObjectFactory.createMapObject(mapObjectSpecification);
-            if (mapObject.getType().equals(new RepeatedMapObjectCreator().getType())) {
+            MapObject mapObject = Context.getService(ClientData.class).mapObjectFactory.createMapObject(this, mapObjectSpecification);
+
+            //TODO на данный момент нет ситуации, когда бы вызывался addUnsuitableObject
+            /*if (mapObject.getType().equals(new RepeatedMapObjectCreator().getType())) {
                 addUnsuitableObject(mapObject);
             } else {
                 add(mapObject);
-            }
+            }*/
             Context.getService(ClientData.class).mapObjects.add(mapObjectSpecification.id(), mapObject);
         }
 
@@ -46,11 +48,11 @@ public class BattleLocation extends GameLocation {
         GameTabGuiPanel gameTabGuiPanel = new GameTabGuiPanel(Context.getService(ClientData.class).peopleMax);
         gameTabGuiPanel.changePosition();
         TabPanelComponent tabPanelComponent = new TabPanelComponent(gameTabGuiPanel);
-        add(GameObjectFactory.create(tabPanelComponent));
+        GameObjectFactory.create(this, tabPanelComponent);
     }
 
     //TODO в отдельный класс или упростить в новой системе компонент
-    public class TabPanelComponent extends Component {
+    public class TabPanelComponent extends Component implements Updatable {
 
         private final GameTabGuiPanel gameTabGuiPanel;
 
@@ -78,9 +80,6 @@ public class BattleLocation extends GameLocation {
                 getGuiLocationFrame().getGuiFrame().getContainer().remove(gameTabGuiPanel);
             }
         }
-
-        @Override
-        public void draw() {}
 
         @Override
         public Class getComponentClass() {

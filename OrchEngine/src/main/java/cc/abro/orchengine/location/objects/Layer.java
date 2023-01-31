@@ -54,21 +54,18 @@ public class Layer {
         Chunk chunkLast = getChunk((int) gameObject.getComponent(Movement.class).getXPrevious(), (int) gameObject.getComponent(Movement.class).getYPrevious());
 
         if (chunkLast != chunkNow) {
-            chunkLast.remove(gameObject);
+            if (chunkLast != null) chunkLast.remove(gameObject); //TODO del if (chunkLast != null)
             chunkNow.add(gameObject);
         }
     }
 
-    public void update(long delta, Collection<LocationUpdater> locationUpdaters) {
+    public void update(long delta) {
         //Делаем копию сета, иначе получаем ConcurrentModificationException,
         //т.к. во время апдейта можно создать новый объект и для этого будет создан новый чанк
         Set<Chunk> updatedChunks = new HashSet<>();
-        if (locationUpdaters.isEmpty()) { //TODO ???
-            updatedChunks.addAll(chunkByCoords.values());
-        } else {
-            updatedChunks.addAll(chunkByCoords.values());
-        }
+        updatedChunks.addAll(chunkByCoords.values());
 
+        //TODO ниже
         //TODO Сейчас пробегаем по всем чанкам и обновляем все объекты. Но большинство объектов статичны и не обновляемы. Сделать интерфейс Updatable?
         chunksUpdated = 0;
         objectsUpdated = 0;

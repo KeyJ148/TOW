@@ -8,19 +8,20 @@ import cc.abro.orchengine.resources.masks.MaskLoader;
 
 public class Border extends GameObject {
 
-    public Border(int roomWidth, int roomHeight, Type type, int size) {
-        BorderData borderData = type.getBorderData(roomWidth, roomHeight, size);
+    public Border(Location location, Type type, int size) {
+        super(location);
+        BorderData borderData = type.getBorderData(location.getWidth(), location.getHeight(), size);
 
-        setComponent(new Position(borderData.x, borderData.y, 0));
+        addComponent(new Position(borderData.x, borderData.y, 0));
         //Путь должен быть, иначе mask выкинет ошибку при парсе;
-        setComponent(new Collision(MaskLoader.createDefaultMask(borderData.w, borderData.h)));
+        addComponent(new Collision(MaskLoader.createDefaultMask(borderData.w, borderData.h)));
     }
 
     public static void createAndAddAll(Location location, int size) {
-        location.add(new Border(location.getWidth(), location.getHeight(), Type.NORTH, size));
-        location.add(new Border(location.getWidth(), location.getHeight(), Type.EAST, size));
-        location.add(new Border(location.getWidth(), location.getHeight(), Type.SOUTH, size));
-        location.add(new Border(location.getWidth(), location.getHeight(), Type.WEST, size));
+        new Border(location, Type.NORTH, size);
+        new Border(location, Type.EAST, size);
+        new Border(location, Type.SOUTH, size);
+        new Border(location, Type.WEST, size);
     }
 
     public static record BorderData(int x, int y, int w, int h) {

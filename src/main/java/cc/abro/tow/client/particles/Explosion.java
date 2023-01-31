@@ -1,7 +1,6 @@
 package cc.abro.tow.client.particles;
 
 import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.particles.Part;
 import cc.abro.orchengine.gameobject.components.particles.ParticlesTexture;
@@ -18,10 +17,7 @@ public class Explosion extends ParticlesTexture {
         this.size = size;
     }
 
-    @Override
-    public void notifyAboutAddToGameObject(GameObject gameObject) { //TODO точно в notify? Мб отдельную функцию activate()?
-        super.notifyAboutAddToGameObject(gameObject);
-
+    public void activate() {
         double count = size * 2;
         Random rand = new Random();
         if (size > 70) count = size * 3;

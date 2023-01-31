@@ -3,6 +3,7 @@ package cc.abro.tow.client.menu.panels;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObjectFactory;
+import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.server.GameServer;
@@ -60,9 +61,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
         getFrame().getContainer().add(connectedGuiPanel.panel());
 
         ConnectedPlayersUpdater connectedPlayersUpdater = new ConnectedPlayersUpdater(connectedGuiPanel.label());
-        Context.getService(LocationManager.class).getActiveLocation()
-                .add(GameObjectFactory.create(connectedPlayersUpdater));
-
+        GameObjectFactory.create(Context.getService(LocationManager.class).getActiveLocation(), connectedPlayersUpdater);
         try {
             Context.getService(CreateServerService.class).createServer(port,
                     Integer.parseInt(maxPeople));
@@ -102,7 +101,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
     }
 
     //TODO упростить в системе компонент новой
-    public class ConnectedPlayersUpdater extends Component {
+    public class ConnectedPlayersUpdater extends Component implements Updatable {
 
         private final Label label;
 
@@ -118,9 +117,6 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
         public void update(long delta) {
             label.getTextState().setText("Connected players: " + GameServer.peopleNow + "/" + GameServer.peopleMax);
         }
-
-        @Override
-        public void draw() {}
 
     }
 }

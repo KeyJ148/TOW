@@ -10,6 +10,7 @@ import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.image.Color;
+import cc.abro.orchengine.location.Location;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.orchengine.resources.audios.AudioStorage;
@@ -41,16 +42,15 @@ public abstract class Tank extends GameObject {
     public int death = 0;
     public int win = 0;
 
-    public Tank() {
-        super(Arrays.asList(new Position(0, 0, 0)));
+    public Tank(Location location) {
+        super(location, Arrays.asList(new Position(0, 0, 0)));
         locationManager = Context.getService(LocationManager.class);
         initCamera();
     }
 
     public void initCamera() {
         //Инициализация камеры
-        camera = GameObjectFactory.create(0, 0, 0);
-        locationManager.getActiveLocation().add(camera);
+        camera = GameObjectFactory.create(getLocation(), 0, 0, 0);
 
         nickname = new Label();
         nickname.setSize(500, 30);
@@ -85,10 +85,11 @@ public abstract class Tank extends GameObject {
 
             setColor(explodedTankColor);
 
-            GameObject explosion = GameObjectFactory.create(armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, 3000);
-            explosion.setComponent(new Explosion(100));
+            GameObject explosion = GameObjectFactory.create(getLocation(), armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, 3000);
+            Explosion explosionParticles = new Explosion(100);
+            explosion.addComponent(explosionParticles);
+            explosionParticles.activate();
             explosion.getComponent(Particles.class).destroyObject = true;
-            locationManager.getActiveLocation().add(explosion);
         }
 
         //Если в данный момент камера установлена на этот объект
@@ -113,10 +114,9 @@ public abstract class Tank extends GameObject {
 
         armor.destroy();
         armor = newArmor;
-        locationManager.getActiveLocation().add(newArmor);
 
         setColorArmor(color);
-        camera.setComponent(new Follower(armor));
+        camera.addComponent(new Follower(armor));
     }
 
     public void replaceGun(GameObject newGun) {
@@ -124,7 +124,6 @@ public abstract class Tank extends GameObject {
 
         gun.destroy();
         gun = newGun;
-        locationManager.getActiveLocation().add(newGun);
         setColorGun(color);
     }
 

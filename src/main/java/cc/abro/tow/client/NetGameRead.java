@@ -116,7 +116,8 @@ public class NetGameRead implements NetGameReadInterface {
 
 		//Заполнение таблицы врагов (в соответствтие с id)
 		for (int id = 0; id < Context.getService(ClientData.class).peopleMax; id++) {
-			if (id != Context.getService(ClientData.class).myIdFromServer) Context.getService(ClientData.class).enemy.put(id, new Enemy(id));
+			if (id != Context.getService(ClientData.class).myIdFromServer) Context.getService(ClientData.class).enemy
+					.put(id, new Enemy(Context.getService(LocationManager.class).getActiveLocation(), id));
 		}
 
 		//В ответ отправляем свои данные (цвет и ник)
@@ -143,22 +144,16 @@ public class NetGameRead implements NetGameReadInterface {
 			win = Context.getService(ClientData.class).player.win;
 		}
 
-		Context.getService(ClientData.class).player = new Player(x, y, direction);
+		Context.getService(ClientData.class).player = new Player(Context.getService(LocationManager.class).getActiveLocation(), x, y, direction);
 		Context.getService(ClientData.class).player.kill = kill;
 		Context.getService(ClientData.class).player.death = death;
 		Context.getService(ClientData.class).player.win = win;
 
-		Context.getService(LocationManager.class).getActiveLocation().add(Context.getService(ClientData.class).player);
 		Context.getService(LocationManager.class).getActiveLocation().getCamera().setFollowObject(Context.getService(ClientData.class).player.camera);
 
 		//Заполнение таблицы врагов (в соответствтие с id)
 		for (int id = 0; id < Context.getService(ClientData.class).peopleMax; id++) {
 			if (id != Context.getService(ClientData.class).myIdFromServer) Context.getService(ClientData.class).enemy.put(id, new Enemy(Context.getService(ClientData.class).enemy.get(id)));
-		}
-
-		//Добавляем на карту врагов
-		for (Map.Entry<Integer, Enemy> entry : Context.getService(ClientData.class).enemy.entrySet()) {
-			Context.getService(LocationManager.class).getActiveLocation().add(entry.getValue());
 		}
 	}
 
@@ -169,7 +164,7 @@ public class NetGameRead implements NetGameReadInterface {
 		int type = Integer.parseInt(str.split(" ")[2]);
 		int idBox = Integer.parseInt(str.split(" ")[3]);
 
-		Context.getService(LocationManager.class).getActiveLocation().add(new Box(x, y, type, idBox));
+		new Box(Context.getService(LocationManager.class).getActiveLocation(), x, y, type, idBox);
 	}
 
 	//начало рестарта
@@ -220,9 +215,9 @@ public class NetGameRead implements NetGameReadInterface {
 		long idNet = Long.parseLong(str.split(" ")[5]);
 		int idEmeny = Integer.parseInt(str.split(" ")[6]);
 
-		EnemyBullet enemyBullet = new EnemyBullet(x, y, speed, direction, spriteStorage.getSprite(texture).texture(), idEmeny, idNet);
+		EnemyBullet enemyBullet = new EnemyBullet(Context.getService(LocationManager.class).getActiveLocation(),
+				x, y, speed, direction, spriteStorage.getSprite(texture).texture(), idEmeny, idNet);
 		Context.getService(ClientData.class).enemyBullet.add(enemyBullet);
-		Context.getService(LocationManager.class).getActiveLocation().add(enemyBullet);
 	}
 
 	//я нанёс урон игроку enemyId (double damage, int idSuffer, int idDamager)

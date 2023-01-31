@@ -1,9 +1,7 @@
 package cc.abro.tow.client.tanks.equipment.bullet;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.location.LocationManager;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
@@ -23,7 +21,7 @@ public class BMass extends Bullet {
 
     @Override
     public void collision(GameObject gameObject) {
-        if (isDestroy()) return;
+        if (isDestroyed()) return;
 
         if (Set.of(CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class).contains(gameObject.getClass())) {
             Random random = new Random();
@@ -44,8 +42,6 @@ public class BMass extends Bullet {
                             0,
                             configName
                     );
-
-                    Context.getService(LocationManager.class).getActiveLocation().add(newBullet);
                 }
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 log.fatal("Bullet create error: " + configName);

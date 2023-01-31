@@ -6,6 +6,7 @@ import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
+import cc.abro.orchengine.location.Location;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.orchengine.resources.audios.AudioStorage;
@@ -20,7 +21,8 @@ public class Box extends GameObject {
 	public int idBox;
 	public int typeBox;
 
-	public Box(double x, double y, int typeBox, int idBox) {
+	public Box(Location location, double x, double y, int typeBox, int idBox) {
+		super(location);
 		this.idBox = idBox;
 		this.typeBox = typeBox;
 
@@ -34,9 +36,9 @@ public class Box extends GameObject {
 		};
 
 		Sprite sprite = Context.getService(SpriteStorage.class).getSprite(nameBox);
-		setComponent(new Position(x, y, 1000));
-		setComponent(new SpriteRender(sprite.texture()));
-		setComponent(new Collision(sprite.mask()));
+		addComponent(new Position(x, y, 1000));
+		addComponent(new SpriteRender(sprite.texture()));
+		addComponent(new Collision(sprite.mask()));
 	}
 
 	public void collisionPlayer(Player player) {

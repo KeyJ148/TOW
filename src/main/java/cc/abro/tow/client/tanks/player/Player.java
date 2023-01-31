@@ -8,6 +8,7 @@ import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
+import cc.abro.orchengine.location.Location;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.net.client.udp.UDPControl;
@@ -54,21 +55,19 @@ public class Player extends Tank {
     public Label[] statsLabel;
     public Button[] buttonsTake = new Button[4];
 
-    public Player(double x, double y, double direction) {
-        setComponent(new Position(x, y, 0));
+    public Player(Location location, double x, double y, double direction) {
+        super(location);
+        addComponent(new Position(x, y, 0));
 
         controller = new PlayerController(this);
-        Context.getService(LocationManager.class).getActiveLocation().add(controller);
 
         armor = new ADefault();
         ((Armor) armor).init(this, x, y, direction, "ADefault");
         effects.add(((Armor) armor).effect);
-        Context.getService(LocationManager.class).getActiveLocation().add(armor);
 
         gun = new GDefault();
         ((Gun) gun).init(this, x, y, direction, "GDefault");
         effects.add(((Gun) gun).effect);
-        Context.getService(LocationManager.class).getActiveLocation().add(gun);
 
         bullet = new BulletFactory("BDefault", this);
 
@@ -79,9 +78,9 @@ public class Player extends Tank {
         setName(Context.getService(ClientData.class).name);
         setColor(color);
 
-        setComponent(new Follower(armor));
-        gun.setComponent(new Follower(armor, false)); //TODO: gun.follower дублируется в 3-х местах
-        camera.setComponent(new Follower(armor));
+        addComponent(new Follower(armor));
+        gun.addComponent(new Follower(armor, false)); //TODO: gun.follower дублируется в 3-х местах
+        camera.addComponent(new Follower(armor));
 
         hpLabel = new Label();
         hpLabel.setFocusable(false);

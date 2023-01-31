@@ -50,8 +50,7 @@ public class MenuLocation extends GameLocation {
         }
 
         addDebugPanel(4);
-        MenuEventController controller = new MenuEventController();
-        controller.setComponent(new Position(0, 0, 0));
-        add(controller);
+        MenuEventController controller = new MenuEventController(this);
+        controller.addComponent(new Position(0, 0, 0));
     }
 }

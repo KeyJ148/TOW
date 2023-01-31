@@ -2,8 +2,8 @@ package cc.abro.orchengine.analysis;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.EngineService;
-import cc.abro.orchengine.location.Location;
 import cc.abro.orchengine.location.LocationManager;
+import cc.abro.orchengine.location.objects.ObjectsContainer;
 import cc.abro.orchengine.net.client.PingChecker;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.net.client.udp.UDPControl;
@@ -40,7 +40,7 @@ public class Analyzer implements Startable {
     protected long freeMem = 0, totalMem = 0, maxMem = 0;
 
     //Использование чанков
-    protected Location.Statistic statistic;
+    protected ObjectsContainer.Statistic statistic;
     protected int chunksUpdatedSum = 0, objectsUpdatedSum = 0;
     protected int chunksRenderedSum = 0, objectsRenderedSum = 0, unsuitableObjectsRenderedSum = 0;
     protected int layersCountUpdated = 0, layersCountRenderer = 0;

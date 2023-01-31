@@ -2,6 +2,7 @@ package cc.abro.orchengine.gameobject.components.render;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.components.Position;
+import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureService;
 import cc.abro.orchengine.util.Vector2;
@@ -13,7 +14,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.List;
 
 @Log4j2
-public class AnimationRender extends Rendering {
+public class AnimationRender extends Rendering implements Updatable {
 
     private List<Texture> textures;
 

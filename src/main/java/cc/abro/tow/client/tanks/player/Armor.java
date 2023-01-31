@@ -8,6 +8,7 @@ import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
+import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.location.objects.Border;
 import cc.abro.orchengine.resources.animations.Animation;
 import cc.abro.orchengine.resources.animations.AnimationStorage;
@@ -34,24 +35,28 @@ public class Armor extends GameObject {
     public int animSpeed;
     public Animation textureHandlers;
 
+    public Armor() {
+        super(Context.getService(LocationManager.class).getActiveLocation());
+    }
+
     public void init(Player player, double x, double y, double direction, String name) {
         this.player = player;
         this.name = name;
 
         loadData();
 
-        setComponent(new Position(x, y, 1000, direction));
-        setComponent(new AnimationRender(textureHandlers.textures()));
-        setComponent(new Movement());
+        addComponent(new Position(x, y, 1000, direction));
+        addComponent(new AnimationRender(textureHandlers.textures()));
+        addComponent(new Movement());
         getComponent(Movement.class).setDirection(direction);
         getComponent(Movement.class).update(0);
 
-        setComponent(new Collision(textureHandlers.mask()));
+        addComponent(new Collision(textureHandlers.mask()));
         getComponent(Collision.class).addCollisionObjects(new Class[]{
                 CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class, Box.class, Border.class});
         getComponent(Collision.class).addListener(player.controller);
 
-        if (player.gun != null) player.gun.setComponent(new Follower(this, false));
+        if (player.gun != null) player.gun.addComponent(new Follower(this, false));
     }
 
     @Override

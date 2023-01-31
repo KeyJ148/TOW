@@ -3,6 +3,7 @@ package cc.abro.tow.client.menu;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Engine;
 import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.location.Location;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.tow.client.ClientData;
 import org.liquidengine.legui.event.KeyEvent;
@@ -12,6 +13,10 @@ import java.util.List;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MenuEventController extends GameObject {
+
+    public MenuEventController(Location location) {
+        super(location);
+    }
 
     @Override
     public void update(long delta) {

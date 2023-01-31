@@ -29,19 +29,23 @@ public class Gun extends GameObject {
     public Player player;
     public Texture texture;
 
+    public Gun() {
+        super(Context.getService(LocationManager.class).getActiveLocation());
+    }
+
     public void init(Player player, double x, double y, double direction, String name) {
         this.player = player;
         this.name = name;
 
         loadData();
 
-        setComponent(new Position(x, y, 2000, direction));
-        setComponent(new SpriteRender(texture));
+        addComponent(new Position(x, y, 2000, direction));
+        addComponent(new SpriteRender(texture));
 
-        setComponent(new Movement());
+        addComponent(new Movement());
         getComponent(Movement.class).directionDrawEquals = false;
 
-        setComponent(new Follower(player.armor, false));
+        addComponent(new Follower(player.armor, false));
     }
 
     @Override
@@ -86,8 +90,6 @@ public class Gun extends GameObject {
                 player.stats.range,
                 player.bullet.name
         );
-
-        Context.getService(LocationManager.class).getActiveLocation().add(newBullet);
     }
 
     public String getConfigFileName() {

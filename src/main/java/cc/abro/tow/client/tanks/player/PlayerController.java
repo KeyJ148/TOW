@@ -45,7 +45,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
     private Player player;
 
     public PlayerController(Player player) {
-        super(Arrays.asList(new Position(0, 0, 0)));
+        super(player.getLocation(), Arrays.asList(new Position(0, 0, 0)));
         this.player = player;
         locationManager = Context.getService(LocationManager.class);
     }
@@ -119,23 +119,23 @@ public class PlayerController extends GameObject implements Collision.CollisionL
                     //TODO ящик генерируется в позиции player, которая не обновляется. В итоге звук не воспроизводится, т.к. камера далеко от player
                     case GLFW_KEY_T:
                         if (Context.getService(ClientData.class).peopleMax == 1)
-                            new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 0, -1).collisionPlayer(player);
+                            new Box(getLocation(), player.getComponent(Position.class).x, player.getComponent(Position.class).y, 0, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_G:
                         if (Context.getService(ClientData.class).peopleMax == 1)
-                            new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 1, -1).collisionPlayer(player);
+                            new Box(getLocation(), player.getComponent(Position.class).x, player.getComponent(Position.class).y, 1, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_B:
                         if (Context.getService(ClientData.class).peopleMax == 1)
-                            new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 2, -1).collisionPlayer(player);
+                            new Box(getLocation(), player.getComponent(Position.class).x, player.getComponent(Position.class).y, 2, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_H:
                         if (Context.getService(ClientData.class).peopleMax == 1)
-                            new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 3, -1).collisionPlayer(player);
+                            new Box(getLocation(), player.getComponent(Position.class).x, player.getComponent(Position.class).y, 3, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_F:
                         if (Context.getService(ClientData.class).peopleMax == 1)
-                            new Box(player.getComponent(Position.class).x, player.getComponent(Position.class).y, 4, -1).collisionPlayer(player);
+                            new Box(getLocation(), player.getComponent(Position.class).x, player.getComponent(Position.class).y, 4, -1).collisionPlayer(player);
                         break;
                 }
             }
@@ -256,7 +256,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
     public void collision(GameObject gameObject) {
         if (gameObject.getClass().equals(Box.class)) {
             Box box = (Box) gameObject;
-            if (!box.isDestroy()) {
+            if (!box.isDestroyed()) {
                 box.collisionPlayer(player);
             }
         }
