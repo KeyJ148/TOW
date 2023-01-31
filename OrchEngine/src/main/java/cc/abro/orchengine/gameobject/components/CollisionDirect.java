@@ -1,6 +1,7 @@
 package cc.abro.orchengine.gameobject.components;
 
 import cc.abro.orchengine.context.Context;
+import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.location.LocationManager;
@@ -25,7 +26,7 @@ public class CollisionDirect extends Collision {
 
     //Нельзя в конструкторе, т.к. для првоерки нужен массив collisionObject,
     //а он устанавливается только после создания класса
-    public void init() {
+    public void init() { //TODO заменить на интерфейс Initializable
         separationCollisions();
     }
 
@@ -166,5 +167,10 @@ public class CollisionDirect extends Collision {
                 }
             }
         }
+    }
+
+    @Override
+    public Class<? extends Component> getComponentClass() {
+        return Collision.class; //TODO как-нибудь убрать необходимость в этой функции вообще?
     }
 }

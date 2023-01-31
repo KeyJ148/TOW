@@ -3,11 +3,12 @@ package cc.abro.orchengine.gameobject.components;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.location.LocationManager;
 
 import java.util.List;
 
-public class Follower extends Component {
+public class Follower extends Component implements Updatable {
 
     public GameObject followUpGameObject;
     public boolean followDirectionDraw;
@@ -33,10 +34,6 @@ public class Follower extends Component {
         Context.getService(LocationManager.class).getActiveLocation().checkGameObjectChunkChanged(getGameObject());
     }
 
-    @Override
-    public void draw() {
-    }
-
     //Квадратичная ассимптотика вместо линейной из-за отсутствия кеширования updated у родителей
     //и повторных запросов к ним при вызове update() для себя и каждого родителя (во время общего update())
     public boolean isUpdated() {
@@ -49,11 +46,6 @@ public class Follower extends Component {
         updated &= (getGameObject().getComponent(Position.class).getDirectionDraw() == followUpGameObject.getComponent(Position.class).getDirectionDraw());
 
         return updated;
-    }
-
-    @Override
-    public Class getComponentClass() {
-        return Follower.class;
     }
 
     @Override

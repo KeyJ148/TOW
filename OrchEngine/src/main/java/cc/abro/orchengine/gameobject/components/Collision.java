@@ -1,9 +1,9 @@
 package cc.abro.orchengine.gameobject.components;
 
 import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.gameobject.components.render.Rendering;
+import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
+import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.masks.Mask;
@@ -14,7 +14,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Collision extends cc.abro.orchengine.gameobject.Component {
+public class Collision extends cc.abro.orchengine.gameobject.Component implements Updatable, Drawable {
     public static final boolean MASK_DRAW = false; //TODO вынести в настройки через какой-нибудь сервис
 
     private Mask mask;//Маска для текстуры этого объекта
@@ -29,9 +29,7 @@ public class Collision extends cc.abro.orchengine.gameobject.Component {
     }
 
     @Override
-    public void notifyAboutAddToGameObject(GameObject gameObject) {
-        super.notifyAboutAddToGameObject(gameObject);
-
+    public void initialize() {
         calc();
     }
 
@@ -203,18 +201,14 @@ public class Collision extends cc.abro.orchengine.gameobject.Component {
     }
 
     @Override
-    public Class getComponentClass() {
-        return Collision.class;
-    }
-
-    @Override
     public List<Class<? extends cc.abro.orchengine.gameobject.Component>> getPreliminaryUpdateComponents() {
         return List.of(Movement.class, Follower.class);
     }
 
+    /* TODO
     @Override
     public List<Class<? extends Component>> getPreliminaryDrawComponents() {
         return List.of(Rendering.class);
-    }
+    }*/
 
 }

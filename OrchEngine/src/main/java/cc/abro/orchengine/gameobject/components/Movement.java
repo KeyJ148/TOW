@@ -2,10 +2,11 @@ package cc.abro.orchengine.gameobject.components;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
+import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.location.LocationManager;
 import lombok.Getter;
 
-public class Movement extends Component {
+public class Movement extends Component implements Updatable {
     public double speed; //На сколько пикселей объект смещается за 1 секунду
     private double direction; //0, 360 - в право, против часовой - движение
 
@@ -39,10 +40,6 @@ public class Movement extends Component {
         if (directionDrawEquals) getGameObject().getComponent(Position.class).setDirectionDraw(direction);
     }
 
-    @Override
-    public void draw() {
-    }
-
     public double getDirection() {
         if (direction % 360 >= 0) {
             return direction % 360;
@@ -61,10 +58,5 @@ public class Movement extends Component {
         } else {
             return 360 - Math.abs(directionPrevious % 360);
         }
-    }
-
-    @Override
-    public Class getComponentClass() {
-        return Movement.class;
     }
 }

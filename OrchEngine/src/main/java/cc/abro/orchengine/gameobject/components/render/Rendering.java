@@ -1,9 +1,10 @@
 package cc.abro.orchengine.gameobject.components.render;
 
 import cc.abro.orchengine.gameobject.Component;
+import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
 import cc.abro.orchengine.image.Color;
 
-public abstract class Rendering extends Component {
+public abstract class Rendering extends Component implements Drawable {
 
     public double scale_x = 1;
     public double scale_y = 1;

@@ -2,7 +2,6 @@ package cc.abro.orchengine.location.objects;
 
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Position;
-import cc.abro.orchengine.location.Location;
 import lombok.Getter;
 
 import java.util.*;
@@ -33,15 +32,15 @@ public class ObjectsContainer {
         layerByZ.computeIfAbsent(z, u -> new Layer(z, chunkSize)).addUnsuitableObject(gameObject);
     }
 
-    public void update(long delta, Collection<LocationUpdater> locationUpdaters) {
+    public void update(long delta) {
         //Делаем копию сета, иначе получаем ConcurrentModificationException,
         //т.к. во время апдейта можно создать новый объект и для этого будет создан новый слой
-        new ArrayList<>(layerByZ.values()).forEach(layer -> layer.update(delta, locationUpdaters));
+        new ArrayList<>(layerByZ.values()).forEach(layer -> layer.update(delta));
     }
 
     public void checkGameObjectChunkChanged(GameObject gameObject) {
         int z = gameObject.getComponent(Position.class).z;
-        layerByZ.get(z).checkGameObjectChunkChanged(gameObject);
+        layerByZ.computeIfAbsent(z, u -> new Layer(z, chunkSize)).checkGameObjectChunkChanged(gameObject);
     }
 
     //Отрисовка локации с размерами width и height вокруг координат (x;y)
@@ -62,13 +61,20 @@ public class ObjectsContainer {
         return allObjects;
     }
 
-    public Location.Statistic getStatistic() {
-        return new Location.Statistic(
+    public Statistic getStatistic() {
+        return new Statistic(
                 layerByZ.values().stream().collect(Collectors.toMap(Layer::getZ, Layer::getChunksUpdated)),
                 layerByZ.values().stream().collect(Collectors.toMap(Layer::getZ, Layer::getObjectsUpdated)),
                 layerByZ.values().stream().collect(Collectors.toMap(Layer::getZ, Layer::getChunksRendered)),
                 layerByZ.values().stream().collect(Collectors.toMap(Layer::getZ, Layer::getObjectsRendered)),
                 layerByZ.values().stream().collect(Collectors.toMap(Layer::getZ, Layer::getUnsuitableObjectsRendered))
         );
+    }
+
+    public record Statistic(Map<Integer, Integer> chunksUpdatedByLayerZ,
+                            Map<Integer, Integer> objectsUpdatedByLayerZ,
+                            Map<Integer, Integer> chunksRenderedByLayerZ,
+                            Map<Integer, Integer> objectsRenderedByLayerZ,
+                            Map<Integer, Integer> unsuitableObjectsRenderedByLayerZ) {
     }
 }

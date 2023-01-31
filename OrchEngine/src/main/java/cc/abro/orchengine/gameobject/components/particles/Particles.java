@@ -1,14 +1,14 @@
 package cc.abro.orchengine.gameobject.components.particles;
 
 import cc.abro.orchengine.gameobject.Component;
-import cc.abro.orchengine.gameobject.components.render.Rendering;
+import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
+import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
-public abstract class Particles extends Component {
+public abstract class Particles extends Component implements Updatable, Drawable {
 
     public Set<Part> parts = new HashSet<>();
     public boolean rotate = false;
@@ -18,10 +18,11 @@ public abstract class Particles extends Component {
     public void update(long delta) {
         Iterator<Part> iterator = parts.iterator();
         while (iterator.hasNext()) {
+            double deltaInSeconds = ((double) delta) / 1000000000;
             Part part = iterator.next();
-            part.x = part.x + (part.speed * Math.cos(Math.toRadians(part.direction)) * ((double) delta / 1000000000));
-            part.y = part.y - (part.speed * Math.sin(Math.toRadians(part.direction)) * ((double) delta / 1000000000));
-            part.life -= ((double) delta) / 1000000000L;//Т.к. на вход подается в нано-секундах, а хранится в секундах
+            part.x = part.x + (part.speed * Math.cos(Math.toRadians(part.direction)) * deltaInSeconds);
+            part.y = part.y - (part.speed * Math.sin(Math.toRadians(part.direction)) * deltaInSeconds);
+            part.life -= deltaInSeconds; //Т.к. на вход подается в нано-секундах, а хранится в секундах
             if (part.life <= 0) iterator.remove();
             else updateChild(delta, part);
         }
@@ -34,12 +35,13 @@ public abstract class Particles extends Component {
     }
 
     @Override
-    public Class getComponentClass() {
+    public Class<? extends Component> getComponentClass() {
         return Particles.class;
     }
 
+    /* TODO
     @Override
     public List<Class<? extends Component>> getPreliminaryDrawComponents() {
         return List.of(Rendering.class);
-    }
+    }*/
 }

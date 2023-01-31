@@ -12,7 +12,7 @@ public class Position extends Component {
 
     public double x;
     public double y;
-    public int z;
+    public int z; //TODO вынести это свойство в Drawable интерфейс? И пробегаться не по игровым объектам, а по компонентам с drawable при отрисовке? Проблема в том, что глубины следующие: танк -> дом -> пушка, при текущей схеме танк и пушка должны быть разными игровыми объектами
     private double directionDraw; //0, 360 - в право, против часовой - отрисовка
     public boolean absolute = true; //Позиция относительно угла карты? (Иначе относительно угла экрана)
 
@@ -27,14 +27,6 @@ public class Position extends Component {
         this.y = y;
         this.z = z;
         setDirectionDraw(directionDraw);
-    }
-
-    @Override
-    public void update(long delta) {
-    }
-
-    @Override
-    public void draw() {
     }
 
     public double getDirectionDraw() {
@@ -58,10 +50,5 @@ public class Position extends Component {
         } else {
             return Context.getService(LocationManager.class).getActiveLocation().getCamera().toRelativePosition(new Vector2<>((int) x, (int) y));
         }
-    }
-
-    @Override
-    public Class getComponentClass() {
-        return Position.class;
     }
 }
