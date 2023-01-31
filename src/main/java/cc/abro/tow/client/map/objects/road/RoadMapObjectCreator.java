@@ -1,5 +1,6 @@
 package cc.abro.tow.client.map.objects.road;
 
+import cc.abro.orchengine.location.Location;
 import cc.abro.tow.client.map.MapObject;
 import cc.abro.tow.client.map.objects.scaled.RepeatedMapObjectCreator;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;
@@ -12,8 +13,9 @@ public class RoadMapObjectCreator extends RepeatedMapObjectCreator {
     }
 
     @Override
-    public MapObject createMapObject(MapObjectSpecification mapObjectSpecification) {
+    public MapObject createMapObject(Location location, MapObjectSpecification mapObjectSpecification) {
         return new RoadMapObject(
+                location,
                 mapObjectSpecification.id(),
                 mapObjectSpecification.x(),
                 mapObjectSpecification.y(),

@@ -1,5 +1,6 @@
 package cc.abro.tow.client.map.factory;
 
+import cc.abro.orchengine.location.Location;
 import cc.abro.tow.client.map.MapObject;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;
 import lombok.extern.log4j.Log4j2;
@@ -21,13 +22,13 @@ public class MapObjectFactory {
         mapObjectCreatorByType.put(mapObjectCreator.getType(), mapObjectCreator);
     }
 
-    public MapObject createMapObject(MapObjectSpecification mapObjectSpecification) {
+    public MapObject createMapObject(Location location, MapObjectSpecification mapObjectSpecification) {
         if (!mapObjectCreatorByType.containsKey(mapObjectSpecification.type())) {
             log.error("MapObjectCreator \"" + mapObjectSpecification.type() + "\" not found");
             return null;
         }
 
-        return mapObjectCreatorByType.get(mapObjectSpecification.type()).createMapObject(mapObjectSpecification);
+        return mapObjectCreatorByType.get(mapObjectSpecification.type()).createMapObject(location, mapObjectSpecification);
     }
 
 }

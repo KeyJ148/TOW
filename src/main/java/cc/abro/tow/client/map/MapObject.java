@@ -2,9 +2,10 @@ package cc.abro.tow.client.map;
 
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Position;
+import cc.abro.orchengine.location.Location;
 import lombok.Getter;
 
-import java.util.Arrays;
+import java.util.List;
 
 public abstract class MapObject extends GameObject {
 
@@ -13,8 +14,8 @@ public abstract class MapObject extends GameObject {
     @Getter
     private final String type;
 
-    public MapObject(int id, int x, int y, int z, String type) {
-        super(Arrays.asList(new Position(x, y, z, 0)));
+    public MapObject(Location location, int id, int x, int y, int z, String type) {
+        super(location, List.of(new Position(x, y, z, 0)));
         this.id = id;
         this.type = type;
     }
