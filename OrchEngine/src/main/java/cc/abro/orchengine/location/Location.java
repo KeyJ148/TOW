@@ -1,12 +1,14 @@
 package cc.abro.orchengine.location;
 
 import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.location.objects.*;
+import cc.abro.orchengine.location.objects.Background;
+import cc.abro.orchengine.location.objects.Camera;
+import cc.abro.orchengine.location.objects.Chunk;
+import cc.abro.orchengine.location.objects.ObjectsContainer;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Location {
@@ -15,13 +17,6 @@ public class Location {
     private final int width, height;
     @Getter
     private final Camera camera; //Положение камеры в этой локации
-    /**
-     * Объекты, вокруг которых надо вызывать update.
-     * Можно указать объект, и указать радиус ноль. Тогда всегда будет обновляться конкретный объект.
-     * Это не эквивалентно unsuitableObjects из {@link Layer}, т.к. объекты в этой мапе могут только обновляться, но не
-     * рендериться. При этом все объекты из сета unsuitableObjects из {@link Layer} обязаны находиться в этой мапе.
-     */
-    private final Map<GameObject, LocationUpdater> locationUpdaters = new HashMap<>();
 
     private final ObjectsContainer objectsContainer; //Массив со всеми чанками и объектами
     @Getter
@@ -63,29 +58,6 @@ public class Location {
         this.background = background;
     }
 
-    public void add(GameObject gameObject) {
-        if (gameObject.getLocation() != null) {
-            gameObject.getLocation().remove(gameObject);
-        }
-        gameObject.getLocationHolder().setLocation(this);
-        objectsContainer.add(gameObject);
-    }
-
-    public void remove(GameObject gameObject) {
-        objectsContainer.remove(gameObject);
-        locationUpdaters.remove(gameObject);
-    }
-
-    public void addUnsuitableObject(GameObject gameObject) {
-        locationUpdaters.put(gameObject, new LocationUpdater(gameObject));
-        objectsContainer.addUnsuitableObject(gameObject);
-    }
-
-    public void update(long delta) {
-        objectsContainer.update(delta, locationUpdaters.values());
-        guiLocationFrame.update();
-    }
-
     //Отрисовка части локации с размерами width и height вокруг камеры
     public void render(int width, int height) {
         render((int) camera.getX(), (int) camera.getY(), width, height);
@@ -105,9 +77,14 @@ public class Location {
         }
     }
 
-    @Deprecated
-    public Set<GameObject> getObjects() {
-        return objectsContainer.getObjects();
+    public void update(long delta) {
+        beforeUpdateActions.forEach(Runnable::run);
+        objectsContainer.update(delta);
+        guiLocationFrame.update();
+        afterUpdateActions.forEach(Runnable::run);
+
+        beforeUpdateActions.clear();
+        afterUpdateActions.clear();
     }
 
     //Уничтожение локации и всех объектов в локации
@@ -116,38 +93,45 @@ public class Location {
         guiLocationFrame.destroy();
     }
 
-    public Statistic getStatistic() {
+    /*
+    Просто прокси методы //TODO избавиться от них? Сделать наследование Location от ObjectsContainer?
+     */
+    @Deprecated
+    public Set<GameObject> getObjects() {
+        return objectsContainer.getObjects();
+    }
+
+    public void add(GameObject gameObject) { //TODO УДАЛИТЬ ВСЕ ИСПОЛЬЗОВАНИЯ КРОМЕ КЛАССА GAMEOBJECT. СДЕЛАТЬ ПРОВЕРКУ, ЧТО ОБЪЕКТ УЖЕ НЕ БЫЛ ДОБАВЛЕН В ЭТУ ЛОКАЦИЮ.
+        if (gameObject.getLocation() != this) {
+            throw new IllegalStateException("GameObject has wrong Location");
+        }
+        objectsContainer.add(gameObject);
+    }
+
+    public void remove(GameObject gameObject) {
+        if (gameObject.getLocation() != this) {
+            throw new IllegalStateException("GameObject has wrong Location");
+        }
+        objectsContainer.remove(gameObject);
+    }
+
+    public void addUnsuitableObject(GameObject gameObject) {
+        objectsContainer.addUnsuitableObject(gameObject);
+    }
+
+    public ObjectsContainer.Statistic getStatistic() {
         return objectsContainer.getStatistic();
     }
 
-    public void add(LocationUpdater locationUpdater) {
-        locationUpdaters.put(locationUpdater.getFollowObject(), locationUpdater);
+    //TODO тоже вынести в отдельный класс, который занимается Updatе-ом (он же расчитывает порядок обновления компонентов и т.п.)
+    private final Set<Runnable> beforeUpdateActions = new HashSet<>();
+    private final Set<Runnable> afterUpdateActions = new HashSet<>();
+
+    public void runBeforeUpdateOnce(Runnable runnable) {
+        beforeUpdateActions.add(runnable);
     }
 
-    public void remove(LocationUpdater locationUpdater) {
-        locationUpdaters.remove(locationUpdater.getFollowObject());
-    }
-
-    /**
-     * Используется, чтобы только из данного класса можно было вызывать setLocation у игровых объектов
-     */
-    public static final class ObjectHolder {
-
-        private Location location;
-
-        public Location getLocation() {
-            return location;
-        }
-
-        private void setLocation(Location location) {
-            this.location = location;
-        }
-    }
-
-    public record Statistic(Map<Integer, Integer> chunksUpdatedByLayerZ,
-                            Map<Integer, Integer> objectsUpdatedByLayerZ,
-                            Map<Integer, Integer> chunksRenderedByLayerZ,
-                            Map<Integer, Integer> objectsRenderedByLayerZ,
-                            Map<Integer, Integer> unsuitableObjectsRenderedByLayerZ) {
+    public void runAfterUpdateOnce(Runnable runnable) {
+        afterUpdateActions.add(runnable);
     }
 }

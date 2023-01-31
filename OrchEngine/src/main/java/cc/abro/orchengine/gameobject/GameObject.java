@@ -1,43 +1,29 @@
 package cc.abro.orchengine.gameobject;
 
 import cc.abro.orchengine.location.Location;
+import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
-public class GameObject {
+public class GameObject extends LocatableComponentsContainer {
 
-    private final Location.ObjectHolder locationHolder = new Location.ObjectHolder();
-    private final ComponentsContainer components;
-    private boolean destroying = false;
+    @Getter
     private boolean destroyed = false;
 
-    public GameObject() {
-        this(new ArrayList<>());
+    public GameObject(Location location) {
+        super(location, Collections.emptyList());
     }
 
-    public GameObject(Collection<Component> initComponents) {
-        this(new ComponentsContainer(initComponents));
+    public GameObject(Location location, Collection<Component> initComponents) {
+        super(location, initComponents);
+        location.add(this); //TODO вынести в LocatableComponentContainer? В Location, кажется, достаточно его. Или вообще переименовать LocatableCompContainer в GameObject?
     }
 
-    public GameObject(ComponentsContainer components) {
-        this.components = components;
-        components.notifyAboutAddToGameObject(this);
-    }
-
-    public void update(long delta) {
-        components.update(delta);
-
-        if (destroying) {
-            components.destroy();
-            getLocation().remove(this);
-            destroying = false;
-            destroyed = true;
-        }
-    }
-
-    public void draw() {
-        components.draw();
+    @Override
+    public void addComponent(Component component) {
+        super.addComponent(component);
+        component.setGameObject(this);
     }
 
     /**
@@ -45,39 +31,13 @@ public class GameObject {
      */
     public void destroy() {
         if (!destroyed) {
-            destroying = true;
+            destroyed = true;
+            getLocation().runAfterUpdateOnce(this::destroyAfterUpdate);
         }
     }
 
-    public boolean isDestroy() {
-        return destroying || destroyed;
-    }
-
-    public Location.ObjectHolder getLocationHolder() {
-        return locationHolder;
-    }
-
-    /*
-     * Просто прокси методы
-     */
-    public Location getLocation() {
-        return locationHolder.getLocation();
-    }
-
-    public void setComponent(Component component) {
-        components.setComponent(component);
-        component.notifyAboutAddToGameObject(this);
-    }
-
-    public <T extends Component> T getComponent(Class<T> classComponent) {
-        return components.getComponent(classComponent);
-    }
-
-    public boolean hasComponent(Class<? extends Component> classComponent) {
-        return components.hasComponent(classComponent);
-    }
-
-    public void removeComponent(Class<? extends Component> classComponent) {
-        components.removeComponent(classComponent);
+    private void destroyAfterUpdate() {
+        getAllComponents().forEach(Component::destroy);
+        getLocation().remove(this);
     }
 }
