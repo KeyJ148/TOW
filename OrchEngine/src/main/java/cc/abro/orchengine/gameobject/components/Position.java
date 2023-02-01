@@ -2,8 +2,8 @@ package cc.abro.orchengine.gameobject.components;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
-import cc.abro.orchengine.location.Location;
-import cc.abro.orchengine.location.LocationManager;
+import cc.abro.orchengine.gameobject.Location;
+import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.util.Vector2;
 
 //TODO удалить класс. Location вынести в GameObject, а [x, y, z] и т.п. в каждый компонент контейнер.

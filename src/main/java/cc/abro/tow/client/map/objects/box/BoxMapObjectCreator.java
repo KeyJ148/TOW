@@ -1,6 +1,6 @@
 package cc.abro.tow.client.map.objects.box;
 
-import cc.abro.orchengine.location.Location;
+import cc.abro.orchengine.gameobject.Location;
 import cc.abro.tow.client.map.MapObject;
 import cc.abro.tow.client.map.objects.textured.TexturedMapObjectCreator;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;

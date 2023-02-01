@@ -1,8 +1,8 @@
 package cc.abro.tow.client.map.objects.textured;
 
+import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
-import cc.abro.orchengine.location.Location;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.tow.client.map.MapObject;
 

@@ -1,7 +1,7 @@
 package cc.abro.tow.client.map.objects.textured;
 
 import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.location.Location;
+import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.tow.client.map.MapObject;

@@ -2,14 +2,14 @@ package cc.abro.tow.client.tanks.player;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
-import cc.abro.orchengine.location.LocationManager;
-import cc.abro.orchengine.location.objects.Border;
+import cc.abro.orchengine.gameobject.location.Border;
 import cc.abro.orchengine.resources.animations.Animation;
 import cc.abro.orchengine.resources.animations.AnimationStorage;
 import cc.abro.tow.client.ConfigReader;

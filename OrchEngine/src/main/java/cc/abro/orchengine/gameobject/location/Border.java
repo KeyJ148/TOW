@@ -1,9 +1,9 @@
-package cc.abro.orchengine.location.objects;
+package cc.abro.orchengine.gameobject.location;
 
 import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Position;
-import cc.abro.orchengine.location.Location;
 import cc.abro.orchengine.resources.masks.MaskLoader;
 
 public class Border extends GameObject {

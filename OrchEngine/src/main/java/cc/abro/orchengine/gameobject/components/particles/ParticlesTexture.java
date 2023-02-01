@@ -1,7 +1,7 @@
 package cc.abro.orchengine.gameobject.components.particles;
 
 import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.location.LocationManager;
+import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.resources.textures.TextureService;
 import cc.abro.orchengine.util.Vector2;
 import org.lwjgl.opengl.GL11;

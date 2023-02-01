@@ -2,14 +2,14 @@ package cc.abro.tow.client.tanks.enemy;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.gameobject.GameObjectFactory;
+import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
-import cc.abro.orchengine.location.Location;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.tow.client.particles.Explosion;
 
 import java.util.Arrays;

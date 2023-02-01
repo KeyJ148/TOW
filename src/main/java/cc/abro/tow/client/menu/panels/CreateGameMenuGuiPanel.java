@@ -2,13 +2,13 @@ package cc.abro.tow.client.menu.panels;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
-import cc.abro.orchengine.gameobject.GameObjectFactory;
+import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
-import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.server.GameServer;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.orchengine.services.GuiService;
+import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.tow.client.services.CreateServerService;
 import org.liquidengine.legui.component.Label;
 import org.liquidengine.legui.component.Panel;

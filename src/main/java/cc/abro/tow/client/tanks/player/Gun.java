@@ -2,11 +2,11 @@ package cc.abro.tow.client.tanks.player;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
-import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.util.Vector2;

@@ -1,10 +1,10 @@
-package cc.abro.orchengine.location.objects;
+package cc.abro.orchengine.gameobject.location;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Position;
-import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,8 +1,8 @@
 package cc.abro.tow.client.map;
 
 import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.Position;
-import cc.abro.orchengine.location.Location;
 import lombok.Getter;
 
 import java.util.List;

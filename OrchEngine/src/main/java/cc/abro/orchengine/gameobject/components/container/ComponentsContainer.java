@@ -1,4 +1,6 @@
-package cc.abro.orchengine.gameobject;
+package cc.abro.orchengine.gameobject.components.container;
+
+import cc.abro.orchengine.gameobject.Component;
 
 import java.util.*;
 import java.util.stream.Collectors;

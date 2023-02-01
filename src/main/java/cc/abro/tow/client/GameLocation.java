@@ -5,9 +5,9 @@ import cc.abro.orchengine.analysis.Analyzer;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.Component;
-import cc.abro.orchengine.gameobject.GameObjectFactory;
+import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
-import cc.abro.orchengine.location.Location;
+import cc.abro.orchengine.util.GameObjectFactory;
 
 import java.util.Collections;
 

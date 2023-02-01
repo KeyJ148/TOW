@@ -1,20 +1,20 @@
 package cc.abro.tow.client.tanks.enemy;
 
 import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.gameobject.GameObjectFactory;
+import cc.abro.orchengine.gameobject.Location;
+import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
-import cc.abro.orchengine.location.Location;
-import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.animations.Animation;
 import cc.abro.orchengine.resources.animations.AnimationStorage;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.tanks.Tank;
 

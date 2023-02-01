@@ -1,10 +1,9 @@
-package cc.abro.orchengine.location;
+package cc.abro.orchengine.gameobject;
 
-import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.location.objects.Background;
-import cc.abro.orchengine.location.objects.Camera;
-import cc.abro.orchengine.location.objects.Chunk;
-import cc.abro.orchengine.location.objects.ObjectsContainer;
+import cc.abro.orchengine.gameobject.location.Background;
+import cc.abro.orchengine.gameobject.location.Camera;
+import cc.abro.orchengine.gameobject.location.Chunk;
+import cc.abro.orchengine.gameobject.location.ObjectsContainer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -101,14 +100,14 @@ public class Location {
         return objectsContainer.getObjects();
     }
 
-    public void add(GameObject gameObject) { //TODO УДАЛИТЬ ВСЕ ИСПОЛЬЗОВАНИЯ КРОМЕ КЛАССА GAMEOBJECT. СДЕЛАТЬ ПРОВЕРКУ, ЧТО ОБЪЕКТ УЖЕ НЕ БЫЛ ДОБАВЛЕН В ЭТУ ЛОКАЦИЮ.
+    void add(GameObject gameObject) {
         if (gameObject.getLocation() != this) {
             throw new IllegalStateException("GameObject has wrong Location");
         }
         objectsContainer.add(gameObject);
     }
 
-    public void remove(GameObject gameObject) {
+    void remove(GameObject gameObject) {
         if (gameObject.getLocation() != this) {
             throw new IllegalStateException("GameObject has wrong Location");
         }

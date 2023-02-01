@@ -3,8 +3,8 @@ package cc.abro.tow.client.menu;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Engine;
 import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.location.Location;
-import cc.abro.orchengine.location.LocationManager;
+import cc.abro.orchengine.gameobject.Location;
+import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.tow.client.ClientData;
 import org.liquidengine.legui.event.KeyEvent;
 

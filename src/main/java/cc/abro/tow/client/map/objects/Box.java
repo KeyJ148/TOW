@@ -3,10 +3,10 @@ package cc.abro.tow.client.map.objects;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
-import cc.abro.orchengine.location.Location;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.orchengine.resources.audios.AudioStorage;

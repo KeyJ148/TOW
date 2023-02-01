@@ -2,8 +2,8 @@ package cc.abro.orchengine.analysis;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.EngineService;
-import cc.abro.orchengine.location.LocationManager;
-import cc.abro.orchengine.location.objects.ObjectsContainer;
+import cc.abro.orchengine.gameobject.LocationManager;
+import cc.abro.orchengine.gameobject.location.ObjectsContainer;
 import cc.abro.orchengine.net.client.PingChecker;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.net.client.udp.UDPControl;

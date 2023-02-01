@@ -1,9 +1,9 @@
-package cc.abro.orchengine.location.objects;
+package cc.abro.orchengine.gameobject.location;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Render;
+import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.image.Color;
-import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureService;
 import cc.abro.orchengine.services.OpenGlService;

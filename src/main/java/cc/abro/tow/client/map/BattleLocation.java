@@ -2,10 +2,10 @@ package cc.abro.tow.client.map;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
-import cc.abro.orchengine.gameobject.GameObjectFactory;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
-import cc.abro.orchengine.location.objects.Border;
+import cc.abro.orchengine.gameobject.location.Border;
 import cc.abro.orchengine.net.client.PingChecker;
+import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.GameLocation;
 import cc.abro.tow.client.GameTabGuiPanel;

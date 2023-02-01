@@ -2,10 +2,10 @@ package cc.abro.orchengine.gameobject.components;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.image.Color;
-import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.resources.masks.Mask;
 import cc.abro.orchengine.util.Vector2;
 import org.lwjgl.opengl.GL11;

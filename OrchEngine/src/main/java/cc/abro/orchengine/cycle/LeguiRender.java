@@ -1,7 +1,7 @@
 package cc.abro.orchengine.cycle;
 
 import cc.abro.orchengine.context.EngineService;
-import cc.abro.orchengine.location.LocationManager;
+import cc.abro.orchengine.gameobject.LocationManager;
 import lombok.extern.log4j.Log4j2;
 import org.liquidengine.legui.DefaultInitializer;
 import org.liquidengine.legui.animation.AnimatorProvider;

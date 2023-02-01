@@ -2,8 +2,8 @@ package cc.abro.tow;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.TestService;
+import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gui.GuiPanelStorage;
-import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.net.client.Connector;
 import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.tow.client.ClientData;

@@ -1,4 +1,4 @@
-package cc.abro.orchengine.location.objects;
+package cc.abro.orchengine.gameobject.location;
 
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Movement;

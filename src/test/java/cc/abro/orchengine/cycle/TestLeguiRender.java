@@ -1,7 +1,7 @@
 package cc.abro.orchengine.cycle;
 
 import cc.abro.orchengine.context.TestService;
-import cc.abro.orchengine.location.LocationManager;
+import cc.abro.orchengine.gameobject.LocationManager;
 import org.liquidengine.legui.component.Frame;
 
 import static cc.abro.tow.TestUtils.Profiles.TEST_DISABLE_RENDER;

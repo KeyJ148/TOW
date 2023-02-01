@@ -1,4 +1,4 @@
-package cc.abro.orchengine.location;
+package cc.abro.orchengine.gameobject;
 
 
 import cc.abro.orchengine.context.EngineService;

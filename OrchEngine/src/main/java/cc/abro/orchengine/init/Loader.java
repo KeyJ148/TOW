@@ -4,9 +4,9 @@ import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.ContextAnnotationScanner;
 import cc.abro.orchengine.context.ProfilesService;
 import cc.abro.orchengine.cycle.Engine;
+import cc.abro.orchengine.gameobject.Location;
+import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.init.interfaces.GameInterface;
-import cc.abro.orchengine.location.Location;
-import cc.abro.orchengine.location.LocationManager;
 import cc.abro.orchengine.util.LogUtils;
 import lombok.extern.log4j.Log4j2;
 

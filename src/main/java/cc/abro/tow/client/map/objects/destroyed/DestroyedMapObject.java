@@ -1,6 +1,6 @@
 package cc.abro.tow.client.map.objects.destroyed;
 
-import cc.abro.orchengine.location.Location;
+import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.resources.masks.Mask;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.tow.client.map.objects.collised.CollisedMapObject;

@@ -1,6 +1,6 @@
 package cc.abro.tow.client.map.objects.road;
 
-import cc.abro.orchengine.location.Location;
+import cc.abro.orchengine.gameobject.Location;
 import cc.abro.tow.client.map.MapObject;
 import cc.abro.tow.client.map.objects.scaled.RepeatedMapObjectCreator;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;

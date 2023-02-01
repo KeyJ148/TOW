@@ -1,5 +1,6 @@
-package cc.abro.orchengine.gameobject;
+package cc.abro.orchengine.gameobject.components.container;
 
+import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import lombok.Getter;

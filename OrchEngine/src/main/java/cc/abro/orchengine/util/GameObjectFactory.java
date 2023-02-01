@@ -1,9 +1,11 @@
-package cc.abro.orchengine.gameobject;
+package cc.abro.orchengine.util;
 
+import cc.abro.orchengine.gameobject.Component;
+import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
-import cc.abro.orchengine.location.Location;
 import cc.abro.orchengine.resources.textures.Texture;
 import lombok.experimental.UtilityClass;
 

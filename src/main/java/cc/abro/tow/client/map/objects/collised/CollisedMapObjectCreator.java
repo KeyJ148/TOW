@@ -1,7 +1,7 @@
 package cc.abro.tow.client.map.objects.collised;
 
 import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.location.Location;
+import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.resources.masks.Mask;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.tow.client.map.MapObject;

@@ -2,8 +2,8 @@ package cc.abro.orchengine.gameobject.components;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
+import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
-import cc.abro.orchengine.location.LocationManager;
 import lombok.Getter;
 
 public class Movement extends Component implements Updatable {
