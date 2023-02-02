@@ -24,7 +24,7 @@ public class Border extends GameObject {
         new Border(location, Type.WEST, size);
     }
 
-    public static record BorderData(int x, int y, int w, int h) {
+    public record BorderData(int x, int y, int w, int h) {
     }
 
     public enum Type {

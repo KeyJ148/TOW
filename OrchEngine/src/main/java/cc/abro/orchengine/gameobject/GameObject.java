@@ -22,10 +22,12 @@ public class GameObject extends ComponentsContainer {
 
     public GameObject(Location location, Collection<Component> initComponents) {
         this.location = location;
-        location.add(this);
         for (Component component : initComponents) {
             addComponent(component);
         }
+        //TODO С другой стороны, планируется переделать, чтобы z была только у Drawable компонентов
+        location.add(this); //TODO убрать конструктор без x, y, z, т.к. z используется сразу же при добавление объекта на локацию.
+        //TODO После этого вынести  эту строку перед addComponent
     }
 
     public void update(long delta) { //TODO запретить Override в наследниках. Если надо сделать кастомную логику, то просто создай обычный или анонимный компонент

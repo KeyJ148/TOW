@@ -8,6 +8,7 @@ import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.orchengine.util.Vector2;
 import org.lwjgl.BufferUtils;
 
@@ -27,8 +28,7 @@ public class MouseCursor {
         this.render = render;
 
         //Создание объекта курсора (используется компонент Position и Sprite)
-        cursor = new GameObject(new Location()); //TODO fake location is ok?
-        cursor.addComponent(new Position(0, 0, -1000));
+        cursor = GameObjectFactory.create(new Location(), 0, 0, -1000); //TODO fake location is ok?
         cursor.getComponent(Position.class).absolute = false;
     }
 
