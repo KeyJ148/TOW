@@ -1,12 +1,13 @@
 package cc.abro.orchengine.gameobject;
 
+import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.container.ComponentsCache;
 import cc.abro.orchengine.gameobject.components.container.ComponentsContainer;
 import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
 import lombok.Getter;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
 public class GameObject extends ComponentsContainer {
 
@@ -16,8 +17,8 @@ public class GameObject extends ComponentsContainer {
     @Getter
     private boolean destroyed = false;
 
-    public GameObject(Location location) {
-        this(location, Collections.emptyList());
+    public GameObject(Location location, int x, int y, int z) {
+        this(location, List.of(new Position(x, y, z)));
     }
 
     public GameObject(Location location, Collection<Component> initComponents) {
@@ -25,8 +26,7 @@ public class GameObject extends ComponentsContainer {
         for (Component component : initComponents) {
             addComponent(component);
         }
-        //TODO С другой стороны, планируется переделать, чтобы z была только у Drawable компонентов
-        location.add(this); //TODO убрать конструктор без x, y, z, т.к. z используется сразу же при добавление объекта на локацию.
+        location.add(this); //TODO убрать конструктор без x, y, т.к. они используются сразу же при добавление объекта на локацию.
         //TODO После этого вынести  эту строку перед addComponent
     }
 

@@ -48,7 +48,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
     public Sprite texture;
 
     public Bullet() {
-        super(Context.getService(LocationManager.class).getActiveLocation());
+        super(Context.getService(LocationManager.class).getActiveLocation(), 0, 0, 0);
     }
 
     public void init(Player player, double x, double y, double dir, double damage, int range, String name) {

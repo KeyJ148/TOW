@@ -30,7 +30,7 @@ public class Gun extends GameObject {
     public Texture texture;
 
     public Gun() {
-        super(Context.getService(LocationManager.class).getActiveLocation());
+        super(Context.getService(LocationManager.class).getActiveLocation(), 0, 0, 0);
     }
 
     public void init(Player player, double x, double y, double direction, String name) {

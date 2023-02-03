@@ -36,7 +36,7 @@ public class Armor extends GameObject {
     public Animation textureHandlers;
 
     public Armor() {
-        super(Context.getService(LocationManager.class).getActiveLocation());
+        super(Context.getService(LocationManager.class).getActiveLocation(), 0, 0, 0);
     }
 
     public void init(Player player, double x, double y, double direction, String name) {

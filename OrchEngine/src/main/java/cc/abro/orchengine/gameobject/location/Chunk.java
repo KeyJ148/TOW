@@ -14,7 +14,6 @@ public class Chunk {
     private final Set<GameObject> objects = new HashSet<>();
 
     public void add(GameObject gameObject) {
-        if (objects.contains(gameObject)) throw new IllegalStateException(); //TODO удалить после фикса cc.abro.orchengine.gameobject.Location.add
         objects.add(gameObject);
     }
 
