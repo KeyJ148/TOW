@@ -17,7 +17,7 @@ public class SpriteRender extends Rendering {
 
     @Override
     public void draw() {
-        Vector2<Integer> relativePosition = getGameObject().getComponent(Position.class).getRelativePosition();
+        Vector2<Integer> relativePosition = getGameObject().getRelativePosition();
         double xView = relativePosition.x;
         double yView = relativePosition.y;
         double directionDraw = getGameObject().getComponent(Position.class).getDirectionDraw();

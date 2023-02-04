@@ -1,33 +1,40 @@
 package cc.abro.orchengine.gameobject;
 
-import cc.abro.orchengine.gameobject.components.Position;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.components.container.ComponentsCache;
 import cc.abro.orchengine.gameobject.components.container.ComponentsContainer;
 import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
+import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
 public class GameObject extends ComponentsContainer {
 
     @Getter
     private final Location location;
-    private final ComponentsCache componentsCache = new ComponentsCache();
     @Getter
     private boolean destroyed = false;
+    @Getter
+    private double x, y;
+    @Getter
+    private int z; //TODO вынести это свойство в Drawable интерфейс? И пробегаться не по игровым объектам, а по компонентам с drawable при отрисовке? Проблема в том, что глубины следующие: танк -> дом -> пушка, при текущей схеме танк и пушка должны быть разными игровыми объектами
+    private final ComponentsCache componentsCache = new ComponentsCache();
 
-    public GameObject(Location location, int x, int y, int z) {
-        this(location, List.of(new Position(x, y, z)));
+    public GameObject(Location location, double x, double y, int z) {
+        this(location, x, y, z, Collections.emptyList());
     }
 
-    public GameObject(Location location, Collection<Component> initComponents) {
+    public GameObject(Location location, double x, double y, int z, Collection<Component> initComponents) {
         this.location = location;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        location.add(this);
         for (Component component : initComponents) {
             addComponent(component);
         }
-        location.add(this); //TODO убрать конструктор без x, y, т.к. они используются сразу же при добавление объекта на локацию.
-        //TODO После этого вынести  эту строку перед addComponent
     }
 
     public void update(long delta) { //TODO запретить Override в наследниках. Если надо сделать кастомную логику, то просто создай обычный или анонимный компонент
@@ -69,10 +76,16 @@ public class GameObject extends ComponentsContainer {
         }
     }
 
+    public Vector2<Integer> getRelativePosition() {
+        return Context.getService(LocationManager.class).getActiveLocation().getCamera().toRelativePosition(new Vector2<>((int) x, (int) y));
+    }
+
     private void destroyAfterUpdate() {
         getAllComponents().forEach(Component::destroy);
         getLocation().remove(this);
     }
+
+
 
     /* TODO вынести куда-то во внешний Updater, который будет заниматься вызовом функций update (или в этом классе оставить, или создать ещё один дочерний класс)
     @Override

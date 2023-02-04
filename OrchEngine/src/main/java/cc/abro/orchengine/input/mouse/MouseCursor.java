@@ -29,7 +29,7 @@ public class MouseCursor {
 
         //Создание объекта курсора (используется компонент Position и Sprite)
         cursor = GameObjectFactory.create(new Location(), 0, 0, -1000); //TODO fake location is ok?
-        cursor.getComponent(Position.class).absolute = false;
+        //cursor.getComponent(Position.class).absolute = false; //TODO
     }
 
     public void update() {

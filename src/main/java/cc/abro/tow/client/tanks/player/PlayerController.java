@@ -219,7 +219,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
         /*
          * Поворот дула пушки (много костылей)
          */
-        Vector2<Integer> relativePosition = player.gun.getComponent(Position.class).getRelativePosition();
+        Vector2<Integer> relativePosition = player.gun.getRelativePosition();
         double relativeX = relativePosition.x + 0.1;
         double relativeY = relativePosition.y + 0.1;
 
