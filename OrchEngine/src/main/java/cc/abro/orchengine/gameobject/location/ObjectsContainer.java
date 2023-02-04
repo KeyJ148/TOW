@@ -1,7 +1,6 @@
 package cc.abro.orchengine.gameobject.location;
 
 import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.gameobject.components.Position;
 import lombok.Getter;
 
 import java.util.*;
@@ -18,17 +17,17 @@ public class ObjectsContainer {
     }
 
     public void add(GameObject gameObject) {
-        int z = gameObject.getComponent(Position.class).z;
+        int z = gameObject.getZ();
         layerByZ.computeIfAbsent(z, u -> new Layer(z, chunkSize)).add(gameObject);
     }
 
     public void remove(GameObject gameObject) {
-        int z = gameObject.getComponent(Position.class).z;
+        int z = gameObject.getZ();
         layerByZ.get(z).remove(gameObject);
     }
 
     public void addUnsuitableObject(GameObject gameObject) {
-        int z = gameObject.getComponent(Position.class).z;
+        int z = gameObject.getZ();
         layerByZ.computeIfAbsent(z, u -> new Layer(z, chunkSize)).addUnsuitableObject(gameObject);
     }
 
@@ -39,7 +38,7 @@ public class ObjectsContainer {
     }
 
     public void checkGameObjectChunkChanged(GameObject gameObject) {
-        int z = gameObject.getComponent(Position.class).z;
+        int z = gameObject.getZ();
         layerByZ.computeIfAbsent(z, u -> new Layer(z, chunkSize)).checkGameObjectChunkChanged(gameObject);
     }
 

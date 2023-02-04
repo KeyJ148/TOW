@@ -77,13 +77,10 @@ public class Collision extends cc.abro.orchengine.gameobject.Component implement
     //Проверка столкновения с объектом obj2
     public boolean checkCollision(GameObject gameObject2) {
         GameObject gameObject1 = getGameObject();
-        Position pos1 = gameObject1.getComponent(Position.class);
-        Position pos2 = gameObject2.getComponent(Position.class);
         Collision coll1 = gameObject1.getComponent(Collision.class);
         Collision coll2 = gameObject2.getComponent(Collision.class);
 
-        if (pos1 == null || pos2 == null ||
-                coll1 == null || coll2 == null ||
+        if (coll1 == null || coll2 == null ||
                 coll1.maskAbsolute == null || coll2.maskAbsolute == null) {
             return false;
         }
@@ -93,7 +90,8 @@ public class Collision extends cc.abro.orchengine.gameobject.Component implement
         //Гипотинуза объекта, с которым сравниваем
         double gip2 = Math.sqrt(sqr(coll2.mask.getWidth()) + sqr(coll2.mask.getHeight()));
         //Расстояние от центра до центра
-        double dis1To2 = Math.sqrt(sqr(pos1.x - pos2.x) + sqr(pos1.y - pos2.y));
+        double dis1To2 = Math.sqrt(sqr(gameObject1.getX() - gameObject2.getX()) +
+                sqr(gameObject1.getY() - gameObject2.getY()));
 
         //Если до объекта слишком далеко, то столкновения нет
         if (dis1To2 > gip1 / 2 + gip2 / 2 + 30) {
@@ -132,10 +130,9 @@ public class Collision extends cc.abro.orchengine.gameobject.Component implement
 
     //Перерасчёт маски относительно начала координат карты
     public void calc() {
-        if (!getGameObject().hasComponent(Position.class)) return;
 
         //Смещена начального угла с Востока на Север
-        double direction = getGameObject().getComponent(Position.class).getDirectionDraw();
+        double direction = getGameObject().getDirection();
         direction = Math.toRadians(direction) - Math.PI / 2;
 
         //Просчёт маски
@@ -149,8 +146,8 @@ public class Collision extends cc.abro.orchengine.gameobject.Component implement
             double YDouble2 = -cos * mask.getMaskCenter()[i].y;//"В бок" //Math.sin(direction-Math.PI/2) * ...
 
             this.maskAbsolute[i] = new Vector2<>();
-            this.maskAbsolute[i].x = (int) (getGameObject().getComponent(Position.class).x + XDouble + XDouble2);
-            this.maskAbsolute[i].y = (int) (getGameObject().getComponent(Position.class).y - YDouble - YDouble2);
+            this.maskAbsolute[i].x = (int) (getGameObject().getX() + XDouble + XDouble2);
+            this.maskAbsolute[i].y = (int) (getGameObject().getY() - YDouble - YDouble2);
         }
 
         calcInThisStep = true;

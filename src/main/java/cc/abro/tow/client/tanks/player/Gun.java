@@ -5,7 +5,6 @@ import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
@@ -39,7 +38,10 @@ public class Gun extends GameObject {
 
         loadData();
 
-        addComponent(new Position(x, y, 2000, direction));
+        setX(x);
+        setY(y);
+        //TODO setZ(2000);
+        setDirection(direction);
         addComponent(new SpriteRender(texture));
 
         addComponent(new Movement());
@@ -75,17 +77,17 @@ public class Gun extends GameObject {
     }
 
     private void attackFromTrunk(int trunkX, int trunkY, double direction) {
-        double trunkXdx = trunkX * Math.cos(Math.toRadians(getComponent(Position.class).getDirectionDraw()) - Math.PI / 2);//первый отступ "вперед"
-        double trunkXdy = trunkX * Math.sin(Math.toRadians(getComponent(Position.class).getDirectionDraw()) - Math.PI / 2);//в отличие от маски мы отнимаем от каждого по PI/2
-        double trunkYdx = trunkY * Math.cos(Math.toRadians(getComponent(Position.class).getDirectionDraw()) - Math.PI);//потому что изначально у теустуры измененное направление
-        double trunkYdy = trunkY * Math.sin(Math.toRadians(getComponent(Position.class).getDirectionDraw()) - Math.PI);//второй отступ "вбок"
+        double trunkXdx = trunkX * Math.cos(Math.toRadians(getDirection()) - Math.PI / 2);//первый отступ "вперед"
+        double trunkXdy = trunkX * Math.sin(Math.toRadians(getDirection()) - Math.PI / 2);//в отличие от маски мы отнимаем от каждого по PI/2
+        double trunkYdx = trunkY * Math.cos(Math.toRadians(getDirection()) - Math.PI);//потому что изначально у теустуры измененное направление
+        double trunkYdy = trunkY * Math.sin(Math.toRadians(getDirection()) - Math.PI);//второй отступ "вбок"
 
         Bullet newBullet = player.bullet.create();
         newBullet.init(
                 player,
-                getComponent(Position.class).x + trunkXdx + trunkYdx,
-                getComponent(Position.class).y - trunkXdy - trunkYdy,
-                getComponent(Position.class).getDirectionDraw() + direction,
+                getX() + trunkXdx + trunkYdx,
+                getY() - trunkXdy - trunkYdy,
+                getDirection() + direction,
                 player.stats.damage,
                 player.stats.range,
                 player.bullet.name

@@ -3,7 +3,6 @@ package cc.abro.orchengine.gameobject.location;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.Collision;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.resources.masks.MaskLoader;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
 public class Border extends GameObject {
 
     public Border(Location location, BorderData borderData) {
-        super(location, List.of(new Position(borderData.x, borderData.y, 0)));
+        super(location, borderData.x, borderData.y, 0);
         //Путь должен быть, иначе mask выкинет ошибку при парсе;
         addComponent(new Collision(MaskLoader.createDefaultMask(borderData.w, borderData.h)));
     }

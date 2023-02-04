@@ -1,12 +1,14 @@
 package cc.abro.orchengine.input.mouse;
 
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.EngineBean;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
-import cc.abro.orchengine.gameobject.components.Position;
+import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
+import cc.abro.orchengine.gameobject.location.Camera;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.orchengine.util.Vector2;
@@ -29,13 +31,14 @@ public class MouseCursor {
 
         //Создание объекта курсора (используется компонент Position и Sprite)
         cursor = GameObjectFactory.create(new Location(), 0, 0, -1000); //TODO fake location is ok?
-        //cursor.getComponent(Position.class).absolute = false; //TODO
     }
 
     public void update() {
-        Vector2<Integer> mousePos = getPositionFromGLFW();
-        cursor.getComponent(Position.class).x = mousePos.x;
-        cursor.getComponent(Position.class).y = mousePos.y;
+        Camera camera = Context.getService(LocationManager.class).getActiveLocation().getCamera();
+        Vector2<Integer> relativeMousePosition = getPositionFromGLFW();
+        Vector2<Integer> absolutePosition = camera.toAbsolutePosition(relativeMousePosition);
+        cursor.setX(absolutePosition.x);
+        cursor.setY(absolutePosition.y);
     }
 
     public void draw() {
@@ -48,7 +51,7 @@ public class MouseCursor {
     }
 
     public Vector2<Integer> getPosition() {
-        return new Vector2<>((int) cursor.getComponent(Position.class).x, (int) cursor.getComponent(Position.class).y);
+        return new Vector2<>((int) cursor.getX(), (int) cursor.getY());
     }
 
     public void setTexture(Texture texture) {

@@ -1,7 +1,6 @@
 package cc.abro.orchengine.gameobject.components.render;
 
 import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.services.OpenGlService;
 import cc.abro.orchengine.util.Vector2;
@@ -20,7 +19,7 @@ public class SpriteRender extends Rendering {
         Vector2<Integer> relativePosition = getGameObject().getRelativePosition();
         double xView = relativePosition.x;
         double yView = relativePosition.y;
-        double directionDraw = getGameObject().getComponent(Position.class).getDirectionDraw();
+        double directionDraw = getGameObject().getDirection();
 
         directionDraw -= 90; //смещена начального угла с Востока на Север
 

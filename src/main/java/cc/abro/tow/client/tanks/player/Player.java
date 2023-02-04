@@ -7,7 +7,6 @@ import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
@@ -57,7 +56,6 @@ public class Player extends Tank {
 
     public Player(Location location, double x, double y, double direction) {
         super(location);
-        addComponent(new Position(x, y, 0));
 
         controller = new PlayerController(this);
 
@@ -233,10 +231,10 @@ public class Player extends Tank {
 
     public String getData() {
 
-        return Math.round(armor.getComponent(Position.class).x)
-                + " " + Math.round(armor.getComponent(Position.class).y)
-                + " " + Math.round(armor.getComponent(Position.class).getDirectionDraw())
-                + " " + Math.round(gun.getComponent(Position.class).getDirectionDraw())
+        return Math.round(armor.getX())
+                + " " + Math.round(armor.getY())
+                + " " + Math.round(armor.getDirection())
+                + " " + Math.round(gun.getDirection())
                 + " " + Math.round(armor.getComponent(Movement.class).speed)
                 + " " + armor.getComponent(Movement.class).getDirection()
                 + " " + ((AnimationRender) armor.getComponent(Rendering.class)).getFrameSpeed()

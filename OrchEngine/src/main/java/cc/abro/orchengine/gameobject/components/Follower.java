@@ -27,10 +27,10 @@ public class Follower extends Component implements Updatable {
         if (followUpGameObject.hasComponent(Follower.class) && !followUpGameObject.getComponent(Follower.class).isUpdated())
             followUpGameObject.getComponent(Follower.class).update(delta);
 
-        getGameObject().getComponent(Position.class).x = followUpGameObject.getComponent(Position.class).x;
-        getGameObject().getComponent(Position.class).y = followUpGameObject.getComponent(Position.class).y;
+        getGameObject().setX(followUpGameObject.getX());
+        getGameObject().setY(followUpGameObject.getY());
         if (followDirectionDraw)
-            getGameObject().getComponent(Position.class).setDirectionDraw(followUpGameObject.getComponent(Position.class).getDirectionDraw());
+            getGameObject().setDirection(followUpGameObject.getDirection());
         Context.getService(LocationManager.class).getActiveLocation().checkGameObjectChunkChanged(getGameObject());
     }
 
@@ -41,9 +41,9 @@ public class Follower extends Component implements Updatable {
 
         if (followUpGameObject.hasComponent(Follower.class))
             updated &= followUpGameObject.getComponent(Follower.class).isUpdated();
-        updated &= (getGameObject().getComponent(Position.class).x == followUpGameObject.getComponent(Position.class).x);
-        updated &= (getGameObject().getComponent(Position.class).y == followUpGameObject.getComponent(Position.class).y);
-        updated &= (getGameObject().getComponent(Position.class).getDirectionDraw() == followUpGameObject.getComponent(Position.class).getDirectionDraw());
+        updated &= (getGameObject().getX() == followUpGameObject.getX());
+        updated &= (getGameObject().getY() == followUpGameObject.getY());
+        updated &= (getGameObject().getDirection() == followUpGameObject.getDirection());
 
         return updated;
     }

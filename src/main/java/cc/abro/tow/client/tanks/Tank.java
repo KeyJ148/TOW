@@ -6,7 +6,6 @@ import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
@@ -21,7 +20,6 @@ import cc.abro.tow.client.particles.Explosion;
 import cc.abro.tow.client.tanks.enemy.Enemy;
 import org.liquidengine.legui.component.Label;
 
-import java.util.Arrays;
 import java.util.Map;
 
 public abstract class Tank extends GameObject {
@@ -43,7 +41,7 @@ public abstract class Tank extends GameObject {
     public int win = 0;
 
     public Tank(Location location) {
-        super(location, Arrays.asList(new Position(0, 0, 0)));
+        super(location, 0, 0, 0);
         locationManager = Context.getService(LocationManager.class);
         initCamera();
     }
@@ -66,9 +64,9 @@ public abstract class Tank extends GameObject {
 
         if (!alive) return;
 
-        if (armor != null && armor.hasComponent(Position.class)) {
-            double x = armor.getComponent(Position.class).x - name.length() * 3.45;
-            double y = armor.getComponent(Position.class).y - 55;
+        if (armor != null) {
+            double x = armor.getX() - name.length() * 3.45;
+            double y = armor.getY() - 55;
             Vector2<Integer> relativePosition = locationManager.getActiveLocation().getCamera() //TODO не с активной, а из position
                     .toRelativePosition(new Vector2<>((int) x, (int) y));
             nickname.setPosition(relativePosition.x, relativePosition.y);
@@ -85,7 +83,7 @@ public abstract class Tank extends GameObject {
 
             setColor(explodedTankColor);
 
-            GameObject explosion = GameObjectFactory.create(getLocation(), armor.getComponent(Position.class).x, armor.getComponent(Position.class).y, 3000);
+            GameObject explosion = GameObjectFactory.create(getLocation(), armor.getX(), armor.getY(), 3000);
             Explosion explosionParticles = new Explosion(100);
             explosion.addComponent(explosionParticles);
             explosionParticles.activate();
@@ -105,7 +103,7 @@ public abstract class Tank extends GameObject {
         }
 
         locationManager.getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().remove(nickname);
-        Context.getService(AudioService.class).playSoundEffect(Context.getService(AudioStorage.class).getAudio("explosion"), (int) getComponent(Position.class).x, (int) getComponent(Position.class).y, GameSetting.SOUND_RANGE);
+        Context.getService(AudioService.class).playSoundEffect(Context.getService(AudioStorage.class).getAudio("explosion"), (int) getX(), (int) getY(), GameSetting.SOUND_RANGE);
     }
 
     public void replaceArmor(GameObject newArmor) {
@@ -120,7 +118,7 @@ public abstract class Tank extends GameObject {
     }
 
     public void replaceGun(GameObject newGun) {
-        newGun.getComponent(Position.class).setDirectionDraw(gun.getComponent(Position.class).getDirectionDraw());
+        newGun.setDirection(gun.getDirection());
 
         gun.destroy();
         gun = newGun;

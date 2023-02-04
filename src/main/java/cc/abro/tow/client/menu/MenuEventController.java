@@ -5,7 +5,6 @@ import cc.abro.orchengine.cycle.Engine;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.LocationManager;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.tow.client.ClientData;
 import org.liquidengine.legui.event.KeyEvent;
 
@@ -16,7 +15,7 @@ import static org.lwjgl.glfw.GLFW.*;
 public class MenuEventController extends GameObject {
 
     public MenuEventController(Location location) {
-        super(location, List.of(new Position(0, 0, 0)));
+        super(location, 0, 0, 0);
     }
 
     @Override

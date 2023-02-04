@@ -6,7 +6,6 @@ import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.gameobject.location.Border;
@@ -45,7 +44,10 @@ public class Armor extends GameObject {
 
         loadData();
 
-        addComponent(new Position(x, y, 1000, direction));
+        setX(x);
+        setY(y);
+        //TODO setZ(1000);
+        setDirection(direction);
         addComponent(new AnimationRender(textureHandlers.textures()));
         addComponent(new Movement());
         getComponent(Movement.class).setDirection(direction);

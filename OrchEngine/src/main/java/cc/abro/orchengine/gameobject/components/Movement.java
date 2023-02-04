@@ -29,15 +29,15 @@ public class Movement extends Component implements Updatable {
 
     @Override
     public void update(long delta) {
-        xPrevious = getGameObject().getComponent(Position.class).x;
-        yPrevious = getGameObject().getComponent(Position.class).y;
+        xPrevious = getGameObject().getX();
+        yPrevious = getGameObject().getY();
         directionPrevious = direction;
 
-        getGameObject().getComponent(Position.class).x = getGameObject().getComponent(Position.class).x + speed * Math.cos(Math.toRadians(direction)) * ((double) delta / 1000000000);
-        getGameObject().getComponent(Position.class).y = getGameObject().getComponent(Position.class).y - speed * Math.sin(Math.toRadians(direction)) * ((double) delta / 1000000000);
+        getGameObject().setX(getGameObject().getX() + speed * Math.cos(Math.toRadians(direction)) * ((double) delta / 1000000000));
+        getGameObject().setY(getGameObject().getY() - speed * Math.sin(Math.toRadians(direction)) * ((double) delta / 1000000000));
         Context.getService(LocationManager.class).getActiveLocation().checkGameObjectChunkChanged(getGameObject());
 
-        if (directionDrawEquals) getGameObject().getComponent(Position.class).setDirectionDraw(direction);
+        if (directionDrawEquals) getGameObject().setDirection(direction);
     }
 
     public double getDirection() {

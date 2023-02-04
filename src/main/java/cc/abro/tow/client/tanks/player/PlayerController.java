@@ -6,7 +6,6 @@ import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.location.Border;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.util.Vector2;
@@ -18,7 +17,10 @@ import cc.abro.tow.client.tanks.enemy.Enemy;
 import cc.abro.tow.client.tanks.enemy.EnemyArmor;
 import org.liquidengine.legui.event.KeyEvent;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -45,7 +47,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
     private Player player;
 
     public PlayerController(Player player) {
-        super(player.getLocation(), Arrays.asList(new Position(0, 0, 0)));
+        super(player.getLocation(), 0, 0, 0);
         this.player = player;
         locationManager = Context.getService(LocationManager.class);
     }
@@ -119,23 +121,23 @@ public class PlayerController extends GameObject implements Collision.CollisionL
                     //TODO ящик генерируется в позиции player, которая не обновляется. В итоге звук не воспроизводится, т.к. камера далеко от player
                     case GLFW_KEY_T:
                         if (Context.getService(ClientData.class).peopleMax == 1)
-                            new Box(getLocation(), player.getComponent(Position.class).x, player.getComponent(Position.class).y, 0, -1).collisionPlayer(player);
+                            new Box(getLocation(), player.getX(), player.getY(), 0, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_G:
                         if (Context.getService(ClientData.class).peopleMax == 1)
-                            new Box(getLocation(), player.getComponent(Position.class).x, player.getComponent(Position.class).y, 1, -1).collisionPlayer(player);
+                            new Box(getLocation(), player.getX(), player.getY(), 1, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_B:
                         if (Context.getService(ClientData.class).peopleMax == 1)
-                            new Box(getLocation(), player.getComponent(Position.class).x, player.getComponent(Position.class).y, 2, -1).collisionPlayer(player);
+                            new Box(getLocation(), player.getX(), player.getY(), 2, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_H:
                         if (Context.getService(ClientData.class).peopleMax == 1)
-                            new Box(getLocation(), player.getComponent(Position.class).x, player.getComponent(Position.class).y, 3, -1).collisionPlayer(player);
+                            new Box(getLocation(), player.getX(), player.getY(), 3, -1).collisionPlayer(player);
                         break;
                     case GLFW_KEY_F:
                         if (Context.getService(ClientData.class).peopleMax == 1)
-                            new Box(getLocation(), player.getComponent(Position.class).x, player.getComponent(Position.class).y, 4, -1).collisionPlayer(player);
+                            new Box(getLocation(), player.getX(), player.getY(), 4, -1).collisionPlayer(player);
                         break;
                 }
             }
@@ -232,23 +234,23 @@ public class PlayerController extends GameObject implements Collision.CollisionL
             pointDir += 360;
         }
 
-        if ((pointDir - player.gun.getComponent(Position.class).getDirectionDraw()) > 0) {
-            if ((pointDir - player.gun.getComponent(Position.class).getDirectionDraw()) > 180) {
-                player.gun.getComponent(Position.class).setDirectionDraw(player.gun.getComponent(Position.class).getDirectionDraw() - trunkUp);
+        if ((pointDir - player.gun.getDirection()) > 0) {
+            if ((pointDir - player.gun.getDirection()) > 180) {
+                player.gun.setDirection(player.gun.getDirection() - trunkUp);
             } else {
-                player.gun.getComponent(Position.class).setDirectionDraw(player.gun.getComponent(Position.class).getDirectionDraw() + trunkUp);
+                player.gun.setDirection(player.gun.getDirection() + trunkUp);
             }
         } else {
-            if ((pointDir - player.gun.getComponent(Position.class).getDirectionDraw()) < -180) {
-                player.gun.getComponent(Position.class).setDirectionDraw(player.gun.getComponent(Position.class).getDirectionDraw() + trunkUp);
+            if ((pointDir - player.gun.getDirection()) < -180) {
+                player.gun.setDirection(player.gun.getDirection() + trunkUp);
             } else {
-                player.gun.getComponent(Position.class).setDirectionDraw(player.gun.getComponent(Position.class).getDirectionDraw() - trunkUp);
+                player.gun.setDirection(player.gun.getDirection() - trunkUp);
             }
         }
 
-        if ((Math.abs(pointDir - player.gun.getComponent(Position.class).getDirectionDraw()) < trunkUp * 1.5) ||
-                (Math.abs(pointDir - player.gun.getComponent(Position.class).getDirectionDraw()) > 360 - trunkUp * 1.5)) {
-            player.gun.getComponent(Position.class).setDirectionDraw(pointDir);
+        if ((Math.abs(pointDir - player.gun.getDirection()) < trunkUp * 1.5) ||
+                (Math.abs(pointDir - player.gun.getDirection()) > 360 - trunkUp * 1.5)) {
+            player.gun.setDirection(pointDir);
         }
     }
 
@@ -262,8 +264,8 @@ public class PlayerController extends GameObject implements Collision.CollisionL
         }
 
         if (Set.of(Border.class, CollisedMapObject.class, DestroyedMapObject.class).contains(gameObject.getClass())) {
-            player.armor.getComponent(Position.class).x = player.armor.getComponent(Movement.class).getXPrevious();
-            player.armor.getComponent(Position.class).y = player.armor.getComponent(Movement.class).getYPrevious();
+            player.armor.setX(player.armor.getComponent(Movement.class).getXPrevious());
+            player.armor.setY(player.armor.getComponent(Movement.class).getYPrevious());
             player.armor.getComponent(Movement.class).setDirection(directionPrevious);
         }
 
@@ -279,8 +281,8 @@ public class PlayerController extends GameObject implements Collision.CollisionL
             EnemyArmor enemyArmor = (EnemyArmor) gameObject;
 
             if ((!player.controller.recoil) || (!enemyArmor.equals(coll_gameObject))) {
-                player.armor.getComponent(Position.class).x = player.armor.getComponent(Movement.class).getXPrevious();
-                player.armor.getComponent(Position.class).y = player.armor.getComponent(Movement.class).getYPrevious();
+                player.armor.setX(player.armor.getComponent(Movement.class).getXPrevious());
+                player.armor.setY(player.armor.getComponent(Movement.class).getYPrevious());
                 player.armor.getComponent(Movement.class).setDirection(player.armor.getComponent(Movement.class).getDirectionPrevious());
                 recoil = true;
                 timer = 0;

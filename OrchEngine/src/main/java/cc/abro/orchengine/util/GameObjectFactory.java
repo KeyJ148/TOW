@@ -3,7 +3,6 @@ package cc.abro.orchengine.util;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.resources.textures.Texture;
@@ -23,12 +22,12 @@ public class GameObjectFactory {
     }
 
     public GameObject create(Location location, double x, double y, int z) {
-        return new GameObject(location, List.of(new Position(x, y, z)));
+        return new GameObject(location, x, y, z);
     }
 
     public GameObject create(Location location, double x, double y, int z, double directionDraw) {
         GameObject gameObject = create(location, x, y, z);
-        gameObject.getComponent(Position.class).setDirectionDraw(directionDraw);
+        gameObject.setDirection(directionDraw);
 
         return gameObject;
     }

@@ -6,6 +6,7 @@ import cc.abro.orchengine.gameobject.components.container.ComponentsContainer;
 import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -17,7 +18,10 @@ public class GameObject extends ComponentsContainer {
     @Getter
     private boolean destroyed = false;
     @Getter
+    @Setter
     private double x, y;
+    @Getter
+    private double direction;
     @Getter
     private int z; //TODO вынести это свойство в Drawable интерфейс? И пробегаться не по игровым объектам, а по компонентам с drawable при отрисовке? Проблема в том, что глубины следующие: танк -> дом -> пушка, при текущей схеме танк и пушка должны быть разными игровыми объектами
     private final ComponentsCache componentsCache = new ComponentsCache();
@@ -76,8 +80,16 @@ public class GameObject extends ComponentsContainer {
         }
     }
 
-    public Vector2<Integer> getRelativePosition() {
+    public Vector2<Integer> getRelativePosition() { //TODO del
         return Context.getService(LocationManager.class).getActiveLocation().getCamera().toRelativePosition(new Vector2<>((int) x, (int) y));
+    }
+
+    public void setDirection(double direction) {
+        if (direction % 360 >= 0) {
+            this.direction = direction % 360;
+        } else {
+            this.direction = 360 - Math.abs(direction % 360);
+        }
     }
 
     private void destroyAfterUpdate() {

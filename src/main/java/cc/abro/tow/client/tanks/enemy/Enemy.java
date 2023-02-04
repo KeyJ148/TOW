@@ -5,7 +5,6 @@ import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
@@ -31,7 +30,6 @@ public class Enemy extends Tank {
         super(location);
         this.id = id;
 
-        addComponent(new Position(0, 0, 0));
         addComponent(new Movement());
     }
 
@@ -92,11 +90,11 @@ public class Enemy extends Tank {
             camera.addComponent(new Follower(armor));
         }
 
-        armor.getComponent(Position.class).x = x;
-        armor.getComponent(Position.class).y = y;
-        armor.getComponent(Position.class).setDirectionDraw(direction);
+        armor.setX(x);
+        armor.setY(y);
+        armor.setDirection(direction);
 
-        gun.getComponent(Position.class).setDirectionDraw(directionGun);
+        gun.setDirection(directionGun);
 
         //Для интерполяции (предсказания) движения врага
         armor.getComponent(Movement.class).speed = speed;

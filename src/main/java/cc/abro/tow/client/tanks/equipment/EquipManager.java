@@ -1,6 +1,5 @@
 package cc.abro.tow.client.tanks.equipment;
 
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.tanks.player.Armor;
 import cc.abro.tow.client.tanks.player.Bullet;
@@ -70,9 +69,9 @@ public class EquipManager {
         try {
             String newArmorFullPath = getClassPackage(player.armor) + "." + newArmorClass;
             newArmor = (Armor) Class.forName(newArmorFullPath).newInstance();
-            newArmor.init(player, player.armor.getComponent(Position.class).x,
-                    player.armor.getComponent(Position.class).y,
-                    player.armor.getComponent(Position.class).getDirectionDraw(),
+            newArmor.init(player, player.armor.getX(),
+                    player.armor.getY(),
+                    player.armor.getDirection(),
                     newArmorName);
             player.replaceArmor(newArmor);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
@@ -109,7 +108,7 @@ public class EquipManager {
             String newGunClassName = new ConfigReader(Gun.PATH_SETTING + newGunName + ".properties").findString("CLASS");
             String newGunFullPath = getClassPackage(player.gun) + "." + newGunClassName;
             newGun = (Gun) Class.forName(newGunFullPath).newInstance();
-            newGun.init(player, player.gun.getComponent(Position.class).x, player.gun.getComponent(Position.class).y, player.gun.getComponent(Position.class).getDirectionDraw(), newGunName);
+            newGun.init(player, player.gun.getX(), player.gun.getY(), player.gun.getDirection(), newGunName);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             log.fatal("Gun not found: " + newGunName);
             throw new RuntimeException(e);

@@ -4,7 +4,6 @@ import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.LocationManager;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
 import lombok.Setter;
@@ -56,6 +55,15 @@ public class Camera {
         return relativePosition;
     }
 
+    //Преобразует координаты относительно угла экрана (области видимости камеры) в координаты относительно угла карты
+    public Vector2<Integer> toAbsolutePosition(Vector2<Integer> relativePosition) {
+        Vector2<Integer> absolutePosition = new Vector2<>();
+        absolutePosition.x = (int) (getX() - Context.getService(Render.class).getWidth() / 2 + relativePosition.x);
+        absolutePosition.y = (int) (getY() - Context.getService(Render.class).getHeight() / 2 + relativePosition.y);
+
+        return absolutePosition;
+    }
+
     public double getX() {
         calcPosition();
         return x;
@@ -74,8 +82,8 @@ public class Camera {
         int heightMap = Context.getService(LocationManager.class).getActiveLocation().getHeight();
 
         if (hasFollowObject()) {
-            x = followObject.getComponent(Position.class).x;
-            y = followObject.getComponent(Position.class).y;
+            x = followObject.getX();
+            y = followObject.getY();
         }
 
         if (isVisibleLocationOnly()) {

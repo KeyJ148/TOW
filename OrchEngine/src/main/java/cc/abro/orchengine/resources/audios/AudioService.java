@@ -4,7 +4,6 @@ import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.EngineService;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.LocationManager;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.location.Camera;
 import lombok.Getter;
 import lombok.Setter;
@@ -56,10 +55,10 @@ public class AudioService implements Startable {
         Optional<GameObject> cameraFollowObject = camera.isSoundOnFollowingObject() ?
                 camera.getFollowObject() : Optional.empty();
         double listenerX = cameraFollowObject
-                .map(follow -> follow.getComponent(Position.class).x)
+                .map(follow -> follow.getX())
                 .orElse(camera.getX());
         double listenerY = cameraFollowObject
-                .map(follow -> follow.getComponent(Position.class).y)
+                .map(follow -> follow.getY())
                 .orElse(camera.getY());
 
         double dis = Math.sqrt(Math.pow(x - listenerX, 2) + Math.pow(y - listenerY, 2));

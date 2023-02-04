@@ -2,7 +2,6 @@ package cc.abro.orchengine.gameobject.location;
 
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
 
@@ -50,7 +49,7 @@ public class Layer {
     public void checkGameObjectChunkChanged(GameObject gameObject) {
         if (!gameObject.hasComponent(Movement.class) || unsuitableObjects.contains(gameObject)) return;
 
-        Chunk chunkNow = getOrCreateChunk((int) gameObject.getComponent(Position.class).x, (int) gameObject.getComponent(Position.class).y);
+        Chunk chunkNow = getOrCreateChunk((int) gameObject.getX(), (int) gameObject.getY());
         Chunk chunkLast = getChunk((int) gameObject.getComponent(Movement.class).getXPrevious(), (int) gameObject.getComponent(Movement.class).getYPrevious());
 
         if (chunkLast != chunkNow) {
@@ -121,8 +120,8 @@ public class Layer {
 
     private Chunk getChunk(GameObject gameObject) {
         return getChunk(
-                (int) gameObject.getComponent(Position.class).x,
-                (int) gameObject.getComponent(Position.class).y);
+                (int) gameObject.getX(),
+                (int) gameObject.getY());
     }
 
     //(x;y) -- координаты мировые (например, объекта), а не чанка в сетке чанков
@@ -132,8 +131,8 @@ public class Layer {
 
     private Chunk getOrCreateChunk(GameObject gameObject) {
         return getOrCreateChunk(
-                (int) gameObject.getComponent(Position.class).x,
-                (int) gameObject.getComponent(Position.class).y);
+                (int) gameObject.getX(),
+                (int) gameObject.getY());
     }
 
     //(x;y) -- координаты мировые(например, объекта), а не чанка в сетке чанков

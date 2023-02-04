@@ -4,7 +4,6 @@ import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.gameobject.components.Position;
 import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
@@ -20,17 +19,19 @@ public class EnemyBullet extends GameObject {
 	public long idNet;
 
 	public EnemyBullet(Location location, double x, double y, double speed, double direction, Texture texture, int idEnemy, long idNet) {
-		super(location, Arrays.asList(
-				new Position(x, y, 1600, (int) direction),
-				new Movement(speed, direction),
-				new SpriteRender(texture)));
+		super(location, x, y, 1600,
+				Arrays.asList(
+					new Movement(speed, direction),
+					new SpriteRender(texture)
+				));
+		setDirection(direction);
 
 		this.idEnemy = idEnemy;
 		this.idNet = idNet;
 
 		if (texture.equals(Context.getService(SpriteStorage.class).getSprite("b_streamlined").texture())) {
 			getComponent(Movement.class).directionDrawEquals = true;
-			getComponent(Position.class).setDirectionDraw(0);
+			setDirection(0);
 		} else {
 			getComponent(Movement.class).directionDrawEquals = false;
 		}
@@ -40,7 +41,7 @@ public class EnemyBullet extends GameObject {
 		destroy();
 
 		if (explosionSize > 0) {
-			GameObject explosion = GameObjectFactory.create(getLocation(), getComponent(Position.class).x, getComponent(Position.class).y, 3000);
+			GameObject explosion = GameObjectFactory.create(getLocation(), getX(), getY(), 3000);
 			Explosion explosionParticles = new Explosion(explosionSize);
 			explosion.addComponent(explosionParticles);
 			explosionParticles.activate();
