@@ -1,7 +1,6 @@
 package cc.abro.orchengine.gameobject.location;
 
 import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
 
@@ -46,14 +45,14 @@ public class Layer {
         unsuitableObjects.add(gameObject);
     }
 
-    public void checkGameObjectChunkChanged(GameObject gameObject) {
-        if (!gameObject.hasComponent(Movement.class) || unsuitableObjects.contains(gameObject)) return;
+    public void updateObjectPosition(GameObject gameObject,Vector2<Double> previousPosition) {
+        if (unsuitableObjects.contains(gameObject)) return;
 
-        Chunk chunkNow = getOrCreateChunk((int) gameObject.getX(), (int) gameObject.getY());
-        Chunk chunkLast = getChunk((int) gameObject.getComponent(Movement.class).getXPrevious(), (int) gameObject.getComponent(Movement.class).getYPrevious());
+        Chunk chunkLast = getOrCreateChunk(previousPosition);
+        Chunk chunkNow = getOrCreateChunk(gameObject.getPosition());
 
         if (chunkLast != chunkNow) {
-            if (chunkLast != null) chunkLast.remove(gameObject); //TODO del if (chunkLast != null)
+            chunkLast.remove(gameObject);
             chunkNow.add(gameObject);
         }
     }
@@ -61,8 +60,7 @@ public class Layer {
     public void update(long delta) {
         //Делаем копию сета, иначе получаем ConcurrentModificationException,
         //т.к. во время апдейта можно создать новый объект и для этого будет создан новый чанк
-        Set<Chunk> updatedChunks = new HashSet<>();
-        updatedChunks.addAll(chunkByCoords.values());
+        Set<Chunk> updatedChunks = new HashSet<>(chunkByCoords.values());
 
         //TODO ниже
         //TODO Сейчас пробегаем по всем чанкам и обновляем все объекты. Но большинство объектов статичны и не обновляемы. Сделать интерфейс Updatable?
@@ -118,31 +116,40 @@ public class Layer {
         chunkByCoords.values().forEach(Chunk::destroy);
     }
 
+    /*
+     // TODO Вынести методы ниже в родительский класс? ChunkGrid
+     */
     private Chunk getChunk(GameObject gameObject) {
-        return getChunk(
-                (int) gameObject.getX(),
-                (int) gameObject.getY());
+        return getChunk(gameObject.getX(), gameObject.getY());
     }
 
     //(x;y) -- координаты мировые (например, объекта), а не чанка в сетке чанков
-    private Chunk getChunk(int x, int y) {
+    private Chunk getChunk(double x, double y) {
         return chunkByCoords.get(getChunkPosition(x, y));
     }
 
+    //(x;y) -- координаты мировые (например, объекта), а не чанка в сетке чанков
+    private Chunk getChunk(Vector2<Double> position) {
+        return getChunk(position.x, position.y);
+    }
+
     private Chunk getOrCreateChunk(GameObject gameObject) {
-        return getOrCreateChunk(
-                (int) gameObject.getX(),
-                (int) gameObject.getY());
+        return getOrCreateChunk(gameObject.getX(), gameObject.getY());
     }
 
     //(x;y) -- координаты мировые(например, объекта), а не чанка в сетке чанков
-    private Chunk getOrCreateChunk(int x, int y) {
+    private Chunk getOrCreateChunk(double x, double y) {
         return chunkByCoords.computeIfAbsent(getChunkPosition(x, y), cp -> new Chunk());
     }
 
+    //(x;y) -- координаты мировые(например, объекта), а не чанка в сетке чанков
+    private Chunk getOrCreateChunk(Vector2<Double> position) {
+        return getOrCreateChunk(position.x, position.y);
+    }
+
     //Получить координаты чанка в сетке чанков по мировым координатам
-    private Vector2<Integer> getChunkPosition(int x, int y) {
-        return new Vector2<>(x / chunkSize, y / chunkSize);
+    private Vector2<Integer> getChunkPosition(double x, double y) {
+        return new Vector2<>(((int) x) / chunkSize, ((int) y) / chunkSize);
     }
 }
 

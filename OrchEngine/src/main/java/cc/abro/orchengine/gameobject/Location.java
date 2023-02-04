@@ -63,13 +63,6 @@ public class Location extends ObjectsContainer {
         guiLocationFrame.render();
     }
 
-    //Проверка и при необходимости обновление объекта при перемещении из чанка в чанк
-    public void checkGameObjectChunkChanged(GameObject gameObject) {
-        if (gameObject.getLocation() == this) {
-            super.checkGameObjectChunkChanged(gameObject);
-        }
-    }
-
     public void update(long delta) {
         beforeUpdateActions.forEach(Runnable::run);
         super.update(delta);
