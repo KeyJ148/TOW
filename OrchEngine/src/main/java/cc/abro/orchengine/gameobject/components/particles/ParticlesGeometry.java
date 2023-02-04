@@ -13,15 +13,15 @@ public class ParticlesGeometry extends Particles {
 
         for (Part part : parts) {
             part.color.bind();
-            Vector2<Integer> relativePosition = Context.getService(LocationManager.class)
+            Vector2<Double> relativePosition = Context.getService(LocationManager.class)
                     .getActiveLocation()
                     .getCamera()
-                    .toRelativePosition(new Vector2<>((int) part.x, (int) part.y));
+                    .toRelativePosition(new Vector2<>(part.x, part.y));
 
             double defaultX, defaultY;
             if (rotate) {
                 GL11.glLoadIdentity();
-                GL11.glTranslatef((float) relativePosition.x, (float) relativePosition.y, 0);
+                GL11.glTranslatef(relativePosition.x.floatValue(), relativePosition.y.floatValue(), 0);
                 GL11.glRotatef(Math.round(-part.directionDraw), 0f, 0f, 1f);
                 defaultX = 0;
                 defaultY = 0;

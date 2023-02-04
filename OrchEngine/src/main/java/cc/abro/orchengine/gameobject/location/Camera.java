@@ -47,19 +47,19 @@ public class Camera {
     }
 
     //Преобразует координаты относительно угла карты в координаты относительно угла экрана (области видимости камеры)
-    public Vector2<Integer> toRelativePosition(Vector2<Integer> absolutePosition) {
-        Vector2<Integer> relativePosition = new Vector2<>();
-        relativePosition.x = (int) (Context.getService(Render.class).getWidth() / 2 - (getX() - absolutePosition.x));
-        relativePosition.y = (int) (Context.getService(Render.class).getHeight() / 2 - (getY() - absolutePosition.y));
+    public Vector2<Double> toRelativePosition(Vector2<Double> absolutePosition) {
+        Vector2<Double> relativePosition = new Vector2<>();
+        relativePosition.x = Context.getService(Render.class).getWidth() / 2 - (getX() - absolutePosition.x);
+        relativePosition.y = Context.getService(Render.class).getHeight() / 2 - (getY() - absolutePosition.y);
 
         return relativePosition;
     }
 
     //Преобразует координаты относительно угла экрана (области видимости камеры) в координаты относительно угла карты
-    public Vector2<Integer> toAbsolutePosition(Vector2<Integer> relativePosition) {
-        Vector2<Integer> absolutePosition = new Vector2<>();
-        absolutePosition.x = (int) (getX() - Context.getService(Render.class).getWidth() / 2 + relativePosition.x);
-        absolutePosition.y = (int) (getY() - Context.getService(Render.class).getHeight() / 2 + relativePosition.y);
+    public Vector2<Double> toAbsolutePosition(Vector2<Double> relativePosition) {
+        Vector2<Double> absolutePosition = new Vector2<>();
+        absolutePosition.x = getX() - Context.getService(Render.class).getWidth() / 2 + relativePosition.x;
+        absolutePosition.y = getY() - Context.getService(Render.class).getHeight() / 2 + relativePosition.y;
 
         return absolutePosition;
     }

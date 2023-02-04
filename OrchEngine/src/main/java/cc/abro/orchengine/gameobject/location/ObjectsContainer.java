@@ -1,6 +1,7 @@
 package cc.abro.orchengine.gameobject.location;
 
 import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
 
 import java.util.*;
@@ -37,9 +38,11 @@ public class ObjectsContainer {
         new ArrayList<>(layerByZ.values()).forEach(layer -> layer.update(delta));
     }
 
-    public void checkGameObjectChunkChanged(GameObject gameObject) {
+    //Проверка и при необходимости обновление объекта при перемещении из чанка в чанк
+    public void updateObjectPosition(GameObject gameObject, Vector2<Double> previousPosition) {
         int z = gameObject.getZ();
-        layerByZ.computeIfAbsent(z, u -> new Layer(z, chunkSize)).checkGameObjectChunkChanged(gameObject);
+        layerByZ.computeIfAbsent(z, u -> new Layer(z, chunkSize))
+                .updateObjectPosition(gameObject, previousPosition);
     }
 
     //Отрисовка локации с размерами width и height вокруг координат (x;y)

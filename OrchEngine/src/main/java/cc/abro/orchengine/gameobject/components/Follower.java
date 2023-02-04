@@ -1,9 +1,7 @@
 package cc.abro.orchengine.gameobject.components;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 
 import java.util.List;
@@ -27,11 +25,9 @@ public class Follower extends Component implements Updatable {
         if (followUpGameObject.hasComponent(Follower.class) && !followUpGameObject.getComponent(Follower.class).isUpdated())
             followUpGameObject.getComponent(Follower.class).update(delta);
 
-        getGameObject().setX(followUpGameObject.getX());
-        getGameObject().setY(followUpGameObject.getY());
+        getGameObject().setPosition(followUpGameObject.getPosition());
         if (followDirectionDraw)
             getGameObject().setDirection(followUpGameObject.getDirection());
-        Context.getService(LocationManager.class).getActiveLocation().checkGameObjectChunkChanged(getGameObject());
     }
 
     //Квадратичная ассимптотика вместо линейной из-за отсутствия кеширования updated у родителей

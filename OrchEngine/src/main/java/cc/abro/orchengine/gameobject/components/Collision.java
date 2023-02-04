@@ -18,7 +18,7 @@ public class Collision extends cc.abro.orchengine.gameobject.Component implement
     public static final boolean MASK_DRAW = false; //TODO вынести в настройки через какой-нибудь сервис
 
     private Mask mask;//Маска для текстуры этого объекта
-    private Vector2<Integer>[] maskAbsolute; //Абсолютные координаты маски от левого верхнего угла карты
+    private Vector2<Double>[] maskAbsolute; //Абсолютные координаты маски от левого верхнего угла карты
 
     protected ArrayList<Class> collisionObjects = new ArrayList();//Список объектов с которыми надо проверять столкновения
     private ArrayList<CollisionListener> listeners = new ArrayList();//Список объектов которых нужно оповещать при коллизии
@@ -44,7 +44,7 @@ public class Collision extends cc.abro.orchengine.gameobject.Component implement
     public void draw() {
         if (!MASK_DRAW) return;
 
-        Vector2<Integer>[] maskDrawView = new Vector2[maskAbsolute.length];
+        Vector2<Double>[] maskDrawView = new Vector2[maskAbsolute.length];
         for (int i = 0; i < maskDrawView.length; i++)
             maskDrawView[i] = Context.getService(LocationManager.class).getActiveLocation().getCamera().toRelativePosition(maskAbsolute[i].copy());
 
@@ -53,7 +53,7 @@ public class Collision extends cc.abro.orchengine.gameobject.Component implement
 
         GL11.glBegin(GL11.GL_LINE_LOOP);
         for (int i = 0; i < maskDrawView.length; i++) {
-            GL11.glVertex2f(maskDrawView[i].x, maskDrawView[i].y);
+            GL11.glVertex2f(maskDrawView[i].x.floatValue(), maskDrawView[i].y.floatValue());
         }
         GL11.glEnd();
     }
@@ -106,12 +106,12 @@ public class Collision extends cc.abro.orchengine.gameobject.Component implement
         //Создание полигонов
         Polygon p1 = new Polygon();
         for (int i = 0; i < coll1.maskAbsolute.length; i++) {
-            p1.addPoint(coll1.maskAbsolute[i].x, coll1.maskAbsolute[i].y);
+            p1.addPoint(coll1.maskAbsolute[i].x.intValue(), coll1.maskAbsolute[i].y.intValue());
         }
 
         Polygon p2 = new Polygon();
         for (int i = 0; i < coll2.maskAbsolute.length; i++) {
-            p2.addPoint(coll2.maskAbsolute[i].x, coll2.maskAbsolute[i].y);
+            p2.addPoint(coll2.maskAbsolute[i].x.intValue(), coll2.maskAbsolute[i].y.intValue());
         }
 
         //Проверка на коллизию полигонов
@@ -146,8 +146,8 @@ public class Collision extends cc.abro.orchengine.gameobject.Component implement
             double YDouble2 = -cos * mask.getMaskCenter()[i].y;//"В бок" //Math.sin(direction-Math.PI/2) * ...
 
             this.maskAbsolute[i] = new Vector2<>();
-            this.maskAbsolute[i].x = (int) (getGameObject().getX() + XDouble + XDouble2);
-            this.maskAbsolute[i].y = (int) (getGameObject().getY() - YDouble - YDouble2);
+            this.maskAbsolute[i].x = getGameObject().getX() + XDouble + XDouble2;
+            this.maskAbsolute[i].y = getGameObject().getY() - YDouble - YDouble2;
         }
 
         calcInThisStep = true;

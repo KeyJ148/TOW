@@ -35,8 +35,8 @@ public class MouseCursor {
 
     public void update() {
         Camera camera = Context.getService(LocationManager.class).getActiveLocation().getCamera();
-        Vector2<Integer> relativeMousePosition = getPositionFromGLFW();
-        Vector2<Integer> absolutePosition = camera.toAbsolutePosition(relativeMousePosition);
+        Vector2<Double> relativeMousePosition = getPositionFromGLFW();
+        Vector2<Double> absolutePosition = camera.toAbsolutePosition(relativeMousePosition);
         cursor.setX(absolutePosition.x);
         cursor.setY(absolutePosition.y);
     }
@@ -73,12 +73,12 @@ public class MouseCursor {
     }
 
     //Обновление позиции объекта cursor напрямую из позиции мыши в OpenGL
-    private Vector2<Integer> getPositionFromGLFW() {
+    private Vector2<Double> getPositionFromGLFW() {
         DoubleBuffer bufX = BufferUtils.createDoubleBuffer(1);
         DoubleBuffer bufY = BufferUtils.createDoubleBuffer(1);
 
         glfwGetCursorPos(render.getWindowID(), bufX, bufY);
-        Vector2<Integer> mousePos = new Vector2<>((int) bufX.get(), (int) bufY.get());
+        Vector2<Double> mousePos = new Vector2<>(bufX.get(), bufY.get());
 
         if (captureCursor) {
             captureInWindow(mousePos);
@@ -88,13 +88,13 @@ public class MouseCursor {
     }
 
     //Если позиция мыши выходит за пределы окна, то функция нормализует значения в mousePos
-    private void captureInWindow(Vector2<Integer> mousePos) {
+    private void captureInWindow(Vector2<Double> mousePos) {
         int width = render.getWidth();
         int height = render.getHeight();
 
-        if (mousePos.x < 0) mousePos.x = 0;
-        if (mousePos.x > width) mousePos.x = width;
-        if (mousePos.y < 0) mousePos.y = 0;
-        if (mousePos.y > height) mousePos.y = height;
+        if (mousePos.x < 0) mousePos.x = 0.0;
+        if (mousePos.x > width) mousePos.x = (double) width;
+        if (mousePos.y < 0) mousePos.y = 0.0;
+        if (mousePos.y > height) mousePos.y = (double) height;
     }
 }

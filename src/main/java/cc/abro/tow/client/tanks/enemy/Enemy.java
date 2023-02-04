@@ -2,7 +2,6 @@ package cc.abro.tow.client.tanks.enemy;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Location;
-import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
@@ -112,8 +111,6 @@ public class Enemy extends Tank {
 
         armor.addComponent(new AnimationRender(Context.getService(AnimationStorage.class).getAnimation(nameArmor).textures()));
         setColorArmor(color);
-
-        Context.getService(LocationManager.class).getActiveLocation().checkGameObjectChunkChanged(armor);
     }
 
     public void newGun(String nameGun) {
@@ -121,7 +118,5 @@ public class Enemy extends Tank {
 
         gun.addComponent(new SpriteRender(Context.getService(SpriteStorage.class).getSprite(nameGun).texture()));
         setColorGun(color);
-
-        Context.getService(LocationManager.class).getActiveLocation().checkGameObjectChunkChanged(gun);
     }
 }

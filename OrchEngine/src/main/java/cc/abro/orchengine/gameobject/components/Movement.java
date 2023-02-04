@@ -1,8 +1,6 @@
 package cc.abro.orchengine.gameobject.components;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
-import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import lombok.Getter;
 
@@ -33,9 +31,9 @@ public class Movement extends Component implements Updatable {
         yPrevious = getGameObject().getY();
         directionPrevious = direction;
 
-        getGameObject().setX(getGameObject().getX() + speed * Math.cos(Math.toRadians(direction)) * ((double) delta / 1000000000));
-        getGameObject().setY(getGameObject().getY() - speed * Math.sin(Math.toRadians(direction)) * ((double) delta / 1000000000));
-        Context.getService(LocationManager.class).getActiveLocation().checkGameObjectChunkChanged(getGameObject());
+        double nextX = getGameObject().getX() + speed * Math.cos(Math.toRadians(direction)) * ((double) delta / 1000000000);
+        double nextY = getGameObject().getY() - speed * Math.sin(Math.toRadians(direction)) * ((double) delta / 1000000000);
+        getGameObject().setPosition(nextX, nextY);
 
         if (directionDrawEquals) getGameObject().setDirection(direction);
     }

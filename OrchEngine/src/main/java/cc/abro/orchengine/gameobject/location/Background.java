@@ -45,10 +45,10 @@ public class Background {
     public void render(int x, int y, int width, int height, Camera camera) {
         //Заливка фона карты на весь экран
         if (backgroundTexture != null) {
-            Vector2<Integer> startAbsolutePosition = new Vector2<>();
-            startAbsolutePosition.x = ((x - width / 2) - (x - width / 2) % backgroundTexture.getWidth());
-            startAbsolutePosition.y = ((y - height / 2) - (y - height / 2) % backgroundTexture.getHeight());
-            Vector2<Integer> startRelativePosition = camera.toRelativePosition(startAbsolutePosition);
+            Vector2<Double> startAbsolutePosition = new Vector2<>();
+            startAbsolutePosition.x = (double) ((x - width / 2) - (x - width / 2) % backgroundTexture.getWidth());
+            startAbsolutePosition.y = (double) ((y - height / 2) - (y - height / 2) % backgroundTexture.getHeight());
+            Vector2<Double> startRelativePosition = camera.toRelativePosition(startAbsolutePosition);
 
             //TODO в танках появилась поддержка растягиваемых текстур. Возможно переиспользовать код, или вынести в OpenGl Utils
             int countTexturesInWidth = width / backgroundTexture.getWidth() + 2;
@@ -61,7 +61,7 @@ public class Background {
             Context.getService(TextureService.class).bindTexture(backgroundTexture);
 
             GL11.glLoadIdentity();
-            GL11.glTranslatef(startRelativePosition.x, startRelativePosition.y, 0);
+            GL11.glTranslatef(startRelativePosition.x.floatValue(), startRelativePosition.y.floatValue(), 0);
 
             GL11.glBegin(GL11.GL_QUADS);
             GL11.glTexCoord2f(0, 0);

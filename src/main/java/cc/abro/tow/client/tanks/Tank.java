@@ -67,9 +67,9 @@ public abstract class Tank extends GameObject {
         if (armor != null) {
             double x = armor.getX() - name.length() * 3.45;
             double y = armor.getY() - 55;
-            Vector2<Integer> relativePosition = locationManager.getActiveLocation().getCamera() //TODO не с активной, а из position
-                    .toRelativePosition(new Vector2<>((int) x, (int) y));
-            nickname.setPosition(relativePosition.x, relativePosition.y);
+            Vector2<Double> relativePosition = getLocation().getCamera()
+                    .toRelativePosition(new Vector2<>(x, y));
+            nickname.setPosition(relativePosition.x.floatValue(), relativePosition.y.floatValue());
         }
     }
 

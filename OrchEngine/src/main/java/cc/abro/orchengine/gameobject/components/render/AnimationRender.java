@@ -44,7 +44,7 @@ public class AnimationRender extends Rendering implements Updatable {
 
     @Override
     public void draw() {
-        Vector2<Integer> relativePosition = getGameObject().getRelativePosition();
+        Vector2<Double> relativePosition = getGameObject().getRelativePosition();
         double xView = relativePosition.x;
         double yView = relativePosition.y;
         double directionDraw = getGameObject().getDirection();

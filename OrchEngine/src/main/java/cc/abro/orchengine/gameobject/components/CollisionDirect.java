@@ -61,12 +61,12 @@ public class CollisionDirect extends Collision {
         GL11.glLoadIdentity();
         Color.BLUE.bind();
 
-        Vector2<Integer> relativePosition = Context.getService(LocationManager.class)
+        Vector2<Double> relativePosition = Context.getService(LocationManager.class)
                 .getActiveLocation()
                 .getCamera()
-                .toRelativePosition(new Vector2<>(positionCollision.x - 10, positionCollision.y - 10));
-        int x = relativePosition.x;
-        int y = relativePosition.y;
+                .toRelativePosition(new Vector2<>((double) positionCollision.x - 10, (double) positionCollision.y - 10));
+        float x = relativePosition.x.floatValue();
+        float y = relativePosition.y.floatValue();
         int w = 20;
         int h = 20;
         GL11.glBegin(GL11.GL_LINE_LOOP); //Because GL_QUADS it is filled rectangle, but we need not filled
