@@ -3,7 +3,7 @@ package cc.abro.orchengine.gameobject.components.container;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
 
-public class CachedComponentsContainer extends ComponentsContainer {
+public class CachedComponentsContainer extends ListeningComponentsContainer {
 
     private final ComponentsCache componentsCache = new ComponentsCache();
 

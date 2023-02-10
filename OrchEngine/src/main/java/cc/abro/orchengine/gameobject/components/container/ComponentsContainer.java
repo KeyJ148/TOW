@@ -9,7 +9,6 @@ public class ComponentsContainer {
 
     private final Map<Class<? extends Component>, Set<Component>> components = new HashMap<>();
 
-    //TODO валидация, что нет циклов в графе компонент, если компонент Updatable
     public void addComponent(Component component) {
         components.computeIfAbsent(component.getComponentClass(), k -> new HashSet<>()).add(component);
     }
