@@ -2,7 +2,6 @@ package cc.abro.tow.client.menu;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Render;
-import cc.abro.orchengine.gameobject.location.Background;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
@@ -24,7 +23,7 @@ public class MenuLocation extends GameLocation {
 
         GuiService guiService = Context.getService(GuiService.class);
 
-        setBackground(new Background(Context.getService(SpriteStorage.class).getSprite(BACKGROUND_SPRITE_NAME).texture()));
+        //setBackground(new Background(Context.getService(SpriteStorage.class).getSprite(BACKGROUND_SPRITE_NAME).texture())); //TODO поменять просто на текстуру и удалить Background из Location, т.к. он больше нигде не используется
 
         Texture logoTexture = Context.getService(SpriteStorage.class).getSprite("logo").texture();
         MainMenuLogoGuiPanel mainMenuLogoGuiPanel = new MainMenuLogoGuiPanel(logoTexture);

@@ -1,12 +1,9 @@
 package cc.abro.orchengine.gameobject.components.render;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.resources.textures.Texture;
-import cc.abro.orchengine.resources.textures.TextureService;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.lwjgl.opengl.GL11;
 
@@ -15,14 +12,12 @@ import java.util.List;
 @Log4j2
 public class AnimationRender extends Rendering implements Updatable {
 
-    private List<Texture> textures;
+    private final List<Texture> textures;
 
     @Getter
-    private int frameSpeed = 0; //Кол-во кадров в секнду
+    private int currentFrame;
     @Getter
-    @Setter
-    private int frameNow; //Номер текущего кадра [0;inf)
-
+    private double frameSpeed = 0; //Кол-во кадров в секунду
     private long update = 0; //Сколько прошло наносекунд с последней смены кадра
 
     public AnimationRender(List<Texture> textures) {
@@ -33,12 +28,8 @@ public class AnimationRender extends Rendering implements Updatable {
     public void update(long delta) {
         update += delta;
         if ((frameSpeed != 0) && (update > 1000000000 / frameSpeed)) {
-            update = 0;
-            if (frameNow == textures.size() - 1) {
-                frameNow = 0;
-            } else {
-                frameNow++;
-            }
+            update = 0; //TODO высчитывать сколько прошло времени от следующего кадра + учитывать ситуацию, что прошло времени больше чем требуется на 1 кадр
+            currentFrame = normalizeFrame(currentFrame+1);
         }
     }
 
@@ -58,8 +49,8 @@ public class AnimationRender extends Rendering implements Updatable {
         GL11.glTranslatef((float) xView, (float) yView, 0);
         GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
 
-        color.bind();
-        Context.getService(TextureService.class).bindTexture(textures.get(frameNow));
+        getColor().bind();
+        getTextureService().bindTexture(textures.get(currentFrame));
 
         GL11.glBegin(GL11.GL_QUADS);
         GL11.glTexCoord2f(0, 0);
@@ -71,10 +62,14 @@ public class AnimationRender extends Rendering implements Updatable {
         GL11.glTexCoord2f(0, 1);
         GL11.glVertex2f(-width / 2, height / 2);
         GL11.glEnd();
-        Context.getService(TextureService.class).unbindTexture();
+        getTextureService().unbindTexture();
     }
 
-    public void setFrameSpeed(int frameSpeed) {
+    public void setCurrentFrame(int frame) {
+        currentFrame = normalizeFrame(frame);
+    }
+
+    public void setFrameSpeed(double frameSpeed) {
         if (frameSpeed < 0) {
             log.error("Frame speed must be >= 0");
             return;
@@ -84,51 +79,28 @@ public class AnimationRender extends Rendering implements Updatable {
         this.frameSpeed = frameSpeed;
     }
 
-    public int getFrameNumber() {
+    public int getFrameCount() {
         return textures.size();
     }
 
     public int getWidth(int frame) {
-        return textures.get(frame).getWidth();
+        return getTexture(frame).getWidth();
     }
 
     public int getHeight(int frame) {
-        return textures.get(frame).getHeight();
+        return getTexture(frame).getHeight();
+    }
+
+    public Texture getTexture(int frame) {
+        return textures.get(normalizeFrame(frame));
     }
 
     @Override
-    public int getWidthTexture() {
-        return getWidth(getFrameNow());
+    public Texture getTexture() {
+        return getTexture(getCurrentFrame());
     }
 
-    @Override
-    public int getHeightTexture() {
-        return getHeight(getFrameNow());
-    }
-
-    @Override
-    public int getWidth() {
-        return (int) scale_x * getWidth(getFrameNow());
-    }
-
-    @Override
-    public int getHeight() {
-        return (int) scale_y * getHeight(getFrameNow());
-    }
-
-    @Override
-    public void setWidth(int width) {
-        scale_x = (double) width / getWidthTexture();
-    }
-
-    @Override
-    public void setHeight(int height) {
-        scale_y = (double) height / getHeightTexture();
-    }
-
-    @Override
-    public void setDefaultSize() {
-        scale_x = 1;
-        scale_y = 1;
+    private int normalizeFrame(int frame) {
+        return frame >= 0 ? frame % getFrameCount() : getFrameCount() - Math.abs(frame % getFrameCount());
     }
 }

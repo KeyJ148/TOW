@@ -132,12 +132,12 @@ public abstract class Tank extends GameObject {
 
     public void setColorArmor(Color c) {
         if (armor == null || !armor.hasComponent(Rendering.class)) return;
-        armor.getComponent(Rendering.class).color = c;
+        armor.getComponent(Rendering.class).setColor(c);
     }
 
     public void setColorGun(Color c) {
         if (gun == null || !gun.hasComponent(Rendering.class)) return;
-        gun.getComponent(Rendering.class).color = c;
+        gun.getComponent(Rendering.class).setColor(c);
     }
 
     public void setName(String name) {
