@@ -1,76 +1,108 @@
 package cc.abro.orchengine.gameobject.location;
 
+import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.util.Vector2;
-import lombok.Getter;
+import cc.abro.orchengine.gameobject.components.container.ListeningComponentsContainer.ComponentEvent;
+import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
+import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
+import cc.abro.orchengine.gameobject.location.cache.CollidingObjectsCache;
+import cc.abro.orchengine.gameobject.location.cache.DrawableObjectsCache;
+import cc.abro.orchengine.gameobject.location.cache.GameObjectsCache;
+import cc.abro.orchengine.gameobject.location.cache.UpdatableObjectsCache;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.Set;
 
 public class ObjectsContainer {
 
-    @Getter
-    private final int chunkSize;
-    private final Map<Integer, Layer> layerByZ = new TreeMap<>();
+    private final GameObjectsCache gameObjectsCache;
+    private final UpdatableObjectsCache updatableObjectsCache;
+    private final DrawableObjectsCache drawableObjectsCache;
+    private final CollidingObjectsCache collidingObjectsCache;
 
     public ObjectsContainer(int chunkSize) {
-        this.chunkSize = chunkSize;
+        gameObjectsCache = new GameObjectsCache();
+        updatableObjectsCache = new UpdatableObjectsCache();
+        collidingObjectsCache = new CollidingObjectsCache(chunkSize);
+        drawableObjectsCache = new DrawableObjectsCache(chunkSize);
     }
 
     public void add(GameObject gameObject) {
-        int z = gameObject.getZ();
-        layerByZ.computeIfAbsent(z, u -> new Layer(z, chunkSize)).add(gameObject);
+        if (!gameObject.getAllComponents().isEmpty()) {
+            throw new IllegalStateException("GameObject must have 0 components when it is added to ObjectContainer");
+        }
+        gameObjectsCache.add(gameObject);
+        gameObject.addListener(this::componentGameObjectChanged);
     }
 
     public void remove(GameObject gameObject) {
-        int z = gameObject.getZ();
-        layerByZ.get(z).remove(gameObject);
+        if (!gameObject.getAllComponents().isEmpty()) {
+            throw new IllegalStateException("GameObject must have 0 components when it is removed from ObjectContainer");
+        }
+        gameObjectsCache.remove(gameObject);
+        gameObject.removeListener(this::componentGameObjectChanged);
     }
 
-    public void addUnsuitableObject(GameObject gameObject) {
-        int z = gameObject.getZ();
-        layerByZ.computeIfAbsent(z, u -> new Layer(z, chunkSize)).addUnsuitableObject(gameObject);
+    private void componentGameObjectChanged(Component component, ComponentEvent event) {
+        if (component instanceof Updatable updatable) {
+            switch (event) {
+                case ADD -> updatableObjectsCache.add(updatable);
+                case REMOVE -> updatableObjectsCache.remove(updatable);
+            }
+        }
+        if (component instanceof Drawable drawable) {
+            switch (event) {
+                case ADD -> drawableObjectsCache.add(drawable);
+                case REMOVE -> drawableObjectsCache.remove(drawable);
+            }
+        }
+        //TODO instanceof collision
     }
 
-    public void update(long delta) {
-        //Делаем копию сета, иначе получаем ConcurrentModificationException,
-        //т.к. во время апдейта можно создать новый объект и для этого будет создан новый слой
-        new ArrayList<>(layerByZ.values()).forEach(layer -> layer.update(delta));
-    }
-
-    //Проверка и при необходимости обновление объекта при перемещении из чанка в чанк
-    public void updateObjectPosition(GameObject gameObject, Vector2<Double> previousPosition) {
-        int z = gameObject.getZ();
-        layerByZ.computeIfAbsent(z, u -> new Layer(z, chunkSize))
-                .updateObjectPosition(gameObject, previousPosition);
-    }
-
-    //Отрисовка локации с размерами width и height вокруг координат (x;y)
-    public void render(int x, int y, int width, int height) {
-        layerByZ.values().forEach(l -> l.render(x, y, width, height));
+    /* Прокси методы */
+    public Set<GameObject> getObjects() {
+        return gameObjectsCache.getObjects();
     }
 
     public void destroy() {
-        layerByZ.values().forEach(Layer::destroy);
+        gameObjectsCache.destroy();
     }
 
-    @Deprecated
-    public Set<GameObject> getObjects() {
-        Set<GameObject> allObjects = new HashSet<>();
-        for (Layer layer : layerByZ.values()) {
-            allObjects.addAll(layer.getObjects());
-        }
-        return allObjects;
+    public void update(long delta) {
+        updatableObjectsCache.update(delta);
     }
 
+    public void render(int x, int y,  int width, int height) {
+        drawableObjectsCache.render(x, y, width, height);
+    }
+
+    public void runBeforeUpdateOnce(Runnable runnable) {
+        updatableObjectsCache.runBeforeUpdateOnce(runnable);
+    }
+
+    public void runAfterUpdateOnce(Runnable runnable) {
+        updatableObjectsCache.runAfterUpdateOnce(runnable);
+    }
+
+    //TODO методы ниже
+    //Проверка и при необходимости обновление объекта при перемещении из чанка в чанк
+    public void updateObjectPosition(GameObject gameObject) {
+        /* TODO
+        drawableObjectsCache.updateObjectPosition();
+        collidingObjectsCache.updateObjectPosition();
+        */
+    }
+
+    //TODO update и chunk больше никак не связаны, пофиксить значения
     public Statistic getStatistic() {
-        return new Statistic(
+        return new Statistic(Map.of(), Map.of(), Map.of(), Map.of(), Map.of());
+        /*return new Statistic(
                 layerByZ.values().stream().collect(Collectors.toMap(Layer::getZ, Layer::getChunksUpdated)),
                 layerByZ.values().stream().collect(Collectors.toMap(Layer::getZ, Layer::getObjectsUpdated)),
                 layerByZ.values().stream().collect(Collectors.toMap(Layer::getZ, Layer::getChunksRendered)),
                 layerByZ.values().stream().collect(Collectors.toMap(Layer::getZ, Layer::getObjectsRendered)),
                 layerByZ.values().stream().collect(Collectors.toMap(Layer::getZ, Layer::getUnsuitableObjectsRendered))
-        );
+        );*/
     }
 
     public record Statistic(Map<Integer, Integer> chunksUpdatedByLayerZ,
