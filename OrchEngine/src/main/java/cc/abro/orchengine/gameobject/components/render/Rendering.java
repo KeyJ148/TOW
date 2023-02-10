@@ -1,31 +1,56 @@
 package cc.abro.orchengine.gameobject.components.render;
 
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
-import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
 import cc.abro.orchengine.image.Color;
+import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.orchengine.resources.textures.TextureService;
+import cc.abro.orchengine.services.OpenGlService;
+import lombok.Getter;
+import lombok.Setter;
 
-public abstract class Rendering extends Component implements Drawable {
+public abstract class Rendering extends DrawableComponent {
 
-    public double scale_x = 1;
-    public double scale_y = 1;
-    public Color color = Color.WHITE;
+    @Getter
+    private final TextureService textureService;
+    @Getter
+    private final OpenGlService openGlService;
 
-    public abstract int getWidthTexture();
+    @Getter @Setter
+    private double scaleX = 1, scaleY = 1;
+    @Getter @Setter
+    private Color color = Color.WHITE;
 
-    public abstract int getHeightTexture();
+    public Rendering() {
+        textureService = Context.getService(TextureService.class);
+        openGlService = Context.getService(OpenGlService.class);
+    }
 
-    public abstract int getWidth();
+    public int getWidth() {
+        return (int) (getTexture().getWidth() * scaleX);
+    }
 
-    public abstract int getHeight();
+    public int getHeight() {
+        return (int) (getTexture().getHeight() * scaleY);
+    }
 
-    public abstract void setWidth(int width);
+    public void setWidth(int width) {
+        scaleX = (double) width / getTexture().getWidth();
+    }
 
-    public abstract void setHeight(int height);
+    public void setHeight(int height) {
+        scaleY = (double) height / getTexture().getHeight();
+    }
 
-    public abstract void setDefaultSize();
+    public void setDefaultSize() {
+        scaleX = 1;
+        scaleY = 1;
+    }
 
     @Override
-    public Class getComponentClass() {
+    public Class<? extends Component> getComponentClass() {
         return Rendering.class;
     }
+
+    public abstract Texture getTexture();
 }

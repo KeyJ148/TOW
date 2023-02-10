@@ -1,13 +1,14 @@
 package cc.abro.orchengine.gameobject;
 
 import cc.abro.orchengine.gameobject.components.container.CachedComponentsContainer;
+import cc.abro.orchengine.gameobject.components.interfaces.Positionable;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
 
 import java.util.Collection;
 import java.util.Collections;
 
-public class GameObject extends CachedComponentsContainer {
+public class GameObject extends CachedComponentsContainer implements Positionable {
 
     @Getter
     private final Location location;
@@ -40,8 +41,8 @@ public class GameObject extends CachedComponentsContainer {
 
     @Override
     public void addComponent(Component component) {
-        super.addComponent(component);
         component.setGameObject(this);
+        super.addComponent(component);
         getLocation().runBeforeUpdateOnce(component::initialize);
     }
 
@@ -55,24 +56,18 @@ public class GameObject extends CachedComponentsContainer {
         }
     }
 
+    public Vector2<Double> getRelativePosition() {
+        return getLocation().getCamera().toRelativePosition(getPosition());
+    }
+
     public void setX(double x) {
-        Vector2<Double> previousPosition = new Vector2<>(this.x, this.y);
         this.x = x;
-        getLocation().updateObjectPosition(this, previousPosition);
+        getLocation().updateObjectPosition(this);
     }
 
     public void setY(double y) {
-        Vector2<Double> previousPosition = new Vector2<>(this.x, this.y);
         this.y = y;
-        getLocation().updateObjectPosition(this, previousPosition);
-    }
-
-    public Vector2<Double> getPosition() {
-        return new Vector2<>(getX(), getY());
-    }
-
-    public Vector2<Double> getRelativePosition() {
-        return getLocation().getCamera().toRelativePosition(getPosition());
+        getLocation().updateObjectPosition(this);
     }
 
     public void setPosition(Vector2<Double> position) {
@@ -80,22 +75,18 @@ public class GameObject extends CachedComponentsContainer {
     }
 
     public void setPosition(double x, double y) {
-        Vector2<Double> previousPosition = new Vector2<>(this.x, this.y);
         this.x = x;
         this.y = y;
-        getLocation().updateObjectPosition(this, previousPosition);
+        getLocation().updateObjectPosition(this);
     }
 
     public void setDirection(double direction) {
-        if (direction % 360 >= 0) {
-            this.direction = direction % 360;
-        } else {
-            this.direction = 360 - Math.abs(direction % 360);
-        }
+        this.direction = direction >= 0 ? direction % 360 : 360 - Math.abs(direction % 360);
     }
 
     private void destroyAfterUpdate() {
         getAllComponents().forEach(Component::destroy);
+        getAllComponents().forEach(this::removeComponent);
         getLocation().remove(this);
     }
 }

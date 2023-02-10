@@ -1,12 +1,10 @@
 package cc.abro.orchengine.gameobject.components.render;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.resources.textures.Texture;
-import cc.abro.orchengine.resources.textures.TextureService;
 import cc.abro.orchengine.util.Vector2;
 import org.lwjgl.opengl.GL11;
 
-public class RepeatableSpriteRender extends SpriteRender {
+public class RepeatableSpriteRender extends SpriteRender { //TODO удалить класс и заменить его на RENDER_MODE в родительском классе?
 
     public RepeatableSpriteRender(Texture texture) {
         super(texture);
@@ -14,7 +12,7 @@ public class RepeatableSpriteRender extends SpriteRender {
 
     @Override
     public void draw() {
-        Vector2<Double> relativePosition = getGameObject().getRelativePosition();
+        Vector2<Double> relativePosition = getGameObject().getRelativePosition(); //TODO заменить все Vector2<Double> на Vector2d из OpenGL, т.к. в них есть математические функции?
         double xView = relativePosition.x;
         double yView = relativePosition.y;
         double directionDraw = getGameObject().getDirection();
@@ -23,15 +21,15 @@ public class RepeatableSpriteRender extends SpriteRender {
 
         int width = getWidth();
         int height = getHeight();
-        int countTexturesInWidth = getWidth() / getWidthTexture();
-        int countTexturesInHeight = getHeight() / getHeightTexture();
+        int countTexturesInWidth = width / getTexture().getWidth();
+        int countTexturesInHeight = height / getTexture().getHeight();
 
         GL11.glLoadIdentity();
         GL11.glTranslatef((float) xView, (float) yView, 0);
         GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
 
-        color.bind();
-        Context.getService(TextureService.class).bindTexture(texture);
+        getColor().bind();
+        getTextureService().bindTexture(getTexture());
 
         GL11.glBegin(GL11.GL_QUADS);
         GL11.glTexCoord2f(0, 0);
@@ -44,6 +42,6 @@ public class RepeatableSpriteRender extends SpriteRender {
         GL11.glVertex2f(-width / 2, height / 2);
         GL11.glEnd();
 
-        Context.getService(TextureService.class).unbindTexture();
+        getTextureService().unbindTexture();
     }
 }
