@@ -69,6 +69,7 @@ public class ObjectsContainer {
     }
 
     public void update(long delta) {
+        gameObjectsCache.getObjects().forEach(g -> g.update(delta));//TODO вынести всю update логику в компоненты, сделать GameObject.update final-методом и удалить эту строку
         updatableObjectsCache.update(delta);
     }
 
