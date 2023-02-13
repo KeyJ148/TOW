@@ -30,13 +30,6 @@ public class BattleLocation extends GameLocation {
         Border.createAll(this, BORDER_SIZE);
         for (MapObjectSpecification mapObjectSpecification : mapSpecification.getMapObjectSpecifications()) {
             MapObject mapObject = Context.getService(ClientData.class).mapObjectFactory.createMapObject(this, mapObjectSpecification);
-
-            //TODO на данный момент нет ситуации, когда бы вызывался addUnsuitableObject
-            /*if (mapObject.getType().equals(new RepeatedMapObjectCreator().getType())) {
-                addUnsuitableObject(mapObject);
-            } else {
-                add(mapObject);
-            }*/
             Context.getService(ClientData.class).mapObjects.add(mapObjectSpecification.id(), mapObject);
         }
 

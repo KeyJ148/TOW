@@ -23,6 +23,7 @@ public class BoxMapObjectCreator extends TexturedMapObjectCreator {
                 mapObjectSpecification.type(),
                 getTexture(mapObjectSpecification),
                 getDirection(mapObjectSpecification),
+                getUnsuitable(mapObjectSpecification),
                 getBoxType(mapObjectSpecification));
     }
 

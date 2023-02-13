@@ -26,6 +26,7 @@ public class CollisedMapObjectCreator extends TexturedMapObjectCreator {
                 mapObjectSpecification.type(),
                 getTexture(mapObjectSpecification),
                 getDirection(mapObjectSpecification),
+                getUnsuitable(mapObjectSpecification),
                 getMask(mapObjectSpecification));
     }
 

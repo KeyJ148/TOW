@@ -9,9 +9,16 @@ public class SpriteRender extends Rendering {
 
     @Getter
     private final Texture texture;
+    @Getter
+    private final boolean unsuitableObject;
 
     public SpriteRender(Texture texture) {
+        this(texture, false);
+    }
+
+    public SpriteRender(Texture texture, boolean unsuitableObject) {
         this.texture = texture;
+        this.unsuitableObject = unsuitableObject;
     }
 
     @Override

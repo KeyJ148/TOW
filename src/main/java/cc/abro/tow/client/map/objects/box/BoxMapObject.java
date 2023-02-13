@@ -10,8 +10,8 @@ public class BoxMapObject extends TexturedMapObject {
     @Getter
     private final int boxType;
 
-    public BoxMapObject(Location location, int id, int x, int y, int z, String type, Texture texture, double direction, int boxType) {
-        super(location, id, x, y, z, type, texture, direction);
+    public BoxMapObject(Location location, int id, int x, int y, int z, String type, Texture texture, double direction, boolean unsuitable, int boxType) {
+        super(location, id, x, y, z, type, texture, direction, unsuitable);
         this.boxType = boxType;
     }
 }

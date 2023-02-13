@@ -7,10 +7,10 @@ import cc.abro.tow.client.map.MapObject;
 
 public class RepeatedMapObject extends MapObject {
 
-    public RepeatedMapObject(Location location, int id, int x, int y, int z, String type, Texture texture, double direction, int width, int height) {
+    public RepeatedMapObject(Location location, int id, int x, int y, int z, String type, Texture texture, double direction, boolean unsuitable, int width, int height) {
         super(location,id, x, y, z, type);
         setDirection(direction);
-        RepeatableSpriteRender sprite = new RepeatableSpriteRender(texture);
+        RepeatableSpriteRender sprite = new RepeatableSpriteRender(texture, unsuitable);
         sprite.setWidth(width);
         sprite.setHeight(height);
         addComponent(sprite);

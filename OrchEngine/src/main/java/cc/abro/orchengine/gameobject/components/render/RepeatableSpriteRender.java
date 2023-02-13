@@ -7,7 +7,11 @@ import org.lwjgl.opengl.GL11;
 public class RepeatableSpriteRender extends SpriteRender { //TODO удалить класс и заменить его на RENDER_MODE в родительском классе?
 
     public RepeatableSpriteRender(Texture texture) {
-        super(texture);
+        this(texture, false);
+    }
+
+    public RepeatableSpriteRender(Texture texture, boolean unsuitableObject) {
+        super(texture, unsuitableObject);
     }
 
     @Override

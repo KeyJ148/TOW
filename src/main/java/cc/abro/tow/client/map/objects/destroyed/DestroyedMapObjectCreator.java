@@ -23,6 +23,7 @@ public class DestroyedMapObjectCreator extends CollisedMapObjectCreator {
                 mapObjectSpecification.type(),
                 getTexture(mapObjectSpecification),
                 getDirection(mapObjectSpecification),
+                getUnsuitable(mapObjectSpecification),
                 getMask(mapObjectSpecification),
                 getStability(mapObjectSpecification));
     }

@@ -25,7 +25,8 @@ public class TexturedMapObjectCreator implements MapObjectCreator {
                 mapObjectSpecification.z(),
                 mapObjectSpecification.type(),
                 getTexture(mapObjectSpecification),
-                getDirection(mapObjectSpecification));
+                getDirection(mapObjectSpecification),
+                getUnsuitable(mapObjectSpecification));
     }
 
     protected double getDirection(MapObjectSpecification mapObjectSpecification) {
@@ -35,5 +36,10 @@ public class TexturedMapObjectCreator implements MapObjectCreator {
     protected Texture getTexture(MapObjectSpecification mapObjectSpecification) {
         String textureName = (String) mapObjectSpecification.parameters().get("texture");
         return Context.getService(SpriteStorage.class).getSprite(textureName).texture();
+    }
+
+    protected boolean getUnsuitable(MapObjectSpecification mapObjectSpecification) {
+        Boolean unsuitable = (Boolean) mapObjectSpecification.parameters().get("unsuitable");
+        return unsuitable != null && unsuitable;
     }
 }

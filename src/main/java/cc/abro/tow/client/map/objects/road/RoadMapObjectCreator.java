@@ -23,6 +23,7 @@ public class RoadMapObjectCreator extends RepeatedMapObjectCreator {
                 mapObjectSpecification.type(),
                 getTexture(mapObjectSpecification),
                 getDirection(mapObjectSpecification),
+                getUnsuitable(mapObjectSpecification),
                 getWidth(mapObjectSpecification),
                 getHeight(mapObjectSpecification));
     }

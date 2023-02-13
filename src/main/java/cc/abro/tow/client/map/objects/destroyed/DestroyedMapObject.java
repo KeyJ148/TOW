@@ -11,8 +11,8 @@ public class DestroyedMapObject extends CollisedMapObject {
     @Getter
     private final double stability;
 
-    public DestroyedMapObject(Location location, int id, int x, int y, int z, String type, Texture texture, double direction, Mask mask, double stability) {
-        super(location, id, x, y, z, type, texture, direction, mask);
+    public DestroyedMapObject(Location location, int id, int x, int y, int z, String type, Texture texture, double direction, boolean unsuitable, Mask mask, double stability) {
+        super(location, id, x, y, z, type, texture, direction, unsuitable, mask);
         this.stability = stability;
     }
 }

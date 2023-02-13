@@ -23,6 +23,7 @@ public class RepeatedMapObjectCreator extends TexturedMapObjectCreator {
                 mapObjectSpecification.type(),
                 getTexture(mapObjectSpecification),
                 getDirection(mapObjectSpecification),
+                getUnsuitable(mapObjectSpecification),
                 getWidth(mapObjectSpecification),
                 getHeight(mapObjectSpecification));
     }

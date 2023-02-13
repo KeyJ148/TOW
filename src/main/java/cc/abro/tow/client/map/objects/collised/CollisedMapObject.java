@@ -8,8 +8,8 @@ import cc.abro.tow.client.map.objects.textured.TexturedMapObject;
 
 public class CollisedMapObject extends TexturedMapObject {
 
-    public CollisedMapObject(Location location, int id, int x, int y, int z, String type, Texture texture, double direction, Mask mask) {
-        super(location, id, x, y, z, type, texture, direction);
+    public CollisedMapObject(Location location, int id, int x, int y, int z, String type, Texture texture, double direction, boolean unsuitable, Mask mask) {
+        super(location, id, x, y, z, type, texture, direction, unsuitable);
         addComponent(new Collision(mask));
     }
 }
