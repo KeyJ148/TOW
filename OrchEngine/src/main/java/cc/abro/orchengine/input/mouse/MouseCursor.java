@@ -30,7 +30,7 @@ public class MouseCursor {
         this.render = render;
 
         //Создание объекта курсора (используется компонент Position и Sprite)
-        cursor = GameObjectFactory.create(new Location(1, 1), 0, 0, -1000); //TODO fake location is ok?
+        cursor = GameObjectFactory.create(new Location(render.getWidth(), render.getHeight()), 0, 0, -1000); //TODO fake location is ok?
     }
 
     public void update() {
