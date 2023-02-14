@@ -116,8 +116,8 @@ public class Render implements Startable {
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
 
-        //Заливка всего фона черным цветом
-        GL11.glClearColor(0f, 0f, 0f, 0f);
+        //Заливка всего фона серым цветом
+        GL11.glClearColor(0.3f, 0.3f, 0.3f, 0f);
         //Обновление кадра
         glfwSwapBuffers(windowID);
     }
