@@ -17,22 +17,19 @@ public class GameObject extends CachedComponentsContainer implements Positionabl
     @Getter
     private double direction;
     @Getter
-    private int z; //TODO вынести это свойство в Drawable интерфейс? И пробегаться не по игровым объектам, а по компонентам с drawable при отрисовке? Проблема в том, что глубины следующие: танк -> дом -> пушка, при текущей схеме танк и пушка должны быть разными игровыми объектами
-    @Getter
     private boolean destroyed = false;
 
     /* TODO
-        Можно по дефолту установить x, y, z = 0 и на Setter привязать функцию обновления чанка в локации и т.п.
+        Можно по дефолту установить x, y, и на Setter привязать функцию обновления чанка в локации и т.п.
      */
-    public GameObject(Location location, double x, double y, int z) {
-        this(location, x, y, z, Collections.emptyList());
+    public GameObject(Location location, double x, double y) {
+        this(location, x, y, Collections.emptyList());
     }
 
-    public GameObject(Location location, double x, double y, int z, Collection<Component> initComponents) {
+    public GameObject(Location location, double x, double y, Collection<Component> initComponents) {
         this.location = location;
         this.x = x;
         this.y = y;
-        this.z = z;
         location.add(this);
         for (Component component : initComponents) {
             addComponent(component);

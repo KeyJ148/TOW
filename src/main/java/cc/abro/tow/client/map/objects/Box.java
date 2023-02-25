@@ -21,7 +21,7 @@ public class Box extends GameObject {
 	public int typeBox;
 
 	public Box(Location location, double x, double y, int typeBox, int idBox) {
-		super(location, (int) x, (int) y, 1000);
+		super(location, (int) x, (int) y);
 		this.idBox = idBox;
 		this.typeBox = typeBox;
 
@@ -35,7 +35,7 @@ public class Box extends GameObject {
 		};
 
 		Sprite sprite = Context.getService(SpriteStorage.class).getSprite(nameBox);
-		addComponent(new SpriteRender(sprite.texture()));
+		addComponent(new SpriteRender(sprite.texture(), 1000));
 		addComponent(new Collision(sprite.mask()));
 	}
 

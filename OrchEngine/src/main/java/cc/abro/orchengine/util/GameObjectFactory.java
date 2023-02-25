@@ -21,27 +21,23 @@ public class GameObjectFactory {
         return create(location, x, y, 0);
     }
 
-    public GameObject create(Location location, double x, double y, int z) {
-        return new GameObject(location, x, y, z);
-    }
-
-    public GameObject create(Location location, double x, double y, int z, double directionDraw) {
-        GameObject gameObject = create(location, x, y, z);
+    public GameObject create(Location location, double x, double y, double directionDraw) {
+        GameObject gameObject = new GameObject(location, x, y);
         gameObject.setDirection(directionDraw);
 
         return gameObject;
     }
 
     public GameObject create(Location location, double x, double y, int z, double directionDraw, Texture texture) {
-        GameObject gameObject = create(location, x, y, z, directionDraw);
-        gameObject.addComponent(new SpriteRender(texture));
+        GameObject gameObject = create(location, x, y, directionDraw);
+        gameObject.addComponent(new SpriteRender(texture, z));
 
         return gameObject;
     }
 
     public GameObject create(Location location, double x, double y, int z, double directionDraw, List<Texture> textures) {
-        GameObject gameObject = create(location, x, y, z, directionDraw);
-        gameObject.addComponent(new AnimationRender(textures));
+        GameObject gameObject = create(location, x, y, directionDraw);
+        gameObject.addComponent(new AnimationRender(textures, z));
 
         return gameObject;
     }

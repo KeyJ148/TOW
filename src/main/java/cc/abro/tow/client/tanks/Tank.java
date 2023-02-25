@@ -41,7 +41,7 @@ public abstract class Tank extends GameObject {
     public int win = 0;
 
     public Tank(Location location) {
-        super(location, 0, 0, 0);
+        super(location, 0, 0);
         locationManager = Context.getService(LocationManager.class);
         initCamera();
     }
@@ -52,7 +52,7 @@ public abstract class Tank extends GameObject {
 
         nickname = new Label();
         nickname.setSize(500, 30);
-        locationManager.getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(nickname);//TODO Position.location
+        getLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(nickname);
 
         nickname.setFocusable(false); //Иначе событие мыши перехватывает надпись, и оно не поступает в игру
         nickname.getTextState().setText(name);

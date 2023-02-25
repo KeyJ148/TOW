@@ -12,12 +12,13 @@ public class SpriteRender extends Rendering {
     @Getter
     private final boolean unsuitableObject;
 
-    public SpriteRender(Texture texture) {
-        this(texture, false);
+    public SpriteRender(Texture texture, int z) {
+        this(texture, z, false);
     }
 
-    public SpriteRender(Texture texture, boolean unsuitableObject) {
+    public SpriteRender(Texture texture, int z, boolean unsuitableObject) {
         this.texture = texture;
+        setZ(z);
         this.unsuitableObject = unsuitableObject;
     }
 

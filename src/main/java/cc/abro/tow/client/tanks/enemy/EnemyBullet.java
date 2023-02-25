@@ -19,10 +19,10 @@ public class EnemyBullet extends GameObject {
 	public long idNet;
 
 	public EnemyBullet(Location location, double x, double y, double speed, double direction, Texture texture, int idEnemy, long idNet) {
-		super(location, x, y, 1600,
+		super(location, x, y,
 				Arrays.asList(
 					new Movement(speed, direction),
-					new SpriteRender(texture)
+					new SpriteRender(texture, 1600)
 				));
 		setDirection(direction);
 

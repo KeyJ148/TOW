@@ -20,8 +20,9 @@ public class AnimationRender extends Rendering implements Updatable {
     private double frameSpeed = 0; //Кол-во кадров в секунду
     private long update = 0; //Сколько прошло наносекунд с последней смены кадра
 
-    public AnimationRender(List<Texture> textures) {
+    public AnimationRender(List<Texture> textures, int z) {
         this.textures = textures;
+        setZ(z);
     }
 
     @Override

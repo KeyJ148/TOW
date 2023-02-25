@@ -47,7 +47,7 @@ public class PlayerController extends GameObject implements Collision.CollisionL
     private Player player;
 
     public PlayerController(Player player) {
-        super(player.getLocation(), 0, 0, 0);
+        super(player.getLocation(), 0, 0);
         this.player = player;
         locationManager = Context.getService(LocationManager.class);
     }

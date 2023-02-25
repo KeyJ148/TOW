@@ -13,8 +13,8 @@ public class EnemyArmor extends GameObject {
     public Enemy enemy;
 
     public EnemyArmor(int x, int y, double direction, int z, Animation animation, Enemy enemy) {
-        super(enemy.getLocation(), x, y, z,
-                List.of(new AnimationRender(animation.textures())));
+        super(enemy.getLocation(), x, y,
+                List.of(new AnimationRender(animation.textures(), z)));
         setDirection(direction);
         this.enemy = enemy;
 

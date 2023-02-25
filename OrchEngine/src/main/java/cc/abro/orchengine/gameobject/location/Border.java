@@ -10,7 +10,7 @@ import java.util.List;
 public class Border extends GameObject {
 
     public Border(Location location, BorderData borderData) {
-        super(location, borderData.x, borderData.y, 0);
+        super(location, borderData.x, borderData.y);
         //Путь должен быть, иначе mask выкинет ошибку при парсе;
         addComponent(new Collision(MaskLoader.createDefaultMask(borderData.w, borderData.h)));
     }

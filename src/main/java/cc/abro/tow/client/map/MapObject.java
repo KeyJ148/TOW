@@ -11,8 +11,8 @@ public abstract class MapObject extends GameObject {
     @Getter
     private final String type;
 
-    public MapObject(Location location, int id, int x, int y, int z, String type) {
-        super(location, x, y, z);
+    public MapObject(Location location, int id, int x, int y, String type) {
+        super(location, x, y);
         setDirection(0);
         this.id = id;
         this.type = type;

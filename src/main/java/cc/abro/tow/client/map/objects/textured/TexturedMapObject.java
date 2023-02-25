@@ -8,8 +8,8 @@ import cc.abro.tow.client.map.MapObject;
 public class TexturedMapObject extends MapObject {
 
     public TexturedMapObject(Location location, int id, int x, int y, int z, String type, Texture texture, double direction, boolean unsuitable) {
-        super(location, id, x, y, z, type);
+        super(location, id, x, y, type);
         setDirection(direction);
-        addComponent(new SpriteRender(texture, unsuitable));
+        addComponent(new SpriteRender(texture, z, unsuitable));
     }
 }
