@@ -35,7 +35,7 @@ public class SpriteRender extends Rendering {
         int height = getHeight();
 
         GL11.glLoadIdentity();
-        GL11.glTranslatef((float) xView, (float) yView, 0);
+        GL11.glTranslatef(Math.round(xView), Math.round(yView), 0);
         GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
 
         getColor().bind();

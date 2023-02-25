@@ -23,7 +23,7 @@ public class ParticlesTexture extends Particles {
             double defaultX, defaultY;
             if (rotate) {
                 GL11.glLoadIdentity();
-                GL11.glTranslatef(relativePosition.x.floatValue(), relativePosition.y.floatValue(), 0);
+                GL11.glTranslatef(Math.round(relativePosition.x), Math.round(relativePosition.y), 0);
                 GL11.glRotatef(Math.round(-part.directionDraw), 0f, 0f, 1f);
                 defaultX = 0;
                 defaultY = 0;

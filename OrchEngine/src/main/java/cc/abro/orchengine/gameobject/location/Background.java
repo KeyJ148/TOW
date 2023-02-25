@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.lwjgl.opengl.GL11;
 
-public class Background {
+public class Background { //TODO del
 
     @Getter
     @Setter
