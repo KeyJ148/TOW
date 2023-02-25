@@ -18,17 +18,12 @@ public class GameObject extends CachedComponentsContainer implements ServiceCons
     @Getter
     private boolean destroyed = false;
 
-    /* TODO
-        Можно по дефолту установить x, y, и на Setter привязать функцию обновления чанка в локации и т.п.
-     */
-    public GameObject(Location location, double x, double y) {
-        this(location, x, y, Collections.emptyList());
+    public GameObject(Location location) {
+        this(location, Collections.emptyList());
     }
 
-    public GameObject(Location location, double x, double y, Collection<Component> initComponents) {
+    public GameObject(Location location, Collection<Component> initComponents) {
         this.location = location;
-        this.x = x;
-        this.y = y;
         location.add(this);
         for (Component component : initComponents) {
             addComponent(component);
@@ -41,6 +36,8 @@ public class GameObject extends CachedComponentsContainer implements ServiceCons
         super.addComponent(component);
         getLocation().runBeforeUpdateOnce(component::initialize);
     }
+
+    public void update(long delta) {} //TODO запретить Override в наследниках (final). Если надо сделать кастомную логику, то просто создай обычный или анонимный компонент
 
     /**
      * The object will be destroyed only at the end of his update cycle

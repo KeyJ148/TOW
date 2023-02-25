@@ -18,9 +18,10 @@ public class Box extends GameObject {
 	public int typeBox;
 
 	public Box(Location location, double x, double y, int typeBox, int idBox) {
-		super(location, (int) x, (int) y);
+		super(location);
 		this.idBox = idBox;
 		this.typeBox = typeBox;
+		setPosition(x, y);
 
 		String nameBox = switch (typeBox) {
 			case 0 -> "box_armor";

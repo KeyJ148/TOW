@@ -4,7 +4,7 @@ import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.util.Vector2;
 import org.lwjgl.opengl.GL11;
 
-public class RepeatableSpriteRender extends SpriteRender { //TODO удалить класс и заменить его на RENDER_MODE в родительском классе?
+public class RepeatableSpriteRender extends SpriteRender {
 
     public RepeatableSpriteRender(Texture texture, int z) {
         this(texture, z, false);

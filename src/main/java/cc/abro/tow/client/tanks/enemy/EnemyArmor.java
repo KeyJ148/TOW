@@ -13,9 +13,9 @@ public class EnemyArmor extends GameObject {
     public Enemy enemy;
 
     public EnemyArmor(int x, int y, double direction, int z, Animation animation, Enemy enemy) {
-        super(enemy.getLocation(), x, y,
-                List.of(new AnimationRender(animation.textures(), z)));
+        super(enemy.getLocation(), List.of(new AnimationRender(animation.textures(), z)));
         setDirection(direction);
+        setPosition(x, y);
         this.enemy = enemy;
 
         addComponent(new Movement());

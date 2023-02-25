@@ -19,31 +19,29 @@ import java.util.List;
 public class Analyzer implements Startable {
 
     //Для подсчёта fps, ups
-    protected int loopsRender = 0;
-    protected int loopsUpdate = 0;
-    protected int loopsSync = 0;
+    protected int loopsRender;
+    protected int loopsUpdate;
+    protected int loopsSync;
     private long startUpdate, startRender, startSync, lastAnalysis;
 
     //Для подсчёта быстродействия
-    protected long durationUpdate = 0;
-    protected long durationRender = 0;
-    protected long durationSync = 0;
+    protected long durationUpdate;
+    protected long durationRender;
+    protected long durationSync;
 
     //Пинг
-    protected int ping = 0, pingMin = 0, pingMax = 0, pingMid = 0;
+    protected int ping, pingMin, pingMax, pingMid;
 
     //Скорость сети
-    protected int sendTCP = 0, loadTCP = 0, sendPackageTCP = 0, loadPackageTCP = 0;
-    protected int sendUDP = 0, loadUDP = 0, sendPackageUDP = 0, loadPackageUDP = 0;
+    protected int sendTCP, loadTCP, sendPackageTCP, loadPackageTCP;
+    protected int sendUDP, loadUDP, sendPackageUDP, loadPackageUDP;
 
     //Использование памяти
-    protected long freeMem = 0, totalMem = 0, maxMem = 0;
+    protected long freeMem, totalMem, maxMem;
 
     //Использование чанков
     protected ObjectsContainer.Statistic statistic;
-    protected int chunksUpdatedSum = 0, objectsUpdatedSum = 0;
-    protected int chunksRenderedSum = 0, objectsRenderedSum = 0, unsuitableObjectsRenderedSum = 0;
-    protected int layersCountUpdated = 0, layersCountRenderer = 0;
+    protected int chunksRenderedSum, objectsRenderedSum, unsuitableObjectsRenderedSum, layersCountRenderer;
 
     //Результаты анализа построчно
     private List<String> analysisResultStrings = Collections.emptyList();
@@ -134,12 +132,9 @@ public class Analyzer implements Startable {
         maxMem = Runtime.getRuntime().maxMemory();
 
         statistic = Context.getService(LocationManager.class).getActiveLocation().getStatistic();
-        chunksUpdatedSum = statistic.chunksUpdatedByLayerZ().values().stream().reduce(0, Integer::sum);
-        objectsUpdatedSum = statistic.objectsUpdatedByLayerZ().values().stream().reduce(0, Integer::sum);
         chunksRenderedSum = statistic.chunksRenderedByLayerZ().values().stream().reduce(0, Integer::sum);
         objectsRenderedSum = statistic.objectsRenderedByLayerZ().values().stream().reduce(0, Integer::sum);
         unsuitableObjectsRenderedSum = statistic.unsuitableObjectsRenderedByLayerZ().values().stream().reduce(0, Integer::sum);
-        layersCountUpdated = statistic.chunksUpdatedByLayerZ().size();
         layersCountRenderer = statistic.chunksRenderedByLayerZ().size();
 
         //Для строк отладки, иначе деление на 0

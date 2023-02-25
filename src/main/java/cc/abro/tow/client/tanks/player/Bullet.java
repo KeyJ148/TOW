@@ -44,7 +44,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
     public Sprite texture;
 
     public Bullet() {
-        super(Context.getService(LocationManager.class).getActiveLocation(), 0, 0);
+        super(Context.getService(LocationManager.class).getActiveLocation());
     }
 
     public void init(Player player, double x, double y, double dir, double damage, int range, String name) {
@@ -69,7 +69,7 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
         getComponent(Collision.class).addCollisionObjects(new Class[]{
                 CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class, Border.class});
         getComponent(Collision.class).addListener(this);
-        ((CollisionDirect) getComponent(Collision.class)).init();
+        ((CollisionDirect) getComponent(Collision.class)).initialize(); //TODO del?
 
         Context.getService(TCPControl.class).send(13, getData());
         Context.getService(ClientData.class).idNet++;

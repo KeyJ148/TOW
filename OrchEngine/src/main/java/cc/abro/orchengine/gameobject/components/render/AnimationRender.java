@@ -28,9 +28,11 @@ public class AnimationRender extends Rendering implements Updatable {
     @Override
     public void update(long delta) {
         update += delta;
-        if ((frameSpeed != 0) && (update > 1000000000 / frameSpeed)) {
-            update = 0; //TODO высчитывать сколько прошло времени от следующего кадра + учитывать ситуацию, что прошло времени больше чем требуется на 1 кадр
-            currentFrame = normalizeFrame(currentFrame+1);
+        int nanosForOneFrame = (int) (1000000000 / frameSpeed);
+        if ((frameSpeed != 0) && (update > nanosForOneFrame)) {
+            int skipFrames = (int) (update / nanosForOneFrame);
+            update = update % nanosForOneFrame;
+            currentFrame = normalizeFrame(currentFrame + skipFrames);
         }
     }
 

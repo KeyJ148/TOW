@@ -1,18 +1,14 @@
 package cc.abro.orchengine.input.mouse;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.EngineBean;
 import cc.abro.orchengine.cycle.Render;
-import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.gameobject.Location;
-import cc.abro.orchengine.gameobject.LocationManager;
-import cc.abro.orchengine.gameobject.components.render.Rendering;
-import cc.abro.orchengine.gameobject.components.render.SpriteRender;
-import cc.abro.orchengine.gameobject.location.Camera;
+import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.textures.Texture;
-import cc.abro.orchengine.util.GameObjectFactory;
+import cc.abro.orchengine.services.OpenGlService;
 import cc.abro.orchengine.util.Vector2;
+import lombok.Getter;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
 
 import java.nio.DoubleBuffer;
 
@@ -21,51 +17,48 @@ import static org.lwjgl.glfw.GLFW.*;
 @EngineBean
 public class MouseCursor {
 
-    private final GameObject cursor;
-    private boolean captureCursor = false;
-
     private final Render render;
+    private final OpenGlService openGlService;
 
-    public MouseCursor(Render render) {
+    @Getter
+    private double x, y;
+    private boolean captureCursor = false;
+    private Texture cursorTexture;
+
+    public MouseCursor(Render render, OpenGlService openGlService) {
         this.render = render;
-
-        //Создание объекта курсора (используется компонент Position и Sprite)
-        cursor = GameObjectFactory.create(new Location(render.getWidth(), render.getHeight()), 0, 0); //TODO fake location is ok?
+        this.openGlService = openGlService;
     }
 
     public void update() {
-        Camera camera = Context.getService(LocationManager.class).getActiveLocation().getCamera();
         Vector2<Double> relativeMousePosition = getPositionFromGLFW();
-        Vector2<Double> absolutePosition = camera.toAbsolutePosition(relativeMousePosition);
-        cursor.setX(absolutePosition.x);
-        cursor.setY(absolutePosition.y);
+        x = relativeMousePosition.x;
+        y = relativeMousePosition.y;
     }
 
     public void draw() {
-        if (!cursor.hasComponent(Rendering.class)) return;
-
-        //Необходимо убрать флаг drawInThisStep, т.к. курсор отрисовывается и во время общей отрисовки локации
-        //Потом отрисовывает интерфейс, и потом снова необходимо отрисовать курсор
-        //TODO cursor.getComponent(Rendering.class).startNewStep();
-        cursor.draw();
+        GL11.glLoadIdentity();
+        GL11.glTranslatef(Math.round(x), Math.round(y), 0);
+        Color.WHITE.bind();
+        openGlService.renderTextureGlQuadsFromCenter(cursorTexture.getWidth(), cursorTexture.getHeight(), cursorTexture);
     }
 
     public Vector2<Integer> getPosition() {
-        return new Vector2<>((int) cursor.getX(), (int) cursor.getY());
+        return new Vector2<>((int) getX(), (int) getY());
     }
 
     public void setTexture(Texture texture) {
         //Отключение стнадартного курсора
         glfwSetInputMode(render.getWindowID(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
         //Присвоение текстуры объекту курсора
-        cursor.addComponent(new SpriteRender(texture, 10000));
+        cursorTexture = texture;
     }
 
     public void setDefaultTexture() {
         //Включение стнадартного курсора
         glfwSetInputMode(render.getWindowID(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         //Отключение текстуры у объекта курсора
-        cursor.removeComponents(Rendering.class);
+        cursorTexture = null;
     }
 
     public void setCapture(boolean captureCursor) {

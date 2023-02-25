@@ -39,7 +39,7 @@ public abstract class Tank extends GameObject {
     public int win = 0;
 
     public Tank(Location location) {
-        super(location, 0, 0);
+        super(location);
         locationManager = getLocationManager();
         initCamera();
     }

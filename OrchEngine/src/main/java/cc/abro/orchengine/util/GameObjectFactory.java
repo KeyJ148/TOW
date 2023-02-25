@@ -22,7 +22,8 @@ public class GameObjectFactory {
     }
 
     public GameObject create(Location location, double x, double y, double directionDraw) {
-        GameObject gameObject = new GameObject(location, x, y);
+        GameObject gameObject = new GameObject(location);
+        gameObject.setPosition(x, y);
         gameObject.setDirection(directionDraw);
 
         return gameObject;

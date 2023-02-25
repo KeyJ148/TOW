@@ -39,10 +39,4 @@ public abstract class Particles extends DrawableComponent implements Updatable, 
     public Class<? extends Component> getComponentClass() {
         return Particles.class;
     }
-
-    /* TODO
-    @Override
-    public List<Class<? extends Component>> getPreliminaryDrawComponents() {
-        return List.of(Rendering.class);
-    }*/
 }

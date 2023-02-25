@@ -24,7 +24,8 @@ public class CollisionDirect extends Collision {
 
     //Нельзя в конструкторе, т.к. для првоерки нужен массив collisionObject,
     //а он устанавливается только после создания класса
-    public void init() { //TODO заменить на интерфейс Initializable
+    @Override
+    public void initialize() {} {
         separationCollisions();
     }
 

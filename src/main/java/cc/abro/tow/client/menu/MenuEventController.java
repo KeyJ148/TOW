@@ -13,7 +13,7 @@ import static org.lwjgl.glfw.GLFW.*;
 public class MenuEventController extends GameObject {
 
     public MenuEventController(Location location) {
-        super(location, 0, 0);
+        super(location);
     }
 
     @Override

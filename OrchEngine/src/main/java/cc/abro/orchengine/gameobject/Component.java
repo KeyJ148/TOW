@@ -1,9 +1,11 @@
 package cc.abro.orchengine.gameobject;
 
+import cc.abro.orchengine.gameobject.components.container.ComponentsContainer;
+import cc.abro.orchengine.gameobject.components.interfaces.ComponentCollection;
 import cc.abro.orchengine.services.ServiceConsumer;
 import lombok.Getter;
 
-public abstract class Component implements ServiceConsumer {
+public abstract class Component implements ServiceConsumer, ComponentCollection {
 
     @Getter
     private GameObject gameObject;
@@ -23,4 +25,8 @@ public abstract class Component implements ServiceConsumer {
         return getClass();
     }
 
+    @Override
+    public ComponentsContainer getComponentsContainer() {
+        return gameObject;
+    }
 }

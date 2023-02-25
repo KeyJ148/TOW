@@ -4,7 +4,6 @@ import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.container.ListeningComponentsContainer.ComponentEvent;
 import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
-import cc.abro.orchengine.gameobject.components.interfaces.Positionable;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.gameobject.location.cache.CollidingObjectsCache;
 import cc.abro.orchengine.gameobject.location.cache.DrawableObjectsCache;
@@ -70,7 +69,7 @@ public class ObjectsContainer {
     }
 
     public void update(long delta) {
-        gameObjectsCache.getObjects().forEach(g -> g.update(delta));//TODO вынести всю update логику в компоненты, сделать GameObject.update final-методом и удалить эту строку
+        gameObjectsCache.getObjects().forEach(g -> g.update(delta)); //TODO вынести всю update логику в компоненты, сделать GameObject.update final-методом и удалить эту строку
         updatableObjectsCache.update(delta);
     }
 
@@ -86,31 +85,21 @@ public class ObjectsContainer {
         updatableObjectsCache.runAfterUpdateOnce(runnable);
     }
 
-    //TODO методы ниже
-    //Проверка и при необходимости обновление объекта при перемещении из чанка в чанк
-    public void updateObjectPosition(Positionable positionable) {
-        /* TODO
-        drawableObjectsCache.updateObjectPosition();
-        collidingObjectsCache.updateObjectPosition();
-        */
-    }
-
-    //TODO update и chunk больше никак не связаны, пофиксить значения
     public Statistic getStatistic() {
-        return new Statistic(Map.of(), Map.of(), Map.of(), Map.of(), Map.of());
-        /*return new Statistic(
-                layerByZ.values().stream().collect(Collectors.toMap(Layer::getZ, Layer::getChunksUpdated)),
-                layerByZ.values().stream().collect(Collectors.toMap(Layer::getZ, Layer::getObjectsUpdated)),
-                layerByZ.values().stream().collect(Collectors.toMap(Layer::getZ, Layer::getChunksRendered)),
-                layerByZ.values().stream().collect(Collectors.toMap(Layer::getZ, Layer::getObjectsRendered)),
-                layerByZ.values().stream().collect(Collectors.toMap(Layer::getZ, Layer::getUnsuitableObjectsRendered))
-        );*/
+        DrawableObjectsCache.Statistic drawableStatistic = drawableObjectsCache.getStatistic();
+        return new Statistic(
+                drawableStatistic.chunksRenderedByLayerZ(),
+                drawableStatistic.objectsRenderedByLayerZ(),
+                drawableStatistic.unsuitableObjectsRenderedByLayerZ(),
+                updatableObjectsCache.getCountUpdatableObjects(),
+                gameObjectsCache.getCountGameObjects()
+        );
     }
 
-    public record Statistic(Map<Integer, Integer> chunksUpdatedByLayerZ,
-                            Map<Integer, Integer> objectsUpdatedByLayerZ,
-                            Map<Integer, Integer> chunksRenderedByLayerZ,
+    public record Statistic(Map<Integer, Integer> chunksRenderedByLayerZ,
                             Map<Integer, Integer> objectsRenderedByLayerZ,
-                            Map<Integer, Integer> unsuitableObjectsRenderedByLayerZ) {
+                            Map<Integer, Integer> unsuitableObjectsRenderedByLayerZ,
+                            int countUpdatedObjects,
+                            int countGameObjects) {
     }
 }

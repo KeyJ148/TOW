@@ -7,6 +7,7 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class DrawableObjectsCache {
 
@@ -39,6 +40,7 @@ public class DrawableObjectsCache {
         layerByZ.values().forEach(l -> l.render(x, y, width, height));
     }
 
+    //Проверка и при необходимости обновление объекта при перемещении из чанка в чанк
     private void updateObjectPosition(Positionable positionable) {
         Drawable drawable = (Drawable) positionable;
         int z = drawable.getZ();
@@ -52,5 +54,18 @@ public class DrawableObjectsCache {
         } else {
             oldLayer.updateObjectPosition(drawable);
         }
+    }
+
+    public Statistic getStatistic() {
+        return new Statistic(
+                layerByZ.values().stream().collect(Collectors.toMap(DrawableLayer::getZ, DrawableLayer::getChunksRendered)),
+                layerByZ.values().stream().collect(Collectors.toMap(DrawableLayer::getZ, DrawableLayer::getObjectsRendered)),
+                layerByZ.values().stream().collect(Collectors.toMap(DrawableLayer::getZ, DrawableLayer::getUnsuitableObjectsRendered))
+        );
+    }
+
+    public record Statistic(Map<Integer, Integer> chunksRenderedByLayerZ,
+                            Map<Integer, Integer> objectsRenderedByLayerZ,
+                            Map<Integer, Integer> unsuitableObjectsRenderedByLayerZ) {
     }
 }

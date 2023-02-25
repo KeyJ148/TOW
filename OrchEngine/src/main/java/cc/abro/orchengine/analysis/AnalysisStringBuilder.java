@@ -77,24 +77,23 @@ public class AnalysisStringBuilder {
 
     public String getAnalysisString3() {
         StringBuilder sb = new StringBuilder();
+        sb.append("GameObjects: ");
+        sb.append(analyzer.statistic.countGameObjects());
+        sb.append("          ");
+
         sb.append("Objects update/render/unsuitable: ");
-        sb.append(analyzer.objectsUpdatedSum);
+        sb.append(analyzer.statistic.countUpdatedObjects());
         sb.append("/");
         sb.append(analyzer.objectsRenderedSum);
         sb.append("/");
         sb.append(analyzer.unsuitableObjectsRenderedSum);
         sb.append("          ");
 
-        sb.append("Chunks U/R: ");
-        sb.append(analyzer.chunksUpdatedSum);
-        sb.append("/");
+        sb.append("Chunks render: ");
         sb.append(analyzer.chunksRenderedSum);
-        sb.append("          ");
-
-        sb.append("Layers U/R: ");
-        sb.append(analyzer.layersCountUpdated);
-        sb.append("/");
+        sb.append(" (");
         sb.append(analyzer.layersCountRenderer);
+        sb.append(" layers)");
         sb.append("          ");
 
         return sb.toString();

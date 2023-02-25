@@ -45,7 +45,7 @@ public class Follower extends Component implements Updatable {
     }
 
     @Override
-    public List<Class<? extends Component>> getPreliminaryUpdateComponents() {
+    public List<Class<? extends Updatable>> getPreliminaryUpdateComponents() {
         return List.of(Movement.class);
     }
 }

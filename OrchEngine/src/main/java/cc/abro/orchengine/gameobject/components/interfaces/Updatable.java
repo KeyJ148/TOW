@@ -1,15 +1,13 @@
 package cc.abro.orchengine.gameobject.components.interfaces;
 
-import cc.abro.orchengine.gameobject.Component;
-
 import java.util.Collections;
 import java.util.List;
 
-public interface Updatable {
+public interface Updatable extends ComponentCollection {
 
     /**
      * Method will call when game world will updating. All components from {@link #getPreliminaryUpdateComponents} will
-     * update, and after that this component will be updated in {@link #updateIfNeed(long)}. //TODO fix
+     * update, and after that this component will be updated.
      *
      * @param delta The count of nanoseconds passed since last update
      */
@@ -18,7 +16,7 @@ public interface Updatable {
     /**
      * @return List of components that needed to {@link #update} before {@link #update} this component.
      */
-    default List<Class<? extends Component>> getPreliminaryUpdateComponents() {
+    default List<Class<? extends Updatable>> getPreliminaryUpdateComponents() {
         return Collections.emptyList();
     }
 }

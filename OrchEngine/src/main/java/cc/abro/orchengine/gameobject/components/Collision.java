@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Collision extends cc.abro.orchengine.gameobject.components.PositionableComponent implements Updatable, Drawable, ServiceConsumer {
-    public static final boolean MASK_DRAW = false; //TODO вынести в настройки через какой-нибудь сервис
+    public static final boolean MASK_DRAW = true; //TODO вынести в настройки через какой-нибудь сервис
 
     private final Mask mask;//Маска для текстуры этого объекта
     private Vector2<Double>[] maskAbsolute; //Абсолютные координаты маски от левого верхнего угла карты
 
     protected ArrayList<Class> collisionObjects = new ArrayList<>();//Список объектов с которыми надо проверять столкновения
-    private ArrayList<CollisionListener> listeners = new ArrayList<>();//Список объектов которых нужно оповещать при коллизии
+    private final ArrayList<CollisionListener> listeners = new ArrayList<>();//Список объектов которых нужно оповещать при коллизии
     protected boolean calcInThisStep = false;//Расчитывалась ли маска уже в этом степе?
 
     public Collision(Mask mask) {
@@ -197,19 +197,12 @@ public class Collision extends cc.abro.orchengine.gameobject.components.Position
     }
 
     @Override
-    public List<Class<? extends cc.abro.orchengine.gameobject.Component>> getPreliminaryUpdateComponents() {
+    public List<Class<? extends Updatable>> getPreliminaryUpdateComponents() {
         return List.of(Movement.class, Follower.class);
     }
 
     @Override
     public int getZ() {
-        return 1000;
+        return 5000;
     }
-
-    /* TODO
-    @Override
-    public List<Class<? extends Component>> getPreliminaryDrawComponents() {
-        return List.of(Rendering.class);
-    }*/
-
 }

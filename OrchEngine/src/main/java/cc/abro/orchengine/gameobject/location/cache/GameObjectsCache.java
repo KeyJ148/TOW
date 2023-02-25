@@ -22,6 +22,10 @@ public class GameObjectsCache {
         gameObjects.forEach(GameObject::destroy);
     }
 
+    public int getCountGameObjects() {
+        return gameObjects.size();
+    }
+
     @Deprecated //TODO del and other deprecated functions Why is it deprecated
     public Set<GameObject> getObjects() {
         return Collections.unmodifiableSet(gameObjects);
