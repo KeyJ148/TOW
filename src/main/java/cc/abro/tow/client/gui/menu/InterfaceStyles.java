@@ -1,4 +1,4 @@
-package cc.abro.tow.client.menu;
+package cc.abro.tow.client.gui.menu;
 
 import org.joml.Vector4f;
 import org.liquidengine.legui.component.optional.align.HorizontalAlign;

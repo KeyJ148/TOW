@@ -1,10 +1,9 @@
-package cc.abro.tow.client.menu.panels;
+package cc.abro.tow.client.gui.menu.panels;
 
 import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.tow.client.gui.menu.InterfaceStyles;
 import org.liquidengine.legui.component.ImageView;
 import org.liquidengine.legui.image.FBOImage;
-
-import static cc.abro.tow.client.menu.InterfaceStyles.createInvisibleStyle;
 
 public class TextureMenuGuiPanel extends MenuGuiPanel {
 
@@ -15,10 +14,10 @@ public class TextureMenuGuiPanel extends MenuGuiPanel {
     public TextureMenuGuiPanel(Texture logoTexture, float x, float y) {
         FBOImage logoFBOImage = new FBOImage(logoTexture.getId(), logoTexture.getWidth(), logoTexture.getHeight());
         setSize(x, y);
-        setStyle(createInvisibleStyle());
+        setStyle(InterfaceStyles.createInvisibleStyle());
 
         ImageView imageView = new ImageView(logoFBOImage);
-        imageView.setStyle(createInvisibleStyle());
+        imageView.setStyle(InterfaceStyles.createInvisibleStyle());
         imageView.setPosition(0, 0);
         imageView.setSize(x, y);
 

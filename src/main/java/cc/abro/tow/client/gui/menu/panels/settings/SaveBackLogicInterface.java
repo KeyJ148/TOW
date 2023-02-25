@@ -1,4 +1,4 @@
-package cc.abro.tow.client.menu.panels.settings;
+package cc.abro.tow.client.gui.menu.panels.settings;
 
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 

@@ -1,10 +1,11 @@
-package cc.abro.tow.client.menu.panels;
+package cc.abro.tow.client.gui.menu.panels;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.net.client.ConnectException;
 import cc.abro.orchengine.services.BlockingGuiService;
-import cc.abro.orchengine.services.GuiService;
+import cc.abro.tow.client.gui.menu.InterfaceStyles;
+import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import cc.abro.tow.client.services.ConnectServerService;
 import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.TextAreaField;
@@ -12,31 +13,28 @@ import org.liquidengine.legui.component.TextAreaField;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import static cc.abro.tow.client.menu.InterfaceStyles.*;
-import static cc.abro.tow.client.menu.MenuGuiComponents.*;
-
 public class ConnectByIPMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
-    protected final static int MAIN_PANEL_WIDTH = 4 * MENU_ELEMENT_WIDTH / 3 + 1;
-    protected final static int MAIN_PANEL_HEIGHT = 5 * MENU_ELEMENT_HEIGHT / 3;
+    protected final static int MAIN_PANEL_WIDTH = 4 * InterfaceStyles.MENU_ELEMENT_WIDTH / 3 + 1;
+    protected final static int MAIN_PANEL_HEIGHT = 5 * InterfaceStyles.MENU_ELEMENT_HEIGHT / 3;
 
     public ConnectByIPMenuGuiPanel() {
         super();
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
 
-        add(createLabel("IP:", INDENT_X, INDENT_Y, LABEL_LENGTH_ID, MENU_TEXT_FIELD_HEIGHT));
+        add(MenuGuiComponents.createLabel("IP:", InterfaceStyles.INDENT_X, InterfaceStyles.INDENT_Y, InterfaceStyles.LABEL_LENGTH_ID, InterfaceStyles.MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldIP =
-                createTextAreaField(INDENT_X + LABEL_LENGTH_ID, INDENT_Y, TEXT_AREA_LENGTH_IP, MENU_TEXT_FIELD_HEIGHT);
+                MenuGuiComponents.createTextAreaField(InterfaceStyles.INDENT_X + InterfaceStyles.LABEL_LENGTH_ID, InterfaceStyles.INDENT_Y, InterfaceStyles.TEXT_AREA_LENGTH_IP, InterfaceStyles.MENU_TEXT_FIELD_HEIGHT);
         add(textAreaFieldIP);
 
-        add(createLabel("Port:", MAIN_PANEL_WIDTH - LABEL_LENGTH_PORT - TEXT_AREA_LENGTH_PORT - INDENT_X, INDENT_Y, LABEL_LENGTH_PORT, MENU_TEXT_FIELD_HEIGHT));
+        add(MenuGuiComponents.createLabel("Port:", MAIN_PANEL_WIDTH - InterfaceStyles.LABEL_LENGTH_PORT - InterfaceStyles.TEXT_AREA_LENGTH_PORT - InterfaceStyles.INDENT_X, InterfaceStyles.INDENT_Y, InterfaceStyles.LABEL_LENGTH_PORT, InterfaceStyles.MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldPort =
-                createTextAreaField(MAIN_PANEL_WIDTH - TEXT_AREA_LENGTH_PORT - INDENT_X, INDENT_Y, TEXT_AREA_LENGTH_PORT, MENU_TEXT_FIELD_HEIGHT, "25566");
+                MenuGuiComponents.createTextAreaField(MAIN_PANEL_WIDTH - InterfaceStyles.TEXT_AREA_LENGTH_PORT - InterfaceStyles.INDENT_X, InterfaceStyles.INDENT_Y, InterfaceStyles.TEXT_AREA_LENGTH_PORT, InterfaceStyles.MENU_TEXT_FIELD_HEIGHT, "25566");
         add(textAreaFieldPort);
 
-        add(createButton("Back", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
+        add(MenuGuiComponents.createButton("Back", InterfaceStyles.INDENT_X, MAIN_PANEL_HEIGHT - InterfaceStyles.BUTTON_HEIGHT - InterfaceStyles.INDENT_Y, InterfaceStyles.BUTTON_WIDTH, InterfaceStyles.BUTTON_HEIGHT,
                 getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class)));
-        add(createButton("Connect", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
+        add(MenuGuiComponents.createButton("Connect", MAIN_PANEL_WIDTH - InterfaceStyles.BUTTON_WIDTH - InterfaceStyles.INDENT_X, MAIN_PANEL_HEIGHT - InterfaceStyles.BUTTON_HEIGHT - InterfaceStyles.INDENT_Y, InterfaceStyles.BUTTON_WIDTH, InterfaceStyles.BUTTON_HEIGHT,
                 getMouseReleaseListener(() -> connectToServer(
                         textAreaFieldIP.getTextState().getText(),
                         textAreaFieldPort.getTextState().getText()
@@ -44,8 +42,8 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel implements MouseReleas
     }
 
     private void connectToServer(String ip, String port) {
-        Panel connectingGuiPanel = createLabelPanel("Connecting...",
-                CONNECTING_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT).panel();
+        Panel connectingGuiPanel = MenuGuiComponents.createLabelPanel("Connecting...",
+                InterfaceStyles.CONNECTING_ELEMENT_WIDTH, InterfaceStyles.CONNECTING_ELEMENT_HEIGHT).panel();
         getGuiService().moveComponentToWindowCenter(connectingGuiPanel);
         BlockingGuiService.GuiBlock frameBlock = getBlockingGuiService()
                 .createGuiBlock(getFrame().getContainer());
@@ -57,8 +55,8 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel implements MouseReleas
                     Integer.parseInt(port));
 
             getFrame().getContainer().remove(connectingGuiPanel);
-            Panel waitingGuiPanel = createLabelPanel("Waiting for players...",
-                    WAITING_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT).panel();
+            Panel waitingGuiPanel = MenuGuiComponents.createLabelPanel("Waiting for players...",
+                    InterfaceStyles.WAITING_ELEMENT_WIDTH, InterfaceStyles.CONNECTING_ELEMENT_HEIGHT).panel();
             getGuiService().moveComponentToWindowCenter(waitingGuiPanel);
             getFrame().getContainer().add(waitingGuiPanel);
         } catch (UnknownHostException e) {
@@ -74,7 +72,7 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel implements MouseReleas
     }
 
     private void addButtonGuiPanelWithUnblock(String text, BlockingGuiService.GuiBlock guiBlock) {
-        Panel panel = createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
+        Panel panel = MenuGuiComponents.createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
         getGuiService().moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }

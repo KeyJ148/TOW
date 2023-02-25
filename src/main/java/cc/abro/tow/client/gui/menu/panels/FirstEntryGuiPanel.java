@@ -1,4 +1,4 @@
-package cc.abro.tow.client.menu.panels;
+package cc.abro.tow.client.gui.menu.panels;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
@@ -6,6 +6,8 @@ import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.orchengine.services.GuiService;
+import cc.abro.tow.client.gui.menu.InterfaceStyles;
+import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import cc.abro.tow.client.settings.SettingsService;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.ImageView;
@@ -18,21 +20,18 @@ import org.liquidengine.legui.style.Background;
 
 import java.awt.image.BufferedImage;
 
-import static cc.abro.tow.client.menu.InterfaceStyles.*;
-import static cc.abro.tow.client.menu.MenuGuiComponents.*;
-
 public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
-    protected static final int FIRST_ENTRY_PANEL_WIDTH = (4 * MENU_ELEMENT_WIDTH / 3) + 1;
-    protected static final int FIRST_ENTRY_PANEL_HEIGHT = (5 * MENU_ELEMENT_HEIGHT / 2) + 1;
+    protected static final int FIRST_ENTRY_PANEL_WIDTH = (4 * InterfaceStyles.MENU_ELEMENT_WIDTH / 3) + 1;
+    protected static final int FIRST_ENTRY_PANEL_HEIGHT = (5 * InterfaceStyles.MENU_ELEMENT_HEIGHT / 2) + 1;
     protected static final int LENGTH_TEXT_AREA_NICK = 100;
     protected static final int BUTTON_COLOR_SIZE = 15;
     protected static final int PANEL_COLOR_WIDTH = 45;
     protected static final int PANEL_COLOR_HEIGHT = 20;
     protected static final int LABEL_LENGTH_CHAPTER = 310;
-    protected static final int INDENT_PLUS_Y = 15*2 + LABEL_HEIGHT_CHAPTER;
-    protected static final int INDENT_PLUS_TANK_Y = 20 + LABEL_HEIGHT_CHAPTER;
-    protected static final int INDENT_PLUS_X = INDENT_X + 15;
+    protected static final int INDENT_PLUS_Y = 15*2 + InterfaceStyles.LABEL_HEIGHT_CHAPTER;
+    protected static final int INDENT_PLUS_TANK_Y = 20 + InterfaceStyles.LABEL_HEIGHT_CHAPTER;
+    protected static final int INDENT_PLUS_X = InterfaceStyles.INDENT_X + 15;
     protected static final int INDENT_PLUS_TANK_X = 230 + 15;
     
     private final GuiService guiService;
@@ -60,12 +59,12 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
         settingsService = Context.getService(SettingsService.class);
         setSize(FIRST_ENTRY_PANEL_WIDTH, FIRST_ENTRY_PANEL_HEIGHT);
 
-        add(createLargerLabel("Choose your nickname and color",
-                (FIRST_ENTRY_PANEL_WIDTH - LABEL_LENGTH_CHAPTER)/2, 15, LABEL_LENGTH_CHAPTER, LABEL_HEIGHT_CHAPTER));
+        add(MenuGuiComponents.createLargerLabel("Choose your nickname and color",
+                (FIRST_ENTRY_PANEL_WIDTH - LABEL_LENGTH_CHAPTER)/2, 15, LABEL_LENGTH_CHAPTER, InterfaceStyles.LABEL_HEIGHT_CHAPTER));
 
-        add(createLabel("Nickname:", INDENT_PLUS_X, INDENT_PLUS_Y, 30, MENU_TEXT_FIELD_HEIGHT));
+        add(MenuGuiComponents.createLabel("Nickname:", INDENT_PLUS_X, INDENT_PLUS_Y, 30, InterfaceStyles.MENU_TEXT_FIELD_HEIGHT));
         TextAreaField textAreaFieldNickname =
-                createTextAreaField(INDENT_PLUS_X + LABEL_LENGTH_NICKNAME, INDENT_PLUS_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
+                MenuGuiComponents.createTextAreaField(INDENT_PLUS_X + InterfaceStyles.LABEL_LENGTH_NICKNAME, INDENT_PLUS_Y, LENGTH_TEXT_AREA_NICK, InterfaceStyles.MENU_TEXT_FIELD_HEIGHT,
                         settingsService.getSettings().getProfile().getNickname());
         add(textAreaFieldNickname);
 
@@ -75,13 +74,13 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
         tankTexture = getTextureService().createTexture(colorizeImage(defaultTankImage, tankColor));
         FBOImage tankFBOImage = new FBOImage(tankTexture.getId(), tankTexture.getWidth(), tankTexture.getHeight());
         ImageView imageView = new ImageView(tankFBOImage);
-        imageView.setStyle(createInvisibleStyle());
+        imageView.setStyle(InterfaceStyles.createInvisibleStyle());
         imageView.setFocusable(false);
         addComponent(imageView, INDENT_PLUS_TANK_X, INDENT_PLUS_TANK_Y, tankTexture.getWidth(), tankTexture.getHeight());
 
         for (int i = 0; i < COLORS.length; i++) {
             final int fi = i;
-            addColorButton(INDENT_PLUS_X + (BUTTON_COLOR_SIZE + 2) * i, INDENT_PLUS_Y + MENU_TEXT_FIELD_HEIGHT + 10, COLORS[i],
+            addColorButton(INDENT_PLUS_X + (BUTTON_COLOR_SIZE + 2) * i, INDENT_PLUS_Y + InterfaceStyles.MENU_TEXT_FIELD_HEIGHT + 10, COLORS[i],
                     getMouseReleaseListener(() -> {
                         tankColor = COLORS[fi];
                         BufferedImage tankImage = getSpriteStorage().getSprite("sys_tank").texture().getImage();
@@ -92,8 +91,8 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
                     }));
         }
 
-        add(createButton("Confirm", (FIRST_ENTRY_PANEL_WIDTH - BUTTON_WIDTH)/2,
-                FIRST_ENTRY_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
+        add(MenuGuiComponents.createButton("Confirm", (FIRST_ENTRY_PANEL_WIDTH - InterfaceStyles.BUTTON_WIDTH)/2,
+                FIRST_ENTRY_PANEL_HEIGHT - InterfaceStyles.BUTTON_HEIGHT - InterfaceStyles.INDENT_Y, InterfaceStyles.BUTTON_WIDTH, InterfaceStyles.BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
                     try {
                         settingsService.setProfileSettings(textAreaFieldNickname.getTextState().getText(), tankColor);
@@ -108,7 +107,7 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
 
     private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {
         BlockingGuiService.GuiBlock guiBlock = getBlockingGuiService().createGuiBlock(getFrame().getContainer());
-        Panel panel = createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
+        Panel panel = MenuGuiComponents.createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
         getGuiService().moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }
@@ -136,7 +135,7 @@ public class FirstEntryGuiPanel extends MenuGuiPanel implements MouseReleaseBloc
         Background background = new Background();
         background.setColor(color.getVector4f());
         button.getStyle().setBackground(background);
-        button.getStyle().setBorder(createButtonBorder());
+        button.getStyle().setBorder(InterfaceStyles.createButtonBorder());
         button.getListenerMap().addListener(MouseClickEvent.class, event);
         button.setSize(BUTTON_COLOR_SIZE, BUTTON_COLOR_SIZE);
         button.setPosition(x, y);

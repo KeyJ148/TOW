@@ -34,6 +34,6 @@ public class CreateServerService {
         }
     }
 
-    public class ServerIsLaunchingExeption extends RuntimeException {}
-    public class WrongPortException extends RuntimeException {}
+    public static class ServerIsLaunchingExeption extends RuntimeException {}
+    public static class WrongPortException extends RuntimeException {}
 }

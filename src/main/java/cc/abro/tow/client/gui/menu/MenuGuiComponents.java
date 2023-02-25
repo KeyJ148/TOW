@@ -1,6 +1,5 @@
-package cc.abro.tow.client.menu;
+package cc.abro.tow.client.gui.menu;
 
-import com.google.common.base.Optional;
 import org.liquidengine.legui.component.*;
 import org.liquidengine.legui.component.optional.align.HorizontalAlign;
 import org.liquidengine.legui.event.MouseClickEvent;
@@ -12,7 +11,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import static cc.abro.tow.client.menu.InterfaceStyles.*;
+import static cc.abro.tow.client.gui.menu.InterfaceStyles.*;
 import static java.lang.Math.max;
 
 public final class MenuGuiComponents {

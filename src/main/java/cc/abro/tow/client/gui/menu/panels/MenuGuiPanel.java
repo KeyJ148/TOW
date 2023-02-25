@@ -1,16 +1,15 @@
-package cc.abro.tow.client.menu.panels;
+package cc.abro.tow.client.gui.menu.panels;
 
 import cc.abro.orchengine.gui.MouseReleaseChangePanelListeners;
 import cc.abro.orchengine.services.ServiceConsumer;
+import cc.abro.tow.client.gui.menu.InterfaceStyles;
 import org.liquidengine.legui.component.Component;
 import org.liquidengine.legui.component.Panel;
-
-import static cc.abro.tow.client.menu.InterfaceStyles.createPanelStyle;
 
 public class MenuGuiPanel extends Panel implements MouseReleaseChangePanelListeners, ServiceConsumer {
 
     public MenuGuiPanel() {
-        setStyle(createPanelStyle());
+        setStyle(InterfaceStyles.createPanelStyle());
         setFocusable(false);
     }
 

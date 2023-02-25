@@ -78,7 +78,7 @@ public class SettingsService {
     public class EmptyNicknameException extends RuntimeException {}
     public class CantSaveSettingException extends RuntimeException {}
 
-    public void setVolumeSettings(double musicVolume, double soundVolume) {
+    public void setVolumeSettings(int musicVolume, int soundVolume) {
 
         settings.getVolume().setMusicVolume(musicVolume);
         settings.getVolume().setSoundVolume(soundVolume);
@@ -88,8 +88,5 @@ public class SettingsService {
             log.warn("Settings can't be saved", e);
             throw new CantSaveSettingException();
         }
-
-        Context.getService(ClientData.class).musicVolume = musicVolume;
-        Context.getService(ClientData.class).soundVolume = soundVolume;
     }
 }

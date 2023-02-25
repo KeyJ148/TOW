@@ -1,14 +1,12 @@
-package cc.abro.tow.client.menu.panels.settings;
+package cc.abro.tow.client.gui.menu.panels.settings;
 
 import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.gui.tabpanel.TabPanel;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.textures.Texture;
-import cc.abro.orchengine.services.BlockingGuiService;
-import cc.abro.orchengine.services.GuiService;
-import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
-import cc.abro.tow.client.menu.panels.MenuGuiPanel;
+import cc.abro.tow.client.gui.menu.InterfaceStyles;
+import cc.abro.tow.client.gui.menu.MenuGuiComponents;
+import cc.abro.tow.client.gui.menu.panels.MenuGuiPanel;
 import cc.abro.tow.client.settings.Settings;
 import cc.abro.tow.client.settings.SettingsService;
 import org.liquidengine.legui.component.Button;
@@ -24,10 +22,8 @@ import org.liquidengine.legui.style.Background;
 import java.awt.image.BufferedImage;
 import java.util.function.Function;
 
-import static cc.abro.tow.client.menu.InterfaceStyles.*;
-import static cc.abro.tow.client.menu.MenuGuiComponents.*;
-import static cc.abro.tow.client.menu.panels.FirstEntryGuiPanel.Error.CANT_SAVE_SETTINGS;
-import static cc.abro.tow.client.menu.panels.FirstEntryGuiPanel.Error.NICKNAME_IS_EMPTY;
+import static cc.abro.tow.client.gui.menu.panels.FirstEntryGuiPanel.Error.CANT_SAVE_SETTINGS;
+import static cc.abro.tow.client.gui.menu.panels.FirstEntryGuiPanel.Error.NICKNAME_IS_EMPTY;
 
 public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBackLogicInterface {
 
@@ -61,28 +57,29 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBack
     public PlayerSettingsMenuGuiPanel(SettingsMenuGuiPanel parent, TabPanel tabPanel) {
         this.parent = parent;
         settings = Context.getService(SettingsService.class).getSettings();
-        setSize(SETTINGS_PANEL_WIDTH, SETTINGS_PANEL_HEIGHT);
-        setPosition(THICKNESS_OF_PANEL_BORDER, THICKNESS_OF_PANEL_BORDER);
-        add(createLabel("Nickname:", INDENT_X, INDENT_Y, 30, MENU_TEXT_FIELD_HEIGHT));
+        setSize(InterfaceStyles.SETTINGS_PANEL_WIDTH, InterfaceStyles.SETTINGS_PANEL_HEIGHT);
+        setPosition(InterfaceStyles.THICKNESS_OF_PANEL_BORDER, InterfaceStyles.THICKNESS_OF_PANEL_BORDER);
+        add(MenuGuiComponents.createLabel("Nickname:", InterfaceStyles.INDENT_X, InterfaceStyles.INDENT_Y, 30, InterfaceStyles.MENU_TEXT_FIELD_HEIGHT));
         textAreaFieldNickname =
-                createTextAreaField(INDENT_X + LABEL_LENGTH_NICKNAME, INDENT_Y, LENGTH_TEXT_AREA_NICK, MENU_TEXT_FIELD_HEIGHT,
+                MenuGuiComponents.createTextAreaField(InterfaceStyles.INDENT_X + InterfaceStyles.LABEL_LENGTH_NICKNAME, InterfaceStyles.INDENT_Y, LENGTH_TEXT_AREA_NICK, InterfaceStyles.MENU_TEXT_FIELD_HEIGHT,
                         settings.getProfile().getNickname());
         add(textAreaFieldNickname);
 
         int[] colorFromSettings = settings.getProfile().getColor();
         tankColor = new Color(colorFromSettings);
         BufferedImage defaultTankImage = getSpriteStorage().getSprite("sys_tank").texture().getImage();
-        tankTexture = getTextureService().createTexture(colorizeImage(defaultTankImage, tankColor));
+        BufferedImage colorizedTankImage = getTextureService().colorizeImage(defaultTankImage, tankColor);
+        tankTexture = getTextureService().createTexture(colorizedTankImage);
         FBOImage tankFBOImage = new FBOImage(tankTexture.getId(), tankTexture.getWidth(), tankTexture.getHeight());
         imageView = new ImageView(tankFBOImage);
-        imageView.setStyle(createInvisibleStyle());
+        imageView.setStyle(InterfaceStyles.createInvisibleStyle());
         imageView.setPosition(230, 15);
         imageView.setSize(tankTexture.getWidth(), tankTexture.getHeight());
         add(imageView);
 
         for (int i = 0; i < COLORS.length; i++) {
             final int fi = i;
-            addColorButton(INDENT_X + (BUTTON_COLOR_SIZE + 2) * i, INDENT_Y + MENU_TEXT_FIELD_HEIGHT + 10, COLORS[i],
+            addColorButton(InterfaceStyles.INDENT_X + (BUTTON_COLOR_SIZE + 2) * i, InterfaceStyles.INDENT_Y + InterfaceStyles.MENU_TEXT_FIELD_HEIGHT + 10, COLORS[i],
                     getMouseReleaseListener(event -> {
                         changeTankColor(COLORS[fi], imageView);
                     }));
@@ -114,13 +111,13 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBack
         saveButton.setFocusable(changed);
         saveAndBackButton.setFocusable(changed);
         if(changed) {
-            saveButton.setStyle(createButtonStyle());
-            saveAndBackButton.setStyle(createButtonStyle());
+            saveButton.setStyle(InterfaceStyles.createButtonStyle());
+            saveAndBackButton.setStyle(InterfaceStyles.createButtonStyle());
         }
         else
         {
-            saveButton.setStyle(createBlockedButtonStyle());
-            saveAndBackButton.setStyle(createBlockedButtonStyle());
+            saveButton.setStyle(InterfaceStyles.createBlockedButtonStyle());
+            saveAndBackButton.setStyle(InterfaceStyles.createBlockedButtonStyle());
             saveButton.setHovered(false);
             saveAndBackButton.setHovered(false);
         }
@@ -147,7 +144,7 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBack
         Background background = new Background();
         background.setColor(color.getVector4f());
         button.getStyle().setBackground(background);
-        button.getStyle().setBorder(createButtonBorder());
+        button.getStyle().setBorder(InterfaceStyles.createButtonBorder());
         button.getListenerMap().addListener(MouseClickEvent.class, event);
         button.setSize(BUTTON_COLOR_SIZE, BUTTON_COLOR_SIZE);
         button.setPosition(x, y);
@@ -158,25 +155,10 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBack
         tankColor = color;
         BufferedImage tankImage = getSpriteStorage().getSprite("sys_tank").texture().getImage();
         getTextureService().deleteTexture(tankTexture.getId());
-        tankTexture = getTextureService().createTexture(colorizeImage(tankImage, tankColor));
+        BufferedImage colorizedTankImage = getTextureService().colorizeImage(tankImage, tankColor);
+        tankTexture = getTextureService().createTexture(colorizedTankImage);
         FBOImage newTankFBOImage = new FBOImage(tankTexture.getId(), tankTexture.getWidth(), tankTexture.getHeight());
         imageView.setImage(newTankFBOImage);
         changeSaveButtons();
-    }
-
-    //TODO в отдельный сервис по покраске или работе с текстурами
-    private BufferedImage colorizeImage(BufferedImage image, Color newColor) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-        int[] pixels = new int[width * height];
-        image.getRGB(0, 0, width, height, pixels, 0, width);
-        Color oldColor = new Color(255, 255, 255, 255);
-        for (int p=0; p<pixels.length; p++) {
-            if (oldColor.getRGB() == pixels[p]){
-                pixels[p] = newColor.getRGB();
-            }
-        }
-        image.setRGB(0, 0, width, height, pixels, 0, width);
-        return image;
     }
 }

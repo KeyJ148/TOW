@@ -7,10 +7,11 @@ import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.util.GameObjectFactory;
+import cc.abro.tow.client.gui.DebugInfoGuiPanel;
 
 import java.util.Collections;
 
-import static cc.abro.tow.client.menu.InterfaceStyles.LABEL_HEIGHT_DEBUG;
+import static cc.abro.tow.client.gui.menu.InterfaceStyles.LABEL_HEIGHT_DEBUG;
 
 public class GameLocation extends Location {
 
@@ -31,7 +32,7 @@ public class GameLocation extends Location {
     }
 
     //TODO вынести в отдельный класс или упростить в новой системе компонент
-    public class DebugInfoComponent extends Component implements Updatable {
+    public static class DebugInfoComponent extends Component implements Updatable {
 
         private final DebugInfoGuiPanel debugInfoGuiPanel;
 
@@ -46,11 +47,6 @@ public class GameLocation extends Location {
             } else {
                 debugInfoGuiPanel.setText(Collections.nCopies(AnalysisStringBuilder.STRING_COUNT, ""));
             }
-        }
-
-        @Override
-        public Class<? extends Component> getComponentClass() {
-            return DebugInfoComponent.class;
         }
     }
 }

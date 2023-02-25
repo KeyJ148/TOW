@@ -1,4 +1,4 @@
-package cc.abro.tow.client.menu;
+package cc.abro.tow.client.gui.menu;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;

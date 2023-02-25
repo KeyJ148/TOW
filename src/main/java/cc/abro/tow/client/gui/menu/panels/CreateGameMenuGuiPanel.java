@@ -1,4 +1,4 @@
-package cc.abro.tow.client.menu.panels;
+package cc.abro.tow.client.gui.menu.panels;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
@@ -6,54 +6,52 @@ import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.net.server.GameServer;
 import cc.abro.orchengine.services.BlockingGuiService;
-import cc.abro.orchengine.services.GuiService;
 import cc.abro.orchengine.util.GameObjectFactory;
+import cc.abro.tow.client.gui.menu.InterfaceStyles;
+import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import cc.abro.tow.client.services.CreateServerService;
 import org.liquidengine.legui.component.Label;
 import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.TextAreaField;
 
-import static cc.abro.tow.client.menu.InterfaceStyles.*;
-import static cc.abro.tow.client.menu.MenuGuiComponents.*;
-
 public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
-    protected final static int MAIN_PANEL_WIDTH = 4 * MENU_ELEMENT_WIDTH / 3 + 1;
-    protected final static int MAIN_PANEL_HEIGHT = 10 * MENU_ELEMENT_HEIGHT / 3 + 1;
-    protected final static int INDENT_Y_LAYER2 = + INDENT_Y + MENU_TEXT_FIELD_HEIGHT + 20;
+    protected final static int MAIN_PANEL_WIDTH = 4 * InterfaceStyles.MENU_ELEMENT_WIDTH / 3 + 1;
+    protected final static int MAIN_PANEL_HEIGHT = 10 * InterfaceStyles.MENU_ELEMENT_HEIGHT / 3 + 1;
+    protected final static int INDENT_Y_LAYER2 = + InterfaceStyles.INDENT_Y + InterfaceStyles.MENU_TEXT_FIELD_HEIGHT + 20;
 
     public CreateGameMenuGuiPanel() {
         super();
         setSize(MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
 
-        add(createLabel("Server name:", INDENT_X, INDENT_Y, LABEL_LENGTH_SERVER_NAME, MENU_TEXT_FIELD_HEIGHT));
-        TextAreaField textAreaFieldServerName = createTextAreaField(INDENT_X + LABEL_LENGTH_SERVER_NAME, INDENT_Y,
-                TEXT_AREA_LENGTH_SERVER_NAME, MENU_TEXT_FIELD_HEIGHT, "Server");
+        add(MenuGuiComponents.createLabel("Server name:", InterfaceStyles.INDENT_X, InterfaceStyles.INDENT_Y, InterfaceStyles.LABEL_LENGTH_SERVER_NAME, InterfaceStyles.MENU_TEXT_FIELD_HEIGHT));
+        TextAreaField textAreaFieldServerName = MenuGuiComponents.createTextAreaField(InterfaceStyles.INDENT_X + InterfaceStyles.LABEL_LENGTH_SERVER_NAME, InterfaceStyles.INDENT_Y,
+                InterfaceStyles.TEXT_AREA_LENGTH_SERVER_NAME, InterfaceStyles.MENU_TEXT_FIELD_HEIGHT, "Server");
         add(textAreaFieldServerName);
 
-        add(createLabel("Port:", INDENT_X, INDENT_Y_LAYER2, LABEL_LENGTH_PORT, MENU_TEXT_FIELD_HEIGHT));
-        TextAreaField textAreaFieldPort = createTextAreaField(INDENT_X + LABEL_LENGTH_PORT, INDENT_Y_LAYER2,
-                TEXT_AREA_LENGTH_PORT, MENU_TEXT_FIELD_HEIGHT, "25566");
+        add(MenuGuiComponents.createLabel("Port:", InterfaceStyles.INDENT_X, INDENT_Y_LAYER2, InterfaceStyles.LABEL_LENGTH_PORT, InterfaceStyles.MENU_TEXT_FIELD_HEIGHT));
+        TextAreaField textAreaFieldPort = MenuGuiComponents.createTextAreaField(InterfaceStyles.INDENT_X + InterfaceStyles.LABEL_LENGTH_PORT, INDENT_Y_LAYER2,
+                InterfaceStyles.TEXT_AREA_LENGTH_PORT, InterfaceStyles.MENU_TEXT_FIELD_HEIGHT, "25566");
         add(textAreaFieldPort);
 
-        add(createLabel("Maximum people:", INDENT_X + LABEL_LENGTH_PORT + TEXT_AREA_LENGTH_PORT + 10, INDENT_Y_LAYER2,
-                LABEL_LENGTH_MAX_PEOPLE, MENU_TEXT_FIELD_HEIGHT));
-        TextAreaField textAreaFieldMaxPeople = createTextAreaFieldWithANumber(INDENT_X + LABEL_LENGTH_PORT + TEXT_AREA_LENGTH_PORT + LABEL_LENGTH_MAX_PEOPLE + 10, INDENT_Y_LAYER2,
-                TEXT_AREA_LENGTH_MAX_PEOPLE, MENU_TEXT_FIELD_HEIGHT, "1");
+        add(MenuGuiComponents.createLabel("Maximum people:", InterfaceStyles.INDENT_X + InterfaceStyles.LABEL_LENGTH_PORT + InterfaceStyles.TEXT_AREA_LENGTH_PORT + 10, INDENT_Y_LAYER2,
+                InterfaceStyles.LABEL_LENGTH_MAX_PEOPLE, InterfaceStyles.MENU_TEXT_FIELD_HEIGHT));
+        TextAreaField textAreaFieldMaxPeople = MenuGuiComponents.createTextAreaFieldWithANumber(InterfaceStyles.INDENT_X + InterfaceStyles.LABEL_LENGTH_PORT + InterfaceStyles.TEXT_AREA_LENGTH_PORT + InterfaceStyles.LABEL_LENGTH_MAX_PEOPLE + 10, INDENT_Y_LAYER2,
+                InterfaceStyles.TEXT_AREA_LENGTH_MAX_PEOPLE, InterfaceStyles.MENU_TEXT_FIELD_HEIGHT, "1");
         add(textAreaFieldMaxPeople);
 
-        add(createButton("Back to menu", INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class)));
-        add(createButton("Create a game", MAIN_PANEL_WIDTH - BUTTON_WIDTH - INDENT_X, MAIN_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
-                BUTTON_WIDTH, BUTTON_HEIGHT, getMouseReleaseListener(() -> connectToServer(
+        add(MenuGuiComponents.createButton("Back to menu", InterfaceStyles.INDENT_X, MAIN_PANEL_HEIGHT - InterfaceStyles.BUTTON_HEIGHT - InterfaceStyles.INDENT_Y,
+                InterfaceStyles.BUTTON_WIDTH, InterfaceStyles.BUTTON_HEIGHT, getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class)));
+        add(MenuGuiComponents.createButton("Create a game", MAIN_PANEL_WIDTH - InterfaceStyles.BUTTON_WIDTH - InterfaceStyles.INDENT_X, MAIN_PANEL_HEIGHT - InterfaceStyles.BUTTON_HEIGHT - InterfaceStyles.INDENT_Y,
+                InterfaceStyles.BUTTON_WIDTH, InterfaceStyles.BUTTON_HEIGHT, getMouseReleaseListener(() -> connectToServer(
                         textAreaFieldPort.getTextState().getText(),
                         textAreaFieldMaxPeople.getTextState().getText())
                 )));
     }
 
     private void connectToServer(String port, String maxPeople) {
-        LabelGuiPanel connectedGuiPanel = createLabelPanel("Connected players: ",
-                CONNECTED_PLAYERS_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT);
+        MenuGuiComponents.LabelGuiPanel connectedGuiPanel = MenuGuiComponents.createLabelPanel("Connected players: ",
+                InterfaceStyles.CONNECTED_PLAYERS_ELEMENT_WIDTH, InterfaceStyles.CONNECTING_ELEMENT_HEIGHT);
         BlockingGuiService.GuiBlock frameBlock = getBlockingGuiService()
                 .createGuiBlock(getFrame().getContainer());
         getGuiService().moveComponentToWindowCenter(connectedGuiPanel.panel());
@@ -77,7 +75,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
     }
 
     private void addButtonGuiPanelWithUnblock(String text, BlockingGuiService.GuiBlock guiBlock) {
-        Panel panel = createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
+        Panel panel = MenuGuiComponents.createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
         getGuiService().moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }
@@ -100,16 +98,12 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
     }
 
     //TODO упростить в системе компонент новой
-    public class ConnectedPlayersUpdater extends Component implements Updatable {
+    public static class ConnectedPlayersUpdater extends Component implements Updatable {
 
         private final Label label;
 
         public ConnectedPlayersUpdater(Label label) {
             this.label = label;
-        }
-        @Override
-        public Class getComponentClass() {
-            return ConnectedPlayersUpdater.class;
         }
 
         @Override
@@ -117,5 +111,9 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
             label.getTextState().setText("Connected players: " + GameServer.peopleNow + "/" + GameServer.peopleMax);
         }
 
+        @Override
+        public Class<? extends Component> getComponentClass() {
+            return ConnectedPlayersUpdater.class;
+        }
     }
 }

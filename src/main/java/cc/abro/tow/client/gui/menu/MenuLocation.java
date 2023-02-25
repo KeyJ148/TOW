@@ -1,4 +1,4 @@
-package cc.abro.tow.client.menu;
+package cc.abro.tow.client.gui.menu;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Render;
@@ -7,12 +7,10 @@ import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.GameLocation;
-import cc.abro.tow.client.menu.panels.FirstEntryGuiPanel;
-import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
-import cc.abro.tow.client.menu.panels.TextureMenuGuiPanel;
-import cc.abro.tow.client.menu.panels.ZeroRuleGuiPanel;
-
-import static cc.abro.tow.client.menu.InterfaceStyles.*;
+import cc.abro.tow.client.gui.menu.panels.FirstEntryGuiPanel;
+import cc.abro.tow.client.gui.menu.panels.MainMenuGuiPanel;
+import cc.abro.tow.client.gui.menu.panels.TextureMenuGuiPanel;
+import cc.abro.tow.client.gui.menu.panels.ZeroRuleGuiPanel;
 
 public class MenuLocation extends GameLocation {
 
@@ -30,12 +28,12 @@ public class MenuLocation extends GameLocation {
         Texture logoTexture = Context.getService(SpriteStorage.class).getSprite("logo").texture();
         TextureMenuGuiPanel logoMenuGuiPanel = new TextureMenuGuiPanel(logoTexture);
         logoMenuGuiPanel.setPosition((Context.getService(Render.class).getWidth() - logoTexture.getWidth())/2,
-                INDENT_Y);
+                InterfaceStyles.INDENT_Y);
         getGuiLocationFrame().getGuiFrame().getContainer().add(logoMenuGuiPanel);
 
         ZeroRuleGuiPanel zeroRuleGuiPanel = new ZeroRuleGuiPanel();
-        zeroRuleGuiPanel.setPosition(Context.getService(Render.class).getWidth() - LABEL_LENGTH_ZERO_RULE - INDENT_X,
-                Context.getService(Render.class).getHeight() - LABEL_HEIGHT_ZERO_RULE - INDENT_Y/2);
+        zeroRuleGuiPanel.setPosition(Context.getService(Render.class).getWidth() - InterfaceStyles.LABEL_LENGTH_ZERO_RULE - InterfaceStyles.INDENT_X,
+                Context.getService(Render.class).getHeight() - InterfaceStyles.LABEL_HEIGHT_ZERO_RULE - InterfaceStyles.INDENT_Y/2);
         getGuiLocationFrame().getGuiFrame().getContainer().add(zeroRuleGuiPanel);
 
         if (!createFirstEntryPanel) {

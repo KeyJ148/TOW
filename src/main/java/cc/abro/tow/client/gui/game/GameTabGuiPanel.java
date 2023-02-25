@@ -1,4 +1,4 @@
-package cc.abro.tow.client;
+package cc.abro.tow.client.gui.game;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Render;
@@ -21,9 +21,8 @@ import org.liquidengine.legui.style.shadow.Shadow;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cc.abro.tow.client.menu.InterfaceStyles.*;
+import static cc.abro.tow.client.gui.menu.InterfaceStyles.*;
 
-//TODO мб в другой пакет? Но это не наследник MenuGuiPanel
 public class GameTabGuiPanel extends Panel {
 
     private static final float A = (float) 230/255;
