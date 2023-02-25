@@ -11,7 +11,12 @@ import java.util.Map;
 @EngineService
 public class SpriteStorage {
 
+    private final SpriteLoader spriteLoader;
     private final Map<String, Sprite> spriteByName = new HashMap<>();
+
+    public SpriteStorage(SpriteLoader spriteLoader) {
+        this.spriteLoader = spriteLoader;
+    }
 
     public void loadSprites(List<SpriteContainer> spriteContainers) {
         for (SpriteContainer spriteContainer : spriteContainers) {
@@ -20,7 +25,7 @@ public class SpriteStorage {
                 throw new IllegalStateException("Sprite \"" + spriteContainer.name + "\" already exists");
             }
 
-            spriteByName.put(spriteContainer.name, SpriteLoader.getSprite(spriteContainer.texturePath, spriteContainer.maskPath));
+            spriteByName.put(spriteContainer.name, spriteLoader.getSprite(spriteContainer.texturePath, spriteContainer.maskPath));
         }
     }
 

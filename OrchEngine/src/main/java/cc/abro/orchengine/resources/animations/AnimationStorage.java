@@ -1,37 +1,31 @@
 package cc.abro.orchengine.resources.animations;
 
 import cc.abro.orchengine.context.EngineService;
-import cc.abro.orchengine.exceptions.EngineException;
-import cc.abro.orchengine.resources.JsonContainerLoader;
 import lombok.extern.log4j.Log4j2;
 
-import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Log4j2
 @EngineService
 public class AnimationStorage {
 
-    private static final String CONFIG_PATH = "configs/animation.json";
+    private final AnimationLoader animationLoader;
+    private final Map<String, Animation> animationByName = new HashMap<>();
 
-    private Map<String, Animation> animationByName = new HashMap<>();
+    public AnimationStorage(AnimationLoader animationLoader) {
+        this.animationLoader = animationLoader;
+    }
 
-    public AnimationStorage() {
-        try {
-            AnimationContainer[] animationContainers = JsonContainerLoader.loadInternalFile(AnimationContainer[].class, CONFIG_PATH);
-
-            for (AnimationContainer animationContainer : animationContainers) {
-                if (animationByName.containsKey(animationContainer.name)) {
-                    log.error("Animation \"" + animationContainer.name + "\" already exists");
-                    throw new IllegalStateException("Animation \"" + animationContainer.name + "\" already exists");
-                }
-
-                animationByName.put(animationContainer.name, AnimationLoader.getAnimation(animationContainer.texturePaths, animationContainer.maskPath));
+    public void loadAnimations(List<AnimationContainer> animationContainers) {
+        for (AnimationContainer animationContainer : animationContainers) {
+            if (animationByName.containsKey(animationContainer.name)) {
+                log.error("Animation \"" + animationContainer.name + "\" already exists");
+                throw new IllegalStateException("Animation \"" + animationContainer.name + "\" already exists");
             }
-        } catch (IOException e) {
-            log.error("Error loading animation", e);
-            throw new EngineException(e);
+
+            animationByName.put(animationContainer.name, animationLoader.getAnimation(animationContainer.texturePaths, animationContainer.maskPath));
         }
     }
 
@@ -44,7 +38,7 @@ public class AnimationStorage {
         return animationByName.get(name);
     }
 
-    private record AnimationContainer(String name, String[] texturePaths, String maskPath) {
+    public record AnimationContainer(String name, String[] texturePaths, String maskPath) {
     }
 
 }

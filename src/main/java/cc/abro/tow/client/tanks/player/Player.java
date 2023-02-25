@@ -25,7 +25,7 @@ import org.liquidengine.legui.style.color.ColorConstants;
 
 import java.util.ArrayList;
 
-import static cc.abro.tow.client.menu.InterfaceStyles.BLACK_COLOR;
+import static cc.abro.tow.client.gui.menu.InterfaceStyles.BLACK_COLOR;
 
 public class Player extends Tank {
 
@@ -111,8 +111,7 @@ public class Player extends Tank {
             buttonsTake[i].getStyle().setBackground(buttonsBackground[i]);
             buttonsTake[i].setSize(15, 15);
             buttonsTake[i].setPosition(17 * i, getRender().getHeight() - 15);
-            getLocationManager().getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(buttonsTake[i]);
-            //TODO getComponent(Position.class) вместо Manager.getService(LocationManager.class).getActiveLocation(), но это конструктор
+            getLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(buttonsTake[i]);
         }
     }
 

@@ -9,23 +9,20 @@ import java.util.List;
 
 public class Border extends GameObject {
 
-    public Border(Location location, BorderData borderData) {
+    public Border(Location location, Type type, int size) {
         super(location);
+        BorderData borderData = type.getBorderData(location.getWidth(), location.getHeight(), size);
         setPosition(borderData.x, borderData.y);
         //Путь должен быть, иначе mask выкинет ошибку при парсе;
         addComponent(new Collision(MaskLoader.createDefaultMask(borderData.w, borderData.h)));
     }
 
-    private static Border createOne(Location location, Type type, int size) {
-        return new Border(location, type.getBorderData(location.getWidth(), location.getHeight(), size));
-    }
-
     public static List<Border> createAll(Location location, int size) {
         return List.of(
-            createOne(location, Type.NORTH, size),
-            createOne(location, Type.EAST, size),
-            createOne(location, Type.SOUTH, size),
-            createOne(location, Type.WEST, size)
+            new Border(location, Type.NORTH, size),
+            new Border(location, Type.EAST, size),
+            new Border(location, Type.SOUTH, size),
+            new Border(location, Type.WEST, size)
         );
     }
 

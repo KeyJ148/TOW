@@ -8,7 +8,7 @@ import cc.abro.orchengine.net.client.PingChecker;
 import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.GameLocation;
-import cc.abro.tow.client.GameTabGuiPanel;
+import cc.abro.tow.client.gui.game.GameTabGuiPanel;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;
 import cc.abro.tow.client.map.specification.MapSpecification;
 
@@ -45,7 +45,7 @@ public class BattleLocation extends GameLocation {
     }
 
     //TODO в отдельный класс или упростить в новой системе компонент
-    public class TabPanelComponent extends Component implements Updatable {
+    public static class TabPanelComponent extends Component implements Updatable {
 
         private final GameTabGuiPanel gameTabGuiPanel;
 
@@ -55,9 +55,11 @@ public class BattleLocation extends GameLocation {
 
         @Override
         public void update(long delta) {
+            org.liquidengine.legui.component.Component frameContainer =
+                    getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer();
             if (Context.getService(ClientData.class).showGameTabMenu) {
-                if (!getGuiLocationFrame().getGuiFrame().getContainer().contains(gameTabGuiPanel)) {
-                    getGuiLocationFrame().getGuiFrame().getContainer().add(gameTabGuiPanel);
+                if (!frameContainer.contains(gameTabGuiPanel)) {
+                    frameContainer.add(gameTabGuiPanel);
                     gameTabGuiPanel.changeSize();
                 }
                 int ping = Context.getService(PingChecker.class).getPing();
@@ -70,13 +72,8 @@ public class BattleLocation extends GameLocation {
                         .collect(Collectors.toList());
                 gameTabGuiPanel.fillInTable(data);
             } else {
-                getGuiLocationFrame().getGuiFrame().getContainer().remove(gameTabGuiPanel);
+                frameContainer.remove(gameTabGuiPanel);
             }
-        }
-
-        @Override
-        public Class getComponentClass() {
-            return TabPanelComponent.class;
         }
     }
 }

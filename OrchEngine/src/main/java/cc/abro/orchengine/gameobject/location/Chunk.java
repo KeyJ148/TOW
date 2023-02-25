@@ -1,6 +1,5 @@
 package cc.abro.orchengine.gameobject.location;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,9 +20,7 @@ public class Chunk<T> {
     }
 
     public void runForAll(Consumer<T> runnable) {
-        //Делаем копию сета, иначе получаем ConcurrentModificationException,
-        //т.к. во время апдейта можно создать новый объект и этот объект будет помещен в сет
-        new ArrayList<>(objects).forEach(runnable);  //TODO в подобных местах использовать Collections.unmodifiableSet() ?
+        objects.forEach(runnable);
     }
 
     @Deprecated

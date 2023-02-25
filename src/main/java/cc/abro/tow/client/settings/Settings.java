@@ -28,7 +28,7 @@ public class Settings {
 
     @Data
     public static class Volume {
-        private double musicVolume = 50.0;
-        private double soundVolume = 50.0;
+        private int musicVolume = 50;
+        private int soundVolume = 50;
     }
 }

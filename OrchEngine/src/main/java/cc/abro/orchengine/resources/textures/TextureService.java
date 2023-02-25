@@ -1,6 +1,7 @@
 package cc.abro.orchengine.resources.textures;
 
 import cc.abro.orchengine.context.EngineService;
+import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.ResourceLoader;
 import lombok.extern.log4j.Log4j2;
 import org.lwjgl.BufferUtils;
@@ -36,6 +37,21 @@ public class TextureService {
         }
         buffer.flip();
         return buffer;
+    }
+
+    public BufferedImage colorizeImage(BufferedImage image, Color newColor) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int[] pixels = new int[width * height];
+        image.getRGB(0, 0, width, height, pixels, 0, width);
+        Color oldColor = new Color(255, 255, 255, 255);
+        for (int p=0; p<pixels.length; p++) {
+            if (oldColor.getRGB() == pixels[p]){
+                pixels[p] = newColor.getRGB();
+            }
+        }
+        image.setRGB(0, 0, width, height, pixels, 0, width);
+        return image;
     }
 
     public Texture createTexture(BufferedImage image) {

@@ -8,15 +8,16 @@ import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.init.interfaces.GameInterface;
 import cc.abro.orchengine.resources.JsonContainerLoader;
+import cc.abro.orchengine.resources.animations.AnimationStorage;
 import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.tow.client.gui.menu.MenuLocation;
+import cc.abro.tow.client.gui.menu.panels.ConnectByIPMenuGuiPanel;
+import cc.abro.tow.client.gui.menu.panels.CreateGameMenuGuiPanel;
+import cc.abro.tow.client.gui.menu.panels.ListOfServersMenuGuiPanel;
+import cc.abro.tow.client.gui.menu.panels.MainMenuGuiPanel;
 import cc.abro.tow.client.map.factory.MapObjectCreatorsLoader;
-import cc.abro.tow.client.menu.MenuLocation;
-import cc.abro.tow.client.menu.panels.ConnectByIPMenuGuiPanel;
-import cc.abro.tow.client.menu.panels.CreateGameMenuGuiPanel;
-import cc.abro.tow.client.menu.panels.ListOfServersMenuGuiPanel;
-import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
 import cc.abro.tow.client.settings.Settings;
 import cc.abro.tow.client.settings.SettingsService;
 import cc.abro.tow.server.ServerLoader;
@@ -30,6 +31,7 @@ import java.util.Arrays;
 public class Game implements GameInterface {
 
     public static final String SPRITE_CONFIG_PATH = "configs/sprite.json";
+    public static final String ANIMATION_CONFIG_PATH = "configs/animation.json";
     private static final String WINDOW_NAME = "Tanks: Orchestra of war";
 
     private final GuiPanelStorage guiPanelStorage;
@@ -58,6 +60,15 @@ public class Game implements GameInterface {
             Context.getService(SpriteStorage.class).loadSprites(Arrays.stream(spriteContainers).toList());
         } catch (IOException e) {
             log.fatal("Error loading sprites", e);
+            throw new RuntimeException(e);
+        }
+
+        try {
+            AnimationStorage.AnimationContainer[] animationContainers = JsonContainerLoader.loadInternalFile(
+                    AnimationStorage.AnimationContainer[].class, ANIMATION_CONFIG_PATH);
+            Context.getService(AnimationStorage.class).loadAnimations(Arrays.stream(animationContainers).toList());
+        } catch (IOException e) {
+            log.fatal("Error loading animations", e);
             throw new RuntimeException(e);
         }
 

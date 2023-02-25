@@ -16,7 +16,7 @@ public class RepeatableSpriteRender extends SpriteRender {
 
     @Override
     public void draw() {
-        Vector2<Double> relativePosition = getGameObject().getRelativePosition(); //TODO заменить все Vector2<Double> на Vector2d из OpenGL, т.к. в них есть математические функции?
+        Vector2<Double> relativePosition = getGameObject().getRelativePosition();
         double xView = relativePosition.x;
         double yView = relativePosition.y;
         double directionDraw = getGameObject().getDirection();

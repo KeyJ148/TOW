@@ -1,7 +1,8 @@
 package cc.abro.orchengine.image;
 
+import cc.abro.orchengine.context.Context;
+import cc.abro.orchengine.services.OpenGlService;
 import org.joml.Vector4f;
-import org.lwjgl.opengl.GL11;
 
 public class Color extends java.awt.Color {
 
@@ -57,10 +58,10 @@ public class Color extends java.awt.Color {
     }
 
     public int[] getRGBArray() {
-        return new int[]{getRed(), getGreen(), getBlue()};
+        return new int[] {getRed(), getGreen(), getBlue()};
     }
 
-    public void bind() { //TODO to service
-        GL11.glColor4f(getFloatRed(), getFloatGreen(), getFloatBlue(), getFloatAlpha());
+    public void bind() {
+        Context.getService(OpenGlService.class).bindColor(this);
     }
 }

@@ -69,7 +69,6 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
         getComponent(Collision.class).addCollisionObjects(new Class[]{
                 CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class, Border.class});
         getComponent(Collision.class).addListener(this);
-        ((CollisionDirect) getComponent(Collision.class)).initialize(); //TODO del?
 
         Context.getService(TCPControl.class).send(13, getData());
         Context.getService(ClientData.class).idNet++;

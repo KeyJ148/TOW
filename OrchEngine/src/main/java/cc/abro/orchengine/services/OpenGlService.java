@@ -1,6 +1,7 @@
 package cc.abro.orchengine.services;
 
 import cc.abro.orchengine.context.EngineService;
+import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureService;
 import cc.abro.orchengine.util.Vector2;
@@ -13,6 +14,10 @@ public class OpenGlService {
 
     public OpenGlService(TextureService textureService) {
         this.textureService = textureService;
+    }
+
+    public void bindColor(Color color) {
+        GL11.glColor4f(color.getFloatRed(), color.getFloatGreen(), color.getFloatBlue(), color.getFloatAlpha());
     }
 
     public void renderTextureGLQuads(float width, float height, Texture texture) {
