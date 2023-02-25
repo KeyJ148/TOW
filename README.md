@@ -9,7 +9,7 @@
 <img src="https://github.com/KeyJ148/TOW/blob/217798b51c5c92f33d487d1c3744cfb83578f53c/1.png" alt="Tanks: Orchestra of War" width="270"/>  <img src="https://github.com/KeyJ148/TOW/blob/217798b51c5c92f33d487d1c3744cfb83578f53c/2.png" alt="Tanks: Orchestra of War" width="270"/>  <img src="https://github.com/KeyJ148/TOW/blob/217798b51c5c92f33d487d1c3744cfb83578f53c/3.png" alt="Tanks: Orchestra of War" width="270"/>
 
 <details>
-  <summary>Скриншоты (большие)</summary>
+  <summary>Скриншоты</summary>
   <img src="https://github.com/KeyJ148/TOW/blob/217798b51c5c92f33d487d1c3744cfb83578f53c/1.png" alt="Tanks: Orchestra of War"/>  
   <img src="https://github.com/KeyJ148/TOW/blob/217798b51c5c92f33d487d1c3744cfb83578f53c/2.png" alt="Tanks: Orchestra of War"/>  
   <img src="https://github.com/KeyJ148/TOW/blob/217798b51c5c92f33d487d1c3744cfb83578f53c/3.png" alt="Tanks: Orchestra of War"/>
