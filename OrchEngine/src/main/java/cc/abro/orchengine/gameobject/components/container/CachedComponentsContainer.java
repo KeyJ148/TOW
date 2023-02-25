@@ -2,6 +2,7 @@ package cc.abro.orchengine.gameobject.components.container;
 
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
+import cc.abro.orchengine.gameobject.components.interfaces.Positionable;
 
 public class CachedComponentsContainer extends ListeningComponentsContainer {
 
@@ -13,6 +14,10 @@ public class CachedComponentsContainer extends ListeningComponentsContainer {
 
     public void draw() {  //TODO запретить Override в наследниках (final). Если надо сделать кастомную логику, то просто создай обычный или анонимный компонент
         componentsCache.getDrawableComponents().forEach(Drawable::draw);
+    }
+
+    public void notifyComponentsAboutUpdatePosition() {
+        componentsCache.getPositionableComponents().forEach(Positionable::notifyListeners);
     }
 
     @Override

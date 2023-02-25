@@ -4,6 +4,7 @@ import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.container.ListeningComponentsContainer.ComponentEvent;
 import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
+import cc.abro.orchengine.gameobject.components.interfaces.Positionable;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.gameobject.location.cache.CollidingObjectsCache;
 import cc.abro.orchengine.gameobject.location.cache.DrawableObjectsCache;
@@ -87,7 +88,7 @@ public class ObjectsContainer {
 
     //TODO методы ниже
     //Проверка и при необходимости обновление объекта при перемещении из чанка в чанк
-    public void updateObjectPosition(GameObject gameObject) {
+    public void updateObjectPosition(Positionable positionable) {
         /* TODO
         drawableObjectsCache.updateObjectPosition();
         collidingObjectsCache.updateObjectPosition();

@@ -9,8 +9,7 @@ public abstract class DrawableComponent extends PositionableComponent implements
     private int z;
 
     public void setZ(int z) {
-        int previousZ = this.z;
         this.z = z;
-        //TODO if gameObj == null ??? getGameObject().getLocation.updateComponentZ(gameObject, previousZ);
+        notifyListeners();
     }
 }

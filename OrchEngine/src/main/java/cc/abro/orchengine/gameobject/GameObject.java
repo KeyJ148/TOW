@@ -1,15 +1,13 @@
 package cc.abro.orchengine.gameobject;
 
 import cc.abro.orchengine.gameobject.components.container.CachedComponentsContainer;
-import cc.abro.orchengine.gameobject.components.interfaces.Positionable;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
 
 import java.util.Collection;
 import java.util.Collections;
 
-public class GameObject extends CachedComponentsContainer implements Positionable {
-
+public class GameObject extends CachedComponentsContainer {
     @Getter
     private final Location location;
     @Getter
@@ -57,14 +55,18 @@ public class GameObject extends CachedComponentsContainer implements Positionabl
         return getLocation().getCamera().toRelativePosition(getPosition());
     }
 
+    public Vector2<Double> getPosition() {
+        return new Vector2<>(getX(), getY());
+    }
+
     public void setX(double x) {
         this.x = x;
-        getLocation().updateObjectPosition(this);
+        notifyComponentsAboutUpdatePosition();
     }
 
     public void setY(double y) {
         this.y = y;
-        getLocation().updateObjectPosition(this);
+        notifyComponentsAboutUpdatePosition();
     }
 
     public void setPosition(Vector2<Double> position) {
@@ -74,7 +76,7 @@ public class GameObject extends CachedComponentsContainer implements Positionabl
     public void setPosition(double x, double y) {
         this.x = x;
         this.y = y;
-        getLocation().updateObjectPosition(this);
+        notifyComponentsAboutUpdatePosition();
     }
 
     public void setDirection(double direction) {
