@@ -1,9 +1,7 @@
 package cc.abro.orchengine.gameobject.components;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.masks.Mask;
 import cc.abro.orchengine.util.Vector2;
@@ -61,7 +59,7 @@ public class CollisionDirect extends Collision {
         GL11.glLoadIdentity();
         Color.BLUE.bind();
 
-        Vector2<Double> relativePosition = Context.getService(LocationManager.class)
+        Vector2<Double> relativePosition = getLocationManager()
                 .getActiveLocation()
                 .getCamera()
                 .toRelativePosition(new Vector2<>((double) positionCollision.x - 10, (double) positionCollision.y - 10));
@@ -84,7 +82,7 @@ public class CollisionDirect extends Collision {
     //Поиск в общем массиве id, которые динамичны и сталкиваются с этим объектом
     //Также поиск статичных объектов для проверки столкновения при помощи траектории
     private void separationCollisions() {
-        for (GameObject gameObjectFromRoom : Context.getService(LocationManager.class).getActiveLocation().getObjects()) {//Цикл перебора объектов в локации
+        for (GameObject gameObjectFromRoom : getLocationManager().getActiveLocation().getObjects()) {//Цикл перебора объектов в локации
             if (gameObjectFromRoom != null && gameObjectFromRoom.hasComponent(Collision.class)) {//Если объект не был уничтожен и у него есть маска
                 for (Class collisionObject : collisionObjects) {//Цикл перебора объектов с которыми надо проверять столкновения
                     if (gameObjectFromRoom.getClass().equals(collisionObject)) {//Если с объектом из локации надо проверять столкновения
@@ -97,7 +95,7 @@ public class CollisionDirect extends Collision {
         }
 
         //TODO должен проверять столкновения с новодобовляемыми объектами, мб сделать через листенер
-        //this.start = Context.getService(LocationManager.class).getActiveLocation().getMap().getObjectsVectorSize();
+        //this.start = getLocationManager().getActiveLocation().getMap().getObjectsVectorSize();
     }
 
     //Расчёт столкновения прямолинейно перемещающегося объекта с статичным объектом obj

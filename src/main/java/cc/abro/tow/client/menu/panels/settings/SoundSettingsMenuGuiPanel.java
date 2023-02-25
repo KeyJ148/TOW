@@ -3,7 +3,6 @@ package cc.abro.tow.client.menu.panels.settings;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.gui.tabpanel.TabPanel;
-import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
@@ -61,7 +60,7 @@ public class SoundSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRele
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
                 BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
-                    BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
+                    BlockingGuiService.GuiBlock guiBlock = getBlockingGuiService().createGuiBlock(getFrame().getContainer());
                     if(isChanged()) {
                         addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes.",
                                 new ButtonConfiguration("Back to menu", getMouseReleaseListener(buttonEvent -> {
@@ -95,7 +94,7 @@ public class SoundSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRele
 
         canOut = (to -> {
             if(isChanged()) {
-                BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
+                BlockingGuiService.GuiBlock guiBlock = getBlockingGuiService().createGuiBlock(getFrame().getContainer());
                 addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes.",
                         new ButtonConfiguration("Switch without saving", event -> {
                             getUnblockAndParentDestroyReleaseListener(guiBlock).process(event);
@@ -159,7 +158,7 @@ public class SoundSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRele
     }
 
     private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {
-        BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
+        BlockingGuiService.GuiBlock guiBlock = getBlockingGuiService().createGuiBlock(getFrame().getContainer());
         Panel panel = createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
         Context.getService(GuiService.class).moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);

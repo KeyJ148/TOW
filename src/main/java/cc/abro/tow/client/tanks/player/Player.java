@@ -1,10 +1,8 @@
 package cc.abro.tow.client.tanks.player;
 
 import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
-import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
@@ -85,7 +83,7 @@ public class Player extends Tank {
         hpLabel.getStyle().setFontSize(30f);
         hpLabel.getStyle().setTextColor(BLACK_COLOR);
         hpLabel.setPosition(1, 10);
-        Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(hpLabel);//TODO getComponent(Position.class)
+        getLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(hpLabel);
 
         statsLabel = new Label[stats.toString().split("\n").length + 4];
         for (int i = 0; i < statsLabel.length; i++) {
@@ -94,7 +92,7 @@ public class Player extends Tank {
             statsLabel[i].getStyle().setFontSize(17f);
             statsLabel[i].getStyle().setTextColor(BLACK_COLOR);
             statsLabel[i].setPosition(1, 30 + i * 15);
-            Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(statsLabel[i]);//TODO getComponent(Position.class)
+            getLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(statsLabel[i]);
         }
 
         //Создание кнопок для отключения подбора снаряжения
@@ -112,8 +110,8 @@ public class Player extends Tank {
             buttonsTake[i].getStyle().setBorder(buttonTakeBorder);
             buttonsTake[i].getStyle().setBackground(buttonsBackground[i]);
             buttonsTake[i].setSize(15, 15);
-            buttonsTake[i].setPosition(17 * i, Context.getService(Render.class).getHeight() - 15);
-            Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(buttonsTake[i]);
+            buttonsTake[i].setPosition(17 * i, getRender().getHeight() - 15);
+            getLocationManager().getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(buttonsTake[i]);
             //TODO getComponent(Position.class) вместо Manager.getService(LocationManager.class).getActiveLocation(), но это конструктор
         }
     }

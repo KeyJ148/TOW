@@ -3,7 +3,6 @@ package cc.abro.tow.client;
 import cc.abro.orchengine.analysis.AnalysisStringBuilder;
 import cc.abro.orchengine.analysis.Analyzer;
 import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
@@ -24,7 +23,7 @@ public class GameLocation extends Location {
     protected void addDebugPanel(int positionX) {
         DebugInfoGuiPanel debugGuiPanel = new DebugInfoGuiPanel(AnalysisStringBuilder.STRING_COUNT);
         debugGuiPanel.setPosition(positionX,
-                Context.getService(Render.class).getHeight() - AnalysisStringBuilder.STRING_COUNT*LABEL_HEIGHT_DEBUG);
+                getRender().getHeight() - AnalysisStringBuilder.STRING_COUNT*LABEL_HEIGHT_DEBUG);
         getGuiLocationFrame().getGuiFrame().getContainer().add(debugGuiPanel);
 
         DebugInfoComponent debugInfoComponent = new DebugInfoComponent(debugGuiPanel);

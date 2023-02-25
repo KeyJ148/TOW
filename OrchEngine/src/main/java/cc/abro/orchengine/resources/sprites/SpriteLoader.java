@@ -5,10 +5,12 @@ import cc.abro.orchengine.resources.masks.Mask;
 import cc.abro.orchengine.resources.masks.MaskLoader;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureService;
+import lombok.experimental.UtilityClass;
 
+@UtilityClass //TODO it is service, not utility class, because use TextureService
 public class SpriteLoader {
 
-    public static Sprite getSprite(String texturePath, String maskPath) {
+    public Sprite getSprite(String texturePath, String maskPath) {
         Texture texture = Context.getService(TextureService.class).getTexture(texturePath);
         Mask mask = (maskPath != null) ?
                 MaskLoader.getMask(maskPath, texture.getWidth(), texture.getHeight()) :

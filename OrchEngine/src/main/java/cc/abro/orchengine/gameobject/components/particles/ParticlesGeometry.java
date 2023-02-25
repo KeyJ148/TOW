@@ -1,7 +1,5 @@
 package cc.abro.orchengine.gameobject.components.particles;
 
-import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.util.Vector2;
 import org.lwjgl.opengl.GL11;
 
@@ -13,7 +11,7 @@ public class ParticlesGeometry extends Particles {
 
         for (Part part : parts) {
             part.color.bind();
-            Vector2<Double> relativePosition = Context.getService(LocationManager.class)
+            Vector2<Double> relativePosition = getLocationManager()
                     .getActiveLocation()
                     .getCamera()
                     .toRelativePosition(new Vector2<>(part.x, part.y));

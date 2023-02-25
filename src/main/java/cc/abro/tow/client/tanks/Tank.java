@@ -10,8 +10,6 @@ import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.image.Color;
-import cc.abro.orchengine.resources.audios.AudioService;
-import cc.abro.orchengine.resources.audios.AudioStorage;
 import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.ClientData;
@@ -42,7 +40,7 @@ public abstract class Tank extends GameObject {
 
     public Tank(Location location) {
         super(location, 0, 0);
-        locationManager = Context.getService(LocationManager.class);
+        locationManager = getLocationManager();
         initCamera();
     }
 
@@ -103,7 +101,7 @@ public abstract class Tank extends GameObject {
         }
 
         locationManager.getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().remove(nickname);
-        Context.getService(AudioService.class).playSoundEffect(Context.getService(AudioStorage.class).getAudio("explosion"), (int) getX(), (int) getY(), GameSetting.SOUND_RANGE);
+        getAudioService().playSoundEffect(getAudioStorage().getAudio("explosion"), (int) getX(), (int) getY(), GameSetting.SOUND_RANGE);
     }
 
     public void replaceArmor(GameObject newArmor) {

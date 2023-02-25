@@ -1,15 +1,15 @@
 package cc.abro.orchengine.gameobject;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.LeguiRender;
 import cc.abro.orchengine.input.keyboard.KeyboardHandler;
 import cc.abro.orchengine.input.mouse.MouseHandler;
+import cc.abro.orchengine.services.ServiceConsumer;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.liquidengine.legui.component.Frame;
 
-public class GuiLocationFrame {
+public class GuiLocationFrame implements ServiceConsumer {
 
     private final LeguiRender leguiRender;
 
@@ -23,7 +23,7 @@ public class GuiLocationFrame {
     private MouseHandler mouse; //Объект хранящий события мыши и рисующий курсор на экране
 
     public GuiLocationFrame() {
-        leguiRender = Context.getService(LeguiRender.class);
+        leguiRender = getLeguiRender();
         guiFrame = leguiRender.createFrame();
     }
 

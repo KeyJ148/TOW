@@ -1,12 +1,10 @@
 package cc.abro.tow.client.tanks.enemy;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
-import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.tow.client.particles.Explosion;
@@ -29,7 +27,7 @@ public class EnemyBullet extends GameObject {
 		this.idEnemy = idEnemy;
 		this.idNet = idNet;
 
-		if (texture.equals(Context.getService(SpriteStorage.class).getSprite("b_streamlined").texture())) {
+		if (texture.equals(getSpriteStorage().getSprite("b_streamlined").texture())) {
 			getComponent(Movement.class).directionDrawEquals = true;
 			setDirection(0);
 		} else {

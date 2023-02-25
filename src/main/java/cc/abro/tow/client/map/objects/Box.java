@@ -7,10 +7,7 @@ import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
-import cc.abro.orchengine.resources.audios.AudioService;
-import cc.abro.orchengine.resources.audios.AudioStorage;
 import cc.abro.orchengine.resources.sprites.Sprite;
-import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.tow.client.GameSetting;
 import cc.abro.tow.client.tanks.equipment.EquipManager;
 import cc.abro.tow.client.tanks.player.Player;
@@ -34,7 +31,7 @@ public class Box extends GameObject {
 			default -> "error";
 		};
 
-		Sprite sprite = Context.getService(SpriteStorage.class).getSprite(nameBox);
+		Sprite sprite = getSpriteStorage().getSprite(nameBox);
 		addComponent(new SpriteRender(sprite.texture(), 1000));
 		addComponent(new Collision(sprite.mask()));
 	}
@@ -68,7 +65,7 @@ public class Box extends GameObject {
 
 		Context.getService(TCPControl.class).send(21, String.valueOf(idBox));
 
-		Context.getService(AudioService.class).playSoundEffect(Context.getService(AudioStorage.class).getAudio(soundName), (int) getX(), (int) getY(), GameSetting.SOUND_RANGE);
+		getAudioService().playSoundEffect(getAudioStorage().getAudio(soundName), (int) getX(), (int) getY(), GameSetting.SOUND_RANGE);
 		Context.getService(TCPControl.class).send(25, (int) getX() + " " + (int) getY() + " " + soundName);
 	}
 }

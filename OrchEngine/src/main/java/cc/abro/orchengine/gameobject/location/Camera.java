@@ -1,9 +1,7 @@
 package cc.abro.orchengine.gameobject.location;
 
-import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.gameobject.LocationManager;
+import cc.abro.orchengine.services.ServiceConsumer;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +11,7 @@ import java.util.Optional;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-public class Camera {
+public class Camera implements ServiceConsumer {
 
     //Абсолютная позиция камеры в локации, отрисовка происходит вокруг этой позиции
     @Setter
@@ -49,8 +47,8 @@ public class Camera {
     //Преобразует координаты относительно угла карты в координаты относительно угла экрана (области видимости камеры)
     public Vector2<Double> toRelativePosition(Vector2<Double> absolutePosition) {
         Vector2<Double> relativePosition = new Vector2<>();
-        relativePosition.x = Context.getService(Render.class).getWidth() / 2 - (getX() - absolutePosition.x);
-        relativePosition.y = Context.getService(Render.class).getHeight() / 2 - (getY() - absolutePosition.y);
+        relativePosition.x = getRender().getWidth() / 2 - (getX() - absolutePosition.x);
+        relativePosition.y = getRender().getHeight() / 2 - (getY() - absolutePosition.y);
 
         return relativePosition;
     }
@@ -58,8 +56,8 @@ public class Camera {
     //Преобразует координаты относительно угла экрана (области видимости камеры) в координаты относительно угла карты
     public Vector2<Double> toAbsolutePosition(Vector2<Double> relativePosition) {
         Vector2<Double> absolutePosition = new Vector2<>();
-        absolutePosition.x = getX() - Context.getService(Render.class).getWidth() / 2 + relativePosition.x;
-        absolutePosition.y = getY() - Context.getService(Render.class).getHeight() / 2 + relativePosition.y;
+        absolutePosition.x = getX() - getRender().getWidth() / 2 + relativePosition.x;
+        absolutePosition.y = getY() - getRender().getHeight() / 2 + relativePosition.y;
 
         return absolutePosition;
     }
@@ -76,10 +74,10 @@ public class Camera {
 
     //Расчёт текущей позиции
     private void calcPosition() {
-        int width = Context.getService(Render.class).getWidth();
-        int height = Context.getService(Render.class).getHeight();
-        int widthMap = Context.getService(LocationManager.class).getActiveLocation().getWidth();
-        int heightMap = Context.getService(LocationManager.class).getActiveLocation().getHeight();
+        int width = getRender().getWidth();
+        int height = getRender().getHeight();
+        int widthMap = getLocationManager().getActiveLocation().getWidth();
+        int heightMap = getLocationManager().getActiveLocation().getHeight();
 
         if (hasFollowObject()) {
             x = followObject.getX();

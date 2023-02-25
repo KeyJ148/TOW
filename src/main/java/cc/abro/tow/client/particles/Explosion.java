@@ -1,10 +1,8 @@
 package cc.abro.tow.client.particles;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.components.particles.Part;
 import cc.abro.orchengine.gameobject.components.particles.ParticlesTexture;
 import cc.abro.orchengine.image.Color;
-import cc.abro.orchengine.resources.sprites.SpriteStorage;
 
 import java.util.Random;
 
@@ -22,7 +20,7 @@ public class Explosion extends ParticlesTexture {
         if (size > 70) count = size * 3;
         for (int i = 0; i < count; i++) {
             Part part = new Part();
-            part.texture = Context.getService(SpriteStorage.class).getSprite("part_ball").texture();
+            part.texture = getSpriteStorage().getSprite("part_ball").texture();
             part.x = getGameObject().getX();
             part.y = getGameObject().getY();
             part.direction = getGameObject().getDirection() + rand.nextInt(360);

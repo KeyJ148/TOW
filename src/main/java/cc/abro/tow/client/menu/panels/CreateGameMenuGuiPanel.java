@@ -2,7 +2,6 @@ package cc.abro.tow.client.menu.panels;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
-import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.net.server.GameServer;
@@ -55,13 +54,13 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
     private void connectToServer(String port, String maxPeople) {
         LabelGuiPanel connectedGuiPanel = createLabelPanel("Connected players: ",
                 CONNECTED_PLAYERS_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT);
-        BlockingGuiService.GuiBlock frameBlock = Context.getService(BlockingGuiService.class)
+        BlockingGuiService.GuiBlock frameBlock = getBlockingGuiService()
                 .createGuiBlock(getFrame().getContainer());
         Context.getService(GuiService.class).moveComponentToWindowCenter(connectedGuiPanel.panel());
         getFrame().getContainer().add(connectedGuiPanel.panel());
 
         ConnectedPlayersUpdater connectedPlayersUpdater = new ConnectedPlayersUpdater(connectedGuiPanel.label());
-        GameObjectFactory.create(Context.getService(LocationManager.class).getActiveLocation(), connectedPlayersUpdater);
+        GameObjectFactory.create(getLocationManager().getActiveLocation(), connectedPlayersUpdater);
         try {
             Context.getService(CreateServerService.class).createServer(port,
                     Integer.parseInt(maxPeople));

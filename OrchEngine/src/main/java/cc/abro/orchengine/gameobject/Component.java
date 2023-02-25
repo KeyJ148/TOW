@@ -1,8 +1,9 @@
 package cc.abro.orchengine.gameobject;
 
+import cc.abro.orchengine.services.ServiceConsumer;
 import lombok.Getter;
 
-public abstract class Component {
+public abstract class Component implements ServiceConsumer {
 
     @Getter
     private GameObject gameObject;

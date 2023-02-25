@@ -47,7 +47,7 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel implements MouseReleas
         Panel connectingGuiPanel = createLabelPanel("Connecting...",
                 CONNECTING_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT).panel();
         Context.getService(GuiService.class).moveComponentToWindowCenter(connectingGuiPanel);
-        BlockingGuiService.GuiBlock frameBlock = Context.getService(BlockingGuiService.class)
+        BlockingGuiService.GuiBlock frameBlock = getBlockingGuiService()
                 .createGuiBlock(getFrame().getContainer());
         getFrame().getContainer().add(connectingGuiPanel);
 

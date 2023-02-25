@@ -9,8 +9,6 @@ import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.animations.Animation;
-import cc.abro.orchengine.resources.animations.AnimationStorage;
-import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.tow.client.ClientData;
@@ -65,7 +63,7 @@ public class Enemy extends Tank {
 
         //Инициализация брони
         if (armor == null) {
-            Animation armorAnimation = Context.getService(AnimationStorage.class).getAnimation("a_default");
+            Animation armorAnimation = getAnimationStorage().getAnimation("a_default");
             armor = new EnemyArmor(x, y, direction, 1000, armorAnimation, this);
             setColorArmor(color);
 
@@ -75,7 +73,7 @@ public class Enemy extends Tank {
 
         //Инициализация пушки
         if (gun == null) {
-            Texture gunTexture = Context.getService(SpriteStorage.class).getSprite("g_default").texture();
+            Texture gunTexture = getSpriteStorage().getSprite("g_default").texture();
             gun = GameObjectFactory.create(getLocation(), x, y, 2000, directionGun, gunTexture);
             gun.addComponent(new Movement());
             gun.getComponent(Movement.class).directionDrawEquals = false;
@@ -109,14 +107,14 @@ public class Enemy extends Tank {
     public void newArmor(String nameArmor) {
         if (armor == null) return;
 
-        armor.addComponent(new AnimationRender(Context.getService(AnimationStorage.class).getAnimation(nameArmor).textures(), 1100));
+        armor.addComponent(new AnimationRender(getAnimationStorage().getAnimation(nameArmor).textures(), 1100));
         setColorArmor(color);
     }
 
     public void newGun(String nameGun) {
         if (gun == null) return;
 
-        gun.addComponent(new SpriteRender(Context.getService(SpriteStorage.class).getSprite(nameGun).texture(), 2100));
+        gun.addComponent(new SpriteRender(getSpriteStorage().getSprite(nameGun).texture(), 2100));
         setColorGun(color);
     }
 }

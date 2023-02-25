@@ -1,12 +1,11 @@
 package cc.abro.orchengine.gameobject.components;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.masks.Mask;
+import cc.abro.orchengine.services.ServiceConsumer;
 import cc.abro.orchengine.util.Vector2;
 import org.lwjgl.opengl.GL11;
 
@@ -14,7 +13,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Collision extends cc.abro.orchengine.gameobject.components.PositionableComponent implements Updatable, Drawable {
+public class Collision extends cc.abro.orchengine.gameobject.components.PositionableComponent implements Updatable, Drawable, ServiceConsumer {
     public static final boolean MASK_DRAW = false; //TODO вынести в настройки через какой-нибудь сервис
 
     private final Mask mask;//Маска для текстуры этого объекта
@@ -46,7 +45,7 @@ public class Collision extends cc.abro.orchengine.gameobject.components.Position
 
         Vector2<Double>[] maskDrawView = new Vector2[maskAbsolute.length];
         for (int i = 0; i < maskDrawView.length; i++)
-            maskDrawView[i] = Context.getService(LocationManager.class).getActiveLocation().getCamera().toRelativePosition(maskAbsolute[i].copy());
+            maskDrawView[i] = getLocationManager().getActiveLocation().getCamera().toRelativePosition(maskAbsolute[i].copy());
 
         GL11.glLoadIdentity();
         Color.BLUE.bind();
@@ -62,7 +61,7 @@ public class Collision extends cc.abro.orchengine.gameobject.components.Position
     public void checkCollisionFromRoom() {
         if (collisionObjects.size() == 0) return;
 
-        for (GameObject objectFromRoom : Context.getService(LocationManager.class).getActiveLocation().getObjects()) {//Цикл перебора всех объектов в локации
+        for (GameObject objectFromRoom : getLocationManager().getActiveLocation().getObjects()) {//Цикл перебора всех объектов в локации
             if (objectFromRoom != null && objectFromRoom.hasComponent(Collision.class)) {//Если объект не был уничтожен и у него есть маска
                 for (Class collisionObject : collisionObjects) { //Цикл перебора объектов, с которыми надо проверять столкновение
                     if ((objectFromRoom.getClass().equals(collisionObject)) //Если с эти объектом надо проверять столкновени

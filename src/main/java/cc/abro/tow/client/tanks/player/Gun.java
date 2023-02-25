@@ -6,7 +6,6 @@ import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
-import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.ConfigReader;
@@ -119,7 +118,7 @@ public class Gun extends GameObject {
         effect.addition.range = cr.findInteger("RANGE");
 
         imageName = cr.findString("IMAGE_NAME");
-        texture = Context.getService(SpriteStorage.class).getSprite(imageName).texture();
+        texture = getSpriteStorage().getSprite(imageName).texture();
         title = cr.findString("TITLE");
     }
 }

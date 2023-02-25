@@ -1,10 +1,8 @@
 package cc.abro.tow.client.menu;
 
 import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.cycle.Engine;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
-import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.tow.client.ClientData;
 import org.liquidengine.legui.event.KeyEvent;
 
@@ -20,9 +18,9 @@ public class MenuEventController extends GameObject {
 
     @Override
     public void update(long delta) {
-        if (Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_ESCAPE)) Context.getService(Engine.class).stop();
+        if (getLocationManager().getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_ESCAPE)) getEngine().stop();
 
-        List<KeyEvent<?>> keyboardEvents = Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getKeyboard().getEventHistory().getList();
+        List<KeyEvent<?>> keyboardEvents = getLocationManager().getActiveLocation().getGuiLocationFrame().getKeyboard().getEventHistory().getList();
         for (KeyEvent<?> event : keyboardEvents) {
             if (event.getAction() == GLFW_PRESS) {// Клавиша нажата
 

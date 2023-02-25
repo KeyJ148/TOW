@@ -3,9 +3,10 @@ package cc.abro.orchengine.gameobject;
 import cc.abro.orchengine.gameobject.location.Camera;
 import cc.abro.orchengine.gameobject.location.Chunk;
 import cc.abro.orchengine.gameobject.location.ObjectsContainer;
+import cc.abro.orchengine.services.ServiceConsumer;
 import lombok.Getter;
 
-public class Location extends ObjectsContainer {
+public class Location extends ObjectsContainer implements ServiceConsumer {
 
     @Getter
     private final int width, height;

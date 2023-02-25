@@ -13,7 +13,6 @@ import org.liquidengine.legui.event.MouseClickEvent;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
-import static cc.abro.tow.client.menu.MenuGuiComponents.createDialogPanel;
 
 public class VideoSettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
@@ -59,14 +58,14 @@ public class VideoSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRele
     }
 
     private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {
-        BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
+        BlockingGuiService.GuiBlock guiBlock = getBlockingGuiService().createGuiBlock(getFrame().getContainer());
         Panel panel = createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
         Context.getService(GuiService.class).moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }
 
     private void addDialogGuiPanelWithUnblockAndBlockFrame(String labelText, String leftButton, String rightButton) {
-        BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
+        BlockingGuiService.GuiBlock guiBlock = getBlockingGuiService().createGuiBlock(getFrame().getContainer());
         Panel panel = createDialogPanel(labelText,
                 new ButtonConfiguration(leftButton, getMouseReleaseListener(event -> {
                     getUnblockAndParentDestroyReleaseListener(guiBlock).process(event);

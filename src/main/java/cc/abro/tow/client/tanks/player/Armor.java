@@ -10,7 +10,6 @@ import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.gameobject.location.Border;
 import cc.abro.orchengine.resources.animations.Animation;
-import cc.abro.orchengine.resources.animations.AnimationStorage;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.map.objects.Box;
 import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
@@ -100,7 +99,7 @@ public class Armor extends GameObject {
 
         animSpeed = cr.findInteger("ANIMATION_SPEED");
         imageName = cr.findString("IMAGE_NAME");
-        textureHandlers = Context.getService(AnimationStorage.class).getAnimation(imageName);
+        textureHandlers = getAnimationStorage().getAnimation(imageName);
         title = cr.findString("TITLE");
     }
 }

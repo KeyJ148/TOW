@@ -1,13 +1,14 @@
 package cc.abro.orchengine.gameobject;
 
 import cc.abro.orchengine.gameobject.components.container.CachedComponentsContainer;
+import cc.abro.orchengine.services.ServiceConsumer;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
 
 import java.util.Collection;
 import java.util.Collections;
 
-public class GameObject extends CachedComponentsContainer {
+public class GameObject extends CachedComponentsContainer implements ServiceConsumer {
     @Getter
     private final Location location;
     @Getter

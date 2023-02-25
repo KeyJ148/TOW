@@ -3,12 +3,13 @@ package cc.abro.orchengine.gameobject.components.particles;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.gameobject.components.render.DrawableComponent;
+import cc.abro.orchengine.services.ServiceConsumer;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public abstract class Particles extends DrawableComponent implements Updatable {
+public abstract class Particles extends DrawableComponent implements Updatable, ServiceConsumer {
 
     public Set<Part> parts = new HashSet<>();
     public boolean rotate = false;
