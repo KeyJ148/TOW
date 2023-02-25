@@ -3,6 +3,7 @@ package cc.abro.tow.client.menu.panels.settings;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.gui.tabpanel.TabPanel;
+import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
@@ -12,6 +13,7 @@ import cc.abro.tow.client.settings.SettingsService;
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.Panel;
 import org.liquidengine.legui.component.Slider;
+import org.liquidengine.legui.event.MouseDragEvent;
 
 import java.util.function.Function;
 
@@ -112,12 +114,20 @@ public class SoundSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRele
                 return true;
             }
         });
+        sliderSoundVolume.getListenerMap().addListener(MouseDragEvent.class, event -> {
+            changeSaveButtons();
+        });
+
+        sliderMusicVolume.getListenerMap().addListener(MouseDragEvent.class, event -> {
+            changeSaveButtons();
+        });
+
         changeSaveButtons();
     }
 
     private void saveChanges() {
         try {
-            Context.getService(SettingsService.class).setVolumeSettings(50, 50);
+            Context.getService(SettingsService.class).setVolumeSettings(sliderMusicVolume.getValue(), sliderSoundVolume.getValue());
             changeSaveButtons();
         } catch (SettingsService.EmptyNicknameException e) {
             addButtonGuiPanelWithUnblockAndBlockFrame(NICKNAME_IS_EMPTY.getText());
@@ -144,7 +154,8 @@ public class SoundSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRele
     }
 
     private boolean isChanged() {
-        return false;
+        return (sliderSoundVolume.getValue() != settings.getVolume().getSoundVolume()) ||
+                (sliderMusicVolume.getValue() != settings.getVolume().getMusicVolume());
     }
 
     private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {
