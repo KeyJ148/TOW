@@ -228,12 +228,11 @@ public class Player extends Tank {
     }
 
     public String getData() {
-
-        return Math.round(armor.getX())
-                + " " + Math.round(armor.getY())
-                + " " + Math.round(armor.getDirection())
-                + " " + Math.round(gun.getDirection())
-                + " " + Math.round(armor.getComponent(Movement.class).speed)
+        return (int) Math.round(armor.getX())
+                + " " + (int) Math.round(armor.getY())
+                + " " + (int) Math.round(armor.getDirection())
+                + " " + (int) Math.round(gun.getDirection())
+                + " " + armor.getComponent(Movement.class).speed
                 + " " + armor.getComponent(Movement.class).getDirection()
                 + " " + ((AnimationRender) armor.getComponent(Rendering.class)).getFrameSpeed()
                 + " " + Player.numberPackage++;

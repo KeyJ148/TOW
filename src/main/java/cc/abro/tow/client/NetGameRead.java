@@ -90,9 +90,9 @@ public class NetGameRead implements NetGameReadInterface {
 		int y = Integer.parseInt(str.split(" ")[1]);
 		int direction = Integer.parseInt(str.split(" ")[2]);
 		int directionGun = Integer.parseInt(str.split(" ")[3]);
-		int speed = Integer.parseInt(str.split(" ")[4]);
+		double speed = Double.parseDouble(str.split(" ")[4]);
 		double moveDirection = Double.parseDouble(str.split(" ")[5]);
-		int animSpeed = Integer.parseInt(str.split(" ")[6]);
+		double animSpeed = Double.parseDouble(str.split(" ")[6]);
 		long numberPackage = Long.parseLong(str.split(" ")[7]);
 		int enemyId = Integer.parseInt(str.split(" ")[8]);
 

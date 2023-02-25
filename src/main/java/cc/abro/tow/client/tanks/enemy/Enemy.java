@@ -55,7 +55,7 @@ public class Enemy extends Tank {
         }
     }
 
-    public void setData(int x, int y, int direction, int directionGun, int speed, double moveDirection, int animSpeed, long numberPackage) {
+    public void setData(int x, int y, int direction, int directionGun, double speed, double moveDirection, double animSpeed, long numberPackage) {
         if (!Context.getService(ClientData.class).battle) return;
         if (!alive) return;
         if (numberPackage < lastNumberPackage) return;
