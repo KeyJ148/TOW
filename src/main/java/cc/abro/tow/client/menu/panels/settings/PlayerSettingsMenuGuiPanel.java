@@ -51,6 +51,7 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
     };
 
     private Color tankColor;
+    private Texture tankTexture;
     private final TextAreaField textAreaFieldNickname;
     private final Settings settings;
     private final Button saveButton;
@@ -71,12 +72,12 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
         int[] colorFromSettings = settings.getProfile().getColor();
         tankColor = new Color(colorFromSettings);
         BufferedImage defaultTankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").texture().getImage();
-        Texture defaultTankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(defaultTankImage, tankColor));
-        FBOImage tankFBOImage = new FBOImage(defaultTankTexture.getId(), defaultTankTexture.getWidth(), defaultTankTexture.getHeight());
+        tankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(defaultTankImage, tankColor));
+        FBOImage tankFBOImage = new FBOImage(tankTexture.getId(), tankTexture.getWidth(), tankTexture.getHeight());
         ImageView imageView = new ImageView(tankFBOImage);
         imageView.setStyle(createInvisibleStyle());
         imageView.setPosition(230, 15);
-        imageView.setSize(defaultTankTexture.getWidth(), defaultTankTexture.getHeight());
+        imageView.setSize(tankTexture.getWidth(), tankTexture.getHeight());
         add(imageView);
 
         for (int i = 0; i < COLORS.length; i++) {
@@ -213,9 +214,8 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRel
     private void changeTankColor(Color color, ImageView imageView) {
         tankColor = color;
         BufferedImage tankImage = Context.getService(SpriteStorage.class).getSprite("sys_tank").texture().getImage();
-        Texture tankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(tankImage, tankColor));
-        //TODO здесь надо вызывать delete у defaultTankTexture и переопределять defaultTankTexture = tankTexture
-        //TODO при закрытие панели не забыть очистить и tankTexture
+        Context.getService(TextureService.class).deleteTexture(tankTexture.getId());
+        tankTexture = Context.getService(TextureService.class).createTexture(colorizeImage(tankImage, tankColor));
         FBOImage newTankFBOImage = new FBOImage(tankTexture.getId(), tankTexture.getWidth(), tankTexture.getHeight());
         imageView.setImage(newTankFBOImage);
         changeSaveButtons();

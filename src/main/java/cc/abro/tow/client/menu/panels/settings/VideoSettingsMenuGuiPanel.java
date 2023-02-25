@@ -7,6 +7,8 @@ import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.MenuGuiPanel;
 import org.liquidengine.legui.component.Panel;
+import org.liquidengine.legui.component.SelectBox;
+import org.liquidengine.legui.component.TextAreaField;
 import org.liquidengine.legui.event.MouseClickEvent;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
@@ -16,6 +18,7 @@ import static cc.abro.tow.client.menu.MenuGuiComponents.createDialogPanel;
 public class VideoSettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
     private final MenuGuiPanel parent;
+    //private final SelectBox.SelectBoxElement<boolean> VSync;
 
     public VideoSettingsMenuGuiPanel(MenuGuiPanel parent) {
         this.parent = parent;
@@ -49,6 +52,10 @@ public class VideoSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRele
     private void saveChanges(MouseClickEvent<?> event, boolean getBack) {
         if(getBack)
             parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
+    }
+
+    private boolean isChanged() {
+        return false;
     }
 
     private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {
