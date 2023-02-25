@@ -17,7 +17,7 @@ public class Collision extends cc.abro.orchengine.gameobject.components.Position
     public static final boolean MASK_DRAW = true; //TODO вынести в настройки через какой-нибудь сервис
 
     private final Mask mask;//Маска для текстуры этого объекта
-    private Vector2<Double>[] maskAbsolute; //Абсолютные координаты маски от левого верхнего угла карты
+    private Vector2<Double>[] maskAbsolute;//Абсолютные координаты маски от левого верхнего угла карты
 
     protected ArrayList<Class> collisionObjects = new ArrayList<>();//Список объектов с которыми надо проверять столкновения
     private final ArrayList<CollisionListener> listeners = new ArrayList<>();//Список объектов которых нужно оповещать при коллизии

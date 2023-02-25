@@ -28,6 +28,7 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class PlayerController extends GameObject implements Collision.CollisionListener {
 
+    private static final boolean INVERSE_CONTROL = false;
     private final LocationManager locationManager;
 
     //Какие действия выполняеются в текущий степ
@@ -169,8 +170,14 @@ public class PlayerController extends GameObject implements Collision.CollisionL
             runDown = false;
             turnRight = false;
             turnLeft = false;
+
+            if (vectorUp == -1){
+                runDown = true;
+                if (INVERSE_CONTROL) {
+                    vectorRight *= -1;
+                }
+            }
             if (vectorUp == 1) runUp = true;
-            if (vectorUp == -1) runDown = true;
             if (vectorRight == 1) turnRight = true;
             if (vectorRight == -1) turnLeft = true;
 

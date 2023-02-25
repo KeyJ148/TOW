@@ -10,6 +10,7 @@ import cc.abro.orchengine.gameobject.location.cache.DrawableObjectsCache;
 import cc.abro.orchengine.gameobject.location.cache.GameObjectsCache;
 import cc.abro.orchengine.gameobject.location.cache.UpdatableObjectsCache;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,6 +20,9 @@ public class ObjectsContainer {
     private final UpdatableObjectsCache updatableObjectsCache;
     private final DrawableObjectsCache drawableObjectsCache;
     private final CollidingObjectsCache collidingObjectsCache;
+
+    private boolean isUpdateOperationNow = false;
+    private final Set<GameObjectChangedEvent> gameObjectChangedEvents = new HashSet<>();
 
     public ObjectsContainer(int chunkSize) {
         gameObjectsCache = new GameObjectsCache();
@@ -44,6 +48,11 @@ public class ObjectsContainer {
     }
 
     private void componentGameObjectChanged(Component component, ComponentEvent event) {
+        if (isUpdateOperationNow) {
+            gameObjectChangedEvents.add(new GameObjectChangedEvent(component, event));
+            return;
+        }
+
         if (component instanceof Updatable updatable) {
             switch (event) {
                 case ADD -> updatableObjectsCache.add(updatable);
@@ -69,8 +78,15 @@ public class ObjectsContainer {
     }
 
     public void update(long delta) {
+        for (GameObjectChangedEvent gameObjectChangedEvent : gameObjectChangedEvents) {
+            componentGameObjectChanged(gameObjectChangedEvent.component, gameObjectChangedEvent.event);
+        }
+        gameObjectChangedEvents.clear();
+
+        isUpdateOperationNow = true;
         gameObjectsCache.getObjects().forEach(g -> g.update(delta)); //TODO вынести всю update логику в компоненты, сделать GameObject.update final-методом и удалить эту строку
         updatableObjectsCache.update(delta);
+        isUpdateOperationNow = false;
     }
 
     public void render(int x, int y,  int width, int height) {
@@ -101,5 +117,8 @@ public class ObjectsContainer {
                             Map<Integer, Integer> unsuitableObjectsRenderedByLayerZ,
                             int countUpdatedObjects,
                             int countGameObjects) {
+    }
+
+    private record GameObjectChangedEvent(Component component, ComponentEvent event) {
     }
 }

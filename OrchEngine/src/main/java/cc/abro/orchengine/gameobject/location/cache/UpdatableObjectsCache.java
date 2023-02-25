@@ -4,7 +4,6 @@ import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.components.container.ComponentsContainer;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,12 +24,13 @@ public class UpdatableObjectsCache {
 
     public void update(long delta) {
         beforeUpdateActions.forEach(Runnable::run);
-        Collections.unmodifiableSet(updatableObjects).forEach(object -> updateObject(object, delta));
-        afterUpdateActions.forEach(Runnable::run);
-
         beforeUpdateActions.clear();
-        afterUpdateActions.clear();
+
+        updatableObjects.forEach(object -> updateObject(object, delta));
         wasUpdatedInThisStep.clear();
+
+        afterUpdateActions.forEach(Runnable::run);
+        afterUpdateActions.clear();
     }
 
     public void runBeforeUpdateOnce(Runnable runnable) {
