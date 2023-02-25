@@ -88,8 +88,6 @@ public class PlayerSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBack
                     }));
         }
 
-        final int BUTTON_INDENT_X = (SETTINGS_PANEL_WIDTH - BUTTON_WIDTH*3)/5;
-
         add(parent.createBackToMenuButton(this));
         saveAndBackButton = parent.createSaveAndBackButton(this);
         add(saveAndBackButton);

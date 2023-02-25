@@ -56,7 +56,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
                 CONNECTED_PLAYERS_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT);
         BlockingGuiService.GuiBlock frameBlock = getBlockingGuiService()
                 .createGuiBlock(getFrame().getContainer());
-        Context.getService(GuiService.class).moveComponentToWindowCenter(connectedGuiPanel.panel());
+        getGuiService().moveComponentToWindowCenter(connectedGuiPanel.panel());
         getFrame().getContainer().add(connectedGuiPanel.panel());
 
         ConnectedPlayersUpdater connectedPlayersUpdater = new ConnectedPlayersUpdater(connectedGuiPanel.label());
@@ -78,7 +78,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
 
     private void addButtonGuiPanelWithUnblock(String text, BlockingGuiService.GuiBlock guiBlock) {
         Panel panel = createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
-        Context.getService(GuiService.class).moveComponentToWindowCenter(panel);
+        getGuiService().moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }
 

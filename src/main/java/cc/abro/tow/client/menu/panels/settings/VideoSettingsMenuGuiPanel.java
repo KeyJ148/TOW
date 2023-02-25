@@ -60,7 +60,7 @@ public class VideoSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRele
     private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {
         BlockingGuiService.GuiBlock guiBlock = getBlockingGuiService().createGuiBlock(getFrame().getContainer());
         Panel panel = createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
-        Context.getService(GuiService.class).moveComponentToWindowCenter(panel);
+        getGuiService().moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }
 
@@ -72,7 +72,7 @@ public class VideoSettingsMenuGuiPanel extends MenuGuiPanel implements MouseRele
                     parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
                 })),
                 new ButtonConfiguration(rightButton, getUnblockAndParentDestroyReleaseListener(guiBlock))).panel();
-        Context.getService(GuiService.class).moveComponentToWindowCenter(panel);
+        getGuiService().moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }
 }

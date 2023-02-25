@@ -58,8 +58,13 @@ public interface ServiceConsumer {
         return Context.getService(LocationManager.class);
     }
 
+    default GuiService getGuiService() {
+        return Context.getService(GuiService.class);
+    }
+
     default BlockingGuiService getBlockingGuiService() {
         return Context.getService(BlockingGuiService.class);
     }
+
 
 }

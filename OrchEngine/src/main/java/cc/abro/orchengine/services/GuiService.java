@@ -1,11 +1,12 @@
 package cc.abro.orchengine.services;
 
+import cc.abro.orchengine.context.EngineService;
 import cc.abro.orchengine.context.GameService;
 import cc.abro.orchengine.cycle.Render;
 import org.joml.Vector2f;
 import org.liquidengine.legui.component.Component;
 
-@GameService
+@EngineService
 public class GuiService {
 
     private final Render render;

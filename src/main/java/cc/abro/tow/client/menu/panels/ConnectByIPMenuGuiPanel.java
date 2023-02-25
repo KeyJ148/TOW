@@ -46,7 +46,7 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel implements MouseReleas
     private void connectToServer(String ip, String port) {
         Panel connectingGuiPanel = createLabelPanel("Connecting...",
                 CONNECTING_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT).panel();
-        Context.getService(GuiService.class).moveComponentToWindowCenter(connectingGuiPanel);
+        getGuiService().moveComponentToWindowCenter(connectingGuiPanel);
         BlockingGuiService.GuiBlock frameBlock = getBlockingGuiService()
                 .createGuiBlock(getFrame().getContainer());
         getFrame().getContainer().add(connectingGuiPanel);
@@ -59,7 +59,7 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel implements MouseReleas
             getFrame().getContainer().remove(connectingGuiPanel);
             Panel waitingGuiPanel = createLabelPanel("Waiting for players...",
                     WAITING_ELEMENT_WIDTH, CONNECTING_ELEMENT_HEIGHT).panel();
-            Context.getService(GuiService.class).moveComponentToWindowCenter(waitingGuiPanel);
+            getGuiService().moveComponentToWindowCenter(waitingGuiPanel);
             getFrame().getContainer().add(waitingGuiPanel);
         } catch (UnknownHostException e) {
             getFrame().getContainer().remove(connectingGuiPanel);
@@ -75,7 +75,7 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel implements MouseReleas
 
     private void addButtonGuiPanelWithUnblock(String text, BlockingGuiService.GuiBlock guiBlock) {
         Panel panel = createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
-        Context.getService(GuiService.class).moveComponentToWindowCenter(panel);
+        getGuiService().moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }
 

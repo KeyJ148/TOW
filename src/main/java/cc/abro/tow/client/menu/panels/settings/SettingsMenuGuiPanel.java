@@ -1,11 +1,9 @@
 package cc.abro.tow.client.menu.panels.settings;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.gui.tabpanel.TabPanel;
 import cc.abro.orchengine.gui.tabpanel.modes.AlignAllTabPanelButtonMode;
 import cc.abro.orchengine.services.BlockingGuiService;
-import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.menu.MenuGuiComponents;
 import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.MenuGuiPanel;
@@ -15,9 +13,7 @@ import org.liquidengine.legui.component.Panel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.BooleanSupplier;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
 import static cc.abro.tow.client.menu.MenuGuiComponents.*;
@@ -32,8 +28,6 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
     TabPanel mainPanel;
 
     //protected HashMap<Component, Boolean> isEdited;
-
-    //TODO три кнопки, back to menu, save & back, apply (последняя загорается только если есть несохранённые изменения)
 
     public SettingsMenuGuiPanel() {
         setStyle(createInvisibleStyle());
@@ -79,7 +73,7 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
                 SETTINGS_PANEL_HEIGHT - BUTTON_HEIGHT - INDENT_Y,
                 BUTTON_WIDTH, BUTTON_HEIGHT,
                 getMouseReleaseListener(event -> {
-                    BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
+                    BlockingGuiService.GuiBlock guiBlock = getBlockingGuiService().createGuiBlock(getFrame().getContainer());
                     if(panel.isChanged()) {
                         addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes.",
                                 new MenuGuiComponents.ButtonConfiguration("Back to menu", getMouseReleaseListener(buttonEvent -> {
@@ -117,22 +111,22 @@ public class SettingsMenuGuiPanel extends MenuGuiPanel {
 
 
     public void addButtonGuiPanelWithUnblockAndBlockFrame(String text, MouseReleaseBlockingListeners panel) {
-        BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
+        BlockingGuiService.GuiBlock guiBlock = getBlockingGuiService().createGuiBlock(getFrame().getContainer());
         Panel dialog = createButtonPanel(text, "OK", panel.getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
-        Context.getService(GuiService.class).moveComponentToWindowCenter(dialog);
+        getGuiService().moveComponentToWindowCenter(dialog);
         getFrame().getContainer().add(dialog);
     }
 
     public void addDialogGuiPanelWithUnblockAndBlockFrame(String labelText, MenuGuiComponents.ButtonConfiguration... buttonConfigurations) {
         Panel panel = createDialogPanel(labelText, buttonConfigurations).panel();
-        Context.getService(GuiService.class).moveComponentToWindowCenter(panel);
+        getGuiService().moveComponentToWindowCenter(panel);
         getFrame().getContainer().add(panel);
     }
 
     public Function<Panel, Boolean> createCanOut(SaveBackLogicInterface panel) {
         return (to -> {
             if(panel.isChanged()) {
-                BlockingGuiService.GuiBlock guiBlock = Context.getService(BlockingGuiService.class).createGuiBlock(getFrame().getContainer());
+                BlockingGuiService.GuiBlock guiBlock = getBlockingGuiService().createGuiBlock(getFrame().getContainer());
                 addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes.",
                         new ButtonConfiguration("Switch without saving", event -> {
                             panel.clearChanges();
