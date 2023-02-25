@@ -23,7 +23,8 @@ public class MenuLocation extends GameLocation {
 
         GuiService guiService = Context.getService(GuiService.class);
 
-        TextureMenuGuiPanel backgroundGuiPanel = new TextureMenuGuiPanel(Context.getService(SpriteStorage.class).getSprite(BACKGROUND_SPRITE_NAME).texture());
+        TextureMenuGuiPanel backgroundGuiPanel = new TextureMenuGuiPanel(Context.getService(SpriteStorage.class).getSprite(BACKGROUND_SPRITE_NAME).texture(),
+                Context.getService(Render.class).getWidth(), Context.getService(Render.class).getHeight());
         getGuiLocationFrame().getGuiFrame().getContainer().add(backgroundGuiPanel);
 
         Texture logoTexture = Context.getService(SpriteStorage.class).getSprite("logo").texture();

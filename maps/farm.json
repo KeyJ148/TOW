@@ -11,7 +11,8 @@
         "direction": 90,
         "height": 1000,
         "texture": "grass",
-        "width": 2000
+        "width": 2000,
+        "unsuitable": true
       }
     },
     {

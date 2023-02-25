@@ -12,6 +12,7 @@
         "height": 700,
         "texture": "grass",
         "width": 1500
+        "unsuitable": true
       }
     },
     {

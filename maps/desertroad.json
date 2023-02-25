@@ -11,7 +11,8 @@
         "direction": 90,
         "height": 1000,
         "texture": "sand",
-        "width": 1900
+        "width": 1900,
+        "unsuitable": true
       }
     },
     {

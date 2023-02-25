@@ -11,7 +11,8 @@
         "direction": 0,
         "height": 2000,
         "texture": "snow",
-        "width": 2000
+        "width": 2000,
+        "unsuitable": true
       }
     },
     {
