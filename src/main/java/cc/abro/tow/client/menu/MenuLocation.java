@@ -9,7 +9,7 @@ import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.GameLocation;
 import cc.abro.tow.client.menu.panels.FirstEntryGuiPanel;
 import cc.abro.tow.client.menu.panels.MainMenuGuiPanel;
-import cc.abro.tow.client.menu.panels.MainMenuLogoGuiPanel;
+import cc.abro.tow.client.menu.panels.TextureMenuGuiPanel;
 import cc.abro.tow.client.menu.panels.ZeroRuleGuiPanel;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.*;
@@ -23,19 +23,19 @@ public class MenuLocation extends GameLocation {
 
         GuiService guiService = Context.getService(GuiService.class);
 
-        //setBackground(new Background(Context.getService(SpriteStorage.class).getSprite(BACKGROUND_SPRITE_NAME).texture())); //TODO поменять просто на текстуру и удалить Background из Location, т.к. он больше нигде не используется
+        TextureMenuGuiPanel backgroundGuiPanel = new TextureMenuGuiPanel(Context.getService(SpriteStorage.class).getSprite(BACKGROUND_SPRITE_NAME).texture());
+        getGuiLocationFrame().getGuiFrame().getContainer().add(backgroundGuiPanel);
 
         Texture logoTexture = Context.getService(SpriteStorage.class).getSprite("logo").texture();
-        MainMenuLogoGuiPanel mainMenuLogoGuiPanel = new MainMenuLogoGuiPanel(logoTexture);
-        mainMenuLogoGuiPanel.setPosition((Context.getService(Render.class).getWidth() - logoTexture.getWidth())/2,
+        TextureMenuGuiPanel logoMenuGuiPanel = new TextureMenuGuiPanel(logoTexture);
+        logoMenuGuiPanel.setPosition((Context.getService(Render.class).getWidth() - logoTexture.getWidth())/2,
                 INDENT_Y);
-        getGuiLocationFrame().getGuiFrame().getContainer().add(mainMenuLogoGuiPanel);
+        getGuiLocationFrame().getGuiFrame().getContainer().add(logoMenuGuiPanel);
 
         ZeroRuleGuiPanel zeroRuleGuiPanel = new ZeroRuleGuiPanel();
         zeroRuleGuiPanel.setPosition(Context.getService(Render.class).getWidth() - LABEL_LENGTH_ZERO_RULE - INDENT_X,
                 Context.getService(Render.class).getHeight() - LABEL_HEIGHT_ZERO_RULE - INDENT_Y/2);
         getGuiLocationFrame().getGuiFrame().getContainer().add(zeroRuleGuiPanel);
-
 
         if (!createFirstEntryPanel) {
             MainMenuGuiPanel menuGuiPanel = Context.getService(GuiPanelStorage.class).getPanel(MainMenuGuiPanel.class);

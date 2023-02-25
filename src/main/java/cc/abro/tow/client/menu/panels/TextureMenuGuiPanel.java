@@ -6,9 +6,9 @@ import org.liquidengine.legui.image.FBOImage;
 
 import static cc.abro.tow.client.menu.InterfaceStyles.createInvisibleStyle;
 
-public class MainMenuLogoGuiPanel extends MenuGuiPanel {
+public class TextureMenuGuiPanel extends MenuGuiPanel {
 
-    public MainMenuLogoGuiPanel(Texture logoTexture) {
+    public TextureMenuGuiPanel(Texture logoTexture) {
         FBOImage logoFBOImage = new FBOImage(logoTexture.getId(), logoTexture.getWidth(), logoTexture.getHeight());
         setSize(logoTexture.getWidth(), logoTexture.getHeight());
         setStyle(createInvisibleStyle());
