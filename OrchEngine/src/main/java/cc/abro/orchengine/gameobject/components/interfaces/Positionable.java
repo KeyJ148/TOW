@@ -10,7 +10,7 @@ public interface Positionable {
 
     void addChangePositionListener(Consumer<Positionable> listener);
     void removeChangePositionListener(Consumer<Positionable> listener);
-    void notifyListeners();
+    void notifyChangePositionListeners();
 
     default Vector2<Double> getPosition() {
         return new Vector2<>(getX(), getY());

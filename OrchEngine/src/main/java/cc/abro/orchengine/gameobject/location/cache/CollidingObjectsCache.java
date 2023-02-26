@@ -1,16 +1,11 @@
 package cc.abro.orchengine.gameobject.location.cache;
 
-import cc.abro.orchengine.gameobject.components.Collision;
+import cc.abro.orchengine.gameobject.components.interfaces.Collidable;
+import cc.abro.orchengine.gameobject.location.ChunkGrid;
 
-public class CollidingObjectsCache { //TODO extends ChunkGrid<Collision> (добавить реализацию этой системы в список задач при разработке системы коллизий?), сделать интерфейс Collidable
-
-    private final int chunkSize;
+public class CollidingObjectsCache extends ChunkGrid<Collidable> {
 
     public CollidingObjectsCache(int chunkSize) {
-        this.chunkSize = chunkSize;
-    }
-
-    public void updateObjectPosition(Collision c) {
-
+        super(chunkSize);
     }
 }

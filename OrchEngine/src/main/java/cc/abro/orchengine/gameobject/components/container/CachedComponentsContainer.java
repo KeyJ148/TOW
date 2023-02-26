@@ -8,7 +8,7 @@ public class CachedComponentsContainer extends ListeningComponentsContainer {
     private final ComponentsCache componentsCache = new ComponentsCache();
 
     public void notifyComponentsAboutUpdatePosition() {
-        componentsCache.getPositionableComponents().forEach(Positionable::notifyListeners);
+        componentsCache.getPositionableComponents().forEach(Positionable::notifyChangePositionListeners);
     }
 
     @Override

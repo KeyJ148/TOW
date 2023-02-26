@@ -23,14 +23,18 @@ public class ChunkGrid<T extends Positionable> {
         Chunk<T> chunk = getOrCreateChunk(object);
         chunk.add(object);
         chunkByObject.put(object, chunk);
+        object.addChangePositionListener(this::updateObjectPosition);
     }
 
     public void remove(T object) {
         getChunk(object).remove(object);
         chunkByObject.remove(object);
+        object.removeChangePositionListener(this::updateObjectPosition);
     }
 
-    public void updateObjectPosition(T object) {
+    //Проверка и при необходимости обновление объекта при перемещении из чанка в чанк
+    private void updateObjectPosition(Positionable positionable) {
+        T object = (T) positionable;
         Chunk<T> chunkLast = chunkByObject.get(object);
         Chunk<T> chunkNow = getOrCreateChunk(object.getPosition());
 

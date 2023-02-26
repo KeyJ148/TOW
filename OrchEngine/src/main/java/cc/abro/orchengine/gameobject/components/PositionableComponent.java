@@ -23,7 +23,7 @@ public class PositionableComponent extends Component implements Positionable {
 
     public void setX(double x) {
         this.relativeX = x - getGameObject().getX();
-        notifyListeners();
+        notifyChangePositionListeners();
     }
 
     @Override
@@ -33,13 +33,13 @@ public class PositionableComponent extends Component implements Positionable {
 
     public void setY(double y) {
         this.relativeY = y - getGameObject().getY();
-        notifyListeners();
+        notifyChangePositionListeners();
     }
 
     public void setPosition(Vector2<Double> position) {
         relativeX = position.x;
         relativeY = position.y;
-        notifyListeners();
+        notifyChangePositionListeners();
     }
 
     @Override
@@ -53,7 +53,7 @@ public class PositionableComponent extends Component implements Positionable {
     }
 
     @Override
-    public void notifyListeners() {
+    public void notifyChangePositionListeners() {
         listeners.forEach(listener -> listener.accept(this));
     }
 }

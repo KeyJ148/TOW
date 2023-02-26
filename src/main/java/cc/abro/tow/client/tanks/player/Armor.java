@@ -56,7 +56,10 @@ public class Armor extends GameObject {
                 CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class, Box.class, Border.class});
         getComponent(Collision.class).addListener(player.controller);
 
-        if (player.gun != null) player.gun.addComponent(new Follower(this, false));
+        if (player.gun != null) {
+            player.gun.removeComponents(Follower.class);
+            player.gun.addComponent(new Follower(this, false));
+        }
     }
 
     @Override

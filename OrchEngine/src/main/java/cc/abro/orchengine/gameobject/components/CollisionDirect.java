@@ -99,7 +99,7 @@ public class CollisionDirect extends Collision {
         //this.start = getLocationManager().getActiveLocation().getMap().getObjectsVectorSize();
     }
 
-    //Расчёт столкновения прямолинейно перемещающегося объекта с статичным объектом obj
+    //Расчёт столкновения прямолинейно перемещающегося объекта со статичным объектом obj
     private void checkCollisionDirect(GameObject gameObject) {
         double startX = getGameObject().getX();
         double startY = getGameObject().getY();

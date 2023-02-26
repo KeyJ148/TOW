@@ -3,6 +3,7 @@ package cc.abro.orchengine.gameobject.location;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.container.ListeningComponentsContainer.ComponentEvent;
+import cc.abro.orchengine.gameobject.components.interfaces.Collidable;
 import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.gameobject.location.cache.CollidingObjectsCache;
@@ -21,7 +22,6 @@ public class ObjectsContainer {
     private final DrawableObjectsCache drawableObjectsCache;
     private final CollidingObjectsCache collidingObjectsCache;
 
-    private boolean isUpdateOperationNow = false;
     private final Set<GameObjectChangedEvent> gameObjectChangedEvents = new HashSet<>();
 
     public ObjectsContainer(int chunkSize) {
@@ -36,7 +36,7 @@ public class ObjectsContainer {
             throw new IllegalStateException("GameObject must have 0 components when it is added to ObjectContainer");
         }
         gameObjectsCache.add(gameObject);
-        gameObject.addListener(this::componentGameObjectChanged);
+        gameObject.addListener(this::saveComponentEvent);
     }
 
     public void remove(GameObject gameObject) {
@@ -44,28 +44,7 @@ public class ObjectsContainer {
             throw new IllegalStateException("GameObject must have 0 components when it is removed from ObjectContainer");
         }
         gameObjectsCache.remove(gameObject);
-        gameObject.removeListener(this::componentGameObjectChanged);
-    }
-
-    private void componentGameObjectChanged(Component component, ComponentEvent event) {
-        if (isUpdateOperationNow) {
-            gameObjectChangedEvents.add(new GameObjectChangedEvent(component, event));
-            return;
-        }
-
-        if (component instanceof Updatable updatable) {
-            switch (event) {
-                case ADD -> updatableObjectsCache.add(updatable);
-                case REMOVE -> updatableObjectsCache.remove(updatable);
-            }
-        }
-        if (component instanceof Drawable drawable) {
-            switch (event) {
-                case ADD -> drawableObjectsCache.add(drawable);
-                case REMOVE -> drawableObjectsCache.remove(drawable);
-            }
-        }
-        //TODO instanceof collision
+        gameObject.removeListener(this::saveComponentEvent);
     }
 
     /* Прокси методы */
@@ -78,15 +57,11 @@ public class ObjectsContainer {
     }
 
     public void update(long delta) {
-        for (GameObjectChangedEvent gameObjectChangedEvent : gameObjectChangedEvents) {
-            componentGameObjectChanged(gameObjectChangedEvent.component, gameObjectChangedEvent.event);
-        }
+        activateAllComponentChangedEvents();
         gameObjectChangedEvents.clear();
 
-        isUpdateOperationNow = true;
         gameObjectsCache.getObjects().forEach(g -> g.update(delta)); //TODO вынести всю update логику в компоненты, сделать GameObject.update final-методом и удалить эту строку
         updatableObjectsCache.update(delta);
-        isUpdateOperationNow = false;
     }
 
     public void render(int x, int y,  int width, int height) {
@@ -120,5 +95,36 @@ public class ObjectsContainer {
     }
 
     private record GameObjectChangedEvent(Component component, ComponentEvent event) {
+    }
+
+    private void saveComponentEvent(Component component, ComponentEvent event) {
+        gameObjectChangedEvents.add(new GameObjectChangedEvent(component, event));
+    }
+
+    private void activateComponentEvent(Component component, ComponentEvent event) {
+        if (component instanceof Updatable updatable) {
+            switch (event) {
+                case ADD -> updatableObjectsCache.add(updatable);
+                case REMOVE -> updatableObjectsCache.remove(updatable);
+            }
+        }
+        if (component instanceof Drawable drawable) {
+            switch (event) {
+                case ADD -> drawableObjectsCache.add(drawable);
+                case REMOVE -> drawableObjectsCache.remove(drawable);
+            }
+        }
+        if (component instanceof Collidable collidable) {
+            switch (event) {
+                case ADD -> collidingObjectsCache.add(collidable);
+                case REMOVE -> collidingObjectsCache.remove(collidable);
+            }
+        }
+    }
+
+    private void activateAllComponentChangedEvents() {
+        for (GameObjectChangedEvent gameObjectChangedEvent : gameObjectChangedEvents) {
+            activateComponentEvent(gameObjectChangedEvent.component, gameObjectChangedEvent.event);
+        }
     }
 }

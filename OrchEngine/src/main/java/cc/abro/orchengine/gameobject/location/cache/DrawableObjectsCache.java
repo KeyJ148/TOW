@@ -40,7 +40,7 @@ public class DrawableObjectsCache {
         layerByZ.values().forEach(l -> l.render(x, y, width, height));
     }
 
-    //Проверка и при необходимости обновление объекта при перемещении из чанка в чанк
+    //Проверка и при необходимости обновление объекта при перемещении из одного слоя в другой
     private void updateObjectPosition(Positionable positionable) {
         Drawable drawable = (Drawable) positionable;
         int z = drawable.getZ();
@@ -51,8 +51,6 @@ public class DrawableObjectsCache {
             layerByObject.remove(drawable);
             newLayer.add(drawable);
             layerByObject.put(drawable, newLayer);
-        } else {
-            oldLayer.updateObjectPosition(drawable);
         }
     }
 

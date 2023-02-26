@@ -45,6 +45,7 @@ public class Gun extends GameObject {
         addComponent(new Movement());
         getComponent(Movement.class).directionDrawEquals = false;
 
+        removeComponents(Follower.class);
         addComponent(new Follower(player.armor, false));
     }
 

@@ -1,6 +1,7 @@
 package cc.abro.orchengine.gameobject.components;
 
 import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.gameobject.components.interfaces.Collidable;
 import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.image.Color;
@@ -12,8 +13,9 @@ import org.lwjgl.opengl.GL11;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class Collision extends cc.abro.orchengine.gameobject.components.PositionableComponent implements Updatable, Drawable, ServiceConsumer {
+public class Collision extends cc.abro.orchengine.gameobject.components.PositionableComponent implements Updatable, Drawable, Collidable, ServiceConsumer {
     public static final boolean MASK_DRAW = true; //TODO вынести в настройки через какой-нибудь сервис
 
     private final Mask mask;//Маска для текстуры этого объекта
@@ -205,4 +207,12 @@ public class Collision extends cc.abro.orchengine.gameobject.components.Position
     public int getZ() {
         return 5000;
     }
+
+    //Not released methods because Z never changes
+    @Override
+    public void addChangeZListener(Consumer<Drawable> listener) {}
+    @Override
+    public void removeChangeZListener(Consumer<Drawable> listener) {}
+    @Override
+    public void notifyChangeZListeners() {}
 }
