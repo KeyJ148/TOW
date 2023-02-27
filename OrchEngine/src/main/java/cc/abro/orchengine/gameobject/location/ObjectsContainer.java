@@ -62,6 +62,7 @@ public class ObjectsContainer {
 
         gameObjectsCache.getObjects().forEach(g -> g.update(delta)); //TODO вынести всю update логику в компоненты, сделать GameObject.update final-методом и удалить эту строку
         updatableObjectsCache.update(delta);
+        collidingObjectsCache.update(delta); //TODO а что если компонент collidable зависит от других компонентов? Или наоборот? Он должен вызываться в общем игровом цикле?
     }
 
     public void render(int x, int y,  int width, int height) {

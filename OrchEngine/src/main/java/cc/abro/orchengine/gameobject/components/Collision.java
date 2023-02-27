@@ -11,8 +11,8 @@ import cc.abro.orchengine.util.Vector2;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class Collision extends cc.abro.orchengine.gameobject.components.PositionableComponent implements Updatable, Drawable, Collidable, ServiceConsumer {
@@ -21,9 +21,11 @@ public class Collision extends cc.abro.orchengine.gameobject.components.Position
     private final Mask mask;//Маска для текстуры этого объекта
     private Vector2<Double>[] maskAbsolute;//Абсолютные координаты маски от левого верхнего угла карты
 
-    protected ArrayList<Class> collisionObjects = new ArrayList<>();//Список объектов с которыми надо проверять столкновения
+    protected Set<Class<? extends Collidable>> collisionObjects = new HashSet<>();//Список объектов с которыми надо проверять столкновения
     private final ArrayList<CollisionListener> listeners = new ArrayList<>();//Список объектов которых нужно оповещать при коллизии
     protected boolean calcInThisStep = false;//Расчитывалась ли маска уже в этом степе?
+
+    private final Set<Consumer<Collidable>> changeCollidableObjectsListeners = new HashSet<>();
 
     public Collision(Mask mask) {
         this.mask = mask;
@@ -36,9 +38,54 @@ public class Collision extends cc.abro.orchengine.gameobject.components.Position
 
     @Override
     public void update(long delta) {
-        calcInThisStep = false;
-        if (getGameObject().hasComponent(Movement.class)) calc();
+        //calcInThisStep = false;
+        //checkCollisionFromRoom();
+    }
+
+    @Override
+    public void checkCollisions() {
         checkCollisionFromRoom();
+    }
+
+    @Override
+    public void maskRecalculate() {
+        calc();
+    }
+
+    @Override
+    public void addChangeCollidableObjectsListener(Consumer<Collidable> listener) {
+        changeCollidableObjectsListeners.add(listener);
+    }
+
+    @Override
+    public void removeChangeCollidableObjectsListener(Consumer<Collidable> listener) {
+        changeCollidableObjectsListeners.remove(listener);
+    }
+
+    @Override
+    public void notifyChangeCollidableObjectsListeners() {
+        changeCollidableObjectsListeners.forEach(listener -> listener.accept(this));
+    }
+
+    public void addCollisionObjects(Class[] collisionObjects) {
+        for (Class obj : collisionObjects)
+            this.collisionObjects.add(obj);
+        notifyChangeCollidableObjectsListeners();
+    }
+
+    public void deleteCollisionObject(Class obj) {
+        collisionObjects.remove(obj);
+        notifyChangeCollidableObjectsListeners();
+    }
+
+    public void cleanCollisionObjects() {
+        collisionObjects.clear();
+        notifyChangeCollidableObjectsListeners();
+    }
+
+    @Override
+    public Set<Class<? extends Collidable>> getCollidableObjects() {
+        return Collections.unmodifiableSet(collisionObjects);
     }
 
     @Override
@@ -60,7 +107,7 @@ public class Collision extends cc.abro.orchengine.gameobject.components.Position
     }
 
     //Вызывает проверку столкновения с каждым объектом в локации
-    public void checkCollisionFromRoom() {
+    public void checkCollisionFromRoom() { //TODO проверять только в текущем и 8 соседних чанках (если это не unsuitable Collidable объект)
         if (collisionObjects.size() == 0) return;
 
         for (GameObject objectFromRoom : getLocationManager().getActiveLocation().getObjects()) {//Цикл перебора всех объектов в локации
@@ -78,13 +125,16 @@ public class Collision extends cc.abro.orchengine.gameobject.components.Position
     //Проверка столкновения с объектом obj2
     public boolean checkCollision(GameObject gameObject2) {
         GameObject gameObject1 = getGameObject();
-        Collision coll1 = gameObject1.getComponent(Collision.class);
-        Collision coll2 = gameObject2.getComponent(Collision.class);
+        Optional<Collision> coll1Optional = gameObject1.getOptionalComponent(Collision.class);
+        Optional<Collision> coll2Optional = gameObject2.getOptionalComponent(Collision.class);
 
-        if (coll1 == null || coll2 == null ||
-                coll1.maskAbsolute == null || coll2.maskAbsolute == null) {
+        if (coll1Optional.isEmpty() || coll2Optional.isEmpty() ||
+            coll1Optional.get().maskAbsolute == null || coll2Optional.get().maskAbsolute == null) {
             return false;
         }
+
+        Collision coll1 = coll1Optional.get();
+        Collision coll2 = coll2Optional.get();
 
         //Проверка расстояния до объекта столкновения
         double gip1 = Math.sqrt(sqr(coll1.mask.getWidth()) + sqr(coll1.mask.getHeight())); //Гипотенуза объекта
@@ -152,19 +202,6 @@ public class Collision extends cc.abro.orchengine.gameobject.components.Position
         }
 
         calcInThisStep = true;
-    }
-
-    public void addCollisionObjects(Class[] collisionObjects) {
-        for (Class obj : collisionObjects)
-            this.collisionObjects.add(obj);
-    }
-
-    public void deleteCollisionObject(Class obj) {
-        this.collisionObjects.remove(obj);
-    }
-
-    public void cleanCollisionObjects() {
-        this.collisionObjects = new ArrayList();
     }
 
     public Mask getMask() {

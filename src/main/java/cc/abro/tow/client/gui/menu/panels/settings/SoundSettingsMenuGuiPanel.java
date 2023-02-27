@@ -2,6 +2,7 @@ package cc.abro.tow.client.gui.menu.panels.settings;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gui.tabpanel.TabPanel;
+import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
 import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import cc.abro.tow.client.gui.menu.panels.MenuGuiPanel;
@@ -75,6 +76,7 @@ public class SoundSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBackL
                     Math.round(sliderMusicVolume.getValue()),
                     Math.round(sliderSoundVolume.getValue())
             );
+            Context.getService(AudioService.class).setVolume(Math.round(sliderSoundVolume.getValue()));
             changeSaveButtons();
     }
 
