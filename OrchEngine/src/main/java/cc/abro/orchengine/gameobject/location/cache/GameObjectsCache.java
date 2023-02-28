@@ -8,7 +8,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 public class GameObjectsCache {
 
-    private final Set<GameObject> gameObjects = new CopyOnWriteArraySet<>(); //TODO change to HashSet, but without ConcurrentModificationException (when del update methods from GameObjects)
+    private final Set<GameObject> gameObjects = new CopyOnWriteArraySet<>();
 
     public void add(GameObject gameObject) {
         gameObjects.add(gameObject);
@@ -26,7 +26,7 @@ public class GameObjectsCache {
         return gameObjects.size();
     }
 
-    @Deprecated //TODO del and other deprecated functions. Why is it deprecated
+    @Deprecated
     public Set<GameObject> getObjects() {
         return Collections.unmodifiableSet(gameObjects);
     }

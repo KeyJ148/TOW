@@ -37,7 +37,7 @@ public class GameObject extends CachedComponentsContainer implements ServiceCons
         getLocation().runBeforeUpdateOnce(component::initialize);
     }
 
-    public void update(long delta) {} //TODO запретить Override в наследниках (final). Если надо сделать кастомную логику, то просто создай обычный или анонимный компонент
+    public void update(long delta) {}
 
     /**
      * The object will be destroyed only at the end of his update cycle
