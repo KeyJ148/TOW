@@ -10,6 +10,8 @@ import cc.abro.tow.client.gui.menu.panels.MainMenuGuiPanel;
 import cc.abro.tow.client.gui.menu.panels.MenuGuiPanel;
 import com.spinyowl.legui.component.Button;
 import com.spinyowl.legui.component.Panel;
+import com.spinyowl.legui.style.Border;
+import com.spinyowl.legui.style.border.SimpleLineBorder;
 
 import java.util.ArrayList;
 import java.util.Arrays;

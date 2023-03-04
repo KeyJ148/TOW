@@ -13,12 +13,13 @@ public class AlignAllTabPanelButtonMode implements TabPanelButtonMode {
     public void updateButtons(List<TabPanel.TiedButtonPanel> content, Vector2f panelSize) {
         for (int i = 0; i < content.size(); i++) {
             TabPanel.TiedButtonPanel pair = content.get(i);
+            float thickness = pair.button().getStyle().getBorder() == null ? 0 : ((SimpleLineBorder) pair.button().getStyle().getBorder()).getThickness();
             pair.button().setSize(
-                    (panelSize.x - ((SimpleLineBorder) pair.button().getStyle().getBorder()).getThickness() * (content.size() + 1)) / content.size(),
+                    (panelSize.x - thickness * (content.size() + 1)) / content.size(),
                     pair.button().getSize().y);
             pair.button().setPosition(
-                    pair.button().getSize().x * i + ((SimpleLineBorder) pair.button().getStyle().getBorder()).getThickness() * (i + 1),
-                    ((SimpleLineBorder) pair.button().getStyle().getBorder()).getThickness());
+                    pair.button().getSize().x * i + thickness * (i + 1),
+                    thickness);
         }
     }
 }

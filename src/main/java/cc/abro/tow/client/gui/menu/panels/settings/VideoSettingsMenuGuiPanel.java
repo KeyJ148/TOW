@@ -23,7 +23,7 @@ public class VideoSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBackL
 
     private final MenuGuiPanel parent;
     //private final ddd;
-    private SelectBox<String> resolution;
+    private final SelectBox<String> resolution;
 
     public Function<Panel, Boolean> canOut;
     private final Button saveButton;
@@ -42,20 +42,17 @@ public class VideoSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBackL
         GLFWVidMode.Buffer vidModes = glfwGetVideoModes(glfwGetPrimaryMonitor());
         resolution = new SelectBox<>(InterfaceStyles.INDENT_X + 10, InterfaceStyles.INDENT_Y + 15, WIDTH_OF_RESOLUTION_FIELD, HEIGHT_OF_RESOLUTION_FIELD);
 
-        /*if(vidModes != null) {
+        if(vidModes != null) {
             for (GLFWVidMode vidMode : vidModes) {
                 resolution.addElement(vidMode.width() + "x" + vidMode.height());
             }
-        }*/
-        for(int i = 0; i < 5; i++) {
-            resolution.addElement("Ha" + i);
         }
         resolution.setVisibleCount(5);
         resolution.setElementHeight(InterfaceStyles.MENU_TEXT_FIELD_HEIGHT);
-        resolution.getSelectionListPanel().setStyle(InterfaceStyles.createPanelStyle());
-        for (SelectBox<String>.SelectBoxElement<String> boxElement :resolution.getSelectBoxElements()) {
-            boxElement.setStyle(InterfaceStyles.createButtonStyle());
-        }
+        resolution.getSelectionListPanel().setStyle(InterfaceStyles.createScrollablePanelStyle());
+        //for (SelectBox<String>.SelectBoxElement<String> boxElement :resolution.getSelectBoxElements()) {
+            //boxElement.setStyle(InterfaceStyles.createButtonStyle());
+        //}
         add(resolution);
 
         add(parent.createBackToMenuButton(this));
