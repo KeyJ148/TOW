@@ -16,7 +16,7 @@ import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.GameSetting;
 import cc.abro.tow.client.particles.Explosion;
 import cc.abro.tow.client.tanks.enemy.Enemy;
-import org.liquidengine.legui.component.Label;
+import com.spinyowl.legui.component.Label;
 
 import java.util.Map;
 

@@ -8,10 +8,10 @@ import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import cc.abro.tow.client.gui.menu.panels.MenuGuiPanel;
 import cc.abro.tow.client.settings.Settings;
 import cc.abro.tow.client.settings.SettingsService;
-import org.liquidengine.legui.component.Button;
-import org.liquidengine.legui.component.Panel;
-import org.liquidengine.legui.component.Slider;
-import org.liquidengine.legui.event.MouseDragEvent;
+import com.spinyowl.legui.component.Button;
+import com.spinyowl.legui.component.Panel;
+import com.spinyowl.legui.component.Slider;
+import com.spinyowl.legui.event.MouseDragEvent;
 
 import java.util.function.Function;
 
@@ -19,11 +19,11 @@ public class SoundSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBackL
 
 
     SettingsMenuGuiPanel parent;
-    public Function<Panel, Boolean> canOut;
     private final Settings settings;
     private final Slider sliderMusicVolume;
     private final Slider sliderSoundVolume;
 
+    public Function<Panel, Boolean> canOut;
     private final Button saveButton;
     private final Button saveAndBackButton;
 

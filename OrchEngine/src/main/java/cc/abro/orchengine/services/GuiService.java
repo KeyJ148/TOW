@@ -5,7 +5,7 @@ import cc.abro.orchengine.cycle.Render;
 import lombok.Getter;
 import lombok.Setter;
 import org.joml.Vector2f;
-import org.liquidengine.legui.component.Component;
+import com.spinyowl.legui.component.Component;
 
 @EngineService
 public class GuiService {

@@ -3,10 +3,10 @@ package cc.abro.orchengine.cycle;
 import cc.abro.orchengine.context.EngineService;
 import cc.abro.orchengine.gameobject.LocationManager;
 import lombok.extern.log4j.Log4j2;
-import org.liquidengine.legui.DefaultInitializer;
-import org.liquidengine.legui.animation.AnimatorProvider;
-import org.liquidengine.legui.component.Frame;
-import org.liquidengine.legui.system.layout.LayoutManager;
+import com.spinyowl.legui.DefaultInitializer;
+import com.spinyowl.legui.animation.AnimatorProvider;
+import com.spinyowl.legui.component.Frame;
+import com.spinyowl.legui.system.layout.LayoutManager;
 import org.lwjgl.opengl.GL11;
 import org.picocontainer.Startable;
 

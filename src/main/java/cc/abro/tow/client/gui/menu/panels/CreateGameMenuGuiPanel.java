@@ -10,9 +10,9 @@ import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
 import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import cc.abro.tow.client.services.CreateServerService;
-import org.liquidengine.legui.component.Label;
-import org.liquidengine.legui.component.Panel;
-import org.liquidengine.legui.component.TextAreaField;
+import com.spinyowl.legui.component.Label;
+import com.spinyowl.legui.component.Panel;
+import com.spinyowl.legui.component.TextAreaField;
 
 public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 

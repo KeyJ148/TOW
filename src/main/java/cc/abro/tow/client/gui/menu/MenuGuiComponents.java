@@ -1,10 +1,10 @@
 package cc.abro.tow.client.gui.menu;
 
-import org.liquidengine.legui.component.*;
-import org.liquidengine.legui.component.optional.align.HorizontalAlign;
-import org.liquidengine.legui.event.MouseClickEvent;
-import org.liquidengine.legui.listener.MouseClickEventListener;
-import org.liquidengine.legui.style.font.FontRegistry;
+import com.spinyowl.legui.component.*;
+import com.spinyowl.legui.component.optional.align.HorizontalAlign;
+import com.spinyowl.legui.event.MouseClickEvent;
+import com.spinyowl.legui.listener.MouseClickEventListener;
+import com.spinyowl.legui.style.font.FontRegistry;
 
 import java.util.ArrayList;
 import java.util.Arrays;

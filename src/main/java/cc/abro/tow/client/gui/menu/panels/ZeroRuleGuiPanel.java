@@ -1,8 +1,8 @@
 package cc.abro.tow.client.gui.menu.panels;
 
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
-import org.liquidengine.legui.component.Label;
-import org.liquidengine.legui.style.font.FontRegistry;
+import com.spinyowl.legui.component.Label;
+import com.spinyowl.legui.style.font.FontRegistry;
 
 public class ZeroRuleGuiPanel extends MenuGuiPanel {
 

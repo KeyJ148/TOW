@@ -1,7 +1,7 @@
 package cc.abro.orchengine.gui;
 
-import org.liquidengine.legui.event.MouseClickEvent;
-import org.liquidengine.legui.listener.MouseClickEventListener;
+import com.spinyowl.legui.event.MouseClickEvent;
+import com.spinyowl.legui.listener.MouseClickEventListener;
 
 import java.util.function.Consumer;
 

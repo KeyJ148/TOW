@@ -3,8 +3,8 @@ package cc.abro.tow.client.gui.menu.panels;
 import cc.abro.orchengine.gui.MouseReleaseChangePanelListeners;
 import cc.abro.orchengine.services.ServiceConsumer;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
-import org.liquidengine.legui.component.Component;
-import org.liquidengine.legui.component.Panel;
+import com.spinyowl.legui.component.Component;
+import com.spinyowl.legui.component.Panel;
 
 public class MenuGuiPanel extends Panel implements MouseReleaseChangePanelListeners, ServiceConsumer {
 

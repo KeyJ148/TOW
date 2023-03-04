@@ -7,8 +7,8 @@ import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
 import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import cc.abro.tow.client.services.ConnectServerService;
-import org.liquidengine.legui.component.Panel;
-import org.liquidengine.legui.component.TextAreaField;
+import com.spinyowl.legui.component.Panel;
+import com.spinyowl.legui.component.TextAreaField;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

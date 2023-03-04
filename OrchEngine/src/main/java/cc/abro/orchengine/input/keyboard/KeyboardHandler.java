@@ -1,8 +1,8 @@
 package cc.abro.orchengine.input.keyboard;
 
 import lombok.Getter;
-import org.liquidengine.legui.component.Frame;
-import org.liquidengine.legui.event.KeyEvent;
+import com.spinyowl.legui.component.Frame;
+import com.spinyowl.legui.event.KeyEvent;
 
 import java.util.HashSet;
 import java.util.List;

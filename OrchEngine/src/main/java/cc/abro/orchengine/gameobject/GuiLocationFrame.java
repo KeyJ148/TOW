@@ -7,7 +7,7 @@ import cc.abro.orchengine.services.ServiceConsumer;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import org.liquidengine.legui.component.Frame;
+import com.spinyowl.legui.component.Frame;
 
 public class GuiLocationFrame implements ServiceConsumer {
 

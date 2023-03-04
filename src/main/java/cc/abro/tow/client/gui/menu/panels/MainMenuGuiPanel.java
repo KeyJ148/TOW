@@ -3,7 +3,7 @@ package cc.abro.tow.client.gui.menu.panels;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
 import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import cc.abro.tow.client.gui.menu.panels.settings.SettingsMenuGuiPanel;
-import org.liquidengine.legui.component.Panel;
+import com.spinyowl.legui.component.Panel;
 
 public class MainMenuGuiPanel extends MenuGuiPanel {
 

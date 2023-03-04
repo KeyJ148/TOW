@@ -55,7 +55,7 @@ public class BattleLocation extends GameLocation {
 
         @Override
         public void update(long delta) {
-            org.liquidengine.legui.component.Component frameContainer =
+            com.spinyowl.legui.component.Component frameContainer =
                     getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer();
             if (Context.getService(ClientData.class).showGameTabMenu) {
                 if (!frameContainer.contains(gameTabGuiPanel)) {

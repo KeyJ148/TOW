@@ -30,7 +30,7 @@ repositories {
 dependencies {
     implementation project('OrchEngine')
 
-    implementation 'org.liquidengine:legui:3.3.5'
+    implementation 'com.spinyowl:legui:4.1.0'
     implementation 'io.cucumber:cucumber-picocontainer:2.4.0'
 
     compileOnly 'org.projectlombok:lombok:1.18.20'

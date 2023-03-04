@@ -2,8 +2,8 @@ package cc.abro.tow.client.gui.menu.panels;
 
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
-import org.liquidengine.legui.component.ImageView;
-import org.liquidengine.legui.image.FBOImage;
+import com.spinyowl.legui.component.ImageView;
+import com.spinyowl.legui.image.FBOImage;
 
 public class TextureMenuGuiPanel extends MenuGuiPanel {
 

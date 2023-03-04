@@ -2,8 +2,8 @@ package cc.abro.orchengine.input.mouse;
 
 import cc.abro.orchengine.context.Context;
 import lombok.Getter;
-import org.liquidengine.legui.component.Frame;
-import org.liquidengine.legui.event.MouseClickEvent;
+import com.spinyowl.legui.component.Frame;
+import com.spinyowl.legui.event.MouseClickEvent;
 
 import java.util.HashSet;
 import java.util.List;

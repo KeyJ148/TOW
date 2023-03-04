@@ -1,7 +1,7 @@
 package cc.abro.orchengine.input.mouse;
 
-import org.liquidengine.legui.component.Frame;
-import org.liquidengine.legui.event.MouseClickEvent;
+import com.spinyowl.legui.component.Frame;
+import com.spinyowl.legui.event.MouseClickEvent;
 
 import java.util.LinkedList;
 import java.util.List;

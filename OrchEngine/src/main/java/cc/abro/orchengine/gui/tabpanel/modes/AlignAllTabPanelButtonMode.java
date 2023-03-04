@@ -3,7 +3,7 @@ package cc.abro.orchengine.gui.tabpanel.modes;
 import cc.abro.orchengine.gui.tabpanel.TabPanel;
 import cc.abro.orchengine.gui.tabpanel.TabPanelButtonMode;
 import org.joml.Vector2f;
-import org.liquidengine.legui.style.border.SimpleLineBorder;
+import com.spinyowl.legui.style.border.SimpleLineBorder;
 
 import java.util.List;
 

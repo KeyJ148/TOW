@@ -8,8 +8,8 @@ import cc.abro.tow.client.gui.menu.InterfaceStyles;
 import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import cc.abro.tow.client.gui.menu.panels.MainMenuGuiPanel;
 import cc.abro.tow.client.gui.menu.panels.MenuGuiPanel;
-import org.liquidengine.legui.component.Button;
-import org.liquidengine.legui.component.Panel;
+import com.spinyowl.legui.component.Button;
+import com.spinyowl.legui.component.Panel;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,55 +1,99 @@
 package cc.abro.tow.client.gui.menu.panels.settings;
 
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
 import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import cc.abro.tow.client.gui.menu.panels.MainMenuGuiPanel;
 import cc.abro.tow.client.gui.menu.panels.MenuGuiPanel;
-import org.liquidengine.legui.component.Panel;
-import org.liquidengine.legui.event.MouseClickEvent;
+import cc.abro.tow.client.settings.SettingsService;
+import com.spinyowl.legui.component.Button;
+import com.spinyowl.legui.component.Label;
+import com.spinyowl.legui.component.Panel;
+import com.spinyowl.legui.component.SelectBox;
+import com.spinyowl.legui.event.MouseClickEvent;
+import org.lwjgl.glfw.GLFWVidMode;
 
-public class VideoSettingsMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
+import java.util.function.Function;
+
+import static org.lwjgl.glfw.GLFW.*;
+
+public class VideoSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBackLogicInterface {
 
     private final MenuGuiPanel parent;
-    //private final SelectBox.SelectBoxElement<boolean> VSync;
+    //private final ddd;
+    private SelectBox<String> resolution;
 
-    public VideoSettingsMenuGuiPanel(MenuGuiPanel parent) {
+    public Function<Panel, Boolean> canOut;
+    private final Button saveButton;
+    private final Button saveAndBackButton;
+
+    public VideoSettingsMenuGuiPanel(SettingsMenuGuiPanel parent) {
+
+        final int WIDTH_OF_RESOLUTION_FIELD = 200;
+        final int HEIGHT_OF_RESOLUTION_FIELD = InterfaceStyles.BUTTON_HEIGHT;
+        final int BUTTON_INDENT_X = (InterfaceStyles.SETTINGS_PANEL_WIDTH - InterfaceStyles.BUTTON_WIDTH*3)/5;
+
         this.parent = parent;
         setSize(InterfaceStyles.SETTINGS_PANEL_WIDTH, InterfaceStyles.SETTINGS_PANEL_HEIGHT);
         setPosition(InterfaceStyles.THICKNESS_OF_PANEL_BORDER, InterfaceStyles.THICKNESS_OF_PANEL_BORDER);
-        add(MenuGuiComponents.createLabel("Video there", InterfaceStyles.INDENT_X + 10, InterfaceStyles.INDENT_Y + 15, 30, InterfaceStyles.MENU_TEXT_FIELD_HEIGHT));
 
-        final int BUTTON_INDENT_X = (InterfaceStyles.SETTINGS_PANEL_WIDTH - InterfaceStyles.BUTTON_WIDTH*3)/5;
+        GLFWVidMode.Buffer vidModes = glfwGetVideoModes(glfwGetPrimaryMonitor());
+        resolution = new SelectBox<>(InterfaceStyles.INDENT_X + 10, InterfaceStyles.INDENT_Y + 15, WIDTH_OF_RESOLUTION_FIELD, HEIGHT_OF_RESOLUTION_FIELD);
 
-        add(MenuGuiComponents.createButton("Back to menu", BUTTON_INDENT_X,
-                InterfaceStyles.SETTINGS_PANEL_HEIGHT - InterfaceStyles.BUTTON_HEIGHT - InterfaceStyles.INDENT_Y,
-                InterfaceStyles.BUTTON_WIDTH, InterfaceStyles.BUTTON_HEIGHT,
-                getMouseReleaseListener(event -> {
-                    if(false) {
-                        addDialogGuiPanelWithUnblockAndBlockFrame("You have unsaved changes. Are you sure you want to go back?", "Yes", "No");
-                    } else {
-                        parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
-                    }
-                })));
-        add(MenuGuiComponents.createButton("Save & back", InterfaceStyles.SETTINGS_PANEL_WIDTH - (InterfaceStyles.BUTTON_WIDTH + BUTTON_INDENT_X) * 2,
-                InterfaceStyles.SETTINGS_PANEL_HEIGHT - InterfaceStyles.BUTTON_HEIGHT - InterfaceStyles.INDENT_Y,
-                InterfaceStyles.BUTTON_WIDTH, InterfaceStyles.BUTTON_HEIGHT,
-                getMouseReleaseListener(event -> saveChanges(event, true))));
+        /*if(vidModes != null) {
+            for (GLFWVidMode vidMode : vidModes) {
+                resolution.addElement(vidMode.width() + "x" + vidMode.height());
+            }
+        }*/
+        for(int i = 0; i < 5; i++) {
+            resolution.addElement("Ha" + i);
+        }
+        resolution.setVisibleCount(5);
+        resolution.setElementHeight(InterfaceStyles.MENU_TEXT_FIELD_HEIGHT);
+        resolution.getSelectionListPanel().setStyle(InterfaceStyles.createPanelStyle());
+        for (SelectBox<String>.SelectBoxElement<String> boxElement :resolution.getSelectBoxElements()) {
+            boxElement.setStyle(InterfaceStyles.createButtonStyle());
+        }
+        add(resolution);
 
-        add(MenuGuiComponents.createButton("Save", InterfaceStyles.SETTINGS_PANEL_WIDTH - InterfaceStyles.BUTTON_WIDTH - BUTTON_INDENT_X,
-                InterfaceStyles.SETTINGS_PANEL_HEIGHT - InterfaceStyles.BUTTON_HEIGHT - InterfaceStyles.INDENT_Y,
-                InterfaceStyles.BUTTON_WIDTH, InterfaceStyles.BUTTON_HEIGHT,
-                getMouseReleaseListener(event -> saveChanges(event, false))));
+        add(parent.createBackToMenuButton(this));
+        canOut = parent.createCanOut(this);
+
+        saveAndBackButton = parent.createSaveAndBackButton(this);
+        add(saveAndBackButton);
+
+        saveButton = parent.createSaveButton(this);
+        add(saveButton);
+        changeSaveButtons();
     }
 
-    private void saveChanges(MouseClickEvent<?> event, boolean getBack) {
-        if(getBack)
-            parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
+    public void saveChanges() {
+        changeSaveButtons();
+    }
+    public void clearChanges() {
     }
 
-    private boolean isChanged() {
+    public boolean isChanged() {
         return false;
+    }
+
+    public void changeSaveButtons() {
+        boolean changed = isChanged();
+        saveButton.setFocusable(changed);
+        saveAndBackButton.setFocusable(changed);
+        if(changed) {
+            saveButton.setStyle(InterfaceStyles.createButtonStyle());
+            saveAndBackButton.setStyle(InterfaceStyles.createButtonStyle());
+        }
+        else
+        {
+            saveButton.setStyle(InterfaceStyles.createBlockedButtonStyle());
+            saveAndBackButton.setStyle(InterfaceStyles.createBlockedButtonStyle());
+            saveButton.setHovered(false);
+            saveAndBackButton.setHovered(false);
+        }
     }
 
     private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {

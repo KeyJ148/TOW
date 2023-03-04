@@ -1,8 +1,8 @@
 package cc.abro.tow.client.gui;
 
-import org.liquidengine.legui.component.Label;
-import org.liquidengine.legui.component.Panel;
-import org.liquidengine.legui.style.font.FontRegistry;
+import com.spinyowl.legui.component.Label;
+import com.spinyowl.legui.component.Panel;
+import com.spinyowl.legui.style.font.FontRegistry;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package cc.abro.orchengine.services;
 
 import cc.abro.orchengine.context.EngineService;
-import org.liquidengine.legui.component.Component;
+import com.spinyowl.legui.component.Component;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -4,7 +4,7 @@ import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
 import cc.abro.tow.client.ClientData;
-import org.liquidengine.legui.event.KeyEvent;
+import com.spinyowl.legui.event.KeyEvent;
 
 import java.util.List;
 

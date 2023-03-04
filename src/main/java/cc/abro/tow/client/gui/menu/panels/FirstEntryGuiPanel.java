@@ -9,14 +9,14 @@ import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
 import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import cc.abro.tow.client.settings.SettingsService;
-import org.liquidengine.legui.component.Button;
-import org.liquidengine.legui.component.ImageView;
-import org.liquidengine.legui.component.Panel;
-import org.liquidengine.legui.component.TextAreaField;
-import org.liquidengine.legui.event.MouseClickEvent;
-import org.liquidengine.legui.image.FBOImage;
-import org.liquidengine.legui.listener.MouseClickEventListener;
-import org.liquidengine.legui.style.Background;
+import com.spinyowl.legui.component.Button;
+import com.spinyowl.legui.component.ImageView;
+import com.spinyowl.legui.component.Panel;
+import com.spinyowl.legui.component.TextAreaField;
+import com.spinyowl.legui.event.MouseClickEvent;
+import com.spinyowl.legui.image.FBOImage;
+import com.spinyowl.legui.listener.MouseClickEventListener;
+import com.spinyowl.legui.style.Background;
 
 import java.awt.image.BufferedImage;
 

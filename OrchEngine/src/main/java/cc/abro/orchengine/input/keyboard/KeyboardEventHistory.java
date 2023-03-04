@@ -1,7 +1,7 @@
 package cc.abro.orchengine.input.keyboard;
 
-import org.liquidengine.legui.component.Frame;
-import org.liquidengine.legui.event.KeyEvent;
+import com.spinyowl.legui.component.Frame;
+import com.spinyowl.legui.event.KeyEvent;
 
 import java.util.LinkedList;
 import java.util.List;

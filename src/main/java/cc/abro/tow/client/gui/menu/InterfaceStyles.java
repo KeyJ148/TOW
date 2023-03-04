@@ -1,11 +1,11 @@
 package cc.abro.tow.client.gui.menu;
 
 import org.joml.Vector4f;
-import org.liquidengine.legui.component.optional.align.HorizontalAlign;
-import org.liquidengine.legui.style.Background;
-import org.liquidengine.legui.style.Style;
-import org.liquidengine.legui.style.border.SimpleLineBorder;
-import org.liquidengine.legui.style.font.FontRegistry;
+import com.spinyowl.legui.component.optional.align.HorizontalAlign;
+import com.spinyowl.legui.style.Background;
+import com.spinyowl.legui.style.Style;
+import com.spinyowl.legui.style.border.SimpleLineBorder;
+import com.spinyowl.legui.style.font.FontRegistry;
 
 public final class InterfaceStyles {
 

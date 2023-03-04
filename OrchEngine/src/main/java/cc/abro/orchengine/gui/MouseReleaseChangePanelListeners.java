@@ -3,9 +3,9 @@ package cc.abro.orchengine.gui;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.services.GuiService;
 import cc.abro.orchengine.services.ServiceConsumer;
-import org.liquidengine.legui.component.Component;
-import org.liquidengine.legui.component.Panel;
-import org.liquidengine.legui.listener.MouseClickEventListener;
+import com.spinyowl.legui.component.Component;
+import com.spinyowl.legui.component.Panel;
+import com.spinyowl.legui.listener.MouseClickEventListener;
 
 import java.util.function.Supplier;
 

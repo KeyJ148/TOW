@@ -2,7 +2,7 @@ package cc.abro.tow.client.gui.menu.panels;
 
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
 import cc.abro.tow.client.gui.menu.MenuGuiComponents;
-import org.liquidengine.legui.component.ScrollablePanel;
+import com.spinyowl.legui.component.ScrollablePanel;
 
 import java.util.ArrayList;
 

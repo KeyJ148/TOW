@@ -16,7 +16,7 @@ import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.tanks.enemy.Enemy;
 import cc.abro.tow.client.tanks.enemy.EnemyArmor;
-import org.liquidengine.legui.event.KeyEvent;
+import com.spinyowl.legui.event.KeyEvent;
 
 import java.util.Comparator;
 import java.util.List;

@@ -4,11 +4,11 @@ import cc.abro.orchengine.gui.MouseReleaseListeners;
 import cc.abro.orchengine.gui.tabpanel.modes.SimpleTabPanelButtonMode;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
-import org.liquidengine.legui.component.Button;
-import org.liquidengine.legui.component.Panel;
-import org.liquidengine.legui.event.MouseClickEvent;
-import org.liquidengine.legui.style.Style;
-import org.liquidengine.legui.style.border.SimpleLineBorder;
+import com.spinyowl.legui.component.Button;
+import com.spinyowl.legui.component.Panel;
+import com.spinyowl.legui.event.MouseClickEvent;
+import com.spinyowl.legui.style.Style;
+import com.spinyowl.legui.style.border.SimpleLineBorder;
 
 import java.util.ArrayList;
 import java.util.List;

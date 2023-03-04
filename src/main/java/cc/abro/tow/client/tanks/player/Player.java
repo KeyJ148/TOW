@@ -17,11 +17,11 @@ import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.equipment.armor.ADefault;
 import cc.abro.tow.client.tanks.equipment.gun.GDefault;
 import org.joml.Vector4f;
-import org.liquidengine.legui.component.Button;
-import org.liquidengine.legui.component.Label;
-import org.liquidengine.legui.style.Background;
-import org.liquidengine.legui.style.border.SimpleLineBorder;
-import org.liquidengine.legui.style.color.ColorConstants;
+import com.spinyowl.legui.component.Button;
+import com.spinyowl.legui.component.Label;
+import com.spinyowl.legui.style.Background;
+import com.spinyowl.legui.style.border.SimpleLineBorder;
+import com.spinyowl.legui.style.color.ColorConstants;
 
 import java.util.ArrayList;
 
