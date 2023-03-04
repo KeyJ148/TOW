@@ -18,8 +18,8 @@ public class SpriteLoader {
     public Sprite getSprite(String texturePath, String maskPath) {
         Texture texture = textureService.getTexture(texturePath);
         Mask mask = (maskPath != null) ?
-                MaskLoader.getMask(maskPath, texture.getWidth(), texture.getHeight()) :
-                MaskLoader.createDefaultMask(texture.getWidth(), texture.getHeight());
+                MaskLoader.getMaskFromFile(maskPath, texture.getWidth(), texture.getHeight()) :
+                MaskLoader.getRectangularMask(texture.getWidth(), texture.getHeight());
 
         return new Sprite(texture, mask);
     }

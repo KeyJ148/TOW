@@ -16,10 +16,6 @@ import java.util.function.Function;
 
 public class TabPanel extends Panel implements MouseReleaseListeners {
 
-    //TODO больше возможностей по изменению конкретных кнопок (размер, стили и т.д.)
-
-    //TODO нужно реализовать режимы отображения кнопок
-
     private float xIndentVision = 0f;
 
     private float yIndentVision = 0f;

@@ -25,8 +25,8 @@ public class AnimationLoader {
         }
 
         Mask mask = (maskPath != null) ?
-                MaskLoader.getMask(maskPath, textures.get(0).getWidth(), textures.get(0).getHeight()) :
-                MaskLoader.createDefaultMask(textures.get(0).getWidth(), textures.get(0).getHeight());
+                MaskLoader.getMaskFromFile(maskPath, textures.get(0).getWidth(), textures.get(0).getHeight()) :
+                MaskLoader.getRectangularMask(textures.get(0).getWidth(), textures.get(0).getHeight());
 
         return new Animation(textures, mask);
     }

@@ -3,9 +3,9 @@ package cc.abro.tow.client.tanks.player;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.LocationManager;
-import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
+import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.gameobject.location.Border;
@@ -52,7 +52,7 @@ public class Armor extends GameObject {
         getComponent(Movement.class).update(0);
 
         addComponent(new Collision(textureHandlers.mask()));
-        getComponent(Collision.class).addCollisionObjects(new Class[]{
+        getComponent(Collision.class).addCollidableObjects(new Class[]{
                 CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class, Box.class, Border.class});
         getComponent(Collision.class).addListener(player.controller);
 

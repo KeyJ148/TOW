@@ -1,8 +1,9 @@
 package cc.abro.orchengine.services;
 
 import cc.abro.orchengine.context.EngineService;
-import cc.abro.orchengine.context.GameService;
 import cc.abro.orchengine.cycle.Render;
+import lombok.Getter;
+import lombok.Setter;
 import org.joml.Vector2f;
 import org.liquidengine.legui.component.Component;
 
@@ -10,6 +11,9 @@ import org.liquidengine.legui.component.Component;
 public class GuiService {
 
     private final Render render;
+
+    @Getter @Setter
+    private boolean maskRendering;
 
     public GuiService(Render render) {
         this.render = render;

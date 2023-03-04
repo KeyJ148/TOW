@@ -4,9 +4,9 @@ package cc.abro.tow.client.tanks.player;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.LocationManager;
-import cc.abro.orchengine.gameobject.components.Collision;
-import cc.abro.orchengine.gameobject.components.CollisionDirect;
 import cc.abro.orchengine.gameobject.components.Movement;
+import cc.abro.orchengine.gameobject.components.collision.Collision;
+import cc.abro.orchengine.gameobject.components.collision.CollisionListener;
 import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.gameobject.location.Border;
@@ -23,7 +23,7 @@ import cc.abro.tow.client.tanks.enemy.EnemyArmor;
 
 import java.util.Set;
 
-public class Bullet extends GameObject implements Collision.CollisionListener {
+public class Bullet extends GameObject implements CollisionListener {
 
     public static final String PATH_SETTING = "game/bullet/";
     public String name, title; //name - техническое название, title - игровое
@@ -65,8 +65,8 @@ public class Bullet extends GameObject implements Collision.CollisionListener {
         setDirection(dir);
         addComponent(new SpriteRender(texture.texture(), 1500));
 
-        addComponent(new CollisionDirect(texture.mask(), range));
-        getComponent(Collision.class).addCollisionObjects(new Class[]{
+        addComponent(new Collision(texture.mask()));
+        getComponent(Collision.class).addCollidableObjects(new Class[]{
                 CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class, Border.class});
         getComponent(Collision.class).addListener(this);
 

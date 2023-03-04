@@ -1,8 +1,8 @@
 package cc.abro.tow.client.tanks.equipment.bullet;
 
 import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Movement;
+import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.tanks.equipment.armor.ADefault;
 import cc.abro.tow.client.tanks.equipment.armor.AFury;
@@ -17,7 +17,7 @@ public class BMassSmall extends Bullet {
     public void init(Player player, double x, double y, double dir, double damage, int range, String name) {
         super.init(player, x, y, dir, damage, range, name);
 
-        getComponent(Collision.class).addCollisionObjects(new Class[]{ADefault.class, AFury.class, AVampire.class});
+        getComponent(Collision.class).addCollidableObjects(new Class[]{ADefault.class, AFury.class, AVampire.class});
     }
 
     @Override

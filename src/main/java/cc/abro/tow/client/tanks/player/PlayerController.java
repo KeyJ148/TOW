@@ -4,10 +4,11 @@ import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Engine;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.LocationManager;
-import cc.abro.orchengine.gameobject.components.Collision;
 import cc.abro.orchengine.gameobject.components.Movement;
+import cc.abro.orchengine.gameobject.components.collision.CollisionListener;
 import cc.abro.orchengine.gameobject.location.Border;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
+import cc.abro.orchengine.services.GuiService;
 import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.map.objects.Box;
@@ -26,7 +27,7 @@ import java.util.stream.Stream;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class PlayerController extends GameObject implements Collision.CollisionListener {
+public class PlayerController extends GameObject implements CollisionListener {
 
     private static final boolean INVERSE_CONTROL = false;
     private final LocationManager locationManager;
@@ -97,6 +98,12 @@ public class PlayerController extends GameObject implements Collision.CollisionL
                     //Вывод дебаг инфы
                     case GLFW_KEY_F3:
                         Context.getService(ClientData.class).printAnalyzerInfo = !Context.getService(ClientData.class).printAnalyzerInfo;
+                        break;
+
+                    //Отрисовка масок
+                    case GLFW_KEY_F4:
+                        Context.getService(GuiService.class).setMaskRendering(
+                                !Context.getService(GuiService.class).isMaskRendering());
                         break;
 
                     //Переключение камер после смерти
