@@ -20,24 +20,22 @@ repositories {
 
 dependencies {
     implementation 'com.spinyowl:legui:4.1.0'
-    implementation 'io.cucumber:cucumber-picocontainer:2.4.0'
-    implementation 'org.reflections:reflections:0.10.2'
+    implementation 'io.cucumber:cucumber-picocontainer:7.11.1'
 
-    implementation 'org.slf4j:slf4j-api:1.7.36'
-    implementation 'org.slf4j:slf4j-nop:1.7.36'
+    implementation 'org.slf4j:slf4j-api:2.0.6'
+    implementation 'org.slf4j:slf4j-nop:2.0.6'
     implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
     implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.12.4'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
 
-    compileOnly 'org.projectlombok:lombok:1.18.20'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+    testCompileOnly 'org.projectlombok:lombok:1.18.26'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
 
-    testCompileOnly 'org.projectlombok:lombok:1.18.20'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
 }
 
 test {
@@ -47,30 +45,6 @@ test {
 task sourceJar(type: Jar) {
     from sourceSets.main.allJava
 }
-
-publishing {
-    repositories {
-        maven {
-            name = 'GitHubPackages'
-            url = 'https://maven.pkg.github.com/KeyJ148/OrchEngine'
-            credentials {
-                username = System.getenv('GITHUB_ACTOR')
-                password = System.getenv('GITHUB_TOKEN')
-            }
-        }
-    }
-    publications {
-        orchEngine(MavenPublication) {
-            from components.java
-            artifactId = 'orchengine'
-
-            artifact sourceJar {
-                classifier 'sources'
-            }
-        }
-    }
-}
-
 
 //LWJGL-3.3.1, Minimal OpenGL, All x64 OS (include arm)
 import org.gradle.internal.os.OperatingSystem
