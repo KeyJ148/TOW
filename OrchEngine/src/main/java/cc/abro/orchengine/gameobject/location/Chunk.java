@@ -23,7 +23,6 @@ public class Chunk<T> {
         objects.forEach(runnable);
     }
 
-    @Deprecated
     public Set<T> getObjects() {
         return Collections.unmodifiableSet(objects);
     }

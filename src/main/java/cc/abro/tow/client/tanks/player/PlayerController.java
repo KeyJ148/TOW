@@ -5,6 +5,7 @@ import cc.abro.orchengine.cycle.Engine;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Movement;
+import cc.abro.orchengine.gameobject.components.collision.CollidableComponent;
 import cc.abro.orchengine.gameobject.components.collision.CollisionListener;
 import cc.abro.orchengine.gameobject.location.Border;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
@@ -269,7 +270,8 @@ public class PlayerController extends GameObject implements CollisionListener {
     }
 
     @Override
-    public void collision(GameObject gameObject) {
+    public void collision(CollidableComponent collision) {
+        GameObject gameObject = collision.getGameObject();
         if (gameObject.getClass().equals(Box.class)) {
             Box box = (Box) gameObject;
             if (!box.isDestroyed()) {

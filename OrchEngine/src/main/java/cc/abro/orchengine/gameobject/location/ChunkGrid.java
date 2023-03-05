@@ -13,7 +13,7 @@ public class ChunkGrid<T extends Positionable> {
     private final int chunkSize;
     //В качестве ключа координаты чанка в сетке чанков
     private final Map<Vector2<Integer>, Chunk<T>> chunkByCoords = new HashMap<>();
-    private final Map<T, Chunk<T>> chunkByObject = new HashMap<>();
+    private final Map<T, Chunk<T>> chunkByObject = new HashMap<>(); //TODO del, because have getChunk(x, y)?
 
     public ChunkGrid(int chunkSize) {
         this.chunkSize = chunkSize;

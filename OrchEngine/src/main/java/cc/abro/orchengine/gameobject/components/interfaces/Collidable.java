@@ -1,15 +1,11 @@
 package cc.abro.orchengine.gameobject.components.interfaces;
 
+import cc.abro.orchengine.util.Vector2;
+
+import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
 
 public interface Collidable extends Positionable {
-    void maskRecalculate();
-    void checkCollisions();
-
-    void addChangeCollidableObjectsListener(Consumer<Collidable> listener);
-    void removeChangeCollidableObjectsListener(Consumer<Collidable> listener);
-    void notifyChangeCollidableObjectsListeners();
-
-    Set<Class<? extends Collidable>> getCollidableObjects();
+    void checkCollisions(Set<Collidable> collidables);
+    List<Vector2<Double>> getAbsoluteMaskPoints();
 }

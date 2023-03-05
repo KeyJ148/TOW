@@ -46,7 +46,7 @@ public class Armor extends GameObject {
         setX(x);
         setY(y);
         setDirection(direction);
-        addComponent(new AnimationRender(textureHandlers.textures(), 1000));
+        addComponent(new AnimationRender(textureHandlers.textures(), 1000)); //TODO вынести глубины в константы
         addComponent(new Movement());
         getComponent(Movement.class).setDirection(direction);
         getComponent(Movement.class).update(0);

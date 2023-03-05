@@ -2,6 +2,7 @@ package cc.abro.tow.client.tanks.equipment.bullet;
 
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Movement;
+import cc.abro.orchengine.gameobject.components.collision.CollidableComponent;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
@@ -20,8 +21,9 @@ public class BMass extends Bullet {
     public String configName;
 
     @Override
-    public void collision(GameObject gameObject) {
+    public void collision(CollidableComponent collision) {
         if (isDestroyed()) return;
+        GameObject gameObject = collision.getGameObject();
 
         if (Set.of(CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class).contains(gameObject.getClass())) {
             Random random = new Random();
@@ -51,7 +53,7 @@ public class BMass extends Bullet {
 
         //Обработка столкновения родителя
         //Обязательно в конце, иначе сразу выйдет из метода, т.к. destroy = true
-        super.collision(gameObject);
+        super.collision(collision);
     }
 
     @Override

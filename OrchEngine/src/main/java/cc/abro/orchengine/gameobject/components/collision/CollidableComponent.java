@@ -1,50 +1,28 @@
 package cc.abro.orchengine.gameobject.components.collision;
 
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.PositionableComponent;
 import cc.abro.orchengine.gameobject.components.interfaces.Collidable;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.function.Consumer;
+import java.util.*;
 
 public abstract class CollidableComponent extends PositionableComponent implements Collidable {
 
-    private final Set<Consumer<Collidable>> changeCollidableObjectsListeners = new HashSet<>(); //Оповещаем этих слушателей при изменении списка #collidableObjects
-    private final Set<Class<? extends Collidable>> collidableObjects = new HashSet<>(); //Список объектов с которыми надо проверять столкновения //TODO classes, not objects
+    //TODO Проверять не по классу, а по другому значению, которое удобно наследовать, в идеале что-то связанное с Collidable/CollidableComponent
+    private final Map<Class<? extends GameObject>, Set<CollisionListener>> collisionListeners = new HashMap<>(); //Список объектов которые нужно оповещать при коллизии с классом (ключ мапы)
 
-    public void addCollidableObjects(Class[] collidableObjects) {
-        for (Class obj : collidableObjects)
-            addCollidableObject(obj);
+    public void addListener(Class<? extends GameObject> collidableObject, CollisionListener listener) {
+        collisionListeners.computeIfAbsent(collidableObject, key -> new HashSet<>()).add(listener);
     }
 
-    public void addCollidableObject(Class collidableObject) {
-        collidableObjects.add(collidableObject);
-        notifyChangeCollidableObjectsListeners();
+    public void removeListener(Class<? extends GameObject> collidableObject, CollisionListener listener) {
+        collisionListeners.getOrDefault(collidableObject, Collections.emptySet()).remove(listener);
     }
 
-    public void removeCollidableObject(Class collidableObject) {
-        collidableObjects.remove(collidableObject);
-        notifyChangeCollidableObjectsListeners();
-    }
-
-    @Override
-    public Set<Class<? extends Collidable>> getCollidableObjects() {
-        return Collections.unmodifiableSet(collidableObjects);
-    }
-
-    @Override
-    public void addChangeCollidableObjectsListener(Consumer<Collidable> listener) {
-        changeCollidableObjectsListeners.add(listener);
-    }
-
-    @Override
-    public void removeChangeCollidableObjectsListener(Consumer<Collidable> listener) {
-        changeCollidableObjectsListeners.remove(listener);
-    }
-
-    @Override
-    public void notifyChangeCollidableObjectsListeners() {
-        changeCollidableObjectsListeners.forEach(listener -> listener.accept(this));
+    protected void informListeners(CollidableComponent collidableComponent) {
+        Set<CollisionListener> listeners = collisionListeners.getOrDefault(collidableComponent.getGameObject().getClass(), Collections.emptySet());
+        for (CollisionListener listener :listeners ){
+            listener.collision(collidableComponent);
+        }
     }
 }

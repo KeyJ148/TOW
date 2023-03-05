@@ -1,32 +1,27 @@
 package cc.abro.orchengine.gameobject.components.collision;
 
-import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
-import cc.abro.orchengine.image.Color;
+import cc.abro.orchengine.gameobject.components.interfaces.Collidable;
 import cc.abro.orchengine.resources.masks.Mask;
-import cc.abro.orchengine.services.GuiService;
 import cc.abro.orchengine.util.Vector2;
+import lombok.AccessLevel;
 import lombok.Getter;
-import org.lwjgl.opengl.GL11;
+import lombok.Setter;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
 
-public class Collision extends CollidableListenedComponent implements Drawable {
-
-    private final GuiService guiService;
+public class Collision extends DrawableCollidableComponent {
 
     @Getter
     private final Mask mask; //Маска для текстуры этого объекта
+    @Getter @Setter(AccessLevel.PRIVATE)
     private List<Vector2<Double>> absoluteMaskPoints; //Абсолютные координаты маски от левого верхнего угла карты
 
     public Collision(Mask mask) {
         this.mask = mask;
-        guiService = Context.getService(GuiService.class);
     }
 
     @Override
@@ -34,10 +29,21 @@ public class Collision extends CollidableListenedComponent implements Drawable {
         maskRecalculate();
     }
 
-    //Перерасчёт маски относительно начала координат карты
     @Override
-    public void maskRecalculate() {
-        absoluteMaskPoints = new ArrayList<>(mask.getCountPoints());
+    public void checkCollisions(Set<Collidable> collidables) {
+        maskRecalculate();
+        for (Collidable collidable : collidables) {
+            Collision collisionComponent = (Collision) collidable;
+            if (checkCollision(collisionComponent)) { //TODO флаг, что сейчас с этим компонентом в столкновение. И проверять каждый раз после перемещения. А также оповещать другой компонент, что мы больше не пересекаемся, если переместились мы, или уничтожились (destroy)
+                informListeners(collisionComponent);
+                collisionComponent.informListeners(this);
+            }
+        }
+    }
+
+    //Перерасчёт маски относительно начала координат карты
+    private void maskRecalculate() {
+        List<Vector2<Double>> newAbsoluteMaskPoints = new ArrayList<>(mask.getCountPoints());
 
         //Смещена начального угла с Востока на Север
         double direction = getGameObject().getDirection();
@@ -53,59 +59,14 @@ public class Collision extends CollidableListenedComponent implements Drawable {
             double deltaX2 = sin * point.y; //Math.cos(direction-Math.PI/2) * point.y
             double deltaY2 = -cos * point.y; //Math.sin(direction-Math.PI/2) * point.y
 
-            absoluteMaskPoints.add(new Vector2<>(
+            newAbsoluteMaskPoints.add(new Vector2<>(
                     getGameObject().getX() + deltaX + deltaX2,
                     getGameObject().getY() - deltaY - deltaY2
             ));
         }
+
+        setAbsoluteMaskPoints(newAbsoluteMaskPoints);
     }
-
-    //Вызывает проверку столкновения с объектами в соседних чанках
-    @Override //TODO проверять только в текущем и 8 соседних чанках (если это не unsuitable Collidable объект)
-    public void checkCollisions() {
-        /*
-        for (GameObject objectFromRoom : getLocationManager().getActiveLocation().getObjects()) {//Цикл перебора всех объектов в локации
-            if (objectFromRoom != null && objectFromRoom.hasComponent(Collision.class)) {//Если объект не был уничтожен и у него есть маска
-                for (Class collisionObject : collisionObjects) { //Цикл перебора объектов, с которыми надо проверять столкновение
-                    if ((objectFromRoom.getClass().equals(collisionObject)) //Если с эти объектом надо проверять столкновени
-                            && (checkCollision(objectFromRoom))) { //И с этим объектом происходит столкновение
-                        informListeners(objectFromRoom); //Информируем об этом всех слушателей
-                    }
-                }
-            }
-        }*/
-    }
-
-    @Override
-    public void draw() {
-        if (!guiService.isMaskRendering()) return;
-
-        List<Vector2<Double>> maskDrawPoints = absoluteMaskPoints.stream()
-                .map(getLocationManager().getActiveLocation().getCamera()::toRelativePosition)
-                .toList();
-
-        GL11.glLoadIdentity();
-        Color.BLUE.bind();
-
-        GL11.glBegin(GL11.GL_LINE_LOOP);
-        for (Vector2<Double> maskPoint : maskDrawPoints) {
-            GL11.glVertex2f(maskPoint.x.floatValue(), maskPoint.y.floatValue());
-        }
-        GL11.glEnd();
-    }
-
-    @Override
-    public int getZ() {
-        return 5000;
-    }
-
-    //Not implemented methods because Z never changes
-    @Override
-    public void addChangeZListener(Consumer<Drawable> listener) {}
-    @Override
-    public void removeChangeZListener(Consumer<Drawable> listener) {}
-    @Override
-    public void notifyChangeZListeners() {}
 
     //Проверка столкновения с другим компонентом Collision
     private boolean checkCollision(Collision collision) {
@@ -140,7 +101,7 @@ public class Collision extends CollidableListenedComponent implements Drawable {
 
     private Polygon getAbsolutePolygon() {
         Polygon polygon = new Polygon();
-        for (Vector2<Double> maskPoint : absoluteMaskPoints) {
+        for (Vector2<Double> maskPoint : getAbsoluteMaskPoints()) {
             polygon.addPoint(maskPoint.x.intValue(), maskPoint.y.intValue());
         }
         return polygon;

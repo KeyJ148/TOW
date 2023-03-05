@@ -2,6 +2,7 @@ package cc.abro.tow.client.tanks.equipment.bullet;
 
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Movement;
+import cc.abro.orchengine.gameobject.components.collision.CollidableComponent;
 import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.tanks.equipment.armor.ADefault;
@@ -21,15 +22,16 @@ public class BMassSmall extends Bullet {
     }
 
     @Override
-    public void collision(GameObject gameObject) {
+    public void collision(CollidableComponent collision) {
         if (isDestroyed()) return;
+        GameObject gameObject = collision.getGameObject();
 
         if (gameObject instanceof Armor) {
             ((Armor) gameObject).player.hp -= damage;
             destroy(explosionSize);
         }
 
-        super.collision(gameObject);
+        super.collision(collision);
     }
 
     @Override
