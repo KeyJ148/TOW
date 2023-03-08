@@ -5,6 +5,7 @@ import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.resources.animations.Animation;
+import cc.abro.tow.client.CollidableObjectType;
 
 import java.util.List;
 
@@ -20,6 +21,6 @@ public class EnemyArmor extends GameObject {
 
         addComponent(new Movement());
         getComponent(Movement.class).directionDrawEquals = false;
-        addComponent(new Collision(animation.mask()));
+        addComponent(new Collision(animation.mask(), CollidableObjectType.ENEMY_ARMOR));
     }
 }

@@ -2,6 +2,7 @@ package cc.abro.orchengine.gameobject.location.cache;
 
 import cc.abro.orchengine.gameobject.components.interfaces.Collidable;
 import cc.abro.orchengine.gameobject.components.interfaces.Positionable;
+import cc.abro.orchengine.gameobject.location.Chunk;
 import cc.abro.orchengine.gameobject.location.ChunkGrid;
 import cc.abro.orchengine.util.Vector2;
 
@@ -32,7 +33,10 @@ public class CollidingObjectsCache extends ChunkGrid<Collidable> {
         Set<Collidable> collidableObjectsFromNearestChunks = new HashSet<>();
         for (int x = chunkPosition.x - 1; x <= chunkPosition.x + 1; x++) {
             for (int y = chunkPosition.y - 1; y <= chunkPosition.y + 1; y++) {
-                collidableObjectsFromNearestChunks.addAll(getChunkByChunkPosition(x, y).getObjects());
+                Chunk<Collidable> chunk = getChunkByChunkPosition(x, y);
+                if (chunk != null) {
+                    collidableObjectsFromNearestChunks.addAll(chunk.getObjects());
+                }
             }
         }
 

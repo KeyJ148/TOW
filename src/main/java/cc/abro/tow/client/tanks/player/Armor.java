@@ -6,20 +6,13 @@ import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.collision.Collision;
+import cc.abro.orchengine.gameobject.components.collision.DefaultCollidableObjectType;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
-import cc.abro.orchengine.gameobject.location.Border;
 import cc.abro.orchengine.resources.animations.Animation;
+import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.ConfigReader;
-import cc.abro.tow.client.map.objects.Box;
-import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
-import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.tanks.Effect;
-import cc.abro.tow.client.tanks.enemy.EnemyArmor;
-
-/*
-ПРИ ДОБАВЛЕНИЕ НОВОГО КЛАССА БРОНИ ОБНОВИТЬ BMassSmall.java
- */
 
 public class Armor extends GameObject {
 
@@ -51,10 +44,12 @@ public class Armor extends GameObject {
         getComponent(Movement.class).setDirection(direction);
         getComponent(Movement.class).update(0);
 
-        addComponent(new Collision(textureHandlers.mask()));
-        getComponent(Collision.class).addCollidableObjects(new Class[]{
-                CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class, Box.class, Border.class});
-        getComponent(Collision.class).addListener(player.controller);
+        addComponent(new Collision(textureHandlers.mask(), CollidableObjectType.ARMOR));
+        getComponent(Collision.class)
+                .addListener(CollidableObjectType.BOX, player.controller)
+                .addListener(CollidableObjectType.ENEMY_ARMOR, player.controller)
+                .addListener(DefaultCollidableObjectType.BORDER, player.controller);
+                //TODO .addCollidableObjects(new Class[]{CollisedMapObject.class, DestroyedMapObject.class});
 
         if (player.gun != null) {
             player.gun.removeComponents(Follower.class);

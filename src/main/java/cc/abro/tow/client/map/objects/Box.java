@@ -8,6 +8,7 @@ import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.sprites.Sprite;
+import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.GameSetting;
 import cc.abro.tow.client.tanks.equipment.EquipManager;
 import cc.abro.tow.client.tanks.player.Player;
@@ -34,7 +35,7 @@ public class Box extends GameObject {
 
 		Sprite sprite = getSpriteStorage().getSprite(nameBox);
 		addComponent(new SpriteRender(sprite.texture(), 1000));
-		addComponent(new Collision(sprite.mask()));
+		addComponent(new Collision(sprite.mask(), CollidableObjectType.BOX));
 	}
 
 	public void collisionPlayer(Player player) {

@@ -17,11 +17,13 @@ public class Collision extends DrawableCollidableComponent {
 
     @Getter
     private final Mask mask; //Маска для текстуры этого объекта
+    private final CollidableObjectType collidableObjectType;
     @Getter @Setter(AccessLevel.PRIVATE)
     private List<Vector2<Double>> absoluteMaskPoints; //Абсолютные координаты маски от левого верхнего угла карты
 
-    public Collision(Mask mask) {
+    public Collision(Mask mask, CollidableObjectType collidableObjectType) {
         this.mask = mask;
+        this.collidableObjectType = collidableObjectType;
     }
 
     @Override
@@ -39,6 +41,11 @@ public class Collision extends DrawableCollidableComponent {
                 collisionComponent.informListeners(this);
             }
         }
+    }
+
+    @Override
+    public CollidableObjectType getType() {
+        return collidableObjectType;
     }
 
     //Перерасчёт маски относительно начала координат карты

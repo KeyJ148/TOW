@@ -8,6 +8,7 @@ import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.collision.CollidableComponent;
 import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.orchengine.gameobject.components.collision.CollisionListener;
+import cc.abro.orchengine.gameobject.components.collision.DefaultCollidableObjectType;
 import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.gameobject.location.Border;
@@ -15,6 +16,7 @@ import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.sprites.Sprite;
 import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.tow.client.ClientData;
+import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.GameSetting;
 import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
@@ -24,7 +26,7 @@ import cc.abro.tow.client.tanks.enemy.EnemyArmor;
 
 import java.util.Set;
 
-public class Bullet extends GameObject implements CollisionListener {
+public class Bullet extends GameObject implements CollisionListener{
 
     public static final String PATH_SETTING = "game/bullet/";
     public String name, title; //name - техническое название, title - игровое
@@ -66,10 +68,11 @@ public class Bullet extends GameObject implements CollisionListener {
         setDirection(dir);
         addComponent(new SpriteRender(texture.texture(), 1500));
 
-        addComponent(new Collision(texture.mask()));
-        getComponent(Collision.class).addCollidableObjects(new Class[]{
-                CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class, Border.class});
-        getComponent(Collision.class).addListener(this);
+        addComponent(new Collision(texture.mask(), CollidableObjectType.BULLET));
+        getComponent(Collision.class)
+                .addListener(CollidableObjectType.ENEMY_ARMOR, this)
+                .addListener(DefaultCollidableObjectType.BORDER, this);
+        //TODO .addCollidableObjects(new Class[]{CollisedMapObject.class, DestroyedMapObject.class});
 
         Context.getService(TCPControl.class).send(13, getData());
         Context.getService(ClientData.class).idNet++;
