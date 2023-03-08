@@ -25,7 +25,7 @@ public class Follower extends Component implements Updatable {
         if (followUpGameObject.hasComponent(Follower.class) && !followUpGameObject.getComponent(Follower.class).isUpdated())
             followUpGameObject.getComponent(Follower.class).update(delta);
 
-        getGameObject().setPosition(followUpGameObject.getPosition());
+        getGameObject().setPosition(followUpGameObject.getPosition()); //TODO вызывать setPosition только при изменение позиции, т.к. иначе всегда будет происходить проверка коллизий
         if (followDirectionDraw)
             getGameObject().setDirection(followUpGameObject.getDirection());
     }

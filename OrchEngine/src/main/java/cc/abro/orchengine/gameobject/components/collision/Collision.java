@@ -36,7 +36,7 @@ public class Collision extends DrawableCollidableComponent {
         maskRecalculate();
         for (Collidable collidable : collidables) {
             Collision collisionComponent = (Collision) collidable;
-            if (checkCollision(collisionComponent)) { //TODO флаг, что сейчас с этим компонентом в столкновение. И проверять каждый раз после перемещения. А также оповещать другой компонент, что мы больше не пересекаемся, если переместились мы, или уничтожились (destroy)
+            if (collisionComponent != this && checkCollision(collisionComponent)) { //TODO флаг, что сейчас с этим компонентом в столкновение. И проверять каждый раз после перемещения. А также оповещать другой компонент, что мы больше не пересекаемся, если переместились мы, или уничтожились (destroy)
                 informListeners(collisionComponent);
                 collisionComponent.informListeners(this);
             }

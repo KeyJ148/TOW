@@ -41,5 +41,6 @@ public class CollidingObjectsCache extends ChunkGrid<Collidable> {
         }
 
         collidable.checkCollisions(collidableObjectsFromNearestChunks);
+        //TODO Если в этот момент кто-то снова вызовет updatePosition, то мы снова вызовем проверку коллизий. Необходимо складывать все вызовы в сет и обрабатывать их единожды в конце update цикла
     }
 }
