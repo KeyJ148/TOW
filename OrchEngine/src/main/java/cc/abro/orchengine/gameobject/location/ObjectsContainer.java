@@ -62,6 +62,7 @@ public class ObjectsContainer {
 
         gameObjectsCache.getObjects().forEach(g -> g.update(delta));
         updatableObjectsCache.update(delta);
+        collidingObjectsCache.update(delta);
     }
 
     public void render(int x, int y,  int width, int height) {

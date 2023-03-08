@@ -71,8 +71,8 @@ public class Bullet extends GameObject implements CollisionListener{
         addComponent(new Collision(texture.mask(), CollidableObjectType.BULLET));
         getComponent(Collision.class)
                 .addListener(CollidableObjectType.ENEMY_ARMOR, this)
-                .addListener(DefaultCollidableObjectType.BORDER, this);
-        //TODO .addCollidableObjects(new Class[]{CollisedMapObject.class, DestroyedMapObject.class});
+                .addListener(DefaultCollidableObjectType.BORDER, this)
+                .addListener(CollidableObjectType.WALL, this);
 
         Context.getService(TCPControl.class).send(13, getData());
         Context.getService(ClientData.class).idNet++;

@@ -11,6 +11,8 @@ import java.util.Set;
 
 public class CollidingObjectsCache extends ChunkGrid<Collidable> {
 
+    private final Set<Positionable> updatedPositionObjects = new HashSet<>();
+
     public CollidingObjectsCache(int chunkSize) {
         super(chunkSize);
     }
@@ -18,13 +20,20 @@ public class CollidingObjectsCache extends ChunkGrid<Collidable> {
     @Override
     public void add(Collidable collidable) {
         super.add(collidable);
-        collidable.addChangePositionListener(this::updatePosition);
+        collidable.addChangePositionListener(updatedPositionObjects::add);
     }
 
     @Override
     public void remove(Collidable collidable) {
         super.remove(collidable);
-        collidable.removeChangePositionListener(this::updatePosition);
+        collidable.removeChangePositionListener(updatedPositionObjects::add);
+    }
+
+    public void update(long delta) {
+        for (Positionable positionable : updatedPositionObjects) {
+            updatePosition(positionable);
+        }
+        updatedPositionObjects.clear();
     }
 
     private void updatePosition(Positionable positionable) {
@@ -41,6 +50,5 @@ public class CollidingObjectsCache extends ChunkGrid<Collidable> {
         }
 
         collidable.checkCollisions(collidableObjectsFromNearestChunks);
-        //TODO Если в этот момент кто-то снова вызовет updatePosition, то мы снова вызовем проверку коллизий. Необходимо складывать все вызовы в сет и обрабатывать их единожды в конце update цикла
     }
 }

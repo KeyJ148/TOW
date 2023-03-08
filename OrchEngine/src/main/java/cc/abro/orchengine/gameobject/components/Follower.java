@@ -22,12 +22,16 @@ public class Follower extends Component implements Updatable {
 
     @Override
     public void update(long delta) {
-        if (followUpGameObject.hasComponent(Follower.class) && !followUpGameObject.getComponent(Follower.class).isUpdated())
+        if (followUpGameObject.hasComponent(Follower.class) && !followUpGameObject.getComponent(Follower.class).isUpdated()){
             followUpGameObject.getComponent(Follower.class).update(delta);
+        }
 
-        getGameObject().setPosition(followUpGameObject.getPosition()); //TODO вызывать setPosition только при изменение позиции, т.к. иначе всегда будет происходить проверка коллизий
-        if (followDirectionDraw)
-            getGameObject().setDirection(followUpGameObject.getDirection());
+        if (!getGameObject().getPosition().equals(followUpGameObject.getPosition())) {
+            getGameObject().setPosition(followUpGameObject.getPosition());
+        }
+        if (followDirectionDraw) {
+            getGameObject().setDirection(followUpGameObject.getDirection()); //TODO тоже надо уведомлять листенер updatePosition
+        }
     }
 
     //Квадратичная ассимптотика вместо линейной из-за отсутствия кеширования updated у родителей

@@ -12,5 +12,6 @@ public class GameStart {
         Set<String> activeProfiles = Arrays.stream(args).collect(Collectors.toSet());
         Set<String> packagesForScan = Set.of(GameStart.class.getPackage().getName());
         OrchEngine.start(activeProfiles, packagesForScan);
+        System.exit(0); //TODO create issue for delete it
     }
 }

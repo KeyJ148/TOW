@@ -48,8 +48,8 @@ public class Armor extends GameObject {
         getComponent(Collision.class)
                 .addListener(CollidableObjectType.BOX, player.controller)
                 .addListener(CollidableObjectType.ENEMY_ARMOR, player.controller)
-                .addListener(DefaultCollidableObjectType.BORDER, player.controller);
-                //TODO .addCollidableObjects(new Class[]{CollisedMapObject.class, DestroyedMapObject.class});
+                .addListener(DefaultCollidableObjectType.BORDER, player.controller)
+                .addListener(CollidableObjectType.WALL, player.controller);
 
         if (player.gun != null) {
             player.gun.removeComponents(Follower.class);
