@@ -31,9 +31,11 @@ public class Movement extends Component implements Updatable {
         yPrevious = getGameObject().getY();
         directionPrevious = direction;
 
-        double nextX = getGameObject().getX() + speed * Math.cos(Math.toRadians(direction)) * ((double) delta / 1000000000);
-        double nextY = getGameObject().getY() - speed * Math.sin(Math.toRadians(direction)) * ((double) delta / 1000000000);
-        getGameObject().setPosition(nextX, nextY);
+        if (speed != 0) {
+            double nextX = getGameObject().getX() + speed * Math.cos(Math.toRadians(direction)) * ((double) delta / 1000000000);
+            double nextY = getGameObject().getY() - speed * Math.sin(Math.toRadians(direction)) * ((double) delta / 1000000000);
+            getGameObject().setPosition(nextX, nextY);
+        }
 
         if (directionDrawEquals) getGameObject().setDirection(direction);
     }

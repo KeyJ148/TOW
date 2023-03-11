@@ -20,7 +20,7 @@ public class Effect {
         stats.damage += addition.damage;
     }
 
-    public void calcMultiStats(Stats stats) {
+    public void calcMultiStats(Stats stats) { //TODO в начале суммировать множители, а потом умножать на них? Т.к. сейчас +30% и -30% = 1*1.3*0.7 = 0.91
         stats.hpMax *= multi.hpMax;
         stats.hpRegen *= multi.hpRegen;
         stats.speedTankUp *= multi.speedTankUp;

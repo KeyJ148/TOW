@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class CollidingObjectsCache extends ChunkGrid<Collidable> {
 
-    private final Set<Positionable> updatedPositionObjects = new HashSet<>();
+    private final Set<Positionable> updatedPositionObjects = new HashSet<>(); //TODO unsuitable объекты?
 
     public CollidingObjectsCache(int chunkSize) {
         super(chunkSize);
