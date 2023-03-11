@@ -30,7 +30,7 @@ public class Follower extends Component implements Updatable {
             getGameObject().setPosition(followUpGameObject.getPosition());
         }
         if (followDirectionDraw) {
-            getGameObject().setDirection(followUpGameObject.getDirection()); //TODO тоже надо уведомлять листенер updatePosition
+            getGameObject().setDirection(followUpGameObject.getDirection()); //TODO тоже надо уведомлять листенер updatePosition / updateDirection
         }
     }
 
