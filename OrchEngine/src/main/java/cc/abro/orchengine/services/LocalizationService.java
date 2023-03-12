@@ -13,9 +13,9 @@ import java.util.*;
  * <code>
  * localize("locale.id") -> ru <br>
  * localize("sample.text") -> SAMPLE_TEXT <br>
- * loc.localize("sample.format") -> SAMPLE{0}TEXT <br>
- * loc.localize("sample.format", "*") -> SAMPLE*TEXT <br>
- * loc.localize("explicit.error") -> [[explicit.error]]
+ * localize("sample.format") -> SAMPLE{0}TEXT <br>
+ * localize("sample.format", "*") -> SAMPLE*TEXT <br>
+ * localize("explicit.error") -> [[explicit.error]]
  * </code><br>
  * <b style="color: red;">Потом допилю, не плачь</b>
  */
