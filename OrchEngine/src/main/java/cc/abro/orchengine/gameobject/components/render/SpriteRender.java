@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 
 public class SpriteRender extends Rendering {
 
+    //TODO implements Positionable, setX, setY, setDirection
     @Getter
     private final Texture texture;
     @Getter

@@ -79,6 +79,7 @@ public class GameObject extends CachedComponentsContainer implements ServiceCons
 
     public void setDirection(double direction) {
         this.direction = direction >= 0 ? direction % 360 : 360 - Math.abs(direction % 360);
+        notifyComponentsAboutUpdatePosition();
     }
 
     private void destroyAfterUpdate() {

@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 public interface Positionable {
     double getX();
     double getY();
+    double getDirection();
 
     void addChangePositionListener(Consumer<Positionable> listener);
     void removeChangePositionListener(Consumer<Positionable> listener);
