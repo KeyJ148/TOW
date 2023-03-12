@@ -38,34 +38,16 @@ public class AnimationRender extends Rendering implements Updatable {
 
     @Override
     public void draw() {
-        Vector2<Double> relativePosition = getGameObject().getRelativePosition();
-        double xView = relativePosition.x;
-        double yView = relativePosition.y;
+        Vector2<Double> relativePosition = getGameObject().getLocation().getCamera().toRelativePosition(getPosition());
         double directionDraw = getGameObject().getDirection();
-
         directionDraw -= 90; //смещена начального угла с Востока на Север
 
-        int width = getWidth();
-        int height = getHeight();
-
         GL11.glLoadIdentity();
-        GL11.glTranslatef(Math.round(xView), Math.round(yView), 0);
+        GL11.glTranslatef(Math.round(relativePosition.x), Math.round(relativePosition.y), 0);
         GL11.glRotatef(Math.round(-directionDraw), 0f, 0f, 1f);
 
         getColor().bind();
-        getTextureService().bindTexture(textures.get(currentFrame));
-
-        GL11.glBegin(GL11.GL_QUADS);
-        GL11.glTexCoord2f(0, 0);
-        GL11.glVertex2f(-width / 2, -height / 2);
-        GL11.glTexCoord2f(1, 0);
-        GL11.glVertex2f(width / 2, -height / 2);
-        GL11.glTexCoord2f(1, 1);
-        GL11.glVertex2f(width / 2, height / 2);
-        GL11.glTexCoord2f(0, 1);
-        GL11.glVertex2f(-width / 2, height / 2);
-        GL11.glEnd();
-        getTextureService().unbindTexture();
+        getOpenGlService().renderTextureGlQuadsFromCenter(getWidth(), getHeight(), textures.get(currentFrame));
     }
 
     public void setCurrentFrame(int frame) {
