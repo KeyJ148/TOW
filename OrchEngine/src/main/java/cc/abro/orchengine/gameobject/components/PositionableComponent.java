@@ -14,11 +14,15 @@ public class PositionableComponent extends Component implements Positionable {
 
     private final Set<Consumer<Positionable>> listeners = new HashSet<>();
     @Getter @Setter
-    private double relativeX, relativeY;
+    private double relativeX, relativeY, relativeDirection;
 
     @Override
     public double getX() {
-        return getGameObject().getX() + relativeX;
+        //Первый отступ "Вперёд"
+        double deltaX = Math.cos(getDirection()) * relativeX;
+        //Второй отступ "В бок"
+        double deltaX2 = Math.sin(getDirection()) * relativeY; //Math.cos(direction-Math.PI/2) * point.y
+        return getGameObject().getX() + deltaX + deltaX2;
     }
 
     public void setX(double x) {
@@ -28,7 +32,11 @@ public class PositionableComponent extends Component implements Positionable {
 
     @Override
     public double getY() {
-        return getGameObject().getY() + relativeY;
+        //Первый отступ "Вперёд"
+        double deltaY = Math.sin(getDirection()) * relativeX;
+        //Второй отступ "В бок"
+        double deltaY2 = -Math.cos(getDirection()) * relativeY; //Math.sin(direction-Math.PI/2) * point.y
+        return getGameObject().getY() - deltaY - deltaY2;
     }
 
     public void setY(double y) {
@@ -39,6 +47,16 @@ public class PositionableComponent extends Component implements Positionable {
     public void setPosition(Vector2<Double> position) {
         relativeX = position.x;
         relativeY = position.y;
+        notifyChangePositionListeners();
+    }
+
+    @Override
+    public double getDirection() {
+        return getGameObject().getDirection() + relativeDirection;
+    }
+
+    public void setDirection(double direction) {
+        this.relativeDirection = direction - getGameObject().getDirection();
         notifyChangePositionListeners();
     }
 
