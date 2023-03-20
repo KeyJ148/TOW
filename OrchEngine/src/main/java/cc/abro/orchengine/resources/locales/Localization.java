@@ -42,6 +42,7 @@ public class Localization{
 
 	// Добавляет к строке "декорации", указывающие на то, что она не соответствует ни одному ключу в словаре локализации
 	private static String pseudolocalize(String s) {
+		log.warn("Unable to find localization value for '"+s+"'");
 		return "[[" + s + "]]";
 	}
 
@@ -57,7 +58,7 @@ public class Localization{
 		try {
 			props.load(new StringReader(code));
 		} catch (IOException e) {
-			log.warn("Unable to load locale from props code:\n"+code); // окей, памяти у нас много
+			log.warn("Unable to load locale from the props code:\n"+code);
 			// TODO: потом обработаю (нет)
 		}
 
@@ -67,6 +68,7 @@ public class Localization{
 		locale.id = locale.localize("locale.id"); // что-то на хардкодном
 		locale.name = locale.localize("locale.name"); // что-то на хардкодном
 		if(locale.id.equals(Localization.pseudolocalize("locale.id"))){
+			log.warn("Unable to load locale (locale.id is null) from code:\n"+code);
 			return null;
 		}
 		if(locale.name.equals(Localization.pseudolocalize("locale.name"))){
