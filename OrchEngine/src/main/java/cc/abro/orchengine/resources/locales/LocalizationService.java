@@ -33,7 +33,6 @@ locale.name = Russian (русский)
 sample.text = SAMPLE_TEXT
 sample.format = SAMPLE{0}TEXT
 			""";
-	// private final List<Localization> locales = new ArrayList<>();
 	private final Map<String, Localization> locales = new HashMap<>();
 	private Localization currentLocale = Localization.loadFromProps(DEFAULT_LOCALE); // Костыль.
 

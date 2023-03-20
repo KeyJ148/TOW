@@ -16,7 +16,7 @@ import java.util.Properties;
  */
 @Log4j2
 public class Localization{
-	private Map<String, String> localeMap = new HashMap<>();
+	private final Map<String, String> localeMap = new HashMap<>();
 	@Getter
 	private String id;
 	@Getter
@@ -34,7 +34,7 @@ public class Localization{
 	 */
 	public String localize(String key, Object... args){
 		String localizedString = localeMap.get(key);
-		if(localizedString == null) return pseudolocalize(key); // Проверка на null нужна, чтобы убедиться, что дальнейшее форматирование имеет смысл
+		if(localizedString == null) return pseudolocalize(key); // Проверка на null нужна, чтобы убедиться, что дальнейшее форматирование имеет смыслщ
 
 		localizedString = MessageFormat.format(localizedString, args);
 		return localizedString;
@@ -57,7 +57,7 @@ public class Localization{
 		try {
 			props.load(new StringReader(code));
 		} catch (IOException e) {
-			log.warn("Unable to load locale from props code");
+			log.warn("Unable to load locale from props code:\n"+code); // окей, памяти у нас много
 			// TODO: потом обработаю (нет)
 		}
 
@@ -70,6 +70,7 @@ public class Localization{
 			return null;
 		}
 		if(locale.name.equals(Localization.pseudolocalize("locale.name"))){
+			log.warn("Unable to find locale name for '"+locale.id+"'");
 			locale.name = locale.id;
 		}
 		log.info("Loaded locale: "+locale.id);
