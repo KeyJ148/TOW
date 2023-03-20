@@ -16,6 +16,7 @@ import java.util.Properties;
  */
 @Log4j2
 public class Localization{
+
 	private final Map<String, String> localeMap = new HashMap<>();
 	@Getter
 	private String id;
@@ -25,16 +26,18 @@ public class Localization{
 	/**
 	 * Смотри {@link LocalizationService#localize(String) здесь}
 	 */
-	public String localize(String key){
+	public String localize(String key) {
 		return localeMap.getOrDefault(key, pseudolocalize(key));
 	}
 
 	/**
 	 * Смотри {@link LocalizationService#localize(String, Object...) здесь}
 	 */
-	public String localize(String key, Object... args){
+	public String localize(String key, Object... args) {
 		String localizedString = localeMap.get(key);
-		if(localizedString == null) return pseudolocalize(key); // Проверка на null нужна, чтобы убедиться, что дальнейшее форматирование имеет смыслщ
+		if (localizedString == null) {
+			return pseudolocalize(key); // Проверка на null нужна, чтобы убедиться, что дальнейшее форматирование имеет смысл
+		}
 
 		localizedString = MessageFormat.format(localizedString, args);
 		return localizedString;
@@ -58,20 +61,20 @@ public class Localization{
 		try {
 			props.load(new StringReader(code));
 		} catch (IOException e) {
-			log.warn("Unable to load locale from the props code:\n"+code);
+			log.warn("Unable to load locale from the props code:\n" + code);
 			// TODO: потом обработаю (нет)
 		}
 
-		for(String key : props.stringPropertyNames()) {
+		for (String key : props.stringPropertyNames()) {
 			locale.localeMap.put(key, props.getProperty(key));
 		}
 		locale.id = locale.localize("locale.id"); // что-то на хардкодном
 		locale.name = locale.localize("locale.name"); // что-то на хардкодном
-		if(locale.id.equals(Localization.pseudolocalize("locale.id"))){
-			log.warn("Unable to load locale (locale.id is null) from code:\n"+code);
+		if (locale.id.equals(Localization.pseudolocalize("locale.id"))) {
+			log.warn("Unable to load locale (locale.id is null) from code:\n" + code);
 			return null;
 		}
-		if(locale.name.equals(Localization.pseudolocalize("locale.name"))){
+		if (locale.name.equals(Localization.pseudolocalize("locale.name"))) {
 			log.warn("Unable to find locale name for '"+locale.id+"'");
 			locale.name = locale.id;
 		}
