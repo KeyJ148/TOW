@@ -28,16 +28,16 @@ public class LocalizationService {
 	 * Наличие значения locale.id <b>ОБЯЗАТЕЛЬНО</b>
 	 */
 	private static final String DEFAULT_LOCALE = """
-locale.id = ru
-locale.name = Russian (русский)
-sample.text = SAMPLE_TEXT
-sample.format = SAMPLE{0}TEXT
+			locale.id = ru
+			locale.name = Russian (русский)
+			sample.text = SAMPLE_TEXT
+			sample.format = SAMPLE{0}TEXT
 			""";
 	private final Map<String, Localization> locales = new HashMap<>();
 	private Localization currentLocale = Localization.loadFromProps(DEFAULT_LOCALE); // Костыль.
 
 	// вызови меня полностью.
-	public LocalizationService(){
+	public LocalizationService() {
 		locales.put(currentLocale.getId(), currentLocale); // продолжение костыля.
 		// Где-то тут должны сканироваться и собираться локали. Потом прикрутим, главное шоб работало.
 	}
@@ -45,18 +45,21 @@ sample.format = SAMPLE{0}TEXT
 	/**
 	 * @return Список известных id локалей
 	 */
-	public List<String> getlocales(){
+	public List<String> getLocales() {
 		return locales.keySet().stream().toList();
 	}
 
 	/**
 	 * Сменяет используемую локаль
 	 * @param id id искомой локали
-	 * @return true, если локаль смененаи false, если нет
+	 * @return true, если локаль сменена и false, если нет
 	 */
-	public boolean changeLocale(String id){
+	public boolean changeLocale(String id) {
 		var foundLocale = locales.get(id);
-		if(foundLocale == null) return false;
+		if (foundLocale == null) {
+			log.error("Can't change locale to " + id);
+			return false;
+		}
 
 		currentLocale = foundLocale;
 		return true;
@@ -67,7 +70,7 @@ sample.format = SAMPLE{0}TEXT
 	 * @param key ключ.
 	 * @return Переведённый текст.
 	 */
-	public String localize(String key){
+	public String localize(String key) {
 		return currentLocale.localize(key);
 	}
 
@@ -77,18 +80,7 @@ sample.format = SAMPLE{0}TEXT
 	 * @param args объекты для String.format
 	 * @return Переведённый и отформатированный текст
 	 */
-	public String localize(String key, Object... args){
+	public String localize(String key, Object... args) {
 		return currentLocale.localize(key, args);
 	}
-
-
-
-
-
-
-
-
-
-
 }
-
