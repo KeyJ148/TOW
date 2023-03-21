@@ -7,6 +7,7 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class DrawableObjectsCache {
@@ -15,6 +16,8 @@ public class DrawableObjectsCache {
     private final int chunkSize;
     private final Map<Integer, DrawableLayer> layerByZ = new TreeMap<>();
     private final Map<Drawable, DrawableLayer> layerByObject = new HashMap<>();
+
+    private final Consumer<Positionable> updateObjectPositionListener = this::updateObjectPosition;
 
     public DrawableObjectsCache(int chunkSize) {
         this.chunkSize = chunkSize;
@@ -25,14 +28,14 @@ public class DrawableObjectsCache {
         DrawableLayer layer = layerByZ.computeIfAbsent(z, u -> new DrawableLayer(z, chunkSize));
         layer.add(drawable);
         layerByObject.put(drawable, layer);
-        drawable.addChangePositionListener(this::updateObjectPosition);
+        drawable.addChangePositionListener(updateObjectPositionListener);
     }
 
     public void remove(Drawable drawable) {
         int z = drawable.getZ();
         layerByZ.get(z).remove(drawable);
         layerByObject.remove(drawable);
-        drawable.removeChangePositionListener(this::updateObjectPosition);
+        drawable.removeChangePositionListener(updateObjectPositionListener);
     }
 
     //Отрисовка локации с размерами width и height вокруг координат (x;y)

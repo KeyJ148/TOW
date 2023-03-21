@@ -8,10 +8,13 @@ import cc.abro.orchengine.util.Vector2;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
 
 public class CollidingObjectsCache extends ChunkGrid<Collidable> {
 
-    private final Set<Positionable> updatedPositionObjects = new HashSet<>(); //TODO unsuitable объекты?
+    private final Set<Positionable> updateObjectPositionEvents = new HashSet<>(); //TODO unsuitable объекты?
+
+    private final Consumer<Positionable> updateObjectPositionListener = this::updateObjectPosition;
 
     public CollidingObjectsCache(int chunkSize) {
         super(chunkSize);
@@ -20,20 +23,24 @@ public class CollidingObjectsCache extends ChunkGrid<Collidable> {
     @Override
     public void add(Collidable collidable) {
         super.add(collidable);
-        collidable.addChangePositionListener(updatedPositionObjects::add);
+        collidable.addChangePositionListener(updateObjectPositionListener);
     }
 
     @Override
     public void remove(Collidable collidable) {
         super.remove(collidable);
-        collidable.removeChangePositionListener(updatedPositionObjects::add);
+        collidable.removeChangePositionListener(updateObjectPositionListener);
     }
 
     public void update(long delta) {
-        for (Positionable positionable : updatedPositionObjects) {
+        for (Positionable positionable : updateObjectPositionEvents) {
             updatePosition(positionable);
         }
-        updatedPositionObjects.clear();
+        updateObjectPositionEvents.clear();
+    }
+
+    private void updateObjectPosition(Positionable positionable) {
+        updateObjectPositionEvents.add(positionable);
     }
 
     private void updatePosition(Positionable positionable) {

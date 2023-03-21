@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class ChunkGrid<T extends Positionable> {
 
@@ -15,6 +16,8 @@ public class ChunkGrid<T extends Positionable> {
     private final Map<Vector2<Integer>, Chunk<T>> chunkByCoords = new HashMap<>();
     private final Map<T, Chunk<T>> chunkByObject = new HashMap<>();
 
+    private final Consumer<Positionable> updateObjectPositionListener = this::updateObjectPosition;
+
     public ChunkGrid(int chunkSize) {
         this.chunkSize = chunkSize;
     }
@@ -23,13 +26,13 @@ public class ChunkGrid<T extends Positionable> {
         Chunk<T> chunk = getOrCreateChunk(object);
         chunk.add(object);
         chunkByObject.put(object, chunk);
-        object.addChangePositionListener(this::updateObjectPosition);
+        object.addChangePositionListener(updateObjectPositionListener);
     }
 
     public void remove(T object) {
         getChunk(object).remove(object);
         chunkByObject.remove(object);
-        object.removeChangePositionListener(this::updateObjectPosition);
+        object.removeChangePositionListener(updateObjectPositionListener);
     }
 
     //Проверка и при необходимости обновление объекта при перемещении из чанка в чанк

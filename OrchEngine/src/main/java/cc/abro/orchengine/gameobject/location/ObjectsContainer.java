@@ -14,6 +14,7 @@ import cc.abro.orchengine.gameobject.location.cache.UpdatableObjectsCache;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 public class ObjectsContainer {
 
@@ -23,6 +24,7 @@ public class ObjectsContainer {
     private final CollidingObjectsCache collidingObjectsCache;
 
     private final Set<GameObjectChangedEvent> gameObjectChangedEvents = new HashSet<>();
+    private final BiConsumer<Component, ComponentEvent> saveComponentEventListener = this::saveComponentEvent;
 
     public ObjectsContainer(int chunkSize) {
         gameObjectsCache = new GameObjectsCache();
@@ -36,7 +38,7 @@ public class ObjectsContainer {
             throw new IllegalStateException("GameObject must have 0 components when it is added to ObjectContainer");
         }
         gameObjectsCache.add(gameObject);
-        gameObject.addListener(this::saveComponentEvent);
+        gameObject.addListener(saveComponentEventListener);
     }
 
     public void remove(GameObject gameObject) {
@@ -44,7 +46,7 @@ public class ObjectsContainer {
             throw new IllegalStateException("GameObject must have 0 components when it is removed from ObjectContainer");
         }
         gameObjectsCache.remove(gameObject);
-        gameObject.removeListener(this::saveComponentEvent);
+        gameObject.removeListener(saveComponentEventListener);
     }
 
     /* Прокси методы */
