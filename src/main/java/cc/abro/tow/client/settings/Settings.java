@@ -24,6 +24,7 @@ public class Settings {
     public static class Profile {
         private String nickname = "Player";
         private int[] color = {255, 255, 255};
+        private String language = "en";
     }
 
     @Data
