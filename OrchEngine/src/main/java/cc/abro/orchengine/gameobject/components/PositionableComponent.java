@@ -67,7 +67,7 @@ public class PositionableComponent extends Component implements Positionable {
 
     @Override
     public void removeChangePositionListener(Consumer<Positionable> listener) {
-        listeners.add(listener);
+        listeners.remove(listener);
     }
 
     @Override
