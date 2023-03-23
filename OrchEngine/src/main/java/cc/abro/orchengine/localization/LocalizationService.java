@@ -30,6 +30,9 @@ public class LocalizationService implements Startable {
         path = stringBuilder.toString();
     }
 
+    public String getStringToken(String tokenName){
+        return localization.getText(tokenName);
+    }
     @Override
     public void start() {}
 

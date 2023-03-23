@@ -13,8 +13,12 @@ public class Localization {
     @Getter
     @Setter
     private String Language;
-    private final HashMap<String, String> stringTokenHashMap = new HashMap<String, String>();
 
-//private final HashMap<String, Audio> AudioHashMap = new HashMap<String, Audio> ();
-//private final HashMap<String, Sprite> SpritesHashMap = new HashMap<String, Sprite> ();
+    private final HashMap<String, String> stringTokenHashMap = new HashMap<>();
+
+    protected String getText (String tokenName){
+        return stringTokenHashMap.get(tokenName);
+    }
+    //private final HashMap<String, Audio> AudioHashMap = new HashMap<String, Audio> ();
+    //private final HashMap<String, Sprite> SpritesHashMap = new HashMap<String, Sprite> ();
 }
