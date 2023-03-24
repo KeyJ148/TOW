@@ -127,26 +127,26 @@ public class PlayerController extends GameObject implements CollisionListener {
                         break;
 
                     //Имитация подбора ящика
-                    //TODO ящик генерируется в позиции player, которая не обновляется. В итоге звук не воспроизводится, т.к. камера далеко от player
+                    //TODO переделать без создания ящика, а просто вызывая функцию в системе экипировки
                     case GLFW_KEY_T:
                         if (Context.getService(ClientData.class).peopleMax == 1)
-                            new Box(getLocation(), player.getX(), player.getY(), 0, -1).collisionPlayer(player);
+                            new Box(getLocation(), player.armor.getX(), player.armor.getY(), 0, -1);
                         break;
                     case GLFW_KEY_G:
                         if (Context.getService(ClientData.class).peopleMax == 1)
-                            new Box(getLocation(), player.getX(), player.getY(), 1, -1).collisionPlayer(player);
+                            new Box(getLocation(), player.armor.getX(), player.armor.getY(), 1, -1);
                         break;
                     case GLFW_KEY_B:
                         if (Context.getService(ClientData.class).peopleMax == 1)
-                            new Box(getLocation(), player.getX(), player.getY(), 2, -1).collisionPlayer(player);
+                            new Box(getLocation(), player.armor.getX(), player.armor.getY(), 2, -1);
                         break;
                     case GLFW_KEY_H:
                         if (Context.getService(ClientData.class).peopleMax == 1)
-                            new Box(getLocation(), player.getX(), player.getY(), 3, -1).collisionPlayer(player);
+                            new Box(getLocation(), player.armor.getX(), player.armor.getY(), 3, -1);
                         break;
                     case GLFW_KEY_F:
                         if (Context.getService(ClientData.class).peopleMax == 1)
-                            new Box(getLocation(), player.getX(), player.getY(), 4, -1).collisionPlayer(player);
+                            new Box(getLocation(), player.armor.getX(), player.armor.getY(), 4, -1);
                         break;
                 }
             }
