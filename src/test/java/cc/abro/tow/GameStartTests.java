@@ -44,7 +44,7 @@ public class GameStartTests {
 
     @Test
     @Timeout(value = 10)
-    public void gameStartAndCreateServer2PlayerTest() {
+    public void gameStartAndCreateServer2PlayerAndConnectTest() {
         AtomicReference<Boolean> hasException = new AtomicReference<>(false);
 
         ThreadGroup serverThreadGroup = new ThreadGroup(Thread.currentThread().getThreadGroup(), "test-server");
