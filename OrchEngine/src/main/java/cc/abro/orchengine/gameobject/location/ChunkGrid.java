@@ -44,6 +44,8 @@ public class ChunkGrid<T extends Positionable> {
         if (chunkLast != chunkNow) {
             chunkLast.remove(object);
             chunkNow.add(object);
+            chunkByObject.remove(object);
+            chunkByObject.put(object, chunkNow);
         }
     }
 
