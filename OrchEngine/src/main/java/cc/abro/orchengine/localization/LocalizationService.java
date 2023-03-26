@@ -8,7 +8,7 @@ import org.picocontainer.Startable;
 
 import java.io.IOException;
 
-public class LocalizationService implements Startable {
+public class LocalizationService{
 
     private static String path;
     private static Localization localization = new Localization();
@@ -33,11 +33,5 @@ public class LocalizationService implements Startable {
     public String getStringToken(String tokenName){
         return localization.getText(tokenName);
     }
-    @Override
-    public void start() {}
-
-    @Override
-    public void stop() {}
-
 
 }
