@@ -4,7 +4,10 @@ import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,6 +57,7 @@ public class Localization{
 	 * @param code код properties
 	 * @return Локализацию, либо null, если что-то пошло не так. А тут всё пойдет не так. Чекай null короче
 	 */
+	@Deprecated
 	public static Localization loadFromProps(String code){
 		var locale = new Localization();
 
@@ -62,7 +66,7 @@ public class Localization{
 			props.load(new StringReader(code));
 		} catch (IOException e) {
 			log.warn("Unable to load locale from the props code:\n" + code);
-			// TODO: потом обработаю (нет)
+			return null;
 		}
 
 		for (String key : props.stringPropertyNames()) {
@@ -73,6 +77,30 @@ public class Localization{
 		if (locale.id.equals(Localization.pseudolocalize("locale.id"))) {
 			log.warn("Unable to load locale (locale.id is null) from code:\n" + code);
 			return null;
+		}
+		if (locale.name.equals(Localization.pseudolocalize("locale.name"))) {
+			log.warn("Unable to find locale name for '"+locale.id+"'");
+			locale.name = locale.id;
+		}
+		log.info("Loaded locale: "+locale.id);
+
+		return locale;
+	}
+
+	public static Localization loadFromProps(InputStream code) throws IOException{
+		var locale = new Localization();
+		Properties props = new Properties();
+		try(InputStreamReader reader = new InputStreamReader(code, StandardCharsets.UTF_8)){
+			props.load(reader);
+		}
+
+		for (String key : props.stringPropertyNames()) {
+			locale.localeMap.put(key, props.getProperty(key));
+		}
+		locale.id = locale.localize("locale.id"); // что-то на хардкодном
+		locale.name = locale.localize("locale.name"); // что-то на хардкодном
+		if (locale.id.equals(Localization.pseudolocalize("locale.id"))) {
+			throw new IOException("Unable to load locale (locale.id is null) from code:\n" + code);
 		}
 		if (locale.name.equals(Localization.pseudolocalize("locale.name"))) {
 			log.warn("Unable to find locale name for '"+locale.id+"'");

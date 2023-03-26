@@ -1,5 +1,7 @@
 package cc.abro.tow.client.gui.menu.panels;
 
+import cc.abro.orchengine.context.Context;
+import cc.abro.orchengine.resources.locales.LocalizationService;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
 import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import cc.abro.tow.client.gui.menu.panels.settings.SettingsMenuGuiPanel;
@@ -9,7 +11,7 @@ public class MainMenuGuiPanel extends MenuGuiPanel {
 
     public MainMenuGuiPanel() {
         Panel panel = MenuGuiComponents.createMenuPanel(
-                new MenuGuiComponents.ButtonConfiguration("Create a game",
+                new MenuGuiComponents.ButtonConfiguration(getLocalizationService().localize("game.create"),
                         getChangeToCachedPanelReleaseListener(CreateGameMenuGuiPanel.class)),
                 new MenuGuiComponents.ButtonConfiguration("List of servers",
                         getChangeToCachedPanelReleaseListener(ListOfServersMenuGuiPanel.class)),
