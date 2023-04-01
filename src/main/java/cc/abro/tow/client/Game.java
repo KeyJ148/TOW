@@ -7,9 +7,11 @@ import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.init.interfaces.GameInterface;
+/*import cc.abro.orchengine.localization.LocalizationService;*/
 import cc.abro.orchengine.resources.JsonContainerLoader;
 import cc.abro.orchengine.resources.animations.AnimationStorage;
 import cc.abro.orchengine.resources.audios.AudioService;
+import cc.abro.orchengine.resources.locales.LocalizationService;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.tow.client.gui.menu.MenuLocation;
@@ -39,20 +41,30 @@ public class Game implements GameInterface {
     private final ClientData clientData;
     private final AudioService audioService;
     private final SettingsService settingsService;
+    private final LocalizationService localizationService;
 
     public Game(GuiPanelStorage guiPanelStorage, LocationManager locationManager, ClientData clientData,
-                AudioService audioService, SettingsService settingsService) {
+                AudioService audioService, SettingsService settingsService,
+                LocalizationService localizationService) {
         this.guiPanelStorage = guiPanelStorage;
         this.locationManager = locationManager;
         this.clientData = clientData;
         this.audioService = audioService;
         this.settingsService = settingsService;
+        this.localizationService = localizationService;
     }
 
     @Override
     public void init() {
         GameSetting.init();
         audioService.setVolume(settingsService.getSettings().getVolume().getSoundVolume());
+
+        //Локализованный кринж
+        try {
+            localizationService.changeLocale(settingsService.getSettings().getProfile().getLanguage());
+        }catch (Exception e){
+            log.fatal("Error loading Localization", e);
+        }
 
         try {
             SpriteStorage.SpriteContainer[] spriteContainers = JsonContainerLoader.loadInternalFile(

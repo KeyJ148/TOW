@@ -5,12 +5,15 @@ import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.io.StringReader;
+import cc.abro.orchengine.resources.ResourceLoader;
+import lombok.extern.log4j.Log4j2;
+
+import java.io.*;
 import java.text.MessageFormat;
 import java.util.*;
 
 /**
- * Сервис локализации. Пока что не умеет в загрузку локалей из файла, но переводики можно вписать в DEFAULT_LOCALE.<br>
- * Чекай закономерность для {@link LocalizationService#DEFAULT_LOCALE}:<br><br>
+ * Сервис локализации. Пока что не умеет в загрузку локалей из файла, но переводики можно вписать в DEFAULT_LOCALE.:<br><br>
  * <code>
  * localize("locale.id") -> ru <br>
  * localize("sample.text") -> SAMPLE_TEXT <br>
@@ -27,26 +30,35 @@ public class LocalizationService {
 	 * Временная захардкоженная локализация в формате properties.
 	 * Наличие значения locale.id <b>ОБЯЗАТЕЛЬНО</b>
 	 */
-	private static final String DEFAULT_LOCALE = """
-			locale.id = ru
-			locale.name = Russian (русский)
-			sample.text = SAMPLE_TEXT
-			sample.format = SAMPLE{0}TEXT
-			""";
-	private final Map<String, Localization> locales = new HashMap<>();
-	private Localization currentLocale = Localization.loadFromProps(DEFAULT_LOCALE); // Костыль.
 
-	// вызови меня полностью.
+	/**
+	 * Список локалей id -- локаль
+	 */
+	private final Map<String, Localization> locales = new HashMap<>();
+	private Localization currentLocale;
+
+
 	public LocalizationService() {
-		locales.put(currentLocale.getId(), currentLocale); // продолжение костыля.
-		// Где-то тут должны сканироваться и собираться локали. Потом прикрутим, главное шоб работало.
+		// TODO: доделать сканирование локалей
+		fromInternalFile("en");
+		fromInternalFile("ru");
+
+		changeLocale("en");
 	}
 
+	public void fromInternalFile(String name){
+		try(InputStream stream = ResourceLoader.getResourceAsStream("locale/"+name+".properties")){
+			Localization locale = Localization.loadFromProps(stream);
+			locales.put(locale.getId(), locale);
+		}catch (IOException e){
+			log.warn("Unable to load internal localization file '"+name+"'");
+		}
+	}
 	/**
 	 * @return Список известных id локалей
 	 */
-	public List<String> getLocales() {
-		return locales.keySet().stream().toList();
+	public Set<String> getLocales() {
+		return Collections.unmodifiableSet(locales.keySet());
 	}
 
 	/**

@@ -9,6 +9,7 @@ import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.resources.animations.AnimationStorage;
 import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.orchengine.resources.audios.AudioStorage;
+import cc.abro.orchengine.resources.locales.LocalizationService;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.TextureService;
 
@@ -64,6 +65,10 @@ public interface ServiceConsumer {
 
     default BlockingGuiService getBlockingGuiService() {
         return Context.getService(BlockingGuiService.class);
+    }
+
+    default LocalizationService getLocalizationService(){
+        return Context.getService(LocalizationService.class);
     }
 
 
