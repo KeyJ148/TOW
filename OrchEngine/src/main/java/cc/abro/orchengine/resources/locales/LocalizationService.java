@@ -27,11 +27,6 @@ import java.util.*;
 @EngineService
 public class LocalizationService {
 	/**
-	 * Временная захардкоженная локализация в формате properties.
-	 * Наличие значения locale.id <b>ОБЯЗАТЕЛЬНО</b>
-	 */
-
-	/**
 	 * Список локалей id -- локаль
 	 */
 	private final Map<String, Localization> locales = new HashMap<>();
