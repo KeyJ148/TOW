@@ -12,7 +12,8 @@ import java.util.function.Consumer;
 
 public class CollidingObjectsCache extends ChunkGrid<Collidable> {
 
-    private final Set<Positionable> updateObjectPositionEvents = new HashSet<>(); //TODO unsuitable объекты?
+    private final Set<Positionable> updateObjectPositionEvents = new HashSet<>();
+    private final Set<Collidable> unsuitableObjects = new HashSet<>();
 
     private final Consumer<Positionable> updateObjectPositionListener = this::updateObjectPosition;
 
@@ -24,12 +25,17 @@ public class CollidingObjectsCache extends ChunkGrid<Collidable> {
     public void add(Collidable collidable) {
         super.add(collidable);
         collidable.addChangePositionListener(updateObjectPositionListener);
+
+        if (collidable.isUnsuitableCollidableObject()) {
+            unsuitableObjects.add(collidable);
+        }
     }
 
     @Override
     public void remove(Collidable collidable) {
         super.remove(collidable);
         collidable.removeChangePositionListener(updateObjectPositionListener);
+        unsuitableObjects.remove(collidable);
     }
 
     public void update(long delta) {
@@ -56,6 +62,7 @@ public class CollidingObjectsCache extends ChunkGrid<Collidable> {
             }
         }
 
+        collidableObjectsFromNearestChunks.addAll(unsuitableObjects);
         collidable.checkCollisions(collidableObjectsFromNearestChunks);
     }
 }

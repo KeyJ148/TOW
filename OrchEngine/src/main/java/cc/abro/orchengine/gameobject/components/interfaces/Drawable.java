@@ -12,9 +12,9 @@ public interface Drawable extends Positionable {
 
     /*
      * UnsuitableObject-ом считается объект, который может быть больше чанка и поэтому его надо рендерить всегда,
-     * даже если он находить вне экрана на отдаление в несколько чанков
+     * даже если он находиться вне экрана на отдаление в несколько чанков
      */
-    default boolean isUnsuitableObject() {
+    default boolean isUnsuitableDrawableObject() {
         return false;
     }
 }

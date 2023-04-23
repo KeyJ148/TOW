@@ -30,7 +30,7 @@ public class DrawableLayer extends ChunkGrid<Drawable> {
 
     @Override
     public void add(Drawable object) {
-        if (!object.isUnsuitableObject()) {
+        if (!object.isUnsuitableDrawableObject()) {
             super.add(object);
         } else {
             unsuitableObjects.add(object);
@@ -39,7 +39,7 @@ public class DrawableLayer extends ChunkGrid<Drawable> {
 
     @Override
     public void remove(Drawable object) {
-        if (!object.isUnsuitableObject()) {
+        if (!object.isUnsuitableDrawableObject()) {
             super.remove(object);
         } else {
             unsuitableObjects.remove(object);

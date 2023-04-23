@@ -10,7 +10,6 @@ public class SpriteRender extends Rendering {
 
     @Getter
     private final Texture texture;
-    @Getter
     private final boolean unsuitableObject;
 
     public SpriteRender(Texture texture, int z) {
@@ -35,5 +34,10 @@ public class SpriteRender extends Rendering {
 
         getColor().bind();
         getOpenGlService().renderTextureGlQuadsFromCenter(getWidth(), getHeight(), texture);
+    }
+
+    @Override
+    public boolean isUnsuitableDrawableObject() {
+        return unsuitableObject;
     }
 }
