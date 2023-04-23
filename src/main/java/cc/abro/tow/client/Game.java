@@ -61,8 +61,9 @@ public class Game implements GameInterface {
 
         try {
             localizationService.changeLocale(settingsService.getSettings().getProfile().getLanguage());
-        }catch (Exception e){
-            log.fatal("Error loading Localization", e);
+        } catch (Exception e) {
+            log.error("Error loading Localization: " + settingsService.getSettings().getProfile().getLanguage(), e);
+            localizationService.changeLocale("en");
         }
 
         try {
