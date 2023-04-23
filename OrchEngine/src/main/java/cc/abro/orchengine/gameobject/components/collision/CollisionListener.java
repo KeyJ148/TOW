@@ -4,5 +4,5 @@ package cc.abro.orchengine.gameobject.components.collision;
 //При коллизии с объектом из списка коллизий вызывается метод collision
 @FunctionalInterface
 public interface CollisionListener {
-    void collision(CollidableComponent collision);
+    void collision(CollidableComponent collision, CollisionType collisionType);
 }

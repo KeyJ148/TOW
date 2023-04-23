@@ -19,13 +19,13 @@ public abstract class CollidableComponent extends PositionableComponent implemen
         return this;
     }
 
-    protected void informListeners(CollidableComponent otherCollidableComponent) {
+    protected void informListeners(CollidableComponent otherCollidableComponent, CollisionType collisionType) {
         Set<CollisionListener> listeners = collisionListeners.getOrDefault(
                 otherCollidableComponent.getType(),
                 Collections.emptySet());
 
         for (CollisionListener listener : listeners ){
-            listener.collision(otherCollidableComponent);
+            listener.collision(otherCollidableComponent, collisionType);
         }
     }
 

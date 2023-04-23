@@ -8,10 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
 
 public class Collision extends DrawableCollidableComponent {
 
@@ -20,6 +18,7 @@ public class Collision extends DrawableCollidableComponent {
     private final CollidableObjectType collidableObjectType;
     @Getter @Setter(AccessLevel.PRIVATE)
     private List<Vector2<Double>> absoluteMaskPoints; //Абсолютные координаты маски от левого верхнего угла карты
+    private final Set<Collision> componentsWithCollisionNow = new HashSet<>();
 
     public Collision(Mask mask, CollidableObjectType collidableObjectType) {
         this.mask = mask;
@@ -36,9 +35,20 @@ public class Collision extends DrawableCollidableComponent {
         maskRecalculate();
         for (Collidable collidable : collidables) {
             Collision collisionComponent = (Collision) collidable;
-            if (collisionComponent != this && checkCollision(collisionComponent)) { //TODO флаг, что сейчас с этим компонентом в столкновение. И проверять каждый раз после перемещения. А также оповещать другой компонент, что мы больше не пересекаемся, если переместились мы, или уничтожились (destroy)
-                informListeners(collisionComponent);
-                collisionComponent.informListeners(this);
+            if (collisionComponent != this) {
+                if (checkCollision(collisionComponent)) {
+                    this.componentsWithCollisionNow.add(collisionComponent);
+                    collisionComponent.componentsWithCollisionNow.add(this);
+
+                    this.informListeners(collisionComponent, CollisionType.ENTRY);
+                    collisionComponent.informListeners(this, CollisionType.ENTRY);
+                } else if (componentsWithCollisionNow.contains(collisionComponent)) {
+                    this.componentsWithCollisionNow.remove(collisionComponent);
+                    collisionComponent.componentsWithCollisionNow.remove(this);
+
+                    this.informListeners(collisionComponent, CollisionType.LEAVING);
+                    collisionComponent.informListeners(this, CollisionType.LEAVING);
+                }
             }
         }
     }
@@ -46,6 +56,16 @@ public class Collision extends DrawableCollidableComponent {
     @Override
     public CollidableObjectType getType() {
         return collidableObjectType;
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+
+        for (Collision collisionComponent : componentsWithCollisionNow) {
+            this.informListeners(collisionComponent, CollisionType.LEAVING);
+            collisionComponent.informListeners(this, CollisionType.LEAVING);
+        }
     }
 
     //Перерасчёт маски относительно начала координат карты
@@ -112,5 +132,9 @@ public class Collision extends DrawableCollidableComponent {
             polygon.addPoint(maskPoint.x.intValue(), maskPoint.y.intValue());
         }
         return polygon;
+    }
+
+    public Set<Collision> getComponentsWithCollisionNow() {
+        return Collections.unmodifiableSet(componentsWithCollisionNow);
     }
 }

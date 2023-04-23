@@ -4,6 +4,7 @@ import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.collision.CollidableComponent;
 import cc.abro.orchengine.gameobject.components.collision.Collision;
+import cc.abro.orchengine.gameobject.components.collision.CollisionType;
 import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.tanks.player.Armor;
@@ -20,8 +21,9 @@ public class BMassSmall extends Bullet {
     }
 
     @Override
-    public void collision(CollidableComponent collision) {
+    public void collision(CollidableComponent collision, CollisionType collisionType) {
         if (isDestroyed()) return;
+        if (collisionType == CollisionType.LEAVING) return;
         GameObject gameObject = collision.getGameObject();
 
         if (gameObject instanceof Armor) {
@@ -29,7 +31,7 @@ public class BMassSmall extends Bullet {
             destroy(explosionSize);
         }
 
-        super.collision(collision);
+        super.collision(collision, collisionType);
     }
 
     @Override

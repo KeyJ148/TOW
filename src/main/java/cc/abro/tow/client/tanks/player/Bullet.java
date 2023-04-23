@@ -5,10 +5,7 @@ import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.gameobject.components.collision.CollidableComponent;
-import cc.abro.orchengine.gameobject.components.collision.Collision;
-import cc.abro.orchengine.gameobject.components.collision.CollisionListener;
-import cc.abro.orchengine.gameobject.components.collision.DefaultCollidableObjectType;
+import cc.abro.orchengine.gameobject.components.collision.*;
 import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.gameobject.location.Border;
@@ -81,8 +78,9 @@ public class Bullet extends GameObject implements CollisionListener{
     }
 
     @Override
-    public void collision(CollidableComponent collision) {
+    public void collision(CollidableComponent collision, CollisionType collisionType) {
         if (isDestroyed()) return;
+        if (collisionType == CollisionType.LEAVING) return;
         GameObject gameObject = collision.getGameObject();
 
         if (gameObject.getClass().equals(Border.class)) {
