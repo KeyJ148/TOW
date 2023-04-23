@@ -35,14 +35,24 @@ public class LocalizationService {
 
 	public LocalizationService() {
 		// TODO: доделать сканирование локалей
-		fromInternalFile("en");
-		fromInternalFile("ru");
-
+		try {
+			List<String> scan = ResourceLoader.scanResources("/locale");
+			log.info("Found "+(scan.size()-1)+" locales");
+			for(String item : scan){
+				if(item.endsWith(".properties")){
+					fromInternalFile(item.replace(".properties",""));
+				}
+			}
+		} catch (Exception e) {
+			log.warn(e.getMessage());
+		}
 		changeLocale("en");
 	}
 
 	public void fromInternalFile(String name){
-		try(InputStream stream = ResourceLoader.getResourceAsStream("locale/"+name+".properties")){
+		String path = "locale/"+name+".properties";
+		log.info("Loading locale '"+name+"' ("+path+")");
+		try(InputStream stream = ResourceLoader.getResourceAsStream(path)){
 			Localization locale = Localization.loadFromProps(stream);
 			locales.put(locale.getId(), locale);
 		}catch (IOException e){

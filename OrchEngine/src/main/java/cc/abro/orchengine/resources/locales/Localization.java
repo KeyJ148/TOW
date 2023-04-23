@@ -106,7 +106,6 @@ public class Localization{
 			log.warn("Unable to find locale name for '"+locale.id+"'");
 			locale.name = locale.id;
 		}
-		log.info("Loaded locale: "+locale.id);
 
 		return locale;
 	}
