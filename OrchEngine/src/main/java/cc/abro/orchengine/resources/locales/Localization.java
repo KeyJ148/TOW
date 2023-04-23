@@ -30,7 +30,7 @@ public class Localization{
 	 * Смотри {@link LocalizationService#localize(String) здесь}
 	 */
 	public String localize(String key) {
-		return localeMap.getOrDefault(key, pseudolocalize(key));
+		return localeMap.computeIfAbsent(key, (k)->pseudolocalize(key));
 	}
 
 	/**
@@ -39,6 +39,7 @@ public class Localization{
 	public String localize(String key, Object... args) {
 		String localizedString = localeMap.get(key);
 		if (localizedString == null) {
+			log.warn("Unable to find localization value for '"+key+"'");
 			return pseudolocalize(key); // Проверка на null нужна, чтобы убедиться, что дальнейшее форматирование имеет смысл
 		}
 
@@ -48,7 +49,6 @@ public class Localization{
 
 	// Добавляет к строке "декорации", указывающие на то, что она не соответствует ни одному ключу в словаре локализации
 	private static String pseudolocalize(String s) {
-		log.warn("Unable to find localization value for '"+s+"'");
 		return "[[" + s + "]]";
 	}
 
