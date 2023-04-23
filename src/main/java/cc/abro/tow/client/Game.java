@@ -59,7 +59,6 @@ public class Game implements GameInterface {
         GameSetting.init();
         audioService.setVolume(settingsService.getSettings().getVolume().getSoundVolume());
 
-        //Локализованный кринж
         try {
             localizationService.changeLocale(settingsService.getSettings().getProfile().getLanguage());
         }catch (Exception e){

@@ -34,7 +34,6 @@ public class LocalizationService {
 
 
 	public LocalizationService() {
-		// TODO: доделать сканирование локалей
 		try {
 			List<String> scan = ResourceLoader.scanResources("/locale");
 			log.info("Found "+(scan.size()-1)+" locales");
