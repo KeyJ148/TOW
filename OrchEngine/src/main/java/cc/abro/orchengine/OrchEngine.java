@@ -6,7 +6,6 @@ import cc.abro.orchengine.init.interfaces.GameInterface;
 import cc.abro.orchengine.init.interfaces.NetGameReadInterface;
 import cc.abro.orchengine.init.interfaces.NetServerReadInterface;
 import cc.abro.orchengine.init.interfaces.ServerInterface;
-import cc.abro.orchengine.resources.Pitsa;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,7 +15,6 @@ public class OrchEngine {
 
 	public static void start() {
 		builder().start();
-		new Pitsa().bite();
 	}
 
 	public static void start(Set<String> activeProfiles, Set<String> packagesForScan) {

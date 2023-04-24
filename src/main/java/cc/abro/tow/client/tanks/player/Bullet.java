@@ -7,6 +7,7 @@ import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.collision.*;
 import cc.abro.orchengine.gameobject.components.particles.Particles;
+import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.gameobject.location.Border;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
@@ -21,6 +22,7 @@ import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.particles.Explosion;
 import cc.abro.tow.client.tanks.enemy.EnemyArmor;
 
+import java.io.IOException;
 import java.util.Set;
 
 public class Bullet extends GameObject implements CollisionListener{

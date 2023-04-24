@@ -54,7 +54,6 @@ public class Explosion extends ParticlesTexture {
         float b = (float) (part.color.getFloatBlue() - (((double) (4 * delta)) / 1000000000 / 2));
         float a = (float) part.life * 10;
 
-        //TODO: убрать нормализацию, либо переписать
         r = Math.min(Math.max(r, 0), 1);
         g = Math.min(Math.max(g, 0), 1);
         b = Math.min(Math.max(b, 0), 1);
