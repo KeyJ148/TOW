@@ -30,12 +30,12 @@ import java.util.stream.Stream;
 @UtilityClass
 public class ResourceLoader {
 
-
     /**
      * Пытается просканировать указанную директорию внутри JAR файла.
      * @param path путь до папки внутри JAR
      * @return Содержимое папки. Первой в списке будет сама папка
-     * @throws URISyntaxException, IOException
+     * @throws URISyntaxException если путь не соответствует RFC2396
+     * @throws IOException в случае ошибки доступа к ресурсам по пути {@code path}
      */
     public List<String> scanResources(String path) throws URISyntaxException, IOException {
         List<String> filesList = new ArrayList<>();
@@ -43,29 +43,35 @@ public class ResourceLoader {
         URI uri = ResourceLoader.class.getResource(path).toURI();
         Path myPath;
         if (uri.getScheme().equals("jar")) {
-            FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
-            myPath = fileSystem.getPath(path);
+            try (FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.emptyMap())) {
+                myPath = fileSystem.getPath(path);
+            }
         } else {
             myPath = Paths.get(uri);
         }
-        Stream<Path> walk = Files.walk(myPath, 1);
-        for (Iterator<Path> it = walk.iterator(); it.hasNext();){
-            filesList.add(it.next().getFileName().toString());
+        try (Stream<Path> walk = Files.walk(myPath, 1)) {
+            Iterator<Path> it = walk.iterator();
+            while (it.hasNext()) {
+                filesList.add(it.next().getFileName().toString());
+            }
         }
 
         return filesList;
     }
-    public InputStream getResourceAsStream(String path) {
-        return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
-    }
 
+    public InputStream getResourceAsStream(String path) {
+        return getClassLoader().getResourceAsStream(path);
+    }
 
     public BufferedReader getResourceAsBufferedReader(String path) {
         return new BufferedReader(new InputStreamReader(getResourceAsStream(path)));
     }
 
     public boolean existResource(String path) {
-        return Thread.currentThread().getContextClassLoader().getResource(path) != null;
+        return getClassLoader().getResource(path) != null;
     }
 
+    private ClassLoader getClassLoader() {
+        return Thread.currentThread().getContextClassLoader();
+    }
 }
