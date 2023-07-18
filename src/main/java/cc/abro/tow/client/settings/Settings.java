@@ -22,9 +22,9 @@ public class Settings {
 
     @Data
     public static class Profile {
-        private String nickname = "Pitsa";
+        private String nickname = "Player";
         private int[] color = {255, 255, 255};
-        private String language = "ru";
+        private String language = "en";
     }
 
     @Data
