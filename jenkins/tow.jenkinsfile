@@ -142,7 +142,7 @@ node {
                         credentialsId: 'd3a1c598-5d55-4dc7-9d2e-675720b09486', \
                         keyFileVariable: 'SSH_KEY', \
                         usernameVariable: 'SSH_USER')]) {
-                    sh "scp -P 20022 -i $SSH_KEY -o StrictHostKeyChecking=no ${BUILD_FILE_NAME_FULL} $SSH_USER@nginx-tow:/usr/share/nginx/html/download/${PUBLISH_PATH}/"
+                    sh "scp -P 20022 -i $SSH_KEY -o StrictHostKeyChecking=no ${BUILD_FILE_NAME_FULL} $SSH_USER@nginx-tow-download:/usr/share/nginx/html/${PUBLISH_PATH}/"
                 }
                 withCredentials(bindings: [string( \
                         credentialsId: 'dbe79ebc-045e-49eb-838a-08bc4f442bad', \
