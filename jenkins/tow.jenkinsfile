@@ -144,6 +144,11 @@ node {
                         usernameVariable: 'SSH_USER')]) {
                     sh "scp -P 20022 -i $SSH_KEY -o StrictHostKeyChecking=no ${BUILD_FILE_NAME_FULL} $SSH_USER@nginx-tow:/usr/share/nginx/html/download/${PUBLISH_PATH}/"
                 }
+                withCredentials(bindings: [string( \
+                        credentialsId: 'dbe79ebc-045e-49eb-838a-08bc4f442bad', \
+                        variable: 'API_KEY')]) {
+                    echo "My secret text is '${API_KEY}'"
+                }
             }
         }
         
