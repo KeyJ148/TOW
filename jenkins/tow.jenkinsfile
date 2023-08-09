@@ -9,6 +9,7 @@ node {
                     JDK_NAME = "openjdk-${JAVA_VERSION}_windows-x64_bin"
                     FILES = ['Start.bat', 'TOW.exe']
                     PUBLISH_PATH = 'windows'
+                    TARGET_OS_FOR_API = 'WINDOWS'
                     break
                 case 'Linux':
                     env.START_ON_FIRST_THREAD = 'false'
@@ -16,6 +17,7 @@ node {
                     JDK_NAME = "openjdk-${JAVA_VERSION}_linux-x64_bin"
                     FILES = ['TOW.sh', 'TOW.png']
                     PUBLISH_PATH = 'linux'
+                    TARGET_OS_FOR_API = 'LINUX'
                     break
                 case 'MacOS':
                     env.START_ON_FIRST_THREAD = 'true'
@@ -23,6 +25,7 @@ node {
                     JDK_NAME = "openjdk-${JAVA_VERSION}_macos-x64_bin"
                     FILES = ['TOW-osx.sh', 'TOW.png']
                     PUBLISH_PATH = 'macos'
+                    TARGET_OS_FOR_API = 'MAC_OS'
                     break
                 case 'Linux ARM':
                     env.START_ON_FIRST_THREAD = 'false'
@@ -30,6 +33,7 @@ node {
                     JDK_NAME = "openjdk-${JAVA_VERSION}_linux-aarch64_bin"
                     FILES = ['TOW.sh', 'TOW.png']
                     PUBLISH_PATH = 'linux-arm'
+                    TARGET_OS_FOR_API = 'LINUX_ARM'
                     break
                 case 'MacOS ARM':
                     env.START_ON_FIRST_THREAD = 'true'
@@ -37,6 +41,7 @@ node {
                     JDK_NAME = "openjdk-${JAVA_VERSION}_macos-aarch64_bin"
                     FILES = ['TOW-osx.sh', 'TOW.png']
                     PUBLISH_PATH = 'macos-arm'
+                    TARGET_OS_FOR_API = 'MAC_OS_ARM'
                     break
             }
             FILES.add("${JDK_NAME}.zip")
@@ -142,12 +147,34 @@ node {
                         credentialsId: 'd3a1c598-5d55-4dc7-9d2e-675720b09486', \
                         keyFileVariable: 'SSH_KEY', \
                         usernameVariable: 'SSH_USER')]) {
-                    sh "scp -P 20022 -i $SSH_KEY -o StrictHostKeyChecking=no ${BUILD_FILE_NAME_FULL} $SSH_USER@nginx-tow-download:/usr/share/nginx/html/${PUBLISH_PATH}/"
+                    sh """
+                        scp -P 20022 -i $SSH_KEY -o StrictHostKeyChecking=no \
+                        ${BUILD_FILE_NAME_FULL} \
+                        $SSH_USER@nginx-tow-download:/usr/share/nginx/html/${PUBLISH_PATH}/
+                    """
+
                 }
                 withCredentials(bindings: [string( \
                         credentialsId: 'dbe79ebc-045e-49eb-838a-08bc4f442bad', \
                         variable: 'API_KEY')]) {
-                    echo "My secret text is '${API_KEY}'"
+                    TYPE_OF_ARCHIVE_SHORT = Type_of_archive.substring(1)
+                    IS_SNAPSHOT = VERSION.contains('SNAPSHOT')
+                    GAME_BUILD_JSON = """
+                    {
+                        "filepath": "${PUBLISH_PATH}/${BUILD_FILE_NAME_FULL}",
+                        "format": "${TYPE_OF_ARCHIVE_SHORT}",
+                        "isSnapshot": ${IS_SNAPSHOT},
+                        "version": "${VERSION}",
+                        "branch": "${TOW_Branch}",
+                        "os": "${TARGET_OS_FOR_API}"
+                    }
+                    """
+                    sh """
+                        curl -X POST https://tow.abro.cc/api/gamebuild \
+                        -H "Authorization: ${API_KEY}" \
+                        -H "Content-Type: application/json" \
+                        -d '${GAME_BUILD_JSON}'
+                    """
                 }
             }
         }
