@@ -157,7 +157,7 @@ node {
                 withCredentials(bindings: [string( \
                         credentialsId: 'dbe79ebc-045e-49eb-838a-08bc4f442bad', \
                         variable: 'API_KEY')]) {
-                    TYPE_OF_ARCHIVE_SHORT = Type_of_archive.substring(1)
+                    TYPE_OF_ARCHIVE_SHORT = Type_of_archive.substring(1).toUpperCase()
                     IS_SNAPSHOT = VERSION.contains('SNAPSHOT')
                     IS_RELEASE = TOW_Branch == 'master'
                     GAME_BUILD_JSON = """
