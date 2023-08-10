@@ -159,11 +159,13 @@ node {
                         variable: 'API_KEY')]) {
                     TYPE_OF_ARCHIVE_SHORT = Type_of_archive.substring(1)
                     IS_SNAPSHOT = VERSION.contains('SNAPSHOT')
+                    IS_RELEASE = TOW_Branch == 'master'
                     GAME_BUILD_JSON = """
                     {
                         "filepath": "${PUBLISH_PATH}/${BUILD_FILE_NAME_FULL}",
                         "format": "${TYPE_OF_ARCHIVE_SHORT}",
                         "isSnapshot": ${IS_SNAPSHOT},
+                        "isRelease": ${IS_RELEASE},
                         "version": "${VERSION}",
                         "branch": "${TOW_Branch}",
                         "os": "${TARGET_OS_FOR_API}"
