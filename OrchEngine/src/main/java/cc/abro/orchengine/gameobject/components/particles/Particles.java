@@ -15,6 +15,10 @@ public abstract class Particles extends DrawableComponent implements Updatable, 
     public boolean rotate = false;
     public boolean destroyObject = false;//Удалить объект использующий эту систему частиц после окончания системы частиц
 
+    public Particles(int z) {
+        setZ(z);
+    }
+
     @Override
     public void update(long delta) {
         Iterator<Part> iterator = parts.iterator();
