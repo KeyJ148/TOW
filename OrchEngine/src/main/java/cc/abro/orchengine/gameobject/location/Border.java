@@ -2,8 +2,10 @@ package cc.abro.orchengine.gameobject.location;
 
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
+import cc.abro.orchengine.gameobject.components.collision.CollidableObjectType;
 import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.orchengine.gameobject.components.collision.DefaultCollidableObjectType;
+import cc.abro.orchengine.resources.masks.Mask;
 import cc.abro.orchengine.resources.masks.MaskLoader;
 
 import java.util.List;
@@ -14,11 +16,8 @@ public class Border extends GameObject {
         super(location);
         BorderData borderData = type.getBorderData(location.getWidth(), location.getHeight(), size);
         setPosition(borderData.x, borderData.y);
-        //Путь должен быть, иначе mask выкинет ошибку при парсе;
-        addComponent(new Collision(
-                MaskLoader.getRectangularMask(borderData.w, borderData.h),
-                DefaultCollidableObjectType.BORDER
-        ));
+        setDirection(90);
+        addComponent(new BorderCollision(MaskLoader.getRectangularMask(borderData.w, borderData.h)));
     }
 
     public static List<Border> createAll(Location location, int size) {
@@ -28,9 +27,6 @@ public class Border extends GameObject {
             new Border(location, Type.SOUTH, size),
             new Border(location, Type.WEST, size)
         );
-    }
-
-    public record BorderData(int x, int y, int w, int h) {
     }
 
     public enum Type {
@@ -63,6 +59,20 @@ public class Border extends GameObject {
         };
 
         public abstract BorderData getBorderData(int roomWidth, int roomHeight, int size);
+    }
+
+    private record BorderData(int x, int y, int w, int h) {
+    }
+
+    private static class BorderCollision extends Collision {
+        public BorderCollision(Mask mask) {
+            super(mask, DefaultCollidableObjectType.BORDER);
+        }
+
+        @Override
+        public boolean isUnsuitableCollidableObject() {
+            return true;
+        }
     }
 
 }
