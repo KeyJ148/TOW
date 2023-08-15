@@ -14,6 +14,7 @@ import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.orchengine.resources.locales.LocalizationService;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.gui.menu.MenuLocation;
 import cc.abro.tow.client.gui.menu.panels.ConnectByIPMenuGuiPanel;
 import cc.abro.tow.client.gui.menu.panels.CreateGameMenuGuiPanel;
@@ -101,7 +102,8 @@ public class Game implements GameInterface {
         guiPanelStorage.registry(new ListOfServersMenuGuiPanel());
         guiPanelStorage.registry(new CreateGameMenuGuiPanel());
 
-        ServerLoader.mapPath = "maps/town10k.maptest";
+        //TODO to settings (or ENV): ServerLoader.mapPath = "maps/town10k.maptest";
+        Context.getService(GuiService.class).setMaskRendering(true); //TODO to settings (or ENV)
 
         locationManager.setActiveLocation(new MenuLocation(!settingsService.isLoadSuccess()));
     }

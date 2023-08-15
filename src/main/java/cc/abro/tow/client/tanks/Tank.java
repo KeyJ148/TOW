@@ -81,7 +81,7 @@ public abstract class Tank extends GameObject {
 
             setColor(explodedTankColor);
 
-            GameObject explosion = GameObjectFactory.create(getLocation(), armor.getX(), armor.getY(), 3000);
+            GameObject explosion = GameObjectFactory.create(getLocation(), armor.getX(), armor.getY());
             Explosion explosionParticles = new Explosion(100);
             explosion.addComponent(explosionParticles);
             explosionParticles.activate();
