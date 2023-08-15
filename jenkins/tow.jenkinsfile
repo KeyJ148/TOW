@@ -117,10 +117,11 @@ node {
                 deleteDir()
             }
             sh 'mkdir publish'
+            VERSION_FOR_USERS = VERSION.replace('-SNAPSHOT', '-beta')
             if (TOW_Branch == 'master') {
-                BUILD_FILE_NAME = "TOW-${VERSION}"
+                BUILD_FILE_NAME = "TOW-${VERSION_FOR_USERS}"
             } else {
-                BUILD_FILE_NAME = "TOW-${TOW_Branch}-${VERSION}"
+                BUILD_FILE_NAME = "TOW-${TOW_Branch}-${VERSION_FOR_USERS}"
             }
             switch (Type_of_archive) {
                 case '.zip':
@@ -164,7 +165,7 @@ node {
                         "filepath": "${PUBLISH_PATH}/${BUILD_FILE_NAME_FULL}",
                         "format": "${TYPE_OF_ARCHIVE_SHORT}",
                         "isRelease": ${IS_RELEASE},
-                        "version": "${VERSION}",
+                        "version": "${VERSION_FOR_USERS}",
                         "branch": "${TOW_Branch}",
                         "os": "${TARGET_OS_FOR_API}"
                     }
