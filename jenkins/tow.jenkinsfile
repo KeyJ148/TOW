@@ -62,9 +62,9 @@ node {
                 VERSION = sh (script: './gradlew --no-daemon properties | grep "version"', returnStdout: true).split(' ')[1].trim()
                 VERSION_FOR_USERS = VERSION.replace('-SNAPSHOT', '-beta')
                 if (IS_RELEASE) {
-                    VERSION_FOR_MENU = "v${VERSION}"
+                    VERSION_FOR_MENU = "v${VERSION_FOR_USERS}"
                 } else {
-                    VERSION_FOR_MENU = "v${VERSION} (build ${Parent_build_number})"
+                    VERSION_FOR_MENU = "v${VERSION_FOR_USERS} (build ${Parent_build_number})"
                 }
                 sh """sed -i 's/"version": null/"version": "${VERSION_FOR_MENU}"/' src/main/resources/configs/dev_setting.json"""
             }
