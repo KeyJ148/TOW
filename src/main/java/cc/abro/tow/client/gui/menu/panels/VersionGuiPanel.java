@@ -8,6 +8,8 @@ import com.spinyowl.legui.style.font.FontRegistry;
 
 public class VersionGuiPanel extends MenuGuiPanel {
 
+    private final static String DEV_VERSION = "vX.X.X-dev";
+
     public VersionGuiPanel() {
         setStyle(InterfaceStyles.createInvisibleStyle());
         setSize(1000, InterfaceStyles.LABEL_HEIGHT_VERSION*2);
@@ -19,8 +21,7 @@ public class VersionGuiPanel extends MenuGuiPanel {
     }
 
     private String getVersion() {
-        return Context.getService(DevSettingsService.class).getDevSettings().getVersion() != null ?
-                Context.getService(DevSettingsService.class).getDevSettings().getVersion() :
-                "vX.X.X-dev";
+        String versionFromDevSettings = Context.getService(DevSettingsService.class).getDevSettings().getVersion();
+        return versionFromDevSettings != null ? versionFromDevSettings : DEV_VERSION;
     }
 }

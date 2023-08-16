@@ -45,6 +45,7 @@ node {
                     break
             }
             FILES.add("${JDK_NAME}.zip")
+            IS_RELEASE = TOW_Branch == 'master'
             if (Clean_Workspace == "true") {
                 cleanWs()
             }
@@ -59,7 +60,11 @@ node {
         stage('Set version to client') {
             dir('repo') {
                 VERSION = sh (script: './gradlew --no-daemon properties | grep "version"', returnStdout: true).split(' ')[1].trim()
-                VERSION_FOR_MENU = "v${VERSION} (build ${Parent_build_number})"
+                if (IS_RELEASE) {
+                    VERSION_FOR_MENU = "v${VERSION}"
+                } else {
+                    VERSION_FOR_MENU = "v${VERSION} (build ${Parent_build_number})"
+                }
                 sh """sed -i 's/"version": null/"version": "${VERSION_FOR_MENU}"/' src/main/resources/configs/dev_setting.json"""
             }
         }
@@ -123,7 +128,7 @@ node {
             }
             sh 'mkdir publish'
             VERSION_FOR_USERS = VERSION.replace('-SNAPSHOT', '-beta')
-            if (TOW_Branch == 'master') {
+            if (IS_RELEASE) {
                 BUILD_FILE_NAME = "TOW-${VERSION_FOR_USERS}"
             } else {
                 BUILD_FILE_NAME = "TOW-${TOW_Branch}-${VERSION_FOR_USERS}"
@@ -164,7 +169,6 @@ node {
                         credentialsId: 'dbe79ebc-045e-49eb-838a-08bc4f442bad', \
                         variable: 'API_KEY')]) {
                     TYPE_OF_ARCHIVE_SHORT = Type_of_archive.substring(1).toUpperCase()
-                    IS_RELEASE = TOW_Branch == 'master'
                     GAME_BUILD_JSON = """
                     {
                         "filepath": "${PUBLISH_PATH}/${BUILD_FILE_NAME_FULL}",
