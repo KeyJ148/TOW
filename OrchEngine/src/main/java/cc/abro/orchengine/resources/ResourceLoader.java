@@ -9,9 +9,7 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.*;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -38,25 +36,22 @@ public class ResourceLoader {
      * @throws IOException в случае ошибки доступа к ресурсам по пути {@code path}
      */
     public List<String> scanResources(String path) throws URISyntaxException, IOException {
-        List<String> filesList = new ArrayList<>();
-
         URI uri = ResourceLoader.class.getResource(path).toURI();
-        Path myPath;
         if (uri.getScheme().equals("jar")) {
             try (FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.emptyMap())) {
-                myPath = fileSystem.getPath(path);
+                return scanResources(fileSystem.getPath(path));
             }
         } else {
-            myPath = Paths.get(uri);
+            return scanResources(Paths.get(uri));
         }
-        try (Stream<Path> walk = Files.walk(myPath, 1)) {
-            Iterator<Path> it = walk.iterator();
-            while (it.hasNext()) {
-                filesList.add(it.next().getFileName().toString());
-            }
-        }
+    }
 
-        return filesList;
+    private List<String> scanResources(Path path) throws IOException {
+        try (Stream<Path> walk = Files.walk(path, 1)) {
+            return walk.map(Path::getFileName)
+                    .map(Path::toString)
+                    .toList();
+        }
     }
 
     public InputStream getResourceAsStream(String path) {

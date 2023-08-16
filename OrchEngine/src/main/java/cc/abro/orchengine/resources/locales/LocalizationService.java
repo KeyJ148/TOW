@@ -1,15 +1,11 @@
 package cc.abro.orchengine.resources.locales;
 
 import cc.abro.orchengine.context.EngineService;
-import lombok.extern.log4j.Log4j2;
-
-import java.io.IOException;
-import java.io.StringReader;
 import cc.abro.orchengine.resources.ResourceLoader;
 import lombok.extern.log4j.Log4j2;
 
-import java.io.*;
-import java.text.MessageFormat;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -21,7 +17,6 @@ import java.util.*;
  * localize("sample.format", "*") -> SAMPLE*TEXT <br>
  * localize("explicit.error") -> [[explicit.error]]
  * </code><br>
- * <b style="color: red;">Потом допилю, не плачь</b>
  */
 @Log4j2
 @EngineService
@@ -31,7 +26,6 @@ public class LocalizationService {
 	 */
 	private final Map<String, Localization> locales = new HashMap<>();
 	private Localization currentLocale;
-
 
 	public LocalizationService() {
 		try {
@@ -45,7 +39,6 @@ public class LocalizationService {
 		} catch (Exception e) {
 			log.warn(e.getMessage());
 		}
-		changeLocale("en");
 	}
 
 	public void fromInternalFile(String name){
@@ -68,17 +61,14 @@ public class LocalizationService {
 	/**
 	 * Сменяет используемую локаль
 	 * @param id id искомой локали
-	 * @return true, если локаль сменена и false, если нет
 	 */
-	public boolean changeLocale(String id) {
+	public void changeLocale(String id) {
 		var foundLocale = locales.get(id);
 		if (foundLocale == null) {
 			log.error("Can't change locale to " + id);
-			return false;
+			throw new NullPointerException("foundLocale is null");
 		}
-
 		currentLocale = foundLocale;
-		return true;
 	}
 
 	/**
