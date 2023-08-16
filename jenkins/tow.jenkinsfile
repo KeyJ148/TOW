@@ -57,9 +57,10 @@ node {
             }
         }
 
-        stage('Set version to client') {
+        stage('Setup versions') {
             dir('repo') {
                 VERSION = sh (script: './gradlew --no-daemon properties | grep "version"', returnStdout: true).split(' ')[1].trim()
+                VERSION_FOR_USERS = VERSION.replace('-SNAPSHOT', '-beta')
                 if (IS_RELEASE) {
                     VERSION_FOR_MENU = "v${VERSION}"
                 } else {
@@ -102,7 +103,8 @@ node {
             }
             sh 'mkdir game'
             sh "unzip -X repo/build/distributions/TOW-${VERSION}.zip -d game"
-            dir("game/TOW-${VERSION}") {
+            sh "mv game/TOW-${VERSION} game/TOW-${VERSION_FOR_USERS}"
+            dir("game/TOW-${VERSION_FOR_USERS}") {
                 sh 'mkdir jdk'
                 if (Target_OS == 'Windows' || Target_OS == 'Linux' || Target_OS == 'Linux ARM') {
                     sh "cp -R ../../cache/${JDK_NAME}/jdk-${JAVA_VERSION}/* jdk/"
@@ -127,7 +129,6 @@ node {
                 deleteDir()
             }
             sh 'mkdir publish'
-            VERSION_FOR_USERS = VERSION.replace('-SNAPSHOT', '-beta')
             if (IS_RELEASE) {
                 BUILD_FILE_NAME = "TOW-${VERSION_FOR_USERS}"
             } else {
@@ -140,7 +141,7 @@ node {
                     break;
                 case '.tar':
                     env.BUILD_FILE_NAME_FULL = "${BUILD_FILE_NAME}.tar.gz"
-                    sh "cd game && tar -czvf ../publish/${BUILD_FILE_NAME_FULL} TOW-${VERSION} && cd .."
+                    sh "cd game && tar -czvf ../publish/${BUILD_FILE_NAME_FULL} TOW-${VERSION_FOR_USERS} && cd .."
                     break;
             }
         }
