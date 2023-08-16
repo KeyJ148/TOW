@@ -59,16 +59,8 @@ node {
         stage('Set version to client') {
             dir('repo') {
                 VERSION = sh (script: './gradlew --no-daemon properties | grep "version"', returnStdout: true).split(' ')[1].trim()
-                VERSION_FOR_MENU = "v${VERSION} (build ${BUILD_NUMBER})"
-                script {
-                    def jsonFilePath = 'src/main/resources/configs/dev-setting.json'
-                    def jsonContent = new File(jsonFilePath).text
-                    def jsonSlurper = new groovy.json.JsonSlurper()
-                    def jsonObject = jsonSlurper.parseText(jsonContent)
-                    jsonObject.version = VERSION_FOR_MENU
-                    def jsonBuilder = new groovy.json.JsonBuilder(jsonObject)
-                    new File(jsonFilePath).text = jsonBuilder.toPrettyString()
-                }
+                VERSION_FOR_MENU = "v${VERSION} (build ${Parent_build_number})"
+                sh """sed -i 's/"version": null/"version": "${VERSION_FOR_MENU}"/' src/main/resources/configs/dev_setting.json"""
             }
         }
             

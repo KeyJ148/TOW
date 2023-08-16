@@ -2,7 +2,6 @@ package cc.abro.tow.client.gui.menu.panels;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
-import cc.abro.tow.client.settings.DevSettings;
 import cc.abro.tow.client.settings.DevSettingsService;
 import com.spinyowl.legui.component.Label;
 import com.spinyowl.legui.style.font.FontRegistry;
@@ -20,6 +19,8 @@ public class VersionGuiPanel extends MenuGuiPanel {
     }
 
     private String getVersion() {
-        return Context.getService(DevSettingsService.class).getDevSettings().getVersion();
+        return Context.getService(DevSettingsService.class).getDevSettings().getVersion() != null ?
+                Context.getService(DevSettingsService.class).getDevSettings().getVersion() :
+                "vX.X.X-dev";
     }
 }
