@@ -21,9 +21,11 @@ import cc.abro.tow.client.gui.menu.panels.CreateGameMenuGuiPanel;
 import cc.abro.tow.client.gui.menu.panels.ListOfServersMenuGuiPanel;
 import cc.abro.tow.client.gui.menu.panels.MainMenuGuiPanel;
 import cc.abro.tow.client.map.factory.MapObjectCreatorsLoader;
+import cc.abro.tow.client.settings.DevSettingsService;
 import cc.abro.tow.client.settings.Settings;
 import cc.abro.tow.client.settings.SettingsService;
 import cc.abro.tow.server.ServerLoader;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
@@ -31,6 +33,7 @@ import java.util.Arrays;
 
 @Log4j2
 @GameService
+@RequiredArgsConstructor
 public class Game implements GameInterface {
 
     public static final String SPRITE_CONFIG_PATH = "configs/sprite.json";
@@ -42,18 +45,8 @@ public class Game implements GameInterface {
     private final ClientData clientData;
     private final AudioService audioService;
     private final SettingsService settingsService;
+    private final DevSettingsService devSettingsService;
     private final LocalizationService localizationService;
-
-    public Game(GuiPanelStorage guiPanelStorage, LocationManager locationManager, ClientData clientData,
-                AudioService audioService, SettingsService settingsService,
-                LocalizationService localizationService) {
-        this.guiPanelStorage = guiPanelStorage;
-        this.locationManager = locationManager;
-        this.clientData = clientData;
-        this.audioService = audioService;
-        this.settingsService = settingsService;
-        this.localizationService = localizationService;
-    }
 
     @Override
     public void init() {
@@ -102,8 +95,11 @@ public class Game implements GameInterface {
         guiPanelStorage.registry(new ListOfServersMenuGuiPanel());
         guiPanelStorage.registry(new CreateGameMenuGuiPanel());
 
-        //TODO to settings (or ENV): ServerLoader.mapPath = "maps/town10k.maptest";
-        Context.getService(GuiService.class).setMaskRendering(true); //TODO to settings (or ENV)
+        String defaultMap = devSettingsService.getDevSettings().getDefaultMap();
+        if (defaultMap != null) {
+            ServerLoader.mapPath = "maps/" + defaultMap;
+        }
+        Context.getService(GuiService.class).setMaskRendering(devSettingsService.getDevSettings().isMaskRendering());
 
         locationManager.setActiveLocation(new MenuLocation(!settingsService.isLoadSuccess()));
     }

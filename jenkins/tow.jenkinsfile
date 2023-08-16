@@ -55,6 +55,14 @@ node {
                 git url: 'https://github.com/KeyJ148/TOW.git', branch: "${TOW_Branch}"
             }
         }
+
+        stage('Set version to client') {
+            dir('repo') {
+                VERSION = sh (script: './gradlew --no-daemon properties | grep "version"', returnStdout: true).split(' ')[1].trim()
+                VERSION_FOR_MENU = "v${VERSION} (build ${BUILD_NUMBER})"
+                sh """sed -i 's/\("version": *"\)[^"]*"/\\1${VERSION_FOR_MENU}"/' src/main/resources/configs/dev-setting.json"""
+            }
+        }
             
         stage('Gradle build') {
             dir ('repo') {
@@ -84,9 +92,6 @@ node {
         }
 
         stage('Create game client') {
-            dir ('repo') {
-                VERSION = sh (script: './gradlew --no-daemon properties | grep "version"', returnStdout: true).split(' ')[1].trim()
-            }
             dir('game'){
                 deleteDir()
             }

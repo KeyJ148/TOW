@@ -7,10 +7,7 @@ import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.GameLocation;
-import cc.abro.tow.client.gui.menu.panels.FirstEntryGuiPanel;
-import cc.abro.tow.client.gui.menu.panels.MainMenuGuiPanel;
-import cc.abro.tow.client.gui.menu.panels.TextureMenuGuiPanel;
-import cc.abro.tow.client.gui.menu.panels.ZeroRuleGuiPanel;
+import cc.abro.tow.client.gui.menu.panels.*;
 
 public class MenuLocation extends GameLocation {
 
@@ -35,6 +32,11 @@ public class MenuLocation extends GameLocation {
         zeroRuleGuiPanel.setPosition(Context.getService(Render.class).getWidth() - InterfaceStyles.LABEL_LENGTH_ZERO_RULE - InterfaceStyles.INDENT_X,
                 Context.getService(Render.class).getHeight() - InterfaceStyles.LABEL_HEIGHT_ZERO_RULE - InterfaceStyles.INDENT_Y/2);
         getGuiLocationFrame().getGuiFrame().getContainer().add(zeroRuleGuiPanel);
+
+        VersionGuiPanel versionGuiPanel = new VersionGuiPanel();
+        versionGuiPanel.setPosition(InterfaceStyles.INDENT_X/2,
+                Context.getService(Render.class).getHeight() - InterfaceStyles.LABEL_HEIGHT_VERSION - InterfaceStyles.INDENT_Y/4);
+        getGuiLocationFrame().getGuiFrame().getContainer().add(versionGuiPanel);
 
         if (!createFirstEntryPanel) {
             MainMenuGuiPanel menuGuiPanel = Context.getService(GuiPanelStorage.class).getPanel(MainMenuGuiPanel.class);
