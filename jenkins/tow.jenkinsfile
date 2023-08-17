@@ -45,12 +45,18 @@ node {
                     break
             }
             FILES.add("${JDK_NAME}.zip")
+
             IS_RELEASE = TOW_Branch == 'master'
+            VERSION_FOR_USERS = ""
+            VERSION_FOR_MENU = ""
+            BUILD_FILE_NAME_INNER = ""
+            BUILD_FILE_NAME_OUTER = ""
+
             if (Clean_Workspace == "true") {
                 cleanWs()
             }
         }
-        
+
         stage('Clone sources TOW') {
             dir ('repo') {
                 git url: 'https://github.com/KeyJ148/TOW.git', branch: "${TOW_Branch}"
@@ -67,15 +73,21 @@ node {
                     BUILD_FILE_NAME_INNER = "TOW-${VERSION_FOR_USERS}"
                     BUILD_FILE_NAME_OUTER = "TOW-${VERSION_FOR_USERS}"
                 } else {
-                    VERSION_FOR_USERS = "${VERSION_WITH_BETA}-${VERSION_FOR_USERS}"
+                    VERSION_FOR_USERS = "${VERSION_WITH_BETA}-${Parent_build_number}"
                     VERSION_FOR_MENU = "v${VERSION_WITH_BETA} (build ${Parent_build_number})"
                     BUILD_FILE_NAME_INNER = "TOW-${TOW_Branch}-${VERSION_FOR_USERS}"
                     BUILD_FILE_NAME_OUTER = "TOW-${TOW_Branch}-${VERSION_WITH_BETA}"
                 }
                 sh """sed -i 's/"version": null/"version": "${VERSION_FOR_MENU}"/' src/main/resources/configs/dev_setting.json"""
             }
+            echo "VERSION: '${VERSION}'"
+            echo "VERSION_WITH_BETA: '${VERSION_WITH_BETA}'"
+            echo "VERSION_FOR_USERS: '${VERSION_FOR_USERS}'"
+            echo "VERSION_FOR_MENU: '${VERSION_FOR_MENU}'"
+            echo "BUILD_FILE_NAME_INNER: '${BUILD_FILE_NAME_INNER}'"
+            echo "BUILD_FILE_NAME_OUTER: '${BUILD_FILE_NAME_OUTER}'"
         }
-            
+
         stage('Gradle build') {
             dir ('repo') {
                 sh './gradlew --no-daemon distZip'
@@ -110,7 +122,7 @@ node {
             sh 'mkdir game'
             sh "unzip -X repo/build/distributions/TOW-${VERSION}.zip -d game"
             sh "mv game/TOW-${VERSION} game/${BUILD_FILE_NAME_INNER}"
-            dir("game/TOW-${VERSION_FOR_USERS}") {
+            dir("game/${BUILD_FILE_NAME_INNER}") {
                 sh 'mkdir jdk'
                 if (Target_OS == 'Windows' || Target_OS == 'Linux' || Target_OS == 'Linux ARM') {
                     sh "cp -R ../../cache/${JDK_NAME}/jdk-${JAVA_VERSION}/* jdk/"
