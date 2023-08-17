@@ -60,11 +60,17 @@ node {
         stage('Setup versions') {
             dir('repo') {
                 VERSION = sh (script: './gradlew --no-daemon properties | grep "version"', returnStdout: true).split(' ')[1].trim()
-                VERSION_FOR_USERS = VERSION.replace('-SNAPSHOT', '-beta')
+                VERSION_WITH_BETA = VERSION.replace('-SNAPSHOT', '-beta')
                 if (IS_RELEASE) {
-                    VERSION_FOR_MENU = "v${VERSION_FOR_USERS}"
+                    VERSION_FOR_USERS = "${VERSION_WITH_BETA}"
+                    VERSION_FOR_MENU = "v${VERSION_WITH_BETA}"
+                    BUILD_FILE_NAME_INNER = "TOW-${VERSION_FOR_USERS}"
+                    BUILD_FILE_NAME_OUTER = "TOW-${VERSION_FOR_USERS}"
                 } else {
-                    VERSION_FOR_MENU = "v${VERSION_FOR_USERS} (build ${Parent_build_number})"
+                    VERSION_FOR_USERS = "${VERSION_WITH_BETA}-${VERSION_FOR_USERS}"
+                    VERSION_FOR_MENU = "v${VERSION_WITH_BETA} (build ${Parent_build_number})"
+                    BUILD_FILE_NAME_INNER = "TOW-${TOW_Branch}-${VERSION_FOR_USERS}"
+                    BUILD_FILE_NAME_OUTER = "TOW-${TOW_Branch}-${VERSION_WITH_BETA}"
                 }
                 sh """sed -i 's/"version": null/"version": "${VERSION_FOR_MENU}"/' src/main/resources/configs/dev_setting.json"""
             }
@@ -103,7 +109,7 @@ node {
             }
             sh 'mkdir game'
             sh "unzip -X repo/build/distributions/TOW-${VERSION}.zip -d game"
-            sh "mv game/TOW-${VERSION} game/TOW-${VERSION_FOR_USERS}"
+            sh "mv game/TOW-${VERSION} game/${BUILD_FILE_NAME_INNER}"
             dir("game/TOW-${VERSION_FOR_USERS}") {
                 sh 'mkdir jdk'
                 if (Target_OS == 'Windows' || Target_OS == 'Linux' || Target_OS == 'Linux ARM') {
@@ -129,19 +135,14 @@ node {
                 deleteDir()
             }
             sh 'mkdir publish'
-            if (IS_RELEASE) {
-                BUILD_FILE_NAME = "TOW-${VERSION_FOR_USERS}"
-            } else {
-                BUILD_FILE_NAME = "TOW-${TOW_Branch}-${VERSION_FOR_USERS}"
-            }
             switch (Type_of_archive) {
                 case '.zip':
-                    env.BUILD_FILE_NAME_FULL = "${BUILD_FILE_NAME}.zip"
+                    env.BUILD_FILE_NAME_FULL = "${BUILD_FILE_NAME_OUTER}.zip"
                     zip zipFile: "publish/${BUILD_FILE_NAME_FULL}", dir: "game"
                     break;
                 case '.tar':
-                    env.BUILD_FILE_NAME_FULL = "${BUILD_FILE_NAME}.tar.gz"
-                    sh "cd game && tar -czvf ../publish/${BUILD_FILE_NAME_FULL} TOW-${VERSION_FOR_USERS} && cd .."
+                    env.BUILD_FILE_NAME_FULL = "${BUILD_FILE_NAME_OUTER}.tar.gz"
+                    sh "cd game && tar -czvf ../publish/${BUILD_FILE_NAME_FULL} ${BUILD_FILE_NAME_INNER} && cd .."
                     break;
             }
         }
