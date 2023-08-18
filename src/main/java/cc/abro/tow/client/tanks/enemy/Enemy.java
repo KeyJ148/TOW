@@ -30,8 +30,8 @@ public class Enemy extends Tank {
         addComponent(new Movement());
     }
 
-    public Enemy(Enemy enemy) {
-        this(enemy.getLocation(), enemy.id);
+    public Enemy(Location location, Enemy enemy) {
+        this(location, enemy.id);
         this.valid = enemy.valid;
         this.timeLastRequestDelta = enemy.timeLastRequestDelta;
         this.lastNumberPackage = enemy.lastNumberPackage;

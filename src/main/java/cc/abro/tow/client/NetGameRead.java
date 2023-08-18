@@ -20,12 +20,14 @@ import cc.abro.tow.client.map.specification.MapSpecificationLoader;
 import cc.abro.tow.client.tanks.enemy.Enemy;
 import cc.abro.tow.client.tanks.enemy.EnemyBullet;
 import cc.abro.tow.client.tanks.player.Player;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Vector;
 
 @GameService
+@RequiredArgsConstructor
 public class NetGameRead implements NetGameReadInterface {
 
 	private final AudioService audioService;
@@ -34,16 +36,7 @@ public class NetGameRead implements NetGameReadInterface {
 	private final TCPControl tcpControl;
 	private final SpriteStorage spriteStorage;
 	private final LocationManager locationManager;
-
-	public NetGameRead(AudioService audioService, AudioStorage audioStorage, PingChecker pingChecker,
-					   TCPControl tcpControl, SpriteStorage spriteStorage, LocationManager locationManager){
-		this.audioService = audioService;
-		this.audioStorage = audioStorage;
-		this.pingChecker = pingChecker;
-		this.tcpControl = tcpControl;
-		this.spriteStorage = spriteStorage;
-		this.locationManager = locationManager;
-	}
+	private final ClientData clientData;
 
 	@Override
 	public void readTCP(Message message) {
@@ -114,12 +107,6 @@ public class NetGameRead implements NetGameReadInterface {
 		Context.getService(ClientData.class).peopleMax = Integer.parseInt(str.split(" ")[0]);
 		Context.getService(ClientData.class).myIdFromServer = Integer.parseInt(str.split(" ")[1]);
 
-		//Заполнение таблицы врагов (в соответствтие с id)
-		for (int id = 0; id < Context.getService(ClientData.class).peopleMax; id++) {
-			if (id != Context.getService(ClientData.class).myIdFromServer) Context.getService(ClientData.class).enemy
-					.put(id, new Enemy(Context.getService(LocationManager.class).getActiveLocation(), id));
-		}
-
 		//В ответ отправляем свои данные (цвет и ник)
 		String message = Context.getService(ClientData.class).color.getRed()
 				+ " " + Context.getService(ClientData.class).color.getGreen()
@@ -153,7 +140,13 @@ public class NetGameRead implements NetGameReadInterface {
 
 		//Заполнение таблицы врагов (в соответствтие с id)
 		for (int id = 0; id < Context.getService(ClientData.class).peopleMax; id++) {
-			if (id != Context.getService(ClientData.class).myIdFromServer) Context.getService(ClientData.class).enemy.put(id, new Enemy(Context.getService(ClientData.class).enemy.get(id)));
+			if (id != Context.getService(ClientData.class).myIdFromServer) {
+				Enemy enemyForCopy = Context.getService(ClientData.class).enemy.get(id);
+				Enemy enemy = enemyForCopy != null ?
+						new Enemy(Context.getService(LocationManager.class).getActiveLocation(), enemyForCopy) :
+						new Enemy(Context.getService(LocationManager.class).getActiveLocation(), id);
+				Context.getService(ClientData.class).enemy.put(id, enemy);
+			}
 		}
 	}
 
