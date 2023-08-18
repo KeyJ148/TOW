@@ -89,8 +89,8 @@ public class NetGameRead implements NetGameReadInterface {
 		long numberPackage = Long.parseLong(str.split(" ")[7]);
 		int enemyId = Integer.parseInt(str.split(" ")[8]);
 
-		if (Context.getService(ClientData.class).enemy.containsKey(enemyId)) {
-			Context.getService(ClientData.class).enemy.get(enemyId).setData(x, y, direction, directionGun, speed, moveDirection, animSpeed, numberPackage);
+		if (clientData.enemy.containsKey(enemyId)) {
+			clientData.enemy.get(enemyId).setData(x, y, direction, directionGun, speed, moveDirection, animSpeed, numberPackage);
 		}
 	}
 
@@ -104,14 +104,14 @@ public class NetGameRead implements NetGameReadInterface {
 
 	//старт сервера - (int peopleMax, int myIdFromServer)
 	public void take4(String str) {
-		Context.getService(ClientData.class).peopleMax = Integer.parseInt(str.split(" ")[0]);
-		Context.getService(ClientData.class).myIdFromServer = Integer.parseInt(str.split(" ")[1]);
+		clientData.peopleMax = Integer.parseInt(str.split(" ")[0]);
+		clientData.myIdFromServer = Integer.parseInt(str.split(" ")[1]);
 
 		//В ответ отправляем свои данные (цвет и ник)
-		String message = Context.getService(ClientData.class).color.getRed()
-				+ " " + Context.getService(ClientData.class).color.getGreen()
-				+ " " + Context.getService(ClientData.class).color.getBlue()
-				+ " " + Context.getService(ClientData.class).name;
+		String message = clientData.color.getRed()
+				+ " " + clientData.color.getGreen()
+				+ " " + clientData.color.getBlue()
+				+ " " + clientData.name;
 		tcpControl.send(17, message);
 
 		//Запускаем пингатор
@@ -125,27 +125,27 @@ public class NetGameRead implements NetGameReadInterface {
 		int direction = Integer.parseInt(str.split(" ")[2]);
 
 		int kill = 0, death = 0, win = 0;
-		if (Context.getService(ClientData.class).player != null) {
-			kill = Context.getService(ClientData.class).player.kill;
-			death = Context.getService(ClientData.class).player.death;
-			win = Context.getService(ClientData.class).player.win;
+		if (clientData.player != null) {
+			kill = clientData.player.kill;
+			death = clientData.player.death;
+			win = clientData.player.win;
 		}
 
-		Context.getService(ClientData.class).player = new Player(Context.getService(LocationManager.class).getActiveLocation(), x, y, direction);
-		Context.getService(ClientData.class).player.kill = kill;
-		Context.getService(ClientData.class).player.death = death;
-		Context.getService(ClientData.class).player.win = win;
+		clientData.player = new Player(Context.getService(LocationManager.class).getActiveLocation(), x, y, direction);
+		clientData.player.kill = kill;
+		clientData.player.death = death;
+		clientData.player.win = win;
 
-		Context.getService(LocationManager.class).getActiveLocation().getCamera().setFollowObject(Context.getService(ClientData.class).player.camera);
+		Context.getService(LocationManager.class).getActiveLocation().getCamera().setFollowObject(clientData.player.camera);
 
 		//Заполнение таблицы врагов (в соответствтие с id)
-		for (int id = 0; id < Context.getService(ClientData.class).peopleMax; id++) {
-			if (id != Context.getService(ClientData.class).myIdFromServer) {
-				Enemy enemyForCopy = Context.getService(ClientData.class).enemy.get(id);
+		for (int id = 0; id < clientData.peopleMax; id++) {
+			if (id != clientData.myIdFromServer) {
+				Enemy enemyForCopy = clientData.enemy.get(id);
 				Enemy enemy = enemyForCopy != null ?
 						new Enemy(Context.getService(LocationManager.class).getActiveLocation(), enemyForCopy) :
 						new Enemy(Context.getService(LocationManager.class).getActiveLocation(), id);
-				Context.getService(ClientData.class).enemy.put(id, enemy);
+				clientData.enemy.put(id, enemy);
 			}
 		}
 	}
@@ -162,18 +162,18 @@ public class NetGameRead implements NetGameReadInterface {
 
 	//начало рестарта
 	public void take8(String str) {
-		if (Context.getService(ClientData.class).player != null && Context.getService(ClientData.class).player.alive) {
+		if (clientData.player != null && clientData.player.alive) {
 			tcpControl.send(24, "");
-			Context.getService(ClientData.class).player.win++;
+			clientData.player.win++;
 		}
 
-		Context.getService(ClientData.class).battle = false;
+		clientData.battle = false;
 		Context.getService(LocationManager.class).getActiveLocation().destroy();
 		Context.getService(LocationManager.class).getActiveLocation().getCamera().deleteFollowObject();
 
-		Context.getService(ClientData.class).mapObjects = new Vector<>();
-		Context.getService(ClientData.class).enemyBullet = new ArrayList<>();
-		for (Map.Entry<Integer, Enemy> entry : Context.getService(ClientData.class).enemy.entrySet()) {
+		clientData.mapObjects = new Vector<>();
+		clientData.enemyBullet = new ArrayList<>();
+		for (Map.Entry<Integer, Enemy> entry : clientData.enemy.entrySet()) {
 			entry.getValue().armor = null;
 			entry.getValue().gun = null;
 			entry.getValue().camera = null;
@@ -188,14 +188,14 @@ public class NetGameRead implements NetGameReadInterface {
 
 	//старт игры (рестарт полностью завершен)
 	public void take11(String str) {
-		Context.getService(ClientData.class).battle = true;
+		clientData.battle = true;
 	}
 
 	//я умер - (int id)
 	public void take12(String str) {
 		int id = Integer.parseInt(str.split(" ")[0]);
 
-		Context.getService(ClientData.class).enemy.get(id).exploded(); //Взорвался
+		clientData.enemy.get(id).exploded(); //Взорвался
 	}
 
 	//я выстрелил - (int x, int y, double direction, double speed, String texture, long idNet, int id)
@@ -210,7 +210,7 @@ public class NetGameRead implements NetGameReadInterface {
 
 		EnemyBullet enemyBullet = new EnemyBullet(Context.getService(LocationManager.class).getActiveLocation(),
 				x, y, speed, direction, spriteStorage.getSprite(texture).texture(), idEmeny, idNet);
-		Context.getService(ClientData.class).enemyBullet.add(enemyBullet);
+		clientData.enemyBullet.add(enemyBullet);
 	}
 
 	//я нанёс урон игроку enemyId (double damage, int idSuffer, int idDamager)
@@ -219,9 +219,9 @@ public class NetGameRead implements NetGameReadInterface {
 		int idSuffer = Integer.parseInt(str.split(" ")[1]);
 		int idDamager = Integer.parseInt(str.split(" ")[2]);
 
-		if (idSuffer == Context.getService(ClientData.class).myIdFromServer) {
-			Context.getService(ClientData.class).player.hp -= damage;
-			Context.getService(ClientData.class).player.lastDamagerEnemyId = idDamager;
+		if (idSuffer == clientData.myIdFromServer) {
+			clientData.player.hp -= damage;
+			clientData.player.lastDamagerEnemyId = idDamager;
 		}
 	}
 
@@ -231,7 +231,7 @@ public class NetGameRead implements NetGameReadInterface {
 		int explosionSize = Integer.parseInt(str.split(" ")[1]);
 		int idEnemy = Integer.parseInt(str.split(" ")[2]);
 
-		for (EnemyBullet bullet : Context.getService(ClientData.class).enemyBullet) {
+		for (EnemyBullet bullet : clientData.enemyBullet) {
 			if (bullet.idEnemy == idEnemy && bullet.idNet == idNet) {
 				bullet.destroy(explosionSize);
 				break;
@@ -247,12 +247,12 @@ public class NetGameRead implements NetGameReadInterface {
 		String name = str.split(" ")[3];
 		int id = Integer.parseInt(str.split(" ")[4]);
 
-		if (Context.getService(ClientData.class).enemy.get(id).valid) return;
+		if (clientData.enemy.get(id).valid) return;
 
-		Context.getService(ClientData.class).enemy.get(id).setName(name);
-		Context.getService(ClientData.class).enemy.get(id).color = new Color(red, green, blue);
-		Context.getService(ClientData.class).enemy.get(id).setColor(Context.getService(ClientData.class).enemy.get(id).color);
-		Context.getService(ClientData.class).enemy.get(id).valid = true;
+		clientData.enemy.get(id).setName(name);
+		clientData.enemy.get(id).color = new Color(red, green, blue);
+		clientData.enemy.get(id).setColor(clientData.enemy.get(id).color);
+		clientData.enemy.get(id).valid = true;
 	}
 
 	//я сменил броню - (String armorName, int id)
@@ -260,7 +260,7 @@ public class NetGameRead implements NetGameReadInterface {
 		String armorName = str.split(" ")[0];
 		int enemyId = Integer.parseInt(str.split(" ")[1]);
 
-		Context.getService(ClientData.class).enemy.get(enemyId).newArmor(armorName);
+		clientData.enemy.get(enemyId).newArmor(armorName);
 	}
 
 	//я сменил оружие - (String gunName, int id)
@@ -268,7 +268,7 @@ public class NetGameRead implements NetGameReadInterface {
 		String gunName = str.split(" ")[0];
 		int enemyId = Integer.parseInt(str.split(" ")[1]);
 
-		Context.getService(ClientData.class).enemy.get(enemyId).newGun(gunName);
+		clientData.enemy.get(enemyId).newGun(gunName);
 	}
 
 	//я подобрал ящик - (int idBox)
@@ -284,9 +284,9 @@ public class NetGameRead implements NetGameReadInterface {
 	//объект карты уничтожен бронёй - (int mid)
 	public void take22(String str) {
 		int mid = Integer.parseInt(str.split(" ")[0]);
-		if (mid < Context.getService(ClientData.class).mapObjects.size()){
-			((DestroyedMapObject) Context.getService(ClientData.class).mapObjects.get(mid)).destroy();
-			Context.getService(ClientData.class).mapObjects.set(mid, null);
+		if (mid < clientData.mapObjects.size()){
+			((DestroyedMapObject) clientData.mapObjects.get(mid)).destroy();
+			clientData.mapObjects.set(mid, null);
 		}
 	}
 
@@ -294,10 +294,10 @@ public class NetGameRead implements NetGameReadInterface {
 	public void take23(String str) {
 		int id = Integer.parseInt(str.split(" ")[0]);
 
-		if (Context.getService(ClientData.class).myIdFromServer == id) {
-			Context.getService(ClientData.class).player.kill++;
+		if (clientData.myIdFromServer == id) {
+			clientData.player.kill++;
 		} else {
-			Context.getService(ClientData.class).enemy.get(id).kill++;
+			clientData.enemy.get(id).kill++;
 		}
 	}
 
@@ -305,7 +305,7 @@ public class NetGameRead implements NetGameReadInterface {
 	public void take24(String str) {
 		int id = Integer.parseInt(str.split(" ")[0]);
 
-		Context.getService(ClientData.class).enemy.get(id).win++;
+		clientData.enemy.get(id).win++;
 	}
 
 	//я инициировал событие звука - (int x, int y, String sound)
