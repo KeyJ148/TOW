@@ -107,14 +107,16 @@ public class Enemy extends Tank {
     public void newArmor(String nameArmor) {
         if (armor == null) return;
 
-        armor.addComponent(new AnimationRender(getAnimationStorage().getAnimation(nameArmor).textures(), 1100));
+        armor.removeComponents(Rendering.class);
+        armor.addComponent(new AnimationRender(getAnimationStorage().getAnimation(nameArmor).textures(), 1000));
         setColorArmor(color);
     }
 
     public void newGun(String nameGun) {
         if (gun == null) return;
 
-        gun.addComponent(new SpriteRender(getSpriteStorage().getSprite(nameGun).texture(), 2100));
+        gun.removeComponents(Rendering.class);
+        gun.addComponent(new SpriteRender(getSpriteStorage().getSprite(nameGun).texture(), 2000));
         setColorGun(color);
     }
 }

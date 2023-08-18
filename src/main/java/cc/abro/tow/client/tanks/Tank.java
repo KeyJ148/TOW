@@ -129,7 +129,9 @@ public abstract class Tank extends GameObject {
     }
 
     public void setColorArmor(Color c) {
+        System.out.println("Set color");
         if (armor == null || !armor.hasComponent(Rendering.class)) return;
+        System.out.println("Set color 2");
         armor.getComponent(Rendering.class).setColor(c);
     }
 
