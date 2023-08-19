@@ -11,18 +11,19 @@ import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.util.GameObjectFactory;
-import cc.abro.orchengine.util.Vector2;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.GameSetting;
 import cc.abro.tow.client.particles.Explosion;
+import cc.abro.tow.client.tanks.components.TankNicknameComponent;
 import cc.abro.tow.client.tanks.enemy.Enemy;
 import com.spinyowl.legui.component.Label;
+import lombok.Getter;
 
 import java.util.Map;
 
 public abstract class Tank extends GameObject {
 
-    public static final Color explodedTankColor = new Color(110, 15, 0);
+    private static final Color EXPLODED_TANK_COLOR = new Color(110, 15, 0);
     private final LocationManager locationManager;
 
     public GameObject armor;
@@ -30,8 +31,8 @@ public abstract class Tank extends GameObject {
     public GameObject camera;
     public Label nickname;
 
-    protected String name = "";
-    public Color color = Color.WHITE;
+    @Getter
+    protected Color color = Color.WHITE;
     public boolean alive = true;
 
     public int kill = 0;
@@ -42,44 +43,25 @@ public abstract class Tank extends GameObject {
         super(location);
         locationManager = getLocationManager();
         initCamera();
+        addComponent(new TankNicknameComponent());
     }
 
     public void initCamera() {
         //Инициализация камеры
         camera = GameObjectFactory.create(getLocation(), 0, 0, 0);
-
-        nickname = new Label();
-        nickname.setSize(500, 30);
-        getLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(nickname);
-
-        nickname.setFocusable(false); //Иначе событие мыши перехватывает надпись, и оно не поступает в игру
-        nickname.getTextState().setText(name);
-    }
-
-    @Override
-    public void update(long delta) {
-        super.update(delta);
-
-        if (!alive) return;
-
-        if (armor != null) {
-            double x = armor.getX() - name.length() * 3.45;
-            double y = armor.getY() - 55;
-            Vector2<Double> relativePosition = getLocation().getCamera()
-                    .toRelativePosition(new Vector2<>(x, y));
-            nickname.setPosition(relativePosition.x.floatValue(), relativePosition.y.floatValue());
-        }
     }
 
     public void exploded() {
         alive = false;
         death++;
 
+        removeComponents(TankNicknameComponent.class);
+
         if (armor != null) {
             armor.getComponent(Movement.class).speed = 0;
             ((AnimationRender) armor.getComponent(Rendering.class)).setFrameSpeed(0);
 
-            setColor(explodedTankColor);
+            setColor(EXPLODED_TANK_COLOR);
 
             GameObject explosion = GameObjectFactory.create(getLocation(), armor.getX(), armor.getY());
             Explosion explosionParticles = new Explosion(100);
@@ -124,14 +106,13 @@ public abstract class Tank extends GameObject {
     }
 
     public void setColor(Color c) {
+        color = c;
         setColorArmor(c);
         setColorGun(c);
     }
 
     public void setColorArmor(Color c) {
-        System.out.println("Set color");
         if (armor == null || !armor.hasComponent(Rendering.class)) return;
-        System.out.println("Set color 2");
         armor.getComponent(Rendering.class).setColor(c);
     }
 
@@ -140,12 +121,11 @@ public abstract class Tank extends GameObject {
         gun.getComponent(Rendering.class).setColor(c);
     }
 
-    public void setName(String name) {
-        this.name = name;
-        nickname.getTextState().setText(name);
+    public void setNickname(String nickname) {
+        getComponent(TankNicknameComponent.class).setNickname(nickname);
     }
 
-    public String getName() {
-        return name;
+    public String getNickname() {
+        return getComponent(TankNicknameComponent.class).getNickname();
     }
 }

@@ -249,9 +249,9 @@ public class NetGameRead implements NetGameReadInterface {
 
 		if (clientData.enemy.get(id).valid) return;
 
-		clientData.enemy.get(id).setName(name);
-		clientData.enemy.get(id).color = new Color(red, green, blue);
-		clientData.enemy.get(id).setColor(clientData.enemy.get(id).color);
+		clientData.enemy.get(id).setNickname(name);
+		clientData.enemy.get(id).setColor(new Color(red, green, blue));
+		clientData.enemy.get(id).setColor(clientData.enemy.get(id).getColor());
 		clientData.enemy.get(id).valid = true;
 	}
 

@@ -18,24 +18,26 @@ public class PositionableComponent extends Component implements Positionable {
 
     @Override
     public double getX() {
+        double direction = Math.toRadians(getGameObject().getDirection());
         //Первый отступ "Вперёд"
-        double deltaX = Math.cos(getDirection()) * relativeX;
+        double deltaX = Math.cos(direction) * relativeX;
         //Второй отступ "В бок"
-        double deltaX2 = Math.sin(getDirection()) * relativeY; //Math.cos(direction-Math.PI/2) * point.y
+        double deltaX2 = Math.sin(direction) * relativeY; //Math.cos(direction-Math.PI/2) * point.y
         return getGameObject().getX() + deltaX + deltaX2;
     }
 
-    public void setX(double x) {
+    public void setX(double x) { //TODO Сейчас работает некорректно: setX не является обратной операцией для getX, т.к. не учитывает direction. Аналогично setY.
         this.relativeX = x - getGameObject().getX();
         notifyChangePositionListeners();
     }
 
     @Override
     public double getY() {
+        double direction = Math.toRadians(getGameObject().getDirection());
         //Первый отступ "Вперёд"
-        double deltaY = Math.sin(getDirection()) * relativeX;
+        double deltaY = Math.sin(direction) * relativeX;
         //Второй отступ "В бок"
-        double deltaY2 = -Math.cos(getDirection()) * relativeY; //Math.sin(direction-Math.PI/2) * point.y
+        double deltaY2 = -Math.cos(direction) * relativeY; //Math.sin(direction-Math.PI/2) * point.y
         return getGameObject().getY() - deltaY - deltaY2;
     }
 
@@ -45,8 +47,14 @@ public class PositionableComponent extends Component implements Positionable {
     }
 
     public void setPosition(Vector2<Double> position) {
-        relativeX = position.x;
-        relativeY = position.y;
+        setX(position.x);
+        setY(position.y);
+        notifyChangePositionListeners();
+    }
+
+    public void setRelativePosition(Vector2<Double> position) {
+        setRelativeX(position.x);
+        setRelativeY(position.y);
         notifyChangePositionListeners();
     }
 

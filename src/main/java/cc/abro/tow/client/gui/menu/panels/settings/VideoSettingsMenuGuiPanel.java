@@ -1,28 +1,23 @@
 package cc.abro.tow.client.gui.menu.panels.settings;
 
-import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
 import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import cc.abro.tow.client.gui.menu.panels.MainMenuGuiPanel;
 import cc.abro.tow.client.gui.menu.panels.MenuGuiPanel;
-import cc.abro.tow.client.settings.SettingsService;
 import com.spinyowl.legui.component.Button;
-import com.spinyowl.legui.component.Label;
 import com.spinyowl.legui.component.Panel;
 import com.spinyowl.legui.component.SelectBox;
-import com.spinyowl.legui.event.MouseClickEvent;
 import org.lwjgl.glfw.GLFWVidMode;
 
 import java.util.function.Function;
 
-import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
+import static org.lwjgl.glfw.GLFW.glfwGetVideoModes;
 
 public class VideoSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBackLogicInterface {
 
     private final MenuGuiPanel parent;
-    //private final ddd;
     private final SelectBox<String> resolution;
 
     public Function<Panel, Boolean> canOut;
@@ -53,7 +48,7 @@ public class VideoSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBackL
         //for (SelectBox<String>.SelectBoxElement<String> boxElement :resolution.getSelectBoxElements()) {
             //boxElement.setStyle(InterfaceStyles.createButtonStyle());
         //}
-        add(resolution);
+        //TODO return after release add(resolution);
 
         add(parent.createBackToMenuButton(this));
         canOut = parent.createCanOut(this);

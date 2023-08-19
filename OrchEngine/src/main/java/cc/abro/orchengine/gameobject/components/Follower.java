@@ -6,6 +6,8 @@ import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 
 import java.util.List;
 
+//TODO У нас многокомпонентная система, а Follower подразумевает, что он может быть только один у объекта, иначе все будет работать криво
+//TODO создать задачу: попробовать отказаться от фолловеров за счет системы вложенных компонентов-контейнеров (надо доделать, сейчас только один компонент вкладывается, но уже сейчас по сути GameObject не используется движком)
 public class Follower extends Component implements Updatable {
 
     public GameObject followUpGameObject;
@@ -39,11 +41,13 @@ public class Follower extends Component implements Updatable {
     public boolean isUpdated() {
         boolean updated = true;
 
-        if (followUpGameObject.hasComponent(Follower.class))
+        updated &= (getGameObject().getPosition().equals(followUpGameObject.getPosition()));
+        if (followDirectionDraw) {
+            updated &= getGameObject().getDirection() == followUpGameObject.getDirection();
+        }
+        if (followUpGameObject.hasComponent(Follower.class)) {
             updated &= followUpGameObject.getComponent(Follower.class).isUpdated();
-        updated &= (getGameObject().getX() == followUpGameObject.getX());
-        updated &= (getGameObject().getY() == followUpGameObject.getY());
-        updated &= (getGameObject().getDirection() == followUpGameObject.getDirection());
+        }
 
         return updated;
     }
