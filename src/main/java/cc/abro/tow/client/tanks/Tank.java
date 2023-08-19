@@ -4,8 +4,8 @@ import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.LocationManager;
-import cc.abro.orchengine.gameobject.components.Follower;
 import cc.abro.orchengine.gameobject.components.Movement;
+import cc.abro.orchengine.gameobject.components.PositionableComponent;
 import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.AnimationRender;
 import cc.abro.orchengine.gameobject.components.render.Rendering;
@@ -16,7 +16,6 @@ import cc.abro.tow.client.GameSetting;
 import cc.abro.tow.client.particles.Explosion;
 import cc.abro.tow.client.tanks.components.TankNicknameComponent;
 import cc.abro.tow.client.tanks.enemy.Enemy;
-import com.spinyowl.legui.component.Label;
 import lombok.Getter;
 
 import java.util.Map;
@@ -24,12 +23,14 @@ import java.util.Map;
 public abstract class Tank extends GameObject {
 
     private static final Color EXPLODED_TANK_COLOR = new Color(110, 15, 0);
+
     private final LocationManager locationManager;
+
+    private final PositionableComponent camera;
+    private final TankNicknameComponent tankNicknameComponent;
 
     public GameObject armor;
     public GameObject gun;
-    public GameObject camera;
-    public Label nickname;
 
     @Getter
     protected Color color = Color.WHITE;
@@ -42,20 +43,19 @@ public abstract class Tank extends GameObject {
     public Tank(Location location) {
         super(location);
         locationManager = getLocationManager();
-        initCamera();
-        addComponent(new TankNicknameComponent());
-    }
 
-    public void initCamera() {
-        //Инициализация камеры
-        camera = GameObjectFactory.create(getLocation(), 0, 0, 0);
+        camera = new PositionableComponent();
+        addComponent(camera);
+
+        tankNicknameComponent = new TankNicknameComponent();
+        addComponent(tankNicknameComponent);
     }
 
     public void exploded() {
         alive = false;
         death++;
 
-        removeComponents(TankNicknameComponent.class);
+        tankNicknameComponent.destroy();
 
         if (armor != null) {
             armor.getComponent(Movement.class).speed = 0;
@@ -75,14 +75,13 @@ public abstract class Tank extends GameObject {
                 locationManager.getActiveLocation().getCamera().getFollowObject().orElse(null) == camera) {
             //Выбираем живого врага с инициализированной камерой, переносим камеру туда
             for (Map.Entry<Integer, Enemy> entry : Context.getService(ClientData.class).enemy.entrySet()) {
-                if (entry.getValue().camera != null && entry.getValue().alive) {
-                    locationManager.getActiveLocation().getCamera().setFollowObject(entry.getValue().camera);
+                if (entry.getValue().alive) {
+                    entry.getValue().setLocationCameraToThisObject();
                     break;
                 }
             }
         }
 
-        locationManager.getActiveLocation().getGuiLocationFrame().getGuiFrame().getContainer().remove(nickname);
         getAudioService().playSoundEffect(getAudioStorage().getAudio("explosion"), (int) getX(), (int) getY(), GameSetting.SOUND_RANGE);
     }
 
@@ -94,7 +93,6 @@ public abstract class Tank extends GameObject {
         armor = newArmor;
 
         setColorArmor(color);
-        camera.addComponent(new Follower(armor));
     }
 
     public void replaceGun(GameObject newGun) {
@@ -122,10 +120,19 @@ public abstract class Tank extends GameObject {
     }
 
     public void setNickname(String nickname) {
-        getComponent(TankNicknameComponent.class).setNickname(nickname);
+        tankNicknameComponent.setNickname(nickname);
     }
 
     public String getNickname() {
-        return getComponent(TankNicknameComponent.class).getNickname();
+        return tankNicknameComponent.getNickname();
+    }
+
+    public void setLocationCameraToThisObject() {
+        getLocation().getCamera().setFollowObject(camera);
+    }
+
+    public boolean locationCameraIsThisObject() {
+        return getLocation().getCamera().getFollowObject()
+                .filter(locationCamera -> locationCamera == camera).isPresent();
     }
 }

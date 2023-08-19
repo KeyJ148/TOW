@@ -76,7 +76,6 @@ public class Player extends Tank {
 
         addComponent(new Follower(armor));
         gun.addComponent(new Follower(armor, false)); //TODO: gun.follower дублируется в 3-х местах
-        camera.addComponent(new Follower(armor));
 
         hpLabel = new Label();
         hpLabel.setFocusable(false);

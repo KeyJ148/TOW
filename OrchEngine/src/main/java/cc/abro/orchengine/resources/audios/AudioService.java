@@ -2,8 +2,8 @@ package cc.abro.orchengine.resources.audios;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.EngineService;
-import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.LocationManager;
+import cc.abro.orchengine.gameobject.components.interfaces.Positionable;
 import cc.abro.orchengine.gameobject.location.Camera;
 import lombok.Getter;
 import lombok.Setter;
@@ -52,13 +52,13 @@ public class AudioService implements Startable {
         Условие (camera.isSoundOnFollowingObject()) исправляет этот баг
         */
         Camera camera = Context.getService(LocationManager.class).getActiveLocation().getCamera();
-        Optional<GameObject> cameraFollowObject = camera.isSoundOnFollowingObject() ?
+        Optional<Positionable> cameraFollowObject = camera.isSoundOnFollowingObject() ?
                 camera.getFollowObject() : Optional.empty();
         double listenerX = cameraFollowObject
-                .map(follow -> follow.getX())
+                .map(Positionable::getX)
                 .orElse(camera.getX());
         double listenerY = cameraFollowObject
-                .map(follow -> follow.getY())
+                .map(Positionable::getY)
                 .orElse(camera.getY());
 
         double dis = Math.sqrt(Math.pow(x - listenerX, 2) + Math.pow(y - listenerY, 2));

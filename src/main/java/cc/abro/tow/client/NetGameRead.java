@@ -136,7 +136,7 @@ public class NetGameRead implements NetGameReadInterface {
 		clientData.player.death = death;
 		clientData.player.win = win;
 
-		Context.getService(LocationManager.class).getActiveLocation().getCamera().setFollowObject(clientData.player.camera);
+		clientData.player.setLocationCameraToThisObject();
 
 		//Заполнение таблицы врагов (в соответствтие с id)
 		for (int id = 0; id < clientData.peopleMax; id++) {
@@ -176,7 +176,6 @@ public class NetGameRead implements NetGameReadInterface {
 		for (Map.Entry<Integer, Enemy> entry : clientData.enemy.entrySet()) {
 			entry.getValue().armor = null;
 			entry.getValue().gun = null;
-			entry.getValue().camera = null;
 			entry.getValue().alive = true;
 		}
 	}

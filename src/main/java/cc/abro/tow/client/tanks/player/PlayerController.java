@@ -343,8 +343,8 @@ public class PlayerController extends GameObject implements CollisionListener {
 
         for (int i = pos+1; i < enemiesDouble.size(); i++) {
             Enemy enemy = enemiesDouble.get(i);
-            if (enemy.camera != null && enemy.alive) {
-                locationManager.getActiveLocation().getCamera().setFollowObject(enemy.camera);
+            if (enemy.alive) {
+                enemy.setLocationCameraToThisObject();
                 break;
             }
         }
@@ -364,8 +364,8 @@ public class PlayerController extends GameObject implements CollisionListener {
 
         for (int i = pos-1; i >= 0 ; i--) {
             Enemy enemy = enemiesDouble.get(i);
-            if (enemy.camera != null && enemy.alive) {
-                locationManager.getActiveLocation().getCamera().setFollowObject(enemy.camera);
+            if (enemy.alive) {
+                enemy.setLocationCameraToThisObject();
                 break;
             }
         }
@@ -374,7 +374,6 @@ public class PlayerController extends GameObject implements CollisionListener {
     private List<Enemy> getEnemiesWithCamera() {
         return Context.getService(ClientData.class).enemy.entrySet().stream()
                 .filter(e -> e.getValue().alive)
-                .filter(e -> e.getValue().camera != null)
                 .sorted(Comparator.comparingInt(Map.Entry::getKey))
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
@@ -383,7 +382,7 @@ public class PlayerController extends GameObject implements CollisionListener {
     private int getEnemyWithCameraPos(List<Enemy> enemies) {
         int pos = -1;
         for (int i = 0; i < enemies.size(); i++) {
-            if (locationManager.getActiveLocation().getCamera().getFollowObject().orElse(null) == enemies.get(i).camera) {
+            if (enemies.get(i).locationCameraIsThisObject()) {
                 pos = i;
                 break;
             }

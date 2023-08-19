@@ -1,6 +1,6 @@
 package cc.abro.orchengine.gameobject.location;
 
-import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.gameobject.components.interfaces.Positionable;
 import cc.abro.orchengine.services.ServiceConsumer;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
@@ -18,7 +18,7 @@ public class Camera implements ServiceConsumer {
     private double x, y;
     //Объект, за которым следует камера (если не null, то вместо x и y будут возвращаться координаты объекта)
     @Setter
-    private GameObject followObject = null;
+    private Positionable followObject = null;
     //Если true, то при приближении к границе локации будет держаться на расстояние от границы, чтобы была видна только локация
     @Getter
     @Setter
@@ -99,7 +99,7 @@ public class Camera implements ServiceConsumer {
         }
     }
 
-    public Optional<GameObject> getFollowObject() {
+    public Optional<Positionable> getFollowObject() {
         return Optional.ofNullable(followObject);
     }
 

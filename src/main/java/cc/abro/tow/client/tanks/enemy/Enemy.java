@@ -68,7 +68,6 @@ public class Enemy extends Tank {
             setColorArmor(color);
 
             addComponent(new Follower(armor));
-            camera.addComponent(new Follower(armor));
         }
 
         //Инициализация пушки
@@ -79,12 +78,6 @@ public class Enemy extends Tank {
             gun.getComponent(Movement.class).directionDrawEquals = false;
             gun.addComponent(new Follower(armor, false));
             setColorGun(color);
-        }
-
-        //Инициализация камеры
-        if (camera == null) {
-            initCamera();
-            camera.addComponent(new Follower(armor));
         }
 
         armor.setX(x);
