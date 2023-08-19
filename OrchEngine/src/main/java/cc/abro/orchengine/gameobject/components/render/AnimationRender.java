@@ -39,7 +39,7 @@ public class AnimationRender extends Rendering implements Updatable {
     @Override
     public void draw() {
         Vector2<Double> relativePosition = getGameObject().getLocation().getCamera().toRelativePosition(getPosition());
-        double directionDraw = getGameObject().getDirection();
+        double directionDraw = getDirection();
         directionDraw -= 90; //смещена начального угла с Востока на Север
 
         GL11.glLoadIdentity();

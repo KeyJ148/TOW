@@ -16,12 +16,12 @@ import cc.abro.tow.client.tanks.Stats;
 import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.equipment.armor.ADefault;
 import cc.abro.tow.client.tanks.equipment.gun.GDefault;
-import org.joml.Vector4f;
 import com.spinyowl.legui.component.Button;
 import com.spinyowl.legui.component.Label;
 import com.spinyowl.legui.style.Background;
 import com.spinyowl.legui.style.border.SimpleLineBorder;
 import com.spinyowl.legui.style.color.ColorConstants;
+import org.joml.Vector4f;
 
 import java.util.ArrayList;
 
@@ -71,7 +71,7 @@ public class Player extends Tank {
         hp = stats.hpMax;
 
         color = Context.getService(ClientData.class).color;
-        setName(Context.getService(ClientData.class).name);
+        setNickname(Context.getService(ClientData.class).name);
         setColor(color);
 
         addComponent(new Follower(armor));

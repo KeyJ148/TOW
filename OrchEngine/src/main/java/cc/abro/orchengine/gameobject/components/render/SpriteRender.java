@@ -1,6 +1,5 @@
 package cc.abro.orchengine.gameobject.components.render;
 
-import cc.abro.orchengine.gameobject.location.Camera;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
@@ -25,7 +24,7 @@ public class SpriteRender extends Rendering {
     @Override
     public void draw() {
         Vector2<Double> relativePosition = getGameObject().getLocation().getCamera().toRelativePosition(getPosition());
-        double directionDraw = getGameObject().getDirection();
+        double directionDraw = getDirection();
         directionDraw -= 90; //смещена начального угла с Востока на Север
 
         GL11.glLoadIdentity();
