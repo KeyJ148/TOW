@@ -32,6 +32,12 @@ public class TankNicknameComponent extends PositionableIgnoreParentDirectionComp
         nickname.setPosition(relativePosition.x.floatValue(), relativePosition.y.floatValue());
     }
 
+    @Override
+    public void destroy() {
+        super.destroy();
+        getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().remove(nickname);
+    }
+
     public void setNickname(String nicknameString) {
         nickname.getTextState().setText(nicknameString);
         setRelativeX(-nicknameString.length() * 3.45);
