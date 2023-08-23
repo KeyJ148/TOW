@@ -1,0 +1,15 @@
+{
+  "speed" : 210.0,
+  "damage" : 0.0,
+  "range" : 200,
+  "soundShot" : "shot_tank",
+  "soundHit" : "hitting",
+  "explosionSize" : 10,
+  "spriteName" : "b_vampire",
+  "title" : "Vampire",
+  "type": "vampire",
+  "allowGuns": ["default", "double", "fury", "mass", "osmos", "power", "quick", "vampire"],
+
+  "damageMin": 1.0,
+  "damageMax": 7.0
+}

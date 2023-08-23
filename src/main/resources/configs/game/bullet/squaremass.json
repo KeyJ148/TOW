@@ -1,0 +1,12 @@
+{
+  "speed" : 155.0,
+  "damage" : 4.0,
+  "range" : 2000,
+  "soundShot" : "shot_tank",
+  "soundHit" : "explosion_powerful",
+  "explosionSize" : 50,
+  "spriteName" : "b_squaremass",
+  "title" : "Squaremass",
+  "type": "squaremass",
+  "allowGuns": ["mortar"]
+}
