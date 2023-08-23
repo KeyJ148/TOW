@@ -1,0 +1,21 @@
+{
+  "hpMax" : 20.0,
+  "hpRegen" : 0.0,
+  "speedUp" : 0.0,
+  "speedDown" : 0.0,
+  "speedRotateGun" : 80.0,
+  "speedRotateTank" : 0.0,
+  "stability" : 20,
+  "animationSpeedCoefficient" : 0.08,
+  "animationName" : "a_vampire",
+  "title" : "Vampire",
+  "type": "vampire",
+  "allowGuns": ["default", "double", "fury", "mass", "mortar", "osmos", "power", "rocketd", "sniper", "vampire"],
+
+  "speedUpMax": 240.0,
+  "speedUpMin": 120.0,
+  "speedDownMax": 140.0,
+  "speedDownMin": 80.0,
+  "speedRotateTankMin": 80.0,
+  "speedRotateTankMax": 220.0
+}

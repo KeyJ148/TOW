@@ -1,0 +1,14 @@
+{
+  "hpMax" : 15.0,
+  "hpRegen" : 0.0,
+  "speedUp" : 190.0,
+  "speedDown" : 120.0,
+  "speedRotateGun" : 100.0,
+  "speedRotateTank" : 190.0,
+  "stability" : 20,
+  "animationSpeedCoefficient" : 0.08,
+  "animationName" : "a_light",
+  "title" : "Light",
+  "type": "default",
+  "allowGuns": ["default", "fury", "osmos", "power", "quick", "sniper", "vampire"]
+}

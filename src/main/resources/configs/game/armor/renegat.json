@@ -1,0 +1,14 @@
+{
+  "hpMax" : 10.0,
+  "hpRegen" : 0.5,
+  "speedUp" : 180.0,
+  "speedDown" : 110.0,
+  "speedRotateGun" : 100.0,
+  "speedRotateTank" : 190.0,
+  "stability" : 20,
+  "animationSpeedCoefficient" : 0.08,
+  "animationName" : "a_renegat",
+  "title" : "Renegat",
+  "type": "default",
+  "allowGuns": ["default", "fury", "osmos", "power", "quick", "sniper", "vampire"]
+}
