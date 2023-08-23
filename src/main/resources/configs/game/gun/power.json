@@ -1,0 +1,14 @@
+{
+  "attackSpeed" : 1.2,
+  "speedRotate" : 140.0,
+  "damage" : 4.0,
+  "range" : 550,
+  "gunTrunksInfo" : [ {
+    "bulletStartX" : -2,
+    "bulletStartY" : -27,
+    "bulletStartDir" : 0.0
+  } ],
+  "spriteName" : "g_power",
+  "title" : "Power",
+  "type": "default"
+}

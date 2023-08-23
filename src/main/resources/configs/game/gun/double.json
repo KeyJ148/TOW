@@ -1,0 +1,18 @@
+{
+  "attackSpeed" : 0.6,
+  "speedRotate" : 125.0,
+  "damage" : 3.0,
+  "range" : 500,
+  "gunTrunksInfo" : [ {
+    "bulletStartX" : -2,
+    "bulletStartY" : -27,
+    "bulletStartDir" : 0.0
+  }, {
+    "bulletStartX" : 2,
+    "bulletStartY" : -27,
+    "bulletStartDir" : 0.0
+  } ],
+  "spriteName" : "g_double",
+  "title" : "Double",
+  "type": "default"
+}
