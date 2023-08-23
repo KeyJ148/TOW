@@ -1,0 +1,18 @@
+{
+  "attackSpeed" : 1.0,
+  "speedRotate" : 120.0,
+  "damage" : 3.0,
+  "range" : 500,
+  "gunTrunksInfo" : [ {
+    "bulletStartX" : -2,
+    "bulletStartY" : -27,
+    "bulletStartDir" : 0.0
+  }, {
+    "bulletStartX" : -2,
+    "bulletStartY" : 22,
+    "bulletStartDir" : 180.0
+  } ],
+  "spriteName" : "g_osmos",
+  "title" : "Osmos",
+  "type": "default"
+}

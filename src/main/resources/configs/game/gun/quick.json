@@ -1,0 +1,14 @@
+{
+  "attackSpeed" : 3.0,
+  "speedRotate" : 140.0,
+  "damage" : 0.5,
+  "range" : 250,
+  "gunTrunksInfo" : [ {
+    "bulletStartX" : -2,
+    "bulletStartY" : -27,
+    "bulletStartDir" : 0.0
+  } ],
+  "spriteName" : "g_quick",
+  "title" : "Quick",
+  "type": "default"
+}

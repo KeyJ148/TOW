@@ -1,0 +1,14 @@
+{
+  "attackSpeed" : 0.8,
+  "speedRotate" : 100.0,
+  "damage" : 6.0,
+  "range" : 1000,
+  "gunTrunksInfo" : [ {
+    "bulletStartX" : -2,
+    "bulletStartY" : -27,
+    "bulletStartDir" : 0.0
+  } ],
+  "spriteName" : "g_sniper",
+  "title" : "Sniper",
+  "type": "default"
+}

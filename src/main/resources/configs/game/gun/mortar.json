@@ -1,0 +1,14 @@
+{
+  "attackSpeed" : 0.35,
+  "speedRotate" : 100.0,
+  "damage" : 6.0,
+  "range" : 500,
+  "gunTrunksInfo" : [ {
+    "bulletStartX" : -2,
+    "bulletStartY" : -27,
+    "bulletStartDir" : 0.0
+  } ],
+  "spriteName" : "g_mortar",
+  "title" : "Mortar",
+  "type": "default"
+}
