@@ -1,0 +1,17 @@
+{
+  "speed" : 0.0,
+  "damage" : 0.0,
+  "range" : 200,
+  "soundShot" : "shot_tank",
+  "soundHit" : "hitting",
+  "explosionSize" : 10,
+  "spriteName" : "b_fury",
+  "title" : "Fury",
+  "type": "fury",
+  "allowGuns": ["default", "double", "fury", "mass", "osmos", "power", "quick", "vampire"],
+
+  "minSpeed": 140.0,
+  "maxSpeed": 300.0,
+  "minDamage": 1.0,
+  "maxDamage": 8.0
+}

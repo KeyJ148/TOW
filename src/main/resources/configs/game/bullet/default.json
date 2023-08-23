@@ -1,0 +1,12 @@
+{
+  "speed" : 210.0,
+  "damage" : 2.0,
+  "range" : 200,
+  "soundShot" : "shot_tank",
+  "soundHit" : "hitting",
+  "explosionSize" : 10,
+  "spriteName" : "b_default",
+  "title" : "Default",
+  "type": "default",
+  "allowGuns": ["default", "double", "fury", "mass", "osmos", "power", "quick", "sniper", "vampire"]
+}

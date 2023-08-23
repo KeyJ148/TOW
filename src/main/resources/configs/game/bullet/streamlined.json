@@ -1,0 +1,12 @@
+{
+  "speed" : 300.0,
+  "damage" : 2.0,
+  "range" : 450,
+  "soundShot" : "shot_tank",
+  "soundHit" : "hitting",
+  "explosionSize" : 7,
+  "spriteName" : "b_streamlined",
+  "title" : "Streamlined",
+  "type": "defaultDirected",
+  "allowGuns": ["default", "double", "fury", "osmos", "power", "quick", "sniper", "vampire"]
+}

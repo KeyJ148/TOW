@@ -1,0 +1,12 @@
+{
+  "speed" : 240.0,
+  "damage" : 3.0,
+  "range" : 220,
+  "soundShot" : "shot_tank",
+  "soundHit" : "hitting",
+  "explosionSize" : 10,
+  "spriteName" : "b_steel",
+  "title" : "Steel",
+  "type": "default",
+  "allowGuns": ["default", "double", "fury", "mass", "osmos", "power", "quick", "vampire"]
+}

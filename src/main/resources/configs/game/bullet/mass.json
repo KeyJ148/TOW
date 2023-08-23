@@ -1,0 +1,16 @@
+{
+  "speed" : 190.0,
+  "damage" : 1.0,
+  "range" : 100,
+  "soundShot" : "shot_tank_powerful",
+  "soundHit" : "hitting",
+  "explosionSize" : 20,
+  "spriteName" : "b_mass",
+  "title" : "Mass",
+  "type": "mass",
+  "allowGuns": ["default", "double", "fury", "mass", "osmos", "power", "vampire"],
+
+  "fragmentNumberMin": 10,
+  "fragmentNumberMax": 15,
+  "fragmentName": "mass_small"
+}
