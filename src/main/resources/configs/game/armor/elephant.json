@@ -1,0 +1,14 @@
+{
+  "hpMax" : 30.0,
+  "hpRegen" : 0.25,
+  "speedUp" : 120.0,
+  "speedDown" : 70.0,
+  "speedRotateGun" : 70.0,
+  "speedRotateTank" : 115.0,
+  "stability" : 40,
+  "animationSpeedCoefficient" : 0.08,
+  "animationName" : "a_elephant",
+  "title" : "Elephant",
+  "type": "default",
+  "allowGuns": ["default", "double", "fury", "mass", "mortar", "osmos", "power", "rocketd", "sniper", "vampire"]
+}
