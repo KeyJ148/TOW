@@ -1,0 +1,14 @@
+{
+  "hpMax" : 22.0,
+  "hpRegen" : 0.1,
+  "speedUp" : 165.0,
+  "speedDown" : 85.0,
+  "speedRotateGun" : 90.0,
+  "speedRotateTank" : 140.0,
+  "stability" : 20,
+  "animationSpeedCoefficient" : 0.08,
+  "animationName" : "a_fortified",
+  "title" : "Fortified",
+  "type": "default",
+  "allowGuns": ["default", "double", "fury", "mass", "mortar", "osmos", "power", "rocketd", "sniper", "vampire"]
+}
