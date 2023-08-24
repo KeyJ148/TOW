@@ -1,0 +1,7 @@
+{
+  "soundRange": 1000,
+  "messagePerSecond": 45,
+  "vampireUpFromOneDamage": 0.03,
+  "vampireDownFromSec": 0.015,
+  "minBulletSpeedCoefficient": 1.1
+}
