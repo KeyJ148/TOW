@@ -10,6 +10,7 @@ import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.tow.client.ClientData;
+import cc.abro.tow.client.Constants;
 import cc.abro.tow.client.particles.Explosion;
 import cc.abro.tow.client.services.BattleStatisticService;
 import cc.abro.tow.client.settings.GameSettingsService;
@@ -74,11 +75,11 @@ public abstract class Tank extends GameObject {
         movementComponent = new Movement<>();
         addComponent(movementComponent);
 
-        armorAnimationComponent = new AnimationOnMovementComponent(armorComponent.getAnimation().textures(), 1000,
+        armorAnimationComponent = new AnimationOnMovementComponent(armorComponent.getAnimation().textures(), Constants.armorAnimationComponentZ,
                 armorComponent.getAnimationSpeedCoefficient());
         addComponent(armorAnimationComponent);
 
-        gunSpriteComponent = new SpriteRender<>(gunComponent.getSprite().texture(), 2000);
+        gunSpriteComponent = new SpriteRender<>(gunComponent.getSprite().texture(), Constants.gunSpriteComponentZ);
         addComponent(gunSpriteComponent);
 
         tankStatsComponent = new TankStatsComponent();
@@ -136,7 +137,7 @@ public abstract class Tank extends GameObject {
         armorComponent = newArmorComponent;
         addComponent(armorComponent);
         armorAnimationComponent = new AnimationOnMovementComponent(newArmorComponent.getAnimation().textures(),
-                1000, newArmorComponent.getAnimationSpeedCoefficient());
+                Constants.armorAnimationComponentZ, newArmorComponent.getAnimationSpeedCoefficient());
         armorAnimationComponent.setColor(color);
         addComponent(armorAnimationComponent);
 
@@ -168,7 +169,7 @@ public abstract class Tank extends GameObject {
 
         gunComponent = newGunComponent;
         addComponent(armorComponent);
-        gunSpriteComponent = new SpriteRender<>(newGunComponent.getSprite().texture(), 2000);
+        gunSpriteComponent = new SpriteRender<>(newGunComponent.getSprite().texture(), Constants.gunSpriteComponentZ);
         gunSpriteComponent.setColor(color);
         addComponent(gunSpriteComponent);
 

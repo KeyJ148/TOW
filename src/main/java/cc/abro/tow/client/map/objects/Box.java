@@ -9,6 +9,7 @@ import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.sprites.Sprite;
 import cc.abro.tow.client.CollidableObjectType;
+import cc.abro.tow.client.Constants;
 import cc.abro.tow.client.settings.GameSettingsService;
 import lombok.Getter;
 
@@ -44,7 +45,7 @@ public class Box extends GameObject {
 		setPosition(x, y);
 
 		Sprite sprite = getSpriteStorage().getSprite(type.spriteName);
-		addComponent(new SpriteRender<>(sprite.texture(), 1000));
+		addComponent(new SpriteRender<>(sprite.texture(), Constants.boxSpriteZ));
 		addComponent(new Collision(sprite.mask(), CollidableObjectType.BOX));
 	}
 

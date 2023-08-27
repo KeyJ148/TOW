@@ -15,6 +15,7 @@ import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.ConfigReader;
+import cc.abro.tow.client.Constants;
 import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.particles.Explosion;
@@ -67,7 +68,7 @@ public class Bullet extends GameObject implements CollisionListener{
         setX(x);
         setY(y);
         setDirection(dir);
-        addComponent(new SpriteRender(texture.texture(), 1500));
+        addComponent(new SpriteRender(texture.texture(), Constants.bulletSpriteZ));
 
         addComponent(new Collision(texture.mask(), CollidableObjectType.BULLET));
         getComponent(Collision.class)
