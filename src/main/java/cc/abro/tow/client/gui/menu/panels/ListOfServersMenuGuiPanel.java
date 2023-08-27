@@ -1,11 +1,13 @@
 package cc.abro.tow.client.gui.menu.panels;
 
+import cc.abro.orchengine.gui.StoredGuiPanel;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
 import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import com.spinyowl.legui.component.ScrollablePanel;
 
 import java.util.ArrayList;
 
+@StoredGuiPanel
 public class ListOfServersMenuGuiPanel extends MenuGuiPanel {
 
     protected final static int MAIN_PANEL_WIDTH = (6* InterfaceStyles.INDENT_X + 5* InterfaceStyles.BUTTON_WIDTH) +

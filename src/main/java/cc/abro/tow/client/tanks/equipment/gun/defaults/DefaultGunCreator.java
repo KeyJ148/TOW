@@ -3,11 +3,13 @@ package cc.abro.tow.client.tanks.equipment.gun.defaults;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.resources.sprites.Sprite;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
+import cc.abro.tow.client.tanks.equipment.StoredGunCreator;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunCreator;
 import cc.abro.tow.client.tanks.stats.Effect;
 import cc.abro.tow.client.tanks.stats.Stats;
 
+@StoredGunCreator
 public class DefaultGunCreator<T extends DefaultGunSpecification> extends GunCreator<T> {
 
     @Override

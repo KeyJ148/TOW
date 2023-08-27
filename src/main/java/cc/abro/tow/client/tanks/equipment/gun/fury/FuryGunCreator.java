@@ -1,7 +1,9 @@
 package cc.abro.tow.client.tanks.equipment.gun.fury;
 
+import cc.abro.tow.client.tanks.equipment.StoredGunCreator;
 import cc.abro.tow.client.tanks.equipment.gun.defaults.DefaultGunCreator;
 
+@StoredGunCreator
 public class FuryGunCreator<T extends FuryGunSpecification> extends DefaultGunCreator<T> {
 
     @Override

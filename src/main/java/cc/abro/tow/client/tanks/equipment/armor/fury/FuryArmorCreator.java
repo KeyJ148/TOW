@@ -1,7 +1,9 @@
 package cc.abro.tow.client.tanks.equipment.armor.fury;
 
+import cc.abro.tow.client.tanks.equipment.StoredArmorCreator;
 import cc.abro.tow.client.tanks.equipment.armor.defaults.DefaultArmorCreator;
 
+@StoredArmorCreator
 public class FuryArmorCreator<T extends FuryArmorSpecification> extends DefaultArmorCreator<T> {
 
     @Override
