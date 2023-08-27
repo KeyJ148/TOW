@@ -7,12 +7,10 @@ import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.PositionableComponent;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.image.Color;
-import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.audios.AudioService;
-import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.Constants;
+import cc.abro.tow.client.events.TankExplodedEvent;
 import cc.abro.tow.client.particles.Explosion;
-import cc.abro.tow.client.services.BattleStatisticService;
 import cc.abro.tow.client.settings.GameSettingsService;
 import cc.abro.tow.client.tanks.components.AnimationOnMovementComponent;
 import cc.abro.tow.client.tanks.components.TankNicknameComponent;
@@ -36,7 +34,7 @@ public abstract class Tank extends GameObject {
     @Getter
     private final TankVampireComponent tankVampireComponent;
     @Getter
-    private final Movement <GameObject>movementComponent;
+    private final Movement<GameObject> movementComponent;
     @Getter
     private final TankStatsComponent tankStatsComponent;
     @Getter
@@ -75,11 +73,11 @@ public abstract class Tank extends GameObject {
         movementComponent = new Movement<>();
         addComponent(movementComponent);
 
-        armorAnimationComponent = new AnimationOnMovementComponent(armorComponent.getAnimation().textures(), Constants.armorAnimationComponentZ,
+        armorAnimationComponent = new AnimationOnMovementComponent(armorComponent.getAnimation().textures(), Constants.ARMOR_ANIMATION_COMPONENT_Z,
                 armorComponent.getAnimationSpeedCoefficient());
         addComponent(armorAnimationComponent);
 
-        gunSpriteComponent = new SpriteRender<>(gunComponent.getSprite().texture(), Constants.gunSpriteComponentZ);
+        gunSpriteComponent = new SpriteRender<>(gunComponent.getSprite().texture(), Constants.GUN_SPRITE_COMPONENT_Z);
         addComponent(gunSpriteComponent);
 
         tankStatsComponent = new TankStatsComponent();
@@ -113,14 +111,7 @@ public abstract class Tank extends GameObject {
         audioService.playSoundEffect(getAudioStorage().getAudio("explosion"), (int) getX(), (int) getY(),
                 gameSettingsService.getGameSettings().getSoundRange());
 
-        //TODO Этому здесь не место. Вынести в сетевой компонент или типа того. Снова было бы удобно использовать шину ивентов.
-        ClientData clientData = Context.getService(ClientData.class);
-        if (clientData.lastDamageDealerEnemyId != -1) {
-            Context.getService(TCPControl.class).send(23, String.valueOf(clientData.lastDamageDealerEnemyId));
-            Context.getService(BattleStatisticService.class).getEnemyStatistic(clientData.lastDamageDealerEnemyId)
-                    .incrementKill();
-        }
-        Context.getService(TCPControl.class).send(12, "");
+        postEvent(new TankExplodedEvent(this));
     }
 
     public void changeArmor(ArmorComponent newArmorComponent) {
@@ -137,7 +128,7 @@ public abstract class Tank extends GameObject {
         armorComponent = newArmorComponent;
         addComponent(armorComponent);
         armorAnimationComponent = new AnimationOnMovementComponent(newArmorComponent.getAnimation().textures(),
-                Constants.armorAnimationComponentZ, newArmorComponent.getAnimationSpeedCoefficient());
+                Constants.ARMOR_ANIMATION_COMPONENT_Z, newArmorComponent.getAnimationSpeedCoefficient());
         armorAnimationComponent.setColor(color);
         addComponent(armorAnimationComponent);
 
@@ -169,7 +160,7 @@ public abstract class Tank extends GameObject {
 
         gunComponent = newGunComponent;
         addComponent(armorComponent);
-        gunSpriteComponent = new SpriteRender<>(newGunComponent.getSprite().texture(), Constants.gunSpriteComponentZ);
+        gunSpriteComponent = new SpriteRender<>(newGunComponent.getSprite().texture(), Constants.GUN_SPRITE_COMPONENT_Z);
         gunSpriteComponent.setColor(color);
         addComponent(gunSpriteComponent);
 

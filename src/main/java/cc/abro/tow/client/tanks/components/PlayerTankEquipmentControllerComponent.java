@@ -1,16 +1,14 @@
 package cc.abro.tow.client.tanks.components;
 
+import cc.abro.orchengine.events.input.KeyPressEvent;
 import cc.abro.orchengine.gameobject.Component;
-import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.tow.client.tanks.player.PlayerTank;
-import com.spinyowl.legui.event.KeyEvent;
+import com.google.common.eventbus.Subscribe;
 import lombok.Getter;
-
-import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class PlayerTankEquipmentControllerComponent extends Component<PlayerTank> implements Updatable {
+public class PlayerTankEquipmentControllerComponent extends Component<PlayerTank> {
 
     @Getter
     private boolean playerCanTakeArmor = true;
@@ -21,33 +19,27 @@ public class PlayerTankEquipmentControllerComponent extends Component<PlayerTank
     @Getter
     private boolean playerCanTakeHeal = true;
 
-    @Override
-    public void update(long delta) {
+    @Subscribe
+    public void onKeyEvent(KeyPressEvent keyPressEvent) {
         PlayerTankEquipmentGuiComponent guiComponent = getGameObject().getPlayerTankEquipmentGuiComponent();
 
-        List<KeyEvent<?>> keyboardEvents = getGameObject().getLocation().getGuiLocationFrame()
-                .getKeyboard().getEventHistory().getList();
-        for (KeyEvent<?> event : keyboardEvents) {
-            if (event.getAction() == GLFW_PRESS) {// Клавиша нажата
-                switch (event.getKey()) {
-                    //Клавиши запрета и разрешения на подбор ящиков
-                    case GLFW_KEY_1 -> {
-                        playerCanTakeArmor = !playerCanTakeArmor;
-                        guiComponent.changeButtonState(playerCanTakeArmor, 0);
-                    }
-                    case GLFW_KEY_2 -> {
-                        playerCanTakeGun = !playerCanTakeGun;
-                        guiComponent.changeButtonState(playerCanTakeGun, 1);
-                    }
-                    case GLFW_KEY_3 -> {
-                        playerCanTakeBullet = !playerCanTakeBullet;
-                        guiComponent.changeButtonState(playerCanTakeBullet, 2);
-                    }
-                    case GLFW_KEY_4 -> {
-                        playerCanTakeHeal = !playerCanTakeHeal;
-                        guiComponent.changeButtonState(playerCanTakeHeal, 3);
-                    }
-                }
+        switch (keyPressEvent.getKey()) {
+            //Клавиши запрета и разрешения на подбор ящиков
+            case GLFW_KEY_1 -> {
+                playerCanTakeArmor = !playerCanTakeArmor;
+                guiComponent.changeButtonState(playerCanTakeArmor, 0);
+            }
+            case GLFW_KEY_2 -> {
+                playerCanTakeGun = !playerCanTakeGun;
+                guiComponent.changeButtonState(playerCanTakeGun, 1);
+            }
+            case GLFW_KEY_3 -> {
+                playerCanTakeBullet = !playerCanTakeBullet;
+                guiComponent.changeButtonState(playerCanTakeBullet, 2);
+            }
+            case GLFW_KEY_4 -> {
+                playerCanTakeHeal = !playerCanTakeHeal;
+                guiComponent.changeButtonState(playerCanTakeHeal, 3);
             }
         }
     }

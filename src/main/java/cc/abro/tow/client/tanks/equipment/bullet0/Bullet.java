@@ -54,6 +54,7 @@ public class Bullet extends GameObject implements CollisionListener{
 
     public void init(PlayerTank player, double x, double y, double dir, double damage, int range, String name) {
         this.player = player;
+
         this.name = name;
         this.damage = damage; //Дамаг исключительно от выстрелевшей пушки
         this.range = range; //Дальность исключительно от выстрелевшей пушки
@@ -68,7 +69,7 @@ public class Bullet extends GameObject implements CollisionListener{
         setX(x);
         setY(y);
         setDirection(dir);
-        addComponent(new SpriteRender(texture.texture(), Constants.bulletSpriteZ));
+        addComponent(new SpriteRender(texture.texture(), Constants.BULLET_SPRITE_Z));
 
         addComponent(new Collision(texture.mask(), CollidableObjectType.BULLET));
         getComponent(Collision.class)
