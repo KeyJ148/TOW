@@ -1,12 +1,14 @@
 package cc.abro.tow.client.gui.menu.panels;
 
 import cc.abro.orchengine.context.Context;
+import cc.abro.orchengine.gui.StoredGuiPanel;
 import cc.abro.orchengine.resources.locales.LocalizationService;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
 import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import cc.abro.tow.client.gui.menu.panels.settings.SettingsMenuGuiPanel;
 import com.spinyowl.legui.component.Panel;
 
+@StoredGuiPanel
 public class MainMenuGuiPanel extends MenuGuiPanel {
 
     public MainMenuGuiPanel() {

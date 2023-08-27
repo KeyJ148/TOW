@@ -4,6 +4,7 @@ import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
+import cc.abro.orchengine.gui.StoredGuiPanel;
 import cc.abro.orchengine.net.server.GameServer;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.orchengine.util.GameObjectFactory;
@@ -14,6 +15,7 @@ import com.spinyowl.legui.component.Label;
 import com.spinyowl.legui.component.Panel;
 import com.spinyowl.legui.component.TextAreaField;
 
+@StoredGuiPanel
 public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
     protected final static int MAIN_PANEL_WIDTH = 4 * InterfaceStyles.MENU_ELEMENT_WIDTH / 3 + 1;

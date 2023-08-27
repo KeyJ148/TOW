@@ -2,9 +2,11 @@ package cc.abro.tow.client.map.objects.road;
 
 import cc.abro.orchengine.gameobject.Location;
 import cc.abro.tow.client.map.MapObject;
+import cc.abro.tow.client.map.objects.StoredObjectCreator;
 import cc.abro.tow.client.map.objects.scaled.RepeatedMapObjectCreator;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;
 
+@StoredObjectCreator
 public class RoadMapObjectCreator extends RepeatedMapObjectCreator {
 
     @Override

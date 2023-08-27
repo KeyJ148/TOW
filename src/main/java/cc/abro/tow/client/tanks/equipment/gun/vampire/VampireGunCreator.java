@@ -1,7 +1,9 @@
 package cc.abro.tow.client.tanks.equipment.gun.vampire;
 
+import cc.abro.tow.client.tanks.equipment.StoredGunCreator;
 import cc.abro.tow.client.tanks.equipment.gun.defaults.DefaultGunCreator;
 
+@StoredGunCreator
 public class VampireGunCreator<T extends VampireGunSpecification> extends DefaultGunCreator<T> {
 
     @Override

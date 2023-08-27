@@ -1,7 +1,9 @@
 package cc.abro.tow.client.tanks.equipment.armor.vampire;
 
+import cc.abro.tow.client.tanks.equipment.StoredArmorCreator;
 import cc.abro.tow.client.tanks.equipment.armor.defaults.DefaultArmorCreator;
 
+@StoredArmorCreator
 public class VampireArmorCreator<T extends VampireArmorSpecification> extends DefaultArmorCreator<T> {
 
     @Override

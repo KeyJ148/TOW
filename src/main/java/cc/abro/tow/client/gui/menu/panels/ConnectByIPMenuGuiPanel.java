@@ -2,6 +2,7 @@ package cc.abro.tow.client.gui.menu.panels;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
+import cc.abro.orchengine.gui.StoredGuiPanel;
 import cc.abro.orchengine.net.client.ConnectException;
 import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
@@ -13,6 +14,7 @@ import com.spinyowl.legui.component.TextAreaField;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+@StoredGuiPanel
 public class ConnectByIPMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
 
     protected final static int MAIN_PANEL_WIDTH = 4 * InterfaceStyles.MENU_ELEMENT_WIDTH / 3 + 1;

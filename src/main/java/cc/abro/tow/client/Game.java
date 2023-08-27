@@ -95,10 +95,7 @@ public class Game implements GameInterface {
         armorSpecificationStorage.init();
         gunSpecificationStorage.init();
 
-        guiPanelStorage.registry(new MainMenuGuiPanel());
-        guiPanelStorage.registry(new ConnectByIPMenuGuiPanel());
-        guiPanelStorage.registry(new ListOfServersMenuGuiPanel());
-        guiPanelStorage.registry(new CreateGameMenuGuiPanel());
+        guiPanelStorage.init();
 
         String defaultMap = devSettingsService.getDevSettings().getDefaultMap();
         if (defaultMap != null) {

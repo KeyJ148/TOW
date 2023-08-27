@@ -2,9 +2,11 @@ package cc.abro.tow.client.map.objects.scaled;
 
 import cc.abro.orchengine.gameobject.Location;
 import cc.abro.tow.client.map.MapObject;
+import cc.abro.tow.client.map.objects.StoredObjectCreator;
 import cc.abro.tow.client.map.objects.textured.TexturedMapObjectCreator;
 import cc.abro.tow.client.map.specification.MapObjectSpecification;
 
+@StoredObjectCreator
 public class RepeatedMapObjectCreator extends TexturedMapObjectCreator {
 
     @Override
