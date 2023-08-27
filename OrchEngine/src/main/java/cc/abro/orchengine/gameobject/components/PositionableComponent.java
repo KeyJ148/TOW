@@ -28,7 +28,11 @@ public class PositionableComponent<T extends GameObject> extends Component<T> im
     }
 
     public void setX(double x) {
-        this.relativeX = x - getGameObject().getX();
+        double direction = Math.toRadians(getGameObject().getDirection());
+        double biasY = this.getY() - getGameObject().getY();
+        double biasX = x - getGameObject().getX();
+        this.relativeX = Math.cos(direction) * biasX - Math.sin(direction) * biasY;
+        this.relativeY = Math.sin(direction) * biasX + Math.cos(direction) * biasY;
         notifyChangePositionListeners();
     }
 
@@ -43,7 +47,11 @@ public class PositionableComponent<T extends GameObject> extends Component<T> im
     }
 
     public void setY(double y) {
-        this.relativeY = y - getGameObject().getY();
+        double direction = Math.toRadians(getGameObject().getDirection());
+        double biasY = y - getGameObject().getY();
+        double biasX = this.getX() - getGameObject().getX();
+        this.relativeX = Math.cos(direction) * biasX - Math.sin(direction) * biasY;
+        this.relativeY = Math.sin(direction) * biasX + Math.cos(direction) * biasY;
         notifyChangePositionListeners();
     }
 
