@@ -1,9 +1,12 @@
 package cc.abro.tow.client.gui.menu;
 
+import cc.abro.orchengine.image.Color;
 import com.spinyowl.legui.component.*;
 import com.spinyowl.legui.component.optional.align.HorizontalAlign;
 import com.spinyowl.legui.event.MouseClickEvent;
 import com.spinyowl.legui.listener.MouseClickEventListener;
+import com.spinyowl.legui.style.border.SimpleLineBorder;
+import com.spinyowl.legui.style.color.ColorConstants;
 import com.spinyowl.legui.style.font.FontRegistry;
 
 import java.util.ArrayList;
@@ -81,6 +84,15 @@ public final class MenuGuiComponents {
         button.getPressedStyle().setBackground(createPressedButtonBackground());
         button.setPosition(x, y);
         button.setSize(width, height);
+        return button;
+    }
+
+    public static Button createBoxButton(Color color) {
+        Button button = new Button("");
+        SimpleLineBorder buttonTakeBorder = new SimpleLineBorder(ColorConstants.black(), 1);
+        button.getStyle().setBorder(buttonTakeBorder);
+        button.getStyle().setBackground(createColoredBackground(color));
+        button.setSize(BOX_BUTTON_SIZE, BOX_BUTTON_SIZE);
         return button;
     }
 

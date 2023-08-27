@@ -1,11 +1,12 @@
 package cc.abro.tow.client.gui.menu;
 
-import org.joml.Vector4f;
+import cc.abro.orchengine.image.Color;
 import com.spinyowl.legui.component.optional.align.HorizontalAlign;
 import com.spinyowl.legui.style.Background;
 import com.spinyowl.legui.style.Style;
 import com.spinyowl.legui.style.border.SimpleLineBorder;
 import com.spinyowl.legui.style.font.FontRegistry;
+import org.joml.Vector4f;
 
 public final class InterfaceStyles {
 
@@ -19,6 +20,7 @@ public final class InterfaceStyles {
     public final static int CONNECTED_PLAYERS_ELEMENT_WIDTH = 230;
     public final static int WAITING_ELEMENT_WIDTH = 180;
     public final static int CONNECTING_ELEMENT_HEIGHT = 70;
+    public final static int BOX_BUTTON_SIZE = 15;
 
     public final static int MENU_BUTTON_WIDTH = MENU_ELEMENT_WIDTH;
     public final static int MENU_BUTTON_HEIGHT = 3*MENU_ELEMENT_HEIGHT/4;
@@ -63,9 +65,12 @@ public final class InterfaceStyles {
     public final static float THICKNESS_OF_PANEL_BORDER = 2f;
     public final static float THICKNESS_OF_BUTTON_BORDER = 2f;
 
+
     public final static float MENU_BUTTON_FONT_SIZE = 25;
     public final static float BUTTON_FONT_SIZE = 15;
     public final static float LABEL_FONT_SIZE = BUTTON_FONT_SIZE;
+    public final static float LABEL_HP_FONT_SIZE = 30;
+    public final static float LABEL_STATS_FONT_SIZE = 17;
     public final static float SLIGHTLY_BIG_LABEL_FONT_SIZE = 22;
     public final static float BIG_LABEL_FONT_SIZE = 30;
     public final static float ANALYZER_INFO_FONT_SIZE = 16;
@@ -173,6 +178,13 @@ public final class InterfaceStyles {
         return background;
     }
 
+
+    public static Background createColoredBackground(Color color) {
+        Background background = new Background();
+        background.setColor(color.getVector4f());
+        return background;
+    }
+
     public static SimpleLineBorder createButtonBorder() {
         return new SimpleLineBorder(BLACK_COLOR, THICKNESS_OF_BUTTON_BORDER);
     }
@@ -204,6 +216,7 @@ public final class InterfaceStyles {
         style.setFontSize(LABEL_FONT_SIZE);
         style.setTextColor(BLACK_COLOR);
         style.getBackground().setColor(INVISIBLE_COLOR);
+        style.setBorder(new SimpleLineBorder(INVISIBLE_COLOR, 0));
         return style;
     }
 

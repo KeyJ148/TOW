@@ -11,7 +11,8 @@ import com.spinyowl.legui.component.Label;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cc.abro.tow.client.gui.menu.InterfaceStyles.BLACK_COLOR;
+import static cc.abro.tow.client.gui.menu.InterfaceStyles.LABEL_STATS_FONT_SIZE;
+import static cc.abro.tow.client.gui.menu.MenuGuiComponents.createLabel;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_F2;
 
 public class PlayerTankStatsGuiComponent extends Component<Tank> implements Updatable {
@@ -21,8 +22,9 @@ public class PlayerTankStatsGuiComponent extends Component<Tank> implements Upda
 
     public PlayerTankStatsGuiComponent() {
         for (int i = 0; i < Stats.builder().build().toString().split("\n").length + 4; i++) {
-            Label label = createStatsLabel();
-            label.setPosition(1, 30 + i * 15);
+
+            Label label = createLabel("", 1, 30 + i * 15, 200, (int) LABEL_STATS_FONT_SIZE);
+            label.getStyle().setFontSize(LABEL_STATS_FONT_SIZE);
 
             statsLabels.add(label);
         }
@@ -65,11 +67,4 @@ public class PlayerTankStatsGuiComponent extends Component<Tank> implements Upda
         getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().removeAll(statsLabels);
     }
 
-    private Label createStatsLabel() {
-        Label label = new Label();
-        label.setFocusable(false);
-        label.getStyle().setFontSize(17f);
-        label.getStyle().setTextColor(BLACK_COLOR);
-        return label;
-    }
 }

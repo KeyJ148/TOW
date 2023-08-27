@@ -5,14 +5,16 @@ import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.tow.client.tanks.Tank;
 import com.spinyowl.legui.component.Label;
 
-import static cc.abro.tow.client.gui.menu.InterfaceStyles.BLACK_COLOR;
+import static cc.abro.tow.client.gui.menu.InterfaceStyles.LABEL_HP_FONT_SIZE;
+import static cc.abro.tow.client.gui.menu.MenuGuiComponents.createLabel;
 
 public class PlayerTankHpGuiComponent extends Component<Tank> implements Updatable {
 
     private final Label hpLabel;
 
     public PlayerTankHpGuiComponent() {
-        hpLabel = createHpLabel();
+        hpLabel = createLabel("", 1, 1, 100, (int) LABEL_HP_FONT_SIZE);
+        hpLabel.getStyle().setFontSize(LABEL_HP_FONT_SIZE);
     }
 
     @Override
@@ -35,12 +37,4 @@ public class PlayerTankHpGuiComponent extends Component<Tank> implements Updatab
         getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().remove(hpLabel);
     }
 
-    private Label createHpLabel() {
-        Label hpLabel = new Label();
-        hpLabel.setFocusable(false);
-        hpLabel.getStyle().setFontSize(30f);
-        hpLabel.getStyle().setTextColor(BLACK_COLOR);
-        hpLabel.setPosition(1, 10);
-        return hpLabel;
-    }
 }
