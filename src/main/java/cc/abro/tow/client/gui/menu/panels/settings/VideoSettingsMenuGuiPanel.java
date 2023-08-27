@@ -42,9 +42,13 @@ public class VideoSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBackL
                 resolution.addElement(vidMode.width() + "x" + vidMode.height());
             }
         }
+
         resolution.setVisibleCount(5);
         resolution.setElementHeight(InterfaceStyles.MENU_TEXT_FIELD_HEIGHT);
         resolution.getSelectionListPanel().setStyle(InterfaceStyles.createScrollablePanelStyle());
+        resolution.getSelectionListPanel().getVerticalScrollBar().setStyle(InterfaceStyles.createScrollBarStyle());
+        //resolution.getExpandButton().setStyle(InterfaceStyles.createButtonStyle());
+        //resolution.getSelectionButton().setStyle(InterfaceStyles.createButtonStyle());
         //for (SelectBox<String>.SelectBoxElement<String> boxElement :resolution.getSelectBoxElements()) {
             //boxElement.setStyle(InterfaceStyles.createButtonStyle());
         //}
@@ -86,24 +90,5 @@ public class VideoSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBackL
             saveButton.setHovered(false);
             saveAndBackButton.setHovered(false);
         }
-    }
-
-    private void addButtonGuiPanelWithUnblockAndBlockFrame(String text) {
-        BlockingGuiService.GuiBlock guiBlock = getBlockingGuiService().createGuiBlock(getFrame().getContainer());
-        Panel panel = MenuGuiComponents.createButtonPanel(text, "OK", getUnblockAndParentDestroyReleaseListener(guiBlock)).panel();
-        getGuiService().moveComponentToWindowCenter(panel);
-        getFrame().getContainer().add(panel);
-    }
-
-    private void addDialogGuiPanelWithUnblockAndBlockFrame(String labelText, String leftButton, String rightButton) {
-        BlockingGuiService.GuiBlock guiBlock = getBlockingGuiService().createGuiBlock(getFrame().getContainer());
-        Panel panel = MenuGuiComponents.createDialogPanel(labelText,
-                new MenuGuiComponents.ButtonConfiguration(leftButton, getMouseReleaseListener(event -> {
-                    getUnblockAndParentDestroyReleaseListener(guiBlock).process(event);
-                    parent.getChangeToCachedPanelReleaseListener(MainMenuGuiPanel.class).process(event);
-                })),
-                new MenuGuiComponents.ButtonConfiguration(rightButton, getUnblockAndParentDestroyReleaseListener(guiBlock))).panel();
-        getGuiService().moveComponentToWindowCenter(panel);
-        getFrame().getContainer().add(panel);
     }
 }
