@@ -4,6 +4,7 @@ import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.particles.Part;
 import cc.abro.orchengine.gameobject.components.particles.ParticlesTexture;
 import cc.abro.orchengine.image.Color;
+import cc.abro.tow.client.Constants;
 
 import java.util.Random;
 
@@ -12,7 +13,7 @@ public class Explosion extends ParticlesTexture<GameObject> {
     private final double size;
 
     public Explosion(double size) {
-        super(3000);
+        super(Constants.explosionZ);
         this.size = size;
     }
 
