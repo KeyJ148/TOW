@@ -1,0 +1,27 @@
+package cc.abro.tow.client.tanks.equipment.gun.fury;
+
+import cc.abro.tow.client.tanks.equipment.gun.defaults.DefaultGunCreator;
+
+public class FuryGunCreator<T extends FuryGunSpecification> extends DefaultGunCreator<T> {
+
+    @Override
+    public FuryGunComponent createGun(T gunSpecification, String name) {
+        return new FuryGunComponent(name,
+                gunSpecification.getType(),
+                createEffect(gunSpecification),
+                createSprite(gunSpecification),
+                gunSpecification.getGunTrunksInfo().stream().map(this::createTrunkInfo).toList(),
+                gunSpecification.getAttackSpeedMin(),
+                gunSpecification.getAttackSpeedMax());
+    }
+
+    @Override
+    public String getType() {
+        return "fury";
+    }
+
+    @Override
+    public Class<T> getGunSpecificationClass() {
+        return (Class<T>) FuryGunSpecification.class;
+    }
+}
