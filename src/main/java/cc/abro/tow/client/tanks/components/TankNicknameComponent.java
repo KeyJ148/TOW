@@ -1,11 +1,15 @@
 package cc.abro.tow.client.tanks.components;
 
+import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.PositionableIgnoreParentDirectionComponent;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.util.Vector2;
 import com.spinyowl.legui.component.Label;
 
-public class TankNicknameComponent extends PositionableIgnoreParentDirectionComponent implements Updatable {
+import java.util.List;
+
+public class TankNicknameComponent extends PositionableIgnoreParentDirectionComponent<GameObject> implements Updatable {
 
     private final Label nickname;
 
@@ -36,6 +40,11 @@ public class TankNicknameComponent extends PositionableIgnoreParentDirectionComp
     public void destroy() {
         super.destroy();
         getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().remove(nickname);
+    }
+
+    @Override
+    public List<Class<? extends Updatable>> getPreliminaryUpdateComponents() {
+        return List.of(Movement.class);
     }
 
     public void setNickname(String nicknameString) {
