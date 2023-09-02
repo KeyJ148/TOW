@@ -1,10 +1,8 @@
 package cc.abro.tow.client.settings;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.GameService;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.JsonContainerLoader;
-import cc.abro.tow.client.ClientData;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -70,9 +68,6 @@ public class SettingsService {
             log.warn("Settings can't be saved", e);
             throw new CantSaveSettingException();
         }
-
-        Context.getService(ClientData.class).name = nickname;
-        Context.getService(ClientData.class).color = tankColor;
     }
 
     public class EmptyNicknameException extends RuntimeException {}

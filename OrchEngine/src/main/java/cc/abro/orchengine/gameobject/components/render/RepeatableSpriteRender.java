@@ -1,10 +1,11 @@
 package cc.abro.orchengine.gameobject.components.render;
 
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.util.Vector2;
 import org.lwjgl.opengl.GL11;
 
-public class RepeatableSpriteRender extends SpriteRender {
+public class RepeatableSpriteRender<T extends GameObject> extends SpriteRender<T> {
 
     public RepeatableSpriteRender(Texture texture, int z) {
         this(texture, z, false);

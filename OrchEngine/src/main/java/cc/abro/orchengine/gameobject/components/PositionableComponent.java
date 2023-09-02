@@ -1,6 +1,7 @@
 package cc.abro.orchengine.gameobject.components;
 
 import cc.abro.orchengine.gameobject.Component;
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.interfaces.Positionable;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public class PositionableComponent extends Component implements Positionable {
+public class PositionableComponent<T extends GameObject> extends Component<T> implements Positionable {
 
     private final Set<Consumer<Positionable>> listeners = new HashSet<>();
     @Getter @Setter
