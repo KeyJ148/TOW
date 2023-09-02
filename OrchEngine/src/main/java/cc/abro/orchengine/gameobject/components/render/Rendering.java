@@ -1,12 +1,13 @@
 package cc.abro.orchengine.gameobject.components.render;
 
 import cc.abro.orchengine.gameobject.Component;
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.textures.Texture;
 import lombok.Getter;
 import lombok.Setter;
 
-public abstract class Rendering extends DrawableComponent {
+public abstract class Rendering<T extends GameObject> extends DrawableComponent<T> {
 
     @Getter @Setter
     private double scaleX = 1, scaleY = 1;

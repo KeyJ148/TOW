@@ -9,6 +9,7 @@ public class Settings {
     private final Graphics graphics = new Graphics();
     private final Volume volume = new Volume();
     private final Profile profile = new Profile();
+    private final Control control = new Control();
 
     @Data
     public static class Graphics {
@@ -31,5 +32,10 @@ public class Settings {
     public static class Volume {
         private int musicVolume = 50;
         private int soundVolume = 50;
+    }
+
+    @Data
+    public static class Control {
+        private boolean tankHorizontalInverseControl = false;
     }
 }
