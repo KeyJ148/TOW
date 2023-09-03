@@ -1,9 +1,10 @@
 package cc.abro.orchengine.gameobject.components.particles;
 
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.util.Vector2;
 import org.lwjgl.opengl.GL11;
 
-public class ParticlesGeometry extends Particles {
+public class ParticlesGeometry<T extends GameObject> extends Particles<T> {
 
     public ParticlesGeometry(int z) {
         super(z);
