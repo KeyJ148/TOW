@@ -1,11 +1,12 @@
 package cc.abro.orchengine.gameobject.components;
 
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.interfaces.Positionable;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
 import lombok.Setter;
 
-public class PositionableIgnoreParentDirectionComponent extends PositionableComponent implements Positionable {
+public class PositionableIgnoreParentDirectionComponent<T extends GameObject> extends PositionableComponent<T> implements Positionable {
     @Getter @Setter
     private double relativeX, relativeY;
     private double direction;
