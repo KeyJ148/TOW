@@ -1,10 +1,11 @@
 package cc.abro.tow.client.particles;
 
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.particles.Part;
 import cc.abro.orchengine.gameobject.components.particles.ParticlesGeometry;
 import cc.abro.orchengine.image.Color;
 
-public class Pixel extends ParticlesGeometry {
+public class Pixel extends ParticlesGeometry<GameObject> {
 
     public Pixel(double x, double y, double dir, double speed, int z) {
         this(x, y, dir, speed, Color.BLACK, z);
