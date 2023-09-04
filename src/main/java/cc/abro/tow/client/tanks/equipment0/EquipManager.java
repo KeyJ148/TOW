@@ -1,10 +1,8 @@
-package cc.abro.tow.client.tanks.equipment;
+package cc.abro.tow.client.tanks.equipment0;
 
 import cc.abro.tow.client.ConfigReader;
-import cc.abro.tow.client.tanks.player.Armor;
-import cc.abro.tow.client.tanks.player.Bullet;
-import cc.abro.tow.client.tanks.player.Gun;
-import cc.abro.tow.client.tanks.player.Player;
+import cc.abro.tow.client.tanks.player0.Bullet;
+import cc.abro.tow.client.tanks.player0.Player;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.Random;
@@ -56,19 +54,19 @@ public class EquipManager {
             String config = ARMOR_PROPS[random.nextInt(ARMOR_PROPS.length)];
             if (!config.contains(".properties")) continue;
 
-            ConfigReader cr = new ConfigReader(Armor.PATH_SETTING + config);
-            if (!contain(cr.findString("ALLOW_GUN").split(" "), ((Gun) player.gun).name)) continue;
+            ConfigReader cr = new ConfigReader(ArmorLoader.PATH_SETTING + config);
+            if (!contain(cr.findString("ALLOW_GUN").split(" "), ((GunLoader) player.gun).name)) continue;
 
             newArmorName = config.substring(0, config.lastIndexOf("."));
-            if (!newArmorName.equals(((Armor) player.armor).name)) exit = true;
+            if (!newArmorName.equals(((ArmorLoader) player.armor).name)) exit = true;
         } while (!exit);
 
         //Создание класса через рефлексию
-        String newArmorClass = new ConfigReader(Armor.PATH_SETTING + newArmorName + ".properties").findString("CLASS");
-        Armor newArmor = null;
+        String newArmorClass = new ConfigReader(ArmorLoader.PATH_SETTING + newArmorName + ".properties").findString("CLASS");
+        ArmorLoader newArmor = null;
         try {
             String newArmorFullPath = getClassPackage(player.armor) + "." + newArmorClass;
-            newArmor = (Armor) Class.forName(newArmorFullPath).newInstance();
+            newArmor = (ArmorLoader) Class.forName(newArmorFullPath).newInstance();
             newArmor.init(player, player.armor.getX(),
                     player.armor.getY(),
                     player.armor.getDirection(),
@@ -81,12 +79,12 @@ public class EquipManager {
     }
 
     public static void newGun(Player player) {
-        String nowGunName = ((Gun) player.gun).name;
+        String nowGunName = ((GunLoader) player.gun).name;
 
         //Получение валидного имени экиперовки (Которое не равно текущему и соответствует броне и патрону)
         String newGunName;
         boolean end = false;
-        String[] allowGun = new ConfigReader(((Armor) player.armor).getConfigFileName()).findString("ALLOW_GUN").split(" ");
+        String[] allowGun = new ConfigReader(((ArmorLoader) player.armor).getConfigFileName()).findString("ALLOW_GUN").split(" ");
         do {
             do {
                 newGunName = allowGun[random.nextInt(allowGun.length)];
@@ -103,11 +101,11 @@ public class EquipManager {
         } while (!end);
 
         //Создание класса через рефлексию
-        Gun newGun = null;
+        GunLoader newGun = null;
         try {
-            String newGunClassName = new ConfigReader(Gun.PATH_SETTING + newGunName + ".properties").findString("CLASS");
+            String newGunClassName = new ConfigReader(GunLoader.PATH_SETTING + newGunName + ".properties").findString("CLASS");
             String newGunFullPath = getClassPackage(player.gun) + "." + newGunClassName;
-            newGun = (Gun) Class.forName(newGunFullPath).newInstance();
+            newGun = (GunLoader) Class.forName(newGunFullPath).newInstance();
             newGun.init(player, player.gun.getX(), player.gun.getY(), player.gun.getDirection(), newGunName);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             log.fatal("Gun not found: " + newGunName);
@@ -129,7 +127,7 @@ public class EquipManager {
             if (!config.contains(".properties")) continue;
 
             ConfigReader cr = new ConfigReader(Bullet.PATH_SETTING + config);
-            if (!contain(cr.findString("ALLOW_GUN").split(" "), ((Gun) player.gun).name)) continue;
+            if (!contain(cr.findString("ALLOW_GUN").split(" "), ((GunLoader) player.gun).name)) continue;
 
             newBulletName = config.substring(0, config.lastIndexOf("."));
             if (!newBulletName.equals(player.bullet.name)) exit = true;

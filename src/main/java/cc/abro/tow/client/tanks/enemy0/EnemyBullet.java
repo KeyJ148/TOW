@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks.enemy;
+package cc.abro.tow.client.tanks.enemy0;
 
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
