@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks;
+package cc.abro.tow.client.tanks.stats;
 
 public class Effect {
 
@@ -8,12 +8,12 @@ public class Effect {
     public void calcAddStats(Stats stats) {
         stats.hpMax += addition.hpMax;
         stats.hpRegen += addition.hpRegen;
-        stats.speedTankUp += addition.speedTankUp;
-        stats.speedTankDown += addition.speedTankDown;
+        stats.speedUp += addition.speedUp;
+        stats.speedDown += addition.speedDown;
         stats.stability += addition.stability;
 
-        stats.directionGunUp += addition.directionGunUp;
-        stats.directionTankUp += addition.directionTankUp;
+        stats.speedRotateGun += addition.speedRotateGun;
+        stats.speedRotateTank += addition.speedRotateTank;
 
         stats.attackSpeed += addition.attackSpeed;
         stats.range += addition.range;
@@ -23,15 +23,17 @@ public class Effect {
     public void calcMultiStats(Stats stats) { //TODO в начале суммировать множители, а потом умножать на них? Т.к. сейчас +30% и -30% = 1*1.3*0.7 = 0.91
         stats.hpMax *= multi.hpMax;
         stats.hpRegen *= multi.hpRegen;
-        stats.speedTankUp *= multi.speedTankUp;
-        stats.speedTankDown *= multi.speedTankDown;
+        stats.speedUp *= multi.speedUp;
+        stats.speedDown *= multi.speedDown;
         stats.stability *= multi.stability;
 
-        stats.directionGunUp *= multi.directionGunUp;
-        stats.directionTankUp *= multi.directionTankUp;
+        stats.speedRotateGun *= multi.speedRotateGun;
+        stats.speedRotateTank *= multi.speedRotateTank;
 
         stats.attackSpeed *= multi.attackSpeed;
         stats.range *= multi.range;
         stats.damage *= multi.damage;
     }
+
+    //TODO equals, hashcode @Data и конструктор, и для stats
 }
