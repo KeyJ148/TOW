@@ -7,6 +7,7 @@ import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.init.interfaces.GameInterface;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.resources.textures.TextureService;
+import cc.abro.orchengine.services.LightSystemService;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -126,8 +127,10 @@ public class Render implements Startable {
     public void loop() {
         glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); //Очистка рендера
 
-        game.render(); //Отрисовка в главном игровом классе (ссылка передается в движок при инициализации)
+        Context.getService(LightSystemService.class).init(width, height);
         locationManager.getActiveLocation().render(getWidth(), getHeight()); //Отрисовка локации
+        game.render(); //Отрисовка в главном игровом классе (ссылка передается в движок при инициализации)
+        Context.getService(LightSystemService.class).render();
     }
 
     @Override
