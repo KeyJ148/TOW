@@ -1,7 +1,10 @@
 package cc.abro.orchengine.gameobject.components.render;
 
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.orchengine.resources.textures.Texture;
+import cc.abro.orchengine.services.LightSystemService;
 import cc.abro.orchengine.util.Vector2;
 import lombok.Getter;
 import org.lwjgl.opengl.GL11;
@@ -34,6 +37,10 @@ public class SpriteRender<T extends GameObject> extends Rendering<T> {
 
         getColor().bind();
         getOpenGlService().renderTextureGlQuadsFromCenter(getWidth(), getHeight(), texture);
+
+        if (getGameObject().hasComponent(Collision.class)) {
+            Context.getService(LightSystemService.class).render(relativePosition.x.intValue(), relativePosition.y.intValue(), getGameObject().getComponent(Collision.class));
+        }
     }
 
     @Override

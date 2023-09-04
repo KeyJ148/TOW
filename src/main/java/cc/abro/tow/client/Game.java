@@ -13,6 +13,7 @@ import cc.abro.orchengine.resources.locales.LocalizationService;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.services.GuiService;
+import cc.abro.orchengine.services.LightSystemService;
 import cc.abro.tow.client.gui.menu.MenuLocation;
 import cc.abro.tow.client.map.factory.MapObjectFactory;
 import cc.abro.tow.client.settings.DevSettingsService;
@@ -25,6 +26,7 @@ import cc.abro.tow.client.tanks.equipment.bullet.BulletSpecificationStorage;
 import cc.abro.tow.client.tanks.equipment.bulletbehaviors.BulletBehaviorsCreator;
 import cc.abro.tow.client.tanks.equipment.gun.GunCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.gun.GunSpecificationStorage;
+import cc.abro.tow.client.tanks.player.PlayerTank;
 import cc.abro.tow.server.ServerLoader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -117,5 +119,19 @@ public class Game implements GameInterface {
         Settings.Graphics graphics = settingsService.getSettings().getGraphics();
         return new Render.Settings(graphics.getWidthScreen(), graphics.getHeightScreen(), graphics.isFullScreen(),
                 graphics.getFpsLimit(), graphics.getVSyncDivider(), WINDOW_NAME);
+    }
+
+    @Override
+    public void render() {
+        GameInterface.super.render();
+        PlayerTank playerTank = Context.getService(ClientData.class).player;
+        if (playerTank != null) {
+
+            Context.getService(LightSystemService.class).light(
+                    (int) playerTank.getX(),
+                    (int) playerTank.getY(),
+                    //(int) playerTank.getDirection(),
+                    400, 0);
+        }
     }
 }
