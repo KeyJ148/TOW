@@ -1,5 +1,6 @@
 package cc.abro.orchengine.gameobject.components.collision;
 
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.interfaces.Collidable;
 import cc.abro.orchengine.resources.masks.Mask;
 import cc.abro.orchengine.util.Vector2;
@@ -8,10 +9,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
-public class Collision extends DrawableCollidableComponent {
+public class Collision extends DrawableCollidableComponent<GameObject> {
 
     @Getter
     private final Mask mask; //Маска для текстуры этого объекта

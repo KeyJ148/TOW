@@ -5,12 +5,12 @@ import cc.abro.orchengine.gameobject.components.interfaces.ComponentCollection;
 import cc.abro.orchengine.services.ServiceConsumer;
 import lombok.Getter;
 
-public abstract class Component implements ServiceConsumer, ComponentCollection {
+public abstract class Component<T extends GameObject> implements ServiceConsumer, ComponentCollection {
 
     @Getter
-    private GameObject gameObject;
+    private T gameObject;
 
-    public void setGameObject(GameObject gameObject) {
+    public void setGameObject(T gameObject) {
         if (getGameObject() != null) {
             throw new IllegalStateException("Component can be contained in one GameObject only");
         }

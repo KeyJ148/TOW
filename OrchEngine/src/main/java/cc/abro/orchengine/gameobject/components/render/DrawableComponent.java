@@ -1,5 +1,6 @@
 package cc.abro.orchengine.gameobject.components.render;
 
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.PositionableComponent;
 import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
 import lombok.Getter;
@@ -8,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public abstract class DrawableComponent extends PositionableComponent implements Drawable {
+public abstract class DrawableComponent<T extends GameObject> extends PositionableComponent<T> implements Drawable {
 
     private final Set<Consumer<Drawable>> listeners = new HashSet<>();
 
