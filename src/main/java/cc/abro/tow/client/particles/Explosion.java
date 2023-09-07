@@ -1,12 +1,13 @@
 package cc.abro.tow.client.particles;
 
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.particles.Part;
 import cc.abro.orchengine.gameobject.components.particles.ParticlesTexture;
 import cc.abro.orchengine.image.Color;
 
 import java.util.Random;
 
-public class Explosion extends ParticlesTexture {
+public class Explosion extends ParticlesTexture<GameObject> {
 
     private final double size;
 

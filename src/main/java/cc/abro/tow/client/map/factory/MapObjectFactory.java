@@ -11,7 +11,7 @@ import java.util.Map;
 @Log4j2
 public class MapObjectFactory {
 
-    private Map<String, MapObjectCreator> mapObjectCreatorByType = new HashMap<>();
+    private final Map<String, MapObjectCreator> mapObjectCreatorByType = new HashMap<>();
 
     public void registryNewCreator(MapObjectCreator mapObjectCreator) {
         if (mapObjectCreatorByType.containsKey(mapObjectCreator.getType())) {

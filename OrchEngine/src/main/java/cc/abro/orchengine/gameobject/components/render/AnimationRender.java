@@ -1,5 +1,6 @@
 package cc.abro.orchengine.gameobject.components.render;
 
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.util.Vector2;
@@ -10,7 +11,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.List;
 
 @Log4j2
-public class AnimationRender extends Rendering implements Updatable {
+public class AnimationRender<T extends GameObject> extends Rendering<T> implements Updatable {
 
     private final List<Texture> textures;
 

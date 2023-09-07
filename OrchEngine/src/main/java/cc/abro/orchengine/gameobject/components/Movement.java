@@ -1,10 +1,11 @@
 package cc.abro.orchengine.gameobject.components;
 
 import cc.abro.orchengine.gameobject.Component;
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import lombok.Getter;
 
-public class Movement extends Component implements Updatable {
+public class Movement<T extends GameObject> extends Component<T> implements Updatable {
     public double speed; //На сколько пикселей объект смещается за 1 секунду
     private double direction; //0, 360 - в право, против часовой - движение
 
@@ -14,7 +15,7 @@ public class Movement extends Component implements Updatable {
     private double yPrevious;//(для столкновения)
     private double directionPrevious;//директион объекта в предыдущем шаге (для столкновения)
 
-    public boolean directionDrawEquals = true;//Угол обзора объекта равен углу поворота
+    public boolean directionDrawEquals = true;//Угол обзора объекта равен углу поворота TODO wtf?
 
     public Movement() {
         this(0, 90);
@@ -26,18 +27,19 @@ public class Movement extends Component implements Updatable {
     }
 
     @Override
-    public void update(long delta) {
-        xPrevious = getGameObject().getX();
-        yPrevious = getGameObject().getY();
-        directionPrevious = direction;
+    public void initialize() {
+        setPrevious();
+        if (directionDrawEquals) getGameObject().setDirection(direction);
+    }
 
+    @Override
+    public void update(long delta) {
+        setPrevious();
         if (speed != 0) {
             double nextX = getGameObject().getX() + speed * Math.cos(Math.toRadians(direction)) * ((double) delta / 1000000000);
             double nextY = getGameObject().getY() - speed * Math.sin(Math.toRadians(direction)) * ((double) delta / 1000000000);
             getGameObject().setPosition(nextX, nextY);
         }
-
-        if (directionDrawEquals) getGameObject().setDirection(direction);
     }
 
     public double getDirection() {
@@ -58,5 +60,11 @@ public class Movement extends Component implements Updatable {
         } else {
             return 360 - Math.abs(directionPrevious % 360);
         }
+    }
+
+    private void setPrevious() {
+        xPrevious = getGameObject().getX();
+        yPrevious = getGameObject().getY();
+        directionPrevious = direction;
     }
 }
