@@ -13,7 +13,7 @@ import java.util.Map;
 @EngineService
 public class AudioStorage {
 
-    private static final String CONFIG_PATH = "configs/audio.json";
+    private static final String CONFIG_PATH = "configs/resources/audio.json";
 
     private final Map<String, Audio> audioByName = new HashMap<>();
 

@@ -17,9 +17,8 @@ import cc.abro.tow.client.map.objects.Box;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.map.specification.MapSpecification;
 import cc.abro.tow.client.map.specification.MapSpecificationLoader;
-import cc.abro.tow.client.tanks.enemy.Enemy;
-import cc.abro.tow.client.tanks.enemy.EnemyBullet;
-import cc.abro.tow.client.tanks.player.Player;
+import cc.abro.tow.client.tanks.enemy0.EnemyBullet;
+import cc.abro.tow.client.tanks.player.PlayerTank;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -131,7 +130,7 @@ public class NetGameRead implements NetGameReadInterface {
 			win = clientData.player.win;
 		}
 
-		clientData.player = new Player(Context.getService(LocationManager.class).getActiveLocation(), x, y, direction);
+		clientData.player = new PlayerTank(Context.getService(LocationManager.class).getActiveLocation(), x, y, direction);
 		clientData.player.kill = kill;
 		clientData.player.death = death;
 		clientData.player.win = win;

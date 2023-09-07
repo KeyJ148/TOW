@@ -9,9 +9,8 @@ import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.sprites.Sprite;
 import cc.abro.tow.client.CollidableObjectType;
-import cc.abro.tow.client.GameSetting;
-import cc.abro.tow.client.tanks.equipment.EquipManager;
-import cc.abro.tow.client.tanks.player.Player;
+import cc.abro.tow.client.tanks.equipment0.EquipManager;
+import cc.abro.tow.client.tanks.player0.Player;
 
 public class Box extends GameObject {
 
