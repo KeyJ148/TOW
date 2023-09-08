@@ -7,7 +7,6 @@ import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.init.interfaces.GameInterface;
-/*import cc.abro.orchengine.localization.LocalizationService;*/
 import cc.abro.orchengine.resources.JsonContainerLoader;
 import cc.abro.orchengine.resources.animations.AnimationStorage;
 import cc.abro.orchengine.resources.audios.AudioService;
@@ -24,6 +23,7 @@ import cc.abro.tow.client.map.factory.MapObjectCreatorsLoader;
 import cc.abro.tow.client.settings.DevSettingsService;
 import cc.abro.tow.client.settings.Settings;
 import cc.abro.tow.client.settings.SettingsService;
+import cc.abro.tow.client.tanks.equipment.EquipmentCreatorsLoader;
 import cc.abro.tow.server.ServerLoader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -36,8 +36,8 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class Game implements GameInterface {
 
-    public static final String SPRITE_CONFIG_PATH = "configs/sprite.json";
-    public static final String ANIMATION_CONFIG_PATH = "configs/animation.json";
+    public static final String SPRITE_CONFIG_PATH = "configs/resources/sprite.json";
+    public static final String ANIMATION_CONFIG_PATH = "configs/resources/animation.json";
     private static final String WINDOW_NAME = "Tanks: Orchestra of war";
 
     private final GuiPanelStorage guiPanelStorage;
@@ -47,6 +47,8 @@ public class Game implements GameInterface {
     private final SettingsService settingsService;
     private final DevSettingsService devSettingsService;
     private final LocalizationService localizationService;
+    private final MapObjectCreatorsLoader mapObjectCreatorsLoader;
+    private final EquipmentCreatorsLoader equipmentCreatorsLoader;
 
     @Override
     public void init() {
@@ -88,9 +90,10 @@ public class Game implements GameInterface {
         Texture icon = Context.getService(SpriteStorage.class).getSprite("window_icon").texture();
         Context.getService(Render.class).setIcon(icon);
 
-        MapObjectCreatorsLoader.load();
+        mapObjectCreatorsLoader.load();
+        equipmentCreatorsLoader.load();
 
-        guiPanelStorage.registry(new MainMenuGuiPanel());
+        guiPanelStorage.registry(new MainMenuGuiPanel());//TODO тоже через аннотации, как и другие сторейджи
         guiPanelStorage.registry(new ConnectByIPMenuGuiPanel());
         guiPanelStorage.registry(new ListOfServersMenuGuiPanel());
         guiPanelStorage.registry(new CreateGameMenuGuiPanel());

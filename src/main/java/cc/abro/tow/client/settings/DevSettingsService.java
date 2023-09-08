@@ -21,8 +21,7 @@ public class DevSettingsService {
         try {
             loadSettingsFromDisk();
         } catch (IOException e) {
-            log.error("Dev settings can't load. Use default settings.");
-            log.debug(e);
+            log.error("Dev settings can't load. Use default settings.", e);
             devSettings = new DevSettings();
         }
     }
