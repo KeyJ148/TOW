@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks.equipment0.bullet;
+package cc.abro.tow.client.tanks.bullet0;
 
 import cc.abro.tow.client.tanks.player0.Bullet;
 

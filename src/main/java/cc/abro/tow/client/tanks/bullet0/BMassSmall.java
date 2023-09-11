@@ -15,7 +15,7 @@ public class BMassSmall extends Bullet {
     public void init(Player player, double x, double y, double dir, double damage, int range, String name) {
         super.init(player, x, y, dir, damage, range, name);
 
-        getComponent(Collision.class).addListener(CollidableObjectType.ARMOR, this);
+        getComponent(Collision.class).addListener(CollidableObjectType.PLAYER_TANK, this);
     }
 
     @Override
@@ -23,7 +23,7 @@ public class BMassSmall extends Bullet {
         if (isDestroyed()) return;
         if (collisionType == CollisionType.LEAVING) return;
 
-        if (collision.getType() == CollidableObjectType.ARMOR) {
+        if (collision.getType() == CollidableObjectType.PLAYER_TANK) {
             collision.getGameObject().player.hp -= damage;
             destroy(explosionSize);
         }
