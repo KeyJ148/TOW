@@ -17,12 +17,16 @@ import cc.abro.tow.client.map.objects.Box;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.map.specification.MapSpecification;
 import cc.abro.tow.client.map.specification.MapSpecificationLoader;
+import cc.abro.tow.client.services.BattleStatisticService;
+import cc.abro.tow.client.settings.GameSettingsService;
+import cc.abro.tow.client.settings.SettingsService;
+import cc.abro.tow.client.tanks.enemy.EnemyTank;
 import cc.abro.tow.client.tanks.enemy0.EnemyBullet;
+import cc.abro.tow.client.tanks.equipment.EquipmentService;
 import cc.abro.tow.client.tanks.player.PlayerTank;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Vector;
 
 @GameService
@@ -36,6 +40,10 @@ public class NetGameRead implements NetGameReadInterface {
 	private final SpriteStorage spriteStorage;
 	private final LocationManager locationManager;
 	private final ClientData clientData;
+	private final SettingsService settingsService;
+	private final BattleStatisticService battleStatisticService;
+	private final GameSettingsService gameSettingsService;
+	private final EquipmentService equipmentService;
 
 	@Override
 	public void readTCP(Message message) {
@@ -89,7 +97,7 @@ public class NetGameRead implements NetGameReadInterface {
 		int enemyId = Integer.parseInt(str.split(" ")[8]);
 
 		if (clientData.enemy.containsKey(enemyId)) {
-			clientData.enemy.get(enemyId).setData(x, y, direction, directionGun, speed, moveDirection, animSpeed, numberPackage);
+			clientData.enemy.get(enemyId).setData(x, y, direction, directionGun, speed, moveDirection, numberPackage);
 		}
 	}
 
@@ -106,11 +114,12 @@ public class NetGameRead implements NetGameReadInterface {
 		clientData.peopleMax = Integer.parseInt(str.split(" ")[0]);
 		clientData.myIdFromServer = Integer.parseInt(str.split(" ")[1]);
 
+		Color tankColor = new Color(settingsService.getSettings().getProfile().getColor());
 		//В ответ отправляем свои данные (цвет и ник)
-		String message = clientData.color.getRed()
-				+ " " + clientData.color.getGreen()
-				+ " " + clientData.color.getBlue()
-				+ " " + clientData.name;
+		String message = tankColor.getRed()
+				+ " " + tankColor.getGreen()
+				+ " " + tankColor.getBlue()
+				+ " " + settingsService.getSettings().getProfile().getNickname();
 		tcpControl.send(17, message);
 
 		//Запускаем пингатор
@@ -123,28 +132,20 @@ public class NetGameRead implements NetGameReadInterface {
 		int y = Integer.parseInt(str.split(" ")[1]);
 		int direction = Integer.parseInt(str.split(" ")[2]);
 
-		int kill = 0, death = 0, win = 0;
-		if (clientData.player != null) {
-			kill = clientData.player.kill;
-			death = clientData.player.death;
-			win = clientData.player.win;
-		}
-
-		clientData.player = new PlayerTank(Context.getService(LocationManager.class).getActiveLocation(), x, y, direction);
-		clientData.player.kill = kill;
-		clientData.player.death = death;
-		clientData.player.win = win;
-
+		clientData.player = new PlayerTank(
+				Context.getService(LocationManager.class).getActiveLocation(), x, y, direction,
+				equipmentService.createDefaultArmor(),
+				equipmentService.createGunArmor());
 		clientData.player.setLocationCameraToThisObject();
 
 		//Заполнение таблицы врагов (в соответствтие с id)
 		for (int id = 0; id < clientData.peopleMax; id++) {
 			if (id != clientData.myIdFromServer) {
-				Enemy enemyForCopy = clientData.enemy.get(id);
-				Enemy enemy = enemyForCopy != null ?
-						new Enemy(Context.getService(LocationManager.class).getActiveLocation(), enemyForCopy) :
-						new Enemy(Context.getService(LocationManager.class).getActiveLocation(), id);
-				clientData.enemy.put(id, enemy);
+				clientData.enemy.put(id, new EnemyTank(
+						Context.getService(LocationManager.class).getActiveLocation(), 0, 0, 0,
+						equipmentService.createDefaultArmor(),
+						equipmentService.createGunArmor(),
+						id));
 			}
 		}
 	}
@@ -161,9 +162,9 @@ public class NetGameRead implements NetGameReadInterface {
 
 	//начало рестарта
 	public void take8(String str) {
-		if (clientData.player != null && clientData.player.alive) {
+		if (clientData.player != null && clientData.player.isAlive()) {
 			tcpControl.send(24, "");
-			clientData.player.win++;
+			battleStatisticService.getPlayerStatistic().incrementWin();
 		}
 
 		clientData.battle = false;
@@ -172,11 +173,6 @@ public class NetGameRead implements NetGameReadInterface {
 
 		clientData.mapObjects = new Vector<>();
 		clientData.enemyBullet = new ArrayList<>();
-		for (Map.Entry<Integer, Enemy> entry : clientData.enemy.entrySet()) {
-			entry.getValue().armor = null;
-			entry.getValue().gun = null;
-			entry.getValue().alive = true;
-		}
 	}
 
 	//конец отправки карты
@@ -219,7 +215,7 @@ public class NetGameRead implements NetGameReadInterface {
 
 		if (idSuffer == clientData.myIdFromServer) {
 			clientData.player.hp -= damage;
-			clientData.player.lastDamagerEnemyId = idDamager;
+			clientData.lastDamagerEnemyId = idDamager;
 		}
 	}
 
@@ -245,12 +241,12 @@ public class NetGameRead implements NetGameReadInterface {
 		String name = str.split(" ")[3];
 		int id = Integer.parseInt(str.split(" ")[4]);
 
-		if (clientData.enemy.get(id).valid) return;
+		if (clientData.enemy.get(id).getEnemyTankNetworkComponent().isValid()) return;
 
 		clientData.enemy.get(id).setNickname(name);
 		clientData.enemy.get(id).setColor(new Color(red, green, blue));
 		clientData.enemy.get(id).setColor(clientData.enemy.get(id).getColor());
-		clientData.enemy.get(id).valid = true;
+		clientData.enemy.get(id).getEnemyTankNetworkComponent().setValid(true);
 	}
 
 	//я сменил броню - (String armorName, int id)
@@ -258,7 +254,7 @@ public class NetGameRead implements NetGameReadInterface {
 		String armorName = str.split(" ")[0];
 		int enemyId = Integer.parseInt(str.split(" ")[1]);
 
-		clientData.enemy.get(enemyId).newArmor(armorName);
+		clientData.enemy.get(enemyId).changeArmor(armorCreationService.createArmor(armorName));
 	}
 
 	//я сменил оружие - (String gunName, int id)
@@ -266,14 +262,14 @@ public class NetGameRead implements NetGameReadInterface {
 		String gunName = str.split(" ")[0];
 		int enemyId = Integer.parseInt(str.split(" ")[1]);
 
-		clientData.enemy.get(enemyId).newGun(gunName);
+		clientData.enemy.get(enemyId).changeGun(gunCreationService.createGun(gunName));
 	}
 
 	//я подобрал ящик - (int idBox)
 	public void take21(String str) {
 		int idBox = Integer.parseInt(str.split(" ")[0]);
 		for (GameObject gameObject : Context.getService(LocationManager.class).getActiveLocation().getObjects()) {
-			if (gameObject instanceof Box && ((Box) gameObject).idBox == idBox) {
+			if (gameObject instanceof Box && ((Box) gameObject).getIdBox() == idBox) {
 				gameObject.destroy();
 			}
 		}
@@ -293,9 +289,9 @@ public class NetGameRead implements NetGameReadInterface {
 		int id = Integer.parseInt(str.split(" ")[0]);
 
 		if (clientData.myIdFromServer == id) {
-			clientData.player.kill++;
+			battleStatisticService.getPlayerStatistic().incrementKill();
 		} else {
-			clientData.enemy.get(id).kill++;
+			battleStatisticService.getEnemyStatistic(id).incrementKill();
 		}
 	}
 
@@ -303,7 +299,7 @@ public class NetGameRead implements NetGameReadInterface {
 	public void take24(String str) {
 		int id = Integer.parseInt(str.split(" ")[0]);
 
-		clientData.enemy.get(id).win++;
+		battleStatisticService.getEnemyStatistic(id).incrementWin();
 	}
 
 	//я инициировал событие звука - (int x, int y, String sound)
@@ -312,7 +308,8 @@ public class NetGameRead implements NetGameReadInterface {
 		int y = Integer.parseInt(str.split(" ")[1]);
 		String sound = str.split(" ")[2];
 
-		audioService.playSoundEffect(audioStorage.getAudio(sound), x, y, GameSetting.SOUND_RANGE);
+		audioService.playSoundEffect(audioStorage.getAudio(sound), x, y,
+				gameSettingsService.getGameSettings().getSoundRange());
 	}
 
 }
