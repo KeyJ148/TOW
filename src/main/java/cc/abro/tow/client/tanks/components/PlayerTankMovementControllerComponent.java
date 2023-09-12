@@ -14,13 +14,15 @@ import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.settings.SettingsService;
 import cc.abro.tow.client.tanks.Tank;
+import cc.abro.tow.client.tanks.enemy.EnemyTank;
+import cc.abro.tow.client.tanks.equipment.EquipmentService;
 import cc.abro.tow.client.tanks.stats.Stats;
 
 import java.util.Set;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class PlayerTankControllerComponent extends Component<Tank> implements Updatable {
+public class PlayerTankMovementControllerComponent extends Component<Tank> implements Updatable {
     
     //Какие действия выполняются в текущий степ
     private boolean runUp = false;
@@ -29,29 +31,14 @@ public class PlayerTankControllerComponent extends Component<Tank> implements Up
     private boolean turnLeft = false;
 
     //Для столкновений
-    private boolean recoil = false;// в данынй момент танк отлетает от противника в рез. столкновения
+    private boolean recoil = false; //В данный момент танк отлетает от противника в результате столкновения
     private long timer = 0; //таймер для отсёчта пройденного времени при столкновение
-    private GameObject coll_gameObject = null; //Объекта с которым происходит столкновение
-
-    //Т.к. поворот осуществляется не в классе Armor, то приходится дублировать функционал компонента Movement
-    private double directionPrevious = 0;
+    private GameObject collidableGameObject = null; //Объекта с которым происходит столкновение
 
     @Override
     public void update(long delta) {
-        //Если мы мертвы, то не обрабатываем действия движения и прочего
-        if (!getGameObject().isAlive()) return;
-
-        Movement<Tank> movementComponent = getGameObject().getMovementComponent();
         Stats stats = getGameObject().getTankStatsComponent().getStats();
-
-        /*
-         * Выстрел
-         */
-        //Если нажата мышь и перезарядилась пушка и игрок вообще может стрелять
-        /* TODO починить
-        if (getGameObject().getLocation().getGuiLocationFrame().getMouse().isButtonDown(GLFW_MOUSE_BUTTON_1) && ((GunLoader) player.gun).nanoSecFromAttack <= 0 && player.stats.attackSpeed > 0) {
-            ((GunLoader) player.gun).attack(); //Стреляем
-        }*/
+        Movement<GameObject> movementComponent = getGameObject().getMovementComponent();
 
         /*
          * Определение направления движения
@@ -97,7 +84,7 @@ public class PlayerTankControllerComponent extends Component<Tank> implements Up
                 runUp = false;
                 runDown = false;
                 movementComponent.speed = 0.0;
-                coll_gameObject = null;
+                collidableGameObject = null;
             }
         }
 
@@ -105,7 +92,6 @@ public class PlayerTankControllerComponent extends Component<Tank> implements Up
         /*
          * Поворот корпуса танка
          */
-        directionPrevious = movementComponent.getDirection();
         if (turnLeft || turnRight) {
             //Скорость поворота
             double deltaDirection = ((double) delta) / Math.pow(10, 9) * stats.speedRotateTank;
@@ -120,88 +106,54 @@ public class PlayerTankControllerComponent extends Component<Tank> implements Up
             //Текущий угол + delta (скорость поворота)
             movementComponent.setDirection(movementComponent.getDirection() + deltaDirection);
         }
-
-
-        //TODO в отдельный компонент? Компонент по контролю корпуса и компонент по контролю пушки
-        /*
-         * Поворот дула пушки (много костылей)
-         */
-        /*
-        Vector2<Double> relativePosition = player.gun.getRelativePosition();
-        double relativeX = relativePosition.x + 0.1;
-        double relativeY = relativePosition.y + 0.1;
-
-        double pointDir = -Math.toDegrees(Math.atan((relativeY - getGameObject().getLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().y) / (relativeX - getGameObject().getLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().x)));
-
-        double trunkUp = ((double) delta / 1000000000) * (player.stats.directionGunUp);
-        if ((relativeX - getGameObject().getLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().x) > 0) {
-            pointDir += 180;
-        } else if ((relativeY - getGameObject().getLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().y) < 0) {
-            pointDir += 360;
-        }
-
-        if ((pointDir - player.gun.getDirection()) > 0) {
-            if ((pointDir - player.gun.getDirection()) > 180) {
-                player.gun.setDirection(player.gun.getDirection() - trunkUp);
-            } else {
-                player.gun.setDirection(player.gun.getDirection() + trunkUp);
-            }
-        } else {
-            if ((pointDir - player.gun.getDirection()) < -180) {
-                player.gun.setDirection(player.gun.getDirection() + trunkUp);
-            } else {
-                player.gun.setDirection(player.gun.getDirection() - trunkUp);
-            }
-        }
-
-        if ((Math.abs(pointDir - player.gun.getDirection()) < trunkUp * 1.5) ||
-                (Math.abs(pointDir - player.gun.getDirection()) > 360 - trunkUp * 1.5)) {
-            player.gun.setDirection(pointDir);
-        }*/
     }
     
     public void collision(CollidableComponent collision, CollisionType collisionType) {
         if (collisionType == CollisionType.LEAVING) return;
 
+        Stats stats = getGameObject().getTankStatsComponent().getStats();
+        Movement<GameObject> movementComponent = getGameObject().getMovementComponent();
+
         GameObject gameObject = collision.getGameObject();
         if (gameObject.getClass().equals(Box.class)) {
             Box box = (Box) gameObject;
             if (!box.isDestroyed()) {
-                box.collisionPlayer(player);
+                box.collisionWithPlayer();
+                Context.getService(EquipmentService.class).changeEquipment(getGameObject(), box);
             }
         }
 
         if (Set.of(Border.class, CollisedMapObject.class, DestroyedMapObject.class).contains(gameObject.getClass())) {
-            player.armor.setX(player.getComponent(Movement.class).getXPrevious());
-            player.armor.setY(player.getComponent(Movement.class).getYPrevious());
-            player.getComponent(Movement.class).setDirection(directionPrevious);
+            getGameObject().setX(movementComponent.getXPrevious());
+            getGameObject().setY(movementComponent.getYPrevious());
+            movementComponent.setDirection(movementComponent.getDirectionPrevious());
         }
 
         if (gameObject.getClass().equals(DestroyedMapObject.class)) {
             DestroyedMapObject destroyedMapObject = (DestroyedMapObject) gameObject;
-            if (destroyedMapObject.getStability() < player.stats.stability){
+            if (destroyedMapObject.getStability() < stats.stability){
                 Context.getService(TCPControl.class).send(22, String.valueOf(destroyedMapObject.getId()));
                 destroyedMapObject.destroy();
             }
         }
 
-        if (gameObject.getClass().equals(EnemyArmor.class)) {
-            EnemyArmor enemyArmor = (EnemyArmor) gameObject;
+        if (gameObject.getClass().equals(EnemyTank.class)) {
+            EnemyTank enemyArmor = (EnemyTank) gameObject;
 
-            if ((!player.controller.recoil) || (!enemyArmor.equals(coll_gameObject))) {
-                player.armor.setX(player.getComponent(Movement.class).getXPrevious());
-                player.armor.setY(player.getComponent(Movement.class).getYPrevious());
-                player.getComponent(Movement.class).setDirection(player.getComponent(Movement.class).getDirectionPrevious());
+            if ((!recoil) || (!enemyArmor.equals(collidableGameObject))) {
+                getGameObject().setX(movementComponent.getXPrevious());
+                getGameObject().setY(movementComponent.getYPrevious());
+                movementComponent.setDirection(movementComponent.getDirectionPrevious());
                 recoil = true;
                 timer = 0;
-                coll_gameObject = enemyArmor;
+                collidableGameObject = enemyArmor;
 
                 if (runUp) {
-                    player.getComponent(Movement.class).speed = -player.getComponent(Movement.class).speed / 3;
+                    movementComponent.speed = -movementComponent.speed / 3;
                     runUp = false;
                     runDown = true;
                 } else if (runDown) {
-                    player.getComponent(Movement.class).speed = -player.getComponent(Movement.class).speed / 3;
+                    movementComponent.speed = -movementComponent.speed / 3;
                     runDown = false;
                     runUp = true;
                 }
@@ -219,8 +171,6 @@ public class PlayerTankControllerComponent extends Component<Tank> implements Up
 
     //TODO в отдельный компонент/сервис
     /*
-
-
     //Разрешения на подбор ящиков
     private boolean takeArmor = true;
     private boolean takeGun = true;
