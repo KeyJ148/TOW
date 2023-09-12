@@ -65,7 +65,7 @@ public class Bullet extends GameObject implements CollisionListener{
 
         addComponent(new Collision(texture.mask(), CollidableObjectType.BULLET));
         getComponent(Collision.class)
-                .addListener(CollidableObjectType.ENEMY_ARMOR, this)
+                .addListener(CollidableObjectType.ENEMY_TANK, this)
                 .addListener(DefaultCollidableObjectType.BORDER, this)
                 .addListener(CollidableObjectType.WALL, this);
 
