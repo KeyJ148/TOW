@@ -5,38 +5,55 @@ import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.orchengine.gameobject.components.collision.DefaultCollidableObjectType;
 import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.tanks.Tank;
-import cc.abro.tow.client.tanks.components.PlayerTankControllerComponent;
+import cc.abro.tow.client.tanks.components.PlayerTankGunAttackControllerComponent;
+import cc.abro.tow.client.tanks.components.PlayerTankGunRotateControllerComponent;
+import cc.abro.tow.client.tanks.components.PlayerTankMovementControllerComponent;
 import cc.abro.tow.client.tanks.components.PlayerTankNetworkComponent;
-import cc.abro.tow.client.tanks.components.TankVampireComponent;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 
 public class PlayerTank extends Tank {
 
-    protected final Collision collisionComponent;
-    protected final TankVampireComponent tankVampireComponent;
-    protected final PlayerTankNetworkComponent playerTankNetworkComponent;
-    protected final PlayerTankControllerComponent playerTankControllerComponent;
+    private final Collision collisionComponent;
+    private final PlayerTankNetworkComponent playerTankNetworkComponent;
+    private final PlayerTankMovementControllerComponent playerTankMovementControllerComponent;
+    private final PlayerTankGunAttackControllerComponent playerTankGunAttackControllerComponent;
+    private final PlayerTankGunRotateControllerComponent playerTankGunRotateControllerComponent;
 
     public PlayerTank(Location location, double x, double y, double direction,
                       ArmorComponent armorComponent, GunComponent gunComponent) {
         super(location, x, y, direction, armorComponent, gunComponent);
 
-        tankVampireComponent = new TankVampireComponent();
-        addComponent(tankVampireComponent);
-
         playerTankNetworkComponent = new PlayerTankNetworkComponent();
         addComponent(playerTankNetworkComponent);
 
-        playerTankControllerComponent = new PlayerTankControllerComponent();
-        addComponent(playerTankControllerComponent);
+        playerTankMovementControllerComponent = new PlayerTankMovementControllerComponent();
+        addComponent(playerTankMovementControllerComponent);
 
-        collisionComponent = new Collision(armorComponent.getAnimation().mask(), CollidableObjectType.ARMOR);
-        collisionComponent.addListener(CollidableObjectType.BOX, playerTankControllerComponent::collision)
-                .addListener(CollidableObjectType.ENEMY_ARMOR, playerTankControllerComponent::collision)
-                .addListener(DefaultCollidableObjectType.BORDER, playerTankControllerComponent::collision)
-                .addListener(CollidableObjectType.WALL, playerTankControllerComponent::collision);
+        playerTankGunAttackControllerComponent = new PlayerTankGunAttackControllerComponent();
+        addComponent(playerTankGunAttackControllerComponent);
+
+        playerTankGunRotateControllerComponent = new PlayerTankGunRotateControllerComponent();
+        addComponent(playerTankGunRotateControllerComponent);
+
+        collisionComponent = new Collision(armorComponent.getAnimation().mask(), CollidableObjectType.PLAYER_TANK);
+        collisionComponent.addListener(CollidableObjectType.BOX, playerTankMovementControllerComponent::collision)
+                .addListener(CollidableObjectType.ENEMY_TANK, playerTankMovementControllerComponent::collision)
+                .addListener(DefaultCollidableObjectType.BORDER, playerTankMovementControllerComponent::collision)
+                .addListener(CollidableObjectType.WALL, playerTankMovementControllerComponent::collision);
         addComponent(collisionComponent);
+    }
+
+    @Override
+    public void exploded() {
+        super.exploded();
+
+        playerTankMovementControllerComponent.destroy();
+        removeComponent(playerTankMovementControllerComponent);
+        playerTankGunAttackControllerComponent.destroy();
+        removeComponent(playerTankGunAttackControllerComponent);
+        playerTankGunRotateControllerComponent.destroy();
+        removeComponent(playerTankGunRotateControllerComponent);
     }
 
     @Override
@@ -49,6 +66,5 @@ public class PlayerTank extends Tank {
     public void changeGun(GunComponent newGunComponent) {
         super.changeGun(newGunComponent);
         playerTankNetworkComponent.sendInfoAboutNewGun(newGunComponent);
-
     }
 }

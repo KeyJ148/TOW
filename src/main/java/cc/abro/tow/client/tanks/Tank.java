@@ -13,9 +13,12 @@ import cc.abro.tow.client.settings.GameSettingsService;
 import cc.abro.tow.client.tanks.components.AnimationOnMovementComponent;
 import cc.abro.tow.client.tanks.components.TankNicknameComponent;
 import cc.abro.tow.client.tanks.components.TankStatsComponent;
+import cc.abro.tow.client.tanks.components.TankVampireComponent;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 
 public abstract class Tank extends GameObject {
 
@@ -24,22 +27,23 @@ public abstract class Tank extends GameObject {
     private final AudioService audioService;
     private final GameSettingsService gameSettingsService;
 
-    private final PositionableComponent cameraComponent;
+    private final PositionableComponent<GameObject> cameraComponent;
     private final TankNicknameComponent tankNicknameComponent;
+    private final TankVampireComponent tankVampireComponent;
     @Getter
-    private final Movement movementComponent;
+    private final Movement <GameObject>movementComponent;
     @Getter
     private final TankStatsComponent tankStatsComponent;
     @Getter
     private AnimationOnMovementComponent armorAnimationComponent;
     @Getter
-    private SpriteRender gunSpriteComponent;
+    private SpriteRender<GameObject> gunSpriteComponent;
     @Getter
     private ArmorComponent armorComponent;
     @Getter
     private GunComponent gunComponent;
 
-    @Getter
+    @Getter @Setter(AccessLevel.PROTECTED)
     private boolean alive = true;
     @Getter
     private Color color = Color.WHITE;
@@ -54,13 +58,16 @@ public abstract class Tank extends GameObject {
         setY(y);
         setDirection(direction);
 
-        cameraComponent = new PositionableComponent();
+        cameraComponent = new PositionableComponent<>();
         addComponent(cameraComponent);
 
         tankNicknameComponent = new TankNicknameComponent();
         addComponent(tankNicknameComponent);
 
-        movementComponent = new Movement();
+        tankVampireComponent = new TankVampireComponent();
+        addComponent(tankVampireComponent);
+
+        movementComponent = new Movement<>();
         addComponent(movementComponent);
 
         this.armorComponent = armorComponent;
@@ -73,7 +80,7 @@ public abstract class Tank extends GameObject {
         this.gunComponent = gunComponent;
         addComponent(gunComponent);
 
-        gunSpriteComponent = new SpriteRender(gunComponent.getSprite().texture(), 2000); //TODO вынести глубины в константы
+        gunSpriteComponent = new SpriteRender<>(gunComponent.getSprite().texture(), 2000); //TODO вынести глубины в константы
         addComponent(gunSpriteComponent);
 
         tankStatsComponent = new TankStatsComponent();
@@ -85,10 +92,12 @@ public abstract class Tank extends GameObject {
     }
 
     public void exploded() {
-        alive = false;
+        setAlive(false);
 
         tankNicknameComponent.destroy();
+        removeComponent(tankNicknameComponent);
         movementComponent.destroy();
+        removeComponent(movementComponent);
         armorAnimationComponent.setFrameSpeed(0);
 
         setColor(EXPLODED_TANK_COLOR);

@@ -22,7 +22,6 @@ public class Player {
     public boolean takeBullet = true;
     public boolean takeHealth = true;
 
-    public PlayerController controller;
     public BulletFactory bullet;
 
     public int lastDamagerEnemyId = -1;
@@ -106,8 +105,8 @@ public class Player {
 
 
         //Проверка HP
-        if (hp <= 0) {
-            if (lastDamagerEnemyId != -1) {
+        if (hp <= 0) { //TODO перенести в танк? В PlayerTank?
+            if (lastDamagerEnemyId != -1) { //TODO lastDamagerEnemyId теперь в clientData
                 Context.getService(TCPControl.class).send(23, String.valueOf(lastDamagerEnemyId));
                 Context.getService(ClientData.class).enemy.get(lastDamagerEnemyId).kill++;
             }
