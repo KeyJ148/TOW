@@ -1,6 +1,7 @@
 package cc.abro.tow.client.tanks.equipment.gun;
 
 import cc.abro.orchengine.gameobject.Component;
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.resources.sprites.Sprite;
 import cc.abro.tow.client.tanks.stats.Effect;
 import lombok.Getter;
@@ -9,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public abstract class GunComponent extends Component {
+public abstract class GunComponent extends Component<GameObject> {
     @Getter
     private final String name; //Имя файла и техническое имя брони
     @Getter

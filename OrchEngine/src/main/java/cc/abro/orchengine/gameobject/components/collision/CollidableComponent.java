@@ -6,6 +6,7 @@ import cc.abro.orchengine.gameobject.components.interfaces.Collidable;
 
 import java.util.*;
 
+//TODO мб сделать тоже T extends GameObject ? Тут просто много надо реализовать аккуратно будет
 public abstract class CollidableComponent extends PositionableComponent<GameObject> implements Collidable {
 
     private final Map<CollidableObjectType, Set<CollisionListener>> collisionListeners = new HashMap<>(); //Список объектов которые нужно оповещать при коллизии с ключом мапы
