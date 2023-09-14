@@ -3,17 +3,19 @@ package cc.abro.tow.client;
 import cc.abro.orchengine.context.GameService;
 import cc.abro.tow.client.map.MapObject;
 import cc.abro.tow.client.map.factory.MapObjectFactory;
+import cc.abro.tow.client.tanks.enemy.EnemyTank;
 import cc.abro.tow.client.tanks.enemy0.EnemyBullet;
-import cc.abro.tow.client.tanks.player0.Player;
+import cc.abro.tow.client.tanks.player.PlayerTank;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 @GameService
 public class ClientData {
 
-    public Player player;
+    public PlayerTank player;
 
     public int peopleMax;
     public int myIdFromServer; //Мой id на сервере
@@ -24,7 +26,9 @@ public class ClientData {
 
     //TODO: в наследника Location
     public Vector<MapObject> mapObjects = new Vector<>();//Список всех объектов на карте //TODO избавиться при переделке сервера
-    public TreeMap<Integer, Enemy> enemy = new TreeMap<>(); //список всех противников
+
+    public Map<Integer, EnemyTank> enemy = new HashMap<>(); //список всех противников
+    public int lastDamagerEnemyId;
     public ArrayList<EnemyBullet> enemyBullet; //Список всех патронов противников (EnemyBullet)
 
     public boolean printStats = false;

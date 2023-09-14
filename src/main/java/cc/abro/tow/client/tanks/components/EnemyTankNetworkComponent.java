@@ -36,7 +36,7 @@ public class EnemyTankNetworkComponent extends Component<Tank> implements Updata
         }
     }
 
-    public void setData(int x, int y, int direction, int directionGun, double speed, double moveDirection, double animSpeed, long numberPackage) {
+    public void setData(int x, int y, int direction, int directionGun, double speed, double moveDirection, long numberPackage) {
         if (!Context.getService(ClientData.class).battle) return;
         if (numberPackage < lastNumberPackage) return;
         lastNumberPackage = numberPackage;

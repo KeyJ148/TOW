@@ -1,7 +1,6 @@
 package cc.abro.orchengine.gameobject.components.collision;
 
 import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.services.GuiService;
@@ -11,7 +10,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.List;
 import java.util.function.Consumer;
 
-public abstract class DrawableCollidableComponent<T extends GameObject> extends CollidableComponent<T> implements Drawable {
+public abstract class DrawableCollidableComponent extends CollidableComponent implements Drawable {
 
     private final GuiService guiService;
 
