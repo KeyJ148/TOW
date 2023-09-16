@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks.equipment0.bullet;
+package cc.abro.tow.client.tanks.equipment.bullet0;
 
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.collision.CollidableComponent;
@@ -6,7 +6,6 @@ import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.orchengine.gameobject.components.collision.CollisionType;
 import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.ConfigReader;
-import cc.abro.tow.client.tanks.player0.Bullet;
 import cc.abro.tow.client.tanks.player0.Player;
 
 public class BMassSmall extends Bullet {

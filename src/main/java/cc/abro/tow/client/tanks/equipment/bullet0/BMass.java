@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks.bullet0;
+package cc.abro.tow.client.tanks.equipment.bullet0;
 
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Movement;
@@ -7,7 +7,6 @@ import cc.abro.orchengine.gameobject.components.collision.CollisionType;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
-import cc.abro.tow.client.tanks.player0.Bullet;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.Random;

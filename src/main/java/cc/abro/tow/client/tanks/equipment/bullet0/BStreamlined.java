@@ -1,7 +1,6 @@
-package cc.abro.tow.client.tanks.equipment0.bullet;
+package cc.abro.tow.client.tanks.equipment.bullet0;
 
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.tow.client.tanks.player0.Bullet;
 import cc.abro.tow.client.tanks.player0.Player;
 
 public class BStreamlined extends Bullet {
