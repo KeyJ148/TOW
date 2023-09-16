@@ -1,7 +1,7 @@
-package cc.abro.tow.client.tanks.player0;
+package cc.abro.tow.client.tanks.equipment.bullet0;
 
 import cc.abro.tow.client.ConfigReader;
-import cc.abro.tow.client.tanks.bullet0.BDefault;
+import cc.abro.tow.client.tanks.player0.Player;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2

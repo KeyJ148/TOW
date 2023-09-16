@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks.player0;
+package cc.abro.tow.client.tanks.equipment.bullet0;
 
 
 import cc.abro.orchengine.context.Context;
@@ -18,6 +18,7 @@ import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.particles.Explosion;
+import cc.abro.tow.client.tanks.player0.Player;
 
 import java.util.Set;
 

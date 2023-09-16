@@ -1,7 +1,6 @@
-package cc.abro.tow.client.tanks.equipment0.bullet;
+package cc.abro.tow.client.tanks.equipment.bullet0;
 
 import cc.abro.tow.client.ConfigReader;
-import cc.abro.tow.client.tanks.player0.Bullet;
 
 public class BVampire extends Bullet {
 
