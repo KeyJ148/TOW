@@ -171,35 +171,11 @@ public class PlayerTankMovementControllerComponent extends Component<Tank> imple
 
     //TODO в отдельный компонент/сервис
     /*
-    //Разрешения на подбор ящиков
-    private boolean takeArmor = true;
-    private boolean takeGun = true;
-    private boolean takeBullet = true;
-    private boolean takeHealth = true;
-
     //Перебираем все события нажатия клавиш
     List<KeyEvent<?>> keyboardEvents = getGameObject().getLocation().getGuiLocationFrame().getKeyboard().getEventHistory().getList();
         for (KeyEvent<?> event : keyboardEvents) {
         if (event.getAction() == GLFW_PRESS) {// Клавиша нажата
             switch (event.getKey()) {
-                    //Клавиши запрета и разрешения на подбор ящиков
-                    case GLFW_KEY_1 -> {
-                        takeArmor = !takeArmor;
-                        player.buttonsTake[0].getTextState().setText((player.takeArmor) ? "" : "x");
-                    }
-                    case GLFW_KEY_2 -> {
-                        takeGun = !takeGun;
-                        player.buttonsTake[1].getTextState().setText((player.takeGun) ? "" : "x");
-                    }
-                    case GLFW_KEY_3 -> {
-                        takeBullet = !takeBullet;
-                        player.buttonsTake[2].getTextState().setText((player.takeBullet) ? "" : "x");
-                    }
-                    case GLFW_KEY_4 -> {
-                        takeHealth = !takeHealth;
-                        player.buttonsTake[3].getTextState().setText((player.takeHealth) ? "" : "x");
-                    }
-
                     //Вывод характеристик танка
                     case GLFW_KEY_F2 ->
                             Context.getService(ClientData.class).printStats = !Context.getService(ClientData.class).printStats;
