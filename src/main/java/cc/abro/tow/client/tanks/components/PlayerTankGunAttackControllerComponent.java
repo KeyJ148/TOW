@@ -15,11 +15,8 @@ public class PlayerTankGunAttackControllerComponent extends Component<Tank> impl
         Stats stats = getGameObject().getTankStatsComponent().getStats();
         GunComponent gun = getGameObject().getGunComponent();
 
-        //Если нажата мышь и перезарядилась пушка и игрок вообще может стрелять
-        if (getGameObject().getLocation().getGuiLocationFrame().getMouse().isButtonDown(GLFW_MOUSE_BUTTON_1) &&
-                gun.nanoSecFromAttack <= 0 &&
-                stats.attackSpeed > 0) {
-            gun.attack();
+        if (getGameObject().getLocation().getGuiLocationFrame().getMouse().isButtonDown(GLFW_MOUSE_BUTTON_1)) {
+            gun.tryAttack();
         }
     }
 }
