@@ -1,11 +1,14 @@
 package cc.abro.tow.client.tanks.equipment.armor.fury;
 
 import cc.abro.tow.client.tanks.equipment.armor.defaults.DefaultArmorSpecification;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+@NoArgsConstructor(force = true)
 @EqualsAndHashCode(callSuper = true)
 public class FuryArmorSpecification extends DefaultArmorSpecification {
     private final double speedUpMax;
