@@ -1,7 +1,6 @@
 package cc.abro.tow.client.tanks.equipment.gun.defaults;
 
 import cc.abro.tow.client.tanks.equipment.gun.GunSpecification;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+@NoArgsConstructor(force = true)
 public class DefaultGunSpecification implements GunSpecification {
     public record TrunkInfo(int bulletStartX, int bulletStartY, double bulletStartDir) {}
 

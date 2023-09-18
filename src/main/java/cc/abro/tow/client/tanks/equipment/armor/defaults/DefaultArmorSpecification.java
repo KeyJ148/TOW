@@ -1,14 +1,13 @@
 package cc.abro.tow.client.tanks.equipment.armor.defaults;
 
 import cc.abro.tow.client.tanks.equipment.armor.ArmorSpecification;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+@NoArgsConstructor(force = true)
 public class DefaultArmorSpecification implements ArmorSpecification {
     private final double hpMax;
     private final double hpRegen;

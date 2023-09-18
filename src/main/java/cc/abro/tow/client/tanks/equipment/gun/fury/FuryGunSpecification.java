@@ -1,11 +1,14 @@
 package cc.abro.tow.client.tanks.equipment.gun.fury;
 
 import cc.abro.tow.client.tanks.equipment.gun.defaults.DefaultGunSpecification;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+@NoArgsConstructor(force = true)
 @EqualsAndHashCode(callSuper = true)
 public class FuryGunSpecification extends DefaultGunSpecification {
     private final double attackSpeedMin;
