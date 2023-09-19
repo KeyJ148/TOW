@@ -5,12 +5,10 @@ import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.orchengine.gameobject.components.collision.DefaultCollidableObjectType;
 import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.tanks.Tank;
-import cc.abro.tow.client.tanks.components.PlayerTankGunAttackControllerComponent;
-import cc.abro.tow.client.tanks.components.PlayerTankGunRotateControllerComponent;
-import cc.abro.tow.client.tanks.components.PlayerTankMovementControllerComponent;
-import cc.abro.tow.client.tanks.components.PlayerTankNetworkComponent;
+import cc.abro.tow.client.tanks.components.*;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
+import lombok.Getter;
 
 public class PlayerTank extends Tank {
 
@@ -19,6 +17,10 @@ public class PlayerTank extends Tank {
     private final PlayerTankMovementControllerComponent playerTankMovementControllerComponent;
     private final PlayerTankGunAttackControllerComponent playerTankGunAttackControllerComponent;
     private final PlayerTankGunRotateControllerComponent playerTankGunRotateControllerComponent;
+    @Getter
+    private final PlayerTankEquipmentControllerComponent playerTankEquipmentControllerComponent;
+    @Getter
+    private final PlayerTankEquipmentGuiComponent playerTankEquipmentGuiComponent;
 
     public PlayerTank(Location location, double x, double y, double direction,
                       ArmorComponent armorComponent, GunComponent gunComponent) {
@@ -35,6 +37,12 @@ public class PlayerTank extends Tank {
 
         playerTankGunRotateControllerComponent = new PlayerTankGunRotateControllerComponent();
         addComponent(playerTankGunRotateControllerComponent);
+
+        playerTankEquipmentControllerComponent = new PlayerTankEquipmentControllerComponent();
+        addComponent(playerTankEquipmentControllerComponent);
+
+        playerTankEquipmentGuiComponent = new PlayerTankEquipmentGuiComponent();
+        addComponent(playerTankEquipmentGuiComponent);
 
         collisionComponent = new Collision(armorComponent.getAnimation().mask(), CollidableObjectType.PLAYER_TANK);
         collisionComponent.addListener(CollidableObjectType.BOX, playerTankMovementControllerComponent::collision)
@@ -54,6 +62,10 @@ public class PlayerTank extends Tank {
         removeComponent(playerTankGunAttackControllerComponent);
         playerTankGunRotateControllerComponent.destroy();
         removeComponent(playerTankGunRotateControllerComponent);
+        playerTankEquipmentControllerComponent.destroy();
+        removeComponent(playerTankEquipmentControllerComponent);
+        playerTankEquipmentGuiComponent.destroy();
+        removeComponent(playerTankEquipmentGuiComponent);
     }
 
     @Override
