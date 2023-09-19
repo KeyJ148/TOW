@@ -1,23 +1,32 @@
 package cc.abro.tow.client.tanks.components;
 
 import cc.abro.orchengine.gameobject.Component;
-import cc.abro.orchengine.gameobject.GameObject;
+import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
+import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.stats.Effect;
 import cc.abro.tow.client.tanks.stats.Stats;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TankStatsComponent extends Component<GameObject> {
+public class TankStatsComponent extends Component<Tank> implements Updatable {
 
     @Getter
     private Stats stats = new Stats(); //TODO unmutable, иначе исправить метод getStats()
     private final List<Effect> effects = new ArrayList<>();
 
-    @Getter @Setter
+    @Getter
     private double currentHp;
+
+    public void update(long delta) {
+        if (currentHp < 0) {
+            getGameObject().exploded();
+            return;
+        }
+
+        setCurrentHp(getCurrentHp() + delta / Math.pow(10, 9) * stats.hpRegen);
+    }
 
     public void addEffect(Effect effect) {
         effects.add(effect);
@@ -39,5 +48,9 @@ public class TankStatsComponent extends Component<GameObject> {
         for (Effect effect : effects) {
             effect.calcMultiStats(stats);
         }
+    }
+
+    public void setCurrentHp(double currentHp) {
+        this.currentHp = Math.min(currentHp, stats.hpMax);
     }
 }
