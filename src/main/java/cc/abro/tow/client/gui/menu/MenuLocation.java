@@ -2,6 +2,7 @@ package cc.abro.tow.client.gui.menu;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Render;
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
@@ -49,6 +50,7 @@ public class MenuLocation extends GameLocation {
         }
 
         addDebugPanel(4);
-        MenuEventController controller = new MenuEventController(this);
+        GameObject menuEventController = new GameObject(this);
+        menuEventController.addComponent(new MenuEventControllerComponent());
     }
 }
