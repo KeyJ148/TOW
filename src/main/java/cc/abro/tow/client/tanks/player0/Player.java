@@ -1,35 +1,19 @@
 package cc.abro.tow.client.tanks.player0;
 
 import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
-import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.tow.client.ClientData;
-import com.spinyowl.legui.component.Button;
+import cc.abro.tow.client.tanks.equipment.bullet0.BulletFactory;
 import com.spinyowl.legui.component.Label;
-import com.spinyowl.legui.style.Background;
-import com.spinyowl.legui.style.border.SimpleLineBorder;
-import com.spinyowl.legui.style.color.ColorConstants;
-import org.joml.Vector4f;
 
 import static cc.abro.tow.client.gui.menu.InterfaceStyles.BLACK_COLOR;
 
 public class Player {
-
-    public boolean takeArmor = true;
-    public boolean takeGun = true;
-    public boolean takeBullet = true;
-    public boolean takeHealth = true;
-
     public BulletFactory bullet;
-
-    public int lastDamagerEnemyId = -1;
 
     //TODO это всё тоже в отдельный класс, связанный с GUI
     public Label hpLabel;
     public Label[] statsLabel;
-    public Button[] buttonsTake = new Button[4];
 
     public Player(Location location, double x, double y, double direction) {
         controller = new PlayerController(this);
@@ -54,25 +38,6 @@ public class Player {
             statsLabel[i].getStyle().setTextColor(BLACK_COLOR);
             statsLabel[i].setPosition(1, 30 + i * 15);
             getLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(statsLabel[i]);
-        }
-
-        //Создание кнопок для отключения подбора снаряжения
-        buttonsTake = new Button[4];
-        Background[] buttonsBackground = new Background[4];
-        for (int i = 0; i < buttonsBackground.length; i++) buttonsBackground[i] = new Background();
-        buttonsBackground[0].setColor(new Vector4f(0, 1, 0, 1));
-        buttonsBackground[1].setColor(new Vector4f(1, 0, 0, 1));
-        buttonsBackground[2].setColor(new Vector4f(0, 0, 1, 1));
-        buttonsBackground[3].setColor(new Vector4f(1, 1, 1, 1));
-
-        for (int i = 0; i < buttonsTake.length; i++) {
-            buttonsTake[i] = new Button("");
-            SimpleLineBorder buttonTakeBorder = new SimpleLineBorder(ColorConstants.black(), 1);
-            buttonsTake[i].getStyle().setBorder(buttonTakeBorder);
-            buttonsTake[i].getStyle().setBackground(buttonsBackground[i]);
-            buttonsTake[i].setSize(15, 15);
-            buttonsTake[i].setPosition(17 * i, getRender().getHeight() - 15);
-            getLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(buttonsTake[i]);
         }
     }
 
@@ -100,41 +65,5 @@ public class Player {
                 statsLabel[i].getTextState().setText("");
             }
         }
-
-        //Отрисовка возможностей подбора
-
-
-        //Проверка HP
-        if (hp <= 0) { //TODO перенести в танк? В PlayerTank?
-            if (lastDamagerEnemyId != -1) { //TODO lastDamagerEnemyId теперь в clientData
-                Context.getService(TCPControl.class).send(23, String.valueOf(lastDamagerEnemyId));
-                Context.getService(ClientData.class).enemy.get(lastDamagerEnemyId).kill++;
-            }
-
-            Context.getService(TCPControl.class).send(12, "");
-            exploded();
-        } else {
-            if ((hp + delta / Math.pow(10, 9) * stats.hpRegen) > stats.hpMax) {
-                hp = stats.hpMax;
-            } else {
-                hp += delta / Math.pow(10, 9) * stats.hpRegen;
-            }
-        }
-    }
-
-    @Override
-    public void exploded() {
-        super.exploded();
-
-        controller.runUp = false;
-        controller.runDown = false;
-        controller.turnRight = false;
-        controller.turnLeft = false;
-    }
-
-    @Override
-    public void replaceArmor(GameObject newArmor) {
-        if (controller.runUp) newArmor.getComponent(Movement.class).speed = stats.speedTankUp;
-        if (controller.runDown) newArmor.getComponent(Movement.class).speed = stats.speedTankDown;
     }
 }
