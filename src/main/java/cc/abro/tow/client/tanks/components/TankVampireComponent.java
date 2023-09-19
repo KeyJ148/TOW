@@ -29,7 +29,7 @@ public class TankVampireComponent extends Component<Tank> implements Updatable {
     }
 
     //Вызывается, когда танк нанес кому-то урон
-    public void hitting(double damage) {
+    public void hitting(double damage) { //TODO попробовать переделать всю систему компонентов на систему (шину) ивентов?
         vampire += damage * vampireUpFromOneDamage;
         vampire = Math.min(vampire, 1.0);
     }

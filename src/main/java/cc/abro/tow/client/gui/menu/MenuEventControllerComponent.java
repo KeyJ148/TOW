@@ -1,8 +1,9 @@
 package cc.abro.tow.client.gui.menu;
 
 import cc.abro.orchengine.context.Context;
+import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.gameobject.Location;
+import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.tow.client.ClientData;
 import com.spinyowl.legui.event.KeyEvent;
 
@@ -10,17 +11,13 @@ import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class MenuEventController extends GameObject {
-
-    public MenuEventController(Location location) {
-        super(location);
-    }
+public class MenuEventControllerComponent extends Component<GameObject> implements Updatable {
 
     @Override
     public void update(long delta) {
-        if (getLocationManager().getActiveLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_ESCAPE)) getEngine().stop();
+        if (getGameObject().getLocation().getGuiLocationFrame().getKeyboard().isKeyDown(GLFW_KEY_ESCAPE)) getEngine().stop();
 
-        List<KeyEvent<?>> keyboardEvents = getLocationManager().getActiveLocation().getGuiLocationFrame().getKeyboard().getEventHistory().getList();
+        List<KeyEvent<?>> keyboardEvents = getGameObject().getLocation().getGuiLocationFrame().getKeyboard().getEventHistory().getList();
         for (KeyEvent<?> event : keyboardEvents) {
             if (event.getAction() == GLFW_PRESS) {// Клавиша нажата
 

@@ -21,8 +21,8 @@ import cc.abro.tow.client.services.BattleStatisticService;
 import cc.abro.tow.client.settings.GameSettingsService;
 import cc.abro.tow.client.settings.SettingsService;
 import cc.abro.tow.client.tanks.enemy.EnemyTank;
-import cc.abro.tow.client.tanks.enemy0.EnemyBullet;
 import cc.abro.tow.client.tanks.equipment.EquipmentService;
+import cc.abro.tow.client.tanks.equipment.bullet0.EnemyBullet;
 import cc.abro.tow.client.tanks.player.PlayerTank;
 import lombok.RequiredArgsConstructor;
 
@@ -135,7 +135,7 @@ public class NetGameRead implements NetGameReadInterface {
 		clientData.player = new PlayerTank(
 				Context.getService(LocationManager.class).getActiveLocation(), x, y, direction,
 				equipmentService.createDefaultArmor(),
-				equipmentService.createGunArmor());
+				equipmentService.createDefaultGun());
 		clientData.player.setLocationCameraToThisObject();
 
 		//Заполнение таблицы врагов (в соответствтие с id)
@@ -144,7 +144,7 @@ public class NetGameRead implements NetGameReadInterface {
 				clientData.enemy.put(id, new EnemyTank(
 						Context.getService(LocationManager.class).getActiveLocation(), 0, 0, 0,
 						equipmentService.createDefaultArmor(),
-						equipmentService.createGunArmor(),
+						equipmentService.createDefaultGun(),
 						id));
 			}
 		}
@@ -214,8 +214,8 @@ public class NetGameRead implements NetGameReadInterface {
 		int idDamager = Integer.parseInt(str.split(" ")[2]);
 
 		if (idSuffer == clientData.myIdFromServer) {
-			clientData.player.hp -= damage;
-			clientData.lastDamagerEnemyId = idDamager;
+			clientData.player.changeHp(-damage);
+			clientData.lastDamageDealerEnemyId = idDamager;
 		}
 	}
 
@@ -254,7 +254,7 @@ public class NetGameRead implements NetGameReadInterface {
 		String armorName = str.split(" ")[0];
 		int enemyId = Integer.parseInt(str.split(" ")[1]);
 
-		clientData.enemy.get(enemyId).changeArmor(armorCreationService.createArmor(armorName));
+		clientData.enemy.get(enemyId).changeArmor(equipmentService.createArmor(armorName));
 	}
 
 	//я сменил оружие - (String gunName, int id)
@@ -262,14 +262,14 @@ public class NetGameRead implements NetGameReadInterface {
 		String gunName = str.split(" ")[0];
 		int enemyId = Integer.parseInt(str.split(" ")[1]);
 
-		clientData.enemy.get(enemyId).changeGun(gunCreationService.createGun(gunName));
+		clientData.enemy.get(enemyId).changeGun(equipmentService.createGun(gunName));
 	}
 
 	//я подобрал ящик - (int idBox)
 	public void take21(String str) {
 		int idBox = Integer.parseInt(str.split(" ")[0]);
 		for (GameObject gameObject : Context.getService(LocationManager.class).getActiveLocation().getObjects()) {
-			if (gameObject instanceof Box && ((Box) gameObject).getIdBox() == idBox) {
+			if (gameObject instanceof Box && ((Box) gameObject).getId() == idBox) {
 				gameObject.destroy();
 			}
 		}
