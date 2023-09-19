@@ -5,7 +5,6 @@ import cc.abro.orchengine.context.GameService;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gui.GuiPanelStorage;
-import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.init.interfaces.GameInterface;
 import cc.abro.orchengine.resources.JsonContainerLoader;
 import cc.abro.orchengine.resources.animations.AnimationStorage;
@@ -52,7 +51,6 @@ public class Game implements GameInterface {
 
     @Override
     public void init() {
-        GameSetting.init();
         audioService.setVolume(settingsService.getSettings().getVolume().getSoundVolume());
 
         try {
@@ -84,8 +82,6 @@ public class Game implements GameInterface {
             Texture texture = Context.getService(SpriteStorage.class).getSprite(settingsService.getSettings().getGraphics().getCursorSprite()).texture();
             Context.getService(LocationManager.class).getActiveLocation().getGuiLocationFrame().getMouse().getCursor().setTexture(texture);
         }
-        clientData.name = settingsService.getSettings().getProfile().getNickname();
-        clientData.color = new Color(settingsService.getSettings().getProfile().getColor());
 
         Texture icon = Context.getService(SpriteStorage.class).getSprite("window_icon").texture();
         Context.getService(Render.class).setIcon(icon);

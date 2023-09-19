@@ -63,11 +63,13 @@ public class BattleLocation extends GameLocation {
                     gameTabGuiPanel.changeSize();
                 }
                 int ping = Context.getService(PingChecker.class).getPing();
+
                 List<GameTabGuiPanel.TabDataLine> data = Stream.concat(Stream.of(Context.getService(ClientData.class).player), Context.getService(ClientData.class).enemy.values().stream())
                         .filter(Objects::nonNull)
                         .filter(tank -> tank.getNickname() != null)
-                        .map(tank -> new GameTabGuiPanel.TabDataLine(!tank.alive,
-                                tank.getNickname(), tank.getColor(), tank.kill, tank.death, tank.win, ping))
+                        //TODO сделать отдельное хранилище, где будут данные об игроках (не танках): ник, цвет, статистика. Мб несколько хранилищ по нику/id. Должна быть опция получать общий список (с игроком и врагами)
+                        .map(tank -> new GameTabGuiPanel.TabDataLine(!tank.isAlive(),
+                                tank.getNickname(), tank.getColor(), 0, 0, 0, ping))//TODO получать настоящее кол-во убийств, смертей, побед
                         .sorted(Comparator.comparingInt(t -> -t.wins))
                         .collect(Collectors.toList());
                 gameTabGuiPanel.fillInTable(data);
