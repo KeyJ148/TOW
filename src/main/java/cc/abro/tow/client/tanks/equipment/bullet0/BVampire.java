@@ -12,7 +12,7 @@ public class BVampire extends Bullet {
         double maxDamage = cr.findDouble("MAX_DAMAGE");
         double minDamage = cr.findDouble("MIN_DAMAGE");
 
-        damage += maxDamage - ((1 - player.vampire) * (maxDamage - minDamage));
+        //damage += maxDamage - ((1 - player.vampire) * (maxDamage - minDamage));
     }
 
 }

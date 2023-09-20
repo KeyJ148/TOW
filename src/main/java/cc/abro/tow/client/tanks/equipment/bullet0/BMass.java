@@ -7,6 +7,7 @@ import cc.abro.orchengine.gameobject.components.collision.CollisionType;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
+import cc.abro.tow.client.tanks.enemy.EnemyTank;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.Random;
@@ -25,7 +26,7 @@ public class BMass extends Bullet {
         if (collisionType == CollisionType.LEAVING) return;
         GameObject gameObject = collision.getGameObject();
 
-        if (Set.of(CollisedMapObject.class, DestroyedMapObject.class, EnemyArmor.class).contains(gameObject.getClass())) {
+        if (Set.of(CollisedMapObject.class, DestroyedMapObject.class, EnemyTank.class).contains(gameObject.getClass())) {
             Random random = new Random();
             int count = minFragmentNumber + random.nextInt(maxFragmentNumber - minFragmentNumber + 1);
 

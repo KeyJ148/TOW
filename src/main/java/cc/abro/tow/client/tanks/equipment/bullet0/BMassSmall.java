@@ -23,7 +23,7 @@ public class BMassSmall extends Bullet {
         if (collisionType == CollisionType.LEAVING) return;
 
         if (collision.getType() == CollidableObjectType.PLAYER_TANK) {
-            collision.getGameObject().player.hp -= damage;
+            //collision.getGameObject().player.hp -= damage;
             destroy(explosionSize);
         }
 
