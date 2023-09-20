@@ -1,6 +1,5 @@
 package cc.abro.tow.client.tanks.equipment.bullet0;
 
-import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.tow.client.ConfigReader;
 
 public class BFury extends Bullet {
@@ -15,8 +14,8 @@ public class BFury extends Bullet {
         double minDamage = cr.findDouble("MIN_DAMAGE");
         double maxDamage = cr.findDouble("MAX_DAMAGE");
 
-        damage += maxDamage - ((player.hp / player.stats.hpMax) * (maxDamage - minDamage));
-        getComponent(Movement.class).speed += maxSpeed - ((player.hp / player.stats.hpMax) * (maxSpeed - minSpeed));
+        //damage += maxDamage - ((player.hp / player.stats.hpMax) * (maxDamage - minDamage));
+        //getComponent(Movement.class).speed += maxSpeed - ((player.hp / player.stats.hpMax) * (maxSpeed - minSpeed));
     }
 }
 
