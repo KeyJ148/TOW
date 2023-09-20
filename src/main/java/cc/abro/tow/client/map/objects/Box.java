@@ -14,27 +14,36 @@ import lombok.Getter;
 
 public class Box extends GameObject {
 
-	@Getter
-	private final int idBox;
-	@Getter
-	private final int typeBox;
+	public enum Type {
+		ARMOR("box_armor", "armor"),
+		GUN("box_gun", "gun"),
+		BULLET("box_bullet", "bullet"),
+		HEALTH("box_health", "heal"),
+		HEALTH_FULL("box_healthfull", "heal");
 
-	public Box(Location location, double x, double y, int typeBox, int idBox) {
+		@Getter
+		private final String spriteName;
+		@Getter
+		private final String soundName;
+
+		Type(String spriteName, String soundName) {
+			this.spriteName = spriteName;
+			this.soundName = soundName;
+		}
+	}
+
+	@Getter
+	private final int id;
+	@Getter
+	private final Type type;
+
+	public Box(Location location, double x, double y, int typeId, int id) {
 		super(location);
-		this.idBox = idBox;
-		this.typeBox = typeBox;
+		this.id = id;
+		this.type = Type.values()[typeId];
 		setPosition(x, y);
 
-		String nameBox = switch (typeBox) {
-			case 0 -> "box_armor";
-			case 1 -> "box_gun";
-			case 2 -> "box_bullet";
-			case 3 -> "box_health";
-			case 4 -> "box_healthfull";
-			default -> "error";
-		};
-
-		Sprite sprite = getSpriteStorage().getSprite(nameBox);
+		Sprite sprite = getSpriteStorage().getSprite(type.spriteName);
 		addComponent(new SpriteRender<>(sprite.texture(), 1000));
 		addComponent(new Collision(sprite.mask(), CollidableObjectType.BOX));
 	}
@@ -42,19 +51,10 @@ public class Box extends GameObject {
 	public void collisionWithPlayer() {
 		destroy();
 
-		String soundName = switch (typeBox) {
-			case 0 -> "armor";
-			case 1 -> "gun";
-			case 2 -> "bullet";
-			case 3 -> "heal";
-			case 4 -> "heal";
-			default -> "";
-		};
+		Context.getService(TCPControl.class).send(21, String.valueOf(id));
 
-		Context.getService(TCPControl.class).send(21, String.valueOf(idBox));
-
-		getAudioService().playSoundEffect(getAudioStorage().getAudio(soundName), (int) getX(), (int) getY(),
+		getAudioService().playSoundEffect(getAudioStorage().getAudio(type.soundName), (int) getX(), (int) getY(),
 				Context.getService(GameSettingsService.class).getGameSettings().getSoundRange());
-		Context.getService(TCPControl.class).send(25, (int) getX() + " " + (int) getY() + " " + soundName);
+		Context.getService(TCPControl.class).send(25, (int) getX() + " " + (int) getY() + " " + type.soundName);
 	}
 }
