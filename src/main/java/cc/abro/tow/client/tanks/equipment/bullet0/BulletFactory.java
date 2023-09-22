@@ -1,16 +1,16 @@
 package cc.abro.tow.client.tanks.equipment.bullet0;
 
 import cc.abro.tow.client.ConfigReader;
-import cc.abro.tow.client.tanks.player0.Player;
+import cc.abro.tow.client.tanks.player.PlayerTank;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class BulletFactory {
 
     public String name, title; //name - техническое название, title - игровое
-    public Player player;
+    public PlayerTank player;
 
-    public BulletFactory(String name, Player player) {
+    public BulletFactory(String name, PlayerTank player) {
         this.name = name;
         this.player = player;
 
@@ -26,7 +26,7 @@ public class BulletFactory {
 
             return newBullet;
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            log.error("Bullet create error: " + player.bullet.name);
+            //log.error("Bullet create error: " + player.bullet.name);
             throw new RuntimeException(e);
         }
     }

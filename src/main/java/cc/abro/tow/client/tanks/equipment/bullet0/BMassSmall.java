@@ -6,12 +6,12 @@ import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.orchengine.gameobject.components.collision.CollisionType;
 import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.ConfigReader;
-import cc.abro.tow.client.tanks.player0.Player;
+import cc.abro.tow.client.tanks.player.PlayerTank;
 
 public class BMassSmall extends Bullet {
 
     @Override
-    public void init(Player player, double x, double y, double dir, double damage, int range, String name) {
+    public void init(PlayerTank player, double x, double y, double dir, double damage, int range, String name) {
         super.init(player, x, y, dir, damage, range, name);
 
         getComponent(Collision.class).addListener(CollidableObjectType.PLAYER_TANK, this);
