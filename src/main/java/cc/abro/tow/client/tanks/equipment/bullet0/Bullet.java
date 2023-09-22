@@ -18,11 +18,15 @@ import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.particles.Explosion;
-import cc.abro.tow.client.tanks.player0.Player;
+import cc.abro.tow.client.settings.GameSettingsService;
+import cc.abro.tow.client.tanks.enemy.EnemyTank;
+import cc.abro.tow.client.tanks.player.PlayerTank;
 
 import java.util.Set;
 
 public class Bullet extends GameObject implements CollisionListener{
+    
+    private final int soundRange;
 
     public static final String PATH_SETTING = "configs/game/bullet/";
     public String name, title; //name - техническое название, title - игровое
@@ -38,15 +42,16 @@ public class Bullet extends GameObject implements CollisionListener{
     public String sound_shot;
     public String sound_hit;
 
-    public Player player;
+    public PlayerTank player;
     public String imageName;
     public Sprite texture;
 
     public Bullet() {
         super(Context.getService(LocationManager.class).getActiveLocation());
+        soundRange = Context.getService(GameSettingsService.class).getGameSettings().getSoundRange();
     }
 
-    public void init(Player player, double x, double y, double dir, double damage, int range, String name) {
+    public void init(PlayerTank player, double x, double y, double dir, double damage, int range, String name) {
         this.player = player;
         this.name = name;
         this.damage = damage; //Дамаг исключительно от выстрелевшей пушки
@@ -89,21 +94,21 @@ public class Bullet extends GameObject implements CollisionListener{
         if (Set.of(CollisedMapObject.class, DestroyedMapObject.class).contains(gameObject.getClass())) {
             destroy(explosionSize);
 
-            getAudioService().playSoundEffect(getAudioStorage().getAudio(sound_hit), (int) getX(), (int) getY(), GameSetting.SOUND_RANGE);
+            getAudioService().playSoundEffect(getAudioStorage().getAudio(sound_hit), (int) getX(), (int) getY(), soundRange);
             Context.getService(TCPControl.class).send(25, (int) getX() + " " + (int) getY() + " " + sound_hit);
         }
 
-        if (gameObject.getClass().equals(EnemyArmor.class)) {
-            EnemyArmor ea = (EnemyArmor) gameObject;
+        if (gameObject.getClass().equals(EnemyTank.class)) {
+            EnemyTank ea = (EnemyTank) gameObject;
 
-            Context.getService(TCPControl.class).send(14, damage + " " + ea.enemy.id);
+            //Context.getService(TCPControl.class).send(14, damage + " " + ea.enemy.id);
             destroy(explosionSize);
 
-            getAudioService().playSoundEffect(getAudioStorage().getAudio(sound_hit), (int) getX(), (int) getY(), GameSetting.SOUND_RANGE);
+            getAudioService().playSoundEffect(getAudioStorage().getAudio(sound_hit), (int) getX(), (int) getY(), soundRange);
             Context.getService(TCPControl.class).send(25, (int) getX() + " " + (int) getY() + " " + sound_hit);
 
             //Для вампирского сета
-            if (ea.enemy.alive) player.hitting(damage); //TODO вызвать функцию в соответствующем компоненте танка
+            //if (ea.enemy.alive) player.hitting(damage); //TODO вызвать функцию в соответствующем компоненте танка
         }
     }
 
@@ -132,7 +137,7 @@ public class Bullet extends GameObject implements CollisionListener{
     }
 
     public void playSoundShot() {
-        getAudioService().playSoundEffect(getAudioStorage().getAudio(sound_shot), (int) getX(), (int) getY(), GameSetting.SOUND_RANGE);
+        getAudioService().playSoundEffect(getAudioStorage().getAudio(sound_shot), (int) getX(), (int) getY(), soundRange);
         Context.getService(TCPControl.class).send(25, (int) getX() + " " + (int) getY() + " " + sound_shot);
     }
 
@@ -152,8 +157,9 @@ public class Bullet extends GameObject implements CollisionListener{
     public void loadData() {
         ConfigReader cr = new ConfigReader(getConfigFileName());
 
-        getComponent(Movement.class).speed = cr.findDouble("SPEED") + player.stats.speedTankUp / 2;
-        getComponent(Movement.class).speed = Math.max(getComponent(Movement.class).speed, player.stats.speedTankUp * GameSetting.MIN_BULLET_SPEED_KOEF);
+        //TODO не забыть реализовать
+        //getComponent(Movement.class).speed = cr.findDouble("SPEED") + player.stats.speedTankUp / 2;
+        //getComponent(Movement.class).speed = Math.max(getComponent(Movement.class).speed, player.stats.speedTankUp * GameSetting.MIN_BULLET_SPEED_KOEF);
 
         damage += cr.findDouble("DAMAGE");//К дамагу пушки прибавляем дамаг патрона
         range += cr.findInteger("RANGE");//К дальности пушки прибавляем дальность патрона
