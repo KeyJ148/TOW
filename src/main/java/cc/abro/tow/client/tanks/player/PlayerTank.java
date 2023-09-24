@@ -21,6 +21,8 @@ public class PlayerTank extends Tank {
     private final PlayerTankEquipmentControllerComponent playerTankEquipmentControllerComponent;
     @Getter
     private final PlayerTankEquipmentGuiComponent playerTankEquipmentGuiComponent;
+    private final PlayerTankHpGuiComponent playerTankHpGuiComponent;
+    private final PlayerTankStatsGuiComponent playerTankStatsGuiComponent;
 
     public PlayerTank(Location location, double x, double y, double direction,
                       ArmorComponent armorComponent, GunComponent gunComponent) {
@@ -44,6 +46,12 @@ public class PlayerTank extends Tank {
         playerTankEquipmentGuiComponent = new PlayerTankEquipmentGuiComponent();
         addComponent(playerTankEquipmentGuiComponent);
 
+        playerTankHpGuiComponent = new PlayerTankHpGuiComponent();
+        addComponent(playerTankHpGuiComponent);
+
+        playerTankStatsGuiComponent = new PlayerTankStatsGuiComponent();
+        addComponent(playerTankStatsGuiComponent);
+
         collisionComponent = new Collision(armorComponent.getAnimation().mask(), CollidableObjectType.PLAYER_TANK);
         collisionComponent.addListener(CollidableObjectType.BOX, playerTankMovementControllerComponent::collision)
                 .addListener(CollidableObjectType.ENEMY_TANK, playerTankMovementControllerComponent::collision)
@@ -66,6 +74,10 @@ public class PlayerTank extends Tank {
         removeComponent(playerTankEquipmentControllerComponent);
         playerTankEquipmentGuiComponent.destroy();
         removeComponent(playerTankEquipmentGuiComponent);
+        playerTankHpGuiComponent.destroy();
+        removeComponent(playerTankHpGuiComponent);
+        playerTankStatsGuiComponent.destroy();
+        removeComponent(playerTankStatsGuiComponent);
     }
 
     @Override
