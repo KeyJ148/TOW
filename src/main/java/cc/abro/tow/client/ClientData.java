@@ -31,7 +31,6 @@ public class ClientData {
     public int lastDamageDealerEnemyId = -1;
     public ArrayList<EnemyBullet> enemyBullet; //Список всех патронов противников (EnemyBullet)
 
-    public boolean printStats = false;
     public boolean printAnalyzerInfo = false;
     public boolean showGameTabMenu = false;
 }

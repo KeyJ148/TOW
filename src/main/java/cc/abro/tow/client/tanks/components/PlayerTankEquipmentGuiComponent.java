@@ -42,7 +42,7 @@ public class PlayerTankEquipmentGuiComponent extends Component<GameObject> {
         playerCanTakeBoxButtons.get(index).getTextState().setText(active ? "" : "x");
     }
 
-    private Button createButton(Background background) {
+    private Button createButton(Background background) { //TODO куда-нибудь в сервис интерфейса?
         Button button = new Button("");
         SimpleLineBorder buttonTakeBorder = new SimpleLineBorder(ColorConstants.black(), 1);
         button.getStyle().setBorder(buttonTakeBorder);

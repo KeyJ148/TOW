@@ -176,14 +176,11 @@ public class PlayerTankMovementControllerComponent extends Component<Tank> imple
         for (KeyEvent<?> event : keyboardEvents) {
         if (event.getAction() == GLFW_PRESS) {// Клавиша нажата
             switch (event.getKey()) {
-                    //Вывод характеристик танка
-                    case GLFW_KEY_F2 ->
-                            Context.getService(ClientData.class).printStats = !Context.getService(ClientData.class).printStats;
 
 
                     //Вывод дебаг инфы
                     case GLFW_KEY_F3 ->
-                            Context.getService(ClientData.class).printAnalyzerInfo = !Context.getService(ClientData.class).printAnalyzerInfo;
+                            Context.getService(ClientData.class).printAnalyzerInfo = !Context.getService(ClientData.class).printAnalyzerInfo; //TODO по идее у нас уже есть такой компонент для меню (вроде в MenuLocation)
 
 
                     //Отрисовка масок //TODO разрешить только в локальной среде (профиль != PROD, профиль == DEV)

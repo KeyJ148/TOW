@@ -32,6 +32,7 @@ public abstract class Tank extends GameObject {
 
     private final PositionableComponent<GameObject> cameraComponent;
     private final TankNicknameComponent tankNicknameComponent;
+    @Getter
     private final TankVampireComponent tankVampireComponent;
     @Getter
     private final Movement <GameObject>movementComponent;
