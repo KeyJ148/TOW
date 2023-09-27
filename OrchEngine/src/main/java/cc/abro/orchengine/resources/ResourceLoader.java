@@ -36,7 +36,7 @@ public class ResourceLoader {
      * @throws IOException в случае ошибки доступа к ресурсам по пути {@code path}
      */
     public List<String> scanResources(String path) throws URISyntaxException, IOException {
-        URI uri = ResourceLoader.class.getResource(path).toURI();
+        URI uri = getClassLoader().getResource(path).toURI();
         if (uri.getScheme().equals("jar")) {
             try (FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.emptyMap())) {
                 return scanResources(fileSystem.getPath(path));
