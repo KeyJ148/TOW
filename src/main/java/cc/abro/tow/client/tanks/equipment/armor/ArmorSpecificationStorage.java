@@ -24,16 +24,15 @@ public class ArmorSpecificationStorage {
         this.armorCreatorsStorage = armorCreatorsStorage;
         try {
             List<String> armorSpecificationFilenames = ResourceLoader.scanResources(CONFIGS_PATH);
-            log.info("Found " + (armorSpecificationFilenames.size() - 1) + " armor specifications"); //TODO почему -1? Что лишнее?
+            log.info("Found " + (armorSpecificationFilenames.size() - 1) + " armor specifications");
             for (String armorSpecificationFilename : armorSpecificationFilenames) {
-                if (armorSpecificationFilename.endsWith(".json")) { //TODO проверка точно нужна?
+                if (armorSpecificationFilename.endsWith(".json")) {
                     log.debug("Loading armor specification: " + armorSpecificationFilename);
                     String armorSpecificationFilepath = CONFIGS_PATH + armorSpecificationFilename;
-                    record ArmorSpecificationType(String type) {}
-                    ArmorSpecificationType armorSpecificationType = JsonContainerLoader.loadInternalFile(
-                            ArmorSpecificationType.class, armorSpecificationFilename);
+                    String armorSpecificationType = JsonContainerLoader.loadInternalFile(armorSpecificationFilepath)
+                            .get("type").asText();
                     ArmorSpecification armorSpecification = loadArmorSpecification(
-                            armorSpecificationType.type, armorSpecificationFilepath);
+                            armorSpecificationType, armorSpecificationFilepath);
                     armorSpecificationByName.put(armorSpecificationFilename, armorSpecification);
                 }
             }
@@ -58,7 +57,7 @@ public class ArmorSpecificationStorage {
             log.debug("Load armor specification \"" + filepath + "\" completed");
             return (ArmorSpecification) armorSpecification;
         } catch (Exception e) {
-            log.error("Armor specification \"" + filepath + "\" not loading");
+            log.error("Armor specification \"" + filepath + "\" not loading", e);
             throw new IllegalStateException("Armor specification \"" + filepath + "\" not loading");
         }
     }

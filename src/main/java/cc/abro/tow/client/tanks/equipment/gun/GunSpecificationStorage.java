@@ -24,21 +24,20 @@ public class GunSpecificationStorage {
         this.gunCreatorsStorage = gunCreatorsStorage;
         try {
             List<String> gunSpecificationFilenames = ResourceLoader.scanResources(CONFIGS_PATH);
-            log.info("Found " + (gunSpecificationFilenames.size() - 1) + " gun specifications"); //TODO почему -1? Что лишнее?
+            log.info("Found " + (gunSpecificationFilenames.size() - 1) + " gun specifications");
             for (String gunSpecificationFilename : gunSpecificationFilenames) {
-                if (gunSpecificationFilename.endsWith(".json")) { //TODO проверка точно нужна?
+                if (gunSpecificationFilename.endsWith(".json")) {
                     log.debug("Loading gun specification: " + gunSpecificationFilename);
-                    String armorSpecificationFilepath = CONFIGS_PATH + gunSpecificationFilename;
-                    record GunSpecificationType(String type) {}
-                    GunSpecificationType armorSpecificationType = JsonContainerLoader.loadInternalFile(
-                            GunSpecificationType.class, gunSpecificationFilename);
+                    String gunSpecificationFilepath = CONFIGS_PATH + gunSpecificationFilename;
+                    String gunSpecificationType = JsonContainerLoader.loadInternalFile(gunSpecificationFilepath)
+                            .get("type").asText();
                     GunSpecification gunSpecification = loadGunSpecification(
-                            armorSpecificationType.type, armorSpecificationFilepath);
+                            gunSpecificationType, gunSpecificationFilepath);
                     gunSpecificationByName.put(gunSpecificationFilename, gunSpecification);
                 }
             }
         } catch (IOException | URISyntaxException e) {
-            log.error("Error when loading armor specifications", e);
+            log.error("Error when loading gun specifications", e);
         }
     }
 
