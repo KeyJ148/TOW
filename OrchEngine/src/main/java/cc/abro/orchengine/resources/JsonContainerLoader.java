@@ -1,5 +1,6 @@
 package cc.abro.orchengine.resources;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
@@ -38,6 +39,25 @@ public class JsonContainerLoader {
             return new ObjectMapper().readValue(json, containerClass);
         } catch (IOException e) {
             log.warn("Unable to load internal JSON file \"" + path + "\" to class " + containerClass.getName());
+            throw e;
+        }
+    }
+
+    public JsonNode loadExternalFile(String path) throws IOException {
+        try {
+            return new ObjectMapper().readTree(new File(path));
+        } catch (IOException e) {
+            log.warn("Unable to load internal JSON file \"" + path + "\"");
+            throw e;
+        }
+    }
+
+    public JsonNode loadInternalFile(String path) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(ResourceLoader.getResourceAsStream(path)))) {
+            String json = reader.lines().collect(Collectors.joining("\n"));
+            return new ObjectMapper().readTree(json);
+        } catch (IOException e) {
+            log.warn("Unable to load internal JSON file \"" + path + "\"");
             throw e;
         }
     }
