@@ -29,7 +29,7 @@ public class LocalizationService {
 
 	public LocalizationService() {
 		try {
-			List<String> scan = ResourceLoader.scanResources("/locale");
+			List<String> scan = ResourceLoader.scanResources("locale");
 			log.info("Found "+(scan.size()-1)+" locales");
 			for(String item : scan){
 				if(item.endsWith(".properties")){
