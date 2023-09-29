@@ -9,7 +9,7 @@ public class BStreamlined extends Bullet {
     public void init(PlayerTank player, double x, double y, double dir, double damage, int range, String name) {
         super.init(player, x, y, dir, damage, range, name);
 
-        getComponent(Movement.class).directionDrawEquals = true;
+        //getComponent(Movement.class).directionDrawEquals = true; //Угол обзора объекта равен углу поворота
         setDirection(getComponent(Movement.class).getDirection());
     }
 
