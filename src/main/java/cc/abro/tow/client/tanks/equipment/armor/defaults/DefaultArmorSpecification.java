@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
@@ -20,4 +22,5 @@ public class DefaultArmorSpecification implements ArmorSpecification {
     private final String animationName;
     private final String title;
     private final String type;
+    private final List<String> allowGuns;
 }
