@@ -39,6 +39,6 @@ public class BMassSmall extends Bullet {
         super.loadData();
 
         ConfigReader cr = new ConfigReader(getConfigFileName());
-        getComponent(Movement.class).speed = cr.findDouble("SPEED");
+        getComponent(Movement.class).setSpeed(cr.findDouble("SPEED"));
     }
 }

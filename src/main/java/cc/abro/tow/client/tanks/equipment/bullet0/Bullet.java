@@ -145,7 +145,7 @@ public class Bullet extends GameObject implements CollisionListener{
         return Math.round(getX())
                 + " " + Math.round(getY())
                 + " " + getComponent(Movement.class).getDirection()
-                + " " + getComponent(Movement.class).speed
+                + " " + getComponent(Movement.class).getSpeed()
                 + " " + imageName
                 + " " + idNet;
     }
