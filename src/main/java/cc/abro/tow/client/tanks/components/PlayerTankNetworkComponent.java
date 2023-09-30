@@ -38,7 +38,7 @@ public class PlayerTankNetworkComponent extends Component<Tank> implements Updat
                 + " " + (int) Math.round(playerTank.getY())
                 + " " + (int) Math.round(playerTank.getDirection())
                 + " " + (int) Math.round(playerTank.getGunSpriteComponent().getDirection())
-                + " " + playerTank.getMovementComponent().speed
+                + " " + playerTank.getMovementComponent().getSpeed()
                 + " " + playerTank.getMovementComponent().getDirection()
                 + " " + playerTank.getArmorAnimationComponent().getFrameSpeed()
                 + " " + numberPackage++;

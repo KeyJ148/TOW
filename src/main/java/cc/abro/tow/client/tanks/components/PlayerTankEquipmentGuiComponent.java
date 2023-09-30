@@ -28,8 +28,12 @@ public class PlayerTankEquipmentGuiComponent extends Component<GameObject> {
             button.setPosition(17 * i, getRender().getHeight() - 15);
 
             playerCanTakeBoxButtons.add(button);
-            getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(button);
         }
+    }
+
+    @Override
+    public void initialize() {
+        getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().addAll(playerCanTakeBoxButtons);
     }
 
     @Override

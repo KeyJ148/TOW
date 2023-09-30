@@ -15,9 +15,10 @@ import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.settings.SettingsService;
 import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.enemy.EnemyTank;
-import cc.abro.tow.client.tanks.equipment.EquipmentService;
+import cc.abro.tow.client.tanks.equipment.BoxService;
 import cc.abro.tow.client.tanks.stats.Stats;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -66,9 +67,9 @@ public class PlayerTankMovementControllerComponent extends Component<Tank> imple
             if (vectorRight == -1) turnLeft = true;
 
             //Движение корпуса танка
-            movementComponent.speed = 0;
-            if (runUp) movementComponent.speed = stats.speedUp;
-            if (runDown) movementComponent.speed = -stats.speedDown;
+            movementComponent.setSpeed(0);
+            if (runUp) movementComponent.setSpeed(stats.speedUp);
+            if (runDown) movementComponent.setSpeed(-stats.speedDown);
         }
 
 
@@ -83,7 +84,7 @@ public class PlayerTankMovementControllerComponent extends Component<Tank> imple
                 turnLeft = false;
                 runUp = false;
                 runDown = false;
-                movementComponent.speed = 0.0;
+                movementComponent.setSpeed(0);
                 collidableGameObject = null;
             }
         }
@@ -104,11 +105,11 @@ public class PlayerTankMovementControllerComponent extends Component<Tank> imple
             if (turnRight) deltaDirection = -deltaDirection;
 
             //Текущий угол + delta (скорость поворота)
-            movementComponent.setDirection(movementComponent.getDirection() + deltaDirection);
+            getGameObject().setDirection(getGameObject().getDirection() + deltaDirection);
         }
     }
     
-    public void collision(CollidableComponent collision, CollisionType collisionType) {
+    public void collision(CollidableComponent collision, CollisionType collisionType) { //TODO вынести в отдельный компонент или разбить на несколько?
         if (collisionType == CollisionType.LEAVING) return;
 
         Stats stats = getGameObject().getTankStatsComponent().getStats();
@@ -119,14 +120,14 @@ public class PlayerTankMovementControllerComponent extends Component<Tank> imple
             Box box = (Box) gameObject;
             if (!box.isDestroyed()) {
                 box.collisionWithPlayer();
-                Context.getService(EquipmentService.class).changeEquipment(getGameObject(), box);
+                Context.getService(BoxService.class).takeBox(getGameObject(), box);
             }
         }
 
         if (Set.of(Border.class, CollisedMapObject.class, DestroyedMapObject.class).contains(gameObject.getClass())) {
             getGameObject().setX(movementComponent.getXPrevious());
             getGameObject().setY(movementComponent.getYPrevious());
-            movementComponent.setDirection(movementComponent.getDirectionPrevious());
+            getGameObject().setDirection(movementComponent.getDirectionPrevious());
         }
 
         if (gameObject.getClass().equals(DestroyedMapObject.class)) {
@@ -143,17 +144,17 @@ public class PlayerTankMovementControllerComponent extends Component<Tank> imple
             if ((!recoil) || (!enemyArmor.equals(collidableGameObject))) {
                 getGameObject().setX(movementComponent.getXPrevious());
                 getGameObject().setY(movementComponent.getYPrevious());
-                movementComponent.setDirection(movementComponent.getDirectionPrevious());
+                getGameObject().setDirection(movementComponent.getDirectionPrevious());
                 recoil = true;
                 timer = 0;
                 collidableGameObject = enemyArmor;
 
                 if (runUp) {
-                    movementComponent.speed = -movementComponent.speed / 3;
+                    movementComponent.setSpeed(-movementComponent.getSpeed() / 3);
                     runUp = false;
                     runDown = true;
                 } else if (runDown) {
-                    movementComponent.speed = -movementComponent.speed / 3;
+                    movementComponent.setSpeed(-movementComponent.getSpeed() / 3);
                     runDown = false;
                     runUp = true;
                 }
@@ -167,6 +168,11 @@ public class PlayerTankMovementControllerComponent extends Component<Tank> imple
                 }
             }
         }
+    }
+
+    @Override
+    public List<Class<? extends Updatable>> getPreliminaryUpdateComponents() {
+        return List.of(Movement.class);
     }
 
     //TODO в отдельный компонент/сервис
