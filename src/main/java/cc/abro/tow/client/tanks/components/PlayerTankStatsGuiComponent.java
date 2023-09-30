@@ -3,6 +3,7 @@ package cc.abro.tow.client.tanks.components;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.tow.client.tanks.Tank;
+import cc.abro.tow.client.tanks.stats.Stats;
 import com.spinyowl.legui.component.Label;
 import com.spinyowl.legui.event.KeyEvent;
 
@@ -19,15 +20,17 @@ public class PlayerTankStatsGuiComponent extends Component<Tank> implements Upda
     private boolean printStats = false;
 
     public PlayerTankStatsGuiComponent() {
-        TankStatsComponent statsComponent = getGameObject().getTankStatsComponent();
-
-        for (int i = 0; i < statsComponent.toString().split("\n").length + 4; i++) {
+        for (int i = 0; i < new Stats().toString().split("\n").length + 4; i++) {
             Label label = createStatsLabel();
             label.setPosition(1, 30 + i * 15);
 
             statsLabels.add(label);
-            getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(label);
         }
+    }
+
+    @Override
+    public void initialize() {
+        getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().addAll(statsLabels);
     }
 
     @Override
@@ -44,16 +47,14 @@ public class PlayerTankStatsGuiComponent extends Component<Tank> implements Upda
 
         //Отрисовка статов
         if (printStats) {
-            TankStatsComponent statsComponent = getGameObject().getTankStatsComponent();
-
-            String[] array = statsComponent.toString().split("\n");
-            for (int i = 0; i < array.length; i++) {
-                statsLabels.get(i).getTextState().setText(array[i]);
+            String[] stats = getGameObject().getTankStatsComponent().getStats().toString().split("\n");
+            for (int i = 0; i < stats.length; i++) {
+                statsLabels.get(i).getTextState().setText(stats[i]);
             }
-            statsLabels.get(array.length).getTextState().setText("Armor: " + getGameObject().getArmorComponent().getTitle());
-            statsLabels.get(array.length + 1).getTextState().setText("Gun: " + getGameObject().getGunComponent().getTitle());
-            statsLabels.get(array.length + 2).getTextState().setText("Bullet: " + ""); //TODO реализовать отрисовку названия патрона
-            statsLabels.get(array.length + 3).getTextState().setText("Vampire: " +
+            statsLabels.get(stats.length).getTextState().setText("Armor: " + getGameObject().getArmorComponent().getTitle());
+            statsLabels.get(stats.length + 1).getTextState().setText("Gun: " + getGameObject().getGunComponent().getTitle());
+            statsLabels.get(stats.length + 2).getTextState().setText("Bullet: " + ""); //TODO реализовать отрисовку названия патрона
+            statsLabels.get(stats.length + 3).getTextState().setText("Vampire: " +
                     Math.round(getGameObject().getTankVampireComponent().getVampire() * 100) + "%");
         } else {
             statsLabels.forEach(statsLabel -> statsLabel.getTextState().setText(""));

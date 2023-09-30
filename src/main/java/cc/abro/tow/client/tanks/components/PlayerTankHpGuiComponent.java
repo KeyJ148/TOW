@@ -13,6 +13,10 @@ public class PlayerTankHpGuiComponent extends Component<Tank> implements Updatab
 
     public PlayerTankHpGuiComponent() {
         hpLabel = createHpLabel();
+    }
+
+    @Override
+    public void initialize() {
         getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(hpLabel);
     }
 
