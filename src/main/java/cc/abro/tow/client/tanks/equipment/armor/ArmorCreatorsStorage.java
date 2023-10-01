@@ -24,8 +24,8 @@ public class ArmorCreatorsStorage {
 
     public ArmorCreator<? extends ArmorSpecification> getArmorCreator(String type) {
         if (!armorCreatorByType.containsKey(type)) {
-            log.error("Not found ArmorCreator for type: " + type);
-            throw new IllegalArgumentException("Not found ArmorCreator for type: " + type);
+            log.error("Not found ArmorCreator for type: \"" + type + "\"");
+            throw new IllegalArgumentException("Not found ArmorCreator for type: \"" + type + "\"");
         }
 
         return armorCreatorByType.get(type);

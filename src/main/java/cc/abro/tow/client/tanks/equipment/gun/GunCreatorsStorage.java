@@ -24,8 +24,8 @@ public class GunCreatorsStorage {
 
     public GunCreator<? extends GunSpecification> getGunCreator(String type) {
         if (!gunCreatorByType.containsKey(type)) {
-            log.error("Not found GunCreator for type: " + type);
-            throw new IllegalArgumentException("Not found GunCreator for type: " + type);
+            log.error("Not found GunCreator for type: \"" + type + "\"");
+            throw new IllegalArgumentException("Not found GunCreator for type: \"" + type + "\"");
         }
 
         return gunCreatorByType.get(type);

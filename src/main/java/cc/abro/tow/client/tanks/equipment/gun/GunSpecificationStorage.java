@@ -33,7 +33,9 @@ public class GunSpecificationStorage {
                             .get("type").asText();
                     GunSpecification gunSpecification = loadGunSpecification(
                             gunSpecificationType, gunSpecificationFilepath);
-                    gunSpecificationByName.put(gunSpecificationFilename, gunSpecification);
+                    String gunName = gunSpecificationFilename.substring(0,
+                            gunSpecificationFilename.length() - ".json".length());
+                    gunSpecificationByName.put(gunName, gunSpecification);
                 }
             }
         } catch (IOException | URISyntaxException e) {
