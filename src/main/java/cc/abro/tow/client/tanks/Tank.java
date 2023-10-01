@@ -74,25 +74,24 @@ public abstract class Tank extends GameObject {
         movementComponent = new Movement<>();
         addComponent(movementComponent);
 
-        this.armorComponent = armorComponent;
-        addComponent(armorComponent);
-
         armorAnimationComponent = new AnimationOnMovementComponent(armorComponent.getAnimation().textures(), 1000,
                 armorComponent.getAnimationSpeedCoefficient()); //TODO вынести глубины в константы
         addComponent(armorAnimationComponent);
-
-        this.gunComponent = gunComponent;
-        addComponent(gunComponent);
 
         gunSpriteComponent = new SpriteRender<>(gunComponent.getSprite().texture(), 2000); //TODO вынести глубины в константы
         addComponent(gunSpriteComponent);
 
         tankStatsComponent = new TankStatsComponent();
-        addComponent(tankNicknameComponent);
+        addComponent(tankStatsComponent);
 
-        //TODO other components ...
+        this.armorComponent = armorComponent;
+        addComponent(armorComponent);
+        tankStatsComponent.addEffect(armorComponent.getEffect());
+        tankStatsComponent.setCurrentHp(tankStatsComponent.getStats().hpMax);
 
-        changeArmor(armorComponent);
+        this.gunComponent = gunComponent;
+        addComponent(gunComponent);
+        tankStatsComponent.addEffect(gunComponent.getEffect());
     }
 
     public void exploded() {
@@ -152,10 +151,10 @@ public abstract class Tank extends GameObject {
         tankStatsComponent.setCurrentHp(newCurrentHp);
 
         //Устанавливаем новую скорость
-        if (movementComponent.speed == lastSpeedUp) {
-            movementComponent.speed = tankStatsComponent.getStats().speedUp;
-        } else if (movementComponent.speed == lastSpeedDown) {
-            movementComponent.speed = tankStatsComponent.getStats().speedDown;
+        if (movementComponent.getSpeed() == lastSpeedUp) {
+            movementComponent.setSpeed(tankStatsComponent.getStats().speedUp);
+        } else if (movementComponent.getSpeed() == lastSpeedDown) {
+            movementComponent.setSpeed(tankStatsComponent.getStats().speedDown);
         }
     }
 
@@ -174,11 +173,10 @@ public abstract class Tank extends GameObject {
         addComponent(gunSpriteComponent);
 
         tankStatsComponent.addEffect(gunComponent.getEffect());
-        gunSpriteComponent.setColor(color);
     }
 
     public void changeHp(double delta) {
-        tankStatsComponent.setCurrentHp(tankStatsComponent.getCurrentHp() - delta);
+        tankStatsComponent.setCurrentHp(tankStatsComponent.getCurrentHp() + delta);
     }
 
     public void setColor(Color color) {
