@@ -33,7 +33,9 @@ public class ArmorSpecificationStorage {
                             .get("type").asText();
                     ArmorSpecification armorSpecification = loadArmorSpecification(
                             armorSpecificationType, armorSpecificationFilepath);
-                    armorSpecificationByName.put(armorSpecificationFilename, armorSpecification);
+                    String armorName = armorSpecificationFilename.substring(0,
+                            armorSpecificationFilename.length() - ".json".length());
+                    armorSpecificationByName.put(armorName, armorSpecification);
                 }
             }
         } catch (IOException | URISyntaxException e) {
