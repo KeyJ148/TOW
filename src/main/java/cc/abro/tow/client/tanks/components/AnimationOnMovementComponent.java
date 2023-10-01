@@ -23,10 +23,10 @@ public class AnimationOnMovementComponent extends AnimationRender<GameObject> {
 
         Optional<Movement> movementComponent = getGameObject().getOptionalComponent(Movement.class);
         if (movementComponent.isPresent()) {
-            if (movementComponent.get().speed != 0 && getFrameSpeed() == 0) {
-                setFrameSpeed(movementComponent.get().speed * frameSpeedCoefficient);
+            if (movementComponent.get().getSpeed() != 0 && getFrameSpeed() == 0) {
+                setFrameSpeed(Math.abs(movementComponent.get().getSpeed() * frameSpeedCoefficient));
             }
-            if (movementComponent.get().speed == 0 && getFrameSpeed() != 0) {
+            if (movementComponent.get().getSpeed() == 0 && getFrameSpeed() != 0) {
                 setFrameSpeed(0);
             }
         }

@@ -56,7 +56,7 @@ public class AnimationRender<T extends GameObject> extends Rendering<T> implemen
     }
 
     public void setFrameSpeed(double frameSpeed) {
-        if (frameSpeed < 0) {
+        if (frameSpeed < 0) { //TODO сделать поддержку обратного порядка: если frameSpeed < 0, то анимация проигрывается в обратную сторону с конца (В AnimationOnMovementComponent:27 убрать ABS)
             log.error("Frame speed must be >= 0");
             return;
         }
