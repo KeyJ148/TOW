@@ -43,7 +43,7 @@ public class LocalizationService {
 
 	public void fromInternalFile(String name){
 		String path = "locale/"+name+".properties";
-		log.info("Loading locale '"+name+"' ("+path+")");
+		log.debug("Loading locale '"+name+"' ("+path+")");
 		try(InputStream stream = ResourceLoader.getResourceAsStream(path)){
 			Localization locale = Localization.loadFromProps(stream);
 			locales.put(locale.getId(), locale);
