@@ -18,7 +18,7 @@ public class EnemyBullet extends GameObject {
 
 	public EnemyBullet(Location location, double x, double y, double speed, double direction, Texture texture, int idEnemy, long idNet) {
 		super(location, Arrays.asList(
-				new Movement(speed, direction),
+				new Movement(speed), //direction
 				new SpriteRender(texture, 1600)
 		));
 		setPosition(x, y);
@@ -28,10 +28,10 @@ public class EnemyBullet extends GameObject {
 		this.idNet = idNet;
 
 		if (texture.equals(getSpriteStorage().getSprite("b_streamlined").texture())) {
-			getComponent(Movement.class).directionDrawEquals = true;
+			//getComponent(Movement.class).directionDrawEquals = true; //Угол обзора объекта равен углу поворота
 			setDirection(0);
 		} else {
-			getComponent(Movement.class).directionDrawEquals = false;
+			//getComponent(Movement.class).directionDrawEquals = false; //Угол обзора объекта равен углу поворота
 		}
 	}
 
