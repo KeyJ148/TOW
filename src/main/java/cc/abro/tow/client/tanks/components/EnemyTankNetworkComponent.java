@@ -47,7 +47,7 @@ public class EnemyTankNetworkComponent extends Component<Tank> implements Updata
         getGameObject().getComponent(SpriteRender.class).setDirection(directionGun); //TODO получать компоненты через @Getter у танка. Для этогоСделать Component<T extends GameObject>
 
         //Для экстраполяции движения врага
-        getGameObject().getComponent(Movement.class).speed = speed;
+        getGameObject().getComponent(Movement.class).setSpeed(speed);
         getGameObject().getComponent(Movement.class).setDirection(moveDirection);
     }
 }
