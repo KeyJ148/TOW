@@ -1,10 +1,11 @@
 package cc.abro.tow.client.tanks.equipment.armor.vampire;
 
+import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.resources.animations.Animation;
 import cc.abro.tow.client.tanks.equipment.armor.defaults.DefaultArmorComponent;
 import cc.abro.tow.client.tanks.stats.Effect;
 
-public class VampireArmorComponent extends DefaultArmorComponent {
+public class VampireArmorComponent extends DefaultArmorComponent implements Updatable {
 
     private final double speedUpMax;
     private final double speedUpMin;
@@ -34,31 +35,15 @@ public class VampireArmorComponent extends DefaultArmorComponent {
         this.speedRotateTankMax = speedRotateTankMax;
     }
 
-    //TODO implement Update and release speed change
-    /*
     @Override
     public void update(long delta) {
-        getEffect().addition.speedTankUp = speedUpMax - ((1 - player.vampire) * (speedUpMax - speedUpMin));
-        getEffect()f.addition.directionTankUp = directionTankUpMax - ((1 - player.vampire) * (directionTankUpMax - directionTankUpMin));
-        setSpeedDown();
+        double vampire = getGameObject().getTankVampireComponent().getVampire();
+        double newSpeedUp = speedUpMax - ((1 - vampire) * (speedUpMax - speedUpMin));
+        double newSpeedDown = speedDownMax - ((1 - vampire) * (speedDownMax - speedDownMin));
+        double newSpeedRotateTank = speedRotateTankMax - ((1 - vampire) * (speedRotateTankMax - speedRotateTankMin));
 
-
-        getGameObject().getTankStatsComponent().updateStats(); //TODO сделать так же и в других Vampire/Fury компонентах
+        getEffect().addition.speedUp = newSpeedUp;
+        getEffect().addition.speedDown = newSpeedDown;
+        getEffect().addition.speedRotateTank = newSpeedRotateTank;
     }
-
-    @Override //TODO factory collection? As a MapObjectFactory
-    public void loadData() {
-        super.loadData();
-
-        ConfigReader cr = new ConfigReader(getConfigFileName());
-        speedUpMax = cr.findDouble("MAX_SPEED_UP");
-        speedUpMin = cr.findDouble("MIN_SPEED_UP");
-        directionTankUpMax = cr.findDouble("MAX_DIRECTION_TANK_UP");
-        directionTankUpMin = cr.findDouble("MIN_DIRECTION_TANK_UP");
-    }
-
-    public void setSpeedDown() {
-        effect.addition.speedTankDown = effect.addition.speedTankUp * (6.0 / 10.0);
-    }
-     */
 }
