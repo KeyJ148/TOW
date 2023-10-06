@@ -23,12 +23,10 @@ public class FuryGunComponent extends DefaultGunComponent {
         this.attackSpeedMax = attackSpeedMax;
     }
 
-    //TODO
-    /*
     @Override
     public void update(long delta) {
-
-        effect.addition.attackSpeed = attackSpeedMax - ((player.hp / player.stats.hpMax) * (attackSpeedMax - attackSpeedMin));
+        double percentHp = getGameObject().getTankStatsComponent().getCurrentHp() /
+                getGameObject().getTankStatsComponent().getStats().hpMax;
+        getEffect().addition.attackSpeed = attackSpeedMax - (percentHp * (attackSpeedMax - attackSpeedMin));
     }
-     */
 }
