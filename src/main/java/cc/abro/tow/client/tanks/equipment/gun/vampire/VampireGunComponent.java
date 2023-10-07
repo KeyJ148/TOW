@@ -27,6 +27,6 @@ public class VampireGunComponent extends DefaultGunComponent {
     public void update(long delta) {
         double vampire = getGameObject().getTankVampireComponent().getVampire();
         double newAttackSpeed = attackSpeedMax - ((1 - vampire) * (attackSpeedMax - attackSpeedMin));
-        getEffect().addition.attackSpeed = newAttackSpeed;
+        getEffect().getAddition().setAttackSpeed(newAttackSpeed);
     }
 }

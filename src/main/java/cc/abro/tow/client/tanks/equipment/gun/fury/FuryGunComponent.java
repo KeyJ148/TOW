@@ -26,7 +26,7 @@ public class FuryGunComponent extends DefaultGunComponent {
     @Override
     public void update(long delta) {
         double percentHp = getGameObject().getTankStatsComponent().getCurrentHp() /
-                getGameObject().getTankStatsComponent().getStats().hpMax;
-        getEffect().addition.attackSpeed = attackSpeedMax - (percentHp * (attackSpeedMax - attackSpeedMin));
+                getGameObject().getTankStatsComponent().getStats().getHpMax();
+        getEffect().getAddition().setAttackSpeed(attackSpeedMax - (percentHp * (attackSpeedMax - attackSpeedMin)));
     }
 }

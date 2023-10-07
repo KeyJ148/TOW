@@ -42,8 +42,8 @@ public class VampireArmorComponent extends DefaultArmorComponent implements Upda
         double newSpeedDown = speedDownMax - ((1 - vampire) * (speedDownMax - speedDownMin));
         double newSpeedRotateTank = speedRotateTankMax - ((1 - vampire) * (speedRotateTankMax - speedRotateTankMin));
 
-        getEffect().addition.speedUp = newSpeedUp;
-        getEffect().addition.speedDown = newSpeedDown;
-        getEffect().addition.speedRotateTank = newSpeedRotateTank;
+        getEffect().getAddition().setSpeedUp(newSpeedUp);
+        getEffect().getAddition().setSpeedDown(newSpeedDown);
+        getEffect().getAddition().setSpeedRotateTank(newSpeedRotateTank);
     }
 }

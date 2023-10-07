@@ -31,8 +31,8 @@ public class FuryArmorComponent extends DefaultArmorComponent implements Updatab
     @Override
     public void update(long delta) {
         double percentHp = getGameObject().getTankStatsComponent().getCurrentHp() /
-                getGameObject().getTankStatsComponent().getStats().hpMax;
-        getEffect().addition.speedUp = speedUpMax - (percentHp * (speedUpMax - speedUpMin));
-        getEffect().addition.speedDown = speedDownMax - (percentHp * (speedDownMax - speedDownMin));
+                getGameObject().getTankStatsComponent().getStats().getHpMax();
+        getEffect().getAddition().setSpeedUp(speedUpMax - (percentHp * (speedUpMax - speedUpMin)));
+        getEffect().getAddition().setSpeedDown(speedDownMax - (percentHp * (speedDownMax - speedDownMin)));
     }
 }
