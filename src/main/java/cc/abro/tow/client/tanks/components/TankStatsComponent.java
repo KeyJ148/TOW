@@ -12,13 +12,13 @@ import java.util.List;
 
 public class TankStatsComponent extends Component<Tank> implements Updatable {
 
-    @Getter
-    private Stats stats = new Stats(); //TODO unmutable, иначе исправить метод getStats()
+    private Stats stats = Stats.builder().build();
     private final List<Effect> effects = new ArrayList<>();
 
     @Getter
     private double currentHp;
 
+    @Override
     public void update(long delta) {
         if (currentHp < 0) {
             getGameObject().exploded();
@@ -26,7 +26,11 @@ public class TankStatsComponent extends Component<Tank> implements Updatable {
         }
 
         updateStats();
-        setCurrentHp(getCurrentHp() + delta / Math.pow(10, 9) * stats.hpRegen);
+        setCurrentHp(getCurrentHp() + delta / Math.pow(10, 9) * stats.getHpRegen());
+    }
+
+    public Stats getStats() {
+        return new Stats.StatsBuilder(stats).build();
     }
 
     public void addEffect(Effect effect) {
@@ -40,16 +44,17 @@ public class TankStatsComponent extends Component<Tank> implements Updatable {
     }
 
     public void setCurrentHp(double currentHp) {
-        this.currentHp = Math.min(currentHp, stats.hpMax);
+        this.currentHp = Math.min(currentHp, stats.getHpMax());
     }
 
     private void updateStats() {
-        stats = new Stats();
+        Stats.StatsBuilder statsBuilder = Stats.builder();
         for (Effect effect : effects) {
-            effect.calcAddStats(stats);
+            statsBuilder.addStats(effect.getAddition());
         }
         for (Effect effect : effects) {
-            effect.calcMultiStats(stats);
+            statsBuilder.multiStats(effect.getMulti()); //TODO в начале суммировать множители, а потом умножать на них? Т.к. сейчас +30% и -30% = 1*1.3*0.7 = 0.91
         }
+        stats = statsBuilder.build();
     }
 }
