@@ -20,7 +20,7 @@ public class PlayerTankStatsGuiComponent extends Component<Tank> implements Upda
     private boolean printStats = false;
 
     public PlayerTankStatsGuiComponent() {
-        for (int i = 0; i < new Stats().toString().split("\n").length + 4; i++) {
+        for (int i = 0; i < Stats.builder().build().toString().split("\n").length + 4; i++) {
             Label label = createStatsLabel();
             label.setPosition(1, 30 + i * 15);
 

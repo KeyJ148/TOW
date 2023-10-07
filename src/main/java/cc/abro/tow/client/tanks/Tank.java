@@ -87,7 +87,7 @@ public abstract class Tank extends GameObject {
         this.armorComponent = armorComponent;
         addComponent(armorComponent);
         tankStatsComponent.addEffect(armorComponent.getEffect());
-        tankStatsComponent.setCurrentHp(tankStatsComponent.getStats().hpMax);
+        tankStatsComponent.setCurrentHp(tankStatsComponent.getStats().getHpMax());
 
         this.gunComponent = gunComponent;
         addComponent(gunComponent);
@@ -123,9 +123,9 @@ public abstract class Tank extends GameObject {
     }
 
     public void changeArmor(ArmorComponent newArmorComponent) {
-        double lastMaxHp = tankStatsComponent.getStats().hpMax;
-        double lastSpeedUp = tankStatsComponent.getStats().speedUp;
-        double lastSpeedDown = tankStatsComponent.getStats().speedDown;
+        double lastMaxHp = tankStatsComponent.getStats().getHpMax();
+        double lastSpeedUp = tankStatsComponent.getStats().getSpeedUp();
+        double lastSpeedDown = tankStatsComponent.getStats().getSpeedDown();
         tankStatsComponent.removeEffect(armorComponent.getEffect());
 
         armorComponent.destroy();
@@ -144,7 +144,7 @@ public abstract class Tank extends GameObject {
 
         //Устанавливаем эквивалентное здоровье в процентах
         double lastCurrentHp = tankStatsComponent.getCurrentHp();
-        double newMaxHp = tankStatsComponent.getStats().hpMax;
+        double newMaxHp = tankStatsComponent.getStats().getHpMax();
         double newCurrentHp = lastMaxHp != 0 ?
                 lastCurrentHp / lastMaxHp * newMaxHp :
                 newMaxHp;
@@ -152,9 +152,9 @@ public abstract class Tank extends GameObject {
 
         //Устанавливаем новую скорость
         if (movementComponent.getSpeed() == lastSpeedUp) {
-            movementComponent.setSpeed(tankStatsComponent.getStats().speedUp);
+            movementComponent.setSpeed(tankStatsComponent.getStats().getSpeedUp());
         } else if (movementComponent.getSpeed() == lastSpeedDown) {
-            movementComponent.setSpeed(tankStatsComponent.getStats().speedDown);
+            movementComponent.setSpeed(tankStatsComponent.getStats().getSpeedDown());
         }
     }
 
