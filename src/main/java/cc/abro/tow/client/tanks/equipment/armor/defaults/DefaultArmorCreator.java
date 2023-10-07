@@ -5,6 +5,7 @@ import cc.abro.orchengine.resources.animations.Animation;
 import cc.abro.orchengine.resources.animations.AnimationStorage;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorCreator;
 import cc.abro.tow.client.tanks.stats.Effect;
+import cc.abro.tow.client.tanks.stats.Stats;
 
 public class DefaultArmorCreator<T extends DefaultArmorSpecification> extends ArmorCreator<T> {
 
@@ -28,14 +29,17 @@ public class DefaultArmorCreator<T extends DefaultArmorSpecification> extends Ar
     }
 
     protected Effect createEffect(T armorSpecification) {
+        Stats stats = Stats.builder()
+                .setHpMax(armorSpecification.getHpMax())
+                .setHpRegen(armorSpecification.getHpRegen())
+                .setSpeedUp(armorSpecification.getSpeedUp())
+                .setSpeedDown(armorSpecification.getSpeedDown())
+                .setSpeedRotateGun(armorSpecification.getSpeedRotateGun())
+                .setSpeedRotateTank(armorSpecification.getSpeedRotateTank())
+                .setStability(armorSpecification.getStability())
+                .build();
         Effect effect = new Effect();
-        effect.addition.hpMax = armorSpecification.getHpMax();
-        effect.addition.hpRegen = armorSpecification.getHpRegen();
-        effect.addition.speedUp = armorSpecification.getSpeedUp();
-        effect.addition.speedDown = armorSpecification.getSpeedDown();
-        effect.addition.speedRotateGun = armorSpecification.getSpeedRotateGun();
-        effect.addition.speedRotateTank = armorSpecification.getSpeedRotateTank();
-        effect.addition.stability = armorSpecification.getStability();
+        effect.setAddition(stats);
         return effect;
     }
 

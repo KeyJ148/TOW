@@ -32,11 +32,11 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
     }
 
     public void tryAttack() {
-        if (nanoSecToAttack > 0 || getGameObject().getTankStatsComponent().getStats().attackSpeed <= 0){
+        if (nanoSecToAttack > 0 || getGameObject().getTankStatsComponent().getStats().getAttackSpeed() <= 0){
             return;
         }
 
-        double attackSpeed = getGameObject().getTankStatsComponent().getStats().attackSpeed;
+        double attackSpeed = getGameObject().getTankStatsComponent().getStats().getAttackSpeed();
         nanoSecToAttack = (long) (Math.pow(10, 9) / attackSpeed); //Устанавливаем время перезарядки
 
         //По очереди стреляем из всех стволов

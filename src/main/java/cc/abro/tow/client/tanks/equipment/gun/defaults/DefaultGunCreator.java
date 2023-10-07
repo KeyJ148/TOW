@@ -6,6 +6,7 @@ import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunCreator;
 import cc.abro.tow.client.tanks.stats.Effect;
+import cc.abro.tow.client.tanks.stats.Stats;
 
 public class DefaultGunCreator<T extends DefaultGunSpecification> extends GunCreator<T> {
 
@@ -29,11 +30,14 @@ public class DefaultGunCreator<T extends DefaultGunSpecification> extends GunCre
     }
 
     protected Effect createEffect(T gunSpecification) {
+        Stats stats = Stats.builder()
+                .setAttackSpeed(gunSpecification.getAttackSpeed())
+                .setSpeedRotateGun(gunSpecification.getSpeedRotate())
+                .setDamage(gunSpecification.getDamage())
+                .setRange(gunSpecification.getRange())
+                .build();
         Effect effect = new Effect();
-        effect.addition.attackSpeed = gunSpecification.getAttackSpeed();
-        effect.addition.speedRotateGun = gunSpecification.getSpeedRotate();
-        effect.addition.damage = gunSpecification.getDamage();
-        effect.addition.range = gunSpecification.getRange();
+        effect.setAddition(stats);
         return effect;
     }
 
