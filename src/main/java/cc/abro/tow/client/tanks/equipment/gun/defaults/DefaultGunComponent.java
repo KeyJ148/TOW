@@ -6,7 +6,7 @@ import cc.abro.tow.client.tanks.stats.Effect;
 
 import java.util.List;
 
-public class DefaultGunComponent extends GunComponent{
+public class DefaultGunComponent extends GunComponent {
 
     public DefaultGunComponent(String name,
                                String title,

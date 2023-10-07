@@ -193,11 +193,6 @@ public class PlayerTankMovementControllerComponent extends Component<Tank> imple
                     case GLFW_KEY_F4 -> Context.getService(GuiService.class).setMaskRendering(
                             !Context.getService(GuiService.class).isMaskRendering());
 
-
-                    //Переключение камер после смерти //TODO в соответствующий сервис
-                    case GLFW_KEY_LEFT -> cameraToNextEnemy();
-                    case GLFW_KEY_RIGHT -> cameraToPrevEnemy();
-
                     //Клавиши для одиночной игры //TODO в отдельный сервис
                     //Переход на новую карту
                     case GLFW_KEY_N -> player.hp = -1000;

@@ -25,6 +25,7 @@ public class TankStatsComponent extends Component<Tank> implements Updatable {
             return;
         }
 
+        updateStats();
         setCurrentHp(getCurrentHp() + delta / Math.pow(10, 9) * stats.hpRegen);
     }
 
@@ -38,19 +39,17 @@ public class TankStatsComponent extends Component<Tank> implements Updatable {
         updateStats();
     }
 
-    public void updateStats() {
-        stats = new Stats();
+    public void setCurrentHp(double currentHp) {
+        this.currentHp = Math.min(currentHp, stats.hpMax);
+    }
 
+    private void updateStats() {
+        stats = new Stats();
         for (Effect effect : effects) {
             effect.calcAddStats(stats);
         }
-
         for (Effect effect : effects) {
             effect.calcMultiStats(stats);
         }
-    }
-
-    public void setCurrentHp(double currentHp) {
-        this.currentHp = Math.min(currentHp, stats.hpMax);
     }
 }
