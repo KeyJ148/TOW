@@ -2,12 +2,13 @@ package cc.abro.tow.client.tanks.equipment.armor;
 
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.resources.animations.Animation;
+import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.stats.Effect;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class ArmorComponent extends Component {
+public abstract class ArmorComponent extends Component<Tank> {
 
     @Getter
     private final String name; //Имя файла и техническое имя брони

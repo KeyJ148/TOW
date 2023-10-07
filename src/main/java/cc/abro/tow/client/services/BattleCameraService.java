@@ -17,6 +17,15 @@ public class BattleCameraService {
             }
         }
 
+    //В контроллер
+    //Переключение камер после смерти //TODO в соответствующий сервис
+    List<KeyEvent<?>> keyboardEvents = getGameObject().getLocation().getGuiLocationFrame().getKeyboard().getEventHistory().getList();
+        for (KeyEvent<?> event : keyboardEvents) {
+        if (event.getAction() == GLFW_PRESS) {// Клавиша нажата
+            switch (event.getKey()) {
+                    case GLFW_KEY_LEFT -> cameraToNextEnemy();
+                    case GLFW_KEY_RIGHT -> cameraToPrevEnemy();
+
     //TODO разобрать и реализовать
     private void cameraToNextEnemy() {
         if (!locationManager.getActiveLocation().getCamera().hasFollowObject()){
