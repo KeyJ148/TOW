@@ -25,7 +25,7 @@ public class PlayerTankHpGuiComponent extends Component<Tank> implements Updatab
         TankStatsComponent statsComponent = getGameObject().getTankStatsComponent();
         //Отрисовка HP
         hpLabel.getTextState().setText("HP: " + Math.round(statsComponent.getCurrentHp())
-                + "/" + Math.round(statsComponent.getStats().hpMax));
+                + "/" + Math.round(statsComponent.getStats().getHpMax()));
     }
 
     @Override

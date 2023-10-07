@@ -68,8 +68,8 @@ public class PlayerTankMovementControllerComponent extends Component<Tank> imple
 
             //Движение корпуса танка
             movementComponent.setSpeed(0);
-            if (runUp) movementComponent.setSpeed(stats.speedUp);
-            if (runDown) movementComponent.setSpeed(-stats.speedDown);
+            if (runUp) movementComponent.setSpeed(stats.getSpeedUp());
+            if (runDown) movementComponent.setSpeed(-stats.getSpeedDown());
         }
 
 
@@ -95,7 +95,7 @@ public class PlayerTankMovementControllerComponent extends Component<Tank> imple
          */
         if (turnLeft || turnRight) {
             //Скорость поворота
-            double deltaDirection = ((double) delta) / Math.pow(10, 9) * stats.speedRotateTank;
+            double deltaDirection = ((double) delta) / Math.pow(10, 9) * stats.getSpeedRotateTank();
 
             //Если происходит отбрасывание назад, то скорость в 3 раза меньше
             if (recoil) deltaDirection = deltaDirection / 3;
@@ -132,7 +132,7 @@ public class PlayerTankMovementControllerComponent extends Component<Tank> imple
 
         if (gameObject.getClass().equals(DestroyedMapObject.class)) {
             DestroyedMapObject destroyedMapObject = (DestroyedMapObject) gameObject;
-            if (destroyedMapObject.getStability() < stats.stability){
+            if (destroyedMapObject.getStability() < stats.getStability()){
                 Context.getService(TCPControl.class).send(22, String.valueOf(destroyedMapObject.getId()));
                 destroyedMapObject.destroy();
             }

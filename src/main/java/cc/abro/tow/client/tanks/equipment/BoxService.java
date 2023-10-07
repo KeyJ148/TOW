@@ -33,11 +33,11 @@ public class BoxService {
             }
             case HEALTH -> {
                 if (!equipmentController.isPlayerCanTakeHeal()) return;
-                clientData.player.changeHp(clientData.player.getTankStatsComponent().getStats().hpMax * 0.4);
+                clientData.player.changeHp(clientData.player.getTankStatsComponent().getStats().getHpMax() * 0.4);
             }
             case HEALTH_FULL -> {
                 if (!equipmentController.isPlayerCanTakeHeal()) return;
-                clientData.player.changeHp(clientData.player.getTankStatsComponent().getStats().hpMax);
+                clientData.player.changeHp(clientData.player.getTankStatsComponent().getStats().getHpMax());
             }
         }
     }

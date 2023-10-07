@@ -25,7 +25,7 @@ public class PlayerTankGunRotateControllerComponent extends Component<Tank> impl
 
         double pointDir = -Math.toDegrees(Math.atan((relativeY - getGameObject().getLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().y) / (relativeX - getGameObject().getLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().x)));
 
-        double speedRotateGun = ((double) delta / 1000000000) * (stats.speedRotateGun);
+        double speedRotateGun = ((double) delta / 1000000000) * (stats.getSpeedRotateGun());
         if ((relativeX - getGameObject().getLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().x) > 0) {
             pointDir += 180;
         } else if ((relativeY - getGameObject().getLocation().getGuiLocationFrame().getMouse().getCursor().getPosition().y) < 0) {
