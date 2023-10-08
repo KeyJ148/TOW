@@ -75,10 +75,10 @@ public abstract class Tank extends GameObject {
         addComponent(movementComponent);
 
         armorAnimationComponent = new AnimationOnMovementComponent(armorComponent.getAnimation().textures(), 1000,
-                armorComponent.getAnimationSpeedCoefficient()); //TODO вынести глубины в константы
+                armorComponent.getAnimationSpeedCoefficient());
         addComponent(armorAnimationComponent);
 
-        gunSpriteComponent = new SpriteRender<>(gunComponent.getSprite().texture(), 2000); //TODO вынести глубины в константы
+        gunSpriteComponent = new SpriteRender<>(gunComponent.getSprite().texture(), 2000);
         addComponent(gunSpriteComponent);
 
         tankStatsComponent = new TankStatsComponent();
@@ -136,7 +136,7 @@ public abstract class Tank extends GameObject {
         armorComponent = newArmorComponent;
         addComponent(armorComponent);
         armorAnimationComponent = new AnimationOnMovementComponent(newArmorComponent.getAnimation().textures(),
-                1000, newArmorComponent.getAnimationSpeedCoefficient()); //TODO вынести глубины в константы
+                1000, newArmorComponent.getAnimationSpeedCoefficient());
         armorAnimationComponent.setColor(color);
         addComponent(armorAnimationComponent);
 
@@ -168,7 +168,7 @@ public abstract class Tank extends GameObject {
 
         gunComponent = newGunComponent;
         addComponent(armorComponent);
-        gunSpriteComponent = new SpriteRender<>(newGunComponent.getSprite().texture(), 2000); //TODO вынести глубины в константы
+        gunSpriteComponent = new SpriteRender<>(newGunComponent.getSprite().texture(), 2000);
         gunSpriteComponent.setColor(color);
         addComponent(gunSpriteComponent);
 

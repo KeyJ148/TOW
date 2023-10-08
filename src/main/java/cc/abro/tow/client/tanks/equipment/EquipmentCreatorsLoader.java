@@ -18,7 +18,7 @@ public class EquipmentCreatorsLoader {
     private final ArmorCreatorsStorage armorCreatorsStorage;
     private final GunCreatorsStorage gunCreatorsStorage;
 
-    public void load() { //TODO просто сканить аннотации и добавлять автоматически по аннотациям. Отдельные классы для брони/оружия/патрон. Общий сервис для скана по аннотациям.
+    public void load() {
         armorCreatorsStorage.addArmorCreator(new DefaultArmorCreator<>());
         armorCreatorsStorage.addArmorCreator(new FuryArmorCreator<>());
         armorCreatorsStorage.addArmorCreator(new VampireArmorCreator<>());

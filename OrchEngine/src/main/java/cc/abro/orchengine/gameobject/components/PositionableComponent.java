@@ -27,7 +27,7 @@ public class PositionableComponent<T extends GameObject> extends Component<T> im
         return getGameObject().getX() + deltaX + deltaX2;
     }
 
-    public void setX(double x) { //TODO Сейчас работает некорректно: setX не является обратной операцией для getX, т.к. не учитывает direction. Аналогично setY.
+    public void setX(double x) {
         this.relativeX = x - getGameObject().getX();
         notifyChangePositionListeners();
     }

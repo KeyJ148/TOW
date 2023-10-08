@@ -27,6 +27,7 @@ public class Collision extends DrawableCollidableComponent {
 
     @Override
     public void initialize() {
+        super.initialize();
         maskRecalculate();
     }
 

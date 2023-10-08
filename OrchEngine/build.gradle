@@ -27,6 +27,7 @@ dependencies {
 
     implementation 'com.spinyowl:legui:4.1.0'
     implementation 'io.cucumber:cucumber-picocontainer:7.11.1'
+    implementation 'com.google.guava:guava:31.0.1-jre'
 
     implementation 'org.slf4j:slf4j-api:2.0.6'
     implementation 'org.slf4j:slf4j-nop:2.0.6'

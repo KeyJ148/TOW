@@ -12,7 +12,7 @@ public class Movement<T extends GameObject> extends PositionableComponent<T> imp
     @Getter
     private double xPrevious;//коры объекта в предыдущем шаге
     @Getter
-    private double yPrevious;//(для столкновения) //TODO мб в контроллер вынести или куда-то в компонент отвечающий за физику (не за коллизии), тогда можно будет убрать getPreliminaryUpdateComponents из TankMovementController, т.к. оно тупо для выставления Previous
+    private double yPrevious;//(для столкновения)
     @Getter
     private double directionPrevious;//Угол объекта в предыдущем шаге (для столкновения)
 
@@ -26,6 +26,7 @@ public class Movement<T extends GameObject> extends PositionableComponent<T> imp
 
     @Override
     public void initialize() {
+        super.initialize();
         setPreviousData();
     }
 

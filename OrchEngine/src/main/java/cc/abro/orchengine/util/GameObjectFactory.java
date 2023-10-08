@@ -31,19 +31,19 @@ public class GameObjectFactory {
 
     public GameObject create(Location location, double x, double y, int z, double directionDraw, Texture texture) {
         GameObject gameObject = create(location, x, y, directionDraw);
-        gameObject.addComponent(new SpriteRender(texture, z));
+        gameObject.addComponent(new SpriteRender<>(texture, z));
 
         return gameObject;
     }
 
     public GameObject create(Location location, double x, double y, int z, double directionDraw, List<Texture> textures) {
         GameObject gameObject = create(location, x, y, directionDraw);
-        gameObject.addComponent(new AnimationRender(textures, z));
+        gameObject.addComponent(new AnimationRender<>(textures, z));
 
         return gameObject;
     }
 
-    public GameObject create(Location location, Component component) {
+    public GameObject create(Location location, Component<GameObject> component) {
         GameObject gameObject = create(location, 0, 0);
         gameObject.addComponent(component);
         return gameObject;
