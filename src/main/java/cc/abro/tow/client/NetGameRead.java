@@ -2,7 +2,6 @@ package cc.abro.tow.client;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.GameService;
-import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.init.interfaces.NetGameReadInterface;
@@ -268,11 +267,12 @@ public class NetGameRead implements NetGameReadInterface {
 	//я подобрал ящик - (int idBox)
 	public void take21(String str) {
 		int idBox = Integer.parseInt(str.split(" ")[0]);
+		/* TODO реализовать уничтожение ящика при подборе его противником
 		for (GameObject gameObject : Context.getService(LocationManager.class).getActiveLocation().getObjects()) {
 			if (gameObject instanceof Box && ((Box) gameObject).getId() == idBox) {
 				gameObject.destroy();
 			}
-		}
+		}*/
 	}
 
 	//объект карты уничтожен бронёй - (int mid)

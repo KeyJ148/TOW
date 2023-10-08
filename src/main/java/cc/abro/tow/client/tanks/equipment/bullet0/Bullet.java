@@ -125,15 +125,13 @@ public class Bullet extends GameObject implements CollisionListener{
         }
     }
 
-    @Override
-    public void update(long delta) {
+    //TODO move to component
+    public void update() {
         if (!isDestroyed()) {
             if (Math.sqrt(Math.pow(startX - getX(), 2) + Math.pow(startY - getY(), 2)) >= range) {
                 destroy(0);
             }
         }
-
-        super.update(delta);
     }
 
     public void playSoundShot() {
