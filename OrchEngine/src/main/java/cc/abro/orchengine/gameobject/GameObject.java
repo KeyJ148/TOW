@@ -22,10 +22,10 @@ public class GameObject extends CachedComponentsContainer implements ServiceCons
         this(location, Collections.emptyList());
     }
 
-    public GameObject(Location location, Collection<Component> initComponents) {
+    public GameObject(Location location, Collection<Component<GameObject>> initComponents) {
         this.location = location;
         location.add(this);
-        for (Component component : initComponents) {
+        for (Component<GameObject> component : initComponents) {
             addComponent(component);
         }
     }
@@ -45,6 +45,10 @@ public class GameObject extends CachedComponentsContainer implements ServiceCons
             destroyed = true;
             getLocation().runAfterUpdateOnce(this::destroyAfterUpdate);
         }
+    }
+
+    public void postEvent(Object event) {
+        getLocation().postEvent(event);
     }
 
     public Vector2<Double> getRelativePosition() {

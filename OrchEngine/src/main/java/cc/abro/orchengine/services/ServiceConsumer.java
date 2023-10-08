@@ -70,6 +70,4 @@ public interface ServiceConsumer {
     default LocalizationService getLocalizationService(){
         return Context.getService(LocalizationService.class);
     }
-
-
 }

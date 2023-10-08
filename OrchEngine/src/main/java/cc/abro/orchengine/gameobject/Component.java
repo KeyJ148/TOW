@@ -17,6 +17,10 @@ public abstract class Component<T extends GameObject> implements ServiceConsumer
         this.gameObject = gameObject;
     }
 
+    public void postEvent(Object event) {
+        getGameObject().postEvent(event);
+    }
+
     public void initialize() {}
 
     public void destroy() {}
