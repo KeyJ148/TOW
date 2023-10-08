@@ -22,6 +22,9 @@ public class GunSpecificationStorage {
 
     public GunSpecificationStorage(GunCreatorsStorage gunCreatorsStorage) {
         this.gunCreatorsStorage = gunCreatorsStorage;
+    }
+
+    public void init() {
         try {
             List<String> gunSpecificationFilenames = ResourceLoader.scanResources(CONFIGS_PATH);
             log.info("Found " + (gunSpecificationFilenames.size() - 1) + " gun specifications");
@@ -59,7 +62,7 @@ public class GunSpecificationStorage {
             log.debug("Load gun specification \"" + filepath + "\" completed");
             return (GunSpecification) gunSpecification;
         } catch (Exception e) {
-            log.error("Gun specification \"" + filepath + "\" not loading");
+            log.error("Gun specification \"" + filepath + "\" not loading", e);
             throw new IllegalStateException("Gun specification \"" + filepath + "\" not loading");
         }
     }

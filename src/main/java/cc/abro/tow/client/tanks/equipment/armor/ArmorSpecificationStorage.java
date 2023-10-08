@@ -22,6 +22,9 @@ public class ArmorSpecificationStorage {
 
     public ArmorSpecificationStorage(ArmorCreatorsStorage armorCreatorsStorage) {
         this.armorCreatorsStorage = armorCreatorsStorage;
+    }
+
+    public void init() {
         try {
             List<String> armorSpecificationFilenames = ResourceLoader.scanResources(CONFIGS_PATH);
             log.info("Found " + (armorSpecificationFilenames.size() - 1) + " armor specifications");

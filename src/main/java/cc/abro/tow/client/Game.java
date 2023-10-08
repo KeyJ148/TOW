@@ -23,6 +23,8 @@ import cc.abro.tow.client.settings.DevSettingsService;
 import cc.abro.tow.client.settings.Settings;
 import cc.abro.tow.client.settings.SettingsService;
 import cc.abro.tow.client.tanks.equipment.EquipmentCreatorsLoader;
+import cc.abro.tow.client.tanks.equipment.armor.ArmorSpecificationStorage;
+import cc.abro.tow.client.tanks.equipment.gun.GunSpecificationStorage;
 import cc.abro.tow.server.ServerLoader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -48,6 +50,8 @@ public class Game implements GameInterface {
     private final LocalizationService localizationService;
     private final MapObjectCreatorsLoader mapObjectCreatorsLoader;
     private final EquipmentCreatorsLoader equipmentCreatorsLoader;
+    private final ArmorSpecificationStorage armorSpecificationStorage;
+    private final GunSpecificationStorage gunSpecificationStorage;
 
     @Override
     public void init() {
@@ -88,8 +92,10 @@ public class Game implements GameInterface {
 
         mapObjectCreatorsLoader.load();
         equipmentCreatorsLoader.load();
+        armorSpecificationStorage.init();
+        gunSpecificationStorage.init();
 
-        guiPanelStorage.registry(new MainMenuGuiPanel());//TODO тоже через аннотации, как и другие сторейджи
+        guiPanelStorage.registry(new MainMenuGuiPanel());
         guiPanelStorage.registry(new ConnectByIPMenuGuiPanel());
         guiPanelStorage.registry(new ListOfServersMenuGuiPanel());
         guiPanelStorage.registry(new CreateGameMenuGuiPanel());
