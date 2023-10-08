@@ -49,11 +49,6 @@ public class ObjectsContainer {
         gameObject.removeListener(saveComponentEventListener);
     }
 
-    /* Прокси методы */
-    public Set<GameObject> getObjects() {
-        return gameObjectsCache.getObjects();
-    }
-
     public void destroy() {
         gameObjectsCache.destroy();
     }
@@ -62,7 +57,6 @@ public class ObjectsContainer {
         activateAllComponentChangedEvents();
         gameObjectChangedEvents.clear();
 
-        gameObjectsCache.getObjects().forEach(g -> g.update(delta));
         updatableObjectsCache.update(delta);
         collidingObjectsCache.update(delta);
     }

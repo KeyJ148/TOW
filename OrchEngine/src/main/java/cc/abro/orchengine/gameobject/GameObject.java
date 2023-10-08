@@ -37,8 +37,6 @@ public class GameObject extends CachedComponentsContainer implements ServiceCons
         getLocation().runBeforeUpdateOnce(component::initialize);
     }
 
-    public void update(long delta) {}
-
     /**
      * The object will be destroyed only at the end of his update cycle
      */
