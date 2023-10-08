@@ -12,7 +12,7 @@ public class Explosion extends ParticlesTexture<GameObject> {
     private final double size;
 
     public Explosion(double size) {
-        super(3000); //TODO вынести глубину в константы
+        super(3000);
         this.size = size;
     }
 

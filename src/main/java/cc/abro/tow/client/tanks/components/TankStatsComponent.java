@@ -53,7 +53,7 @@ public class TankStatsComponent extends Component<Tank> implements Updatable {
             statsBuilder.addStats(effect.getAddition());
         }
         for (Effect effect : effects) {
-            statsBuilder.multiStats(effect.getMulti()); //TODO в начале суммировать множители, а потом умножать на них? Т.к. сейчас +30% и -30% = 1*1.3*0.7 = 0.91
+            statsBuilder.multiStats(effect.getMulti());
         }
         stats = statsBuilder.build();
     }

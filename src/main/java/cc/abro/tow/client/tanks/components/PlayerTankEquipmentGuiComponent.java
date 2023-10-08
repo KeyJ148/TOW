@@ -33,11 +33,13 @@ public class PlayerTankEquipmentGuiComponent extends Component<GameObject> {
 
     @Override
     public void initialize() {
+        super.initialize();
         getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().addAll(playerCanTakeBoxButtons);
     }
 
     @Override
     public void destroy() {
+        super.destroy();
         getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer()
                 .removeAll(playerCanTakeBoxButtons);
     }
@@ -46,7 +48,7 @@ public class PlayerTankEquipmentGuiComponent extends Component<GameObject> {
         playerCanTakeBoxButtons.get(index).getTextState().setText(active ? "" : "x");
     }
 
-    private Button createButton(Background background) { //TODO куда-нибудь в сервис интерфейса?
+    private Button createButton(Background background) {
         Button button = new Button("");
         SimpleLineBorder buttonTakeBorder = new SimpleLineBorder(ColorConstants.black(), 1);
         button.getStyle().setBorder(buttonTakeBorder);

@@ -27,6 +27,7 @@ public class TankNicknameComponent extends PositionableIgnoreParentDirectionComp
 
     @Override
     public void initialize() {
+        super.initialize();
         getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(nickname);
     }
 

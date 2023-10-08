@@ -30,6 +30,7 @@ public class PlayerTankStatsGuiComponent extends Component<Tank> implements Upda
 
     @Override
     public void initialize() {
+        super.initialize();
         getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().addAll(statsLabels);
     }
 
@@ -63,10 +64,11 @@ public class PlayerTankStatsGuiComponent extends Component<Tank> implements Upda
 
     @Override
     public void destroy() {
+        super.destroy();
         getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().removeAll(statsLabels);
     }
 
-    private Label createStatsLabel() { //TODO куда-нибудь в сервис интерфейса?
+    private Label createStatsLabel() {
         Label label = new Label();
         label.setFocusable(false);
         label.getStyle().setFontSize(17f);

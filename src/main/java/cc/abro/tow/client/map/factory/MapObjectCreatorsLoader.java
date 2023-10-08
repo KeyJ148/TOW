@@ -15,7 +15,7 @@ public class MapObjectCreatorsLoader {
 
     private final ClientData clientData;
 
-    public void load() { //TODO просто сканить аннотации и добавлять автоматически по аннотациям
+    public void load() {
         clientData.mapObjectFactory.registryNewCreator(new TexturedMapObjectCreator());
         clientData.mapObjectFactory.registryNewCreator(new DestroyedMapObjectCreator());
         clientData.mapObjectFactory.registryNewCreator(new BoxMapObjectCreator());

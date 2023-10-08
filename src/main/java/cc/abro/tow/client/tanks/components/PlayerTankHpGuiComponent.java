@@ -17,6 +17,7 @@ public class PlayerTankHpGuiComponent extends Component<Tank> implements Updatab
 
     @Override
     public void initialize() {
+        super.initialize();
         getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().add(hpLabel);
     }
 
@@ -30,10 +31,10 @@ public class PlayerTankHpGuiComponent extends Component<Tank> implements Updatab
 
     @Override
     public void destroy() {
+        super.destroy();
         getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().remove(hpLabel);
     }
 
-    //TODO куда-нибудь в сервис интерфейса?
     private Label createHpLabel() {
         Label hpLabel = new Label();
         hpLabel.setFocusable(false);

@@ -2,9 +2,7 @@ package cc.abro.tow.client.tanks.components;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
-import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
-import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.tanks.Tank;
@@ -44,10 +42,10 @@ public class EnemyTankNetworkComponent extends Component<Tank> implements Updata
         getGameObject().setX(x);
         getGameObject().setY(y);
         getGameObject().setDirection(direction);
-        getGameObject().getComponent(SpriteRender.class).setDirection(directionGun); //TODO получать компоненты через @Getter у танка. Для этогоСделать Component<T extends GameObject>
+        getGameObject().getGunSpriteComponent().setDirection(directionGun);
 
         //Для экстраполяции движения врага
-        getGameObject().getComponent(Movement.class).setSpeed(speed);
-        getGameObject().getComponent(Movement.class).setDirection(moveDirection);
+        getGameObject().getMovementComponent().setSpeed(speed);
+        getGameObject().getMovementComponent().setDirection(moveDirection);
     }
 }
