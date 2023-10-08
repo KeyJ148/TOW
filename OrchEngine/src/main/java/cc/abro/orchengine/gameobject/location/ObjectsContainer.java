@@ -6,10 +6,7 @@ import cc.abro.orchengine.gameobject.components.container.ListeningComponentsCon
 import cc.abro.orchengine.gameobject.components.interfaces.Collidable;
 import cc.abro.orchengine.gameobject.components.interfaces.Drawable;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
-import cc.abro.orchengine.gameobject.location.cache.CollidingObjectsCache;
-import cc.abro.orchengine.gameobject.location.cache.DrawableObjectsCache;
-import cc.abro.orchengine.gameobject.location.cache.GameObjectsCache;
-import cc.abro.orchengine.gameobject.location.cache.UpdatableObjectsCache;
+import cc.abro.orchengine.gameobject.location.cache.*;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -22,6 +19,7 @@ public class ObjectsContainer {
     private final UpdatableObjectsCache updatableObjectsCache;
     private final DrawableObjectsCache drawableObjectsCache;
     private final CollidingObjectsCache collidingObjectsCache;
+    private final EventBusContainer eventBusContainer;
 
     private final Set<GameObjectChangedEvent> gameObjectChangedEvents = new HashSet<>();
     private final BiConsumer<Component, ComponentEvent> saveComponentEventListener = this::saveComponentEvent;
@@ -31,6 +29,7 @@ public class ObjectsContainer {
         updatableObjectsCache = new UpdatableObjectsCache();
         collidingObjectsCache = new CollidingObjectsCache(chunkSize);
         drawableObjectsCache = new DrawableObjectsCache(chunkSize);
+        eventBusContainer = new EventBusContainer();
     }
 
     public void add(GameObject gameObject) {
@@ -38,6 +37,7 @@ public class ObjectsContainer {
             throw new IllegalStateException("GameObject must have 0 components when it is added to ObjectContainer");
         }
         gameObjectsCache.add(gameObject);
+        eventBusContainer.addEventListener(gameObject);
         gameObject.addListener(saveComponentEventListener);
     }
 
@@ -46,11 +46,13 @@ public class ObjectsContainer {
             throw new IllegalStateException("GameObject must have 0 components when it is removed from ObjectContainer");
         }
         gameObjectsCache.remove(gameObject);
+        eventBusContainer.removeEventListener(gameObject);
         gameObject.removeListener(saveComponentEventListener);
     }
 
     public void destroy() {
         gameObjectsCache.destroy();
+        eventBusContainer.destroy();
     }
 
     public void update(long delta) {
@@ -71,6 +73,10 @@ public class ObjectsContainer {
 
     public void runAfterUpdateOnce(Runnable runnable) {
         updatableObjectsCache.runAfterUpdateOnce(runnable);
+    }
+
+    public void postEvent(Object event) {
+        eventBusContainer.postEvent(event);
     }
 
     public Statistic getStatistic() {
@@ -99,6 +105,10 @@ public class ObjectsContainer {
     }
 
     private void activateComponentEvent(Component component, ComponentEvent event) {
+        switch (event) {
+            case ADD -> eventBusContainer.addEventListener(component);
+            case REMOVE -> eventBusContainer.removeEventListener(component);
+        }
         if (component instanceof Updatable updatable) {
             switch (event) {
                 case ADD -> updatableObjectsCache.add(updatable);

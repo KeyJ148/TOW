@@ -4,6 +4,7 @@ import org.picocontainer.DefaultPicoContainer;
 import org.picocontainer.behaviors.Caching;
 import org.picocontainer.injectors.AbstractInjector;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -33,6 +34,14 @@ public class Context {
 
     public static <T> T getService(Class<T> serviceClass, ThreadGroup threadGroup) {
         return getThreadContext(threadGroup).getServices().getComponent(serviceClass);
+    }
+
+    public static List<Object> getAllServices() {
+        return getAllServices(getThreadGroup());
+    }
+
+    public static List<Object> getAllServices(ThreadGroup threadGroup) {
+        return getThreadContext(threadGroup).getServices().getComponents();
     }
 
     public static boolean hasService(Class<?> serviceClass) {
