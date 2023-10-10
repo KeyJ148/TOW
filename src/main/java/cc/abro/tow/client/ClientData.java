@@ -24,9 +24,7 @@ public class ClientData {
 
     public MapObjectFactory mapObjectFactory = new MapObjectFactory();
 
-    //TODO: в наследника Location
     public Vector<MapObject> mapObjects = new Vector<>();//Список всех объектов на карте //TODO избавиться при переделке сервера
-
     public Map<Integer, EnemyTank> enemy = new HashMap<>(); //список всех противников
     public int lastDamageDealerEnemyId = -1;
     public ArrayList<EnemyBullet> enemyBullet; //Список всех патронов противников (EnemyBullet)
