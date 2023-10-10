@@ -7,12 +7,11 @@ import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.PositionableComponent;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.image.Color;
-import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.Constants;
+import cc.abro.tow.client.events.TankExplodedEvent;
 import cc.abro.tow.client.particles.Explosion;
-import cc.abro.tow.client.services.BattleStatisticService;
 import cc.abro.tow.client.settings.GameSettingsService;
 import cc.abro.tow.client.tanks.components.AnimationOnMovementComponent;
 import cc.abro.tow.client.tanks.components.TankNicknameComponent;
@@ -113,14 +112,7 @@ public abstract class Tank extends GameObject {
         audioService.playSoundEffect(getAudioStorage().getAudio("explosion"), (int) getX(), (int) getY(),
                 gameSettingsService.getGameSettings().getSoundRange());
 
-        //TODO Этому здесь не место. Вынести в сетевой компонент или типа того. Снова было бы удобно использовать шину ивентов.
-        ClientData clientData = Context.getService(ClientData.class);
-        if (clientData.lastDamageDealerEnemyId != -1) {
-            Context.getService(TCPControl.class).send(23, String.valueOf(clientData.lastDamageDealerEnemyId));
-            Context.getService(BattleStatisticService.class).getEnemyStatistic(clientData.lastDamageDealerEnemyId)
-                    .incrementKill();
-        }
-        Context.getService(TCPControl.class).send(12, "");
+        postEvent(new TankExplodedEvent(this));
     }
 
     public void changeArmor(ArmorComponent newArmorComponent) {
