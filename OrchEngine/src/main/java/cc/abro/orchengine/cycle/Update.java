@@ -2,6 +2,7 @@ package cc.abro.orchengine.cycle;
 
 import cc.abro.orchengine.analysis.Analyzer;
 import cc.abro.orchengine.context.EngineService;
+import cc.abro.orchengine.events.UpdateEvent;
 import cc.abro.orchengine.exceptions.EngineException;
 import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.init.interfaces.GameInterface;
@@ -41,6 +42,11 @@ public class Update {
 
     //Обновляем игру в соответствие с временем прошедшим с последнего обновления
     private void loop(long delta) {
+        if (locationManager.getActiveLocation() != null) {
+            log.fatal("Location did not created!");
+            throw new EngineException("Location did not created!");
+        }
+
         locationManager.getActiveLocation().getGuiLocationFrame().pollEvents(); //Получение событий и Callbacks
 
         game.update(delta); //Обновить главный игровой класс при необходимости
@@ -48,13 +54,9 @@ public class Update {
         tcpRead.update(); //Обработать все полученные сообщения по TCP
         udpRead.update(); //Обработать все полученные сообщения по UDP
 
-        if (locationManager.getActiveLocation() != null) {
-            locationManager.getActiveLocation().update(delta);//Обновить все объекты в локации
-        } else {
-            log.fatal("Location did not created!");
-            throw new EngineException("Location did not created!");
-        }
-        locationManager.getUpdatedLocations().forEach(location -> location.update(delta));
+        locationManager.getActiveLocation().update(delta);//Обновить все объекты в локации
+        locationManager.getUpdatedLocations().forEach(location -> location.update(delta)); //Обновить все объекты в других локациях, которые требуют обновления, даже если не активны
+        locationManager.getActiveLocation().postEvent(new UpdateEvent(delta));
 
         locationManager.getActiveLocation().getGuiLocationFrame().getMouse().update(); //Очистка истории событий мыши
         locationManager.getActiveLocation().getGuiLocationFrame().getKeyboard().update(); //Очистка истории событий клавиатуры
