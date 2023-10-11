@@ -1,5 +1,6 @@
 package cc.abro.orchengine.gameobject;
 
+import cc.abro.orchengine.events.UpdateLocationEvent;
 import cc.abro.orchengine.gameobject.location.Camera;
 import cc.abro.orchengine.gameobject.location.Chunk;
 import cc.abro.orchengine.gameobject.location.ObjectsContainer;
@@ -37,6 +38,7 @@ public class Location extends ObjectsContainer implements ServiceConsumer {
     public void update(long delta) {
         super.update(delta);
         guiLocationFrame.update();
+        postEvent(new UpdateLocationEvent(this, delta));
     }
 
     //Отрисовка части локации с размерами width и height вокруг камеры
