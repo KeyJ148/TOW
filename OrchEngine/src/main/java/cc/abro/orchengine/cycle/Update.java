@@ -42,7 +42,7 @@ public class Update {
 
     //Обновляем игру в соответствие с временем прошедшим с последнего обновления
     private void loop(long delta) {
-        if (locationManager.getActiveLocation() != null) {
+        if (locationManager.getActiveLocation() == null) {
             log.fatal("Location did not created!");
             throw new EngineException("Location did not created!");
         }
