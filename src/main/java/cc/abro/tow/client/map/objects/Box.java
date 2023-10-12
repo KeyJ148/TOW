@@ -45,7 +45,7 @@ public class Box extends GameObject {
 		setPosition(x, y);
 
 		Sprite sprite = getSpriteStorage().getSprite(type.spriteName);
-		addComponent(new SpriteRender<>(sprite.texture(), Constants.boxSpriteZ));
+		addComponent(new SpriteRender<>(sprite.texture(), Constants.BOX_SPRITE_Z));
 		addComponent(new Collision(sprite.mask(), CollidableObjectType.BOX));
 	}
 
