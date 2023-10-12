@@ -8,7 +8,6 @@ import cc.abro.orchengine.gameobject.components.PositionableComponent;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.audios.AudioService;
-import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.Constants;
 import cc.abro.tow.client.events.TankExplodedEvent;
 import cc.abro.tow.client.particles.Explosion;
@@ -35,7 +34,7 @@ public abstract class Tank extends GameObject {
     @Getter
     private final TankVampireComponent tankVampireComponent;
     @Getter
-    private final Movement <GameObject>movementComponent;
+    private final Movement<GameObject> movementComponent;
     @Getter
     private final TankStatsComponent tankStatsComponent;
     @Getter
