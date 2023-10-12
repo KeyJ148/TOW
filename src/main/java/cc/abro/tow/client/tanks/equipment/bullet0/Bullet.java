@@ -69,7 +69,7 @@ public class Bullet extends GameObject implements CollisionListener{
         setX(x);
         setY(y);
         setDirection(dir);
-        addComponent(new SpriteRender(texture.texture(), Constants.bulletSpriteZ));
+        addComponent(new SpriteRender(texture.texture(), Constants.BULLET_SPRITE_Z));
 
         addComponent(new Collision(texture.mask(), CollidableObjectType.BULLET));
         getComponent(Collision.class)
