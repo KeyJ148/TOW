@@ -13,7 +13,7 @@ public class Explosion extends ParticlesTexture<GameObject> {
     private final double size;
 
     public Explosion(double size) {
-        super(Constants.explosionZ);
+        super(Constants.EXPLOSION_Z);
         this.size = size;
     }
 
