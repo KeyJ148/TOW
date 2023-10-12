@@ -20,7 +20,7 @@ public class EnemyBullet extends GameObject {
 	public EnemyBullet(Location location, double x, double y, double speed, double direction, Texture texture, int idEnemy, long idNet) {
 		super(location, Arrays.asList(
 				new Movement(speed), //direction
-				new SpriteRender(texture, Constants.enemyBulletSpriteZ)
+				new SpriteRender(texture, Constants.ENEMY_BULLET_SPRITE_Z)
 		));
 		setPosition(x, y);
 		setDirection(direction);
