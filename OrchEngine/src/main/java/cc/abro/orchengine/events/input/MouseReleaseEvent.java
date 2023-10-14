@@ -2,8 +2,10 @@ package cc.abro.orchengine.events.input;
 
 import cc.abro.orchengine.util.Vector2;
 import com.spinyowl.legui.input.Mouse;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+@Data
 @RequiredArgsConstructor
 public class MouseReleaseEvent {
 
