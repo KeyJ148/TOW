@@ -1,7 +1,9 @@
 package cc.abro.orchengine.events.input;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+@Data
 @RequiredArgsConstructor
 public class KeyReleaseEvent {
 
