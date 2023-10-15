@@ -1,18 +1,18 @@
 package cc.abro.tow.client.tanks.components;
 
+import cc.abro.orchengine.events.input.KeyPressEvent;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.stats.Stats;
+import com.google.common.eventbus.Subscribe;
 import com.spinyowl.legui.component.Label;
-import com.spinyowl.legui.event.KeyEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static cc.abro.tow.client.gui.menu.InterfaceStyles.BLACK_COLOR;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_F2;
-import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 
 public class PlayerTankStatsGuiComponent extends Component<Tank> implements Updatable {
 
@@ -34,18 +34,15 @@ public class PlayerTankStatsGuiComponent extends Component<Tank> implements Upda
         getGameObject().getLocation().getGuiLocationFrame().getGuiFrame().getContainer().addAll(statsLabels);
     }
 
+    @Subscribe
+    public void onKeyEvent(KeyPressEvent keyPressEvent) {
+        if (keyPressEvent.getKey() == GLFW_KEY_F2) {
+            printStats = !printStats;
+        }
+    }
+
     @Override
     public void update(long delta) {
-        List<KeyEvent<?>> keyboardEvents = getGameObject().getLocation().getGuiLocationFrame()
-                .getKeyboard().getEventHistory().getList();
-        for (KeyEvent<?> event : keyboardEvents) {
-            if (event.getAction() == GLFW_PRESS) {// Клавиша нажата
-                if (event.getKey() == GLFW_KEY_F2) {
-                    printStats = !printStats;
-                }
-            }
-        }
-
         //Отрисовка статов
         if (printStats) {
             String[] stats = getGameObject().getTankStatsComponent().getStats().toString().split("\n");

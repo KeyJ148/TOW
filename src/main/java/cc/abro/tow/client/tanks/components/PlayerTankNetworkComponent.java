@@ -53,7 +53,7 @@ public class PlayerTankNetworkComponent extends Component<Tank> implements Updat
     }
 
     @Subscribe
-    public void onTankExploded(TankExplodedEvent tankExplodedEvent) {
+    public void onTankExplodedEvent(TankExplodedEvent tankExplodedEvent) {
         if (tankExplodedEvent.getTank() != getGameObject()) {
             return;
         }
