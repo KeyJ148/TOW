@@ -18,6 +18,7 @@ import cc.abro.tow.client.map.specification.MapSpecification;
 import cc.abro.tow.client.map.specification.MapSpecificationLoader;
 import cc.abro.tow.client.services.BattleStatisticService;
 import cc.abro.tow.client.settings.GameSettingsService;
+import cc.abro.tow.client.settings.Settings;
 import cc.abro.tow.client.settings.SettingsService;
 import cc.abro.tow.client.tanks.enemy.EnemyTank;
 import cc.abro.tow.client.tanks.equipment.EquipmentService;
@@ -135,6 +136,10 @@ public class NetGameRead implements NetGameReadInterface {
 				Context.getService(LocationManager.class).getActiveLocation(), x, y, direction,
 				equipmentService.createDefaultArmor(),
 				equipmentService.createDefaultGun());
+
+		Settings.Profile profile = Context.getService(SettingsService.class).getSettings().getProfile();
+		clientData.player.setNickname(profile.getNickname());
+		clientData.player.setColor(new Color(profile.getColor()));
 		clientData.player.setLocationCameraToThisObject();
 
 		//Заполнение таблицы врагов (в соответствтие с id)
