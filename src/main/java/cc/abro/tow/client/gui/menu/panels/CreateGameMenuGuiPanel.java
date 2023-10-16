@@ -2,18 +2,20 @@ package cc.abro.tow.client.gui.menu.panels;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.gui.MouseReleaseBlockingListeners;
 import cc.abro.orchengine.gui.StoredGuiPanel;
 import cc.abro.orchengine.net.server.GameServer;
 import cc.abro.orchengine.services.BlockingGuiService;
-import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
 import cc.abro.tow.client.gui.menu.MenuGuiComponents;
 import cc.abro.tow.client.services.CreateServerService;
 import com.spinyowl.legui.component.Label;
 import com.spinyowl.legui.component.Panel;
 import com.spinyowl.legui.component.TextAreaField;
+
+import java.util.Set;
 
 @StoredGuiPanel
 public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseReleaseBlockingListeners {
@@ -60,7 +62,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
         getFrame().getContainer().add(connectedGuiPanel.panel());
 
         ConnectedPlayersUpdater connectedPlayersUpdater = new ConnectedPlayersUpdater(connectedGuiPanel.label());
-        GameObjectFactory.create(getLocationManager().getActiveLocation(), connectedPlayersUpdater);
+        new GameObject(getLocationManager().getActiveLocation(), Set.of(connectedPlayersUpdater)); //TODO избавиться от locationManager
         try {
             Context.getService(CreateServerService.class).createServer(port,
                     Integer.parseInt(maxPeople));

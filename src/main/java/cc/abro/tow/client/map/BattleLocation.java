@@ -2,10 +2,10 @@ package cc.abro.tow.client.map;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.gameobject.location.Border;
 import cc.abro.orchengine.net.client.PingChecker;
-import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.GameLocation;
 import cc.abro.tow.client.gui.game.GameTabGuiPanel;
@@ -15,6 +15,7 @@ import cc.abro.tow.client.map.specification.MapSpecification;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -41,7 +42,7 @@ public class BattleLocation extends GameLocation {
         GameTabGuiPanel gameTabGuiPanel = new GameTabGuiPanel(Context.getService(ClientData.class).peopleMax);
         gameTabGuiPanel.changePosition();
         TabPanelComponent tabPanelComponent = new TabPanelComponent(gameTabGuiPanel);
-        GameObjectFactory.create(this, tabPanelComponent);
+        new GameObject(this, Set.of(tabPanelComponent));
     }
 
     //TODO в отдельный класс или упростить в новой системе компонент

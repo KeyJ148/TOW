@@ -6,19 +6,16 @@ import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.collision.*;
-import cc.abro.orchengine.gameobject.components.particles.Particles;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.gameobject.location.Border;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.sprites.Sprite;
-import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.Constants;
 import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
-import cc.abro.tow.client.particles.Explosion;
 import cc.abro.tow.client.settings.GameSettingsService;
 import cc.abro.tow.client.tanks.enemy.EnemyTank;
 import cc.abro.tow.client.tanks.player.PlayerTank;
@@ -119,11 +116,11 @@ public class Bullet extends GameObject implements CollisionListener{
         Context.getService(TCPControl.class).send(15, idNet + " " + expSize);
 
         if (explosionSize > 0) {
-            GameObject explosion = GameObjectFactory.create(getLocation(), getX(), getY(), 3000);
+            /*GameObject explosion = GameObjectFactory.create(getLocation(), getX(), getY(), 3000);
             Explosion explosionParticles = new Explosion(expSize);
             explosion.addComponent(explosionParticles);
             explosionParticles.activate();
-            explosion.getComponent(Particles.class).destroyObject = true;
+            explosion.getComponent(Particles.class).destroyObject = true;*/
         }
     }
 
