@@ -4,12 +4,13 @@ import cc.abro.orchengine.analysis.AnalysisStringBuilder;
 import cc.abro.orchengine.analysis.Analyzer;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
+import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
-import cc.abro.orchengine.util.GameObjectFactory;
 import cc.abro.tow.client.gui.DebugInfoGuiPanel;
 
 import java.util.Collections;
+import java.util.Set;
 
 import static cc.abro.tow.client.gui.menu.InterfaceStyles.LABEL_HEIGHT_DEBUG;
 
@@ -28,7 +29,7 @@ public class GameLocation extends Location {
         getGuiLocationFrame().getGuiFrame().getContainer().add(debugGuiPanel);
 
         DebugInfoComponent debugInfoComponent = new DebugInfoComponent(debugGuiPanel);
-        GameObjectFactory.create(this, debugInfoComponent);
+        new GameObject(this, Set.of(debugInfoComponent));
     }
 
     //TODO вынести в отдельный класс или упростить в новой системе компонент
