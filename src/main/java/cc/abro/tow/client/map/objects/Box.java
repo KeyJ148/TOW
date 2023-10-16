@@ -43,6 +43,7 @@ public class Box extends GameObject {
 		this.id = id;
 		this.type = Type.values()[typeId];
 		setPosition(x, y);
+		setDirection(90);
 
 		Sprite sprite = getSpriteStorage().getSprite(type.spriteName);
 		addComponent(new SpriteRender<>(sprite.texture(), Constants.BOX_SPRITE_Z));
