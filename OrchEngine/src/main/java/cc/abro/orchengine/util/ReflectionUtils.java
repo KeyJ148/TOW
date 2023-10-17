@@ -5,7 +5,6 @@ import lombok.extern.log4j.Log4j2;
 import org.reflections.Reflections;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,24 +29,24 @@ public class ReflectionUtils {
                 .collect(Collectors.toSet());
     }
 
-    public Object CreateInstance(Class<?> type) {
+    public <T> T createInstance(Class<T> type) {
         try{
             return type.getDeclaredConstructor().newInstance();
         }catch (Exception e){
-            log.error("Could not create instance of "+type.getName()+": \n",e.getCause());
+            log.error("Could not create instance of " + type.getName(), e.getCause());
             return null;
         }
     }
 
-    public Set<Object> CreateInstances(Set<Class<?>> types){
-        Set<Object> instaces = new HashSet<>();
-        for(var type : types){
-            var instance = CreateInstance(type);
-            if(instance != null){
-                instaces.add(instance);
+    public Set<Object> createInstances(Set<Class<?>> types){
+        Set<Object> instances = new HashSet<>();
+        for(var type : types) {
+            var instance = createInstance(type);
+            if (instance != null){
+                instances.add(instance);
             }
         }
 
-        return instaces;
+        return instances;
     }
 }

@@ -3,10 +3,9 @@ package cc.abro.orchengine.gui;
 import cc.abro.orchengine.context.EngineService;
 import cc.abro.orchengine.services.AnnotationScanService;
 import cc.abro.orchengine.util.ReflectionUtils;
+import com.spinyowl.legui.component.Panel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import com.spinyowl.legui.component.Panel;
-import org.picocontainer.Startable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,13 +23,13 @@ public class GuiPanelStorage {
     private final Map<String, Panel> guiPanelByName = new HashMap<>();
 
     public void init() {
-        var panels = ReflectionUtils.CreateInstances(annotationScanService.getClassesWithAnnotations(StoredGuiPanel.class));
+        var panels = ReflectionUtils.createInstances(
+                annotationScanService.getClassesWithAnnotations(StoredGuiPanel.class));
 
-        for(var panel : panels){
-            if(panel instanceof Panel){
-                registry((Panel)panel);
-            }
-        }
+        panels.stream()
+                .filter(panel -> panel instanceof Panel)
+                .map(panel -> (Panel) panel)
+                .forEach(this::registry);
     }
 
     public void registry(Panel guiPanel) {
