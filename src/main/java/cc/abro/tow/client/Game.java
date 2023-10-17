@@ -14,16 +14,13 @@ import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.Texture;
 import cc.abro.orchengine.services.GuiService;
 import cc.abro.tow.client.gui.menu.MenuLocation;
-import cc.abro.tow.client.gui.menu.panels.ConnectByIPMenuGuiPanel;
-import cc.abro.tow.client.gui.menu.panels.CreateGameMenuGuiPanel;
-import cc.abro.tow.client.gui.menu.panels.ListOfServersMenuGuiPanel;
-import cc.abro.tow.client.gui.menu.panels.MainMenuGuiPanel;
-import cc.abro.tow.client.map.factory.MapObjectCreatorsLoader;
+import cc.abro.tow.client.map.factory.MapObjectFactory;
 import cc.abro.tow.client.settings.DevSettingsService;
 import cc.abro.tow.client.settings.Settings;
 import cc.abro.tow.client.settings.SettingsService;
-import cc.abro.tow.client.tanks.equipment.EquipmentCreatorsLoader;
+import cc.abro.tow.client.tanks.equipment.armor.ArmorCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorSpecificationStorage;
+import cc.abro.tow.client.tanks.equipment.gun.GunCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.gun.GunSpecificationStorage;
 import cc.abro.tow.server.ServerLoader;
 import lombok.RequiredArgsConstructor;
@@ -43,13 +40,13 @@ public class Game implements GameInterface {
 
     private final GuiPanelStorage guiPanelStorage;
     private final LocationManager locationManager;
-    private final ClientData clientData;
     private final AudioService audioService;
     private final SettingsService settingsService;
     private final DevSettingsService devSettingsService;
     private final LocalizationService localizationService;
-    private final MapObjectCreatorsLoader mapObjectCreatorsLoader;
-    private final EquipmentCreatorsLoader equipmentCreatorsLoader;
+    private final MapObjectFactory mapObjectFactory;
+    private final ArmorCreatorsStorage armorCreatorsStorage;
+    private final GunCreatorsStorage gunCreatorsStorage;
     private final ArmorSpecificationStorage armorSpecificationStorage;
     private final GunSpecificationStorage gunSpecificationStorage;
 
@@ -90,12 +87,12 @@ public class Game implements GameInterface {
         Texture icon = Context.getService(SpriteStorage.class).getSprite("window_icon").texture();
         Context.getService(Render.class).setIcon(icon);
 
-        mapObjectCreatorsLoader.load();
-        equipmentCreatorsLoader.load();
+        guiPanelStorage.init();
+        mapObjectFactory.init();
+        armorCreatorsStorage.init();
+        gunCreatorsStorage.init();
         armorSpecificationStorage.init();
         gunSpecificationStorage.init();
-
-        guiPanelStorage.init();
 
         String defaultMap = devSettingsService.getDevSettings().getDefaultMap();
         if (defaultMap != null) {
