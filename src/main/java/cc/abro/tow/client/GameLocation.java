@@ -32,7 +32,6 @@ public class GameLocation extends Location {
         new GameObject(this, Set.of(debugInfoComponent));
     }
 
-    //TODO вынести в отдельный класс или упростить в новой системе компонент
     public static class DebugInfoComponent extends Component implements Updatable {
 
         private final DebugInfoGuiPanel debugInfoGuiPanel;

@@ -79,7 +79,6 @@ public class ConnectByIPMenuGuiPanel extends MenuGuiPanel implements MouseReleas
         getFrame().getContainer().add(panel);
     }
 
-    //TODO
     public enum Error {
         WRONG_IP("ERROR: IP address written incorrectly"),
         WRONG_PORT("ERROR: Port must be an integer 1024-65535"),

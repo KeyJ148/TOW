@@ -19,15 +19,15 @@ public class EquipmentService {
     private final GunCreationService gunCreationService;
 
     public void setNewArmor(Tank tank) {
-        //TODO
+
     }
 
     public void setNewGun(Tank tank) {
-        //TODO
+
     }
 
     public void setNewBullet(Tank tank) {
-        //TODO
+
     }
 
     public ArmorComponent createDefaultArmor() {

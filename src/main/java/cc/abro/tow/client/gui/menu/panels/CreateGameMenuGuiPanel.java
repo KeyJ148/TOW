@@ -62,7 +62,7 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
         getFrame().getContainer().add(connectedGuiPanel.panel());
 
         ConnectedPlayersUpdater connectedPlayersUpdater = new ConnectedPlayersUpdater(connectedGuiPanel.label());
-        new GameObject(getLocationManager().getActiveLocation(), Set.of(connectedPlayersUpdater)); //TODO избавиться от locationManager
+        new GameObject(getLocationManager().getActiveLocation(), Set.of(connectedPlayersUpdater));
         try {
             Context.getService(CreateServerService.class).createServer(port,
                     Integer.parseInt(maxPeople));
@@ -84,7 +84,6 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
         getFrame().getContainer().add(panel);
     }
 
-    //TODO
     public enum Error {
         WRONG_PORT("ERROR: Port must be an integer 1024-65535"),
         SERVER_LAUNCHING("ERROR: Server is launching"),
@@ -101,7 +100,6 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
         }
     }
 
-    //TODO упростить в системе компонент новой
     public static class ConnectedPlayersUpdater extends Component implements Updatable {
 
         private final Label label;
@@ -113,11 +111,6 @@ public class CreateGameMenuGuiPanel extends MenuGuiPanel implements MouseRelease
         @Override
         public void update(long delta) {
             label.getTextState().setText("Connected players: " + GameServer.peopleNow + "/" + GameServer.peopleMax);
-        }
-
-        @Override
-        public Class<? extends Component> getComponentClass() {
-            return ConnectedPlayersUpdater.class;
         }
     }
 }

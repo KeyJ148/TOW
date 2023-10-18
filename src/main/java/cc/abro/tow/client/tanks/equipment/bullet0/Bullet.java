@@ -107,7 +107,7 @@ public class Bullet extends GameObject implements CollisionListener{
             Context.getService(TCPControl.class).send(25, (int) getX() + " " + (int) getY() + " " + sound_hit);
 
             //Для вампирского сета
-            //if (ea.enemy.alive) player.hitting(damage); //TODO вызвать функцию в соответствующем компоненте танка
+            //if (ea.enemy.alive) player.hitting(damage); //TODO вызвать функцию в соответствующем компоненте танка, eventBus хорошо подойдет
         }
     }
 

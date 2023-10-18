@@ -7,7 +7,7 @@ import cc.abro.orchengine.cycle.Engine;
 import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.init.interfaces.GameInterface;
-import cc.abro.orchengine.services.AnnotationScanService;
+import cc.abro.orchengine.services.PackageManagerService;
 import cc.abro.orchengine.util.LogUtils;
 import lombok.extern.log4j.Log4j2;
 
@@ -22,7 +22,7 @@ public class Loader {
             setupFinalizerService(); //Создание сервиса для корректного освобождения ресурсов при завершении программы
             setupProfilesService(activeProfiles); //Создание сервиса по учету активных профилей
             ContextAnnotationScanner.loadServicesAndBeans(activeProfiles, packagesForScan); //Сканирование пакетов и поиск сервисов и бинов
-            Context.getService(AnnotationScanService.class).addPackages(packagesForScan);
+            Context.getService(PackageManagerService.class).addToDefaultPackages(packagesForScan);
             initServices(); //Запуск всех сервисов
             initGame(); //Вызов инициализации у класса игры
             Context.getService(Engine.class).run(); //Запуск главного цикла движка

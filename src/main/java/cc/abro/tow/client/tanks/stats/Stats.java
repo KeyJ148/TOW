@@ -32,7 +32,7 @@ public class Stats {
                 + "\nSpeed rotate gun: " + speedRotateGun
                 + "\nSpeed rotate tank: " + speedRotateTank
                 + "\nAttack speed: " + attackSpeed
-                + "\nAttack range (except bullet): " + range //TODO Это используется для вывода статистики. Делать вывод статистики через другое место. Там учитывать пули. Здесь убрать toString() совсем, он сгенерирован через lombok.
+                + "\nAttack range (except bullet): " + range
                 + "\nAttack damage (except bullet): " + damage;
     }
 

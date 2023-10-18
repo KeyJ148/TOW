@@ -68,11 +68,11 @@ public class PlayerTankNetworkComponent extends Component<Tank> implements Updat
 
     public void sendInfoAboutNewArmor(ArmorComponent newArmorComponent) {
         //Отправляем сообщение о том, что мы сменили броню
-        //TODO Context.getService(TCPControl.class).send(19, newArmorComponent.getAnimationName());
+        Context.getService(TCPControl.class).send(19, newArmorComponent.getName());
     }
 
     public void sendInfoAboutNewGun(GunComponent newGunComponent) {
         //Отправляем сообщение о том, что мы сменили оружие
-        //TODO Context.getService(TCPControl.class).send(20, newGunComponent.getSpriteName());
+        Context.getService(TCPControl.class).send(20, newGunComponent.getName());
     }
 }

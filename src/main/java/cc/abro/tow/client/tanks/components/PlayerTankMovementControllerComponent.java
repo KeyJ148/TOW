@@ -109,7 +109,7 @@ public class PlayerTankMovementControllerComponent extends Component<Tank> imple
         }
     }
     
-    public void collision(CollidableComponent collision, CollisionType collisionType) { //TODO вынести в отдельный компонент или разбить на несколько?
+    public void collision(CollidableComponent collision, CollisionType collisionType) {
         if (collisionType == CollisionType.LEAVING) return;
 
         Stats stats = getGameObject().getTankStatsComponent().getStats();
