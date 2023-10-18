@@ -19,7 +19,7 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
     @Getter
     private final Effect effect;
     @Getter
-    private final Sprite sprite; //TODO переделать gun и armor на использование Render компонента, без привязки спрайт/текстура
+    private final Sprite sprite;
     @Getter
     private final List<TrunkInfo> trunksInfo;
     @Getter
@@ -52,7 +52,6 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
         double trunkYdx = trunkY * Math.cos(gunDirection - Math.PI); //потому что изначально у теустуры измененное направление
         double trunkYdy = trunkY * Math.sin(gunDirection - Math.PI); //второй отступ "вбок"
 
-        //TODO создание пули
         /*
         Bullet newBullet = player.bullet.create();
         newBullet.init(

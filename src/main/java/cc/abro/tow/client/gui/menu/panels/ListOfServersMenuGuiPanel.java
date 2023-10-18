@@ -45,7 +45,7 @@ public class ListOfServersMenuGuiPanel extends MenuGuiPanel {
                 MAIN_PANEL_WIDTH - 2* InterfaceStyles.INDENT_X, MAIN_PANEL_HEIGHT - InterfaceStyles.BUTTON_HEIGHT - InterfaceStyles.MENU_TEXT_FIELD_HEIGHT - 4*INDENT_Y);
         add(scrollablePanel);
         ArrayList<Server> servers = new ArrayList<>();
-        /*TODO for(int i = 0; i < servers.size(); i++) {
+        /* for(int i = 0; i < servers.size(); i++) {
             scrollablePanel.getContainer().add(createLabel(servers.get(i).name),
                     SERVER_NAME_PADDING_X, LIST_PADDING_Y, );
 
