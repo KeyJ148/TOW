@@ -2,7 +2,6 @@ package cc.abro.orchengine.gameobject.location;
 
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
-import cc.abro.orchengine.gameobject.components.collision.CollidableObjectType;
 import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.orchengine.gameobject.components.collision.DefaultCollidableObjectType;
 import cc.abro.orchengine.resources.masks.Mask;
@@ -33,28 +32,28 @@ public class Border extends GameObject {
         NORTH {
             @Override
             public BorderData getBorderData(int roomWidth, int roomHeight, int size) {
-                return new BorderData(roomWidth / 2, -size / 2, roomWidth, size);
+                return new BorderData(roomWidth / 2, -size / 2, roomWidth + size*2, size);
             }
         },
 
         EAST {
             @Override
             public BorderData getBorderData(int roomWidth, int roomHeight, int size) {
-                return new BorderData(roomWidth + size / 2, roomHeight / 2, size, roomHeight);
+                return new BorderData(roomWidth + size / 2, roomHeight / 2, size, roomHeight + size*2);
             }
         },
 
         SOUTH {
             @Override
             public BorderData getBorderData(int roomWidth, int roomHeight, int size) {
-                return new BorderData(roomWidth / 2, roomHeight + size / 2, roomWidth, size);
+                return new BorderData(roomWidth / 2, roomHeight + size / 2, roomWidth + size*2, size);
             }
         },
 
         WEST {
             @Override
             public BorderData getBorderData(int roomWidth, int roomHeight, int size) {
-                return new BorderData(-size / 2, roomHeight / 2, size, roomHeight);
+                return new BorderData(-size / 2, roomHeight / 2, size, roomHeight + size*2);
             }
         };
 
