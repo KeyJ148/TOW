@@ -10,7 +10,7 @@
   "animationName" : "a_fury",
   "title" : "Fury",
   "type": "fury",
-  "allowGuns": ["default", "double", "fury", "mass", "mortar", "osmos", "power", "rocketd", "sniper", "vampire"],
+  "size": 3,
 
   "speedUpMax": 280.0,
   "speedUpMin": 120.0,

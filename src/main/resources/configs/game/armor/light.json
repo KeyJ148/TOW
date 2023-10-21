@@ -10,5 +10,5 @@
   "animationName" : "a_light",
   "title" : "Light",
   "type": "default",
-  "allowGuns": ["default", "fury", "osmos", "power", "quick", "sniper", "vampire"]
+  "size": 2
 }

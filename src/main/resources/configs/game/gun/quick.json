@@ -10,5 +10,6 @@
   } ],
   "spriteName" : "g_quick",
   "title" : "Quick",
-  "type": "default"
+  "type": "default",
+  "size": 2
 }

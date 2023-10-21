@@ -11,6 +11,7 @@
   "spriteName" : "g_fury",
   "title" : "Fury",
   "type": "fury",
+  "size": 3,
 
   "attackSpeedMin": 0.5,
   "attackSpeedMax": 3.8
