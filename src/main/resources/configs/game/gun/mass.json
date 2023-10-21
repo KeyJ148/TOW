@@ -10,5 +10,6 @@
   } ],
   "spriteName" : "g_mass",
   "title" : "Mass",
-  "type": "default"
+  "type": "default",
+  "size": 3
 }

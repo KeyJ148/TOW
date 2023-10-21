@@ -10,5 +10,5 @@
   "animationName" : "a_fortified",
   "title" : "Fortified",
   "type": "default",
-  "allowGuns": ["default", "double", "fury", "mass", "mortar", "osmos", "power", "rocketd", "sniper", "vampire"]
+  "size": 3
 }

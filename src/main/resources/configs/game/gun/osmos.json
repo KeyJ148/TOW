@@ -14,5 +14,6 @@
   } ],
   "spriteName" : "g_osmos",
   "title" : "Osmos",
-  "type": "default"
+  "type": "default",
+  "size": 3
 }

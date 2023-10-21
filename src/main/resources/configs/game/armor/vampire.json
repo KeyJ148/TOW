@@ -10,7 +10,7 @@
   "animationName" : "a_vampire",
   "title" : "Vampire",
   "type": "vampire",
-  "allowGuns": ["default", "double", "fury", "mass", "mortar", "osmos", "power", "rocketd", "sniper", "vampire"],
+  "size": 3,
 
   "speedUpMax": 240.0,
   "speedUpMin": 120.0,

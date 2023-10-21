@@ -11,6 +11,7 @@
   "spriteName" : "g_vampire",
   "title" : "Vampire",
   "type": "vampire",
+  "size": 3,
 
   "attackSpeedMin": 0.7,
   "attackSpeedMax": 2.4

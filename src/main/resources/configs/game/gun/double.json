@@ -14,5 +14,6 @@
   } ],
   "spriteName" : "g_double",
   "title" : "Double",
-  "type": "default"
+  "type": "default",
+  "size": 3
 }

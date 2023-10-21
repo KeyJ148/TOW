@@ -10,5 +10,5 @@
   "animationName" : "a_default",
   "title" : "Default",
   "type": "default",
-  "allowGuns": ["default", "double", "fury", "mass", "mortar", "osmos", "power", "quick", "rocketd", "sniper", "vampire"]
+  "size": 3
 }
