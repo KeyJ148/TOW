@@ -13,6 +13,7 @@ public class VampireArmorCreator<T extends VampireArmorSpecification> extends De
                 createEffect(armorSpecification),
                 armorSpecification.getAnimationSpeedCoefficient(),
                 createAnimation(armorSpecification),
+                armorSpecification.getSize(),
                 armorSpecification.getSpeedUpMax(),
                 armorSpecification.getSpeedUpMin(),
                 armorSpecification.getSpeedDownMax(),

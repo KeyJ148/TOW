@@ -19,6 +19,7 @@ public class VampireArmorComponent extends DefaultArmorComponent implements Upda
                                  Effect effect,
                                  double animationSpeedCoefficient,
                                  Animation animation,
+                                 int size,
                                  double speedUpMax,
                                  double speedUpMin,
                                  double speedDownMax,
@@ -26,7 +27,7 @@ public class VampireArmorComponent extends DefaultArmorComponent implements Upda
                                  double speedRotateTankMin,
                                  double speedRotateTankMax
     ) {
-        super(name, title, effect, animationSpeedCoefficient, animation);
+        super(name, title, effect, animationSpeedCoefficient, animation, size);
         this.speedUpMax = speedUpMax;
         this.speedUpMin = speedUpMin;
         this.speedDownMax = speedDownMax;

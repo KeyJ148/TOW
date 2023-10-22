@@ -17,11 +17,12 @@ public class FuryArmorComponent extends DefaultArmorComponent implements Updatab
                               Effect effect,
                               double animationSpeedCoefficient,
                               Animation animation,
+                              int size,
                               double speedUpMax,
                               double speedUpMin,
                               double speedDownMax,
                               double speedDownMin) {
-        super(name, title, effect, animationSpeedCoefficient, animation);
+        super(name, title, effect, animationSpeedCoefficient, animation, size);
         this.speedUpMax = speedUpMax;
         this.speedUpMin = speedUpMin;
         this.speedDownMax = speedDownMax;
