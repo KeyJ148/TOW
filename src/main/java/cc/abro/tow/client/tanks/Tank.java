@@ -159,7 +159,7 @@ public abstract class Tank extends GameObject {
         removeComponent(gunSpriteComponent);
 
         gunComponent = newGunComponent;
-        addComponent(armorComponent);
+        addComponent(gunComponent);
         gunSpriteComponent = new SpriteRender<>(newGunComponent.getSprite().texture(), Constants.GUN_SPRITE_COMPONENT_Z);
         gunSpriteComponent.setColor(color);
         addComponent(gunSpriteComponent);
