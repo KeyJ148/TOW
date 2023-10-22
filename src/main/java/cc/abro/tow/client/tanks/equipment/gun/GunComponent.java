@@ -23,6 +23,9 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
     @Getter
     private final List<TrunkInfo> trunksInfo;
     @Getter
+    private final int size;
+
+    @Getter
     private long nanoSecToAttack = 0;//Кол-во времени до конца перезарядки в наносекундах
 
     @Override

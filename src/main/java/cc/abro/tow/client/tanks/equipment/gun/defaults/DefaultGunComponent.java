@@ -12,7 +12,8 @@ public class DefaultGunComponent extends GunComponent {
                                String title,
                                Effect effect,
                                Sprite sprite,
-                               List<GunComponent.TrunkInfo> trunksInfo) {
-        super(name, title, effect, sprite, trunksInfo);
+                               List<GunComponent.TrunkInfo> trunksInfo,
+                               int size) {
+        super(name, title, effect, sprite, trunksInfo, size);
     }
 }
