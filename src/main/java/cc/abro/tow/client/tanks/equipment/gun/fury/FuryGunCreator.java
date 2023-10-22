@@ -13,6 +13,7 @@ public class FuryGunCreator<T extends FuryGunSpecification> extends DefaultGunCr
                 createEffect(gunSpecification),
                 createSprite(gunSpecification),
                 gunSpecification.getGunTrunksInfo().stream().map(this::createTrunkInfo).toList(),
+                gunSpecification.getSize(),
                 gunSpecification.getAttackSpeedMin(),
                 gunSpecification.getAttackSpeedMax());
     }

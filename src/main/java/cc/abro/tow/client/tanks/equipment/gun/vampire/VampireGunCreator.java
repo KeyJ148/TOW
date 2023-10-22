@@ -13,6 +13,7 @@ public class VampireGunCreator<T extends VampireGunSpecification> extends Defaul
                 createEffect(gunSpecification),
                 createSprite(gunSpecification),
                 gunSpecification.getGunTrunksInfo().stream().map(this::createTrunkInfo).toList(),
+                gunSpecification.getSize(),
                 gunSpecification.getAttackSpeedMin(),
                 gunSpecification.getAttackSpeedMax());
     }
