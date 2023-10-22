@@ -18,7 +18,8 @@ public class DefaultGunCreator<T extends DefaultGunSpecification> extends GunCre
                 gunSpecification.getType(),
                 createEffect(gunSpecification),
                 createSprite(gunSpecification),
-                gunSpecification.getGunTrunksInfo().stream().map(this::createTrunkInfo).toList());
+                gunSpecification.getGunTrunksInfo().stream().map(this::createTrunkInfo).toList(),
+                gunSpecification.getSize());
     }
 
     @Override

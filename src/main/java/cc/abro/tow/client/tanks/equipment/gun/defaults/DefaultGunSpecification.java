@@ -21,4 +21,5 @@ public class DefaultGunSpecification implements GunSpecification {
     private final String spriteName;
     private final String title;
     private final String type;
+    private final int size;
 }
