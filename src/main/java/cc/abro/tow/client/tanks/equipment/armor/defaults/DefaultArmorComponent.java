@@ -10,7 +10,8 @@ public class DefaultArmorComponent extends ArmorComponent {
                                  String title,
                                  Effect effect,
                                  double animationSpeedCoefficient,
-                                 Animation animation) {
-        super(name, title, effect, animationSpeedCoefficient, animation);
+                                 Animation animation,
+                                 int size) {
+        super(name, title, effect, animationSpeedCoefficient, animation, size);
     }
 }

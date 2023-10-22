@@ -20,4 +20,6 @@ public abstract class ArmorComponent extends Component<Tank> {
     private final double animationSpeedCoefficient;
     @Getter
     private final Animation animation;
+    @Getter
+    private final int size;
 }
