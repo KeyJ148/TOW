@@ -5,6 +5,8 @@ import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.map.objects.Box;
 import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.components.PlayerTankEquipmentControllerComponent;
+import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
+import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import lombok.RequiredArgsConstructor;
 
 @GameService
@@ -21,15 +23,17 @@ public class BoxService {
         switch (box.getType()) {
             case ARMOR -> {
                 if (!equipmentController.isPlayerCanTakeArmor()) return;
-                equipmentService.setNewArmor(tank);
+                ArmorComponent armorComponent = equipmentService.createNewArmor(tank);
+                tank.changeArmor(armorComponent);
             }
             case GUN -> {
                 if (!equipmentController.isPlayerCanTakeGun()) return;
-                equipmentService.setNewGun(tank);
+                GunComponent gunComponent = equipmentService.createNewGun(tank);
+                tank.changeGun(gunComponent);
             }
             case BULLET -> {
                 if (!equipmentController.isPlayerCanTakeBullet()) return;
-                equipmentService.setNewBullet(tank);
+                equipmentService.createNewBullet(tank);
             }
             case HEALTH -> {
                 if (!equipmentController.isPlayerCanTakeHeal()) return;
