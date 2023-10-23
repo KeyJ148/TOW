@@ -4,9 +4,17 @@ import cc.abro.orchengine.context.GameService;
 import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorCreationService;
+import cc.abro.tow.client.tanks.equipment.armor.ArmorSpecificationStorage;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunCreationService;
+import cc.abro.tow.client.tanks.equipment.gun.GunSpecificationStorage;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.IterableUtils;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 @GameService
 @RequiredArgsConstructor
@@ -16,17 +24,31 @@ public class EquipmentService {
     private static final String DEFAULT_GUN_NAME = "default";
 
     private final ArmorCreationService armorCreationService;
+    private final ArmorSpecificationStorage armorSpecificationStorage;
     private final GunCreationService gunCreationService;
+    private final GunSpecificationStorage gunSpecificationStorage;
 
-    public void setNewArmor(Tank tank) {
+    private final Random random = new Random();
 
+    public ArmorComponent createNewArmor(Tank tank) {
+        String currentArmorName = tank.getArmorComponent().getName();
+        int currentGunSize = tank.getGunComponent().getSize();
+
+        List<String> armorNames = armorSpecificationStorage.getAllArmorSpecificationByName().entrySet().stream()
+                .filter(entry -> !entry.getKey().equals(currentArmorName))
+                .filter(entry -> Math.abs(entry.getValue().getSize() - currentGunSize) <= 1)
+                .map(Map.Entry::getKey)
+                .toList();
+        String randomArmorName = getRandomItem(armorNames);
+
+        return armorCreationService.createArmor(randomArmorName);
     }
 
-    public void setNewGun(Tank tank) {
-
+    public GunComponent createNewGun(Tank tank) {
+        return null;
     }
 
-    public void setNewBullet(Tank tank) {
+    public void createNewBullet(Tank tank) {
 
     }
 
@@ -44,5 +66,10 @@ public class EquipmentService {
 
     public GunComponent createGun(String gunName) {
         return gunCreationService.createGun(gunName);
+    }
+
+    private <T> T getRandomItem(Collection<T> itemsCollection)  {
+        int itemPosition = random.nextInt(itemsCollection.size());
+        return IterableUtils.get(itemsCollection, itemPosition);
     }
 }
