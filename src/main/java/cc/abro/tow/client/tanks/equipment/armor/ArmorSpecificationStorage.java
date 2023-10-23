@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +54,10 @@ public class ArmorSpecificationStorage {
         }
 
         return armorSpecificationByName.get(name);
+    }
+
+    public Map<String, ArmorSpecification> getAllArmorSpecificationByName() {
+        return Collections.unmodifiableMap(armorSpecificationByName);
     }
 
     private ArmorSpecification loadArmorSpecification(String type, String filepath) {
