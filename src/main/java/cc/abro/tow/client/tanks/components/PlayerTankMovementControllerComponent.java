@@ -120,7 +120,7 @@ public class PlayerTankMovementControllerComponent extends Component<Tank> imple
             Box box = (Box) gameObject;
             if (!box.isDestroyed()) {
                 box.collisionWithPlayer();
-                Context.getService(BoxService.class).takeBox(getGameObject(), box);
+                Context.getService(BoxService.class).takeBox(getGameObject(), box.getType());
             }
         }
 
