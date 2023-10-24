@@ -9,7 +9,7 @@ public class FuryGunCreator<T extends FuryGunSpecification> extends DefaultGunCr
     @Override
     public FuryGunComponent createGun(T gunSpecification, String name) {
         return new FuryGunComponent(name,
-                gunSpecification.getType(),
+                gunSpecification.getTitle(),
                 createEffect(gunSpecification),
                 createSprite(gunSpecification),
                 gunSpecification.getGunTrunksInfo().stream().map(this::createTrunkInfo).toList(),

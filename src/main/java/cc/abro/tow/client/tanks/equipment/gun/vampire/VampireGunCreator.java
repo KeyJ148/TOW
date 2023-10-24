@@ -9,7 +9,7 @@ public class VampireGunCreator<T extends VampireGunSpecification> extends Defaul
     @Override
     public VampireGunComponent createGun(T gunSpecification, String name) {
         return new VampireGunComponent(name,
-                gunSpecification.getType(),
+                gunSpecification.getTitle(),
                 createEffect(gunSpecification),
                 createSprite(gunSpecification),
                 gunSpecification.getGunTrunksInfo().stream().map(this::createTrunkInfo).toList(),
