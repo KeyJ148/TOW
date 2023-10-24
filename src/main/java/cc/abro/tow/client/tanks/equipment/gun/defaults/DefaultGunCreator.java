@@ -15,7 +15,7 @@ public class DefaultGunCreator<T extends DefaultGunSpecification> extends GunCre
     @Override
     public DefaultGunComponent createGun(T gunSpecification, String name) {
         return new DefaultGunComponent(name,
-                gunSpecification.getType(),
+                gunSpecification.getTitle(),
                 createEffect(gunSpecification),
                 createSprite(gunSpecification),
                 gunSpecification.getGunTrunksInfo().stream().map(this::createTrunkInfo).toList(),

@@ -14,7 +14,7 @@ public class DefaultArmorCreator<T extends DefaultArmorSpecification> extends Ar
     @Override
     public DefaultArmorComponent createArmor(T armorSpecification, String name) {
         return new DefaultArmorComponent(name,
-                armorSpecification.getType(),
+                armorSpecification.getTitle(),
                 createEffect(armorSpecification),
                 armorSpecification.getAnimationSpeedCoefficient(),
                 createAnimation(armorSpecification),

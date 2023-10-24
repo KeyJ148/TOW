@@ -9,7 +9,7 @@ public class VampireArmorCreator<T extends VampireArmorSpecification> extends De
     @Override
     public VampireArmorComponent createArmor(T armorSpecification, String name) {
         return new VampireArmorComponent(name,
-                armorSpecification.getType(),
+                armorSpecification.getTitle(),
                 createEffect(armorSpecification),
                 armorSpecification.getAnimationSpeedCoefficient(),
                 createAnimation(armorSpecification),

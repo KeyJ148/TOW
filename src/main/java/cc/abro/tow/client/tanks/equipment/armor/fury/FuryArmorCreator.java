@@ -9,7 +9,7 @@ public class FuryArmorCreator<T extends FuryArmorSpecification> extends DefaultA
     @Override
     public FuryArmorComponent createArmor(T armorSpecification, String name) {
         return new FuryArmorComponent(name,
-                armorSpecification.getType(),
+                armorSpecification.getTitle(),
                 createEffect(armorSpecification),
                 armorSpecification.getAnimationSpeedCoefficient(),
                 createAnimation(armorSpecification),
