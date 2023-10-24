@@ -151,6 +151,7 @@ public abstract class Tank extends GameObject {
     }
 
     public void changeGun(GunComponent newGunComponent) {
+        double lastDirection = gunSpriteComponent.getDirection();
         tankStatsComponent.removeEffect(gunComponent.getEffect());
 
         gunComponent.destroy();
@@ -163,6 +164,7 @@ public abstract class Tank extends GameObject {
         gunSpriteComponent = new SpriteRender<>(newGunComponent.getSprite().texture(), Constants.GUN_SPRITE_COMPONENT_Z);
         gunSpriteComponent.setColor(color);
         addComponent(gunSpriteComponent);
+        gunSpriteComponent.setDirection(lastDirection);
 
         tankStatsComponent.addEffect(gunComponent.getEffect());
     }
