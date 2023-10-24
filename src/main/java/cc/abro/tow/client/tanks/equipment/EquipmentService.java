@@ -45,7 +45,17 @@ public class EquipmentService {
     }
 
     public GunComponent createNewGun(Tank tank) {
-        return null;
+        String currentGunName = tank.getGunComponent().getName();
+        int currentArmorSize = tank.getArmorComponent().getSize();
+
+        List<String> gunNames = gunSpecificationStorage.getAllGunSpecificationByName().entrySet().stream()
+                .filter(entry -> !entry.getKey().equals(currentGunName))
+                .filter(entry -> Math.abs(entry.getValue().getSize() - currentArmorSize) <= 1)
+                .map(Map.Entry::getKey)
+                .toList();
+        String randomGunName = getRandomItem(gunNames);
+
+        return gunCreationService.createGun(randomGunName);
     }
 
     public void createNewBullet(Tank tank) {
