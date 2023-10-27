@@ -1,5 +1,6 @@
 {
   "attackSpeed" : 3.0,
+  "bulletSpeed": 210.0,
   "speedRotate" : 140.0,
   "damage" : 0.5,
   "range" : 250,
@@ -11,5 +12,8 @@
   "spriteName" : "g_quick",
   "title" : "Quick",
   "type": "default",
-  "size": 2
+  "size": 2,
+  "bulletMapping": {
+    "default": {"behavior":  "defaultBehavior", "spriteName": "b_default"}
+  }
 }

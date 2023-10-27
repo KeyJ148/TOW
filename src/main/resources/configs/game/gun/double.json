@@ -1,5 +1,6 @@
 {
   "attackSpeed" : 0.6,
+  "bulletSpeed": 210.0,
   "speedRotate" : 125.0,
   "damage" : 3.0,
   "range" : 500,
@@ -15,5 +16,8 @@
   "spriteName" : "g_double",
   "title" : "Double",
   "type": "default",
-  "size": 3
+  "size": 3,
+  "bulletMapping": {
+    "default": {"behavior":  "defaultBehavior", "spriteName": "b_default"}
+  }
 }

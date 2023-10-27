@@ -1,5 +1,6 @@
 {
   "attackSpeed" : 0.35,
+  "bulletSpeed": 210.0,
   "speedRotate" : 100.0,
   "damage" : 6.0,
   "range" : 500,
@@ -11,5 +12,8 @@
   "spriteName" : "g_mortar",
   "title" : "Mortar",
   "type": "default",
-  "size": 4
+  "size": 4,
+  "bulletMapping": {
+    "default": {"behavior":  "defaultBehavior", "spriteName": "b_default"}
+  }
 }

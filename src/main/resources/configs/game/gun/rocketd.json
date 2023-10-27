@@ -1,5 +1,6 @@
 {
   "attackSpeed" : 1.0,
+  "bulletSpeed": 210.0,
   "speedRotate" : 130.0,
   "damage" : 3.0,
   "range" : 500,
@@ -11,5 +12,8 @@
   "spriteName" : "g_rocketd",
   "title" : "Rocketd",
   "type": "default",
-  "size": 3
+  "size": 3,
+  "bulletMapping": {
+    "default": {"behavior":  "defaultBehavior", "spriteName": "b_default"}
+  }
 }
