@@ -7,6 +7,5 @@
   "explosionSize" : 10,
   "spriteName" : "b_steel",
   "title" : "Steel",
-  "type": "default",
-  "allowGuns": ["default", "double", "fury", "mass", "osmos", "power", "quick", "vampire"]
+  "type": "default"
 }

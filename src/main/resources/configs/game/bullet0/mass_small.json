@@ -7,6 +7,5 @@
   "explosionSize" : 5,
   "spriteName" : "b_mass_small",
   "title" : "Mass small",
-  "type": "massSmall",
-  "allowGuns": []
+  "type": "massSmall"
 }
