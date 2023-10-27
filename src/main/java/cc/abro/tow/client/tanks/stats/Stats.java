@@ -17,6 +17,8 @@ public class Stats {
     private double attackSpeed; //скорость атаки (кол-во выстрелов в секунду)
     private int range; //Дальность выстрела (в пикселях)
     private double damage; //Урон
+    private double bulletSpeed; //Скорость полета снаряда
+    private double bulletExplosionPower; //Мощность взрыва снаряда (размер, осколки и т.п.)
 
     public static StatsBuilder builder() {
         return new StatsBuilder();
@@ -48,6 +50,8 @@ public class Stats {
         private double attackSpeed;
         private int range;
         private double damage;
+        private double bulletSpeed;
+        private double bulletExplosionPower;
 
         public StatsBuilder() {}
 
@@ -62,6 +66,8 @@ public class Stats {
             this.attackSpeed = stats.attackSpeed;
             this.range = stats.range;
             this.damage = stats.damage;
+            this.bulletSpeed = stats.bulletSpeed;
+            this.bulletExplosionPower = stats.bulletExplosionPower;
         }
 
         public StatsBuilder setAllValue(double value) {
@@ -75,6 +81,8 @@ public class Stats {
             attackSpeed = value;
             range = (int) value;
             damage = value;
+            bulletSpeed = value;
+            bulletExplosionPower = value;
 
             return this;
         }
@@ -90,6 +98,8 @@ public class Stats {
             attackSpeed += stats.attackSpeed;
             range += stats.range;
             damage += stats.damage;
+            bulletSpeed += stats.bulletSpeed;
+            bulletExplosionPower += stats.bulletExplosionPower;
 
             return this;
         }
@@ -105,6 +115,8 @@ public class Stats {
             attackSpeed *= stats.attackSpeed;
             range *= stats.range;
             damage *= stats.damage;
+            bulletSpeed *= stats.bulletSpeed;
+            bulletExplosionPower *= stats.bulletExplosionPower;
 
             return this;
         }
@@ -159,9 +171,19 @@ public class Stats {
             return this;
         }
 
+        public StatsBuilder setBulletSpeed(double bulletSpeed) {
+            this.bulletSpeed = bulletSpeed;
+            return this;
+        }
+
+        public StatsBuilder setBulletExplosionPower(double bulletExplosionPower) {
+            this.bulletExplosionPower = bulletExplosionPower;
+            return this;
+        }
+
         public Stats build() {
             return new Stats(hpMax, hpRegen, speedUp, speedDown, stability, speedRotateGun, speedRotateTank,
-                    attackSpeed, range, damage);
+                    attackSpeed, range, damage, bulletSpeed, bulletExplosionPower);
         }
     }
 }
