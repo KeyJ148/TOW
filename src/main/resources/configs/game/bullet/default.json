@@ -2,7 +2,7 @@
   "speed" : 1.0,
   "damage" : 1.0,
   "range" : 1.0,
-  "explosionSize" : 1.0,
+  "explosionPower" : 1.0,
   "soundShot" : "shot_tank",
   "soundHit" : "hitting",
   "spriteName" : "b_default",
