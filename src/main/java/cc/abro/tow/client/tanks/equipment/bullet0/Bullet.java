@@ -26,7 +26,7 @@ public class Bullet extends GameObject implements CollisionListener{
     
     private final int soundRange;
 
-    public static final String PATH_SETTING = "configs/game/bullet/";
+    public static final String PATH_SETTING = "configs/game/bullet0/";
     public String name, title; //name - техническое название, title - игровое
 
     public double damage; //Дамаг (пушка и в loadData добавляем дамаг пули)

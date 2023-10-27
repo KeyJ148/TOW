@@ -8,7 +8,6 @@
   "spriteName" : "b_mass",
   "title" : "Mass",
   "type": "mass",
-  "allowGuns": ["default", "double", "fury", "mass", "osmos", "power", "vampire"],
 
   "fragmentNumberMin": 10,
   "fragmentNumberMax": 15,

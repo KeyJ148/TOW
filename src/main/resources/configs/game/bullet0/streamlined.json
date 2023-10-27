@@ -7,6 +7,5 @@
   "explosionSize" : 7,
   "spriteName" : "b_streamlined",
   "title" : "Streamlined",
-  "type": "defaultDirected",
-  "allowGuns": ["default", "double", "fury", "osmos", "power", "quick", "sniper", "vampire"]
+  "type": "defaultDirected"
 }

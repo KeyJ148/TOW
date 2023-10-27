@@ -8,7 +8,6 @@
   "spriteName" : "b_fury",
   "title" : "Fury",
   "type": "fury",
-  "allowGuns": ["default", "double", "fury", "mass", "osmos", "power", "quick", "vampire"],
 
   "minSpeed": 140.0,
   "maxSpeed": 300.0,

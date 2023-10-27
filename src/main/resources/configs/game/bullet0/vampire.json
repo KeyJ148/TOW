@@ -8,7 +8,6 @@
   "spriteName" : "b_vampire",
   "title" : "Vampire",
   "type": "vampire",
-  "allowGuns": ["default", "double", "fury", "mass", "osmos", "power", "quick", "vampire"],
 
   "damageMin": 1.0,
   "damageMax": 7.0

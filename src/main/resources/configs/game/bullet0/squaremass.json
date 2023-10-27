@@ -7,6 +7,5 @@
   "explosionSize" : 50,
   "spriteName" : "b_squaremass",
   "title" : "Squaremass",
-  "type": "squaremass",
-  "allowGuns": ["mortar"]
+  "type": "squaremass"
 }
