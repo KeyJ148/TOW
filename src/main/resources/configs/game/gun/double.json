@@ -13,6 +13,7 @@
     "bulletStartY" : -27,
     "bulletStartDir" : 0.0
   } ],
+  "bulletExplosionSize" : 10,
   "spriteName" : "g_double",
   "title" : "Double",
   "type": "default",
