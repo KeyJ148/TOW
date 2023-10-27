@@ -1,5 +1,6 @@
 {
   "attackSpeed" : 0.8,
+  "bulletSpeed": 210.0,
   "speedRotate" : 100.0,
   "damage" : 6.0,
   "range" : 1000,
@@ -11,5 +12,8 @@
   "spriteName" : "g_sniper",
   "title" : "Sniper",
   "type": "default",
-  "size": 3
+  "size": 3,
+  "bulletMapping": {
+    "default": {"behavior":  "defaultBehavior", "spriteName": "b_default"}
+  }
 }

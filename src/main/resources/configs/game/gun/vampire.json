@@ -1,5 +1,6 @@
 {
   "attackSpeed" : 0.0,
+  "bulletSpeed": 210.0,
   "speedRotate" : 130.0,
   "damage" : 3.0,
   "range" : 500,
@@ -12,6 +13,9 @@
   "title" : "Vampire",
   "type": "vampire",
   "size": 3,
+  "bulletMapping": {
+    "default": {"behavior":  "defaultBehavior", "spriteName": "b_default"}
+  },
 
   "attackSpeedMin": 0.7,
   "attackSpeedMax": 2.4
