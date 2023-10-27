@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public abstract class GunComponent extends Component<Tank> implements Updatable {
@@ -22,6 +23,8 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
     private final Sprite sprite;
     @Getter
     private final List<TrunkInfo> trunksInfo;
+    @Getter
+    private final Map<String, BulletInfo> bulletMapping;
     @Getter
     private final int size;
 
@@ -70,4 +73,5 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
     }
 
     public record TrunkInfo(int bulletStartX, int bulletStartY, double bulletStartDir) {}
+    public record BulletInfo(Object behavior, String spriteName) {} //TODO Object -> Behavior
 }
