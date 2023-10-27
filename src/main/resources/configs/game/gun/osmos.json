@@ -13,7 +13,7 @@
     "bulletStartY" : 22,
     "bulletStartDir" : 180.0
   } ],
-  "bulletExplosionSize" : 10,
+  "bulletExplosionPower" : 10,
   "spriteName" : "g_osmos",
   "title" : "Osmos",
   "type": "default",
