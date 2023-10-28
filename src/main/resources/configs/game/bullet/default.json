@@ -3,9 +3,6 @@
   "damage" : 1.0,
   "range" : 1.0,
   "explosionPower" : 1.0,
-  "soundShot" : "shot_tank",
-  "soundHit" : "hitting",
-  "spriteName" : "b_default",
   "title" : "Default",
   "type": "default"
 }
