@@ -9,6 +9,10 @@ import cc.abro.tow.client.tanks.equipment.gun.GunCreator;
 import cc.abro.tow.client.tanks.stats.Effect;
 import cc.abro.tow.client.tanks.stats.Stats;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @StoredGunCreator
 public class DefaultGunCreator<T extends DefaultGunSpecification> extends GunCreator<T> {
 
@@ -18,7 +22,8 @@ public class DefaultGunCreator<T extends DefaultGunSpecification> extends GunCre
                 gunSpecification.getTitle(),
                 createEffect(gunSpecification),
                 createSprite(gunSpecification),
-                gunSpecification.getGunTrunksInfo().stream().map(this::createTrunkInfo).toList(),
+                createTrunksInfo(gunSpecification.getGunTrunksInfo()),
+                createBulletMapping(gunSpecification.getBulletMapping()),
                 gunSpecification.getSize());
     }
 
@@ -38,6 +43,8 @@ public class DefaultGunCreator<T extends DefaultGunSpecification> extends GunCre
                 .setSpeedRotateGun(gunSpecification.getSpeedRotate())
                 .setDamage(gunSpecification.getDamage())
                 .setRange(gunSpecification.getRange())
+                .setBulletSpeed(gunSpecification.getBulletSpeed())
+                .setBulletExplosionPower(gunSpecification.getBulletExplosionPower())
                 .build();
         Effect effect = new Effect();
         effect.setAddition(stats);
@@ -48,9 +55,23 @@ public class DefaultGunCreator<T extends DefaultGunSpecification> extends GunCre
         return Context.getService(SpriteStorage.class).getSprite(gunSpecification.getSpriteName());
     }
 
-    protected GunComponent.TrunkInfo createTrunkInfo(DefaultGunSpecification.TrunkInfo trunkInfo) {
-        return new GunComponent.TrunkInfo(
-                trunkInfo.bulletStartX(), trunkInfo.bulletStartY(), trunkInfo.bulletStartDir()
-        );
+    protected List<GunComponent.TrunkInfo> createTrunksInfo(List<DefaultGunSpecification.TrunkInfo> trunksInfo) {
+        return trunksInfo.stream()
+                .map(trunkInfo -> new GunComponent.TrunkInfo(
+                        trunkInfo.bulletStartX(), trunkInfo.bulletStartY(), trunkInfo.bulletStartDir()
+                ))
+                .toList();
     }
+
+    protected Map<String, GunComponent.BulletInfo> createBulletMapping(
+            Map<String, DefaultGunSpecification.BulletInfo> bulletMapping) {
+        return bulletMapping.entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        e -> new GunComponent.BulletInfo(
+                            getBulletBehavior(e.getValue().behavior()), e.getValue().spriteName()
+                        )
+                ));
+    }
+
 }
