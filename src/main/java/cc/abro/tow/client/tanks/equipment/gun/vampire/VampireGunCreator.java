@@ -12,7 +12,8 @@ public class VampireGunCreator<T extends VampireGunSpecification> extends Defaul
                 gunSpecification.getTitle(),
                 createEffect(gunSpecification),
                 createSprite(gunSpecification),
-                gunSpecification.getGunTrunksInfo().stream().map(this::createTrunkInfo).toList(),
+                createTrunksInfo(gunSpecification.getGunTrunksInfo()),
+                createBulletMapping(gunSpecification.getBulletMapping()),
                 gunSpecification.getSize(),
                 gunSpecification.getAttackSpeedMin(),
                 gunSpecification.getAttackSpeedMax());
