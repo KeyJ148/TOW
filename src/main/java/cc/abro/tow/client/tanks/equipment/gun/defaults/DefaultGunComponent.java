@@ -5,6 +5,7 @@ import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import cc.abro.tow.client.tanks.stats.Effect;
 
 import java.util.List;
+import java.util.Map;
 
 public class DefaultGunComponent extends GunComponent {
 
@@ -13,7 +14,8 @@ public class DefaultGunComponent extends GunComponent {
                                Effect effect,
                                Sprite sprite,
                                List<GunComponent.TrunkInfo> trunksInfo,
+                               Map<String, BulletInfo> bulletMapping,
                                int size) {
-        super(name, title, effect, sprite, trunksInfo, size);
+        super(name, title, effect, sprite, trunksInfo, bulletMapping, size);
     }
 }
