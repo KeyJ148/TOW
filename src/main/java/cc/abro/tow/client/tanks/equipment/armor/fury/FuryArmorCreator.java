@@ -1,6 +1,6 @@
 package cc.abro.tow.client.tanks.equipment.armor.fury;
 
-import cc.abro.tow.client.tanks.equipment.StoredArmorCreator;
+import cc.abro.tow.client.tanks.equipment.armor.StoredArmorCreator;
 import cc.abro.tow.client.tanks.equipment.armor.defaults.DefaultArmorCreator;
 
 @StoredArmorCreator
