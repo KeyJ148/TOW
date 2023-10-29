@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks.equipment;
+package cc.abro.tow.client.tanks.equipment.bullet;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,5 +7,5 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface StoredArmorCreator {
+public @interface StoredBulletCreator {
 }
