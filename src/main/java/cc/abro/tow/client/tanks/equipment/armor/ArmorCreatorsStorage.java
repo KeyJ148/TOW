@@ -3,7 +3,6 @@ package cc.abro.tow.client.tanks.equipment.armor;
 import cc.abro.orchengine.context.GameService;
 import cc.abro.orchengine.services.AnnotationScanService;
 import cc.abro.orchengine.util.ReflectionUtils;
-import cc.abro.tow.client.tanks.equipment.StoredArmorCreator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
