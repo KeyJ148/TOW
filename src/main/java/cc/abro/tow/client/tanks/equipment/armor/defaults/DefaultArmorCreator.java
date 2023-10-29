@@ -3,8 +3,8 @@ package cc.abro.tow.client.tanks.equipment.armor.defaults;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.resources.animations.Animation;
 import cc.abro.orchengine.resources.animations.AnimationStorage;
-import cc.abro.tow.client.tanks.equipment.StoredArmorCreator;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorCreator;
+import cc.abro.tow.client.tanks.equipment.armor.StoredArmorCreator;
 import cc.abro.tow.client.tanks.stats.Effect;
 import cc.abro.tow.client.tanks.stats.Stats;
 

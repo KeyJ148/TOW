@@ -19,7 +19,7 @@ public class DefaultGunSpecification implements GunSpecification {
     private final double bulletSpeed;
     private final double speedRotate;
     private final double damage;
-    private final int range;
+    private final double range;
     private final List<TrunkInfo> gunTrunksInfo;
     private final double bulletExplosionPower;
     private final String spriteName;
