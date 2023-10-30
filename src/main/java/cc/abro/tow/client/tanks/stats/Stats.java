@@ -15,7 +15,7 @@ public class Stats {
     private double speedRotateGun; //Скорость поворота пушки (кол-во градусов в секунду)
     private double speedRotateTank; //Скорость поворота корпуса танка (кол-во градусов в секунду)
     private double attackSpeed; //скорость атаки (кол-во выстрелов в секунду)
-    private int range; //Дальность выстрела (в пикселях)
+    private double range; //Дальность выстрела (в пикселях)
     private double damage; //Урон
     private double bulletSpeed; //Скорость полета снаряда
     private double bulletExplosionPower; //Мощность взрыва снаряда (размер, осколки и т.п.)
@@ -48,7 +48,7 @@ public class Stats {
         private double speedRotateGun;
         private double speedRotateTank;
         private double attackSpeed;
-        private int range;
+        private double range;
         private double damage;
         private double bulletSpeed;
         private double bulletExplosionPower;
@@ -79,7 +79,7 @@ public class Stats {
             speedRotateGun = value;
             speedRotateTank = value;
             attackSpeed = value;
-            range = (int) value;
+            range = value;
             damage = value;
             bulletSpeed = value;
             bulletExplosionPower = value;
@@ -161,7 +161,7 @@ public class Stats {
             return this;
         }
 
-        public StatsBuilder setRange(int range) {
+        public StatsBuilder setRange(double range) {
             this.range = range;
             return this;
         }
