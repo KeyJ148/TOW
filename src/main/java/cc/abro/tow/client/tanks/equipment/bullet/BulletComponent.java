@@ -1,0 +1,18 @@
+package cc.abro.tow.client.tanks.equipment.bullet;
+
+import cc.abro.orchengine.gameobject.Component;
+import cc.abro.tow.client.tanks.Tank;
+import cc.abro.tow.client.tanks.stats.Effect;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+public abstract class BulletComponent extends Component<Tank> {
+
+    @Getter
+    private final String name; //Имя файла и техническое имя брони
+    @Getter
+    private final String title; //Название, отображаемое в игре
+    @Getter
+    private final Effect effect;
+}
