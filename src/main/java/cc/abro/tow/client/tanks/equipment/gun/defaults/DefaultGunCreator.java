@@ -22,6 +22,7 @@ public class DefaultGunCreator<T extends DefaultGunSpecification> extends GunCre
                 gunSpecification.getTitle(),
                 createEffect(gunSpecification),
                 createSprite(gunSpecification),
+                gunSpecification.getSoundShot(),
                 createTrunksInfo(gunSpecification.getGunTrunksInfo()),
                 createBulletMapping(gunSpecification.getBulletMapping()),
                 gunSpecification.getSize());
@@ -69,7 +70,9 @@ public class DefaultGunCreator<T extends DefaultGunSpecification> extends GunCre
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         e -> new GunComponent.BulletInfo(
-                            getBulletBehavior(e.getValue().behavior()), e.getValue().spriteName()
+                                getBulletBehavior(e.getValue().behavior()),
+                                e.getValue().spriteName(),
+                                e.getValue().soundHit()
                         )
                 ));
     }
