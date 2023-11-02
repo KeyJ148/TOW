@@ -14,11 +14,12 @@
     "bulletStartDir" : 180.0
   } ],
   "bulletExplosionPower" : 10,
+  "soundShot" : "shot_tank",
   "spriteName" : "g_osmos",
   "title" : "Osmos",
   "type": "default",
   "size": 3,
   "bulletMapping": {
-    "default": {"behavior":  "defaultBehavior", "spriteName": "b_default"}
+    "default": {"behavior":  "defaultBehavior", "spriteName": "b_default", "soundHit" : "hitting"}
   }
 }
