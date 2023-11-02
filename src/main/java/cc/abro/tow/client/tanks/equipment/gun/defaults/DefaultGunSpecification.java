@@ -13,7 +13,7 @@ import java.util.Map;
 @NoArgsConstructor(force = true)
 public class DefaultGunSpecification implements GunSpecification {
     public record TrunkInfo(int bulletStartX, int bulletStartY, double bulletStartDir) {}
-    public record BulletInfo(String behavior, String spriteName) {}
+    public record BulletInfo(String behavior, String spriteName, String soundHit) {}
 
     private final double attackSpeed;
     private final double bulletSpeed;
@@ -22,6 +22,7 @@ public class DefaultGunSpecification implements GunSpecification {
     private final double range;
     private final List<TrunkInfo> gunTrunksInfo;
     private final double bulletExplosionPower;
+    private final String soundShot;
     private final String spriteName;
     private final String title;
     private final String type;
