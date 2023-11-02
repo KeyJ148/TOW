@@ -10,11 +10,12 @@
     "bulletStartDir" : 0.0
   } ],
   "bulletExplosionPower" : 10,
+  "soundShot" : "shot_tank",
   "spriteName" : "g_mortar",
   "title" : "Mortar",
   "type": "default",
   "size": 4,
   "bulletMapping": {
-    "default": {"behavior":  "defaultBehavior", "spriteName": "b_default"}
+    "default": {"behavior":  "defaultBehavior", "spriteName": "b_default", "soundHit" : "hitting"}
   }
 }
