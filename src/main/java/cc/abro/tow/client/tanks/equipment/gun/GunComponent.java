@@ -22,6 +22,8 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
     @Getter
     private final Sprite sprite;
     @Getter
+    private final String soundShot;
+    @Getter
     private final List<TrunkInfo> trunksInfo;
     @Getter
     private final Map<String, BulletInfo> bulletMapping;
@@ -73,5 +75,5 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
     }
 
     public record TrunkInfo(int bulletStartX, int bulletStartY, double bulletStartDir) {}
-    public record BulletInfo(Object behavior, String spriteName) {} //TODO Object -> Behavior
+    public record BulletInfo(Object behavior, String spriteName, String soundHit) {} //TODO Object -> Behavior
 }
