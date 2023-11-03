@@ -3,7 +3,7 @@ package cc.abro.tow.client.services;
 import cc.abro.orchengine.context.GameService;
 
 @GameService
-public class BattleCameraService {
+public class BattleCameraService { //TODO сделать в виде компонента, который будет создаваться в BattleLocation, т.к. управление необходимо только в BattleLocation
     /*
     //Если в данный момент камера установлена на этот объект //TODO это из класса Tank
           if (locationManager.getActiveLocation().getCamera().hasFollowObject() &&
