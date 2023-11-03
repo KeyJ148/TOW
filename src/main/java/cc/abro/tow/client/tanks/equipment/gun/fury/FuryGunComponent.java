@@ -16,12 +16,13 @@ public class FuryGunComponent extends DefaultGunComponent {
                             String title,
                             Effect effect,
                             Sprite sprite,
+                            String soundShot,
                             List<TrunkInfo> trunksInfo,
                             Map<String, BulletInfo> bulletMapping,
                             int size,
                             double attackSpeedMin,
                             double attackSpeedMax) {
-        super(name, title, effect, sprite, trunksInfo, bulletMapping, size);
+        super(name, title, effect, sprite, soundShot, trunksInfo, bulletMapping, size);
         this.attackSpeedMin = attackSpeedMin;
         this.attackSpeedMax = attackSpeedMax;
     }
