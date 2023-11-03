@@ -17,6 +17,7 @@ import cc.abro.tow.client.tanks.components.TankNicknameComponent;
 import cc.abro.tow.client.tanks.components.TankStatsComponent;
 import cc.abro.tow.client.tanks.components.TankVampireComponent;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
+import cc.abro.tow.client.tanks.equipment.bullet.BulletComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -45,6 +46,8 @@ public abstract class Tank extends GameObject {
     private ArmorComponent armorComponent;
     @Getter
     private GunComponent gunComponent;
+    @Getter
+    private BulletComponent bulletComponent;
 
     @Getter @Setter(AccessLevel.PROTECTED)
     private boolean alive = true;
@@ -52,7 +55,7 @@ public abstract class Tank extends GameObject {
     private Color color = Color.WHITE;
 
     public Tank(Location location, double x, double y, double direction,
-                ArmorComponent armorComponent, GunComponent gunComponent) {
+                ArmorComponent armorComponent, GunComponent gunComponent, BulletComponent bulletComponent) {
         super(location);
         audioService = getAudioService();
         gameSettingsService = Context.getService(GameSettingsService.class);
@@ -91,6 +94,10 @@ public abstract class Tank extends GameObject {
         this.gunComponent = gunComponent;
         addComponent(gunComponent);
         tankStatsComponent.addEffect(gunComponent.getEffect());
+
+        this.bulletComponent = bulletComponent;
+        addComponent(bulletComponent);
+        tankStatsComponent.addEffect(bulletComponent.getEffect());
     }
 
     public void exploded() {

@@ -11,7 +11,7 @@ import static org.lwjgl.glfw.GLFW.*;
 
 @GameService
 @RequiredArgsConstructor
-public class SingleplayerControllerService {
+public class SingleplayerControllerService { //TODO Перенести в компонент танка, т.к. это не общий контроллер на всю игру
 
     private final ClientData clientData;
     private final BoxService boxService;
