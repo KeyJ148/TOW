@@ -12,6 +12,7 @@ public class FuryGunCreator<T extends FuryGunSpecification> extends DefaultGunCr
                 gunSpecification.getTitle(),
                 createEffect(gunSpecification),
                 createSprite(gunSpecification),
+                gunSpecification.getSoundShot(),
                 createTrunksInfo(gunSpecification.getGunTrunksInfo()),
                 createBulletMapping(gunSpecification.getBulletMapping()),
                 gunSpecification.getSize(),

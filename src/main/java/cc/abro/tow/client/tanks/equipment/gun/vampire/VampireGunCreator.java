@@ -12,6 +12,7 @@ public class VampireGunCreator<T extends VampireGunSpecification> extends Defaul
                 gunSpecification.getTitle(),
                 createEffect(gunSpecification),
                 createSprite(gunSpecification),
+                gunSpecification.getSoundShot(),
                 createTrunksInfo(gunSpecification.getGunTrunksInfo()),
                 createBulletMapping(gunSpecification.getBulletMapping()),
                 gunSpecification.getSize(),
