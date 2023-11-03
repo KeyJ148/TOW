@@ -15,8 +15,4 @@ public class DefaultBulletSpecification implements BulletSpecification {
     private final double explosionPower;
     private final String title;
     private final String type;
-
-          //TODO Спецификация для дефолтного снаряда
-          //"soundShot" : "shot_tank", //TODO Вынести просто в пушку?
-          //"soundHit" : "hitting", //TODO Вынести в mapping?
 }
