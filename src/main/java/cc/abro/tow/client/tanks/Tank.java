@@ -8,7 +8,7 @@ import cc.abro.orchengine.gameobject.components.PositionableComponent;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.audios.AudioService;
-import cc.abro.tow.client.Constants;
+import cc.abro.tow.client.DepthConstants;
 import cc.abro.tow.client.events.TankExplodedEvent;
 import cc.abro.tow.client.particles.Explosion;
 import cc.abro.tow.client.settings.GameSettingsService;
@@ -76,11 +76,11 @@ public abstract class Tank extends GameObject {
         movementComponent = new Movement<>();
         addComponent(movementComponent);
 
-        armorAnimationComponent = new AnimationOnMovementComponent(armorComponent.getAnimation().textures(), Constants.ARMOR_ANIMATION_COMPONENT_Z,
+        armorAnimationComponent = new AnimationOnMovementComponent(armorComponent.getAnimation().textures(), DepthConstants.ARMOR_ANIMATION_COMPONENT_Z,
                 armorComponent.getAnimationSpeedCoefficient());
         addComponent(armorAnimationComponent);
 
-        gunSpriteComponent = new SpriteRender<>(gunComponent.getSprite().texture(), Constants.GUN_SPRITE_COMPONENT_Z);
+        gunSpriteComponent = new SpriteRender<>(gunComponent.getSprite().texture(), DepthConstants.GUN_SPRITE_COMPONENT_Z);
         addComponent(gunSpriteComponent);
 
         tankStatsComponent = new TankStatsComponent();
@@ -135,7 +135,7 @@ public abstract class Tank extends GameObject {
         armorComponent = newArmorComponent;
         addComponent(armorComponent);
         armorAnimationComponent = new AnimationOnMovementComponent(newArmorComponent.getAnimation().textures(),
-                Constants.ARMOR_ANIMATION_COMPONENT_Z, newArmorComponent.getAnimationSpeedCoefficient());
+                DepthConstants.ARMOR_ANIMATION_COMPONENT_Z, newArmorComponent.getAnimationSpeedCoefficient());
         armorAnimationComponent.setColor(color);
         addComponent(armorAnimationComponent);
 
@@ -168,7 +168,7 @@ public abstract class Tank extends GameObject {
 
         gunComponent = newGunComponent;
         addComponent(gunComponent);
-        gunSpriteComponent = new SpriteRender<>(newGunComponent.getSprite().texture(), Constants.GUN_SPRITE_COMPONENT_Z);
+        gunSpriteComponent = new SpriteRender<>(newGunComponent.getSprite().texture(), DepthConstants.GUN_SPRITE_COMPONENT_Z);
         gunSpriteComponent.setColor(color);
         addComponent(gunSpriteComponent);
         gunSpriteComponent.setDirection(lastDirection);

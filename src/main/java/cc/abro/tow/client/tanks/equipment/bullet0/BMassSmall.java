@@ -5,7 +5,6 @@ import cc.abro.orchengine.gameobject.components.collision.CollidableComponent;
 import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.orchengine.gameobject.components.collision.CollisionType;
 import cc.abro.tow.client.CollidableObjectType;
-import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.tanks.player.PlayerTank;
 
 public class BMassSmall extends Bullet {

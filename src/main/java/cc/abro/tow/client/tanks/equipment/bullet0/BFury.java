@@ -1,7 +1,5 @@
 package cc.abro.tow.client.tanks.equipment.bullet0;
 
-import cc.abro.tow.client.ConfigReader;
-
 public class BFury extends Bullet {
 
     @Override

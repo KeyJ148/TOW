@@ -1,6 +1,6 @@
 package cc.abro.tow.client;
 
-public class Constants {
+public class DepthConstants {
     public static final int ARMOR_ANIMATION_COMPONENT_Z = 1000;
     public static final int BOX_SPRITE_Z = 1000;
     public static final int BULLET_SPRITE_Z = 1500;
