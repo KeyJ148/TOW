@@ -1,6 +1,5 @@
 package cc.abro.tow.client.tanks.equipment.bullet0;
 
-import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.tanks.player.PlayerTank;
 import lombok.extern.log4j.Log4j2;
 

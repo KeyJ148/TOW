@@ -5,7 +5,7 @@ import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.resources.textures.Texture;
-import cc.abro.tow.client.Constants;
+import cc.abro.tow.client.DepthConstants;
 
 import java.util.Arrays;
 
@@ -17,7 +17,7 @@ public class EnemyBullet extends GameObject {
 	public EnemyBullet(Location location, double x, double y, double speed, double direction, Texture texture, int idEnemy, long idNet) {
 		super(location, Arrays.asList(
 				new Movement(speed), //direction
-				new SpriteRender(texture, Constants.ENEMY_BULLET_SPRITE_Z)
+				new SpriteRender(texture, DepthConstants.ENEMY_BULLET_SPRITE_Z)
 		));
 		setPosition(x, y);
 		setDirection(direction);

@@ -4,7 +4,6 @@ import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.collision.CollidableComponent;
 import cc.abro.orchengine.gameobject.components.collision.CollisionType;
-import cc.abro.tow.client.ConfigReader;
 import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.tanks.enemy.EnemyTank;

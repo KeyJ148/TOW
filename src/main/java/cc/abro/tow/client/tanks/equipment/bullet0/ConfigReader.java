@@ -1,4 +1,4 @@
-package cc.abro.tow.client;
+package cc.abro.tow.client.tanks.equipment.bullet0;
 
 import cc.abro.orchengine.resources.ResourceLoader;
 import lombok.extern.log4j.Log4j2;
