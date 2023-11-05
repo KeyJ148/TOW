@@ -6,6 +6,7 @@ import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.components.EnemyTankNetworkComponent;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
+import cc.abro.tow.client.tanks.equipment.bullet.BulletComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import lombok.Getter;
 
@@ -16,8 +17,9 @@ public class EnemyTank extends Tank {
     private final EnemyTankNetworkComponent enemyTankNetworkComponent;
 
     public EnemyTank(Location location, double x, double y, double direction,
-                     ArmorComponent armorComponent, GunComponent gunComponent, int enemyId) {
-        super(location, x, y, direction, armorComponent, gunComponent);
+                     ArmorComponent armorComponent, GunComponent gunComponent, BulletComponent bulletComponent,
+                     int enemyId) {
+        super(location, x, y, direction, armorComponent, gunComponent, bulletComponent);
 
         collisionComponent = new Collision(armorComponent.getAnimation().mask(), CollidableObjectType.ENEMY_TANK);
         addComponent(collisionComponent);
