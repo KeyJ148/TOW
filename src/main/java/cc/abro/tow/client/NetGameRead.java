@@ -135,7 +135,8 @@ public class NetGameRead implements NetGameReadInterface {
 		clientData.player = new PlayerTank(
 				Context.getService(LocationManager.class).getActiveLocation(), x, y, direction,
 				equipmentService.createDefaultArmor(),
-				equipmentService.createDefaultGun());
+				equipmentService.createDefaultGun(),
+				equipmentService.createDefaultBullet());
 
 		Settings.Profile profile = Context.getService(SettingsService.class).getSettings().getProfile();
 		clientData.player.setNickname(profile.getNickname());
@@ -149,6 +150,7 @@ public class NetGameRead implements NetGameReadInterface {
 						Context.getService(LocationManager.class).getActiveLocation(), 0, 0, 0,
 						equipmentService.createDefaultArmor(),
 						equipmentService.createDefaultGun(),
+						equipmentService.createDefaultBullet(),
 						id));
 			}
 		}
