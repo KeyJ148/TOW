@@ -5,6 +5,9 @@ import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorCreationService;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorSpecificationStorage;
+import cc.abro.tow.client.tanks.equipment.bullet.BulletComponent;
+import cc.abro.tow.client.tanks.equipment.bullet.BulletCreationService;
+import cc.abro.tow.client.tanks.equipment.bullet.BulletSpecificationStorage;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunCreationService;
 import cc.abro.tow.client.tanks.equipment.gun.GunSpecificationStorage;
@@ -22,11 +25,14 @@ public class EquipmentService {
 
     private static final String DEFAULT_ARMOR_NAME = "default";
     private static final String DEFAULT_GUN_NAME = "default";
+    private static final String DEFAULT_BULLET_NAME = "default";
 
     private final ArmorCreationService armorCreationService;
     private final ArmorSpecificationStorage armorSpecificationStorage;
     private final GunCreationService gunCreationService;
     private final GunSpecificationStorage gunSpecificationStorage;
+    private final BulletCreationService bulletCreationService;
+    private final BulletSpecificationStorage bulletSpecificationStorage;
 
     private final Random random = new Random();
 
@@ -41,7 +47,7 @@ public class EquipmentService {
                 .toList();
         String randomArmorName = getRandomItem(armorNames);
 
-        return armorCreationService.createArmor(randomArmorName);
+        return createArmor(randomArmorName);
     }
 
     public GunComponent createNewGun(Tank tank) {
@@ -55,19 +61,30 @@ public class EquipmentService {
                 .toList();
         String randomGunName = getRandomItem(gunNames);
 
-        return gunCreationService.createGun(randomGunName);
+        return createGun(randomGunName);
     }
 
-    public void createNewBullet(Tank tank) {
+    public BulletComponent createNewBullet(Tank tank) {
+        String currentBulletName = tank.getBulletComponent().getName();
 
+        List<String> bulletNames = tank.getGunComponent().getBulletMapping().keySet().stream()
+                .filter(bullet -> !bullet.equals(currentBulletName))
+                .toList();
+        String randomBulletName = getRandomItem(bulletNames);
+
+        return createBullet(randomBulletName);
     }
 
     public ArmorComponent createDefaultArmor() {
-        return armorCreationService.createArmor(DEFAULT_ARMOR_NAME);
+        return createArmor(DEFAULT_ARMOR_NAME);
     }
 
     public GunComponent createDefaultGun() {
-        return gunCreationService.createGun(DEFAULT_GUN_NAME);
+        return createGun(DEFAULT_GUN_NAME);
+    }
+
+    public BulletComponent createDefaultBullet() {
+        return createBullet(DEFAULT_BULLET_NAME);
     }
 
     public ArmorComponent createArmor(String armorName) {
@@ -76,6 +93,10 @@ public class EquipmentService {
 
     public GunComponent createGun(String gunName) {
         return gunCreationService.createGun(gunName);
+    }
+
+    public BulletComponent createBullet(String bulletName) {
+        return bulletCreationService.createBullet(bulletName);
     }
 
     private <T> T getRandomItem(Collection<T> itemsCollection)  {
