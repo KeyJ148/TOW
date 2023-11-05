@@ -176,6 +176,18 @@ public abstract class Tank extends GameObject {
         tankStatsComponent.addEffect(gunComponent.getEffect());
     }
 
+    public void changeBullet(BulletComponent newBulletComponent) {
+        tankStatsComponent.removeEffect(bulletComponent.getEffect());
+
+        bulletComponent.destroy();
+        removeComponent(bulletComponent);
+
+        bulletComponent = newBulletComponent;
+        addComponent(bulletComponent);
+
+        tankStatsComponent.addEffect(bulletComponent.getEffect());
+    }
+
     public void changeHp(double delta) {
         tankStatsComponent.setCurrentHp(tankStatsComponent.getCurrentHp() + delta);
     }

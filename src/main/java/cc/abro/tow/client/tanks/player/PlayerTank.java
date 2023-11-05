@@ -7,6 +7,7 @@ import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.components.*;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
+import cc.abro.tow.client.tanks.equipment.bullet.BulletComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import lombok.Getter;
 
@@ -25,8 +26,8 @@ public class PlayerTank extends Tank {
     private final PlayerTankStatsGuiComponent playerTankStatsGuiComponent;
 
     public PlayerTank(Location location, double x, double y, double direction,
-                      ArmorComponent armorComponent, GunComponent gunComponent) {
-        super(location, x, y, direction, armorComponent, gunComponent);
+                      ArmorComponent armorComponent, GunComponent gunComponent, BulletComponent bulletComponent) {
+        super(location, x, y, direction, armorComponent, gunComponent, bulletComponent);
 
         playerTankNetworkComponent = new PlayerTankNetworkComponent();
         addComponent(playerTankNetworkComponent);
