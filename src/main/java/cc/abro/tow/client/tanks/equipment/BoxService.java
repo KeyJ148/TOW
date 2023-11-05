@@ -6,6 +6,7 @@ import cc.abro.tow.client.map.objects.Box;
 import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.components.PlayerTankEquipmentControllerComponent;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
+import cc.abro.tow.client.tanks.equipment.bullet.BulletComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import lombok.RequiredArgsConstructor;
 
@@ -55,7 +56,8 @@ public class BoxService {
     }
 
     public void takeBulletBox(Tank tank) {
-        equipmentService.createNewBullet(tank);
+        BulletComponent bulletComponent = equipmentService.createNewBullet(tank);
+        tank.changeBullet(bulletComponent);
     }
 
     public void takeHealthBox(Tank tank) {
