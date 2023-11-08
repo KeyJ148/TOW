@@ -1,4 +1,10 @@
 package cc.abro.tow.client.tanks.equipment.bulletbehaviors;
 
-public class DefaultBulletBehavior {
+@StoredBulletBehavior
+public class DefaultBulletBehavior implements BulletBehavior{
+
+    @Override
+    public String getName() {
+        return "default";
+    }
 }
