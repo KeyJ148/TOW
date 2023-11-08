@@ -8,8 +8,4 @@ public abstract class GunCreator<T extends GunSpecification> {
     public abstract GunComponent createGun(T gunSpecification, String name);
     public abstract Class<T> getGunSpecificationClass();
     public abstract String getType();
-
-    protected Object getBulletBehavior(String behavior) {
-        return null; //TODO
-    }
 }
