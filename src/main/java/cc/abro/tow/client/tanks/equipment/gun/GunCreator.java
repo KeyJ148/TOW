@@ -7,5 +7,5 @@ public abstract class GunCreator<T extends GunSpecification> {
 
     public abstract GunComponent createGun(T gunSpecification, String name);
     public abstract Class<T> getGunSpecificationClass();
-    public abstract String getType(); //TODO
+    public abstract String getType();
 }
