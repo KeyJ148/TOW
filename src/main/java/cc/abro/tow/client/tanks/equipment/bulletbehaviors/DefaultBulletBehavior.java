@@ -7,4 +7,9 @@ public class DefaultBulletBehavior implements BulletBehavior{
     public String getName() {
         return "default";
     }
+
+    @Override
+    public BulletBehavior createInstance() {
+        return new DefaultBulletBehavior();
+    }
 }

@@ -8,15 +8,16 @@ import lombok.extern.log4j.Log4j2;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 @Log4j2
 @GameService
 @RequiredArgsConstructor
-public class BulletBehaviorsStorage {
+public class BulletBehaviorsCreator {
 
     private final AnnotationScanService annotationScanService;
 
-    private final Map<String, BulletBehavior> bulletBehaviorByName = new HashMap<>();
+    private final Map<String, Supplier<BulletBehavior>> bulletBehaviorByName = new HashMap<>();
 
     public void init() {
         var bulletBehaviors = ReflectionUtils.createInstances(
@@ -35,15 +36,15 @@ public class BulletBehaviorsStorage {
             throw new IllegalStateException("BulletBehavior \"" + name + "\" already exists");
         }
 
-        bulletBehaviorByName.put(name, bulletBehavior);
+        bulletBehaviorByName.put(name, bulletBehavior::createInstance);
     }
 
-    public BulletBehavior getBulletBehavior(String name) {
+    public BulletBehavior createBulletBehavior(String name) {
         if (!bulletBehaviorByName.containsKey(name)) {
             log.error("Not found BulletBehavior for type: \"" + name + "\"");
             throw new IllegalArgumentException("Not found BulletBehavior for type: \"" + name + "\"");
         }
 
-        return bulletBehaviorByName.get(name);
+        return bulletBehaviorByName.get(name).get();
     }
 }
