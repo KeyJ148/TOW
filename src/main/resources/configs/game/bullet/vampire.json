@@ -1,0 +1,11 @@
+{
+  "speed" : 1.0,
+  "damage" : 1.0,
+  "range" : 1.0,
+  "explosionPower" : 1.0,
+  "title" : "Vampire",
+  "type": "default",
+
+  "damageMin": 0.8,
+  "damageMax": 2
+}

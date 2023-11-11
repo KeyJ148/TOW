@@ -1,0 +1,13 @@
+{
+  "speed" : 1.0,
+  "damage" : 1.0,
+  "range" : 1.0,
+  "explosionPower" : 1.0,
+  "title" : "Fury",
+  "type": "fury",
+
+  "minSpeed": 0.83,
+  "maxSpeed": 1.21,
+  "minDamage": 0.8,
+  "maxDamage": 2.2
+}
