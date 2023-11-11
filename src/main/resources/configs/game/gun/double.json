@@ -1,5 +1,5 @@
 {
-  "attackSpeed" : 0.6,
+  "attackSpeed" : 0.75,
   "bulletSpeed": 210.0,
   "speedRotate" : 125.0,
   "damage" : 3.0,
@@ -18,8 +18,8 @@
   "spriteName" : "g_double",
   "title" : "Double",
   "type": "default",
-  "size": 3,
+  "size": 4,
   "bulletMapping": {
-    "default": {"behavior":  "defaultBehavior", "spriteName": "b_default", "soundHit" : "hitting"}
+    "default": {"behavior":  "default", "spriteName": "b_default", "soundHit" : "hitting"}
   }
 }

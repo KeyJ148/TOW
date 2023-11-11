@@ -16,7 +16,7 @@
   "type": "fury",
   "size": 3,
   "bulletMapping": {
-    "default": {"behavior":  "defaultBehavior", "spriteName": "b_default", "soundHit" : "hitting"}
+    "default": {"behavior":  "default", "spriteName": "b_default", "soundHit" : "hitting"}
   },
 
   "attackSpeedMin": 0.5,
