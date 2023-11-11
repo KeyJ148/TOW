@@ -1,11 +1,11 @@
 {
   "attackSpeed" : 0.0,
-  "bulletSpeed": 280.0,
+  "bulletSpeed": 210.0,
   "speedRotate" : 130.0,
   "damage" : 3.0,
   "range" : 500,
   "gunTrunksInfo" : [ {
-    "bulletStartX" : 0,
+    "bulletStartX" : -2,
     "bulletStartY" : -27,
     "bulletStartDir" : 0.0
   } ],
@@ -16,8 +16,7 @@
   "type": "vampire",
   "size": 3,
   "bulletMapping": {
-    "default": {"behavior":  "default", "spriteName": "b_default", "soundHit" : "hitting"},
-    "steel": {"behavior":  "default", "spriteName": "b_steel", "soundHit" : "hitting"}
+    "default": {"behavior":  "default", "spriteName": "b_default", "soundHit" : "hitting"}
   },
 
   "attackSpeedMin": 0.7,
