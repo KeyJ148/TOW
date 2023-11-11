@@ -1,10 +1,7 @@
 package cc.abro.tow.client.tanks.equipment.bullet.fury;
 
-import cc.abro.tow.client.tanks.equipment.bullet.BulletCreator;
 import cc.abro.tow.client.tanks.equipment.bullet.StoredBulletCreator;
 import cc.abro.tow.client.tanks.equipment.bullet.defaults.DefaultBulletCreator;
-import cc.abro.tow.client.tanks.stats.Effect;
-import cc.abro.tow.client.tanks.stats.Stats;
 
 @StoredBulletCreator
 public class FuryBulletCreator<T extends FuryBulletSpecification> extends DefaultBulletCreator<T> {

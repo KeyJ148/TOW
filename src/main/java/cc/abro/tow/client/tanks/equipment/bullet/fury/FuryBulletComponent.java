@@ -1,6 +1,5 @@
 package cc.abro.tow.client.tanks.equipment.bullet.fury;
 
-import cc.abro.tow.client.tanks.equipment.bullet.BulletComponent;
 import cc.abro.tow.client.tanks.equipment.bullet.defaults.DefaultBulletComponent;
 import cc.abro.tow.client.tanks.stats.Effect;
 
