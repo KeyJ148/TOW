@@ -41,8 +41,8 @@ public class BulletBehaviorsCreator {
 
     public BulletBehavior createBulletBehavior(String name) {
         if (!bulletBehaviorByName.containsKey(name)) {
-            log.error("Not found BulletBehavior for type: \"" + name + "\"");
-            throw new IllegalArgumentException("Not found BulletBehavior for type: \"" + name + "\"");
+            log.error("Not found BulletBehavior for name: \"" + name + "\"");
+            throw new IllegalArgumentException("Not found BulletBehavior for name: \"" + name + "\"");
         }
 
         return bulletBehaviorByName.get(name).get();
