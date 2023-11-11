@@ -29,10 +29,14 @@ public class AnimationRender<T extends GameObject> extends Rendering<T> implemen
     @Override
     public void update(long delta) {
         update += delta;
-        int nanosForOneFrame = (int) (1000000000 / frameSpeed);
+        int nanosForOneFrame = (int) (1000000000 / Math.abs(frameSpeed));
         if ((frameSpeed != 0) && (update > nanosForOneFrame)) {
             int skipFrames = (int) (update / nanosForOneFrame);
             update = update % nanosForOneFrame;
+
+            if (frameSpeed < 0) {
+                skipFrames *= -1;
+            }
             currentFrame = normalizeFrame(currentFrame + skipFrames);
         }
     }
@@ -56,11 +60,6 @@ public class AnimationRender<T extends GameObject> extends Rendering<T> implemen
     }
 
     public void setFrameSpeed(double frameSpeed) {
-        if (frameSpeed < 0) { //TODO сделать поддержку обратного порядка: если frameSpeed < 0, то анимация проигрывается в обратную сторону с конца (В AnimationOnMovementComponent:27 убрать ABS)
-            log.error("Frame speed must be >= 0");
-            return;
-        }
-
         this.update = 0;
         this.frameSpeed = frameSpeed;
     }
@@ -87,6 +86,8 @@ public class AnimationRender<T extends GameObject> extends Rendering<T> implemen
     }
 
     private int normalizeFrame(int frame) {
-        return frame >= 0 ? frame % getFrameCount() : getFrameCount() - Math.abs(frame % getFrameCount());
+        return frame >= 0 ?
+                frame % getFrameCount() :
+                (getFrameCount() - (Math.abs(frame) % getFrameCount())) % getFrameCount();
     }
 }

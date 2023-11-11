@@ -16,21 +16,20 @@ public class CreateServerService {
     public void createServer(String inputPort, int maxPeople) {
         if (serverLaunching) {
             throw new ServerIsLaunchingExeption();
-        } else {
-            try {
-                port = Integer.parseInt(inputPort);
-                if (port < 1024 || port > 65535) {
-                    throw new WrongPortException();
-                }
-                ServerLoader.startServerListener = () -> Context.createBean(Connector.class).connect("127.0.0.1", port);
-                serverLaunching = true;
+        }
 
-                new ServerLoader(port, maxPeople, false);
-            } catch (RuntimeException e) {
-                log.error(e);
-                e.printStackTrace();//TODO need remove, but log.error not working
-                throw e;
-            }
+        port = Integer.parseInt(inputPort);
+        if (port < 1024 || port > 65535) {
+            throw new WrongPortException();
+        }
+
+        try {
+            ServerLoader.startServerListener = () -> Context.createBean(Connector.class).connect("127.0.0.1", port);
+            serverLaunching = true;
+            new ServerLoader(port, maxPeople, false);
+        } catch (RuntimeException e) {
+            log.error("Error while server starting: ", e);
+            throw e;
         }
     }
 

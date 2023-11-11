@@ -163,7 +163,8 @@ public class NetGameRead implements NetGameReadInterface {
 		int type = Integer.parseInt(str.split(" ")[2]);
 		int idBox = Integer.parseInt(str.split(" ")[3]);
 
-		new Box(Context.getService(LocationManager.class).getActiveLocation(), x, y, type, idBox);
+		Box box = new Box(Context.getService(LocationManager.class).getActiveLocation(), x, y, type, idBox);
+		clientData.boxes.add(idBox, box);
 	}
 
 	//начало рестарта
@@ -274,12 +275,10 @@ public class NetGameRead implements NetGameReadInterface {
 	//я подобрал ящик - (int idBox)
 	public void take21(String str) {
 		int idBox = Integer.parseInt(str.split(" ")[0]);
-		/* TODO реализовать уничтожение ящика при подборе его противником
-		for (GameObject gameObject : Context.getService(LocationManager.class).getActiveLocation().getObjects()) {
-			if (gameObject instanceof Box && ((Box) gameObject).getId() == idBox) {
-				gameObject.destroy();
-			}
-		}*/
+		if (clientData.boxes.get(idBox) != null) {
+			clientData.boxes.get(idBox).destroy();
+			clientData.boxes.set(idBox, null);
+		}
 	}
 
 	//объект карты уничтожен бронёй - (int mid)

@@ -78,7 +78,7 @@ public class Bullet extends GameObject {
         }
     }
 
-    private void collision(CollidableComponent collision, CollisionType collisionType) {
+    protected void collision(CollidableComponent collision, CollisionType collisionType) {
         if (isDestroyed()) return;
         if (collisionType == CollisionType.LEAVING) return;
 
@@ -98,7 +98,7 @@ public class Bullet extends GameObject {
         }
     }
 
-    private void exploded(double explosionSize) {
+    protected void exploded(double explosionSize) {
         if (explosionSize > 0) {
             GameObject explosion = new GameObject(getLocation());
             explosion.setPosition(getX(), getY());
