@@ -22,7 +22,7 @@ import cc.abro.tow.client.tanks.equipment.armor.ArmorCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorSpecificationStorage;
 import cc.abro.tow.client.tanks.equipment.bullet.BulletCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.bullet.BulletSpecificationStorage;
-import cc.abro.tow.client.tanks.equipment.bulletbehaviors.BulletBehaviorsCreator;
+import cc.abro.tow.client.tanks.equipment.bulletbehaviors.BulletBehaviorCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.gun.GunCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.gun.GunSpecificationStorage;
 import cc.abro.tow.server.ServerLoader;
@@ -54,7 +54,7 @@ public class Game implements GameInterface {
     private final ArmorSpecificationStorage armorSpecificationStorage;
     private final GunSpecificationStorage gunSpecificationStorage;
     private final BulletSpecificationStorage bulletSpecificationStorage;
-    private final BulletBehaviorsCreator bulletBehaviorsCreator;
+    private final BulletBehaviorCreatorsStorage bulletBehaviorCreatorsStorage;
 
     @Override
     public void init() {
@@ -101,7 +101,7 @@ public class Game implements GameInterface {
         armorSpecificationStorage.init();
         gunSpecificationStorage.init();
         bulletSpecificationStorage.init();
-        bulletBehaviorsCreator.init();
+        bulletBehaviorCreatorsStorage.init();
 
         String defaultMap = devSettingsService.getDevSettings().getDefaultMap();
         if (defaultMap != null) {

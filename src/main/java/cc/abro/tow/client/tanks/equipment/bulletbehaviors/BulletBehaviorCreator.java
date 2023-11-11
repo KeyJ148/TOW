@@ -1,6 +1,7 @@
 package cc.abro.tow.client.tanks.equipment.bulletbehaviors;
 
-public interface BulletBehavior {
+public interface BulletBehaviorCreator {
 
     String getName();
+    BulletBehavior createBulletBehavior();
 }

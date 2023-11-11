@@ -4,7 +4,7 @@ import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.resources.sprites.Sprite;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.tow.client.tanks.equipment.bulletbehaviors.BulletBehavior;
-import cc.abro.tow.client.tanks.equipment.bulletbehaviors.BulletBehaviorsCreator;
+import cc.abro.tow.client.tanks.equipment.bulletbehaviors.BulletBehaviorCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunCreator;
 import cc.abro.tow.client.tanks.equipment.gun.StoredGunCreator;
@@ -80,7 +80,7 @@ public class DefaultGunCreator<T extends DefaultGunSpecification> extends GunCre
     }
 
     protected BulletBehavior getBulletBehavior(String name) {
-        return Context.getService(BulletBehaviorsCreator.class).createBulletBehavior(name);
+        return Context.getService(BulletBehaviorCreatorsStorage.class).createBulletBehavior(name);
     }
 
 }

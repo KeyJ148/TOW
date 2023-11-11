@@ -8,43 +8,42 @@ import lombok.extern.log4j.Log4j2;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
 @Log4j2
 @GameService
 @RequiredArgsConstructor
-public class BulletBehaviorsCreator {
+public class BulletBehaviorCreatorsStorage {
 
     private final AnnotationScanService annotationScanService;
 
-    private final Map<String, Supplier<BulletBehavior>> bulletBehaviorByName = new HashMap<>();
+    private final Map<String, BulletBehaviorCreator> bulletBehaviorCreatorByName = new HashMap<>();
 
     public void init() {
         var bulletBehaviors = ReflectionUtils.createInstances(
-                annotationScanService.getClassesWithAnnotations(StoredBulletBehavior.class));
+                annotationScanService.getClassesWithAnnotations(StoredBulletBehaviorCreator.class));
 
         bulletBehaviors.stream()
-                .filter(bulletBehavior -> bulletBehavior instanceof BulletBehavior)
-                .map(bulletBehavior -> (BulletBehavior) bulletBehavior)
-                .forEach(this::addBulletBehavior);
+                .filter(bulletBehaviorCreator -> bulletBehaviorCreator instanceof BulletBehaviorCreator)
+                .map(bulletBehaviorCreator -> (BulletBehaviorCreator) bulletBehaviorCreator)
+                .forEach(this::addBulletBehaviorCreator);
     }
 
-    public void addBulletBehavior(BulletBehavior bulletBehavior) {
-        String name = bulletBehavior.getName();
-        if (bulletBehaviorByName.containsKey(name)) {
+    public void addBulletBehaviorCreator(BulletBehaviorCreator bulletBehaviorCreator) {
+        String name = bulletBehaviorCreator.getName();
+        if (bulletBehaviorCreatorByName.containsKey(name)) {
             log.error("BulletBehavior \"" + name + "\" already exists");
             throw new IllegalStateException("BulletBehavior \"" + name + "\" already exists");
         }
 
-        bulletBehaviorByName.put(name, bulletBehavior::createInstance);
+        bulletBehaviorCreatorByName.put(name, bulletBehaviorCreator);
     }
 
     public BulletBehavior createBulletBehavior(String name) {
-        if (!bulletBehaviorByName.containsKey(name)) {
+        if (!bulletBehaviorCreatorByName.containsKey(name)) {
             log.error("Not found BulletBehavior for name: \"" + name + "\"");
             throw new IllegalArgumentException("Not found BulletBehavior for name: \"" + name + "\"");
         }
 
-        return bulletBehaviorByName.get(name).get();
+        return bulletBehaviorCreatorByName.get(name).createBulletBehavior();
     }
 }
