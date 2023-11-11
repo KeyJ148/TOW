@@ -24,6 +24,7 @@ public class PlayerTank extends Tank {
     private final PlayerTankEquipmentGuiComponent playerTankEquipmentGuiComponent;
     private final PlayerTankHpGuiComponent playerTankHpGuiComponent;
     private final PlayerTankStatsGuiComponent playerTankStatsGuiComponent;
+    private final PlayerTankSingleplayerControllerComponent playerTankSingleplayerControllerComponent;
 
     public PlayerTank(Location location, double x, double y, double direction,
                       ArmorComponent armorComponent, GunComponent gunComponent, BulletComponent bulletComponent) {
@@ -52,6 +53,9 @@ public class PlayerTank extends Tank {
 
         playerTankStatsGuiComponent = new PlayerTankStatsGuiComponent();
         addComponent(playerTankStatsGuiComponent);
+
+        playerTankSingleplayerControllerComponent = new PlayerTankSingleplayerControllerComponent();
+        addComponent(playerTankSingleplayerControllerComponent);
 
         collisionComponent = new Collision(armorComponent.getAnimation().mask(), CollidableObjectType.PLAYER_TANK);
         collisionComponent.addListener(CollidableObjectType.BOX, playerTankMovementControllerComponent::collision)
