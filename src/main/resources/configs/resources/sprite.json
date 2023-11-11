@@ -160,43 +160,128 @@
     "maskPath": "graphics/sprites/masks/backwall/road_s_end.json"
   },
   {
-    "name": "b_default",
-    "texturePath": "graphics/sprites/textures/bullet/b_default.png",
+    "name": "b_default_default",
+    "texturePath": "graphics/sprites/textures/bullet/default/b_default_default.png",
     "maskPath": null
   },
   {
-    "name": "b_steel",
-    "texturePath": "graphics/sprites/textures/bullet/b_steel.png",
+    "name": "b_default_steel",
+    "texturePath": "graphics/sprites/textures/bullet/default/b_default_steel.png",
     "maskPath": null
   },
   {
-    "name": "b_squaremass",
-    "texturePath": "graphics/sprites/textures/bullet/b_squaremass.png",
+    "name": "b_default_fury",
+    "texturePath": "graphics/sprites/textures/bullet/default/b_default_fury.png",
     "maskPath": null
   },
   {
-    "name": "b_fury",
-    "texturePath": "graphics/sprites/textures/bullet/b_fury.png",
+    "name": "b_default_cluster",
+    "texturePath": "graphics/sprites/textures/bullet/default/b_default_cluster.png",
     "maskPath": null
   },
   {
-    "name": "b_mass",
-    "texturePath": "graphics/sprites/textures/bullet/b_mass.png",
+    "name": "b_default_vampire",
+    "texturePath": "graphics/sprites/textures/bullet/default/b_default_vampire.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_default_streamlined",
+    "texturePath": "graphics/sprites/textures/bullet/default/b_default_streamlined.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_mortar_default",
+    "texturePath": "graphics/sprites/textures/bullet/mortar/b_mortar_default.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_mortar_steel",
+    "texturePath": "graphics/sprites/textures/bullet/mortar/b_mortar_steel.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_mortar_fury",
+    "texturePath": "graphics/sprites/textures/bullet/mortar/b_mortar_fury.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_mortar_cluster",
+    "texturePath": "graphics/sprites/textures/bullet/mortar/b_mortar_cluster.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_mortar_vampire",
+    "texturePath": "graphics/sprites/textures/bullet/mortar/b_mortar_vampire.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_mortar_streamlined",
+    "texturePath": "graphics/sprites/textures/bullet/mortar/b_mortar_streamlined.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_rocket_default",
+    "texturePath": "graphics/sprites/textures/bullet/rocket/b_rocket_default.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_rocket_steel",
+    "texturePath": "graphics/sprites/textures/bullet/rocket/b_rocket_steel.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_rocket_fury",
+    "texturePath": "graphics/sprites/textures/bullet/rocket/b_rocket_fury.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_rocket_cluster",
+    "texturePath": "graphics/sprites/textures/bullet/rocket/b_rocket_cluster.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_rocket_vampire",
+    "texturePath": "graphics/sprites/textures/bullet/rocket/b_rocket_vampire.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_rocket_streamlined",
+    "texturePath": "graphics/sprites/textures/bullet/rocket/b_rocket_streamlined.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_mass_default",
+    "texturePath": "graphics/sprites/textures/bullet/mass/b_mass_default.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_mass_steel",
+    "texturePath": "graphics/sprites/textures/bullet/mass/b_mass_steel.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_mass_fury",
+    "texturePath": "graphics/sprites/textures/bullet/mass/b_mass_fury.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_mass_cluster",
+    "texturePath": "graphics/sprites/textures/bullet/mass/b_mass_cluster.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_mass_vampire",
+    "texturePath": "graphics/sprites/textures/bullet/mass/b_mass_vampire.png",
+    "maskPath": null
+  },
+  {
+    "name": "b_mass_streamlined",
+    "texturePath": "graphics/sprites/textures/bullet/mass/b_mass_streamlined.png",
     "maskPath": null
   },
   {
     "name": "b_mass_small",
     "texturePath": "graphics/sprites/textures/bullet/b_mass_small.png",
-    "maskPath": null
-  },
-  {
-    "name": "b_vampire",
-    "texturePath": "graphics/sprites/textures/bullet/b_vampire.png",
-    "maskPath": null
-  },
-  {
-    "name": "b_streamlined",
-    "texturePath": "graphics/sprites/textures/bullet/b_streamlined.png",
     "maskPath": null
   },
   {
@@ -225,8 +310,8 @@
     "maskPath": null
   },
   {
-    "name": "g_rocketd",
-    "texturePath": "graphics/sprites/textures/gun/g_rocketd.png",
+    "name": "g_rocket",
+    "texturePath": "graphics/sprites/textures/gun/g_rocket.png",
     "maskPath": null
   },
   {
@@ -250,8 +335,8 @@
     "maskPath": null
   },
   {
-    "name": "g_osmos",
-    "texturePath": "graphics/sprites/textures/gun/g_osmos.png",
+    "name": "g_osmosis",
+    "texturePath": "graphics/sprites/textures/gun/g_osmosis.png",
     "maskPath": null
   },
   {

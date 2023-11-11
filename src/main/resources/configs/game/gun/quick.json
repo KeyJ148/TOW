@@ -17,7 +17,11 @@
   "size": 2,
   "techLevel": 1,
   "bulletMapping": {
-    "default": {"bulletName":  "default", "spriteName": "b_default", "soundHit" : "hitting"},
-    "steel": {"bulletName":  "default", "spriteName": "b_steel", "soundHit" : "hitting"}
+    "default": {"bulletName":  "default", "spriteName": "b_default_default", "soundHit" : "hitting"},
+    "steel": {"bulletName":  "default", "spriteName": "b_default_steel", "soundHit" : "hitting"},
+    "fury": {"bulletName":  "default", "spriteName": "b_default_fury", "soundHit" : "hitting"},
+    "mass": {"bulletName":  "default", "spriteName": "b_default_cluster", "soundHit" : "hitting"},
+    "streamlined": {"bulletName":  "default", "spriteName": "b_default_streamlined", "soundHit" : "hitting"},
+    "vampire": {"bulletName":  "default", "spriteName": "b_default_vampire", "soundHit" : "hitting"}
   }
 }

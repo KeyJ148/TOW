@@ -1,0 +1,27 @@
+{
+  "attackSpeed" : 1.0,
+  "bulletSpeed": 210.0,
+  "speedRotate" : 130.0,
+  "damage" : 3.0,
+  "range" : 500,
+  "gunTrunksInfo" : [ {
+    "bulletStartX" : -2,
+    "bulletStartY" : -27,
+    "bulletStartDir" : 0.0
+  } ],
+  "bulletExplosionPower" : 10,
+  "soundShot" : "shot_rocket",
+  "spriteName" : "g_rocket",
+  "title" : "Rocket",
+  "type": "default",
+  "size": 3,
+  "techLevel": 1,
+  "bulletMapping": {
+    "default": {"bulletName":  "default", "spriteName": "b_rocket_default", "soundHit" : "hitting"},
+    "steel": {"bulletName":  "default", "spriteName": "b_rocket_steel", "soundHit" : "hitting"},
+    "fury": {"bulletName":  "default", "spriteName": "b_rocket_fury", "soundHit" : "hitting"},
+    "mass": {"bulletName":  "default", "spriteName": "b_rocket_cluster", "soundHit" : "hitting"},
+    "streamlined": {"bulletName":  "default", "spriteName": "b_rocket_streamlined", "soundHit" : "hitting"},
+    "vampire": {"bulletName":  "default", "spriteName": "b_rocket_vampire", "soundHit" : "hitting"}
+  }
+}
