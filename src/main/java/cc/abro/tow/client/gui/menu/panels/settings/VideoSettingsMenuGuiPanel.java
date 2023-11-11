@@ -1,9 +1,6 @@
 package cc.abro.tow.client.gui.menu.panels.settings;
 
-import cc.abro.orchengine.services.BlockingGuiService;
 import cc.abro.tow.client.gui.menu.InterfaceStyles;
-import cc.abro.tow.client.gui.menu.MenuGuiComponents;
-import cc.abro.tow.client.gui.menu.panels.MainMenuGuiPanel;
 import cc.abro.tow.client.gui.menu.panels.MenuGuiPanel;
 import com.spinyowl.legui.component.Button;
 import com.spinyowl.legui.component.Panel;
@@ -47,12 +44,13 @@ public class VideoSettingsMenuGuiPanel extends MenuGuiPanel implements SaveBackL
         resolution.setElementHeight(InterfaceStyles.MENU_TEXT_FIELD_HEIGHT);
         resolution.getSelectionListPanel().setStyle(InterfaceStyles.createScrollablePanelStyle());
         resolution.getSelectionListPanel().getVerticalScrollBar().setStyle(InterfaceStyles.createScrollBarStyle());
-        //resolution.getExpandButton().setStyle(InterfaceStyles.createButtonStyle());
-        //resolution.getSelectionButton().setStyle(InterfaceStyles.createButtonStyle());
-        //for (SelectBox<String>.SelectBoxElement<String> boxElement :resolution.getSelectBoxElements()) {
-            //boxElement.setStyle(InterfaceStyles.createButtonStyle());
-        //}
-        //TODO return after release add(resolution);
+        resolution.getExpandButton().getStyle().setBackground(InterfaceStyles.createButtonBackground());
+        resolution.getExpandButton().getStyle().setBorder(InterfaceStyles.createButtonBorder());
+//        resolution.getSelectionButton().setStyle(InterfaceStyles.createButtonStyle());
+//        for (SelectBox<String>.SelectBoxElement<String> boxElement :resolution.getSelectBoxElements()) {
+//            boxElement.setStyle(InterfaceStyles.createButtonStyle());
+//        }
+        add(resolution);
 
         add(parent.createBackToMenuButton(this));
         canOut = parent.createCanOut(this);
