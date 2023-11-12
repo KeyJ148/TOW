@@ -20,7 +20,7 @@
     "default": {"bulletName":  "default", "spriteName": "b_default_default", "soundHit" : "hitting"},
     "steel": {"bulletName":  "default", "spriteName": "b_default_steel", "soundHit" : "hitting"},
     "fury": {"bulletName":  "default", "spriteName": "b_default_fury", "soundHit" : "hitting"},
-    "mass": {"bulletName":  "default", "spriteName": "b_default_mass", "soundHit" : "hitting"},
+    "mass": {"bulletName":  "default", "spriteName": "b_default_cluster", "soundHit" : "hitting"},
     "streamlined": {"bulletName":  "default", "spriteName": "b_default_streamlined", "soundHit" : "hitting"},
     "vampire": {"bulletName":  "default", "spriteName": "b_default_vampire", "soundHit" : "hitting"}
   },
