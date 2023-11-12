@@ -1,6 +1,6 @@
 {
   "attackSpeed" : 0.8,
-  "bulletSpeed": 210.0,
+  "bulletSpeed": 280.0,
   "speedRotate" : 100.0,
   "damage" : 6.0,
   "range" : 1000,
