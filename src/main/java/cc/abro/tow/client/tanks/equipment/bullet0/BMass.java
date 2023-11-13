@@ -1,16 +1,6 @@
 package cc.abro.tow.client.tanks.equipment.bullet0;
 
-import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.gameobject.components.collision.CollidableComponent;
-import cc.abro.orchengine.gameobject.components.collision.CollisionType;
-import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
-import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
-import cc.abro.tow.client.tanks.enemy.EnemyTank;
 import lombok.extern.log4j.Log4j2;
-
-import java.util.Random;
-import java.util.Set;
 
 @Log4j2
 public class BMass extends Bullet {
@@ -18,7 +8,7 @@ public class BMass extends Bullet {
     public int minFragmentNumber;
     public int maxFragmentNumber;
     public String configName;
-
+/*
     @Override
     public void collision(CollidableComponent collision, CollisionType collisionType) {
         if (isDestroyed()) return;
@@ -64,7 +54,7 @@ public class BMass extends Bullet {
         minFragmentNumber = cr.findInteger("MIN_FRAGMENT_NUMBER");
         maxFragmentNumber = cr.findInteger("MAX_FRAGMENT_NUMBER");
         configName = cr.findString("CONFIG_NAME");
-    }
+    }*/
 
 }
 
