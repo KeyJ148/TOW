@@ -5,23 +5,17 @@ import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gameobject.components.Movement;
-import cc.abro.orchengine.gameobject.components.collision.*;
+import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
-import cc.abro.orchengine.gameobject.location.Border;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.sprites.Sprite;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.DepthConstants;
-import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
-import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.settings.GameSettingsService;
-import cc.abro.tow.client.tanks.enemy.EnemyTank;
 import cc.abro.tow.client.tanks.player.PlayerTank;
 
-import java.util.Set;
-
-public class Bullet extends GameObject implements CollisionListener{
+public class Bullet extends GameObject {
     
     private final int soundRange;
 
@@ -54,13 +48,12 @@ public class Bullet extends GameObject implements CollisionListener{
         this.name = name;
         this.damage = damage; //Дамаг исключительно от выстрелевшей пушки
         this.range = range; //Дальность исключительно от выстрелевшей пушки
-        this.idNet = Context.getService(ClientData.class).idNet;
+        this.idNet = Context.getService(ClientData.class).idNet++;
         this.startX = x;
         this.startY = y;
 
         addComponent(new Movement());
         this.getComponent(Movement.class).setDirection(dir);
-        loadData();
 
         setX(x);
         setY(y);
@@ -68,73 +61,8 @@ public class Bullet extends GameObject implements CollisionListener{
         addComponent(new SpriteRender(texture.texture(), DepthConstants.BULLET_SPRITE_Z));
 
         addComponent(new Collision(texture.mask(), CollidableObjectType.BULLET));
-        getComponent(Collision.class)
-                .addListener(CollidableObjectType.ENEMY_TANK, this)
-                .addListener(DefaultCollidableObjectType.BORDER, this)
-                .addListener(CollidableObjectType.WALL, this);
 
         Context.getService(TCPControl.class).send(13, getData());
-        Context.getService(ClientData.class).idNet++;
-
-        playSoundShot();
-    }
-
-    @Override
-    public void collision(CollidableComponent collision, CollisionType collisionType) {
-        if (isDestroyed()) return;
-        if (collisionType == CollisionType.LEAVING) return;
-        GameObject gameObject = collision.getGameObject();
-
-        if (gameObject.getClass().equals(Border.class)) {
-            destroy(0);
-        }
-
-        if (Set.of(CollisedMapObject.class, DestroyedMapObject.class).contains(gameObject.getClass())) {
-            destroy(explosionSize);
-
-            getAudioService().playSoundEffect(getAudioStorage().getAudio(sound_hit), (int) getX(), (int) getY(), soundRange);
-            Context.getService(TCPControl.class).send(25, (int) getX() + " " + (int) getY() + " " + sound_hit);
-        }
-
-        if (gameObject.getClass().equals(EnemyTank.class)) {
-            EnemyTank ea = (EnemyTank) gameObject;
-
-            //Context.getService(TCPControl.class).send(14, damage + " " + ea.enemy.id);
-            destroy(explosionSize);
-
-            getAudioService().playSoundEffect(getAudioStorage().getAudio(sound_hit), (int) getX(), (int) getY(), soundRange);
-            Context.getService(TCPControl.class).send(25, (int) getX() + " " + (int) getY() + " " + sound_hit);
-
-            //Для вампирского сета
-            //if (ea.enemy.alive) player.hitting(damage); //TODO вызвать функцию в соответствующем компоненте танка, eventBus хорошо подойдет
-        }
-    }
-
-    public void destroy(int expSize) {
-        destroy();
-        Context.getService(TCPControl.class).send(15, idNet + " " + expSize);
-
-        if (explosionSize > 0) {
-            /*GameObject explosion = GameObjectFactory.create(getLocation(), getX(), getY(), 3000);
-            Explosion explosionParticles = new Explosion(expSize);
-            explosion.addComponent(explosionParticles);
-            explosionParticles.activate();
-            explosion.getComponent(Particles.class).destroyObject = true;*/
-        }
-    }
-
-    //TODO move to component
-    public void update() {
-        if (!isDestroyed()) {
-            if (Math.sqrt(Math.pow(startX - getX(), 2) + Math.pow(startY - getY(), 2)) >= range) {
-                destroy(0);
-            }
-        }
-    }
-
-    public void playSoundShot() {
-        getAudioService().playSoundEffect(getAudioStorage().getAudio(sound_shot), (int) getX(), (int) getY(), soundRange);
-        Context.getService(TCPControl.class).send(25, (int) getX() + " " + (int) getY() + " " + sound_shot);
     }
 
     public String getData() {
@@ -144,27 +72,6 @@ public class Bullet extends GameObject implements CollisionListener{
                 + " " + getComponent(Movement.class).getSpeed()
                 + " " + imageName
                 + " " + idNet;
-    }
-
-    public String getConfigFileName() {
-        return PATH_SETTING + name + ".properties";
-    }
-
-    public void loadData() {
-        ConfigReader cr = new ConfigReader(getConfigFileName());
-
-        //TODO не забыть реализовать
-        //getComponent(Movement.class).speed = cr.findDouble("SPEED") + player.stats.speedTankUp / 2;
-        //getComponent(Movement.class).speed = Math.max(getComponent(Movement.class).speed, player.stats.speedTankUp * GameSetting.MIN_BULLET_SPEED_KOEF);
-
-        damage += cr.findDouble("DAMAGE");//К дамагу пушки прибавляем дамаг патрона
-        range += cr.findInteger("RANGE");//К дальности пушки прибавляем дальность патрона
-        imageName = cr.findString("IMAGE_NAME");
-        texture = getSpriteStorage().getSprite(imageName);
-        title = cr.findString("TITLE");
-        sound_shot = cr.findString("SOUND_SHOT");
-        sound_hit = cr.findString("SOUND_HIT");
-        explosionSize = cr.findInteger("EXPLOSION_SIZE");
     }
 
 }

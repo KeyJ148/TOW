@@ -2,7 +2,7 @@ package cc.abro.tow.client.tanks.equipment.bullet0;
 
 public class BVampire extends Bullet {
 
-    @Override
+    /*@Override
     public void loadData() {
         super.loadData();
 
@@ -11,7 +11,7 @@ public class BVampire extends Bullet {
         double minDamage = cr.findDouble("MIN_DAMAGE");
 
         //damage += maxDamage - ((1 - player.vampire) * (maxDamage - minDamage));
-    }
+    }*/
 
 }
 
