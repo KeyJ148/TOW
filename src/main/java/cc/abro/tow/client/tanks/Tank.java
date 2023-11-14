@@ -26,6 +26,7 @@ import lombok.Setter;
 public abstract class Tank extends GameObject {
 
     private static final Color EXPLODED_TANK_COLOR = new Color(110, 15, 0);
+    private static final String EXPLODED_TANK_AUDIO = "explosion";
 
     private final AudioService audioService;
     private final GameSettingsService gameSettingsService;
@@ -111,11 +112,11 @@ public abstract class Tank extends GameObject {
 
         setColor(EXPLODED_TANK_COLOR);
 
-        Explosion explosionParticlesComponent = new Explosion(100);
+        Explosion explosionParticlesComponent = new Explosion(100, DepthConstants.EXPLOSION_Z);
         explosionParticlesComponent.activate();
         addComponent(explosionParticlesComponent);
 
-        audioService.playSoundEffect(getAudioStorage().getAudio("explosion"), (int) getX(), (int) getY(),
+        audioService.playSoundEffect(getAudioStorage().getAudio(EXPLODED_TANK_AUDIO), (int) getX(), (int) getY(),
                 gameSettingsService.getGameSettings().getSoundRange());
 
         postEvent(new TankExplodedEvent(this));
