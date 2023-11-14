@@ -58,7 +58,8 @@ public class PlayerTank extends Tank {
         addComponent(playerTankSingleplayerControllerComponent);
 
         collisionComponent = new Collision(armorComponent.getAnimation().mask(), CollidableObjectType.PLAYER_TANK);
-        collisionComponent.addListener(CollidableObjectType.BOX, playerTankMovementControllerComponent::collision)
+        collisionComponent
+                .addListener(CollidableObjectType.BOX, playerTankMovementControllerComponent::collision)
                 .addListener(CollidableObjectType.ENEMY_TANK, playerTankMovementControllerComponent::collision)
                 .addListener(DefaultCollidableObjectType.BORDER, playerTankMovementControllerComponent::collision)
                 .addListener(CollidableObjectType.WALL, playerTankMovementControllerComponent::collision);
