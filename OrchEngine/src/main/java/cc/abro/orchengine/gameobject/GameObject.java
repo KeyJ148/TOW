@@ -47,7 +47,7 @@ public class GameObject extends CachedComponentsContainer implements ServiceCons
         }
     }
 
-    public void postEvent(Object event) {
+    protected void postEvent(Object event) {
         getLocation().postEvent(event);
     }
 
