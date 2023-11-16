@@ -113,7 +113,10 @@ public class Bullet extends GameObject {
                     gameSettingsService.getGameSettings().getSoundRange());
             Context.getService(TCPControl.class).send(25, (int) getX() + " " + (int) getY() + " " + soundHit);
         }
+
         //TODO Context.getService(TCPControl.class).send(15, idNet + " " + expSize);
+        spriteComponent.destroy();
+        removeComponent(spriteComponent);
         destroy();
     }
 }
