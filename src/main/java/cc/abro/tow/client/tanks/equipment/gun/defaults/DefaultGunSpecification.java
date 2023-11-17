@@ -12,7 +12,7 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 public class DefaultGunSpecification implements GunSpecification {
-    public record TrunkInfo(int bulletStartX, int bulletStartY, double bulletStartDir) {}
+    public record TrunkInfo(double bulletStartX, double bulletStartY, double bulletStartDir) {}
     public record BulletInfo(String behavior, String spriteName, String soundHit) {}
 
     private final double attackSpeed;
