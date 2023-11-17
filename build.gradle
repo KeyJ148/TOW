@@ -21,8 +21,7 @@ if (Boolean.parseBoolean(startOnFirstThread) ||
         startOnFirstThread == null && OperatingSystem.current() == OperatingSystem.MAC_OS) {
     applicationDefaultJvmArgs += "-XstartOnFirstThread"
 }
-//applicationDefaultJvmArgs = ["-Xmx128M"]
-//applicationDefaultJvmArgs += ["-Dlog4j.defaultInitOverride=true", "-Dlog4j.configurationFile=log4j2.yml"]
+//applicationDefaultJvmArgs += ["-Xmx128M"]
 //applicationDefaultJvmArgs += ["-Dlog4j.debug"]
 
 repositories {
@@ -63,6 +62,10 @@ distributions.main.contents {
 
 test {
     useJUnitPlatform()
+}
+
+startScripts.doLast {
+    windowsScript.text = windowsScript.text.replaceAll('set CLASSPATH=.*', 'set CLASSPATH=.;%APP_HOME%/lib/*')
 }
 
 //LWJGL-3.3.1, Minimal OpenGL, All x64 OS (include arm)
