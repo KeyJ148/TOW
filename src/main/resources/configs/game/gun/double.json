@@ -5,11 +5,11 @@
   "damage" : 3.0,
   "range" : 500,
   "gunTrunksInfo" : [ {
-    "bulletStartX" : -2,
+    "bulletStartX" : -3.5,
     "bulletStartY" : -27,
     "bulletStartDir" : 0.0
   }, {
-    "bulletStartX" : 2,
+    "bulletStartX" : 3.5,
     "bulletStartY" : -27,
     "bulletStartDir" : 0.0
   } ],
