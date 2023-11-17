@@ -59,7 +59,7 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
         }
     }
 
-    private void attackFromTrunk(int trunkX, int trunkY, double bulletStartDir) {
+    private void attackFromTrunk(double trunkX, double trunkY, double bulletStartDir) {
         double gunDirection = Math.toRadians(getGameObject().getGunSpriteComponent().getDirection());
         double trunkXdx = trunkX * Math.cos(gunDirection - Math.PI / 2); //первый отступ "вперед"
         double trunkXdy = trunkX * Math.sin(gunDirection - Math.PI / 2); //в отличие от маски мы отнимаем от каждого по PI/2
@@ -81,6 +81,6 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
         Context.getService(TCPControl.class).send(25, (int) bulletX + " " + (int) bulletY + " " + soundShot);
     }
 
-    public record TrunkInfo(int bulletStartX, int bulletStartY, double bulletStartDir) {}
+    public record TrunkInfo(double bulletStartX, double bulletStartY, double bulletStartDir) {}
     public record BulletInfo(BulletBehavior behavior, String spriteName, String soundHit) {}
 }
