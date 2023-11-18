@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks.components;
+package cc.abro.tow.client.tanks.player;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
@@ -13,10 +13,10 @@ import cc.abro.tow.client.map.objects.Box;
 import cc.abro.tow.client.map.objects.collised.CollisedMapObject;
 import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.settings.SettingsService;
-import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.enemy.EnemyTank;
 import cc.abro.tow.client.tanks.equipment.BoxService;
 import cc.abro.tow.client.tanks.stats.Stats;
+import cc.abro.tow.client.tanks.tank.Tank;
 
 import java.util.List;
 import java.util.Set;

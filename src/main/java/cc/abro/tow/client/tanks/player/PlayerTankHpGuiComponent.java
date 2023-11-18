@@ -1,8 +1,9 @@
-package cc.abro.tow.client.tanks.components;
+package cc.abro.tow.client.tanks.player;
 
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
-import cc.abro.tow.client.tanks.Tank;
+import cc.abro.tow.client.tanks.tank.Tank;
+import cc.abro.tow.client.tanks.tank.TankStatsComponent;
 import com.spinyowl.legui.component.Label;
 
 import static cc.abro.tow.client.gui.menu.InterfaceStyles.LABEL_HP_FONT_SIZE;

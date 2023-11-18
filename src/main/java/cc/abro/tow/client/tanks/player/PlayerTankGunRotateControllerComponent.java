@@ -1,12 +1,12 @@
-package cc.abro.tow.client.tanks.components;
+package cc.abro.tow.client.tanks.player;
 
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.util.Vector2;
-import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.stats.Stats;
+import cc.abro.tow.client.tanks.tank.Tank;
 
 public class PlayerTankGunRotateControllerComponent extends Component<Tank> implements Updatable {
 

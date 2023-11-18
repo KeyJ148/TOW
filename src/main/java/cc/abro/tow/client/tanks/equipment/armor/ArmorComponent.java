@@ -2,8 +2,8 @@ package cc.abro.tow.client.tanks.equipment.armor;
 
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.resources.animations.Animation;
-import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.stats.Effect;
+import cc.abro.tow.client.tanks.tank.Tank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

@@ -1,11 +1,10 @@
-package cc.abro.tow.client.tanks.components;
+package cc.abro.tow.client.tanks.player;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.events.input.KeyReleaseEvent;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.tanks.equipment.BoxService;
-import cc.abro.tow.client.tanks.player.PlayerTank;
 import com.google.common.eventbus.Subscribe;
 
 import static org.lwjgl.glfw.GLFW.*;
