@@ -7,6 +7,7 @@ import org.reflections.Reflections;
 import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,5 +49,15 @@ public class ReflectionUtils {
         }
 
         return instances;
+    }
+
+
+    /**
+     * @param classes
+     * @param clazz
+     * @return все классы из списка, унаследованные от указанного класса
+     */
+    public static List<Class<?>> getAssignableTo(List<Class<?>> classes, Class<?> clazz) {
+        return classes.stream().filter(clazz::isAssignableFrom).toList();
     }
 }

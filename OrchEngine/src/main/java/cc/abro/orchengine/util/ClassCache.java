@@ -36,7 +36,7 @@ public class ClassCache {
      * @param clazz - базовый класс.
      * @return список всех закэшированных классов, унаследованных от указанного класса.
      */
-    public static List<Class<?>> getAssignableTo(Class<?> clazz){
+    public static List<Class<?>> getAssignableTo(Class<?> clazz) {
         return getAllLoadedClasses().stream().filter(clazz::isAssignableFrom).toList();
     }
 
@@ -44,7 +44,7 @@ public class ClassCache {
      * @param path - путь к .jar файлу.
      * @return true, если .jar файл был загружен в кэш.
      */
-    public static boolean isLoadedJar(String path){
+    public static boolean isLoadedJar(String path) {
         return loadedJarPaths.contains(path);
     }
 
@@ -53,7 +53,7 @@ public class ClassCache {
      * @param jar - .jar файл, в котором находится класс.
      * @param clazz - сам класс.
      */
-    public static void addClass(String jar, Class<?> clazz){
+    public static void addClass(String jar, Class<?> clazz) {
         var classname = clazz.getCanonicalName();
         var loadedClasses = getModifiableLoadedJarClasses(jar);
         loadedClasses.add(clazz);
@@ -64,7 +64,7 @@ public class ClassCache {
      * @param name - полное имя класса.
      * @return true, если такой класс имеется в кэше.
      */
-    public static boolean isClassKnown(String name){
+    public static boolean isClassKnown(String name) {
         return knownClasses.contains(name);
     }
 
@@ -72,11 +72,11 @@ public class ClassCache {
      * Добавляет .jar файл в список зарегистированных. Зарегистрированные .jar файлы будут игрнорироваться при попытке загрузки в {@link Loader#load(String)}.
      * @param path - путь к .jar файлу.
      */
-    public static void registerLoadedJar(String path){
+    public static void registerLoadedJar(String path) {
         loadedJarPaths.add(path);
     }
 
-    private static List<Class<?>> getModifiableLoadedJarClasses(String path){
+    private static List<Class<?>> getModifiableLoadedJarClasses(String path) {
         return loadedJars.computeIfAbsent(path, k -> new ArrayList<>());
     }
 }
