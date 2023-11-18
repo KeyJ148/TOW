@@ -1,7 +1,6 @@
 package cc.abro.orchengine.util;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ClassCache {
     private static final Set<String> loadedJarPaths = new HashSet<>();
@@ -70,7 +69,7 @@ public class ClassCache {
     }
 
     /**
-     * Добавляет .jar файл в список зарегистированных. Зарегистрированные .jar файлы будут игрнорироваться при попытке загрузки в {@link Loader#Load(String)}.
+     * Добавляет .jar файл в список зарегистированных. Зарегистрированные .jar файлы будут игрнорироваться при попытке загрузки в {@link Loader#load(String)}.
      * @param path - путь к .jar файлу.
      */
     public static void registerLoadedJar(String path){

@@ -16,8 +16,8 @@ public class Loader {
      * @param jarPath - путь к .jar файлу.
      * @return Список классов загруженнх в ClassCache из этого .jar файла.
      */
-    public static List<Class<?>> Load(String jarPath) throws IOException {
-        return Load(jarPath, false);
+    public static List<Class<?>> load(String jarPath) throws IOException {
+        return load(jarPath, false);
     }
 
     /**
@@ -26,9 +26,9 @@ public class Loader {
      * @param forceLoad - попытается загрузить .jar файл, даже если он уже был загружен.
      * @return Список классов загруженнх в ClassCache из этого .jar файла.
      */
-    public static List<Class<?>> Load(String jarPath, boolean forceLoad) throws IOException {
+    public static List<Class<?>> load(String jarPath, boolean forceLoad) throws IOException {
         // Если .jar уже загружен, вернуть закэшированные классы.
-        if(ClassCache.isLoadedJar(jarPath) && !forceLoad){
+        if (ClassCache.isLoadedJar(jarPath) && !forceLoad) {
             return ClassCache.getLoadedJarClasses(jarPath);
         }
 
@@ -38,26 +38,25 @@ public class Loader {
         ArrayList<Class<?>> classes = new ArrayList<>();
 
         // Находим все классы в джарнике для использования их в URLClassLoader
-        try(JarFile jar = new JarFile(jarFile)){
+        try (JarFile jar = new JarFile(jarFile)) {
             jar.stream().forEach(jarEntry -> {
-                if(jarEntry.getName().endsWith(".class"))
-                {
+                if (jarEntry.getName().endsWith(".class")){
                     classNames.add(jarEntry.getName());
                 }
             });
         }
 
         // Пытаемся загрузить классы из джарника
-        try(URLClassLoader urlClassLoader = new URLClassLoader(new URL[]{jarUrl}, ClassLoader.getSystemClassLoader())){
+        try (URLClassLoader urlClassLoader = new URLClassLoader(new URL[]{jarUrl}, ClassLoader.getSystemClassLoader())) {
             classNames.forEach(classPath -> {
-                try{
+                try {
                     String className = classPath.replaceAll("/",".").replace(".class","");
-                    if(ClassCache.isClassKnown(className)){
+                    if (ClassCache.isClassKnown(className)) {
                         return; // не нужно грузить уже загруженный класс.
                     }
                     Class<?> cls = urlClassLoader.loadClass(className);
                     ClassCache.addClass(jarPath, cls);
-                }catch(Exception e){
+                } catch (Exception e) {
                     System.out.println(e);
                 }
             });
