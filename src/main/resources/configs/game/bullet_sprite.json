@@ -1,0 +1,98 @@
+[
+  {
+    "spriteName": "b_default_default",
+    "rotation": false
+  },
+  {
+    "spriteName": "b_default_steel",
+    "rotation": false
+  },
+  {
+    "spriteName": "b_default_fury",
+    "rotation": false
+  },
+  {
+    "spriteName": "b_default_cluster",
+    "rotation": false
+  },
+  {
+    "spriteName": "b_default_vampire",
+    "rotation": false
+  },
+  {
+    "spriteName": "b_default_streamlined",
+    "rotation": true
+  },
+  {
+    "spriteName": "b_mass_default",
+    "rotation": false
+  },
+  {
+    "spriteName": "b_mass_steel",
+    "rotation": false
+  },
+  {
+    "spriteName": "b_mass_fury",
+    "rotation": false
+  },
+  {
+    "spriteName": "b_mass_cluster",
+    "rotation": false
+  },
+  {
+    "spriteName": "b_mass_vampire",
+    "rotation": false
+  },
+  {
+    "spriteName": "b_mass_streamlined",
+    "rotation": true
+  },
+  {
+    "spriteName": "b_rocket_default",
+    "rotation": true
+  },
+  {
+    "spriteName": "b_rocket_steel",
+    "rotation": true
+  },
+  {
+    "spriteName": "b_rocket_fury",
+    "rotation": true
+  },
+  {
+    "spriteName": "b_rocket_cluster",
+    "rotation": true
+  },
+  {
+    "spriteName": "b_rocket_vampire",
+    "rotation": true
+  },
+  {
+    "spriteName": "b_rocket_streamlined",
+    "rotation": true
+  },
+  {
+    "spriteName": "b_mortar_default",
+    "rotation": false
+  },
+  {
+    "spriteName": "b_mortar_steel",
+    "rotation": false
+  },
+  {
+    "spriteName": "b_mortar_fury",
+    "rotation": false
+  },
+  {
+    "spriteName": "b_mortar_cluster",
+    "rotation": false
+  },
+  {
+    "spriteName": "b_mortar_vampire",
+    "rotation": false
+  },
+  {
+    "spriteName": "b_mortar_streamlined",
+    "rotation": true
+  }
+]
