@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks.components;
+package cc.abro.tow.client.tanks.tank;
 
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.components.Movement;

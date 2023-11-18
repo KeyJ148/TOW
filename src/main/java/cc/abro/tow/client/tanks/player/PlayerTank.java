@@ -4,11 +4,10 @@ import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.orchengine.gameobject.components.collision.DefaultCollidableObjectType;
 import cc.abro.tow.client.CollidableObjectType;
-import cc.abro.tow.client.tanks.Tank;
-import cc.abro.tow.client.tanks.components.*;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
 import cc.abro.tow.client.tanks.equipment.bullet.BulletComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
+import cc.abro.tow.client.tanks.tank.Tank;
 import lombok.Getter;
 
 public class PlayerTank extends Tank {

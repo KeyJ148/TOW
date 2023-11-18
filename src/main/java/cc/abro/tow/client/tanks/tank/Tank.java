@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks;
+package cc.abro.tow.client.tanks.tank;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
@@ -12,10 +12,6 @@ import cc.abro.tow.client.DepthConstants;
 import cc.abro.tow.client.events.TankExplodedEvent;
 import cc.abro.tow.client.particles.Explosion;
 import cc.abro.tow.client.settings.GameSettingsService;
-import cc.abro.tow.client.tanks.components.AnimationOnMovementComponent;
-import cc.abro.tow.client.tanks.components.TankNicknameComponent;
-import cc.abro.tow.client.tanks.components.TankStatsComponent;
-import cc.abro.tow.client.tanks.components.TankVampireComponent;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
 import cc.abro.tow.client.tanks.equipment.bullet.BulletComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;

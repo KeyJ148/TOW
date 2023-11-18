@@ -3,11 +3,11 @@ package cc.abro.tow.client.tanks.equipment;
 import cc.abro.orchengine.context.GameService;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.map.objects.Box;
-import cc.abro.tow.client.tanks.Tank;
-import cc.abro.tow.client.tanks.components.PlayerTankEquipmentControllerComponent;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
 import cc.abro.tow.client.tanks.equipment.bullet.BulletComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
+import cc.abro.tow.client.tanks.player.PlayerTankEquipmentControllerComponent;
+import cc.abro.tow.client.tanks.tank.Tank;
 import lombok.RequiredArgsConstructor;
 
 @GameService

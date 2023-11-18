@@ -1,8 +1,7 @@
-package cc.abro.tow.client.tanks.components;
+package cc.abro.tow.client.tanks.tank;
 
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
-import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.stats.Effect;
 import cc.abro.tow.client.tanks.stats.Stats;
 import lombok.Getter;

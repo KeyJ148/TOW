@@ -1,8 +1,7 @@
-package cc.abro.tow.client.tanks.components;
+package cc.abro.tow.client.tanks.player;
 
 import cc.abro.orchengine.events.input.KeyPressEvent;
 import cc.abro.orchengine.gameobject.Component;
-import cc.abro.tow.client.tanks.player.PlayerTank;
 import com.google.common.eventbus.Subscribe;
 import lombok.Getter;
 

@@ -1,6 +1,6 @@
 package cc.abro.tow.client.events;
 
-import cc.abro.tow.client.tanks.Tank;
+import cc.abro.tow.client.tanks.tank.Tank;
 import lombok.Data;
 
 @Data

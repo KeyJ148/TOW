@@ -1,11 +1,11 @@
-package cc.abro.tow.client.tanks.components;
+package cc.abro.tow.client.tanks.enemy;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.tow.client.ClientData;
-import cc.abro.tow.client.tanks.Tank;
+import cc.abro.tow.client.tanks.tank.Tank;
 import lombok.Getter;
 import lombok.Setter;
 
