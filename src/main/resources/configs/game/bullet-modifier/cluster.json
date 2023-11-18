@@ -4,5 +4,19 @@
   "range" : 0.86,
   "explosionPower" : 1.5,
   "title" : "Cluster",
-  "type": "default"
+  "type": "cluster",
+  "techLevel" : 1,
+  "secondaryBulletByGunName": {
+    "default": {"bulletName":  "default", "spriteName": "b_cluster_fragment", "soundHit" : "hitting"},
+    "double": {"bulletName":  "default", "spriteName": "b_cluster_fragment", "soundHit" : "hitting"},
+    "fury": {"bulletName":  "default", "spriteName": "b_cluster_fragment", "soundHit" : "hitting"},
+    "mass": {"bulletName":  "default", "spriteName": "b_cluster_fragment", "soundHit" : "hitting"},
+    "mortar": {"bulletName":  "default", "spriteName": "b_cluster_fragment", "soundHit" : "hitting"},
+    "osmosis": {"bulletName":  "default", "spriteName": "b_cluster_fragment", "soundHit" : "hitting"},
+    "power": {"bulletName":  "default", "spriteName": "b_cluster_fragment", "soundHit" : "hitting"},
+    "quick": {"bulletName":  "default", "spriteName": "b_cluster_fragment", "soundHit" : "hitting"},
+    "rocket": {"bulletName":  "default", "spriteName": "b_cluster_fragment", "soundHit" : "hitting"},
+    "sniper": {"bulletName":  "default", "spriteName": "b_cluster_fragment", "soundHit" : "hitting"},
+    "vampire": {"bulletName":  "default", "spriteName": "b_cluster_fragment", "soundHit" : "hitting"}
+  }
 }

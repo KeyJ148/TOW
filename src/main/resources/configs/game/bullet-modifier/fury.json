@@ -5,6 +5,7 @@
   "explosionPower" : 1.0,
   "title" : "Fury",
   "type": "fury",
+  "techLevel" : 1,
 
   "minSpeed": 0.83,
   "maxSpeed": 1.21,

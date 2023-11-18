@@ -5,7 +5,7 @@
   "damage" : 3.0,
   "range" : 500,
   "gunTrunksInfo" : [ {
-    "bulletStartX" : -2,
+    "bulletStartX" : 0,
     "bulletStartY" : -27,
     "bulletStartDir" : 0.0
   } ],
@@ -17,11 +17,11 @@
   "size": 3,
   "techLevel": 1,
   "bulletMapping": {
-    "default": {"bulletName":  "default", "spriteName": "b_rocket_default", "soundHit" : "hitting"},
-    "steel": {"bulletName":  "default", "spriteName": "b_rocket_steel", "soundHit" : "hitting"},
-    "fury": {"bulletName":  "default", "spriteName": "b_rocket_fury", "soundHit" : "hitting"},
-    "cluster": {"bulletName":  "default", "spriteName": "b_rocket_cluster", "soundHit" : "hitting"},
-    "streamlined": {"bulletName":  "default", "spriteName": "b_rocket_streamlined", "soundHit" : "hitting"},
-    "vampire": {"bulletName":  "default", "spriteName": "b_rocket_vampire", "soundHit" : "hitting"}
+    "default": {"bulletName":  "accelerated", "spriteName": "b_rocket_default", "soundHit" : "hitting"},
+    "steel": {"bulletName":  "accelerated", "spriteName": "b_rocket_steel", "soundHit" : "hitting"},
+    "fury": {"bulletName":  "accelerated", "spriteName": "b_rocket_fury", "soundHit" : "hitting"},
+    "cluster": {"bulletName":  "accelerated", "spriteName": "b_rocket_cluster", "soundHit" : "hitting"},
+    "streamlined": {"bulletName":  "accelerated", "spriteName": "b_rocket_streamlined", "soundHit" : "hitting"},
+    "vampire": {"bulletName":  "accelerated", "spriteName": "b_rocket_vampire", "soundHit" : "hitting"}
   }
 }

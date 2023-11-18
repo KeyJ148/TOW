@@ -14,7 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class BulletSpriteStorage {
 
-    private final String BULLET_SPRITE_CONFIG_PATH = "configs/game/bullet_sprite.json";
+    private final String BULLET_SPRITE_CONFIG_PATH = "configs/game/bullet_sprites.json";
 
     private final Map<String, BulletSpriteSpecification> bulletSpriteByName = new HashMap<>();
 

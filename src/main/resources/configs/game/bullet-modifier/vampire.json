@@ -5,6 +5,7 @@
   "explosionPower" : 1.0,
   "title" : "Vampire",
   "type": "vampire",
+  "techLevel" : 1,
 
   "minDamage": 0.8,
   "maxDamage": 2

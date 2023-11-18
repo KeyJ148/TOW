@@ -4,5 +4,6 @@
   "range" : 1.36,
   "explosionPower" : 0.85,
   "title" : "Streamlined",
-  "type": "default"
+  "type": "default",
+  "techLevel" : 1
 }

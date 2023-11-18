@@ -280,8 +280,8 @@
     "maskPath": null
   },
   {
-    "name": "b_mass_small",
-    "texturePath": "graphics/sprites/textures/bullet/b_mass_small.png",
+    "name": "b_cluster_fragment",
+    "texturePath": "graphics/sprites/textures/bullet/b_cluster_fragment.png",
     "maskPath": null
   },
   {
