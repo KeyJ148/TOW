@@ -1,11 +1,10 @@
-package cc.abro.tow.client.tanks.components;
+package cc.abro.tow.client.tanks.tank;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.tow.client.settings.GameSettings;
 import cc.abro.tow.client.settings.GameSettingsService;
-import cc.abro.tow.client.tanks.Tank;
 import lombok.Getter;
 
 public class TankVampireComponent extends Component<Tank> implements Updatable {

@@ -1,7 +1,6 @@
 package cc.abro.tow.client.tanks.equipment;
 
 import cc.abro.orchengine.context.GameService;
-import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorCreationService;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorSpecificationStorage;
@@ -11,6 +10,7 @@ import cc.abro.tow.client.tanks.equipment.bullet.BulletSpecificationStorage;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunCreationService;
 import cc.abro.tow.client.tanks.equipment.gun.GunSpecificationStorage;
+import cc.abro.tow.client.tanks.tank.Tank;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.IterableUtils;
 

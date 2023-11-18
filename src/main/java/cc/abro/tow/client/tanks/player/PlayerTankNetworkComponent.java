@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks.components;
+package cc.abro.tow.client.tanks.player;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.Component;
@@ -9,9 +9,9 @@ import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.events.TankExplodedEvent;
 import cc.abro.tow.client.services.BattleStatisticService;
 import cc.abro.tow.client.settings.GameSettingsService;
-import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
+import cc.abro.tow.client.tanks.tank.Tank;
 import com.google.common.eventbus.Subscribe;
 
 public class PlayerTankNetworkComponent extends Component<Tank> implements Updatable {

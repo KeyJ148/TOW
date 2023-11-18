@@ -1,10 +1,10 @@
-package cc.abro.tow.client.tanks.components;
+package cc.abro.tow.client.tanks.player;
 
 import cc.abro.orchengine.events.input.KeyPressEvent;
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
-import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.stats.Stats;
+import cc.abro.tow.client.tanks.tank.Tank;
 import com.google.common.eventbus.Subscribe;
 import com.spinyowl.legui.component.Label;
 

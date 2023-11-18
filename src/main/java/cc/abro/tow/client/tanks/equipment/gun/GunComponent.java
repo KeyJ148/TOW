@@ -6,11 +6,11 @@ import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.sprites.Sprite;
 import cc.abro.tow.client.settings.GameSettingsService;
-import cc.abro.tow.client.tanks.Tank;
 import cc.abro.tow.client.tanks.equipment.bullet.Bullet;
 import cc.abro.tow.client.tanks.equipment.bulletbehaviors.BulletBehavior;
 import cc.abro.tow.client.tanks.stats.Effect;
 import cc.abro.tow.client.tanks.stats.Stats;
+import cc.abro.tow.client.tanks.tank.Tank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
