@@ -39,10 +39,12 @@ public class EquipmentService {
     public ArmorComponent createNewArmor(Tank tank) {
         String currentArmorName = tank.getArmorComponent().getName();
         int currentGunSize = tank.getGunComponent().getSize();
+        int currentGunTechLevel = tank.getGunComponent().getTechLevel();
 
         List<String> armorNames = armorSpecificationStorage.getAllArmorSpecificationByName().entrySet().stream()
                 .filter(entry -> !entry.getKey().equals(currentArmorName))
                 .filter(entry -> Math.abs(entry.getValue().getSize() - currentGunSize) <= 1)
+                .filter(entry -> Math.abs(entry.getValue().getTechLevel() - currentGunTechLevel) <= 1)
                 .map(Map.Entry::getKey)
                 .toList();
         String randomArmorName = getRandomItem(armorNames);
@@ -53,10 +55,14 @@ public class EquipmentService {
     public GunComponent createNewGun(Tank tank) {
         String currentGunName = tank.getGunComponent().getName();
         int currentArmorSize = tank.getArmorComponent().getSize();
+        int currentArmorTechLevel = tank.getArmorComponent().getTechLevel();
+        int currentBulletTechLevel = tank.getBulletComponent().getTechLevel();
 
         List<String> gunNames = gunSpecificationStorage.getAllGunSpecificationByName().entrySet().stream()
                 .filter(entry -> !entry.getKey().equals(currentGunName))
                 .filter(entry -> Math.abs(entry.getValue().getSize() - currentArmorSize) <= 1)
+                .filter(entry -> Math.abs(entry.getValue().getTechLevel() - currentArmorTechLevel) <= 1)
+                .filter(entry -> Math.abs(entry.getValue().getTechLevel() - currentBulletTechLevel) <= 1)
                 .map(Map.Entry::getKey)
                 .toList();
         String randomGunName = getRandomItem(gunNames);
@@ -66,10 +72,14 @@ public class EquipmentService {
 
     public BulletComponent createNewBullet(Tank tank) {
         String currentBulletName = tank.getBulletComponent().getName();
+        int currentGunTechLevel = tank.getGunComponent().getTechLevel();
 
         List<String> bulletNames = tank.getGunComponent().getBulletMapping().keySet().stream()
                 .filter(bullet -> !bullet.equals(currentBulletName))
+                .filter(bullet -> Math.abs(bulletSpecificationStorage.getBulletSpecification(bullet).getTechLevel() -
+                        currentGunTechLevel) <= 1)
                 .toList();
+
         String randomBulletName = getRandomItem(bulletNames);
 
         return createBullet(randomBulletName);
