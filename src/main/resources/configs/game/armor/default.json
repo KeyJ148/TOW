@@ -10,5 +10,6 @@
   "animationName" : "a_default",
   "title" : "Default",
   "type": "default",
-  "size": 3
+  "size": 3,
+  "techLevel": 0
 }

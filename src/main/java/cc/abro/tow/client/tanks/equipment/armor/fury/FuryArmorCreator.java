@@ -14,6 +14,7 @@ public class FuryArmorCreator<T extends FuryArmorSpecification> extends DefaultA
                 armorSpecification.getAnimationSpeedCoefficient(),
                 createAnimation(armorSpecification),
                 armorSpecification.getSize(),
+                armorSpecification.getTechLevel(),
                 armorSpecification.getSpeedUpMax(),
                 armorSpecification.getSpeedUpMin(),
                 armorSpecification.getSpeedDownMax(),

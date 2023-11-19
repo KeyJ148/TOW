@@ -21,4 +21,5 @@ public class DefaultArmorSpecification implements ArmorSpecification {
     private final String title;
     private final String type;
     private final int size;
+    private final int techLevel;
 }

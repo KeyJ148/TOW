@@ -11,6 +11,7 @@
   "title" : "Vampire",
   "type": "vampire",
   "size": 3,
+  "techLevel": 1,
 
   "speedUpMax": 240.0,
   "speedUpMin": 120.0,

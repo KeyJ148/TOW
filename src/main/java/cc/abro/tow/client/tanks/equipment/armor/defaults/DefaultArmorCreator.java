@@ -18,7 +18,8 @@ public class DefaultArmorCreator<T extends DefaultArmorSpecification> extends Ar
                 createEffect(armorSpecification),
                 armorSpecification.getAnimationSpeedCoefficient(),
                 createAnimation(armorSpecification),
-                armorSpecification.getSize());
+                armorSpecification.getSize(),
+                armorSpecification.getTechLevel());
     }
 
     @Override

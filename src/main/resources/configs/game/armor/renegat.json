@@ -10,5 +10,6 @@
   "animationName" : "a_renegat",
   "title" : "Renegat",
   "type": "default",
-  "size": 2
+  "size": 2,
+  "techLevel": 1
 }

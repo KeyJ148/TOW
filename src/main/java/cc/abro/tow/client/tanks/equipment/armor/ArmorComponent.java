@@ -22,4 +22,6 @@ public abstract class ArmorComponent extends Component<Tank> {
     private final Animation animation;
     @Getter
     private final int size;
+    @Getter
+    private final int techLevel;
 }

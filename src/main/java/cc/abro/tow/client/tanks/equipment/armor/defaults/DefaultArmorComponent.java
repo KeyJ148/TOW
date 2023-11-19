@@ -11,7 +11,8 @@ public class DefaultArmorComponent extends ArmorComponent {
                                  Effect effect,
                                  double animationSpeedCoefficient,
                                  Animation animation,
-                                 int size) {
-        super(name, title, effect, animationSpeedCoefficient, animation, size);
+                                 int size,
+                                 int techLevel) {
+        super(name, title, effect, animationSpeedCoefficient, animation, size, techLevel);
     }
 }

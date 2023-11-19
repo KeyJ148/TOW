@@ -10,5 +10,6 @@
   "animationName" : "a_fortified",
   "title" : "Fortified",
   "type": "default",
-  "size": 3
+  "size": 3,
+  "techLevel": 1
 }
