@@ -4,5 +4,6 @@
   "range" : 1.0,
   "explosionPower" : 1.0,
   "title" : "Default",
-  "type": "default"
+  "type": "default",
+  "techLevel": 0
 }

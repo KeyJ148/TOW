@@ -15,4 +15,5 @@ public class DefaultBulletSpecification implements BulletSpecification {
     private final double explosionPower;
     private final String title;
     private final String type;
+    private final int techLevel;
 }

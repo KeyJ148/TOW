@@ -15,4 +15,6 @@ public abstract class BulletComponent extends Component<Tank> {
     private final String title; //Название, отображаемое в игре
     @Getter
     private final Effect effect;
+    @Getter
+    private final int techLevel;
 }

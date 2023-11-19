@@ -7,7 +7,8 @@ public class DefaultBulletComponent extends BulletComponent {
 
     public DefaultBulletComponent(String name,
                                   String title,
-                                  Effect effect) {
-        super(name, title, effect);
+                                  Effect effect,
+                                  int techLevel) {
+        super(name, title, effect, techLevel);
     }
 }

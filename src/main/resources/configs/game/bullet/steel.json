@@ -4,5 +4,6 @@
   "range" : 1.1,
   "explosionPower" : 1.0,
   "title" : "Steel",
-  "type": "default"
+  "type": "default",
+  "techLevel": 1
 }

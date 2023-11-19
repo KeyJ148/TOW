@@ -12,7 +12,8 @@ public class DefaultBulletCreator<T extends DefaultBulletSpecification> extends 
     public DefaultBulletComponent createBullet(T bulletSpecification, String name) {
         return new DefaultBulletComponent(name,
                 bulletSpecification.getTitle(),
-                createEffect(bulletSpecification));
+                createEffect(bulletSpecification),
+                bulletSpecification.getTechLevel());
     }
 
     @Override
