@@ -15,6 +15,7 @@
   "title" : "Vampire",
   "type": "vampire",
   "size": 3,
+  "techLevel": 1,
   "bulletMapping": {
     "default": {"behavior":  "default", "spriteName": "b_default", "soundHit" : "hitting"},
     "steel": {"behavior":  "default", "spriteName": "b_steel", "soundHit" : "hitting"}

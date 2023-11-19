@@ -27,7 +27,8 @@ public class DefaultGunCreator<T extends DefaultGunSpecification> extends GunCre
                 gunSpecification.getSoundShot(),
                 createTrunksInfo(gunSpecification.getGunTrunksInfo()),
                 createBulletMapping(gunSpecification.getBulletMapping()),
-                gunSpecification.getSize());
+                gunSpecification.getSize(),
+                gunSpecification.getTechLevel());
     }
 
     @Override

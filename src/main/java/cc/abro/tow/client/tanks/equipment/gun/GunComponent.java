@@ -35,6 +35,8 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
     private final Map<String, BulletInfo> bulletMapping;
     @Getter
     private final int size;
+    @Getter
+    private final int techLevel;
 
     @Getter
     private long nanoSecToAttack = 0; //Кол-во времени до конца перезарядки в наносекундах

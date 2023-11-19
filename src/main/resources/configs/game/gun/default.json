@@ -15,6 +15,7 @@
   "title" : "Default",
   "type": "default",
   "size": 3,
+  "techLevel": 0,
   "bulletMapping": {
     "default": {"behavior":  "default", "spriteName": "b_default", "soundHit" : "hitting"},
     "steel": {"behavior":  "default", "spriteName": "b_steel", "soundHit" : "hitting"}
