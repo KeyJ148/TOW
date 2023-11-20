@@ -4,8 +4,8 @@
   "range" : 1.0,
   "explosionPower" : 1.0,
   "title" : "Vampire",
-  "type": "default",
+  "type": "vampire",
 
-  "damageMin": 0.8,
-  "damageMax": 2
+  "minDamage": 0.8,
+  "maxDamage": 2
 }
