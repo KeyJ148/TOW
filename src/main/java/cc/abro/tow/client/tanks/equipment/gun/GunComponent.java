@@ -6,8 +6,8 @@ import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.sprites.Sprite;
 import cc.abro.tow.client.settings.GameSettingsService;
-import cc.abro.tow.client.tanks.equipment.bullet.Bullet;
-import cc.abro.tow.client.tanks.equipment.bulletbehaviors.BulletBehavior;
+import cc.abro.tow.client.tanks.equipment.bullet1.Bullet;
+import cc.abro.tow.client.tanks.equipment.bullet1.BulletCreator;
 import cc.abro.tow.client.tanks.stats.Effect;
 import cc.abro.tow.client.tanks.stats.Stats;
 import cc.abro.tow.client.tanks.tank.Tank;
@@ -74,8 +74,9 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
 
         Stats stats = getGameObject().getTankStatsComponent().getStats();
         BulletInfo bulletInfo = bulletMapping.get(getGameObject().getBulletComponent().getName());
+        bulletInfo.bulletCreator.createBullet(); //TODO
         new Bullet(getGameObject().getLocation(), bulletX, bulletY, bulletDirection,
-                bulletInfo.behavior, bulletInfo.spriteName, bulletInfo.soundHit,
+                bulletInfo.spriteName, bulletInfo.soundHit,
                 stats.getBulletSpeed(), stats.getRange(), stats.getDamage(), stats.getBulletExplosionPower());
 
         getAudioService().playSoundEffect(getAudioStorage().getAudio(soundShot), (int) bulletX, (int) bulletY,
@@ -84,5 +85,5 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
     }
 
     public record TrunkInfo(double bulletStartX, double bulletStartY, double bulletStartDir) {}
-    public record BulletInfo(BulletBehavior behavior, String spriteName, String soundHit) {}
+    public record BulletInfo(BulletCreator bulletCreator, String spriteName, String soundHit) {}
 }

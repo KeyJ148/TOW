@@ -34,7 +34,7 @@ public class DefaultBulletCreator<T extends DefaultBulletSpecification> extends 
                 .setBulletExplosionPower(bulletSpecification.getExplosionPower())
                 .build();
         Effect effect = new Effect();
-        effect.setAddition(stats);
+        effect.setMulti(stats);
         return effect;
     }
 }

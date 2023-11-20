@@ -3,8 +3,8 @@ package cc.abro.tow.client.tanks.equipment.gun.defaults;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.resources.sprites.Sprite;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
-import cc.abro.tow.client.tanks.equipment.bulletbehaviors.BulletBehavior;
-import cc.abro.tow.client.tanks.equipment.bulletbehaviors.BulletBehaviorCreatorsStorage;
+import cc.abro.tow.client.tanks.equipment.bullet1.BulletCreator;
+import cc.abro.tow.client.tanks.equipment.bullet1.BulletCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunCreator;
 import cc.abro.tow.client.tanks.equipment.gun.StoredGunCreator;
@@ -73,15 +73,15 @@ public class DefaultGunCreator<T extends DefaultGunSpecification> extends GunCre
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         e -> new GunComponent.BulletInfo(
-                                getBulletBehavior(e.getValue().behavior()),
+                                getBulletCreator(e.getValue().bulletName()),
                                 e.getValue().spriteName(),
                                 e.getValue().soundHit()
                         )
                 ));
     }
 
-    protected BulletBehavior getBulletBehavior(String name) {
-        return Context.getService(BulletBehaviorCreatorsStorage.class).createBulletBehavior(name);
+    protected BulletCreator getBulletCreator(String name) {
+        return Context.getService(BulletCreatorsStorage.class).getBulletCreator(name);
     }
 
 }

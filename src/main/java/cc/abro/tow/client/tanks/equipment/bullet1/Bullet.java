@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks.equipment.bullet;
+package cc.abro.tow.client.tanks.equipment.bullet1;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;
@@ -16,7 +16,6 @@ import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.DepthConstants;
 import cc.abro.tow.client.particles.Explosion;
 import cc.abro.tow.client.settings.GameSettingsService;
-import cc.abro.tow.client.tanks.equipment.bulletbehaviors.BulletBehavior;
 
 public class Bullet extends GameObject {
 
@@ -34,8 +33,7 @@ public class Bullet extends GameObject {
     private final double startY;
     private final double range;
 
-    public Bullet(Location location, double x, double y, double direction,
-                  BulletBehavior behavior, String spriteName, String soundHit,
+    public Bullet(Location location, double x, double y, double direction, String spriteName, String soundHit,
                   double speed, double range, double damage, double explosionPower) {
         super(location);
         setX(x);

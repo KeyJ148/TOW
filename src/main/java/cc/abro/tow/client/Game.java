@@ -20,9 +20,8 @@ import cc.abro.tow.client.settings.Settings;
 import cc.abro.tow.client.settings.SettingsService;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorSpecificationStorage;
-import cc.abro.tow.client.tanks.equipment.bullet.BulletCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.bullet.BulletSpecificationStorage;
-import cc.abro.tow.client.tanks.equipment.bulletbehaviors.BulletBehaviorCreatorsStorage;
+import cc.abro.tow.client.tanks.equipment.bullet1.BulletCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.gun.GunCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.gun.GunSpecificationStorage;
 import cc.abro.tow.server.ServerLoader;
@@ -50,11 +49,11 @@ public class Game implements GameInterface {
     private final MapObjectFactory mapObjectFactory;
     private final ArmorCreatorsStorage armorCreatorsStorage;
     private final GunCreatorsStorage gunCreatorsStorage;
-    private final BulletCreatorsStorage bulletCreatorsStorage;
+    private final cc.abro.tow.client.tanks.equipment.bullet.BulletCreatorsStorage bulletModiCreatorsStorage; //TODO rename
     private final ArmorSpecificationStorage armorSpecificationStorage;
     private final GunSpecificationStorage gunSpecificationStorage;
     private final BulletSpecificationStorage bulletSpecificationStorage;
-    private final BulletBehaviorCreatorsStorage bulletBehaviorCreatorsStorage;
+    private final BulletCreatorsStorage bulletCreatorsStorage;
 
     @Override
     public void init() {
@@ -97,11 +96,11 @@ public class Game implements GameInterface {
         mapObjectFactory.init();
         armorCreatorsStorage.init();
         gunCreatorsStorage.init();
-        bulletCreatorsStorage.init();
+        bulletModiCreatorsStorage.init();
         armorSpecificationStorage.init();
         gunSpecificationStorage.init();
         bulletSpecificationStorage.init();
-        bulletBehaviorCreatorsStorage.init();
+        bulletCreatorsStorage.init();
 
         String defaultMap = devSettingsService.getDevSettings().getDefaultMap();
         if (defaultMap != null) {

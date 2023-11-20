@@ -21,7 +21,7 @@
   "size": 4,
   "techLevel": 1,
   "bulletMapping": {
-    "default": {"behavior":  "default", "spriteName": "b_default", "soundHit" : "hitting"},
-    "steel": {"behavior":  "default", "spriteName": "b_steel", "soundHit" : "hitting"}
+    "default": {"bulletName":  "default", "spriteName": "b_default", "soundHit" : "hitting"},
+    "steel": {"bulletName":  "default", "spriteName": "b_steel", "soundHit" : "hitting"}
   }
 }
