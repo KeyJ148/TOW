@@ -6,7 +6,6 @@ import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.sprites.Sprite;
 import cc.abro.tow.client.settings.GameSettingsService;
-import cc.abro.tow.client.tanks.equipment.bullet1.Bullet;
 import cc.abro.tow.client.tanks.equipment.bullet1.BulletCreator;
 import cc.abro.tow.client.tanks.stats.Effect;
 import cc.abro.tow.client.tanks.stats.Stats;
@@ -74,8 +73,7 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
 
         Stats stats = getGameObject().getTankStatsComponent().getStats();
         BulletInfo bulletInfo = bulletMapping.get(getGameObject().getBulletComponent().getName());
-        bulletInfo.bulletCreator.createBullet(); //TODO
-        new Bullet(getGameObject().getLocation(), bulletX, bulletY, bulletDirection,
+        bulletInfo.bulletCreator.createBullet(getGameObject().getLocation(), bulletX, bulletY, bulletDirection,
                 bulletInfo.spriteName, bulletInfo.soundHit,
                 stats.getBulletSpeed(), stats.getRange(), stats.getDamage(), stats.getBulletExplosionPower());
 
