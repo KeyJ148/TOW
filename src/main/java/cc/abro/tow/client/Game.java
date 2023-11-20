@@ -49,10 +49,10 @@ public class Game implements GameInterface {
     private final MapObjectFactory mapObjectFactory;
     private final ArmorCreatorsStorage armorCreatorsStorage;
     private final GunCreatorsStorage gunCreatorsStorage;
-    private final cc.abro.tow.client.tanks.equipment.bullet.BulletCreatorsStorage bulletModiCreatorsStorage; //TODO rename
+    private final cc.abro.tow.client.tanks.equipment.bullet.BulletCreatorsStorage bulletModifierCreatorsStorage; //TODO rename
     private final ArmorSpecificationStorage armorSpecificationStorage;
     private final GunSpecificationStorage gunSpecificationStorage;
-    private final BulletSpecificationStorage bulletSpecificationStorage;
+    private final BulletSpecificationStorage bulletModifierSpecificationStorage; //TODO rename
     private final BulletCreatorsStorage bulletCreatorsStorage;
 
     @Override
@@ -96,10 +96,10 @@ public class Game implements GameInterface {
         mapObjectFactory.init();
         armorCreatorsStorage.init();
         gunCreatorsStorage.init();
-        bulletModiCreatorsStorage.init();
+        bulletModifierCreatorsStorage.init();
         armorSpecificationStorage.init();
         gunSpecificationStorage.init();
-        bulletSpecificationStorage.init();
+        bulletModifierSpecificationStorage.init();
         bulletCreatorsStorage.init();
 
         String defaultMap = devSettingsService.getDevSettings().getDefaultMap();

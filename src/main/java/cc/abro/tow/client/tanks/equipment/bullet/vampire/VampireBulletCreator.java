@@ -18,7 +18,7 @@ public class VampireBulletCreator<T extends VampireBulletSpecification> extends 
 
     @Override
     public String getType() {
-        return "fury";
+        return "vampire";
     }
 
     @Override
