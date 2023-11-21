@@ -13,7 +13,7 @@ import cc.abro.tow.client.events.TankExplodedEvent;
 import cc.abro.tow.client.particles.Explosion;
 import cc.abro.tow.client.settings.GameSettingsService;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
-import cc.abro.tow.client.tanks.equipment.bullet.BulletComponent;
+import cc.abro.tow.client.tanks.equipment.bulletmodifier.BulletModifierComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -44,7 +44,7 @@ public abstract class Tank extends GameObject {
     @Getter
     private GunComponent gunComponent;
     @Getter
-    private BulletComponent bulletComponent;
+    private BulletModifierComponent bulletModifierComponent;
 
     @Getter @Setter(AccessLevel.PROTECTED)
     private boolean alive = true;
@@ -52,7 +52,7 @@ public abstract class Tank extends GameObject {
     private Color color = Color.WHITE;
 
     public Tank(Location location, double x, double y, double direction,
-                ArmorComponent armorComponent, GunComponent gunComponent, BulletComponent bulletComponent) {
+                ArmorComponent armorComponent, GunComponent gunComponent, BulletModifierComponent bulletModifierComponent) {
         super(location);
         audioService = getAudioService();
         gameSettingsService = Context.getService(GameSettingsService.class);
@@ -92,9 +92,9 @@ public abstract class Tank extends GameObject {
         addComponent(gunComponent);
         tankStatsComponent.addEffect(gunComponent.getEffect());
 
-        this.bulletComponent = bulletComponent;
-        addComponent(bulletComponent);
-        tankStatsComponent.addEffect(bulletComponent.getEffect());
+        this.bulletModifierComponent = bulletModifierComponent;
+        addComponent(bulletModifierComponent);
+        tankStatsComponent.addEffect(bulletModifierComponent.getEffect());
     }
 
     public void exploded() {
@@ -173,16 +173,16 @@ public abstract class Tank extends GameObject {
         tankStatsComponent.addEffect(gunComponent.getEffect());
     }
 
-    public void changeBullet(BulletComponent newBulletComponent) {
-        tankStatsComponent.removeEffect(bulletComponent.getEffect());
+    public void changeBullet(BulletModifierComponent newBulletModifierComponent) {
+        tankStatsComponent.removeEffect(bulletModifierComponent.getEffect());
 
-        bulletComponent.destroy();
-        removeComponent(bulletComponent);
+        bulletModifierComponent.destroy();
+        removeComponent(bulletModifierComponent);
 
-        bulletComponent = newBulletComponent;
-        addComponent(bulletComponent);
+        bulletModifierComponent = newBulletModifierComponent;
+        addComponent(bulletModifierComponent);
 
-        tankStatsComponent.addEffect(bulletComponent.getEffect());
+        tankStatsComponent.addEffect(bulletModifierComponent.getEffect());
     }
 
     public void changeHp(double delta) {

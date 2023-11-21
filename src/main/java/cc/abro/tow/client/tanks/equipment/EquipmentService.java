@@ -4,9 +4,9 @@ import cc.abro.orchengine.context.GameService;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorCreationService;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorSpecificationStorage;
-import cc.abro.tow.client.tanks.equipment.bullet.BulletComponent;
-import cc.abro.tow.client.tanks.equipment.bullet.BulletCreationService;
-import cc.abro.tow.client.tanks.equipment.bullet.BulletSpecificationStorage;
+import cc.abro.tow.client.tanks.equipment.bulletmodifier.BulletModifierComponent;
+import cc.abro.tow.client.tanks.equipment.bulletmodifier.BulletModifierCreationService;
+import cc.abro.tow.client.tanks.equipment.bulletmodifier.BulletModifierSpecificationStorage;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunCreationService;
 import cc.abro.tow.client.tanks.equipment.gun.GunSpecificationStorage;
@@ -31,8 +31,8 @@ public class EquipmentService {
     private final ArmorSpecificationStorage armorSpecificationStorage;
     private final GunCreationService gunCreationService;
     private final GunSpecificationStorage gunSpecificationStorage;
-    private final BulletCreationService bulletCreationService;
-    private final BulletSpecificationStorage bulletSpecificationStorage;
+    private final BulletModifierCreationService bulletModifierCreationService;
+    private final BulletModifierSpecificationStorage bulletModifierSpecificationStorage;
 
     private final Random random = new Random();
 
@@ -56,7 +56,7 @@ public class EquipmentService {
         String currentGunName = tank.getGunComponent().getName();
         int currentArmorSize = tank.getArmorComponent().getSize();
         int currentArmorTechLevel = tank.getArmorComponent().getTechLevel();
-        int currentBulletTechLevel = tank.getBulletComponent().getTechLevel();
+        int currentBulletTechLevel = tank.getBulletModifierComponent().getTechLevel();
 
         List<String> gunNames = gunSpecificationStorage.getAllGunSpecificationByName().entrySet().stream()
                 .filter(entry -> !entry.getKey().equals(currentGunName))
@@ -70,13 +70,13 @@ public class EquipmentService {
         return createGun(randomGunName);
     }
 
-    public BulletComponent createNewBullet(Tank tank) {
-        String currentBulletName = tank.getBulletComponent().getName();
+    public BulletModifierComponent createNewBullet(Tank tank) {
+        String currentBulletName = tank.getBulletModifierComponent().getName();
         int currentGunTechLevel = tank.getGunComponent().getTechLevel();
 
         List<String> bulletNames = tank.getGunComponent().getBulletMapping().keySet().stream()
                 .filter(bullet -> !bullet.equals(currentBulletName))
-                .filter(bullet -> Math.abs(bulletSpecificationStorage.getBulletSpecification(bullet).getTechLevel() -
+                .filter(bullet -> Math.abs(bulletModifierSpecificationStorage.getBulletModifierSpecification(bullet).getTechLevel() -
                         currentGunTechLevel) <= 1)
                 .toList();
 
@@ -93,7 +93,7 @@ public class EquipmentService {
         return createGun(DEFAULT_GUN_NAME);
     }
 
-    public BulletComponent createDefaultBullet() {
+    public BulletModifierComponent createDefaultBullet() {
         return createBullet(DEFAULT_BULLET_NAME);
     }
 
@@ -105,8 +105,8 @@ public class EquipmentService {
         return gunCreationService.createGun(gunName);
     }
 
-    public BulletComponent createBullet(String bulletName) {
-        return bulletCreationService.createBullet(bulletName);
+    public BulletModifierComponent createBullet(String bulletName) {
+        return bulletModifierCreationService.createBulletModifier(bulletName);
     }
 
     private <T> T getRandomItem(Collection<T> itemsCollection)  {

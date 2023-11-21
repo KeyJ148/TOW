@@ -1,6 +1,6 @@
-package cc.abro.tow.client.tanks.equipment.bullet.defaults;
+package cc.abro.tow.client.tanks.equipment.bulletmodifier.defaults;
 
-import cc.abro.tow.client.tanks.equipment.bullet.BulletSpecification;
+import cc.abro.tow.client.tanks.equipment.bulletmodifier.BulletModifierSpecification;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-public class DefaultBulletSpecification implements BulletSpecification {
+public class DefaultBulletModifierSpecification implements BulletModifierSpecification {
     private final double speed;
     private final double damage;
     private final double range;

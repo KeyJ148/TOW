@@ -72,7 +72,7 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
         double bulletDirection = getGameObject().getGunSpriteComponent().getDirection() + bulletStartDir;
 
         Stats stats = getGameObject().getTankStatsComponent().getStats();
-        BulletInfo bulletInfo = bulletMapping.get(getGameObject().getBulletComponent().getName());
+        BulletInfo bulletInfo = bulletMapping.get(getGameObject().getBulletModifierComponent().getName());
         bulletInfo.bulletCreator.createBullet(getGameObject().getLocation(), bulletX, bulletY, bulletDirection,
                 bulletInfo.spriteName, bulletInfo.soundHit,
                 stats.getBulletSpeed(), stats.getRange(), stats.getDamage(), stats.getBulletExplosionPower());

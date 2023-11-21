@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks.equipment.bullet;
+package cc.abro.tow.client.tanks.equipment.bulletmodifier;
 
 import cc.abro.orchengine.gameobject.Component;
 import cc.abro.tow.client.tanks.stats.Effect;
@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class BulletComponent extends Component<Tank> {
+public abstract class BulletModifierComponent extends Component<Tank> {
 
     @Getter
     private final String name; //Имя файла и техническое имя брони

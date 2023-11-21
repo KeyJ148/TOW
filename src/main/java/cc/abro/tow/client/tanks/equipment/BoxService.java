@@ -4,7 +4,7 @@ import cc.abro.orchengine.context.GameService;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.map.objects.Box;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
-import cc.abro.tow.client.tanks.equipment.bullet.BulletComponent;
+import cc.abro.tow.client.tanks.equipment.bulletmodifier.BulletModifierComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import cc.abro.tow.client.tanks.player.PlayerTankEquipmentControllerComponent;
 import cc.abro.tow.client.tanks.tank.Tank;
@@ -56,8 +56,8 @@ public class BoxService {
     }
 
     public void takeBulletBox(Tank tank) {
-        BulletComponent bulletComponent = equipmentService.createNewBullet(tank);
-        tank.changeBullet(bulletComponent);
+        BulletModifierComponent bulletModifierComponent = equipmentService.createNewBullet(tank);
+        tank.changeBullet(bulletModifierComponent);
     }
 
     public void takeHealthBox(Tank tank) {

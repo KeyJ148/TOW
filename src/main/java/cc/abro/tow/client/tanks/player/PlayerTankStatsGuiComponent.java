@@ -53,7 +53,7 @@ public class PlayerTankStatsGuiComponent extends Component<Tank> implements Upda
             }
             statsLabels.get(stats.length).getTextState().setText("Armor: " + getGameObject().getArmorComponent().getTitle());
             statsLabels.get(stats.length + 1).getTextState().setText("Gun: " + getGameObject().getGunComponent().getTitle());
-            statsLabels.get(stats.length + 2).getTextState().setText("Bullet: " + getGameObject().getBulletComponent().getTitle());
+            statsLabels.get(stats.length + 2).getTextState().setText("Bullet: " + getGameObject().getBulletModifierComponent().getTitle());
             statsLabels.get(stats.length + 3).getTextState().setText("Vampire: " +
                     Math.round(getGameObject().getTankVampireComponent().getVampire() * 100) + "%");
         } else {

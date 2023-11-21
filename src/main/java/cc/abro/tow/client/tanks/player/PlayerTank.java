@@ -5,7 +5,7 @@ import cc.abro.orchengine.gameobject.components.collision.Collision;
 import cc.abro.orchengine.gameobject.components.collision.DefaultCollidableObjectType;
 import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorComponent;
-import cc.abro.tow.client.tanks.equipment.bullet.BulletComponent;
+import cc.abro.tow.client.tanks.equipment.bulletmodifier.BulletModifierComponent;
 import cc.abro.tow.client.tanks.equipment.gun.GunComponent;
 import cc.abro.tow.client.tanks.tank.Tank;
 import lombok.Getter;
@@ -26,8 +26,8 @@ public class PlayerTank extends Tank {
     private final PlayerTankSingleplayerControllerComponent playerTankSingleplayerControllerComponent;
 
     public PlayerTank(Location location, double x, double y, double direction,
-                      ArmorComponent armorComponent, GunComponent gunComponent, BulletComponent bulletComponent) {
-        super(location, x, y, direction, armorComponent, gunComponent, bulletComponent);
+                      ArmorComponent armorComponent, GunComponent gunComponent, BulletModifierComponent bulletModifierComponent) {
+        super(location, x, y, direction, armorComponent, gunComponent, bulletModifierComponent);
 
         playerTankNetworkComponent = new PlayerTankNetworkComponent();
         addComponent(playerTankNetworkComponent);
