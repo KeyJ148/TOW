@@ -59,7 +59,8 @@ public class Bullet extends GameObject {
     @Getter
     private final long idNet; //TODO используется только для сети, удалить при переделке (или вынести в Sprite / Texture)
 
-    public Bullet(Tank tankAttacker, double x, double y, double direction, String spriteName, String soundHit) {
+    public Bullet(Tank tankAttacker, double x, double y, double direction, String spriteName, String soundHit,
+                  double explosionPower, double range, double damage, double speed) {
         super(tankAttacker.getLocation());
         setX(x);
         setY(y);
@@ -71,16 +72,16 @@ public class Bullet extends GameObject {
 
         Stats stats = tankAttacker.getTankStatsComponent().getStats();
         this.tankAttacker = tankAttacker;
-        this.explosionPower = stats.getBulletExplosionPower();
+        this.explosionPower = explosionPower;
         this.soundHit = soundHit;
         this.startX = x;
         this.startY = y;
-        this.range = stats.getRange();
-        this.damage = stats.getDamage();
+        this.range = range;
+        this.damage = damage;
         this.spriteName = spriteName;
         this.idNet = Context.getService(ClientData.class).idNet++;
 
-        double speed = Math.max(stats.getBulletSpeed(),
+        speed = Math.max(speed,
                 stats.getSpeedUp() * gameSettingsService.getGameSettings().getMinBulletSpeedCoefficient());
         movementComponent = new Movement<>();
         addComponent(movementComponent);

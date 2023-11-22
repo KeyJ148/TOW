@@ -2,6 +2,7 @@ package cc.abro.tow.client.tanks.equipment.bulletmodifier.fury;
 
 import cc.abro.tow.client.tanks.equipment.bulletmodifier.defaults.DefaultBulletModifierComponent;
 import cc.abro.tow.client.tanks.stats.Effect;
+import cc.abro.tow.client.tanks.stats.Stats;
 
 public class FuryBulletModifierComponent extends DefaultBulletModifierComponent {
     private final double minSpeed;
@@ -22,5 +23,12 @@ public class FuryBulletModifierComponent extends DefaultBulletModifierComponent 
         this.maxSpeed = maxSpeed;
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
+    }
+    public void update(long delta) {
+        Stats stats = getGameObject().getTankStatsComponent().getStats();
+        double percentHp = getGameObject().getTankStatsComponent().getCurrentHp() /
+                stats.getHpMax();
+        getEffect().getAddition().setBulletSpeed(maxSpeed - percentHp * (maxSpeed - minSpeed));
+        getEffect().getAddition().setDamage(maxDamage - percentHp * (maxDamage - minDamage));
     }
 }

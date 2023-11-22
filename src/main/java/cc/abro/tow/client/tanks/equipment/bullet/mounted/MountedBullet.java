@@ -16,8 +16,9 @@ public class MountedBullet extends Bullet {
 
     private final double EXPLOSION_RANGE_COEFFICIENT = 5;
 
-    public MountedBullet(Tank tankAttacker, double x, double y, double direction, String spriteName, String soundHit) {
-        super(tankAttacker, x, y, direction, spriteName, soundHit);
+    public MountedBullet(Tank tankAttacker, double x, double y, double direction, String spriteName, String soundHit,
+                         double explosionPower, double range, double damage, double speed) {
+        super(tankAttacker, x, y, direction, spriteName, soundHit, explosionPower, range, damage, speed);
         getSpriteComponent().setZ(DepthConstants.MORTAR_SPRITE_Z);
     }
 

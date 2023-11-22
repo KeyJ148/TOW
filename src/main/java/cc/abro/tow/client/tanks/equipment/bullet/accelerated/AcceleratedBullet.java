@@ -12,8 +12,9 @@ public class AcceleratedBullet extends Bullet {
     private final double speedMax;
 
     public AcceleratedBullet(Tank tankAttacker, double x, double y, double direction, String spriteName, String soundHit,
+                             double explosionPower, double range, double damage, double speed,
                              double acceleration, double speedMax) {
-        super(tankAttacker, x, y, direction, spriteName, soundHit);
+        super(tankAttacker, x, y, direction, spriteName, soundHit, explosionPower, range, damage, speed);
         this.acceleration = acceleration;
         this.speedMax = speedMax;
     }
