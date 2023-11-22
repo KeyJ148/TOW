@@ -5,6 +5,7 @@ import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.components.collision.CollidableComponent;
 import cc.abro.orchengine.gameobject.components.collision.CollisionType;
 import cc.abro.orchengine.gameobject.components.collision.DefaultCollidableObjectType;
+import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.DepthConstants;
 import cc.abro.tow.client.tanks.enemy.EnemyTank;
@@ -25,7 +26,7 @@ public class MountedBullet extends Bullet {
         destroyWithExplosion();
         for (EnemyTank enemyTank : Context.getService(ClientData.class).enemy.values()) {
             if (inExplosionDistance(enemyTank)) {
-                //TODO Context.getService(TCPControl.class).send(14, damage + " " + ea.enemy.id); (получать по шине ивентов)
+                Context.getService(TCPControl.class).send(14, getDamage() + " " + enemyTank.getEnemyTankNetworkComponent().getId()); //TODO (отправлять и получать по шине ивентов)
             }
         }
     }

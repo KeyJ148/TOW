@@ -12,6 +12,7 @@ import cc.abro.orchengine.gameobject.components.render.SpriteRender;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
+import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.DepthConstants;
 import cc.abro.tow.client.events.TankHitEvent;
@@ -53,6 +54,10 @@ public class Bullet extends GameObject {
     private final double range;
     @Getter
     private final double damage;
+    @Getter
+    private final String spriteName; //TODO используется только для сети, удалить при переделке сервера (или вынести в Sprite / Texture)
+    @Getter
+    private final long idNet; //TODO используется только для сети, удалить при переделке (или вынести в Sprite / Texture)
 
     public Bullet(Tank tankAttacker, double x, double y, double direction, String spriteName, String soundHit) {
         super(tankAttacker.getLocation());
@@ -72,6 +77,8 @@ public class Bullet extends GameObject {
         this.startY = y;
         this.range = stats.getRange();
         this.damage = stats.getDamage();
+        this.spriteName = spriteName;
+        this.idNet = Context.getService(ClientData.class).idNet++;
 
         double speed = Math.max(stats.getBulletSpeed(),
                 stats.getSpeedUp() * gameSettingsService.getGameSettings().getMinBulletSpeedCoefficient());
@@ -96,7 +103,16 @@ public class Bullet extends GameObject {
             spriteComponent.setDirection(getComponent(Movement.class).getDirection());
         }
 
-        //TODO Context.getService(TCPControl.class).send(13, getData());
+        Context.getService(TCPControl.class).send(13, getData()); //TODO (отправлять и получать по шине ивентов)
+    }
+
+    public String getData() { //TODO (отправлять и получать по шине ивентов)
+        return Math.round(getX())
+                + " " + Math.round(getY())
+                + " " + getComponent(Movement.class).getDirection()
+                + " " + getComponent(Movement.class).getSpeed()
+                + " " + spriteName
+                + " " + idNet;
     }
 
     @Subscribe
@@ -120,9 +136,10 @@ public class Bullet extends GameObject {
         }
         if (collision.getType().equals(CollidableObjectType.ENEMY_TANK)) {
             destroyWithExplosion();
-            postEvent(new TankHitEvent(tankAttacker, (EnemyTank) collision.getGameObject(), damage));
+            EnemyTank enemyTank = (EnemyTank) collision.getGameObject();
+            postEvent(new TankHitEvent(tankAttacker, enemyTank, damage));
 
-            //TODO Context.getService(TCPControl.class).send(14, damage + " " + ea.enemy.id); (получать по шине ивентов)
+            Context.getService(TCPControl.class).send(14, getDamage() + " " + enemyTank.getEnemyTankNetworkComponent().getId()); //TODO (отправлять и получать по шине ивентов)
         }
     }
 
@@ -139,7 +156,8 @@ public class Bullet extends GameObject {
                     gameSettingsService.getGameSettings().getSoundRange());
             Context.getService(TCPControl.class).send(25, (int) getX() + " " + (int) getY() + " " + soundHit);
         }
-        //TODO Context.getService(TCPControl.class).send(15, idNet + " " + expSize); (посылать и получать по шине ивентов)
+
+        Context.getService(TCPControl.class).send(15, idNet + " " + explosionSize); //TODO (отправлять и получать по шине ивентов)
         destroy();
     }
 
