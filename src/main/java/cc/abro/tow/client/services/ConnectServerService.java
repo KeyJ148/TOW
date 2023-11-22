@@ -15,7 +15,7 @@ public class ConnectServerService {
     private final AtomicBoolean wasConnect = new AtomicBoolean(false);
 
     public void connect(InetAddress ip, int port) {
-        if (wasConnect.compareAndSet(false, true)) {
+        if (!wasConnect.compareAndSet(false, true)) {
             return;
         }
 
