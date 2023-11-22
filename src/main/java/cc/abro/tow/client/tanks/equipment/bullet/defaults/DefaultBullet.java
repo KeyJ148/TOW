@@ -1,8 +1,8 @@
-package cc.abro.tow.client.tanks.equipment.bullet1.defaults;
+package cc.abro.tow.client.tanks.equipment.bullet.defaults;
 
 
 import cc.abro.orchengine.gameobject.Location;
-import cc.abro.tow.client.tanks.equipment.bullet1.Bullet;
+import cc.abro.tow.client.tanks.equipment.bullet.Bullet;
 
 public class DefaultBullet extends Bullet {
 

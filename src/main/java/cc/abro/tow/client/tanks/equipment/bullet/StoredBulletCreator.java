@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks.equipment.bullet1;
+package cc.abro.tow.client.tanks.equipment.bullet;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

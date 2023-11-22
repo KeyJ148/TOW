@@ -1,9 +1,9 @@
-package cc.abro.tow.client.tanks.equipment.bullet1.defaults;
+package cc.abro.tow.client.tanks.equipment.bullet.defaults;
 
 import cc.abro.orchengine.gameobject.Location;
-import cc.abro.tow.client.tanks.equipment.bullet1.Bullet;
-import cc.abro.tow.client.tanks.equipment.bullet1.BulletCreator;
-import cc.abro.tow.client.tanks.equipment.bullet1.StoredBulletCreator;
+import cc.abro.tow.client.tanks.equipment.bullet.Bullet;
+import cc.abro.tow.client.tanks.equipment.bullet.BulletCreator;
+import cc.abro.tow.client.tanks.equipment.bullet.StoredBulletCreator;
 
 @StoredBulletCreator
 public class DefaultBulletCreator implements BulletCreator {

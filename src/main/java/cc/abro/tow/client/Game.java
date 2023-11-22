@@ -20,7 +20,7 @@ import cc.abro.tow.client.settings.Settings;
 import cc.abro.tow.client.settings.SettingsService;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.armor.ArmorSpecificationStorage;
-import cc.abro.tow.client.tanks.equipment.bullet1.BulletCreatorsStorage;
+import cc.abro.tow.client.tanks.equipment.bullet.BulletCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.bulletmodifier.BulletModifierCreatorsStorage;
 import cc.abro.tow.client.tanks.equipment.bulletmodifier.BulletModifierSpecificationStorage;
 import cc.abro.tow.client.tanks.equipment.gun.GunCreatorsStorage;

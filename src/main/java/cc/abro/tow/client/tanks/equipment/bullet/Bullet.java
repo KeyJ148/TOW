@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks.equipment.bullet1;
+package cc.abro.tow.client.tanks.equipment.bullet;
 
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.gameobject.GameObject;

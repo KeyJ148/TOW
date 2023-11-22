@@ -6,7 +6,7 @@ import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.resources.sprites.Sprite;
 import cc.abro.tow.client.settings.GameSettingsService;
-import cc.abro.tow.client.tanks.equipment.bullet1.BulletCreator;
+import cc.abro.tow.client.tanks.equipment.bullet.BulletCreator;
 import cc.abro.tow.client.tanks.stats.Effect;
 import cc.abro.tow.client.tanks.stats.Stats;
 import cc.abro.tow.client.tanks.tank.Tank;
