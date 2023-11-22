@@ -2,7 +2,7 @@
   "attackSpeed" : 0.35,
   "bulletSpeed": 210.0,
   "speedRotate" : 100.0,
-  "damage" : 6.0,
+  "damage" : 8.0,
   "range" : 500,
   "gunTrunksInfo" : [ {
     "bulletStartX" : 0,

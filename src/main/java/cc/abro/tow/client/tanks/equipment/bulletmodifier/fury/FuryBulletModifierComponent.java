@@ -1,10 +1,11 @@
 package cc.abro.tow.client.tanks.equipment.bulletmodifier.fury;
 
+import cc.abro.orchengine.gameobject.components.interfaces.Updatable;
 import cc.abro.tow.client.tanks.equipment.bulletmodifier.defaults.DefaultBulletModifierComponent;
 import cc.abro.tow.client.tanks.stats.Effect;
 import cc.abro.tow.client.tanks.stats.Stats;
 
-public class FuryBulletModifierComponent extends DefaultBulletModifierComponent {
+public class FuryBulletModifierComponent extends DefaultBulletModifierComponent implements Updatable {
     private final double minSpeed;
     private final double maxSpeed;
     private final double minDamage;
@@ -24,11 +25,12 @@ public class FuryBulletModifierComponent extends DefaultBulletModifierComponent 
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
     }
+    @Override
     public void update(long delta) {
         Stats stats = getGameObject().getTankStatsComponent().getStats();
         double percentHp = getGameObject().getTankStatsComponent().getCurrentHp() /
                 stats.getHpMax();
-        getEffect().getAddition().setBulletSpeed(maxSpeed - percentHp * (maxSpeed - minSpeed));
-        getEffect().getAddition().setDamage(maxDamage - percentHp * (maxDamage - minDamage));
+        getEffect().getMulti().setBulletSpeed(maxSpeed - percentHp * (maxSpeed - minSpeed));
+        getEffect().getMulti().setDamage(maxDamage - percentHp * (maxDamage - minDamage));
     }
 }
