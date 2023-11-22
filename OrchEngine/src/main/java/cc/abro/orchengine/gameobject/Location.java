@@ -35,6 +35,7 @@ public class Location extends ObjectsContainer implements ServiceConsumer {
         this.guiLocationFrame = guiLocationFrame;
     }
 
+    @Override
     public void update(long delta) {
         super.update(delta);
         guiLocationFrame.update();
@@ -48,6 +49,7 @@ public class Location extends ObjectsContainer implements ServiceConsumer {
     }
 
     //Уничтожение локации и всех объектов в локации
+    @Override
     public void destroy() {
         super.destroy();
         guiLocationFrame.destroy();

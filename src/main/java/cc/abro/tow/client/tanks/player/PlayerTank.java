@@ -67,6 +67,9 @@ public class PlayerTank extends Tank {
 
     @Override
     public void exploded() {
+        if (!isAlive()) {
+            return;
+        }
         super.exploded();
 
         playerTankMovementControllerComponent.destroy();

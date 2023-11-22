@@ -206,11 +206,12 @@ public class NetGameRead implements NetGameReadInterface {
 		double direction = Double.parseDouble(str.split(" ")[2]);
 		double speed = Double.parseDouble(str.split(" ")[3]);
 		String texture = str.split(" ")[4];
-		long idNet = Long.parseLong(str.split(" ")[5]);
-		int idEmeny = Integer.parseInt(str.split(" ")[6]);
+		boolean rotation = Boolean.parseBoolean(str.split(" ")[5]);
+		long idNet = Long.parseLong(str.split(" ")[6]);
+		int idEmeny = Integer.parseInt(str.split(" ")[7]);
 
 		EnemyBullet enemyBullet = new EnemyBullet(Context.getService(LocationManager.class).getActiveLocation(),
-				x, y, speed, direction, spriteStorage.getSprite(texture).texture(), idEmeny, idNet);
+				x, y, speed, direction, spriteStorage.getSprite(texture).texture(), rotation, idEmeny, idNet);
 		clientData.enemyBullet.add(enemyBullet);
 	}
 

@@ -98,6 +98,9 @@ public abstract class Tank extends GameObject {
     }
 
     public void exploded() {
+        if (!isAlive()) {
+            return;
+        }
         setAlive(false);
 
         tankNicknameComponent.destroy();
@@ -109,8 +112,8 @@ public abstract class Tank extends GameObject {
         setColor(EXPLODED_TANK_COLOR);
 
         Explosion explosionParticlesComponent = new Explosion(100, DepthConstants.EXPLOSION_Z);
-        explosionParticlesComponent.activate();
         addComponent(explosionParticlesComponent);
+        explosionParticlesComponent.activate();
 
         audioService.playSoundEffect(getAudioStorage().getAudio(EXPLODED_TANK_AUDIO), (int) getX(), (int) getY(),
                 gameSettingsService.getGameSettings().getSoundRange());

@@ -112,6 +112,7 @@ public class Bullet extends GameObject {
                 + " " + getComponent(Movement.class).getDirection()
                 + " " + getComponent(Movement.class).getSpeed()
                 + " " + spriteName
+                + " " + bulletSpriteSpecification.rotation()
                 + " " + idNet;
     }
 
@@ -157,7 +158,7 @@ public class Bullet extends GameObject {
             Context.getService(TCPControl.class).send(25, (int) getX() + " " + (int) getY() + " " + soundHit);
         }
 
-        Context.getService(TCPControl.class).send(15, idNet + " " + explosionSize); //TODO (отправлять и получать по шине ивентов)
+        Context.getService(TCPControl.class).send(15, idNet + " " + (int) explosionSize); //TODO (отправлять и получать по шине ивентов)
         destroy();
     }
 
