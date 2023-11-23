@@ -1,15 +1,15 @@
 {
-  "attackSpeed" : 0.35,
-  "bulletSpeed": 210.0,
-  "speedRotate" : 100.0,
+  "attackSpeed" : 0.15,
+  "bulletSpeed": 140.0,
+  "speedRotate" : 10.0,
   "damage" : 8.0,
-  "range" : 500,
+  "range" : 1500,
   "gunTrunksInfo" : [ {
     "bulletStartX" : 0,
     "bulletStartY" : -27,
     "bulletStartDir" : 0.0
   } ],
-  "bulletExplosionPower" : 200,
+  "bulletExplosionPower" : 180,
   "soundShot" : "shot_tank",
   "spriteName" : "g_mortar",
   "title" : "Mortar",
