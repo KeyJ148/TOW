@@ -2,7 +2,7 @@
   "speed" : 1.15,
   "damage" : 1.5,
   "range" : 1.1,
-  "explosionPower" : 1.0,
+  "explosionPower" : 1.1,
   "title" : "Steel",
   "type": "default",
   "techLevel": 1

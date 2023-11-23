@@ -14,7 +14,7 @@ import cc.abro.tow.client.tanks.tank.Tank;
 
 public class MountedBullet extends Bullet {
 
-    private final double EXPLOSION_RANGE_COEFFICIENT = 5;
+    private final double EXPLOSION_AREA_COEFFICIENT = 0.5;
 
     public MountedBullet(Tank tankAttacker, double x, double y, double direction, String spriteName, String soundHit,
                          double explosionPower, double range, double damage, double speed) {
@@ -44,6 +44,6 @@ public class MountedBullet extends Bullet {
 
     private boolean isTankInExplosionDistance(Tank tank) {
         return Math.sqrt(Math.pow(tank.getX() - getX(), 2) + Math.pow(tank.getY() - getY(), 2)) <=
-                getExplosionPower() * EXPLOSION_RANGE_COEFFICIENT;
+                getExplosionPower() * EXPLOSION_AREA_COEFFICIENT;
     }
 }

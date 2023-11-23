@@ -9,7 +9,7 @@
     "bulletStartY" : -27,
     "bulletStartDir" : 0.0
   } ],
-  "bulletExplosionPower" : 50,
+  "bulletExplosionPower" : 200,
   "soundShot" : "shot_tank",
   "spriteName" : "g_mortar",
   "title" : "Mortar",
