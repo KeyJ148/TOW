@@ -1,12 +1,11 @@
 package cc.abro.orchengine.net.client;
 
-import cc.abro.orchengine.context.EngineBean;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.net.client.tcp.TCPControl;
 import cc.abro.orchengine.net.client.tcp.TCPRead;
 import cc.abro.orchengine.net.client.udp.UDPControl;
 import cc.abro.orchengine.net.client.udp.UDPRead;
 
-@EngineBean
 public class Connector extends Thread {
 
     public boolean connectSuccess = false;
@@ -16,11 +15,11 @@ public class Connector extends Thread {
     private final TCPControl tcpControl;
     private final UDPControl udpControl;
 
-    public Connector(TCPRead tcpRead, UDPRead udpRead, TCPControl tcpControl, UDPControl udpControl) {
-        this.tcpRead = tcpRead;
-        this.udpRead = udpRead;
-        this.tcpControl = tcpControl;
-        this.udpControl = udpControl;
+    public Connector() {
+        this.tcpRead = Context.getService(TCPRead.class);
+        this.udpRead = Context.getService(UDPRead.class);
+        this.tcpControl = Context.getService(TCPControl.class);
+        this.udpControl = Context.getService(UDPControl.class);
     }
 
     public void connect(String ip, int port) {

@@ -57,35 +57,6 @@ public class Context {
         }
     }
 
-    public static void addBean(Class<?> beanClass) {
-        addBean(beanClass, getThreadGroup());
-    }
-
-    public static void addBean(Class<?> beanClass, ThreadGroup threadGroup) {
-        getThreadContext(threadGroup).getBeans().addComponent(beanClass);
-    }
-
-    public static <T> T createBean(Class<T> beanClass) {
-        return createBean(beanClass, getThreadGroup());
-    }
-
-    public static <T> T createBean(Class<T> beanClass, ThreadGroup threadGroup) {
-        return getThreadContext(threadGroup).getBeans().getComponent(beanClass);
-    }
-
-    public static boolean hasBean(Class<?> beanClass) {
-        return hasBean(beanClass, getThreadGroup());
-    }
-
-    public static boolean hasBean(Class<?> beanClass, ThreadGroup threadGroup) {
-        try {
-            return getThreadContext(threadGroup).getBeans().getComponent(beanClass) != null;
-        } catch (AbstractInjector.UnsatisfiableDependenciesException e) {
-            //Если пока не хватает сервисов для инициализации этого сервиса, то считаем, что сервис все равно в наличие
-            return true;
-        }
-    }
-
     public static void start() {
         if (!getThreadContext().getServices().getLifecycleState().isStarted()) {
             getThreadContext().getServices().start();
@@ -120,14 +91,9 @@ public class Context {
 
     private static class ThreadContext {
         private final DefaultPicoContainer picoContainerServices = new DefaultPicoContainer(new Caching());
-        private final DefaultPicoContainer picoContainerBeans = new DefaultPicoContainer(picoContainerServices);
 
         private DefaultPicoContainer getServices() {
             return picoContainerServices;
-        }
-
-        private DefaultPicoContainer getBeans() {
-            return picoContainerBeans;
         }
     }
 }

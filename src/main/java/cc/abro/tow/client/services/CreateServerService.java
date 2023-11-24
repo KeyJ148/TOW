@@ -1,6 +1,5 @@
 package cc.abro.tow.client.services;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.GameService;
 import cc.abro.orchengine.net.client.Connector;
 import cc.abro.tow.server.ServerLoader;
@@ -24,7 +23,7 @@ public class CreateServerService {
         }
 
         try {
-            ServerLoader.startServerListener = () -> Context.createBean(Connector.class).connect("127.0.0.1", port);
+            ServerLoader.startServerListener = () -> new Connector().connect("127.0.0.1", port);
             serverLaunching = true;
             new ServerLoader(port, maxPeople, false);
         } catch (RuntimeException e) {

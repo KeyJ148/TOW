@@ -21,7 +21,7 @@ public class Loader {
             Thread.currentThread().setName("Engine");
             setupFinalizerService(); //Создание сервиса для корректного освобождения ресурсов при завершении программы
             setupProfilesService(activeProfiles); //Создание сервиса по учету активных профилей
-            ContextAnnotationScanner.loadServicesAndBeans(activeProfiles, packagesForScan); //Сканирование пакетов и поиск сервисов и бинов
+            ContextAnnotationScanner.loadServices(activeProfiles, packagesForScan); //Сканирование пакетов и поиск сервисов
             Context.getService(PackageManagerService.class).addToDefaultPackages(packagesForScan);
             initServices(); //Запуск всех сервисов
             initGame(); //Вызов инициализации у класса игры

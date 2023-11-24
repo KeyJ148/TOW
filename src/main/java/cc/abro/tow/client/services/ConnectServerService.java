@@ -1,6 +1,5 @@
 package cc.abro.tow.client.services;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.GameService;
 import cc.abro.orchengine.net.client.ConnectException;
 import cc.abro.orchengine.net.client.Connector;
@@ -23,7 +22,7 @@ public class ConnectServerService {
         }
 
         try {
-            Context.createBean(Connector.class).connect(ip.getHostAddress(), port);
+            new Connector().connect(ip.getHostAddress(), port);
         } catch (ConnectException e) {
             e.printStackTrace();
             wasConnect = false;

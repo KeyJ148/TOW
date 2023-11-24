@@ -1,6 +1,6 @@
 package cc.abro.orchengine.input.mouse;
 
-import cc.abro.orchengine.context.EngineBean;
+import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.cycle.Render;
 import cc.abro.orchengine.image.Color;
 import cc.abro.orchengine.resources.textures.Texture;
@@ -14,7 +14,6 @@ import java.nio.DoubleBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-@EngineBean
 public class MouseCursor {
 
     private final Render render;
@@ -25,9 +24,9 @@ public class MouseCursor {
     private boolean captureCursor = false;
     private Texture cursorTexture;
 
-    public MouseCursor(Render render, OpenGlService openGlService) {
-        this.render = render;
-        this.openGlService = openGlService;
+    public MouseCursor() {
+        this.render = Context.getService(Render.class);
+        this.openGlService = Context.getService(OpenGlService.class);
     }
 
     public void update() {

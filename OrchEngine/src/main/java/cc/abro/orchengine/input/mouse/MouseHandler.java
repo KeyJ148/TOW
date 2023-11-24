@@ -1,9 +1,8 @@
 package cc.abro.orchengine.input.mouse;
 
-import cc.abro.orchengine.context.Context;
-import lombok.Getter;
 import com.spinyowl.legui.component.Frame;
 import com.spinyowl.legui.event.MouseClickEvent;
+import lombok.Getter;
 
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +18,7 @@ public class MouseHandler {
 
     public MouseHandler(Frame frame) {
         //Создание объекта для обработки курсора
-        cursor = Context.createBean(MouseCursor.class);
+        cursor = new MouseCursor();
 
         //Создание объекта фиксирующего все события мыши
         eventHistory = new MouseEventHistory(frame);

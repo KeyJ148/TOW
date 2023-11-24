@@ -64,7 +64,7 @@ public class GameStartTests {
         ThreadGroup clientThreadGroup = new ThreadGroup(Thread.currentThread().getThreadGroup(), "test-client");
         new Thread(clientThreadGroup, () -> {
             try {
-                Runnable afterStart = () -> Context.createBean(Connector.class).connect(DEFAULT_IP, DEFAULT_PORT);
+                Runnable afterStart = () ->new Connector().connect(DEFAULT_IP, DEFAULT_PORT);
                 Context.addService(new GameAfterStartService(afterStart));
                 GameStart.main(ACTIVE_PROFILES);
             } catch (Exception e) {

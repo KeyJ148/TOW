@@ -1,15 +1,22 @@
 package cc.abro.tow;
 
-import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.context.TestService;
 import cc.abro.orchengine.gameobject.LocationManager;
 import cc.abro.orchengine.gui.GuiPanelStorage;
 import cc.abro.orchengine.net.client.Connector;
 import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.orchengine.resources.locales.LocalizationService;
-import cc.abro.tow.client.ClientData;
 import cc.abro.tow.client.Game;
+import cc.abro.tow.client.map.factory.MapObjectFactory;
+import cc.abro.tow.client.settings.DevSettingsService;
 import cc.abro.tow.client.settings.SettingsService;
+import cc.abro.tow.client.tanks.equipment.armor.ArmorCreatorsStorage;
+import cc.abro.tow.client.tanks.equipment.armor.ArmorSpecificationStorage;
+import cc.abro.tow.client.tanks.equipment.bullet.BulletCreatorsStorage;
+import cc.abro.tow.client.tanks.equipment.bulletmodifier.BulletModifierCreatorsStorage;
+import cc.abro.tow.client.tanks.equipment.bulletmodifier.BulletModifierSpecificationStorage;
+import cc.abro.tow.client.tanks.equipment.gun.GunCreatorsStorage;
+import cc.abro.tow.client.tanks.equipment.gun.GunSpecificationStorage;
 
 public class TestUtils {
 
@@ -44,12 +51,23 @@ public class TestUtils {
 
         public GameProxyService(GuiPanelStorage guiPanelStorage,
                                 LocationManager locationManager,
-                                ClientData clientData,
                                 AudioService audioService,
                                 SettingsService settingsService,
+                                DevSettingsService devSettingsService,
                                 LocalizationService localizationService,
+                                MapObjectFactory mapObjectFactory,
+                                ArmorCreatorsStorage armorCreatorsStorage,
+                                GunCreatorsStorage gunCreatorsStorage,
+                                BulletModifierCreatorsStorage bulletModifierCreatorsStorage,
+                                ArmorSpecificationStorage armorSpecificationStorage,
+                                GunSpecificationStorage gunSpecificationStorage,
+                                BulletModifierSpecificationStorage bulletModifierSpecificationStorage,
+                                BulletCreatorsStorage bulletCreatorsStorage,
                                 GameAfterStartService gameAfterStartService) {
-            super(guiPanelStorage, locationManager, clientData, audioService, settingsService, localizationService);
+            super(guiPanelStorage, locationManager, audioService, settingsService, devSettingsService,
+                    localizationService, mapObjectFactory, armorCreatorsStorage, gunCreatorsStorage,
+                    bulletModifierCreatorsStorage, armorSpecificationStorage, gunSpecificationStorage,
+                    bulletModifierSpecificationStorage, bulletCreatorsStorage);
             this.gameAfterStartService = gameAfterStartService;
         }
 
@@ -73,7 +91,7 @@ public class TestUtils {
 
         @Override
         public void run() {
-            Context.createBean(Connector.class).connect("127.0.0.1", port);
+            new Connector().connect("127.0.0.1", port);
         }
     }
 }
