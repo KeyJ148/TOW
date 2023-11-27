@@ -22,10 +22,12 @@ public class Bullet extends GameObject {
     private final SpriteStorage spriteStorage;
     private final AudioService audioService;
     private final GameSettingsService gameSettingsService;
+    private final BulletSpriteStorage bulletSpriteStorage;
 
     private final Movement<GameObject> movementComponent;
     private final SpriteRender<GameObject> spriteComponent;
     private final Collision collisionComponent;
+    private final BulletSpriteStorage.BulletSpriteSpecification bulletSpriteSpecification;
 
     private final String soundHit;
     private final double explosionPower;
@@ -42,6 +44,7 @@ public class Bullet extends GameObject {
         spriteStorage = getSpriteStorage();
         audioService = getAudioService();
         gameSettingsService = Context.getService(GameSettingsService.class);
+        bulletSpriteStorage = Context.getService(BulletSpriteStorage.class);
 
         this.explosionPower = explosionPower;
         this.soundHit = soundHit;
@@ -65,9 +68,10 @@ public class Bullet extends GameObject {
                 .addListener(CollidableObjectType.WALL, this::collision);
         addComponent(collisionComponent);
 
-        //TODO не забыть реализовать
-        //getComponent(Movement.class).speed = cr.findDouble("SPEED") + player.stats.speedTankUp / 2;
-        //getComponent(Movement.class).speed = Math.max(getComponent(Movement.class).speed, player.stats.speedTankUp * GameSetting.MIN_BULLET_SPEED_KOEF);
+        bulletSpriteSpecification = bulletSpriteStorage.getBulletSpriteSpecification(spriteName);
+        if (bulletSpriteSpecification.rotation()) {
+            spriteComponent.setDirection(getComponent(Movement.class).getDirection());
+        }
     }
 
     public void update() {
