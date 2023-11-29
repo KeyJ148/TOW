@@ -13,7 +13,7 @@ import cc.abro.orchengine.resources.locales.LocalizationService;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.orchengine.resources.textures.TextureService;
 
-public interface ServiceConsumer {
+public interface ServiceConsumer { //TODO del. Т.к. все это должно быть в конструкторе и не должны в других местах вызывать запрос сервисов
 
     default Engine getEngine() {
         return Context.getService(Engine.class);
