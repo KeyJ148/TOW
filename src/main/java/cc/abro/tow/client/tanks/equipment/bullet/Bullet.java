@@ -1,6 +1,7 @@
 package cc.abro.tow.client.tanks.equipment.bullet;
 
 import cc.abro.orchengine.context.Context;
+import cc.abro.orchengine.events.UpdateEvent;
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.Movement;
@@ -19,6 +20,8 @@ import cc.abro.tow.client.particles.Explosion;
 import cc.abro.tow.client.settings.GameSettingsService;
 import cc.abro.tow.client.tanks.enemy.EnemyTank;
 import cc.abro.tow.client.tanks.tank.Tank;
+import com.google.common.eventbus.Subscribe;
+import lombok.Getter;
 
 public class Bullet extends GameObject {
 
@@ -27,8 +30,11 @@ public class Bullet extends GameObject {
     private final GameSettingsService gameSettingsService;
     private final BulletSpriteStorage bulletSpriteStorage;
 
+    @Getter
     private final Movement<GameObject> movementComponent;
+    @Getter
     private final SpriteRender<GameObject> spriteComponent;
+    @Getter
     private final Collision collisionComponent;
     private final BulletSpriteStorage.BulletSpriteSpecification bulletSpriteSpecification;
 
@@ -84,7 +90,8 @@ public class Bullet extends GameObject {
         }
     }
 
-    public void update() {
+    @Subscribe
+    public void onUpdateEvent(UpdateEvent updateEvent) {
         if (!isDestroyed()) {
             if (Math.sqrt(Math.pow(startX - getX(), 2) + Math.pow(startY - getY(), 2)) >= range) {
                 exploded(0);
@@ -125,7 +132,7 @@ public class Bullet extends GameObject {
                     gameSettingsService.getGameSettings().getSoundRange());
             Context.getService(TCPControl.class).send(25, (int) getX() + " " + (int) getY() + " " + soundHit);
         }
-        //TODO Context.getService(TCPControl.class).send(15, idNet + " " + expSize);
+        //TODO Context.getService(TCPControl.class).send(15, idNet + " " + expSize); (посылать и получать по шине ивентов)
         destroy();
     }
 }
