@@ -88,6 +88,8 @@ public class Bullet extends GameObject {
         if (bulletSpriteSpecification.rotation()) {
             spriteComponent.setDirection(getComponent(Movement.class).getDirection());
         }
+
+        //TODO Context.getService(TCPControl.class).send(13, getData());
     }
 
     @Subscribe

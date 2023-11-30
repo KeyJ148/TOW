@@ -9,6 +9,9 @@ import cc.abro.tow.client.tanks.tank.Tank;
 @StoredBulletCreator
 public class AcceleratedBulletCreator implements BulletCreator {
 
+    private final double MAX_SPEED_COEFFICIENT = 2.0;
+    private final double ACCELERATION_COEFFICIENT = 0.5;
+
     @Override
     public String getName() {
         return "accelerated";
@@ -17,10 +20,8 @@ public class AcceleratedBulletCreator implements BulletCreator {
     @Override
     public Bullet createBullet(Location location, Tank tankAttacker, double x, double y, double direction, String spriteName,
                                String soundHit, double speed, double range, double damage, double explosionPower) {
-        AcceleratedBulletModifier acceleratedBulletModifierComponent =
-                (AcceleratedBulletModifier) tankAttacker.getBulletModifierComponent();
         return new AcceleratedBullet(location, tankAttacker, x, y, direction, spriteName, soundHit, speed, range,
                 damage, explosionPower,
-                acceleratedBulletModifierComponent.getAcceleration(), acceleratedBulletModifierComponent.getSpeedMax());
+                speed * ACCELERATION_COEFFICIENT, speed * MAX_SPEED_COEFFICIENT);
     }
 }
