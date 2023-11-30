@@ -31,6 +31,7 @@ public class PlayerTankSingleplayerControllerComponent extends Component<PlayerT
             case GLFW_KEY_B -> boxService.takeBulletBox(getGameObject());
             case GLFW_KEY_H -> boxService.takeHealthBox(getGameObject());
             case GLFW_KEY_F -> boxService.takeHealthFullBox(getGameObject());
+            case GLFW_KEY_V -> getGameObject().getTankVampireComponent().setVampire(1);
         }
     }
 

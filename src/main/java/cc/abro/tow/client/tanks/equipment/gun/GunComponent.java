@@ -72,12 +72,10 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
         double bulletDirection = getGameObject().getGunSpriteComponent().getDirection() + bulletStartDir;
 
         Stats stats = getGameObject().getTankStatsComponent().getStats();
-        double bulletSpeed = Math.max(stats.getBulletSpeed(),
-                stats.getSpeedUp() * Context.getService(GameSettingsService.class).getGameSettings().getMinBulletSpeedCoefficient());
         BulletInfo bulletInfo = bulletMapping.get(getGameObject().getBulletModifierComponent().getName());
-        bulletInfo.bulletCreator.createBullet(getGameObject().getLocation(), bulletX, bulletY, bulletDirection,
+        bulletInfo.bulletCreator.createBullet(getGameObject().getLocation(), getGameObject(), bulletX, bulletY, bulletDirection,
                 bulletInfo.spriteName, bulletInfo.soundHit,
-                bulletSpeed, stats.getRange(), stats.getDamage(), stats.getBulletExplosionPower());
+                stats.getBulletSpeed(), stats.getRange(), stats.getDamage(), stats.getBulletExplosionPower());
 
         getAudioService().playSoundEffect(getAudioStorage().getAudio(soundShot), (int) bulletX, (int) bulletY,
                 Context.getService(GameSettingsService.class).getGameSettings().getSoundRange()); //TODO задачу на создание прослойки с getSoundRange(). Или просто весь AL переделать. Или выписать в константы soundRange, т.к. после переделки AL это будет soundPower и он будет уникальный для каждого события

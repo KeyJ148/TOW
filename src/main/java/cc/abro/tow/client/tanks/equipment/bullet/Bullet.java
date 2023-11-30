@@ -14,8 +14,11 @@ import cc.abro.orchengine.resources.audios.AudioService;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.tow.client.CollidableObjectType;
 import cc.abro.tow.client.DepthConstants;
+import cc.abro.tow.client.events.TankHitEvent;
 import cc.abro.tow.client.particles.Explosion;
 import cc.abro.tow.client.settings.GameSettingsService;
+import cc.abro.tow.client.tanks.enemy.EnemyTank;
+import cc.abro.tow.client.tanks.tank.Tank;
 
 public class Bullet extends GameObject {
 
@@ -29,14 +32,16 @@ public class Bullet extends GameObject {
     private final Collision collisionComponent;
     private final BulletSpriteStorage.BulletSpriteSpecification bulletSpriteSpecification;
 
+    private final Tank tankAttacker;
     private final String soundHit;
     private final double explosionPower;
     private final double startX;
     private final double startY;
     private final double range;
+    private final double damage;
 
-    public Bullet(Location location, double x, double y, double direction, String spriteName, String soundHit,
-                  double speed, double range, double damage, double explosionPower) {
+    public Bullet(Location location, Tank tankAttacker, double x, double y, double direction, String spriteName,
+                  String soundHit, double speed, double range, double damage, double explosionPower) {
         super(location);
         setX(x);
         setY(y);
@@ -46,11 +51,16 @@ public class Bullet extends GameObject {
         gameSettingsService = Context.getService(GameSettingsService.class);
         bulletSpriteStorage = Context.getService(BulletSpriteStorage.class);
 
+        this.tankAttacker = tankAttacker;
         this.explosionPower = explosionPower;
         this.soundHit = soundHit;
         this.startX = x;
         this.startY = y;
         this.range = range;
+        this.damage = damage;
+
+        double tankSpeed = tankAttacker.getTankStatsComponent().getStats().getSpeedUp();
+        speed = Math.max(speed, tankSpeed * gameSettingsService.getGameSettings().getMinBulletSpeedCoefficient());
 
         movementComponent = new Movement<>();
         addComponent(movementComponent);
@@ -96,9 +106,9 @@ public class Bullet extends GameObject {
         }
         if (collision.getType().equals(CollidableObjectType.ENEMY_TANK)) {
             exploded(explosionPower);
+            postEvent(new TankHitEvent(tankAttacker, (EnemyTank) collision.getGameObject(), damage));
 
-            //TODO Context.getService(TCPControl.class).send(14, damage + " " + ea.enemy.id);
-            //if (ea.enemy.alive) player.hitting(damage); //TODO вызвать функцию в соответствующем компоненте танка, eventBus хорошо подойдет
+            //TODO Context.getService(TCPControl.class).send(14, damage + " " + ea.enemy.id); (получать по шине ивентов)
         }
     }
 
