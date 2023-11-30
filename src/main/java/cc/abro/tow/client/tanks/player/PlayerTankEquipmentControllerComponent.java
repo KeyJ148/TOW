@@ -19,7 +19,7 @@ public class PlayerTankEquipmentControllerComponent extends Component<PlayerTank
     private boolean playerCanTakeHeal = true;
 
     @Subscribe
-    public void onKeyEvent(KeyPressEvent keyPressEvent) {
+    public void onKeyPressEvent(KeyPressEvent keyPressEvent) {
         PlayerTankEquipmentGuiComponent guiComponent = getGameObject().getPlayerTankEquipmentGuiComponent();
 
         switch (keyPressEvent.getKey()) {

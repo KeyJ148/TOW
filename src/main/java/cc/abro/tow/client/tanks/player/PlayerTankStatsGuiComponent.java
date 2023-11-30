@@ -37,7 +37,7 @@ public class PlayerTankStatsGuiComponent extends Component<Tank> implements Upda
     }
 
     @Subscribe
-    public void onKeyEvent(KeyPressEvent keyPressEvent) {
+    public void onKeyPressEvent(KeyPressEvent keyPressEvent) {
         if (keyPressEvent.getKey() == GLFW_KEY_F2) {
             printStats = !printStats;
         }
