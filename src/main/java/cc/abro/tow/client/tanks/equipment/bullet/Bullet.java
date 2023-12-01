@@ -36,14 +36,22 @@ public class Bullet extends GameObject {
     private final SpriteRender<GameObject> spriteComponent;
     @Getter
     private final Collision collisionComponent;
+    @Getter
     private final BulletSpriteStorage.BulletSpriteSpecification bulletSpriteSpecification;
 
+    @Getter
     private final Tank tankAttacker;
+    @Getter
     private final String soundHit;
+    @Getter
     private final double explosionPower;
+    @Getter
     private final double startX;
+    @Getter
     private final double startY;
+    @Getter
     private final double range;
+    @Getter
     private final double damage;
 
     public Bullet(Location location, Tank tankAttacker, double x, double y, double direction, String spriteName,
@@ -93,10 +101,10 @@ public class Bullet extends GameObject {
     }
 
     @Subscribe
-    public void onUpdateEvent(UpdateEvent updateEvent) {
+    public void onUpdateEventForRangeDestroy(UpdateEvent updateEvent) {
         if (!isDestroyed()) {
             if (Math.sqrt(Math.pow(startX - getX(), 2) + Math.pow(startY - getY(), 2)) >= range) {
-                exploded(0);
+                destroyByRange();
             }
         }
     }
@@ -106,22 +114,20 @@ public class Bullet extends GameObject {
         if (collisionType == CollisionType.LEAVING) return;
 
         if (collision.getType().equals(DefaultCollidableObjectType.BORDER)) {
-            exploded(0);
-
+            destroyWithoutExplosion();
         }
         if (collision.getType().equals(CollidableObjectType.WALL)) {
-            exploded(explosionPower);
-
+            destroyWithExplosion();
         }
         if (collision.getType().equals(CollidableObjectType.ENEMY_TANK)) {
-            exploded(explosionPower);
+            destroyWithExplosion();
             postEvent(new TankHitEvent(tankAttacker, (EnemyTank) collision.getGameObject(), damage));
 
             //TODO Context.getService(TCPControl.class).send(14, damage + " " + ea.enemy.id); (получать по шине ивентов)
         }
     }
 
-    protected void exploded(double explosionSize) {
+    protected void destroyWithExplosion(double explosionSize) {
         if (explosionSize > 0) {
             GameObject explosion = new GameObject(getLocation());
             explosion.setPosition(getX(), getY());
@@ -136,5 +142,17 @@ public class Bullet extends GameObject {
         }
         //TODO Context.getService(TCPControl.class).send(15, idNet + " " + expSize); (посылать и получать по шине ивентов)
         destroy();
+    }
+
+    protected void destroyByRange() {
+        destroyWithoutExplosion();
+    }
+
+    protected void destroyWithExplosion() {
+        destroyWithExplosion(getExplosionPower());
+    }
+
+    protected void destroyWithoutExplosion() {
+        destroyWithExplosion(0);
     }
 }
