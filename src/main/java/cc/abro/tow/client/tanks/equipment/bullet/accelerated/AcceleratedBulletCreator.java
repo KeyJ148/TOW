@@ -9,8 +9,8 @@ import cc.abro.tow.client.tanks.tank.Tank;
 @StoredBulletCreator
 public class AcceleratedBulletCreator implements BulletCreator {
 
-    private final double MAX_SPEED_COEFFICIENT = 2.0;
-    private final double ACCELERATION_COEFFICIENT = 0.5;
+    private final double MAX_SPEED_COEFFICIENT = 3.0;
+    private final double ACCELERATION_COEFFICIENT = 1.0;
 
     @Override
     public String getName() {
