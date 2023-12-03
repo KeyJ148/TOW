@@ -1,6 +1,5 @@
 package cc.abro.tow.client.tanks.equipment.bullet.accelerated;
 
-import cc.abro.orchengine.gameobject.Location;
 import cc.abro.tow.client.tanks.equipment.bullet.Bullet;
 import cc.abro.tow.client.tanks.equipment.bullet.BulletCreator;
 import cc.abro.tow.client.tanks.equipment.bullet.StoredBulletCreator;
@@ -18,10 +17,9 @@ public class AcceleratedBulletCreator implements BulletCreator {
     }
 
     @Override
-    public Bullet createBullet(Location location, Tank tankAttacker, double x, double y, double direction, String spriteName,
-                               String soundHit, double speed, double range, double damage, double explosionPower) {
-        return new AcceleratedBullet(location, tankAttacker, x, y, direction, spriteName, soundHit, speed, range,
-                damage, explosionPower,
+    public Bullet createBullet(Tank tankAttacker, double x, double y, double direction, String spriteName, String soundHit) {
+        double speed = tankAttacker.getTankStatsComponent().getStats().getBulletSpeed();
+        return new AcceleratedBullet(tankAttacker, x, y, direction, spriteName, soundHit,
                 speed * ACCELERATION_COEFFICIENT, speed * MAX_SPEED_COEFFICIENT);
     }
 }

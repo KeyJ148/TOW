@@ -3,7 +3,6 @@ package cc.abro.tow.client.tanks.equipment.bullet;
 import cc.abro.orchengine.context.Context;
 import cc.abro.orchengine.events.UpdateEvent;
 import cc.abro.orchengine.gameobject.GameObject;
-import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.Movement;
 import cc.abro.orchengine.gameobject.components.collision.CollidableComponent;
 import cc.abro.orchengine.gameobject.components.collision.Collision;
@@ -19,6 +18,7 @@ import cc.abro.tow.client.events.TankHitEvent;
 import cc.abro.tow.client.particles.Explosion;
 import cc.abro.tow.client.settings.GameSettingsService;
 import cc.abro.tow.client.tanks.enemy.EnemyTank;
+import cc.abro.tow.client.tanks.stats.Stats;
 import cc.abro.tow.client.tanks.tank.Tank;
 import com.google.common.eventbus.Subscribe;
 import lombok.Getter;
@@ -54,9 +54,8 @@ public class Bullet extends GameObject {
     @Getter
     private final double damage;
 
-    public Bullet(Location location, Tank tankAttacker, double x, double y, double direction, String spriteName,
-                  String soundHit, double speed, double range, double damage, double explosionPower) {
-        super(location);
+    public Bullet(Tank tankAttacker, double x, double y, double direction, String spriteName, String soundHit) {
+        super(tankAttacker.getLocation());
         setX(x);
         setY(y);
 
@@ -65,17 +64,17 @@ public class Bullet extends GameObject {
         gameSettingsService = Context.getService(GameSettingsService.class);
         bulletSpriteStorage = Context.getService(BulletSpriteStorage.class);
 
+        Stats stats = tankAttacker.getTankStatsComponent().getStats();
         this.tankAttacker = tankAttacker;
-        this.explosionPower = explosionPower;
+        this.explosionPower = stats.getBulletExplosionPower();
         this.soundHit = soundHit;
         this.startX = x;
         this.startY = y;
-        this.range = range;
-        this.damage = damage;
+        this.range = stats.getRange();
+        this.damage = stats.getDamage();
 
-        double tankSpeed = tankAttacker.getTankStatsComponent().getStats().getSpeedUp();
-        speed = Math.max(speed, tankSpeed * gameSettingsService.getGameSettings().getMinBulletSpeedCoefficient());
-
+        double speed = Math.max(stats.getBulletSpeed(),
+                stats.getSpeedUp() * gameSettingsService.getGameSettings().getMinBulletSpeedCoefficient());
         movementComponent = new Movement<>();
         addComponent(movementComponent);
         movementComponent.setDirection(direction);

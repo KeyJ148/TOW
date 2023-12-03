@@ -2,7 +2,6 @@ package cc.abro.tow.client.tanks.equipment.bullet.accelerated;
 
 
 import cc.abro.orchengine.events.UpdateEvent;
-import cc.abro.orchengine.gameobject.Location;
 import cc.abro.tow.client.tanks.equipment.bullet.Bullet;
 import cc.abro.tow.client.tanks.tank.Tank;
 import com.google.common.eventbus.Subscribe;
@@ -12,9 +11,9 @@ public class AcceleratedBullet extends Bullet {
     private final double acceleration;
     private final double speedMax;
 
-    public AcceleratedBullet(Location location, Tank tankAttacker, double x, double y, double direction, String spriteName, String soundHit,
-                             double speed, double range, double damage, double explosionPower, double acceleration, double speedMax) {
-        super(location, tankAttacker, x, y, direction, spriteName, soundHit, speed, range, damage, explosionPower);
+    public AcceleratedBullet(Tank tankAttacker, double x, double y, double direction, String spriteName, String soundHit,
+                             double acceleration, double speedMax) {
+        super(tankAttacker, x, y, direction, spriteName, soundHit);
         this.acceleration = acceleration;
         this.speedMax = speedMax;
     }

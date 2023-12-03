@@ -8,7 +8,6 @@ import cc.abro.orchengine.resources.sprites.Sprite;
 import cc.abro.tow.client.settings.GameSettingsService;
 import cc.abro.tow.client.tanks.equipment.bullet.BulletCreator;
 import cc.abro.tow.client.tanks.stats.Effect;
-import cc.abro.tow.client.tanks.stats.Stats;
 import cc.abro.tow.client.tanks.tank.Tank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -71,11 +70,9 @@ public abstract class GunComponent extends Component<Tank> implements Updatable 
         double bulletY = getGameObject().getY() - trunkXdy - trunkYdy;
         double bulletDirection = getGameObject().getGunSpriteComponent().getDirection() + bulletStartDir;
 
-        Stats stats = getGameObject().getTankStatsComponent().getStats();
         BulletInfo bulletInfo = bulletMapping.get(getGameObject().getBulletModifierComponent().getName());
-        bulletInfo.bulletCreator.createBullet(getGameObject().getLocation(), getGameObject(), bulletX, bulletY, bulletDirection,
-                bulletInfo.spriteName, bulletInfo.soundHit,
-                stats.getBulletSpeed(), stats.getRange(), stats.getDamage(), stats.getBulletExplosionPower());
+        bulletInfo.bulletCreator.createBullet(getGameObject(), bulletX, bulletY, bulletDirection,
+                bulletInfo.spriteName, bulletInfo.soundHit);
 
         getAudioService().playSoundEffect(getAudioStorage().getAudio(soundShot), (int) bulletX, (int) bulletY,
                 Context.getService(GameSettingsService.class).getGameSettings().getSoundRange()); //TODO задачу на создание прослойки с getSoundRange(). Или просто весь AL переделать. Или выписать в константы soundRange, т.к. после переделки AL это будет soundPower и он будет уникальный для каждого события

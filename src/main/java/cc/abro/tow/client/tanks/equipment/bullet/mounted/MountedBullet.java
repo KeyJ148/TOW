@@ -2,11 +2,11 @@ package cc.abro.tow.client.tanks.equipment.bullet.mounted;
 
 
 import cc.abro.orchengine.context.Context;
-import cc.abro.orchengine.gameobject.Location;
 import cc.abro.orchengine.gameobject.components.collision.CollidableComponent;
 import cc.abro.orchengine.gameobject.components.collision.CollisionType;
 import cc.abro.orchengine.gameobject.components.collision.DefaultCollidableObjectType;
 import cc.abro.tow.client.ClientData;
+import cc.abro.tow.client.DepthConstants;
 import cc.abro.tow.client.tanks.enemy.EnemyTank;
 import cc.abro.tow.client.tanks.equipment.bullet.Bullet;
 import cc.abro.tow.client.tanks.tank.Tank;
@@ -15,9 +15,9 @@ public class MountedBullet extends Bullet {
 
     private final double EXPLOSION_RANGE_COEFFICIENT = 5;
 
-    public MountedBullet(Location location, Tank tankAttacker, double x, double y, double direction, String spriteName, String soundHit,
-                         double speed, double range, double damage, double explosionPower) {
-        super(location, tankAttacker, x, y, direction, spriteName, soundHit, speed, range, damage, explosionPower);
+    public MountedBullet(Tank tankAttacker, double x, double y, double direction, String spriteName, String soundHit) {
+        super(tankAttacker, x, y, direction, spriteName, soundHit);
+        getSpriteComponent().setZ(DepthConstants.MORTAR_SPRITE_Z);
     }
 
     @Override
