@@ -1,4 +1,4 @@
-package cc.abro.tow.client.tanks.equipment.bullet0;
+package cc.abro.tow.client.tanks.enemy;
 
 import cc.abro.orchengine.gameobject.GameObject;
 import cc.abro.orchengine.gameobject.Location;
@@ -18,7 +18,7 @@ public class EnemyBullet extends GameObject {
 
 	public EnemyBullet(Location location, double x, double y, double speed, double direction, Texture texture,
 					   boolean rotation, int idEnemy, long idNet) {
-		super(location, Arrays.asList(
+		super(location, Arrays.asList( //TODO refactoring
 				new Movement(speed), //direction
 				new SpriteRender(texture, DepthConstants.ENEMY_BULLET_SPRITE_Z)
 		));

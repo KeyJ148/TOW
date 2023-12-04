@@ -20,9 +20,9 @@ import cc.abro.tow.client.services.BattleStatisticService;
 import cc.abro.tow.client.settings.GameSettingsService;
 import cc.abro.tow.client.settings.Settings;
 import cc.abro.tow.client.settings.SettingsService;
+import cc.abro.tow.client.tanks.enemy.EnemyBullet;
 import cc.abro.tow.client.tanks.enemy.EnemyTank;
 import cc.abro.tow.client.tanks.equipment.EquipmentService;
-import cc.abro.tow.client.tanks.equipment.bullet0.EnemyBullet;
 import cc.abro.tow.client.tanks.player.PlayerTank;
 import lombok.RequiredArgsConstructor;
 

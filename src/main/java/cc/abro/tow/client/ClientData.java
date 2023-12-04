@@ -3,8 +3,8 @@ package cc.abro.tow.client;
 import cc.abro.orchengine.context.GameService;
 import cc.abro.tow.client.map.MapObject;
 import cc.abro.tow.client.map.objects.Box;
+import cc.abro.tow.client.tanks.enemy.EnemyBullet;
 import cc.abro.tow.client.tanks.enemy.EnemyTank;
-import cc.abro.tow.client.tanks.equipment.bullet0.EnemyBullet;
 import cc.abro.tow.client.tanks.player.PlayerTank;
 
 import java.util.ArrayList;

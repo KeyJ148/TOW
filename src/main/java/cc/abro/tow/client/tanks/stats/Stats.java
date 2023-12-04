@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Stats {
+public class Stats { //TODO remove setters for tankStats
 
     private double hpMax; //Максимальное здоровье
     private double hpRegen; //Скорость восстановления здоровья (кол-во реген хп в секунду)
@@ -34,8 +34,8 @@ public class Stats {
                 + "\nSpeed rotate gun: " + speedRotateGun
                 + "\nSpeed rotate tank: " + speedRotateTank
                 + "\nAttack speed: " + attackSpeed
-                + "\nAttack range (except bullet): " + range
-                + "\nAttack damage (except bullet): " + damage;
+                + "\nAttack range: " + range
+                + "\nAttack damage: " + damage;
     }
 
     public static class StatsBuilder {
