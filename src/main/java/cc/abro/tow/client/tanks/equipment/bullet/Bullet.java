@@ -57,7 +57,7 @@ public class Bullet extends GameObject {
     @Getter
     private final String spriteName; //TODO используется только для сети, удалить при переделке сервера (или вынести в Sprite / Texture)
     @Getter
-    private final long idNet; //TODO используется только для сети, удалить при переделке (или вынести в Sprite / Texture)
+    private final long idNet; //TODO используется только для сети, удалить при переделке
 
     public Bullet(Tank tankAttacker, double x, double y, double direction, String spriteName, String soundHit,
                   double explosionPower, double range, double damage, double speed) {
