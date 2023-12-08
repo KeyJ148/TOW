@@ -39,7 +39,7 @@ public class CollidingObjectsCache extends ChunkGrid<Collidable> {
     }
 
     public void update(long delta) {
-        for (Positionable positionable : updateObjectPositionEvents) {
+        for (Positionable positionable : updateObjectPositionEvents) { //TODO была ошибка java.util.ConcurrentModificationException
             updatePosition(positionable);
         }
         updateObjectPositionEvents.clear();

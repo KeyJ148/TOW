@@ -13,7 +13,6 @@ import cc.abro.orchengine.resources.audios.AudioStorage;
 import cc.abro.orchengine.resources.sprites.SpriteStorage;
 import cc.abro.tow.client.map.BattleLocation;
 import cc.abro.tow.client.map.objects.Box;
-import cc.abro.tow.client.map.objects.destroyed.DestroyedMapObject;
 import cc.abro.tow.client.map.specification.MapSpecification;
 import cc.abro.tow.client.map.specification.MapSpecificationLoader;
 import cc.abro.tow.client.services.BattleStatisticService;
@@ -286,7 +285,10 @@ public class NetGameRead implements NetGameReadInterface {
 	public void take22(String str) {
 		int mid = Integer.parseInt(str.split(" ")[0]);
 		if (mid < clientData.mapObjects.size()){
-			((DestroyedMapObject) clientData.mapObjects.get(mid)).destroy();
+			if (clientData.mapObjects.get(mid) != null) {
+				clientData.mapObjects.get(mid).destroy();
+			}
+
 			clientData.mapObjects.set(mid, null);
 		}
 	}

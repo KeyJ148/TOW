@@ -20,10 +20,12 @@ public class AcceleratedBullet extends Bullet {
     }
 
     @Subscribe
-    public void onUpdateEventForAccelerate(UpdateEvent updateEvent) {
+    public void onUpdateEventForAccelerate(UpdateEvent updateEvent) { //TODO не передаем изменение скорости по сети и не симулируем на клиенте
         double deltaInSeconds = ((double) updateEvent.getDelta()) / 1000000000;
         double currentSpeed = getMovementComponent().getSpeed();
         double newSpeed = Math.min(speedMax, currentSpeed + acceleration * deltaInSeconds);
         getMovementComponent().setSpeed(newSpeed);
     }
+
+    //TODO если стоя на месте вращать пушку в одну сторону несколько секунд, то она прыгает на новое место и как будто моментально крутится
 }
