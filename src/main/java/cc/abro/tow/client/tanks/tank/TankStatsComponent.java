@@ -19,7 +19,7 @@ public class TankStatsComponent extends Component<Tank> implements Updatable {
 
     @Override
     public void update(long delta) {
-        if (currentHp < 0) {
+        if (currentHp <= 0) {
             getGameObject().exploded();
             return;
         }
