@@ -24,7 +24,9 @@ public class MountedBulletCreator implements BulletCreator {
     }
 
     private double getDistanceToCursor(Location location, double startX, double startY) {
-        Vector2<Integer> cursorPos = location.getGuiLocationFrame().getMouse().getCursor().getPosition();
-        return Math.sqrt(Math.pow(cursorPos.x - startX, 2) + Math.pow(cursorPos.y - startY, 2));
+        Vector2<Integer> relativeCursorPosition = location.getGuiLocationFrame().getMouse().getCursor().getPosition();
+        Vector2<Double> absoluteCursorPosition = location.getCamera().toAbsolutePosition(
+                new Vector2<>((double) relativeCursorPosition.x, (double) relativeCursorPosition.y));
+        return Math.sqrt(Math.pow(absoluteCursorPosition.x - startX, 2) + Math.pow(absoluteCursorPosition.y - startY, 2));
     }
 }
