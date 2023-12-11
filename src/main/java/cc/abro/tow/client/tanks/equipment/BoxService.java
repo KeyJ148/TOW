@@ -61,10 +61,10 @@ public class BoxService {
     }
 
     public void takeHealthBox(Tank tank) {
-        clientData.player.changeHp(clientData.player.getTankStatsComponent().getStats().getHpMax() * 0.4);
+        clientData.player.getTankStatsComponent().addCurrentHp(clientData.player.getTankStatsComponent().getStats().getHpMax() * 0.4);
     }
 
     public void takeHealthFullBox(Tank tank) {
-        clientData.player.changeHp(clientData.player.getTankStatsComponent().getStats().getHpMax());
+        clientData.player.getTankStatsComponent().addCurrentHp(clientData.player.getTankStatsComponent().getStats().getHpMax());
     }
 }

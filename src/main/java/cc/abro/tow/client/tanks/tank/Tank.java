@@ -28,6 +28,7 @@ public abstract class Tank extends GameObject {
     private final GameSettingsService gameSettingsService;
 
     private final PositionableComponent<GameObject> cameraComponent;
+    @Getter
     private final TankNicknameComponent tankNicknameComponent;
     @Getter
     private final TankVampireComponent tankVampireComponent;
@@ -188,22 +189,10 @@ public abstract class Tank extends GameObject {
         tankStatsComponent.addEffect(bulletModifierComponent.getEffect());
     }
 
-    public void changeHp(double delta) {
-        tankStatsComponent.setCurrentHp(tankStatsComponent.getCurrentHp() + delta);
-    }
-
     public void setColor(Color color) {
         this.color = color;
         armorAnimationComponent.setColor(color);
         gunSpriteComponent.setColor(color);
-    }
-
-    public void setNickname(String nickname) {
-        tankNicknameComponent.setNickname(nickname);
-    }
-
-    public String getNickname() {
-        return tankNicknameComponent.getNickname();
     }
 
     public void setLocationCameraToThisObject() {

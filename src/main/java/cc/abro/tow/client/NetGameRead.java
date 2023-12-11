@@ -138,7 +138,7 @@ public class NetGameRead implements NetGameReadInterface {
 				equipmentService.createDefaultBullet());
 
 		Settings.Profile profile = Context.getService(SettingsService.class).getSettings().getProfile();
-		clientData.player.setNickname(profile.getNickname());
+		clientData.player.getTankNicknameComponent().setNickname(profile.getNickname());
 		clientData.player.setColor(new Color(profile.getColor()));
 		clientData.player.setLocationCameraToThisObject();
 
@@ -221,7 +221,7 @@ public class NetGameRead implements NetGameReadInterface {
 		int idDamager = Integer.parseInt(str.split(" ")[2]);
 
 		if (idSuffer == clientData.myIdFromServer) {
-			clientData.player.changeHp(-damage);
+			clientData.player.getTankStatsComponent().addCurrentHp(-damage);
 			clientData.lastDamageDealerEnemyId = idDamager;
 		}
 	}
@@ -250,7 +250,7 @@ public class NetGameRead implements NetGameReadInterface {
 
 		if (clientData.enemy.get(id).getEnemyTankNetworkComponent().isValid()) return;
 
-		clientData.enemy.get(id).setNickname(name);
+		clientData.enemy.get(id).getTankNicknameComponent().setNickname(name);
 		clientData.enemy.get(id).setColor(new Color(red, green, blue));
 		clientData.enemy.get(id).setColor(clientData.enemy.get(id).getColor());
 		clientData.enemy.get(id).getEnemyTankNetworkComponent().setValid(true);

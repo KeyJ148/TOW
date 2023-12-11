@@ -46,6 +46,10 @@ public class TankStatsComponent extends Component<Tank> implements Updatable {
         this.currentHp = Math.min(currentHp, stats.getHpMax());
     }
 
+    public void addCurrentHp(double delta) {
+        setCurrentHp(getCurrentHp() + delta);
+    }
+
     private void updateStats() {
         Stats.StatsBuilder statsBuilder = Stats.builder();
         for (Effect effect : effects) {
