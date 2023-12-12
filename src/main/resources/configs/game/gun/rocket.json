@@ -9,7 +9,7 @@
     "bulletStartY" : -27,
     "bulletStartDir" : 0.0
   } ],
-  "bulletExplosionPower" : 10,
+  "bulletExplosionPower" : 15,
   "soundShot" : "shot_rocket",
   "spriteName" : "g_rocket",
   "title" : "Rocket",
