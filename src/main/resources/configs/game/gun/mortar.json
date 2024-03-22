@@ -1,5 +1,5 @@
 {
-  "attackSpeed" : 0.15,
+  "attackSpeed" : 0.23,
   "bulletSpeed": 140.0,
   "speedRotate" : 10.0,
   "damage" : 8.0,

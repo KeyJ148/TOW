@@ -30,7 +30,7 @@ public class ChunkGrid<T extends Positionable> {
     }
 
     public void remove(T object) {
-        getChunk(object).remove(object);
+        getChunk(object).remove(object); //TODO Cannot invoke "cc.abro.orchengine.gameobject.location.Chunk.remove(Object)" because the return value of "cc.abro.orchengine.gameobject.location.ChunkGrid.getChunk(cc.abro.orchengine.gameobject.components.interfaces.Positionable)" is null
         chunkByObject.remove(object);
         object.removeChangePositionListener(updateObjectPositionListener);
     }
