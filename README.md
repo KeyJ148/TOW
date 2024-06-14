@@ -69,6 +69,6 @@ Our game features a wide array of equipment, which can alter the character's att
 Every event that can alter the player's attributes triggers a corresponding effect. An effect describes all the changes that occur to the character. The calculation of attributes takes into account all additive effects first, followed by all percentage increases of the characteristic. This allows the player class to remain independent of the specific classes and mechanics that apply effects.
 ###### Testing
 We have developed several integration tests for automatic functionality checks of the game. With the use of PicoContainers library and service visibility restrictions in accordance with ThreadGroup and the parent thread, it is possible to simultaneously launch multiple game clients directly from a single test. This way, we can test mechanisms of player connection to the server and other fundamental aspects of the game's operation.
-### CI/CD
+### CI/CD 
 ###### Jenkins
 After each commit to this repository, GitHub automatically sends a notification to our Jenkins server. Jenkins then builds the latest commit from the respective branch for various operating systems (Windows/Linux/Linux ARM/MacOS/MacOS ARM), runs the automatic tests, and publishes the ready build on our [website](https://tow.abro.cc/).
