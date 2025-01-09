@@ -9,3 +9,4 @@
 
 rootProject.name = 'TOW'
 include 'OrchEngine'
+include 'DemoMod'
